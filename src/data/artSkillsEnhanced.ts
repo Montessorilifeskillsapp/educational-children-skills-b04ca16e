@@ -1,4 +1,5 @@
 export interface ArtSkill {
+  id: string;
   title: string;
   description: string;
   icon: string;
@@ -14,6 +15,7 @@ export interface ArtSkill {
 
 export const artSkillsEnhanced: Record<string, ArtSkill> = {
   'basic-drawing': {
+    id: 'basic-drawing',
     title: 'Basic Drawing Skills',
     description: 'Develop fundamental drawing abilities through line work and shape recognition',
     icon: '✏️',
@@ -40,6 +42,7 @@ export const artSkillsEnhanced: Record<string, ArtSkill> = {
   },
 
   'observational-drawing': {
+    id: 'observational-drawing',
     title: 'Observational Drawing',
     description: 'Learn to draw from real objects and nature with careful observation',
     icon: '👁️',
@@ -66,6 +69,7 @@ export const artSkillsEnhanced: Record<string, ArtSkill> = {
   },
 
   'primary-colors': {
+    id: 'primary-colors',
     title: 'Primary Colors',
     description: 'Explore the foundation of all colors through red, blue, and yellow',
     icon: '🎨',
@@ -92,6 +96,7 @@ export const artSkillsEnhanced: Record<string, ArtSkill> = {
   },
 
   'color-mixing': {
+    id: 'color-mixing',
     title: 'Color Mixing',
     description: 'Discover how primary colors combine to create secondary and tertiary colors',
     icon: '🌈',
@@ -118,6 +123,7 @@ export const artSkillsEnhanced: Record<string, ArtSkill> = {
   },
 
   'watercolor-basics': {
+    id: 'watercolor-basics',
     title: 'Watercolor Painting',
     description: 'Master fundamental watercolor techniques and paint handling',
     icon: '🖌️',
@@ -145,6 +151,7 @@ export const artSkillsEnhanced: Record<string, ArtSkill> = {
   },
 
   'finger-painting': {
+    id: 'finger-painting',
     title: 'Finger Painting',
     description: 'Explore texture, movement, and color through tactile painting',
     icon: '🖐️',

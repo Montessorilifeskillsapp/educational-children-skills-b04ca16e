@@ -16,6 +16,7 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
       <SkillActivity
         skillId={selectedSkill}
         onBack={() => onSkillSelect('')}
+        onComplete={() => {}}
       />
     );
   }
@@ -44,6 +45,8 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
           <SkillCard
             key={key}
             skill={skill}
+            isCompleted={false}
+            isPremium={skill.isPremium}
             onSelect={() => onSkillSelect(key)}
           />
         ))}

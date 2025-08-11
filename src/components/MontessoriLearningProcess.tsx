@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CheckCircle, Circle, Clock, Target, Lightbulb, Star } from 'lucide-react';
+import { CheckCircle, Circle, Clock, Target, Lightbulb, Star, Users, BookOpen, Shuffle, AlertTriangle, ClipboardCheck } from 'lucide-react';
 import { MontessoriLearningProcess } from '@/types/montessoriSkill';
 
 interface MontessoriLearningProcessProps {
@@ -99,7 +98,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                   </Badge>
                 </div>
                 <p className="text-gray-600 mt-2">{phase.data.description}</p>
-                {phase.data.duration && (
+                {'duration' in phase.data && phase.data.duration && (
                   <div className="flex items-center gap-2 mt-2">
                     <Clock className="h-4 w-4 text-gray-500" />
                     <span className="text-sm text-gray-500">{phase.data.duration}</span>
@@ -108,10 +107,10 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Steps */}
-                {phase.data.steps && (
+                {'steps' in phase.data && phase.data.steps && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Target className="h-4 w-4" />
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <CheckCircle className="h-4 w-4 text-green-600" />
                       Steps
                     </h4>
                     <div className="space-y-2">
@@ -141,105 +140,126 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 )}
 
                 {/* Key Points */}
-                {phase.data.keyPoints && (
+                {'keyPoints' in phase.data && phase.data.keyPoints && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Lightbulb className="h-4 w-4" />
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <Star className="h-4 w-4 text-yellow-500" />
                       Key Points
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.keyPoints.map((point, index) => (
-                        <li key={index} className="text-gray-700">{point}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <Star className="h-3 w-3 text-yellow-500 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{point}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
                 {/* Support Strategies */}
-                {phase.data.supportStrategies && (
+                {'supportStrategies' in phase.data && phase.data.supportStrategies && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Star className="h-4 w-4" />
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <Users className="h-4 w-4 text-blue-600" />
                       Support Strategies
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.supportStrategies.map((strategy, index) => (
-                        <li key={index} className="text-gray-700">{strategy}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <Users className="h-3 w-3 text-blue-600 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{strategy}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
                 {/* Indicators */}
-                {phase.data.indicators && (
+                {'indicators' in phase.data && phase.data.indicators && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Target className="h-4 w-4" />
-                      Success Indicators
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <Target className="h-4 w-4 text-purple-600" />
+                      Indicators
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.indicators.map((indicator, index) => (
-                        <li key={index} className="text-gray-700">{indicator}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <Target className="h-3 w-3 text-purple-600 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{indicator}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
                 {/* Assessment Criteria */}
-                {phase.data.assessmentCriteria && (
+                {'assessmentCriteria' in phase.data && phase.data.assessmentCriteria && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4" />
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <ClipboardCheck className="h-4 w-4 text-green-600" />
                       Assessment Criteria
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.assessmentCriteria.map((criteria, index) => (
-                        <li key={index} className="text-gray-700">{criteria}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <ClipboardCheck className="h-3 w-3 text-green-600 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{criteria}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
                 {/* Activities */}
-                {phase.data.activities && (
+                {'activities' in phase.data && phase.data.activities && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Star className="h-4 w-4" />
-                      Extension Activities
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <BookOpen className="h-4 w-4 text-indigo-600" />
+                      Activities
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.activities.map((activity, index) => (
-                        <li key={index} className="text-gray-700">{activity}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <BookOpen className="h-3 w-3 text-indigo-600 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{activity}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
                 {/* Variations */}
-                {phase.data.variations && (
+                {'variations' in phase.data && phase.data.variations && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Lightbulb className="h-4 w-4" />
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <Shuffle className="h-4 w-4 text-orange-600" />
                       Variations
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.variations.map((variation, index) => (
-                        <li key={index} className="text-gray-700">{variation}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <Shuffle className="h-3 w-3 text-orange-600 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{variation}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>
                 )}
 
                 {/* Troubleshooting */}
-                {phase.data.troubleshooting && (
+                {'troubleshooting' in phase.data && phase.data.troubleshooting && (
                   <div>
-                    <h4 className="font-semibold mb-3 flex items-center gap-2">
-                      <Lightbulb className="h-4 w-4" />
+                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                      <AlertTriangle className="h-4 w-4 text-red-600" />
                       Troubleshooting
                     </h4>
-                    <ul className="list-disc list-inside space-y-1 text-sm">
+                    <ul className="space-y-2">
                       {phase.data.troubleshooting.map((tip, index) => (
-                        <li key={index} className="text-gray-700">{tip}</li>
+                        <li key={index} className="flex items-start gap-2">
+                          <AlertTriangle className="h-3 w-3 text-red-600 mt-1 flex-shrink-0" />
+                          <span className="text-gray-700 text-sm">{tip}</span>
+                        </li>
                       ))}
                     </ul>
                   </div>

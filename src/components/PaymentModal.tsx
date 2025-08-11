@@ -42,9 +42,13 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   const [errors, setErrors] = useState<Record<string, string>>({});
   
   const { items, total, clearCart } = useCart();
-  const { currentPlan, plans } = useSubscription();
+  const { currentPlan } = useSubscription();
+  const mockPlans = [
+    { id: 'basic', name: 'Basic Plan', price: 9.99 },
+    { id: 'premium', name: 'Premium Plan', price: 19.99 }
+  ];
   
-  const selectedPlan = planId ? plans.find(p => p.id === planId) : currentPlan;
+  const selectedPlan = planId ? mockPlans.find(p => p.id === planId) : currentPlan;
   const displayPrice = selectedPlan ? selectedPlan.price : total;
 
   const validateCardData = async () => {

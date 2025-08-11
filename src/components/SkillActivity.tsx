@@ -10,7 +10,6 @@ import { additionalSensorialSkills } from '@/data/sensorialSkills2';
 import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
 import { mathSkillsData } from '@/data/mathSkills';
-import { mathSkillsData } from '@/data/mathSkills';
 import { geographySkillsData } from '@/data/geographySkills';
 import { artSkillsEnhanced } from '@/data/artSkillsEnhanced';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
@@ -96,7 +95,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       color: getCategoryColor(sensorialSkill.category), 
       description: getCategoryDescription(sensorialSkill.category) 
     } :
-    getSkillCategory(skillId);
+    { name: 'Skills', icon: '🎯', color: 'bg-gray-100 border-gray-300 text-gray-800', description: 'General skill development' };
   
   function getCategoryIcon(category: string) {
     switch (category) {

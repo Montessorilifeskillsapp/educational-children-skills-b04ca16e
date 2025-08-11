@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 
 export const SSLStatus = () => {
   const isSecure = window.location.protocol === 'https:';
-  const isDevelopment = import.meta.env.DEV;
+  const isDevelopment = window.location.hostname === 'localhost';
 
   return (
     <Card className="w-full max-w-md">
