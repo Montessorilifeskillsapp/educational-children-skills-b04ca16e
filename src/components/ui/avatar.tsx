@@ -5,12 +5,18 @@ import { cn } from "@/lib/utils"
 
 const Avatar = React.forwardRef<
   React.ElementRef<typeof AvatarPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>
->(({ className, ...props }, ref) => (
+  React.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root> & {
+    size?: "sm" | "md" | "lg" | "xl"
+  }
+>(({ className, size = "md", ...props }, ref) => (
   <AvatarPrimitive.Root
     ref={ref}
     className={cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full",
+      "relative flex shrink-0 overflow-hidden rounded-full border border-border/30 ring-offset-background",
+      size === "sm" && "h-8 w-8",
+      size === "md" && "h-10 w-10",
+      size === "lg" && "h-12 w-12",
+      size === "xl" && "h-16 w-16",
       className
     )}
     {...props}
@@ -24,7 +30,7 @@ const AvatarImage = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <AvatarPrimitive.Image
     ref={ref}
-    className={cn("aspect-square h-full w-full", className)}
+    className={cn("aspect-square h-full w-full object-cover", className)}
     {...props}
   />
 ))
@@ -37,7 +43,7 @@ const AvatarFallback = React.forwardRef<
   <AvatarPrimitive.Fallback
     ref={ref}
     className={cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-muted",
+      "flex h-full w-full items-center justify-center rounded-full bg-muted text-muted-foreground",
       className
     )}
     {...props}

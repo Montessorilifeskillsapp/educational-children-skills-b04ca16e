@@ -15,11 +15,18 @@ const ToggleGroupContext = React.createContext<
 const ToggleGroup = React.forwardRef<
   React.ElementRef<typeof ToggleGroupPrimitive.Root>,
   React.ComponentPropsWithoutRef<typeof ToggleGroupPrimitive.Root> &
-    VariantProps<typeof toggleVariants>
->(({ className, variant, size, children, ...props }, ref) => (
+    VariantProps<typeof toggleVariants> & {
+      orientation?: "horizontal" | "vertical"
+    }
+>(({ className, variant, size, orientation = "horizontal", children, ...props }, ref) => (
   <ToggleGroupPrimitive.Root
     ref={ref}
-    className={cn("flex items-center justify-center gap-1", className)}
+    className={cn(
+      "flex items-center gap-1",
+      orientation === "vertical" ? "flex-col" : "flex-row",
+      variant === "outline" && "bg-background rounded-md border border-input p-1",
+      className
+    )}
     {...props}
   >
     <ToggleGroupContext.Provider value={{ variant, size }}>
@@ -45,6 +52,7 @@ const ToggleGroupItem = React.forwardRef<
           variant: context.variant || variant,
           size: context.size || size,
         }),
+        context.variant === "outline" && "data-[state=on]:bg-background data-[state=on]:text-foreground",
         className
       )}
       {...props}

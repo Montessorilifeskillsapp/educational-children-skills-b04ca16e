@@ -1,5 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import BackButton from "@/components/ui/back-button";
 
 const NotFound = () => {
   const location = useLocation();
@@ -12,11 +13,12 @@ const NotFound = () => {
   }, [location.pathname]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">404</h1>
-        <p className="text-xl text-gray-600 mb-4">Oops! Page not found</p>
-        <a href="/" className="text-blue-500 hover:text-blue-700 underline">
+    <div className="min-h-screen flex items-center justify-center bg-background">
+      <div className="text-center p-8 rounded-lg border border-border bg-card shadow-md animate-slide-in">
+        <BackButton onClick={() => window.history.back()} label="Go Back" />
+        <h1 className="text-5xl font-bold mb-6 text-primary">404</h1>
+        <p className="text-xl text-card-foreground mb-6">Page not found</p>
+        <a href="/" className="text-primary hover:text-primary/80 underline transition-colors">
           Return to Home
         </a>
       </div>

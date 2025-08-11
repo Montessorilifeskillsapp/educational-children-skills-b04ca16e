@@ -1,0 +1,410 @@
+import React, { useState, useCallback } from 'react';
+import Dashboard from './Dashboard';
+import SkillActivity from './SkillActivity';
+import SkillsOverview from './SkillsOverview';
+import PracticalLifeOverview from './PracticalLifeOverview';
+import PracticalLifeSkills from './PracticalLifeSkills';
+import SensorialSkills from './SensorialSkills';
+import LanguageSkills from './LanguageSkills';
+import MathSkills from './MathSkills';
+import MathActivityContent from './MathActivityContent';
+import GeographySkills from './GeographySkills';
+import BotanySkills from './BotanySkills';
+import ArtSkills from './ArtSkills';
+import GraceAndCourtesySkills from './GraceAndCourtesySkills';
+import Shop from './Shop';
+import Home from './Home';
+import SubscriptionPlans from './SubscriptionPlans';
+import ParentDashboard from './ParentDashboard';
+import OnboardingFlow from './OnboardingFlow';
+import ProfileSelector from './ProfileSelector';
+import Resources from './Resources';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useProfile } from '@/contexts/ProfileContext';
+import { sensorialSkills } from '@/data/sensorialSkills';
+import { languageSkillsData } from '@/data/languageSkills';
+import { mathSkillsData } from '@/data/mathSkills';
+import { geographySkillsData } from '@/data/geographySkills';
+import { artSkillsData } from '@/data/artSkills';
+import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
+import { botanySkillsData } from '@/data/botanySkills';
+const AppLayout: React.FC = () => {
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'grace-courtesy' | 'shop' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
+  const [selectedSkill, setSelectedSkill] = useState<string>('');
+  const [completedSkills, setCompletedSkills] = useState<string[]>([]);
+  const subscriptionContext = useSubscription();
+  const profileContext = useProfile();
+  
+  if (!subscriptionContext || !profileContext) {
+    return <div>Loading...</div>;
+  }
+  
+  const { isPremium } = subscriptionContext || {};
+  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = profileContext || {};
+  
+  const practicalSkills = [
+    'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed', 
+    'setting-table', 'tying-shoes', 'pouring', 'spooning', 
+    'flower-arranging', 'polishing', 'sweeping', 'folding-clothes',
+    'watering-plants', 'cutting-with-scissors', 'preparing-snack'
+  ];
+
+  if (!isOnboarded) {
+    return <OnboardingFlow onComplete={completeOnboarding} />;
+  }
+
+  const handleSkillSelect = useCallback((skillId: string) => {
+    setSelectedSkill(skillId);
+    setCurrentView('activity');
+  }, []);
+
+  const handleSensorialView = useCallback(() => {
+    setCurrentView('sensorial');
+  }, []);
+
+  const handleLanguageView = useCallback(() => {
+    setCurrentView('language');
+  }, []);
+
+  const handleMathView = useCallback(() => {
+    setCurrentView('math');
+  }, []);
+
+  const handleGeographyView = useCallback(() => {
+    setCurrentView('geography');
+  }, []);
+
+  const handleBotanyView = useCallback(() => {
+    setCurrentView('botany');
+  }, []);
+  const handleArtView = useCallback(() => {
+    setCurrentView('art');
+  }, []);
+
+  const handleGraceCourtesyView = useCallback(() => {
+    setCurrentView('grace-courtesy');
+  }, []);
+
+  const handlePracticalLifeView = useCallback(() => {
+    setCurrentView('practical');
+  }, []);
+
+  const handleSkillsOverview = useCallback(() => {
+    setCurrentView('skills');
+  }, []);
+
+  const handleGetStarted = useCallback(() => {
+    setCurrentView('skills');
+  }, []);
+
+  const handleShopView = useCallback(() => {
+    setCurrentView('shop');
+  }, []);
+
+  const handleSubscriptionView = useCallback(() => {
+    setCurrentView('subscription');
+  }, []);
+
+  const handleParentView = useCallback(() => {
+    setCurrentView('parent');
+  }, []);
+
+  const handleProfilesView = useCallback(() => {
+    setCurrentView('profiles');
+  }, []);
+
+  const handleResourcesView = useCallback(() => {
+    setCurrentView('resources');
+  }, []);
+
+  const handleBackToHome = useCallback(() => {
+    setCurrentView('home');
+  }, []);
+
+  const handleBackToDashboard = useCallback(() => {
+    setCurrentView('dashboard');
+  }, []);
+
+  const handleBack = useCallback(() => {
+    // Navigate back based on current view
+    if (currentView === 'activity') {
+      setCurrentView('dashboard');
+    } else {
+      setCurrentView('dashboard');
+    }
+    setSelectedSkill('');
+  }, [currentView]);
+
+  const handleComplete = useCallback((skillId: string) => {
+    setCompletedSkills(prev => [...prev, skillId]);
+  }, []);
+  if (currentView === 'home') {
+    return (
+      <Home 
+        onGetStarted={handleGetStarted}
+        onShopView={handleShopView}
+        onResourcesView={handleResourcesView}
+        onSubscriptionView={handleSubscriptionView}
+        onDashboardView={() => setCurrentView('dashboard')}
+        onSkillsView={handleSkillsOverview}
+        onPracticalView={handlePracticalLifeView}
+        onSensorialView={handleSensorialView}
+        onLanguageView={handleLanguageView}
+        onMathView={handleMathView}
+        onGeographyView={handleGeographyView}
+        onBotanyView={handleBotanyView}
+        onArtView={handleArtView}
+        onGraceCourtesyView={handleGraceCourtesyView}
+        onParentView={handleParentView}
+        onProfilesView={handleProfilesView}
+      />
+    );
+  }
+
+  if (currentView === 'skills') {
+    return (
+      <SkillsOverview
+        onBack={handleBackToHome}
+        onPracticalLifeView={handlePracticalLifeView}
+        onSensorialView={handleSensorialView}
+        onLanguageView={handleLanguageView}
+        onMathView={handleMathView}
+        onGeographyView={handleGeographyView}
+        onBotanyView={handleBotanyView}
+        onArtView={handleArtView}
+      />
+    );
+  }
+
+  if (currentView === 'grace-courtesy') {
+    return (
+      <GraceAndCourtesySkills
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+      />
+    );
+  }
+
+  if (currentView === 'practical') {
+    return (
+      <PracticalLifeOverview
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+      />
+    );
+  }
+
+  if (currentView === 'sensorial') {
+    return (
+      <SensorialSkills
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+      />
+    );
+  }
+
+  if (currentView === 'language') {
+    return (
+      <LanguageSkills
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+        activeProfile={activeProfile}
+      />
+    );
+  }
+
+  if (currentView === 'math') {
+    return (
+      <MathSkills
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+        activeProfile={activeProfile}
+      />
+    );
+  }
+  if (currentView === 'geography') {
+    return (
+      <GeographySkills
+        onBack={handleBack}
+        onSkillSelect={setSelectedSkill}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+        selectedSkill={selectedSkill}
+      />
+    );
+  }
+  if (currentView === 'botany') {
+    return (
+      <BotanySkills
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+      />
+    );
+  }
+  if (currentView === 'art') {
+    return (
+      <ArtSkills
+        onBack={handleBack}
+        selectedSkill={selectedSkill}
+        onSkillSelect={setSelectedSkill}
+      />
+    );
+  }
+  if (currentView === 'shop') {
+    return <Shop onBack={handleBack} />;
+  }
+
+  if (currentView === 'subscription') {
+    return <SubscriptionPlans onBack={handleBack} />;
+  }
+
+  if (currentView === 'parent') {
+    return <ParentDashboard onBack={handleBackToDashboard} />;
+  }
+
+  if (currentView === 'resources') {
+    return <Resources onBack={handleBack} />;
+  }
+
+  if (currentView === 'profiles') {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+        <div className="max-w-4xl mx-auto">
+          <ProfileSelector
+            profiles={profiles}
+            activeProfile={activeProfile}
+            onProfileSelect={setActiveProfile}
+            onProfileUpdate={setProfiles}
+            completedSkills={completedSkills}
+            totalSkills={practicalSkills.length}
+            onBack={() => setCurrentView('home')}
+          />
+
+          <div className="mt-6">
+            <button
+              onClick={handleBack}
+              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            >
+              Continue to Learning
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (currentView === 'activity') {
+    if (practicalSkills.includes(selectedSkill)) {
+      return (
+        <PracticalLifeSkills
+          skillId={selectedSkill}
+          onBack={() => setCurrentView('practical')}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    if (graceAndCourtesySkills[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={() => setCurrentView('practical')}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    
+    if (sensorialSkills[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={() => setCurrentView('sensorial')}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    if (languageSkillsData[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={() => setCurrentView('language')}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    if (mathSkillsData[selectedSkill]) {
+      return (
+        <MathActivityContent
+          skill={mathSkillsData[selectedSkill]}
+          onBack={() => setCurrentView('math')}
+        />
+      );
+    }
+
+    if (geographySkillsData[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={() => setCurrentView('geography')}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    if (botanySkillsData[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={() => setCurrentView('botany')}
+          onComplete={handleComplete}
+        />
+      );
+    }
+    
+    return (
+      <SkillActivity
+        skillId={selectedSkill}
+        onBack={handleBack}
+        onComplete={handleComplete}
+      />
+    );
+  }
+
+  return (
+    <Dashboard
+      onSkillSelect={handleSkillSelect}
+      onPracticalLifeView={handlePracticalLifeView}
+      onSensorialView={handleSensorialView}
+      onLanguageView={handleLanguageView}
+      onMathView={handleMathView}
+      onGeographyView={handleGeographyView}
+      onBotanyView={handleBotanyView}
+      onArtView={handleArtView}
+      onShopView={handleShopView}
+      onSubscriptionView={handleSubscriptionView}
+      onParentView={handleParentView}
+      onResourcesView={handleResourcesView}
+      onBack={handleBackToHome}
+      completedSkills={completedSkills}
+      isPremium={isPremium}
+      activeProfile={activeProfile}
+    />
+  );
+};
+
+export default AppLayout;

@@ -1,0 +1,60 @@
+import React from 'react';
+import { ArrowLeft } from 'lucide-react';
+import SkillCard from './SkillCard';
+import { botanySkillsData } from '@/data/botanySkills';
+
+interface BotanySkillsProps {
+  onBack: () => void;
+  onSkillSelect: (skillId: string) => void;
+  completedSkills: string[];
+  isPremium: boolean;
+}
+
+const BotanySkills: React.FC<BotanySkillsProps> = ({
+  onBack,
+  onSkillSelect,
+  completedSkills,
+  isPremium
+}) => {
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-4">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center mb-8">
+          <button
+            onClick={onBack}
+            className="flex items-center gap-2 text-green-600 hover:text-green-700 mb-4"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Back to Dashboard
+          </button>
+        </div>
+
+        <div className="text-center mb-12">
+          <h1 className="text-4xl font-bold text-green-800 mb-4">
+            🌱 Botany Skills
+          </h1>
+          <p className="text-lg text-green-600 max-w-2xl mx-auto">
+            Discover the wonderful world of plants through hands-on Montessori activities
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(botanySkillsData).map(([skillId, skill]) => (
+            <SkillCard
+              key={skillId}
+              skill={{
+                id: skillId,
+                ...skill
+              }}
+              isCompleted={completedSkills.includes(skillId)}
+              onSelect={() => onSkillSelect(skillId)}
+              isPremium={isPremium}
+            />
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default BotanySkills;
