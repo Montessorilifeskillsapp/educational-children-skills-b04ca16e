@@ -7,10 +7,6 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
-    https: mode === 'development' ? {
-      key: './certs/localhost-key.pem',
-      cert: './certs/localhost.pem'
-    } : false,
   },
   plugins: [
     react()
