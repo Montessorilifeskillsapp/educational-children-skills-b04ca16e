@@ -1,64 +1,92 @@
 import { useState, useEffect } from 'react'
-import { supabase, UserProgress } from '@/lib/supabase'
+import { dbOperations, SkillProgress } from '@/lib/supabase'
 import { useAuth } from './useAuth'
 
-export const useProgress = () => {
-  const [progress, setProgress] = useState<UserProgress[]>([])
-  const [loading, setLoading] = useState(true)
+export const useProgress = (childId?: string) => {
   const { user } = useAuth()
+  const [progress, setProgress] = useState<SkillProgress[]>([])
+  const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    if (user) {
-      fetchProgress()
-    } else {
-      setProgress([])
+  const fetchProgress = async (selectedChildId?: string) => {
+    if (!selectedChildId || !user) return
+
+    setLoading(true)
+    try {
+      const { data, error } = await dbOperations.getSkillProgress(selectedChildId)
+      if (error) throw error
+      setProgress(data || [])
+    } catch (error) {
+      console.error('Error fetching progress:', error)
+    } finally {
       setLoading(false)
     }
-  }, [user])
-
-  const fetchProgress = async () => {
-    if (!user) return
-
-    const { data, error } = await supabase
-      .from('user_progress')
-      .select('*')
-      .eq('user_id', user.id)
-
-    if (error) {
-      console.error('Error fetching progress:', error)
-    } else {
-      setProgress(data || [])
-    }
-    setLoading(false)
   }
 
-  const markSkillComplete = async (skillId: string) => {
-    if (!user) return
+  useEffect(() => {
+    if (childId) {
+      fetchProgress(childId)
+    }
+  }, [childId, user])
 
-    const { error } = await supabase
-      .from('user_progress')
-      .upsert({
-        user_id: user.id,
-        skill_id: skillId,
-        completed: true,
-        completed_at: new Date().toISOString(),
-      })
-
-    if (error) {
+  const updateSkillProgress = async (
+    selectedChildId: string,
+    skillId: string,
+    skillCategory: string,
+    updates: Partial<SkillProgress>
+  ) => {
+    try {
+      const { data, error } = await dbOperations.upsertSkillProgress(
+        selectedChildId,
+        skillId,
+        skillCategory,
+        updates
+      )
+      if (error) throw error
+      
+      // Refresh progress
+      await fetchProgress(selectedChildId)
+      return { data, error: null }
+    } catch (error) {
       console.error('Error updating progress:', error)
-    } else {
-      fetchProgress()
+      return { data: null, error }
     }
   }
 
-  const isSkillCompleted = (skillId: string) => {
-    return progress.some(p => p.skill_id === skillId && p.completed)
+  const completeSkill = async (
+    selectedChildId: string,
+    skillId: string,
+    skillCategory: string,
+    stepsCompleted: number[] = []
+  ) => {
+    return await updateSkillProgress(selectedChildId, skillId, skillCategory, {
+      completed: true,
+      completed_at: new Date().toISOString(),
+      steps_completed: stepsCompleted
+    })
+  }
+
+  const getSkillProgress = (skillId: string): SkillProgress | undefined => {
+    return progress.find(p => p.skill_id === skillId)
+  }
+
+  const isSkillCompleted = (skillId: string): boolean => {
+    const skillProgress = getSkillProgress(skillId)
+    return skillProgress?.completed || false
+  }
+
+  const getCompletedSteps = (skillId: string): number[] => {
+    const skillProgress = getSkillProgress(skillId)
+    return skillProgress?.steps_completed || []
   }
 
   return {
     progress,
     loading,
-    markSkillComplete,
+    updateSkillProgress,
+    completeSkill,
+    getSkillProgress,
     isSkillCompleted,
+    getCompletedSteps,
+    refreshProgress: () => fetchProgress(childId)
   }
 }

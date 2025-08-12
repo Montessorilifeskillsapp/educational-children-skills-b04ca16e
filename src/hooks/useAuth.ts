@@ -1,22 +1,10 @@
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
-import { supabase } from '@/lib/supabase'
+import { supabase, dbOperations } from '@/lib/supabase'
 
 export const useAuth = () => {
-  // Mock authenticated user for creator browsing
-  const [user, setUser] = useState<User | null>({
-    id: 'creator-user-id',
-    email: 'creator@montessori.app',
-    created_at: new Date().toISOString(),
-    updated_at: new Date().toISOString(),
-    email_confirmed_at: new Date().toISOString(),
-    last_sign_in_at: new Date().toISOString(),
-    app_metadata: {},
-    user_metadata: {},
-    aud: 'authenticated',
-    role: 'authenticated'
-  } as User)
-  const [loading, setLoading] = useState(false) // No loading for creator browsing
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     // Get initial session
@@ -27,8 +15,18 @@ export const useAuth = () => {
 
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      async (event, session) => {
         setUser(session?.user ?? null)
+        
+        // Create user profile on sign up
+        if (event === 'SIGNED_IN' && session?.user && !session.user.email_confirmed_at) {
+          await dbOperations.createUserProfile(
+            session.user.id,
+            session.user.email || '',
+            session.user.user_metadata?.full_name || ''
+          )
+        }
+        
         setLoading(false)
       }
     )
