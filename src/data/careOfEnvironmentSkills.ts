@@ -70,5 +70,41 @@ export const careOfEnvironmentSkills = {
       'Place items back neatly',
       'Check that everything has its place'
     ]
+  },
+  'table-wiping': {
+    id: 'table-wiping',
+    title: 'Table Wiping',
+    description: 'Clean tables methodically and thoroughly',
+    icon: '🧽',
+    ageRange: '3-5 years',
+    duration: '10 minutes',
+    isPremium: false,
+    purpose: 'Develops care of environment, order, and coordinated movement',
+    materials: ['Small bucket', 'Sponge', 'Water with a drop of soap', 'Tray', 'Towel'],
+    steps: [
+      'Fill bucket with small amount of soapy water',
+      'Dip sponge and wring out gently',
+      'Wipe table in straight lines from top to bottom',
+      'Rinse sponge and repeat as needed',
+      'Dry table and return materials'
+    ]
+  },
+  'window-washing': {
+    id: 'window-washing',
+    title: 'Window Washing',
+    description: 'Keep windows clean with careful, controlled movements',
+    icon: '🪟',
+    ageRange: '4-6 years',
+    duration: '12 minutes',
+    isPremium: true,
+    purpose: 'Develops care of environment and attention to detail',
+    materials: ['Small spray bottle with water', 'Microfiber cloth or squeegee', 'Tray', 'Towel'],
+    steps: [
+      'Spray window lightly with water',
+      'Wipe from top to bottom in straight lines',
+      'Dry edges and corners with towel',
+      'Clean any drips on floor or sill',
+      'Return materials to proper place'
+    ]
   }
 };

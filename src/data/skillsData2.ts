@@ -103,6 +103,71 @@ export const skillsData2: Record<string, SkillData> = {
       { id: '4', instruction: 'Cut fruit or vegetables if needed', completed: false },
       { id: '5', instruction: 'Clean up preparation area', completed: false }
     ]
+  },
+  'sweeping-floor': {
+    title: 'Sweeping the Floor',
+    icon: '🧹',
+    purpose: 'Develops care of environment and responsibility.',
+    materials: ['Child-sized broom', 'Dustpan', 'Small brush'],
+    steps: [
+      { id: '1', instruction: 'Hold broom properly with both hands', completed: false },
+      { id: '2', instruction: 'Sweep in small sections', completed: false },
+      { id: '3', instruction: 'Collect debris with dustpan', completed: false },
+      { id: '4', instruction: 'Empty dustpan in trash', completed: false },
+      { id: '5', instruction: 'Return tools to proper place', completed: false }
+    ]
+  },
+  'dusting-furniture': {
+    title: 'Dusting Furniture',
+    icon: '🪶',
+    purpose: 'Develops care of environment and attention to detail.',
+    materials: ['Dust cloth', 'Spray bottle with water', 'Tray'],
+    steps: [
+      { id: '1', instruction: 'Spray cloth lightly with water', completed: false },
+      { id: '2', instruction: 'Dust surfaces in circular motions', completed: false },
+      { id: '3', instruction: 'Pay attention to corners and edges', completed: false },
+      { id: '4', instruction: 'Rinse cloth when dirty', completed: false },
+      { id: '5', instruction: 'Return materials to proper place', completed: false }
+    ]
+  },
+  'organizing-shelf': {
+    title: 'Organizing Shelf',
+    icon: '📚',
+    purpose: 'Develops care of environment and order.',
+    materials: ['Shelf with materials', 'Cleaning cloth'],
+    steps: [
+      { id: '1', instruction: 'Remove all items from shelf', completed: false },
+      { id: '2', instruction: 'Clean shelf surface', completed: false },
+      { id: '3', instruction: 'Sort items by category', completed: false },
+      { id: '4', instruction: 'Place items back neatly', completed: false },
+      { id: '5', instruction: 'Check that everything has its place', completed: false }
+    ]
+  },
+  'table-wiping': {
+    title: 'Table Wiping',
+    icon: '🧽',
+    purpose: 'Develops care of environment, order, and coordinated movement.',
+    materials: ['Small bucket', 'Sponge', 'Water with a drop of soap', 'Tray', 'Towel'],
+    steps: [
+      { id: '1', instruction: 'Fill the bucket with a small amount of soapy water', completed: false },
+      { id: '2', instruction: 'Dip sponge and gently wring out excess water', completed: false },
+      { id: '3', instruction: 'Wipe the table in straight lines from top to bottom', completed: false },
+      { id: '4', instruction: 'Rinse sponge and repeat as needed', completed: false },
+      { id: '5', instruction: 'Dry the table and put materials away', completed: false }
+    ]
+  },
+  'window-washing': {
+    title: 'Window Washing',
+    icon: '🪟',
+    purpose: 'Develops care of environment and attention to detail.',
+    materials: ['Small spray bottle with water', 'Microfiber cloth or squeegee', 'Tray', 'Towel'],
+    steps: [
+      { id: '1', instruction: 'Spray the window lightly with water', completed: false },
+      { id: '2', instruction: 'Wipe from top to bottom in straight lines', completed: false },
+      { id: '3', instruction: 'Dry edges and corners with a towel', completed: false },
+      { id: '4', instruction: 'Clean any drips on the floor or sill', completed: false },
+      { id: '5', instruction: 'Return all materials to the shelf', completed: false }
+    ]
   }
 };
 
