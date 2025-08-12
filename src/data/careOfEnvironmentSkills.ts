@@ -106,5 +106,95 @@ export const careOfEnvironmentSkills = {
       'Clean any drips on floor or sill',
       'Return materials to proper place'
     ]
+  },
+  'mopping-floor': {
+    id: 'mopping-floor',
+    title: 'Mopping the Floor',
+    description: 'Clean floors safely using a child-sized mop',
+    icon: '🪣',
+    ageRange: '4-6 years',
+    duration: '12 minutes',
+    isPremium: false,
+    purpose: 'Develops care of environment, coordination, and responsibility',
+    materials: ['Child-sized mop', 'Bucket with soapy water', 'Tray', 'Towel'],
+    steps: [
+      'Fill bucket with small amount of soapy water',
+      'Dip mop and wring out excess water',
+      'Mop floor in straight lines away from you',
+      'Rinse and wring mop regularly',
+      'Empty bucket safely and dry wet spots'
+    ]
+  },
+  'dishwashing': {
+    id: 'dishwashing',
+    title: 'Dishwashing',
+    description: 'Wash and dry dishes with care and order',
+    icon: '🍽️',
+    ageRange: '4-6 years',
+    duration: '15 minutes',
+    isPremium: true,
+    purpose: 'Develops independence, order, and care of environment',
+    materials: ['Small basin', 'Sponge or brush', 'Mild soap', 'Drying rack', 'Towel'],
+    steps: [
+      'Fill basin with warm soapy water',
+      'Scrub dishes gently with sponge or brush',
+      'Rinse dishes in clean water',
+      'Place dishes on drying rack',
+      'Dry and put away dishes, empty basin'
+    ]
+  },
+  'cloth-washing': {
+    id: 'cloth-washing',
+    title: 'Cloth Washing',
+    description: 'Wash small cloths by hand and hang to dry',
+    icon: '🧺',
+    ageRange: '4-6 years',
+    duration: '15 minutes',
+    isPremium: true,
+    purpose: 'Develops sequence, coordination, and care of environment',
+    materials: ['Small washboard', 'Basin', 'Mild soap', 'Cloth', 'Drying line'],
+    steps: [
+      'Fill basin with warm soapy water',
+      'Rub cloth on washboard to clean',
+      'Rinse cloth in clean water',
+      'Wring out excess water carefully',
+      'Hang cloth on drying line'
+    ]
+  },
+  'leaf-polishing': {
+    id: 'leaf-polishing',
+    title: 'Leaf Polishing',
+    description: 'Care for plant leaves to keep them clean and healthy',
+    icon: '🌿',
+    ageRange: '3-5 years',
+    duration: '8 minutes',
+    isPremium: false,
+    purpose: 'Develops care for living things and attention to detail',
+    materials: ['Leaf-friendly polishing solution (water)', 'Cotton pad', 'Tray', 'Plant'],
+    steps: [
+      'Moisten cotton pad lightly',
+      'Support leaf from below with one hand',
+      'Wipe gently from stem to tip',
+      'Repeat for each leaf, avoiding tearing',
+      'Return materials and observe the plant'
+    ]
+  },
+  'laundry-sorting': {
+    id: 'laundry-sorting',
+    title: 'Laundry Sorting',
+    description: 'Sort clothing by color or type to prepare for washing',
+    icon: '🧺',
+    ageRange: '3-5 years',
+    duration: '10 minutes',
+    isPremium: false,
+    purpose: 'Develops classification, order, and responsibility',
+    materials: ['Laundry basket', 'Variety of clothes', 'Sorting labels or baskets'],
+    steps: [
+      'Lay out clothes near sorting area',
+      'Sort by color or type (e.g., whites, colors, towels)',
+      'Place each group in labeled basket',
+      'Check for socks and pair them',
+      'Carry sorted baskets to laundry area'
+    ]
   }
 };

@@ -12,7 +12,8 @@ const PracticalLifePage: React.FC = () => {
     'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed',
     'setting-table', 'tying-shoes', 'pouring', 'spooning',
     'flower-arranging', 'polishing', 'sweeping', 'sweeping-floor', 'dusting-furniture', 'organizing-shelf',
-    'folding-clothes', 'watering-plants', 'cutting-with-scissors', 'preparing-snack', 'table-wiping', 'window-washing'
+    'folding-clothes', 'watering-plants', 'cutting-with-scissors', 'preparing-snack', 'table-wiping', 'window-washing',
+    'mopping-floor', 'dishwashing', 'cloth-washing', 'leaf-polishing', 'laundry-sorting'
   ];
 
   const handleSkillSelect = (skillId: string) => {

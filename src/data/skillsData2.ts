@@ -168,6 +168,71 @@ export const skillsData2: Record<string, SkillData> = {
       { id: '4', instruction: 'Clean any drips on the floor or sill', completed: false },
       { id: '5', instruction: 'Return all materials to the shelf', completed: false }
     ]
+  },
+  'mopping-floor': {
+    title: 'Mopping the Floor',
+    icon: '🪣',
+    purpose: 'Develops care of environment, gross motor coordination, and responsibility.',
+    materials: ['Child-sized mop', 'Bucket with soapy water', 'Tray', 'Towel'],
+    steps: [
+      { id: '1', instruction: 'Fill bucket with small amount of soapy water', completed: false },
+      { id: '2', instruction: 'Dip mop and wring out excess water', completed: false },
+      { id: '3', instruction: 'Mop the floor in straight lines away from you', completed: false },
+      { id: '4', instruction: 'Rinse and wring mop regularly', completed: false },
+      { id: '5', instruction: 'Empty bucket safely and dry any wet spots', completed: false }
+    ]
+  },
+  'dishwashing': {
+    title: 'Dishwashing',
+    icon: '🍽️',
+    purpose: 'Develops independence, order, and care of environment.',
+    materials: ['Small basin', 'Sponge or brush', 'Mild soap', 'Drying rack', 'Towel'],
+    steps: [
+      { id: '1', instruction: 'Fill basin with warm soapy water', completed: false },
+      { id: '2', instruction: 'Scrub dishes gently with sponge or brush', completed: false },
+      { id: '3', instruction: 'Rinse dishes in clean water', completed: false },
+      { id: '4', instruction: 'Place dishes on drying rack', completed: false },
+      { id: '5', instruction: 'Dry and put away dishes, empty basin', completed: false }
+    ]
+  },
+  'cloth-washing': {
+    title: 'Cloth Washing',
+    icon: '🧺',
+    purpose: 'Develops sequence, coordination, and care of environment.',
+    materials: ['Small washboard', 'Basin', 'Mild soap', 'Cloth', 'Drying line'],
+    steps: [
+      { id: '1', instruction: 'Fill basin with warm soapy water', completed: false },
+      { id: '2', instruction: 'Rub cloth on washboard to clean', completed: false },
+      { id: '3', instruction: 'Rinse cloth in clean water', completed: false },
+      { id: '4', instruction: 'Wring out excess water carefully', completed: false },
+      { id: '5', instruction: 'Hang cloth on drying line', completed: false }
+    ]
+  },
+  'leaf-polishing': {
+    title: 'Leaf Polishing',
+    icon: '🌿',
+    purpose: 'Develops care for living things and attention to detail.',
+    materials: ['Leaf-friendly polishing solution (water)', 'Cotton pad', 'Tray', 'Plant'],
+    steps: [
+      { id: '1', instruction: 'Moisten cotton pad lightly', completed: false },
+      { id: '2', instruction: 'Support leaf from below with one hand', completed: false },
+      { id: '3', instruction: 'Wipe gently from stem to tip', completed: false },
+      { id: '4', instruction: 'Repeat for each leaf, avoiding tearing', completed: false },
+      { id: '5', instruction: 'Return materials and observe the plant', completed: false }
+    ]
+  },
+  'laundry-sorting': {
+    title: 'Laundry Sorting',
+    icon: '🧺',
+    purpose: 'Develops classification, order, and responsibility.',
+    materials: ['Laundry basket', 'Variety of clothes', 'Sorting labels or baskets'],
+    steps: [
+      { id: '1', instruction: 'Lay out clothes near sorting area', completed: false },
+      { id: '2', instruction: 'Sort by color or type (e.g., whites, colors, towels)', completed: false },
+      { id: '3', instruction: 'Place each group in labeled basket', completed: false },
+      { id: '4', instruction: 'Check for socks and pair them', completed: false },
+      { id: '5', instruction: 'Carry sorted baskets to laundry area', completed: false }
+    ]
   }
 };
 
