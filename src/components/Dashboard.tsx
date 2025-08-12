@@ -98,7 +98,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {onPracticalLifeView && (
               <Card 
-                className={`${montessoriTheme.card.base} border-amber-400 bg-amber-50 cursor-pointer hover:shadow-lg transition-all`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.practical} cursor-pointer hover:shadow-lg transition-all border-amber-200`}
                 onClick={onPracticalLifeView}
               >
                 <CardHeader className="pb-3">
@@ -106,7 +106,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🏠</span>
                     <div>
                       <h3 className="text-amber-800 font-semibold">Practical Life Skills</h3>
-                      <p className="text-sm text-gray-600">Daily living activities</p>
+                      <p className="text-sm text-gray-700">Daily living activities</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -115,15 +115,15 @@ const Dashboard: React.FC<DashboardProps> = ({
             
             {onSensorialView && (
               <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.sensorial} cursor-pointer hover:shadow-lg transition-all border-pink-200`}
                 onClick={onSensorialView}
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">👁️</span>
                     <div>
-                      <h3 className={montessoriTheme.text.primary}>Sensorial Skills</h3>
-                      <p className="text-sm text-gray-600">Refine the senses</p>
+                      <h3 className="text-pink-800">Sensorial Skills</h3>
+                      <p className="text-sm text-gray-700">Refine the senses</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -149,7 +149,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             {onMathView && (
               <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-red-200 bg-red-50`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.math} cursor-pointer hover:shadow-lg transition-all border-red-200`}
                 onClick={onMathView}
               >
                 <CardHeader className="pb-3">
@@ -157,7 +157,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🔢</span>
                     <div>
                       <h3 className="text-red-700">Mathematics Skills</h3>
-                      <p className="text-sm text-gray-600">Numbers and counting</p>
+                      <p className="text-sm text-gray-700">Numbers and counting</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -166,7 +166,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             {onGeographyView && (
               <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-blue-200 bg-blue-50`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.geography} cursor-pointer hover:shadow-lg transition-all border-blue-200`}
                 onClick={onGeographyView}
               >
                 <CardHeader className="pb-3">
@@ -174,7 +174,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🌍</span>
                     <div>
                       <h3 className="text-blue-700">Geography Skills</h3>
-                      <p className="text-sm text-gray-600">Explore our world</p>
+                      <p className="text-sm text-gray-700">Explore our world</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -183,7 +183,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             {onBotanyView && (
               <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-green-200 bg-green-50`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.botany} cursor-pointer hover:shadow-lg transition-all border-green-200`}
                 onClick={onBotanyView}
               >
                 <CardHeader className="pb-3">
@@ -191,7 +191,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🌱</span>
                     <div>
                       <h3 className="text-green-700">Botany Skills</h3>
-                      <p className="text-sm text-gray-600">Learn about plants</p>
+                      <p className="text-sm text-gray-700">Learn about plants</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -199,15 +199,15 @@ const Dashboard: React.FC<DashboardProps> = ({
             )}
             {onArtView && (
               <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.art} cursor-pointer hover:shadow-lg transition-all border-orange-200`}
                 onClick={onArtView}
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🎨</span>
                     <div>
-                      <h3 className={montessoriTheme.text.primary}>Art Skills</h3>
-                      <p className="text-sm text-gray-600">Creative expression</p>
+                      <h3 className="text-orange-800">Art Skills</h3>
+                      <p className="text-sm text-gray-700">Creative expression</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
