@@ -37,7 +37,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
   };
 
   return (
-    <div className={`min-h-screen ${montessoriTheme.backgrounds.skills} p-6`}>
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.practical} p-6`}>
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <Button onClick={onBack} variant="outline">← Back</Button>

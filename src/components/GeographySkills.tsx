@@ -3,7 +3,7 @@ import { ArrowLeft } from 'lucide-react';
 import SkillCard from './SkillCard';
 import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
-
+import { montessoriTheme } from './ThemeConfig';
 interface GeographySkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -34,7 +34,7 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 p-4">
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.geography} p-4`}>
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
           <button

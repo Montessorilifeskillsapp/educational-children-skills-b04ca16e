@@ -2,7 +2,7 @@ import React from 'react';
 import SkillCard from './SkillCard';
 import { artSkillsEnhanced } from '../data/artSkillsEnhanced';
 import SkillActivity from './SkillActivity';
-
+import { montessoriTheme } from './ThemeConfig';
 interface ArtSkillsProps {
   selectedSkill?: string;
   onSkillSelect: (skillId: string) => void;
@@ -22,7 +22,7 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
   }
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.art}`}><div className="container mx-auto px-4 py-8">
       {onBack && (
         <button
           onClick={onBack}
@@ -50,6 +50,7 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
             onSelect={() => onSkillSelect(key)}
           />
         ))}
+      </div>
       </div>
     </div>
   );

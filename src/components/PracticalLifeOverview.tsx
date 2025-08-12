@@ -1,6 +1,7 @@
 import React from 'react';
 import SkillCard from './SkillCard';
 import PageLayout from './PageLayout';
+import { montessoriTheme } from './ThemeConfig';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { controlOfErrorSkills } from '@/data/controlOfErrorSkills';
@@ -127,7 +128,7 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   isPremium
 }) => {
   return (
-    <PageLayout title="🌱 Practical Life Skills" onBack={onBack}>
+    <PageLayout title="🌱 Practical Life Skills" onBack={onBack} className={montessoriTheme.backgrounds.practical}>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Build independence and confidence through everyday life activities

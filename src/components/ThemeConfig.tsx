@@ -42,12 +42,18 @@ export const montessoriTheme = {
   
   // Background gradients for different sections
   backgrounds: {
-    home: 'bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50',
-    dashboard: 'bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50',
-    skills: 'bg-gradient-to-br from-blue-50 via-cyan-50 to-sky-50',
-    shop: 'bg-gradient-to-br from-purple-50 via-violet-50 to-indigo-50',
-    parent: 'bg-gradient-to-br from-rose-50 via-pink-50 to-red-50',
-    profile: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50'
+    home: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
+    dashboard: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
+    skills: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
+    shop: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
+    parent: 'bg-gradient-to-br from-rose-50 via-pink-50 to-pink-100',
+    profile: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
+    practical: 'bg-gradient-to-br from-amber-50 via-amber-100 to-stone-100',
+    sensorial: 'bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100',
+    math: 'bg-gradient-to-br from-red-50 via-rose-50 to-red-100',
+    geography: 'bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50',
+    botany: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
+    art: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50'
   },
   
   // Card styling for consistency

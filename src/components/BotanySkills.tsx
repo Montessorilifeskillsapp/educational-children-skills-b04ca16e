@@ -2,7 +2,7 @@ import React from 'react';
 import { ArrowLeft } from 'lucide-react';
 import SkillCard from './SkillCard';
 import { botanySkillsData } from '@/data/botanySkills';
-
+import { montessoriTheme } from './ThemeConfig';
 interface BotanySkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -17,7 +17,7 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
   isPremium
 }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-50 p-4">
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.botany} p-4`}>
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
           <button

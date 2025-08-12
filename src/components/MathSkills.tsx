@@ -32,7 +32,7 @@ const MathSkills: React.FC<MathSkillsProps> = ({
   ).length / skills.length) * 100;
 
   return (
-    <PageLayout title="Mathematics Skills" onBack={onBack}>
+    <PageLayout title="Mathematics Skills" onBack={onBack} className={montessoriTheme.backgrounds.math}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">

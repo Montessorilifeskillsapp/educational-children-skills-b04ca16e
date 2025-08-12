@@ -4,11 +4,11 @@ import { Progress } from '@/components/ui/progress';
 import { Eye } from 'lucide-react';
 import SkillCard from './SkillCard';
 import PageLayout from './PageLayout';
+import { montessoriTheme } from './ThemeConfig';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { additionalSensorialSkills } from '@/data/sensorialSkills2';
 import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
 import { useSEO } from '@/hooks/useSEO';
-
 interface SensorialSkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -51,7 +51,7 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
   ).length;
 
   return (
-    <PageLayout title="Sensorial Development" onBack={onBack}>
+    <PageLayout title="Sensorial Development" onBack={onBack} className={montessoriTheme.backgrounds.sensorial}>
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
