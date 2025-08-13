@@ -94,7 +94,7 @@ const AppLayout: React.FC = () => {
   }, []);
 
   const handleGetStarted = useCallback(() => {
-    setCurrentView('skills');
+    setCurrentView('dashboard');
   }, []);
 
   const handleShopView = useCallback(() => {
