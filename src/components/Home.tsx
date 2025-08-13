@@ -5,6 +5,7 @@ import { ArrowRight, Heart, Star, Users } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
+import heroImage from '@/assets/hero-montessori-children.jpg';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -65,15 +66,14 @@ const Home: React.FC<HomeProps> = ({
         {/* Welcome Header */}
         <div className="text-center py-12">
           <div className="flex flex-col items-center justify-center mb-6">
-            {/* Logo Section with Yellow Background */}
-            {/* Logo Section with Purple Background */}
+            {/* Hero Image Section */}
             <div className="mb-6 relative">
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-40"></div>
               <div className="relative z-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-3 shadow-xl">
                 <img 
-                  src="https://d64gsuwffb70l.cloudfront.net/688778d3289f1c9b05c2ffb1_1753917128245_83f1e130.jpeg" 
-                  alt="Montessori Life Skills Logo - Children learning together" 
-                  className="w-64 h-40 mx-auto rounded-xl object-cover shadow-lg"
+                  src={heroImage} 
+                  alt="Boy and girl learning with Montessori materials - puzzle and leaf" 
+                  className="w-80 h-48 mx-auto rounded-xl object-cover shadow-lg"
                 />
               </div>
             </div>
