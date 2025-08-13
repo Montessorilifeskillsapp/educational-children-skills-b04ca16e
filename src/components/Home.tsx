@@ -5,7 +5,7 @@ import { ArrowRight, Heart, Star, Users } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
-import heroImage from '@/assets/hero-montessori-children.jpg';
+import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -71,7 +71,7 @@ const Home: React.FC<HomeProps> = ({
               <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl blur-lg opacity-40"></div>
               <div className="relative z-10 bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl p-3 shadow-xl">
                 <img 
-                  src={heroImage} 
+                  src={realisticHeroImage} 
                   alt="Boy and girl learning with Montessori materials - puzzle and leaf" 
                   className="w-80 h-48 mx-auto rounded-xl object-cover shadow-lg"
                 />
