@@ -273,7 +273,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
-                    <Users className="h-6 w-6 text-indigo-600" />
+                    <User className="h-6 w-6 text-indigo-600" />
                     <div>
                       <h3 className="text-indigo-700">Child Profiles</h3>
                       <p className="text-sm text-gray-600">Manage profiles</p>
