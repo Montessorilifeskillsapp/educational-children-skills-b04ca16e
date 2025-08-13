@@ -27,6 +27,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.8,
+    image: '/src/assets/dressing-frames.jpg',
     amazonLink: 'https://amazon.com/montessori-dressing-frames'
   },
   {
@@ -39,7 +40,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '2-6 years',
     skillLevel: 'Beginner',
     inStock: true,
-    rating: 4.6
+    rating: 4.6,
+    image: '/src/assets/cleaning-set.jpg'
   },
   {
     id: 'pouring-set',
@@ -51,7 +53,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '2.5-4 years',
     skillLevel: 'Beginner',
     inStock: true,
-    rating: 4.7
+    rating: 4.7,
+    image: '/src/assets/pouring-set.jpg'
   },
   {
     id: 'spooning-set',
@@ -89,7 +92,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '2.5-5 years',
     skillLevel: 'Beginner',
     inStock: true,
-    rating: 4.9
+    rating: 4.9,
+    image: '/src/assets/pink-tower.jpg'
   },
   {
     id: 'brown-stair',
@@ -125,7 +129,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '2.5-4 years',
     skillLevel: 'Beginner',
     inStock: true,
-    rating: 4.6
+    rating: 4.6,
+    image: '/src/assets/color-tablets.jpg'
   },
   {
     id: 'color-tablets-box2',
@@ -175,7 +180,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '3-6 years',
     skillLevel: 'Intermediate',
     inStock: true,
-    rating: 4.9
+    rating: 4.9,
+    image: '/src/assets/golden-beads.jpg'
   },
   {
     id: 'number-rods',
@@ -249,7 +255,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '3-5 years',
     skillLevel: 'Beginner',
     inStock: true,
-    rating: 4.8
+    rating: 4.8,
+    image: '/src/assets/sandpaper-letters.jpg'
   },
   {
     id: 'moveable-alphabet',
@@ -299,7 +306,8 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     ageRange: '3-6 years',
     skillLevel: 'Intermediate',
     inStock: true,
-    rating: 4.6
+    rating: 4.6,
+    image: '/src/assets/world-map.jpg'
   },
   {
     id: 'continent-map',

@@ -5,6 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { ShoppingCart, Star, ExternalLink } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import ImageUploader from './ImageUploader';
+import { LazyImage } from './LazyImage';
 
 interface ProductCardProps {
   product: any;
@@ -27,7 +28,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
     <article>
       <Card className={`${montessoriTheme.card.base} h-full flex flex-col`}>
         <CardHeader className="pb-2">
-          <img
+          <LazyImage
             src={customImages[product.id] || product.image || '/placeholder.svg'}
             alt={`${product.name} - ${product.description || product.category}`}
             className="w-full h-48 object-cover rounded-lg"
