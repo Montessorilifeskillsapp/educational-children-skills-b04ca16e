@@ -77,7 +77,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             </div>
             <div>
               <h1 className={`text-3xl font-bold ${montessoriTheme.text.secondary} flex items-center gap-2`}>
-                <BookOpen className="h-8 w-8 text-green-600" />
+                <BookOpen className="h-6 w-6 text-green-600" />
                 Montessori Life Skills
               </h1>
               {activeProfile && (
