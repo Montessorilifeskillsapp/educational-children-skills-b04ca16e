@@ -1,4 +1,5 @@
 import { MontessoriMaterial } from './montessoriMaterials';
+import { montessoriImages } from '@/assets/images';
 
 // Products mapped to specific skills
 export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
@@ -15,6 +16,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.5,
+      image: montessoriImages['cleaning-set'] || montessoriImages['child-broom-set'],
       materials: ['Soft bristle toothbrush', 'Plastic cup', '2-minute timer']
     }
   ],
@@ -30,6 +32,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.7,
+      image: montessoriImages['pouring-set'],
       materials: ['Soap dispenser', 'Towel holder', 'Water basin', 'Step stool']
     }
   ],
@@ -45,6 +48,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.7,
+      image: montessoriImages['pouring-set'],
       materials: ['2 ceramic pitchers', 'Wooden tray', 'Natural sponge']
     }
   ],
@@ -60,6 +64,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.5,
+      image: montessoriImages['pouring-set'],
       materials: ['2 wooden bowls', 'Wooden spoon', 'Wooden tray', 'Transfer beans']
     }
   ],
@@ -75,6 +80,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.6,
+      image: montessoriImages['dressing-frames-set'],
       materials: ['Child plates', 'Utensils', 'Cloth napkins', 'Placemats']
     }
   ],
@@ -90,6 +96,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Intermediate',
       inStock: true,
       rating: 4.4,
+      image: montessoriImages['dressing-frames-set'],
       materials: ['Wooden frame', 'Real shoe', 'Colored laces', 'Instructions']
     }
   ],
@@ -107,6 +114,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.9,
+      image: montessoriImages['pink-tower'],
       materials: ['10 wooden cubes', 'Storage tray', 'Control chart']
     }
   ],
@@ -122,6 +130,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.8,
+      image: montessoriImages['pink-tower'],
       materials: ['10 wooden prisms', 'Storage rack', 'Measurement guide']
     }
   ],
@@ -137,6 +146,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.7,
+      image: montessoriImages['pink-tower'],
       materials: ['10 red wooden rods', 'Storage stand', 'Length cards']
     }
   ],
@@ -154,6 +164,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.8,
+      image: montessoriImages['golden-beads-set'],
       materials: ['10 segmented rods', 'Number cards', 'Storage rack']
     }
   ],
@@ -169,6 +180,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Intermediate',
       inStock: true,
       rating: 4.9,
+      image: montessoriImages['golden-beads-set'],
       materials: ['Golden beads', 'Wooden trays', 'Number cards', 'Counting mat']
     }
   ],
@@ -186,6 +198,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.8,
+      image: montessoriImages['sandpaper-letters'],
       materials: ['26 letter boards', 'Storage box', 'Tracing guide']
     }
   ],
@@ -201,6 +214,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Intermediate',
       inStock: true,
       rating: 4.7,
+      image: montessoriImages['sandpaper-letters'],
       materials: ['Wooden letters', 'Compartmented box', 'Word cards']
     }
   ],
@@ -218,6 +232,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Intermediate',
       inStock: true,
       rating: 4.7,
+      image: montessoriImages['puzzle-maps'],
       materials: ['10 form trays', 'Water', 'Sand', 'Vocabulary cards']
     }
   ],
@@ -233,6 +248,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Intermediate',
       inStock: true,
       rating: 4.6,
+      image: montessoriImages['puzzle-maps'],
       materials: ['Wooden puzzle', 'Continent pieces', 'Control map', 'Flag cards']
     }
   ],
@@ -250,6 +266,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.5,
+      image: montessoriImages['color-tablets-box1'],
       materials: ['Drawing pencils', 'Sketch paper', 'Erasers', 'Pencil holder']
     }
   ],
@@ -265,6 +282,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
       skillLevel: 'Beginner',
       inStock: true,
       rating: 4.6,
+      image: montessoriImages['color-tablets-box1'],
       materials: ['Primary paints', 'Mixing palette', 'Brushes', 'Water cups']
     }
   ]
