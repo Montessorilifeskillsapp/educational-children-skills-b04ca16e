@@ -101,8 +101,14 @@ const Shop: React.FC<ShopProps> = ({ onBack }) => {
   }, [searchTerm, filterCategory, priceRange, sortBy]);
 
   const filteredStoryBooks = useMemo(() => {
-    const filtered = filterProducts(storyBooks, searchTerm, filterCategory, priceRange);
-    return sortProducts(filtered, sortBy);
+    console.log('Processing story books:', storyBooks);
+    try {
+      const filtered = filterProducts(storyBooks as Product[], searchTerm, filterCategory, priceRange);
+      return sortProducts(filtered, sortBy);
+    } catch (error) {
+      console.error('Error filtering story books:', error);
+      return [];
+    }
   }, [searchTerm, filterCategory, priceRange, sortBy]);
 
   const filteredActivityBundles = useMemo(() => {
