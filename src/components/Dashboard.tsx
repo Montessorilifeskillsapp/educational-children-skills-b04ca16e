@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, ShoppingCart, Crown, Users, BookOpen, Star, FileText, Eye, Shield } from 'lucide-react';
+import { User, ShoppingCart, Crown, Users, BookOpen, Star, FileText, Eye, Shield, Baby } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
@@ -273,7 +273,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
-                    <User className="h-6 w-6 text-indigo-600" />
+                    <Baby className="h-6 w-6 text-indigo-600" />
                     <div>
                       <h3 className="text-indigo-700">Child Profiles</h3>
                       <p className="text-sm text-gray-600">Manage profiles</p>
