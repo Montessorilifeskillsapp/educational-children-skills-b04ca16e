@@ -179,5 +179,23 @@ export const storyBooks: StoryBook[] = [
     themes: ['Astronomy', 'Planets', 'Science', 'Nature', 'Sequencing'],
     website: 'shop.ingramspark.com',
     amazonLink: 'https://shop.ingramspark.com/b/084?params=ELjeOxww7DldvrBBKtqat4kcAKy7dINv2dOVgKn6ARm'
+  },
+  {
+    id: 'biscuit-bunny-learns-to-say-no',
+    name: 'Biscuit Bunny Learns to Say No',
+    price: 19.00,
+    originalPrice: 29.00,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798218657703.jpg?viewkey=e7de8919c43473f46c8d05d555e2e8197dced01afd8c4bd6563025a211f03c70',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A kind and gentle story about setting boundaries, self-care, and saying no with kindness',
+    inStock: true,
+    author: 'Kerry Howard',
+    pages: 58,
+    ageRange: '3-7 years',
+    skillLevel: 'Intermediate',
+    themes: ['Setting Boundaries', 'Self-Care', 'Empathy', 'Grace and Courtesy', 'Self-Awareness'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=XBd6w4URC2IgcMw5AUnXg9yUjQVUavBLHoUNCNsDCVK'
   }
 ];
