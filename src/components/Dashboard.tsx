@@ -7,7 +7,6 @@ import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
 import { SSLStatus } from './SSLStatus';
-import PCIComplianceStatusComponent from './PCIComplianceStatus';
 interface DashboardProps {
   onSkillSelect: (skillId: string) => void;
   onPracticalLifeView?: () => void;
@@ -318,11 +317,10 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* Security Status Section */}
         <section className="mb-8">
           <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary} mb-4`}>
-            Security & Compliance Status
+            Security Status
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 gap-4">
             <SSLStatus />
-            <PCIComplianceStatusComponent />
           </div>
         </section>
       </div>
