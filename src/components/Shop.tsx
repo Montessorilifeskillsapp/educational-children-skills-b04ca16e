@@ -7,6 +7,7 @@ import ProductCard from './ProductCard';
 import ShopFilters from './ShopFilters';
 import { skillBasedProducts } from '@/data/skillBasedProducts';
 import { montessoriMaterials } from '@/data/montessoriMaterials';
+import { montessoriPictures } from '@/data/montessoriPictures';
 import { storyBooks } from '@/data/storyBooks';
 import { activityBundles } from '@/data/activityBundles';
 import { activityMaterials } from '@/data/activityMaterials';
@@ -114,6 +115,11 @@ const Shop: React.FC<ShopProps> = ({ onBack }) => {
     return sortProducts(filtered, sortBy);
   }, [searchTerm, filterCategory, priceRange, sortBy, materialProducts]);
 
+  const filteredMontessoriPictures = useMemo(() => {
+    const filtered = filterProducts(montessoriPictures, searchTerm, filterCategory, priceRange);
+    return sortProducts(filtered, sortBy);
+  }, [searchTerm, filterCategory, priceRange, sortBy]);
+
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.shop} p-6`}>
       <div className="max-w-6xl mx-auto">
@@ -168,9 +174,10 @@ const Shop: React.FC<ShopProps> = ({ onBack }) => {
         />
 
         <Tabs defaultValue="skills" className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-6 bg-white/90 border border-gray-200 rounded-lg shadow-sm p-1">
+          <TabsList className="grid w-full grid-cols-6 mb-6 bg-white/90 border border-gray-200 rounded-lg shadow-sm p-1">
             <TabsTrigger value="skills" className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm">Skills</TabsTrigger>
             <TabsTrigger value="montessori" className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm">Materials</TabsTrigger>
+            <TabsTrigger value="pictures" className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm">Pictures</TabsTrigger>
             <TabsTrigger value="books" className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm">Books</TabsTrigger>
             <TabsTrigger value="bundles" className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm">Bundles</TabsTrigger>
             <TabsTrigger value="materials" className="text-sm font-medium data-[state=active]:bg-white data-[state=active]:shadow-sm">Individual</TabsTrigger>
@@ -323,6 +330,22 @@ const Shop: React.FC<ShopProps> = ({ onBack }) => {
                   onImageChange={handleImageChange}
                   onAddToCart={handleAddToCart}
                   onOpenLink={material.amazonLink ? () => openAmazonLink(material.amazonLink!) : undefined}
+                />
+              ))}
+            </div>
+          </TabsContent>
+
+          <TabsContent value="pictures">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {filteredMontessoriPictures.map((picture) => (
+                <ProductCard
+                  key={picture.id}
+                  product={picture}
+                  editMode={editMode}
+                  customImages={customImages}
+                  onImageChange={handleImageChange}
+                  onAddToCart={handleAddToCart}
+                  onOpenLink={picture.amazonLink ? () => openAmazonLink(picture.amazonLink!) : undefined}
                 />
               ))}
             </div>
