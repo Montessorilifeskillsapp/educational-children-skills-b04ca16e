@@ -1,3 +1,5 @@
+import { montessoriImages } from '@/assets/images';
+
 export interface MontessoriMaterial {
   id: string;
   name: string;
@@ -27,7 +29,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.8,
-    image: '/src/assets/dressing-frames.jpg',
+    image: montessoriImages['dressing-frames-set'],
     amazonLink: 'https://amazon.com/montessori-dressing-frames'
   },
   {
@@ -41,7 +43,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.6,
-    image: '/src/assets/cleaning-set.jpg'
+    image: montessoriImages['child-broom-set']
   },
   {
     id: 'pouring-set',
@@ -54,7 +56,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.7,
-    image: '/src/assets/pouring-set.jpg'
+    image: montessoriImages['pouring-set']
   },
   {
     id: 'spooning-set',
@@ -93,7 +95,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.9,
-    image: '/src/assets/pink-tower.jpg'
+    image: montessoriImages['pink-tower']
   },
   {
     id: 'brown-stair',
@@ -130,7 +132,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.6,
-    image: '/src/assets/color-tablets.jpg'
+    image: montessoriImages['color-tablets-box1']
   },
   {
     id: 'color-tablets-box2',
@@ -181,7 +183,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Intermediate',
     inStock: true,
     rating: 4.9,
-    image: '/src/assets/golden-beads.jpg'
+    image: montessoriImages['golden-beads-set']
   },
   {
     id: 'number-rods',
@@ -256,7 +258,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Beginner',
     inStock: true,
     rating: 4.8,
-    image: '/src/assets/sandpaper-letters.jpg'
+    image: montessoriImages['sandpaper-letters']
   },
   {
     id: 'moveable-alphabet',
@@ -307,7 +309,7 @@ export const montessoriMaterials: MontessoriMaterial[] = [
     skillLevel: 'Intermediate',
     inStock: true,
     rating: 4.6,
-    image: '/src/assets/world-map.jpg'
+    image: montessoriImages['puzzle-maps']
   },
   {
     id: 'continent-map',
