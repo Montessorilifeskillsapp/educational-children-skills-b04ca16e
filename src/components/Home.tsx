@@ -174,7 +174,7 @@ const Home: React.FC<HomeProps> = ({
               <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
                 <CardHeader className="text-center pb-4">
                   <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <BookOpen className="w-8 h-8 text-white" />
+                    <BookOpen className="w-6 h-6 text-white" />
                   </div>
                   <CardTitle className="text-2xl text-blue-800 group-hover:text-blue-900 transition-colors">Child-Led Learning</CardTitle>
                 </CardHeader>
