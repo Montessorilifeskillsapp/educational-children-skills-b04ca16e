@@ -122,7 +122,7 @@ const Home: React.FC<HomeProps> = ({
                   Montessori Life Skills
                 </span>
                 <br />
-                <span className="text-slate-800">for Every Child</span>
+                <span className="bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">for Every Child</span>
               </h1>
 
               {/* Subtitle */}
