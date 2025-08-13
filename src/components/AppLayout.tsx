@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from 'react';
 import Dashboard from './Dashboard';
 import SkillActivity from './SkillActivity';
-import SkillsOverview from './SkillsOverview';
+
 import PracticalLifeOverview from './PracticalLifeOverview';
 import PracticalLifeSkills from './PracticalLifeSkills';
 import SensorialSkills from './SensorialSkills';
@@ -89,9 +89,6 @@ const AppLayout: React.FC = () => {
     setCurrentView('practical');
   }, []);
 
-  const handleSkillsOverview = useCallback(() => {
-    setCurrentView('skills');
-  }, []);
 
   const handleGetStarted = useCallback(() => {
     setCurrentView('dashboard');
@@ -146,7 +143,7 @@ const AppLayout: React.FC = () => {
         onResourcesView={handleResourcesView}
         onSubscriptionView={handleSubscriptionView}
         onDashboardView={() => setCurrentView('dashboard')}
-        onSkillsView={handleSkillsOverview}
+        
         onPracticalView={handlePracticalLifeView}
         onSensorialView={handleSensorialView}
         onLanguageView={handleLanguageView}
@@ -161,20 +158,6 @@ const AppLayout: React.FC = () => {
     );
   }
 
-  if (currentView === 'skills') {
-    return (
-      <SkillsOverview
-        onBack={handleBackToHome}
-        onPracticalLifeView={handlePracticalLifeView}
-        onSensorialView={handleSensorialView}
-        onLanguageView={handleLanguageView}
-        onMathView={handleMathView}
-        onGeographyView={handleGeographyView}
-        onBotanyView={handleBotanyView}
-        onArtView={handleArtView}
-      />
-    );
-  }
 
   if (currentView === 'grace-courtesy') {
     return (

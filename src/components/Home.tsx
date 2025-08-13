@@ -13,7 +13,7 @@ interface HomeProps {
   onResourcesView?: () => void;
   onSubscriptionView?: () => void;
   onDashboardView?: () => void;
-  onSkillsView?: () => void;
+  
   onPracticalView?: () => void;
   onSensorialView?: () => void;
   onLanguageView?: () => void;
@@ -28,7 +28,7 @@ interface HomeProps {
 
 const Home: React.FC<HomeProps> = ({ 
   onGetStarted, onShopView, onResourcesView, onSubscriptionView,
-  onDashboardView, onSkillsView, onPracticalView, onSensorialView,
+  onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onGraceCourtesyView, onParentView, onProfilesView
 }) => {
@@ -73,7 +73,7 @@ const Home: React.FC<HomeProps> = ({
       <div className="absolute top-4 right-4 z-50">
         <NavigationMenu
           onDashboardView={onDashboardView}
-          onSkillsView={onSkillsView}
+          
           onPracticalView={onPracticalView}
           onSensorialView={onSensorialView}
           onLanguageView={onLanguageView}

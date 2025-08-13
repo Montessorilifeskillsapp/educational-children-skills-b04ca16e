@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 interface NavigationMenuProps {
   onDashboardView?: () => void;
-  onSkillsView?: () => void;
+  
   onPracticalView?: () => void;
   onSensorialView?: () => void;
   onLanguageView?: () => void;
@@ -29,7 +29,7 @@ interface NavigationMenuProps {
 }
 
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
-  onDashboardView, onSkillsView, onPracticalView, onSensorialView,
+  onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onGraceCourtesyView, onShopView, onResourcesView,
   onSubscriptionView, onParentView, onProfilesView, showCart = true
@@ -41,7 +41,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
 
   const navigationItems = [
     { label: 'Dashboard', icon: Home, onClick: onDashboardView, color: 'border-gray-300' },
-    { label: 'All Skills', icon: Brain, onClick: onSkillsView, color: 'border-gray-300' },
+    
     { label: 'Practical Life', icon: Heart, onClick: () => { onPracticalView?.(); window.location.href = '/practical-life'; }, color: 'border-amber-400' },
     { label: 'Sensorial', icon: Brain, onClick: onSensorialView, color: 'border-blue-400' },
     { label: 'Language', icon: BookOpen, onClick: onLanguageView, color: 'border-yellow-400' },
