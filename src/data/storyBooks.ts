@@ -197,5 +197,23 @@ export const storyBooks: StoryBook[] = [
     themes: ['Setting Boundaries', 'Self-Care', 'Empathy', 'Grace and Courtesy', 'Self-Awareness'],
     website: 'shop.ingramspark.com',
     amazonLink: 'https://shop.ingramspark.com/b/084?params=XBd6w4URC2IgcMw5AUnXg9yUjQVUavBLHoUNCNsDCVK'
+  },
+  {
+    id: 'pickles-cat-learns-to-clean-up',
+    name: 'Pickles Cat Learns to Clean Up',
+    price: 19.00,
+    originalPrice: 29.00,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798349364129.jpg?viewkey=89c50be260b539a9608ef3c30a49bd84a01cb2f4503095e484047b2ac02f8f61',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A Montessori life skills story about learning to clean up with gentle guidance and joyful songs',
+    inStock: true,
+    author: 'Kerry Howard',
+    pages: 54,
+    ageRange: '3-6 years',
+    skillLevel: 'Beginner',
+    themes: ['Independence', 'Order', 'Responsibility', 'Care of Environment', 'Practical Life'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=AR0g9S67o7Bv0m3AFeX9zj159nrIKMDfqulgABdmGGy'
   }
 ];
