@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
-import { skillsData } from '@/data/skillsData';
-import { skillsData2 } from '@/data/skillsData2';
+import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
+import { EnhancedMontessoriSkill } from '@/types/montessoriSkill';
 
 interface Step {
   id: string;
@@ -19,13 +19,31 @@ interface PracticalLifeSkillsProps {
 }
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-  // Combine both skill data sources
-  const allSkills = { ...skillsData, ...skillsData2 };
-  const skill = allSkills[skillId];
+  // Use comprehensive practical life skills
+  const skill = comprehensivePracticalLifeSkills[skillId];
   
   if (!skill) return null;
 
-  const [steps, setSteps] = useState<Step[]>(skill.steps);
+  // Convert learning process steps to the expected format
+  const allSteps = [
+    ...skill.learningProcess.presentation.steps.map((step, index) => ({
+      id: `presentation-${index}`,
+      instruction: step,
+      completed: false
+    })),
+    ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
+      id: `guided-${index}`,
+      instruction: step,
+      completed: false
+    })),
+    ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
+      id: `independent-${index}`,
+      instruction: indicator,
+      completed: false
+    }))
+  ];
+
+  const [steps, setSteps] = useState<Step[]>(allSteps);
   const completedSteps = steps.filter(step => step.completed).length;
   const progress = (completedSteps / steps.length) * 100;
   const isComplete = completedSteps === steps.length;
