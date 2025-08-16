@@ -15,9 +15,16 @@ const BuilderAccess: React.FC<BuilderAccessProps> = ({ onEnterApp }) => {
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
             🏗️ Builder Access Panel
           </h1>
-          <p className="text-lg text-gray-600">
+          <p className="text-lg text-gray-600 mb-6">
             Montessori Life Skills App - Creator Dashboard
           </p>
+          <Button 
+            onClick={onEnterApp}
+            size="lg"
+            className="px-8 py-3 text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+          >
+            Enter Montessori App
+          </Button>
         </div>
 
         <div className="grid md:grid-cols-3 gap-6 mb-8">
@@ -83,16 +90,6 @@ const BuilderAccess: React.FC<BuilderAccessProps> = ({ onEnterApp }) => {
               </div>
             </CardContent>
           </Card>
-        </div>
-
-        <div className="text-center">
-          <Button 
-            onClick={onEnterApp}
-            size="lg"
-            className="px-8 py-3 text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-          >
-            Enter Montessori App
-          </Button>
         </div>
       </div>
     </div>
