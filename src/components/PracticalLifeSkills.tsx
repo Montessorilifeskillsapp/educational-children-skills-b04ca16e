@@ -75,7 +75,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
   };
 
   return (
-    <div className={`min-h-screen ${montessoriTheme.backgrounds.practical} p-6`}>
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.practical} p-6 pb-20`}>
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
           <Button onClick={onBack} variant="outline">← Back</Button>
@@ -117,7 +117,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
           </CardHeader>
         </Card>
 
-        <div className="space-y-3">
+        <div className="space-y-3 mb-8">
           {steps.map((step, index) => (
             <Card 
               key={step.id}
@@ -145,7 +145,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
         </div>
 
         {isComplete && (
-          <div className="mt-6 text-center">
+          <div className="mt-8 mb-8 text-center">
             <Card className="bg-green-50 border-green-200">
               <CardContent className="p-6">
                 <div className="text-5xl mb-4">🌟</div>
