@@ -9,11 +9,14 @@ const PracticalLifePage: React.FC = () => {
   const { isPremium } = useSubscription();
 
   const practicalSkills = [
-    'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed',
-    'setting-table', 'tying-shoes', 'pouring', 'spooning',
-    'flower-arranging', 'polishing', 'sweeping', 'sweeping-floor', 'dusting-furniture', 'organizing-shelf',
-    'folding-clothes', 'watering-plants', 'cutting-with-scissors', 'preparing-snack', 'table-wiping', 'window-washing',
-    'mopping-floor', 'dishwashing', 'cloth-washing', 'leaf-polishing', 'laundry-sorting'
+    // Care of the Person
+    'hand-washing', 'dressing-frames', 'brushing-teeth', 'nose-blowing', 'using-napkin', 'packing-lunch',
+    // Care of the Environment  
+    'sweeping-floor', 'watering-plants', 'dusting-furniture', 'organizing-shelf', 'dishwashing', 'table-wiping', 'window-washing',
+    // Grace and Courtesy
+    'greeting-people', 'saying-please-thank-you', 'waiting-turn', 'interrupting-politely', 'offering-help',
+    // Control of Movement
+    'walking-line', 'carrying-objects', 'pouring-exercises', 'opening-closing', 'folding-cloth', 'transferring-activities'
   ];
 
   const handleSkillSelect = (skillId: string) => {

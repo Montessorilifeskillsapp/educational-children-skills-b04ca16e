@@ -4,6 +4,10 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
 import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
+import { careOfPersonSkills } from '@/data/careOfPersonSkills';
+import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
+import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
+import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
 import { EnhancedMontessoriSkill } from '@/types/montessoriSkill';
 
 interface Step {
@@ -19,29 +23,45 @@ interface PracticalLifeSkillsProps {
 }
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-  // Use comprehensive practical life skills
-  const skill = comprehensivePracticalLifeSkills[skillId];
+  // Get skill from all data sources
+  let skill = comprehensivePracticalLifeSkills[skillId] || 
+              careOfPersonSkills[skillId] || 
+              careOfEnvironmentSkills[skillId] || 
+              graceAndCourtesySkills[skillId] || 
+              controlOfMovementSkills[skillId];
   
   if (!skill) return null;
 
-  // Convert learning process steps to the expected format
-  const allSteps = [
-    ...skill.learningProcess.presentation.steps.map((step, index) => ({
-      id: `presentation-${index}`,
-      instruction: step,
+  // Handle different skill formats
+  let allSteps: Step[] = [];
+  
+  if ('learningProcess' in skill && skill.learningProcess) {
+    // Enhanced Montessori skill with full learning process
+    allSteps = [
+      ...skill.learningProcess.presentation.steps.map((step, index) => ({
+        id: `presentation-${index}`,
+        instruction: step,
+        completed: false
+      })),
+      ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
+        id: `guided-${index}`,
+        instruction: step,
+        completed: false
+      })),
+      ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
+        id: `independent-${index}`,
+        instruction: indicator,
+        completed: false
+      }))
+    ];
+  } else if ('steps' in skill && skill.steps) {
+    // Simple skill with just steps
+    allSteps = skill.steps.map(step => ({
+      id: step.id,
+      instruction: step.instruction,
       completed: false
-    })),
-    ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
-      id: `guided-${index}`,
-      instruction: step,
-      completed: false
-    })),
-    ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
-      id: `independent-${index}`,
-      instruction: indicator,
-      completed: false
-    }))
-  ];
+    }));
+  }
 
   const [steps, setSteps] = useState<Step[]>(allSteps);
   const completedSteps = steps.filter(step => step.completed).length;
@@ -78,8 +98,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
         <Card className="mb-6">
           <CardHeader>
             <CardTitle>Materials Needed</CardTitle>
-            <div className="grid grid-cols-2 gap-2 mt-2">
-              {skill.materials.map((material, index) => (
+            <div className="grid grid-cols-1 gap-2 mt-2">
+              {(skill.materials || []).map((material, index) => (
                 <div key={index} className="flex items-center text-sm">
                   <span className="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
                   {material}

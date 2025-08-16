@@ -4,7 +4,8 @@ import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
-import { controlOfErrorSkills } from '@/data/controlOfErrorSkills';
+import { careOfPersonSkills } from '@/data/careOfPersonSkills';
+import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
 
 interface PracticalLifeOverviewProps {
   onBack: () => void;
@@ -13,74 +14,18 @@ interface PracticalLifeOverviewProps {
   isPremium: boolean;
 }
 
-const practicalLifeSkills = [
-  {
-    id: 'brushing-teeth',
-    title: 'Brushing Teeth',
-    description: 'Learn proper dental hygiene',
-    icon: '🦷',
-    category: 'Practical Life',
-    difficulty: 'Easy',
-    ageRange: '2-4 years',
-    duration: '5 minutes',
-    isPremium: false
-  },
-  {
-    id: 'washing-hands',
-    title: 'Washing Hands',
-    description: 'Master hand washing technique',
-    icon: '🧼',
-    category: 'Practical Life',
-    difficulty: 'Easy',
-    ageRange: '2-4 years',
-    duration: '3 minutes',
-    isPremium: false
-  },
-  {
-    id: 'getting-dressed',
-    title: 'Getting Dressed',
-    description: 'Independence in dressing',
-    icon: '👕',
-    category: 'Practical Life',
-    difficulty: 'Medium',
-    ageRange: '3-5 years',
-    duration: '10 minutes',
-    isPremium: false
-  },
-  {
-    id: 'making-bed',
-    title: 'Making Bed',
-    description: 'Organize sleeping space',
-    icon: '🛏️',
-    category: 'Practical Life',
-    difficulty: 'Medium',
-    ageRange: '4-6 years',
-    duration: '8 minutes',
-    isPremium: true
-  },
-  {
-    id: 'setting-table',
-    title: 'Setting Table',
-    description: 'Prepare for meals',
-    icon: '🍽️',
-    category: 'Practical Life',
-    difficulty: 'Medium',
-    ageRange: '3-5 years',
-    duration: '7 minutes',
-    isPremium: true
-  },
-  {
-    id: 'tying-shoes',
-    title: 'Tying Shoes',
-    description: 'Master shoe lacing',
-    icon: '👟',
-    category: 'Practical Life',
-    difficulty: 'Hard',
-    ageRange: '5-7 years',
-    duration: '15 minutes',
-    isPremium: true
-  }
-];
+// Convert care of person skills to the same format
+const careOfPersonSkillsFormatted = Object.values(careOfPersonSkills).map(skill => ({
+  id: skill.id,
+  title: skill.title,
+  description: skill.description,
+  icon: skill.icon,
+  category: 'Practical Life',
+  difficulty: skill.isPremium ? 'Medium' : 'Easy',
+  ageRange: skill.ageRange,
+  duration: skill.duration,
+  isPremium: skill.isPremium
+}));
 
 // Convert grace and courtesy skills to the same format
 const graceCourtesySkillsFormatted = Object.values(graceAndCourtesySkills).map(skill => ({
@@ -108,8 +53,8 @@ const careOfEnvironmentSkillsFormatted = Object.values(careOfEnvironmentSkills).
   isPremium: skill.isPremium
 }));
 
-// Convert control of error skills to the same format
-const controlOfErrorSkillsFormatted = Object.values(controlOfErrorSkills).map(skill => ({
+// Convert control of movement skills to the same format
+const controlOfMovementSkillsFormatted = Object.values(controlOfMovementSkills).map(skill => ({
   id: skill.id,
   title: skill.title,
   description: skill.description,
@@ -131,17 +76,23 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
     <PageLayout title="🌱 Practical Life Skills" onBack={onBack} className={montessoriTheme.backgrounds.practical}>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Build independence and confidence through everyday life activities
+          Develop independence and self-confidence through purposeful tasks related to daily life
+        </p>
+        <p className="text-lg text-gray-500 mt-2">
+          Four main areas: Care of the Person • Care of the Environment • Grace and Courtesy • Control of Movement
         </p>
       </div>
 
-      {/* Care of Self Section */}
+      {/* Care of the Person Section */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          🧼 Care of Self
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          🧼 Care of the Person
         </h2>
+        <p className="text-gray-600 mb-6 max-w-3xl">
+          Self-care and personal hygiene activities that help children learn to manage their own bodies and needs.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {practicalLifeSkills.map((skill) => (
+          {careOfPersonSkillsFormatted.map((skill) => (
             <SkillCard
               key={skill.id}
               skill={skill}
@@ -153,13 +104,13 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       </div>
 
-      {/* Care of Environment Section */}
+      {/* Care of the Environment Section */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          🌍 Care of Environment
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          🌍 Care of the Environment
         </h2>
         <p className="text-gray-600 mb-6 max-w-3xl">
-          Learn to care for and maintain our surroundings, developing responsibility and environmental awareness.
+          Activities that help children learn to care for their surroundings, promoting responsibility and a sense of order.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {careOfEnvironmentSkillsFormatted.map((skill) => (
@@ -174,16 +125,16 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       </div>
 
-      {/* Control of Error Section */}
+      {/* Grace and Courtesy Section */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          🎯 Control of Error
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          💝 Grace and Courtesy
         </h2>
         <p className="text-gray-600 mb-6 max-w-3xl">
-          Activities with built-in self-correction that help children develop independence and self-assessment skills.
+          Social skills and respectful interactions, teaching children how to navigate social situations with grace and consideration.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {controlOfErrorSkillsFormatted.map((skill) => (
+          {graceCourtesySkillsFormatted.map((skill) => (
             <SkillCard
               key={skill.id}
               skill={skill}
@@ -195,16 +146,16 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       </div>
 
-      {/* Grace and Courtesy Section */}
+      {/* Control of Movement Section */}
       <div className="mb-12">
-        <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          💝 Grace and Courtesy
+        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          🤸 Control of Movement
         </h2>
         <p className="text-gray-600 mb-6 max-w-3xl">
-          Social skills and polite behavior that help children develop respect for others and confidence in social situations.
+          Activities that develop gross and fine motor skills, coordination, and body awareness through purposeful movement.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {graceCourtesySkillsFormatted.map((skill) => (
+          {controlOfMovementSkillsFormatted.map((skill) => (
             <SkillCard
               key={skill.id}
               skill={skill}
