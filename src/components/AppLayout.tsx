@@ -35,12 +35,9 @@ const AppLayout: React.FC = () => {
   const subscriptionContext = useSubscription();
   const profileContext = useProfile();
   
-  if (!subscriptionContext || !profileContext) {
-    return <div>Loading...</div>;
-  }
-  
-  const { isPremium } = subscriptionContext || {};
-  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = profileContext || {};
+  // These hooks always return valid context or throw error, so no need to check for null
+  const { isPremium } = subscriptionContext;
+  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = profileContext;
   
   const practicalSkills = [
     'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed', 
