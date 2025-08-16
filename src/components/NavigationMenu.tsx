@@ -42,7 +42,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   const navigationItems = [
     { label: 'Dashboard', icon: Home, onClick: onDashboardView, color: 'border-gray-300' },
     
-    { label: 'Practical Life', icon: Heart, onClick: () => { onPracticalView?.(); window.location.href = '/practical-life'; }, color: 'border-amber-400' },
+    { label: 'Practical Life', icon: Heart, onClick: () => { onPracticalView?.(); navigate('/practical-life'); }, color: 'border-amber-400' },
     { label: 'Sensorial', icon: Brain, onClick: onSensorialView, color: 'border-blue-400' },
     { label: 'Language', icon: BookOpen, onClick: onLanguageView, color: 'border-yellow-400' },
     { label: 'Math', icon: Calculator, onClick: onMathView, color: 'border-red-400' },
