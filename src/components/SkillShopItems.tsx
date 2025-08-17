@@ -5,6 +5,8 @@ import { ShoppingCart, Star } from 'lucide-react';
 import { skillBasedProducts } from '@/data/skillBasedProducts';
 import { montessoriMaterials } from '@/data/montessoriMaterials';
 import { additionalShopItems } from '@/data/additionalShopItems';
+import { useCart } from '@/contexts/CartContext';
+import { toast } from 'sonner';
 
 interface SkillShopItemsProps {
   shopItemIds: string[];
@@ -12,6 +14,7 @@ interface SkillShopItemsProps {
 }
 
 const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle }) => {
+  const { addToCart } = useCart();
   // Find products from all data sources
   const getShopItems = (itemIds: string[]) => {
     const items: any[] = [];
@@ -103,8 +106,14 @@ const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle
                 <Button 
                   className="flex items-center gap-2"
                   onClick={() => {
-                    // This would normally add to cart or navigate to product page
-                    console.log('Adding to cart:', item.name);
+                    addToCart({
+                      id: item.id,
+                      name: item.name,
+                      price: item.price,
+                      image: item.image,
+                      skillId: skillTitle.toLowerCase().replace(/\s+/g, '-')
+                    });
+                    toast.success(`${item.name} added to cart!`);
                   }}
                 >
                   <ShoppingCart className="h-4 w-4" />
