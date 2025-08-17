@@ -1,28 +1,26 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { LazyImageObserver } from '@/lib/performance';
 
-interface LazyImageProps {
+interface LaunchOptimizedImageProps {
   src: string;
   alt: string;
   className?: string;
-  placeholder?: string;
-  loading?: 'lazy' | 'eager';
   width?: number;
   height?: number;
-  onLoad?: () => void;
-  onError?: () => void;
+  quality?: number;
+  placeholder?: string;
+  loading?: 'lazy' | 'eager';
 }
 
-export const LazyImage: React.FC<LazyImageProps> = ({
+export const LaunchOptimizedImage: React.FC<LaunchOptimizedImageProps> = ({
   src,
   alt,
   className = '',
-  placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+',
-  loading = 'lazy',
   width,
   height,
-  onLoad,
-  onError
+  quality = 75,
+  placeholder = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+',
+  loading = 'lazy'
 }) => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [hasError, setHasError] = useState(false);
@@ -41,12 +39,10 @@ export const LazyImage: React.FC<LazyImageProps> = ({
 
   const handleLoad = () => {
     setIsLoaded(true);
-    onLoad?.();
   };
 
   const handleError = () => {
     setHasError(true);
-    onError?.();
   };
 
   const imgSrc = loading === 'lazy' ? undefined : src;
@@ -54,7 +50,7 @@ export const LazyImage: React.FC<LazyImageProps> = ({
 
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      {/* Loading placeholder */}
+      {/* Placeholder */}
       {!isLoaded && !hasError && (
         <div
           className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 animate-pulse flex items-center justify-center"
@@ -64,7 +60,6 @@ export const LazyImage: React.FC<LazyImageProps> = ({
             className="w-8 h-8 text-gray-400"
             fill="currentColor"
             viewBox="0 0 20 20"
-            aria-hidden="true"
           >
             <path
               fillRule="evenodd"
@@ -78,10 +73,10 @@ export const LazyImage: React.FC<LazyImageProps> = ({
       {/* Error state */}
       {hasError && (
         <div
-          className="bg-red-50 flex items-center justify-center border-2 border-dashed border-red-200 rounded"
+          className="bg-red-50 flex items-center justify-center border-2 border-dashed border-red-200"
           style={{ width, height }}
         >
-          <span className="text-red-500 text-sm">Image failed to load</span>
+          <span className="text-red-500 text-sm">Failed to load image</span>
         </div>
       )}
 
@@ -93,15 +88,18 @@ export const LazyImage: React.FC<LazyImageProps> = ({
         alt={alt}
         width={width}
         height={height}
-        className={`transition-all duration-500 ${
-          isLoaded ? 'opacity-100 scale-100' : 'opacity-0 scale-95'
+        className={`transition-opacity duration-300 ${
+          isLoaded ? 'opacity-100' : 'opacity-0'
         } ${className}`}
         onLoad={handleLoad}
         onError={handleError}
         loading={loading}
         decoding="async"
+        // Performance optimization attributes
         {...(loading === 'lazy' && { 'data-lazy': 'true' })}
       />
     </div>
   );
 };
+
+export default LaunchOptimizedImage;
