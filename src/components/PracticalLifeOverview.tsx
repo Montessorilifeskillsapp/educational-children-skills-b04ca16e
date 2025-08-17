@@ -6,6 +6,7 @@ import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { careOfPersonSkills } from '@/data/careOfPersonSkills';
 import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
+import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 
 interface PracticalLifeOverviewProps {
   onBack: () => void;
@@ -15,17 +16,31 @@ interface PracticalLifeOverviewProps {
 }
 
 // Convert care of person skills to the same format
-const careOfPersonSkillsFormatted = Object.values(careOfPersonSkills).map(skill => ({
-  id: skill.id,
-  title: skill.title,
-  description: skill.description,
-  icon: skill.icon,
-  category: 'Practical Life',
-  difficulty: skill.isPremium ? 'Medium' : 'Easy',
-  ageRange: skill.ageRange,
-  duration: skill.duration,
-  isPremium: skill.isPremium
-}));
+const careOfPersonSkillsFormatted = [
+  ...Object.values(careOfPersonSkills).map(skill => ({
+    id: skill.id,
+    title: skill.title,
+    description: skill.description,
+    icon: skill.icon,
+    category: 'Practical Life',
+    difficulty: skill.isPremium ? 'Medium' : 'Easy',
+    ageRange: skill.ageRange,
+    duration: skill.duration,
+    isPremium: skill.isPremium
+  })),
+  // Add brushing hair
+  {
+    id: additionalPracticalLifeSkills['brushing-hair'].id,
+    title: additionalPracticalLifeSkills['brushing-hair'].title,
+    description: additionalPracticalLifeSkills['brushing-hair'].description,
+    icon: additionalPracticalLifeSkills['brushing-hair'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['brushing-hair'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['brushing-hair'].ageRange,
+    duration: '6-8 minutes',
+    isPremium: additionalPracticalLifeSkills['brushing-hair'].isPremium
+  }
+];
 
 // Convert grace and courtesy skills to the same format
 const graceCourtesySkillsFormatted = Object.values(graceAndCourtesySkills).map(skill => ({
@@ -41,30 +56,80 @@ const graceCourtesySkillsFormatted = Object.values(graceAndCourtesySkills).map(s
 }));
 
 // Convert care of environment skills to the same format
-const careOfEnvironmentSkillsFormatted = Object.values(careOfEnvironmentSkills).map(skill => ({
-  id: skill.id,
-  title: skill.title,
-  description: skill.description,
-  icon: skill.icon,
-  category: 'Practical Life',
-  difficulty: skill.isPremium ? 'Medium' : 'Easy',
-  ageRange: skill.ageRange,
-  duration: skill.duration,
-  isPremium: skill.isPremium
-}));
+const careOfEnvironmentSkillsFormatted = [
+  ...Object.values(careOfEnvironmentSkills).map(skill => ({
+    id: skill.id,
+    title: skill.title,
+    description: skill.description,
+    icon: skill.icon,
+    category: 'Practical Life',
+    difficulty: skill.isPremium ? 'Medium' : 'Easy',
+    ageRange: skill.ageRange,
+    duration: skill.duration,
+    isPremium: skill.isPremium
+  })),
+  // Add additional environment skills
+  {
+    id: additionalPracticalLifeSkills['table-setting'].id,
+    title: additionalPracticalLifeSkills['table-setting'].title,
+    description: additionalPracticalLifeSkills['table-setting'].description,
+    icon: additionalPracticalLifeSkills['table-setting'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['table-setting'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['table-setting'].ageRange,
+    duration: '8-10 minutes',
+    isPremium: additionalPracticalLifeSkills['table-setting'].isPremium
+  },
+  {
+    id: additionalPracticalLifeSkills['flower-arranging'].id,
+    title: additionalPracticalLifeSkills['flower-arranging'].title,
+    description: additionalPracticalLifeSkills['flower-arranging'].description,
+    icon: additionalPracticalLifeSkills['flower-arranging'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['flower-arranging'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['flower-arranging'].ageRange,
+    duration: '10-12 minutes',
+    isPremium: additionalPracticalLifeSkills['flower-arranging'].isPremium
+  },
+  {
+    id: additionalPracticalLifeSkills['polishing-mirror'].id,
+    title: additionalPracticalLifeSkills['polishing-mirror'].title,
+    description: additionalPracticalLifeSkills['polishing-mirror'].description,
+    icon: additionalPracticalLifeSkills['polishing-mirror'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['polishing-mirror'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['polishing-mirror'].ageRange,
+    duration: '8-10 minutes',
+    isPremium: additionalPracticalLifeSkills['polishing-mirror'].isPremium
+  }
+];
 
 // Convert control of movement skills to the same format
-const controlOfMovementSkillsFormatted = Object.values(controlOfMovementSkills).map(skill => ({
-  id: skill.id,
-  title: skill.title,
-  description: skill.description,
-  icon: skill.icon,
-  category: 'Practical Life',
-  difficulty: skill.isPremium ? 'Medium' : 'Easy',
-  ageRange: skill.ageRange,
-  duration: skill.duration,
-  isPremium: skill.isPremium
-}));
+const controlOfMovementSkillsFormatted = [
+  ...Object.values(controlOfMovementSkills).map(skill => ({
+    id: skill.id,
+    title: skill.title,
+    description: skill.description,
+    icon: skill.icon,
+    category: 'Practical Life',
+    difficulty: skill.isPremium ? 'Medium' : 'Easy',
+    ageRange: skill.ageRange,
+    duration: skill.duration,
+    isPremium: skill.isPremium
+  })),
+  // Add food preparation skill
+  {
+    id: additionalPracticalLifeSkills['squeezing-orange-juice'].id,
+    title: additionalPracticalLifeSkills['squeezing-orange-juice'].title,
+    description: additionalPracticalLifeSkills['squeezing-orange-juice'].description,
+    icon: additionalPracticalLifeSkills['squeezing-orange-juice'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['squeezing-orange-juice'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['squeezing-orange-juice'].ageRange,
+    duration: '10-12 minutes',
+    isPremium: additionalPracticalLifeSkills['squeezing-orange-juice'].isPremium
+  }
+];
 
 export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   onBack,

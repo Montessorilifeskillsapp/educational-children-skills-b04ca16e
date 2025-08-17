@@ -8,6 +8,7 @@ import { careOfPersonSkills } from '@/data/careOfPersonSkills';
 import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
+import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import { EnhancedMontessoriSkill } from '@/types/montessoriSkill';
 
 interface Step {
@@ -28,7 +29,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
               careOfPersonSkills[skillId] || 
               careOfEnvironmentSkills[skillId] || 
               graceAndCourtesySkills[skillId] || 
-              controlOfMovementSkills[skillId];
+              controlOfMovementSkills[skillId] ||
+              additionalPracticalLifeSkills[skillId];
   
   if (!skill) return null;
 

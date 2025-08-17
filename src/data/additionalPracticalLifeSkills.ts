@@ -1,0 +1,704 @@
+import { EnhancedMontessoriSkill } from '../types/montessoriSkill';
+
+export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
+  'table-setting': {
+    id: 'table-setting',
+    title: 'Table Setting',
+    description: 'Learn to prepare a table for meals with proper placement and care',
+    purpose: 'Develop order, sequence, preparation for daily life, and grace in hosting others',
+    ageRange: '3-6 years',
+    difficulty: 'Intermediate',
+    category: 'Care of Environment',
+    isPremium: false,
+    icon: '🍽️',
+    materials: [
+      'Child-sized placemat',
+      'Plate',
+      'Cup or glass',
+      'Fork and knife',
+      'Napkin',
+      'Small vase for flower (optional)'
+    ],
+    materialsPurpose: [
+      'Child-sized placemat: Defines the workspace and teaches proper spacing',
+      'Plate: Central focus point for the place setting',
+      'Cup or glass: Teaches liquid container placement and care',
+      'Fork and knife: Introduces proper utensil placement and use',
+      'Napkin: Emphasizes cleanliness and proper etiquette',
+      'Small vase: Adds beauty and respect for the dining experience'
+    ],
+    directAims: [
+      'Learn proper table setting sequence',
+      'Develop spatial awareness and order',
+      'Practice careful handling of breakable items'
+    ],
+    indirectAims: [
+      'Prepare for social dining situations',
+      'Develop respect for mealtimes',
+      'Build confidence in hosting and serving others',
+      'Strengthen fine motor coordination'
+    ],
+    controlOfError: [
+      'Placemat shows correct positioning',
+      'Visual comparison with completed example',
+      'Items that don\'t fit properly indicate errors',
+      'Adult can model correct placement when needed'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Graceful Table Setting Demonstration',
+        description: 'Teacher shows the complete sequence with reverence and care',
+        steps: [
+          'Invite child: "Would you like to learn how to prepare a beautiful table?"',
+          'Lay placemat carefully on table, smoothing edges',
+          'Place plate in center of placemat',
+          'Put fork on left side of plate, about one inch away',
+          'Place knife on right side of plate, blade facing the plate',
+          'Set cup above and slightly right of the knife',
+          'Fold napkin and place to left of fork or on plate',
+          'Add small flower in vase if available',
+          'Step back and admire the completed setting'
+        ],
+        keyPoints: [
+          'Move slowly with intention and grace',
+          'Handle each item with respect and care',
+          'Show appreciation for the beauty created',
+          'Maintain consistent spacing and alignment'
+        ],
+        duration: '8-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Table Preparation',
+        description: 'Child practices with gentle guidance and encouragement',
+        steps: [
+          'Invite child to try: "Now you may prepare your own beautiful table"',
+          'Guide child to choose and carry materials carefully',
+          'Support proper placement with gentle verbal cues',
+          'Encourage child to step back and observe their work',
+          'Celebrate the beauty they have created',
+          'Help child clear table with the same care'
+        ],
+        supportStrategies: [
+          'Use gentle verbal prompts: "Where might the fork feel comfortable?"',
+          'Point to placement without touching child\'s hands',
+          'Encourage self-correction: "Look at both sides, what do you notice?"',
+          'Emphasize beauty and care over perfection'
+        ],
+        duration: '12-15 minutes per session'
+      },
+      independentPractice: {
+        title: 'Independent Table Preparation',
+        description: 'Child sets tables independently with increasing confidence',
+        indicators: [
+          'Child chooses activity spontaneously',
+          'Carries materials with appropriate care',
+          'Places items in logical sequence',
+          'Shows pride in completed setting',
+          'Invites others to appreciate their work'
+        ],
+        troubleshooting: [
+          'If rushing: remind about taking time to create beauty',
+          'If placement seems random: provide visual reference or model',
+          'If handling items roughly: demonstrate gentle touch',
+          'If losing interest: introduce variations like different colored napkins'
+        ],
+        duration: '15-20 minutes per session'
+      },
+      mastery: {
+        title: 'Table Setting Expertise',
+        description: 'Child demonstrates complete competence and teaches others',
+        assessmentCriteria: [
+          'Sets table accurately and consistently',
+          'Handles all materials with care and grace',
+          'Shows awareness of beauty and order',
+          'Can adapt to different table settings'
+        ],
+        indicators: [
+          'Child sets tables for multiple people',
+          'Shows others how to set a table',
+          'Creates variations while maintaining principles',
+          'Expresses joy in preparing for meals'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Table Preparation',
+        description: 'More complex and varied table setting experiences',
+        activities: [
+          'Setting table for multiple people',
+          'Preparing for different types of meals',
+          'Adding serving dishes and utensils',
+          'Creating themed or special occasion settings',
+          'Teaching younger children'
+        ],
+        variations: [
+          'Different cultural table setting styles',
+          'Outdoor picnic preparation',
+          'Formal dinner setting with multiple utensils',
+          'Tea party preparation'
+        ]
+      }
+    },
+    videoUrl: '/videos/table-setting.mp4',
+    imageUrl: '/images/table-setting.jpg'
+  },
+
+  'flower-arranging': {
+    id: 'flower-arranging',
+    title: 'Flower Arranging',
+    description: 'Create beautiful flower arrangements while caring for living things',
+    purpose: 'Develop aesthetic sense, care for living things, and appreciation of natural beauty',
+    ageRange: '3-6 years',
+    difficulty: 'Intermediate',
+    category: 'Care of Environment',
+    isPremium: false,
+    icon: '🌸',
+    materials: [
+      'Fresh flowers with stems',
+      'Child-sized vase',
+      'Small scissors or flower snips',
+      'Water in small pitcher',
+      'Towel for cleanup',
+      'Tray to contain activity'
+    ],
+    materialsPurpose: [
+      'Fresh flowers: Provide natural beauty and teach respect for living things',
+      'Child-sized vase: Appropriate scale for small hands and workspace',
+      'Small scissors: Develop cutting skills and proper tool use',
+      'Water in small pitcher: Teaches plant care and pouring skills',
+      'Towel: Maintains clean workspace and develops care habits',
+      'Tray: Contains activity and creates defined workspace'
+    ],
+    directAims: [
+      'Learn to handle flowers with gentle care',
+      'Develop cutting and trimming skills',
+      'Create aesthetically pleasing arrangements'
+    ],
+    indirectAims: [
+      'Develop appreciation for natural beauty',
+      'Build confidence in creative expression',
+      'Prepare for care of living things',
+      'Develop color and design awareness'
+    ],
+    controlOfError: [
+      'Flowers that are too long won\'t fit in vase',
+      'Cut stems that are too short become obvious',
+      'Unbalanced arrangements tip over',
+      'Water level shows if more is needed'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Gentle Flower Arrangement',
+        description: 'Teacher demonstrates with reverence for the flowers\' beauty',
+        steps: [
+          'Invite child: "Would you like to create something beautiful with these flowers?"',
+          'Examine flowers together, appreciating their colors and scents',
+          'Fill vase about half full with water',
+          'Select first flower and measure against vase height',
+          'Trim stem at an angle under water if too long',
+          'Place flower in vase, turning to find best position',
+          'Add remaining flowers one by one',
+          'Turn vase to view from all sides',
+          'Clean workspace and enjoy the arrangement'
+        ],
+        keyPoints: [
+          'Handle flowers with gentle, respectful touch',
+          'Take time to appreciate each flower\'s unique beauty',
+          'Consider color and height when arranging',
+          'Clean up water spills immediately'
+        ],
+        duration: '10-12 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Flower Creating',
+        description: 'Child creates arrangements with gentle guidance',
+        steps: [
+          'Invite child to make their own arrangement',
+          'Encourage child to feel and smell the flowers first',
+          'Support measuring and cutting with verbal cues',
+          'Allow child to make aesthetic choices',
+          'Appreciate the child\'s creative decisions',
+          'Help child find perfect spot to display arrangement'
+        ],
+        supportStrategies: [
+          'Ask open questions: "How do these colors look together?"',
+          'Support cutting hand-over-hand if needed initially',
+          'Encourage experimentation: "Try turning it this way"',
+          'Celebrate uniqueness: "Your arrangement is special because..."'
+        ],
+        duration: '15-18 minutes per session'
+      },
+      independentPractice: {
+        title: 'Creative Flower Expression',
+        description: 'Child creates arrangements with personal artistic vision',
+        indicators: [
+          'Child chooses flowers thoughtfully',
+          'Uses scissors safely and appropriately',
+          'Creates balanced and pleasing arrangements',
+          'Shows care for flowers and workspace',
+          'Shares arrangements with others proudly'
+        ],
+        troubleshooting: [
+          'If cutting stems too short: demonstrate measuring first',
+          'If handling flowers roughly: model gentle touch',
+          'If arrangements seem unbalanced: ask child to step back and look',
+          'If losing interest: introduce different flower types or colors'
+        ],
+        duration: '20-25 minutes per session'
+      },
+      mastery: {
+        title: 'Flower Arrangement Artistry',
+        description: 'Child demonstrates artistic sense and care for beauty',
+        assessmentCriteria: [
+          'Creates visually pleasing arrangements consistently',
+          'Handles flowers and tools with complete care',
+          'Shows personal aesthetic preferences',
+          'Cares for arrangements over multiple days'
+        ],
+        indicators: [
+          'Child creates arrangements spontaneously',
+          'Teaches others about flower care',
+          'Notices and appreciates flowers in environment',
+          'Requests to arrange flowers for special occasions'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Floral Arts',
+        description: 'Complex arrangements and flower care activities',
+        activities: [
+          'Creating arrangements for different occasions',
+          'Learning about flower types and needs',
+          'Pressing flowers for art projects',
+          'Growing flowers in garden',
+          'Making bouquets as gifts'
+        ],
+        variations: [
+          'Seasonal flower arrangements',
+          'Mixing flowers with greenery',
+          'Different vase shapes and sizes',
+          'Wild flower collecting and arranging'
+        ]
+      }
+    },
+    videoUrl: '/videos/flower-arranging.mp4',
+    imageUrl: '/images/flower-arranging.jpg'
+  },
+
+  'polishing-mirror': {
+    id: 'polishing-mirror',
+    title: 'Polishing Mirror',
+    description: 'Clean mirrors to sparkling clarity with careful, controlled movements',
+    purpose: 'Develop care of environment, attention to detail, and satisfaction in creating clarity',
+    ageRange: '4-6 years',
+    difficulty: 'Advanced',
+    category: 'Care of Environment',
+    isPremium: true,
+    icon: '🪞',
+    materials: [
+      'Small hand mirror or low wall mirror',
+      'Spray bottle with glass cleaner (child-safe)',
+      'Lint-free cloth or microfiber cloth',
+      'Small tray',
+      'Towel for protection'
+    ],
+    materialsPurpose: [
+      'Small mirror: Appropriate size for child to manage completely',
+      'Glass cleaner: Provides proper cleaning solution for mirrors',
+      'Lint-free cloth: Prevents streaking and ensures clear results',
+      'Small tray: Contains materials and prevents spills',
+      'Towel: Protects surfaces and catches drips'
+    ],
+    directAims: [
+      'Learn proper mirror cleaning technique',
+      'Develop controlled circular motions',
+      'Achieve streak-free, clear results'
+    ],
+    indirectAims: [
+      'Develop persistence and attention to quality',
+      'Build pride in creating beauty and clarity',
+      'Prepare for care of delicate objects',
+      'Develop bilateral coordination'
+    ],
+    controlOfError: [
+      'Streaks or spots remain visible on mirror',
+      'Water or cleaner drips indicate too much spray',
+      'Cloth texture leaves marks if inappropriate',
+      'Child can see their reflection clearly when done well'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Creating Mirror Clarity',
+        description: 'Teacher demonstrates with precision and care',
+        steps: [
+          'Invite child: "Would you like to help this mirror become perfectly clear?"',
+          'Place towel under mirror area to catch drips',
+          'Examine mirror together, noticing spots or cloudiness',
+          'Spray mirror lightly with cleaner (not too much)',
+          'Wipe in circular motions, working from top to bottom',
+          'Use clean part of cloth for final polishing',
+          'Step back to admire the clear, sparkling result',
+          'Clean and return materials to tray'
+        ],
+        keyPoints: [
+          'Use minimal amount of cleaner to prevent streaking',
+          'Work systematically across entire surface',
+          'Apply consistent pressure for even cleaning',
+          'Take time to appreciate the transformation'
+        ],
+        duration: '8-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Mirror Polishing',
+        description: 'Child practices with guidance toward perfect clarity',
+        steps: [
+          'Invite child to try polishing',
+          'Help child spray appropriate amount of cleaner',
+          'Guide circular motion technique if needed',
+          'Encourage child to inspect their work',
+          'Help child see and correct any streaks',
+          'Celebrate the clarity achieved together'
+        ],
+        supportStrategies: [
+          'Demonstrate hand position for effective wiping',
+          'Use verbal cues: "Small circles, light pressure"',
+          'Help child notice: "Look how this part sparkles now!"',
+          'Adjust amount of cleaner if child uses too much'
+        ],
+        duration: '12-15 minutes per session'
+      },
+      independentPractice: {
+        title: 'Independent Mirror Care',
+        description: 'Child polishes mirrors to professional clarity',
+        indicators: [
+          'Child chooses activity when mirrors need cleaning',
+          'Uses appropriate amount of cleaning solution',
+          'Achieves streak-free, clear results',
+          'Works systematically across entire surface',
+          'Takes pride in sparkling results'
+        ],
+        troubleshooting: [
+          'If streaking occurs: demonstrate using less cleaner',
+          'If missing spots: encourage systematic checking',
+          'If using too much pressure: model gentle touch',
+          'If rushing: emphasize quality over speed'
+        ],
+        duration: '15-20 minutes per session'
+      },
+      mastery: {
+        title: 'Mirror Polishing Expertise',
+        description: 'Child consistently achieves professional-quality results',
+        assessmentCriteria: [
+          'Achieves perfectly clear, streak-free mirrors',
+          'Works efficiently with minimal materials',
+          'Shows pride in quality of work',
+          'Can teach technique to others'
+        ],
+        indicators: [
+          'Child notices and cleans mirrors throughout environment',
+          'Others seek child\'s help with mirror cleaning',
+          'Child maintains mirrors in personal spaces',
+          'Shows satisfaction in creating clarity and beauty'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Reflective Surface Care',
+        description: 'Caring for various reflective surfaces and objects',
+        activities: [
+          'Polishing different types of mirrors',
+          'Cleaning glass windows and doors',
+          'Caring for reflective decorative objects',
+          'Maintaining eyeglasses or magnifying glasses',
+          'Teaching others proper technique'
+        ],
+        variations: [
+          'Different sizes and shapes of mirrors',
+          'Antique or delicate mirror care',
+          'Outdoor reflective surfaces',
+          'Car mirrors and windows'
+        ]
+      }
+    },
+    videoUrl: '/videos/polishing-mirror.mp4',
+    imageUrl: '/images/polishing-mirror.jpg'
+  },
+
+  'squeezing-orange-juice': {
+    id: 'squeezing-orange-juice',
+    title: 'Squeezing Orange Juice',
+    description: 'Extract fresh juice from oranges using proper technique and care',
+    purpose: 'Develop hand strength, understand food preparation, and experience farm-to-table concepts',
+    ageRange: '3-6 years',
+    difficulty: 'Intermediate',
+    category: 'Food Preparation',
+    isPremium: false,
+    icon: '🍊',
+    materials: [
+      'Fresh oranges (room temperature)',
+      'Child-sized manual juicer or reamer',
+      'Small bowl for juice',
+      'Strainer (optional)',
+      'Cutting board',
+      'Child-safe knife',
+      'Towel for cleanup'
+    ],
+    materialsPurpose: [
+      'Fresh oranges: Provide natural fruit experience and nutrition',
+      'Manual juicer: Develops hand strength and proper tool use',
+      'Small bowl: Appropriate size for child to manage juice',
+      'Strainer: Removes pulp if desired, teaches filtering',
+      'Cutting board: Safe surface for food preparation',
+      'Child-safe knife: Introduces proper cutting technique',
+      'Towel: Maintains clean workspace'
+    ],
+    directAims: [
+      'Learn proper fruit cutting technique',
+      'Develop hand strength through squeezing',
+      'Experience complete food preparation process'
+    ],
+    indirectAims: [
+      'Understand where food comes from',
+      'Develop appreciation for natural flavors',
+      'Build independence in food preparation',
+      'Strengthen bilateral coordination'
+    ],
+    controlOfError: [
+      'Juice flow indicates effective squeezing technique',
+      'Dry pulp shows when orange is fully squeezed',
+      'Taste reveals quality of extraction',
+      'Amount of juice shows efficiency'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Fresh Juice Creation',
+        description: 'Teacher demonstrates complete process with appreciation for the fruit',
+        steps: [
+          'Invite child: "Would you like to make fresh orange juice?"',
+          'Examine orange together - feel, smell, appreciate',
+          'Roll orange on table to soften (optional)',
+          'Cut orange in half carefully on cutting board',
+          'Show child the inside - seeds, pulp, juice',
+          'Place half orange cut-side down on juicer',
+          'Twist and press to extract juice',
+          'Strain juice if desired',
+          'Taste and enjoy the fresh juice together'
+        ],
+        keyPoints: [
+          'Appreciate the orange before transforming it',
+          'Use steady, controlled pressure when squeezing',
+          'Work over bowl to catch all juice',
+          'Clean hands and workspace when finished'
+        ],
+        duration: '10-12 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Juice Making',
+        description: 'Child creates juice with guidance and encouragement',
+        steps: [
+          'Invite child to make their own fresh juice',
+          'Help child feel orange to assess ripeness',
+          'Support safe cutting technique',
+          'Guide effective squeezing motion',
+          'Encourage child to taste and describe flavors',
+          'Help child clean up and store remaining oranges'
+        ],
+        supportStrategies: [
+          'Hand-over-hand support for cutting initially',
+          'Demonstrate effective twisting motion on juicer',
+          'Encourage experimentation with pressure',
+          'Celebrate the accomplishment of fresh juice'
+        ],
+        duration: '15-18 minutes per session'
+      },
+      independentPractice: {
+        title: 'Independent Juice Production',
+        description: 'Child makes juice safely and efficiently',
+        indicators: [
+          'Child chooses ripe oranges appropriately',
+          'Cuts fruit safely with proper technique',
+          'Extracts maximum juice efficiently',
+          'Cleans workspace thoroughly',
+          'Shares juice with others generously'
+        ],
+        troubleshooting: [
+          'If struggling to cut: ensure knife is appropriate and orange is stable',
+          'If not getting much juice: demonstrate better squeezing technique',
+          'If making mess: provide more towels and model cleanup',
+          'If oranges too hard: suggest rolling to soften first'
+        ],
+        duration: '20-25 minutes per session'
+      },
+      mastery: {
+        title: 'Fresh Juice Expertise',
+        description: 'Child demonstrates complete competence in juice making',
+        assessmentCriteria: [
+          'Consistently produces quality fresh juice',
+          'Uses tools safely and effectively',
+          'Maintains clean workspace throughout process',
+          'Shows understanding of fruit selection'
+        ],
+        indicators: [
+          'Child makes juice for family members',
+          'Teaches others the process',
+          'Experiments with different citrus fruits',
+          'Shows pride in homemade juice quality'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Food Preparation',
+        description: 'Expanded fruit preparation and juice making activities',
+        activities: [
+          'Juicing different citrus fruits',
+          'Making fruit salads',
+          'Learning about fruit growing',
+          'Comparing fresh vs. store-bought juice',
+          'Teaching juice making to others'
+        ],
+        variations: [
+          'Different juicing methods and tools',
+          'Mixing different fruit juices',
+          'Making juice for special occasions',
+          'Learning about nutrition in fresh fruit'
+        ]
+      }
+    },
+    videoUrl: '/videos/squeezing-orange-juice.mp4',
+    imageUrl: '/images/squeezing-orange-juice.jpg'
+  },
+
+  'brushing-hair': {
+    id: 'brushing-hair',
+    title: 'Brushing Hair',
+    description: 'Learn to care for hair with gentle, proper technique',
+    purpose: 'Develop self-care skills, body awareness, and personal hygiene habits',
+    ageRange: '3-6 years',
+    difficulty: 'Beginner',
+    category: 'Care of the Person',
+    isPremium: false,
+    icon: '🪮',
+    materials: [
+      'Child-appropriate brush or comb',
+      'Hand mirror',
+      'Hair ties or clips (if desired)',
+      'Small towel for shoulders',
+      'Spray bottle with water (for tangles)'
+    ],
+    materialsPurpose: [
+      'Appropriate brush: Size and gentleness suitable for child use',
+      'Hand mirror: Allows child to see and guide their work',
+      'Hair ties: Provide options for completing hair care',
+      'Small towel: Protects clothing and shows care',
+      'Spray bottle: Helps with difficult tangles without pain'
+    ],
+    directAims: [
+      'Learn proper brushing technique',
+      'Develop gentle, caring touch',
+      'Practice using mirror for self-care'
+    ],
+    indirectAims: [
+      'Build independence in personal care',
+      'Develop body awareness and coordination',
+      'Build confidence in self-presentation',
+      'Prepare for caring for others'
+    ],
+    controlOfError: [
+      'Mirror shows if hair looks neat and cared for',
+      'Tangles indicate areas needing more attention',
+      'Comfort level shows if technique is gentle enough',
+      'Smooth brush strokes indicate proper method'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Gentle Hair Care',
+        description: 'Teacher demonstrates with tenderness and respect for the body',
+        steps: [
+          'Invite child: "Would you like to learn to care for your beautiful hair?"',
+          'Place towel around shoulders to protect clothing',
+          'Start brushing at the ends of hair, working up',
+          'Use gentle strokes, never pulling or forcing',
+          'Work through any tangles slowly and carefully',
+          'Brush from root to tip once tangles are removed',
+          'Use mirror to check all areas are neat',
+          'Style hair if desired with ties or clips'
+        ],
+        keyPoints: [
+          'Always be gentle - hair care should never hurt',
+          'Work systematically from ends to roots first',
+          'Use mirror to see your progress',
+          'Take time to appreciate healthy, clean hair'
+        ],
+        duration: '6-8 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Hair Brushing',
+        description: 'Child practices with guidance toward gentle, effective technique',
+        steps: [
+          'Invite child to brush their own hair',
+          'Help position mirror for best view',
+          'Guide gentle technique if child is too rough',
+          'Help child work through tangles patiently',
+          'Celebrate the neat, cared-for result',
+          'Help child clean brush when finished'
+        ],
+        supportStrategies: [
+          'Model gentle pressure: "Light touches, like petting a cat"',
+          'Help hold sections of hair to prevent pulling',
+          'Use encouraging words: "You\'re being so gentle and careful"',
+          'Show how to angle brush to avoid discomfort'
+        ],
+        duration: '10-12 minutes per session'
+      },
+      independentPractice: {
+        title: 'Independent Hair Care',
+        description: 'Child cares for hair independently with confidence',
+        indicators: [
+          'Child brushes hair without being reminded',
+          'Uses appropriate gentleness and care',
+          'Works through tangles patiently',
+          'Achieves neat, well-groomed appearance',
+          'Shows pride in personal appearance'
+        ],
+        troubleshooting: [
+          'If being too rough: remind about gentleness and model',
+          'If avoiding tangles: show how to work through them gradually',
+          'If rushing: emphasize care over speed',
+          'If frustrated: offer help or suggest water for tangles'
+        ],
+        duration: '8-10 minutes per session'
+      },
+      mastery: {
+        title: 'Hair Care Mastery',
+        description: 'Child demonstrates complete independence in hair care',
+        assessmentCriteria: [
+          'Maintains neat, well-cared-for hair daily',
+          'Uses gentle, appropriate technique consistently',
+          'Can help others with their hair care',
+          'Shows pride and confidence in appearance'
+        ],
+        indicators: [
+          'Child maintains hair care as daily routine',
+          'Offers to help brush others\' hair gently',
+          'Notices and cares for hair throughout day',
+          'Shows increased confidence in self-presentation'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Hair Care and Styling',
+        description: 'More complex hair care and simple styling activities',
+        activities: [
+          'Learning different brushing patterns',
+          'Simple braiding or ponytails',
+          'Caring for different hair types',
+          'Learning about hair health and nutrition',
+          'Helping family members with hair care'
+        ],
+        variations: [
+          'Different brush types for different hair',
+          'Seasonal hair care (sun protection, winter dryness)',
+          'Cultural hair care traditions',
+          'Special occasion styling'
+        ]
+      }
+    },
+    videoUrl: '/videos/brushing-hair.mp4',
+    imageUrl: '/images/brushing-hair.jpg'
+  }
+};
