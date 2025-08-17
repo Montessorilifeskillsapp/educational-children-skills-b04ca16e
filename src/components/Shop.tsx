@@ -12,7 +12,7 @@ import { storyBooks } from '@/data/storyBooks';
 import { activityBundles } from '@/data/activityBundles';
 import { activityMaterials } from '@/data/activityMaterials';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
-import { useCart } from './CartContext';
+import { useCart } from '@/contexts/CartContext';
 import CartModal from './CartModal';
 import { filterProducts, sortProducts, Product } from '@/lib/shopUtils';
 import { useToast } from '@/components/ui/use-toast';
@@ -23,7 +23,7 @@ interface ShopProps {
 
 const Shop: React.FC<ShopProps> = ({ onBack }) => {
   useSEO(SEO_CONFIG.shop);
-  const { addToCart, totalItems } = useCart();
+  const { addToCart, totalItems, setIsOpen } = useCart();
   const { toast } = useToast();
   const [editMode, setEditMode] = useState(false);
   const [customImages, setCustomImages] = useState<{[key: string]: string}>({});

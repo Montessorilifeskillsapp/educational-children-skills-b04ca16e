@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
 import CartModal from './CartModal';
-import { useCart } from './CartContext';
+import { useCart } from '@/contexts/CartContext';
 import { 
   Menu, ShoppingBag, BookOpen, Settings, Home, Brain, 
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
@@ -35,7 +35,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onSubscriptionView, onParentView, onProfilesView, showCart = true
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { totalItems } = useCart();
+  const { totalItems, setIsOpen } = useCart();
   const navigate = useNavigate();
 
   const navigationItems = [
