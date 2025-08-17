@@ -9,6 +9,7 @@ import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { careOfPersonSkills } from '@/data/careOfPersonSkills';
 import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
+import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 
 // Add shopItems to existing skills
@@ -25,6 +26,18 @@ Object.values(careOfEnvironmentSkills).forEach(skill => {
 });
 
 Object.values(controlOfMovementSkills).forEach(skill => {
+  if (!(skill as any).shopItems) {
+    (skill as any).shopItems = getShopItemsForSkill(skill.id);
+  }
+});
+
+Object.values(additionalPracticalLifeSkills).forEach(skill => {
+  if (!(skill as any).shopItems) {
+    (skill as any).shopItems = getShopItemsForSkill(skill.id);
+  }
+});
+
+Object.values(enhancedPracticalLifeSkills).forEach(skill => {
   if (!(skill as any).shopItems) {
     (skill as any).shopItems = getShopItemsForSkill(skill.id);
   }
@@ -51,6 +64,32 @@ const careOfPersonSkillsFormatted = [
     isPremium: skill.isPremium,
     hasShopItems: getShopItemsForSkill(skill.id).length > 0
   })),
+  // Add brushing teeth from comprehensive skills
+  {
+    id: 'brushing-teeth',
+    title: 'Brushing Teeth',
+    description: 'Learn proper dental hygiene through systematic brushing technique',
+    icon: '🦷',
+    category: 'Practical Life',
+    difficulty: 'Easy',
+    ageRange: '2.5-5 years',
+    duration: '5-8 minutes',
+    isPremium: false,
+    hasShopItems: getShopItemsForSkill('brushing-teeth').length > 0
+  },
+  // Add washing hands from comprehensive skills  
+  {
+    id: 'washing-hands',
+    title: 'Washing Hands',
+    description: 'Master proper hand washing technique for health and cleanliness',
+    icon: '🧼',
+    category: 'Practical Life',
+    difficulty: 'Easy',
+    ageRange: '2-5 years',
+    duration: '3-5 minutes',
+    isPremium: false,
+    hasShopItems: getShopItemsForSkill('washing-hands').length > 0
+  },
   // Add brushing hair
   {
     id: additionalPracticalLifeSkills['brushing-hair'].id,
@@ -176,6 +215,32 @@ const controlOfMovementSkillsFormatted = [
     ageRange: additionalPracticalLifeSkills['wet-pouring'].ageRange,
     duration: '8-10 minutes',
     isPremium: additionalPracticalLifeSkills['wet-pouring'].isPremium
+  },
+  // Add enhanced pouring water
+  {
+    id: enhancedPracticalLifeSkills['pouring-water'].id,
+    title: enhancedPracticalLifeSkills['pouring-water'].title,
+    description: enhancedPracticalLifeSkills['pouring-water'].description,
+    icon: enhancedPracticalLifeSkills['pouring-water'].icon,
+    category: 'Practical Life',
+    difficulty: enhancedPracticalLifeSkills['pouring-water'].difficulty,
+    ageRange: enhancedPracticalLifeSkills['pouring-water'].ageRange,
+    duration: '8-15 minutes',
+    isPremium: enhancedPracticalLifeSkills['pouring-water'].isPremium,
+    hasShopItems: !!(enhancedPracticalLifeSkills['pouring-water'] as any).shopItems && (enhancedPracticalLifeSkills['pouring-water'] as any).shopItems.length > 0
+  },
+  // Add spooning beans from comprehensive skills
+  {
+    id: 'spooning-beans',
+    title: 'Spooning Beans',
+    description: 'Transfer objects with precision and develop fine motor control',
+    icon: '🥄',
+    category: 'Practical Life',
+    difficulty: 'Easy',
+    ageRange: '2.5-4 years',
+    duration: '8-12 minutes',
+    isPremium: false,
+    hasShopItems: getShopItemsForSkill('spooning-beans').length > 0
   }
 ];
 
