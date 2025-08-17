@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CreditCard, Lock, Shield, Plus } from 'lucide-react';
-import { useCart } from '@/contexts/CartContext';
+import { useCart } from './CartContext';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { PaymentService, SecureCardData } from '@/lib/payments';
 import { PCIComplianceService } from '@/lib/pciCompliance';
@@ -41,7 +41,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   
-  const { items, totalPrice, clearCart } = useCart();
+  const { items, total, clearCart } = useCart();
   const { currentPlan } = useSubscription();
   const mockPlans = [
     { id: 'basic', name: 'Basic Plan', price: 9.99 },
@@ -49,7 +49,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   ];
   
   const selectedPlan = planId ? mockPlans.find(p => p.id === planId) : currentPlan;
-  const displayPrice = selectedPlan ? selectedPlan.price : totalPrice;
+  const displayPrice = selectedPlan ? selectedPlan.price : total;
 
   const validateCardData = async () => {
     const newErrors: Record<string, string> = {};

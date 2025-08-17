@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
-import CartModal from './CartModal';
-import { useCart } from '@/contexts/CartContext';
+import { CartModal } from './CartModal';
+import { useCart } from './CartContext';
 import { 
   Menu, ShoppingBag, BookOpen, Settings, Home, Brain, 
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
@@ -34,8 +34,9 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onArtView, onGraceCourtesyView, onShopView, onResourcesView,
   onSubscriptionView, onParentView, onProfilesView, showCart = true
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { totalItems, setIsOpen } = useCart();
+  const [isOpen, setIsOpen] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
+  const { totalItems } = useCart();
   const navigate = useNavigate();
 
   const navigationItems = [
@@ -63,7 +64,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
         {/* Conditionally show cart button based on showCart prop */}
         {showCart && (
           <Button
-            onClick={() => setIsOpen(true)}
+            onClick={() => setIsCartOpen(true)}
             variant="outline"
             size="sm"
             className="bg-white border-2 border-purple-400 hover:bg-purple-50 relative shadow-md"
@@ -79,17 +80,17 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
         )}
       </div>
       <Button
-        onClick={() => setIsMenuOpen(!isMenuOpen)}
+        onClick={() => setIsOpen(!isOpen)}
         variant="outline"
         size="sm"
         className="bg-white/80 backdrop-blur-sm border-purple-200 hover:bg-purple-50"
       >
         <Menu className="w-4 h-4 mr-2" />
         Menu
-        {isMenuOpen ? <ChevronUp className="w-4 h-4 ml-2" /> : <ChevronDown className="w-4 h-4 ml-2" />}
+        {isOpen ? <ChevronUp className="w-4 h-4 ml-2" /> : <ChevronDown className="w-4 h-4 ml-2" />}
       </Button>
       
-      {isMenuOpen && (
+      {isOpen && (
         <div className="absolute top-full right-0 mt-2 w-56 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg border border-purple-200 z-30 max-h-96 overflow-y-auto">
           <div className="p-2">
             {navigationItems.map((item, index) => {
@@ -100,7 +101,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   key={index}
                   onClick={() => {
                     item.onClick?.();
-                    setIsMenuOpen(false);
+                    setIsOpen(false);
                   }}
                   variant="ghost"
                   size="sm"
@@ -115,7 +116,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
         </div>
       )}
       
-      <CartModal />
+      <CartModal 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+      />
     </div>
   );
 };

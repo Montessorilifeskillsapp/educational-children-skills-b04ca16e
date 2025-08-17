@@ -12,8 +12,8 @@ import { storyBooks } from '@/data/storyBooks';
 import { activityBundles } from '@/data/activityBundles';
 import { activityMaterials } from '@/data/activityMaterials';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
-import { useCart } from '@/contexts/CartContext';
-import CartModal from './CartModal';
+import { useCart } from './CartContext';
+import { CartModal } from './CartModal';
 import { filterProducts, sortProducts, Product } from '@/lib/shopUtils';
 import { useToast } from '@/components/ui/use-toast';
 import BackButton from '@/components/ui/back-button';
@@ -23,9 +23,10 @@ interface ShopProps {
 
 const Shop: React.FC<ShopProps> = ({ onBack }) => {
   useSEO(SEO_CONFIG.shop);
-  const { addToCart, totalItems, setIsOpen } = useCart();
+  const { addToCart, totalItems } = useCart();
   const { toast } = useToast();
   const [editMode, setEditMode] = useState(false);
+  const [isCartOpen, setIsCartOpen] = useState(false);
   const [customImages, setCustomImages] = useState<{[key: string]: string}>({});
   
   // Filter and search state
@@ -144,7 +145,7 @@ const Shop: React.FC<ShopProps> = ({ onBack }) => {
           <div className="flex-1"></div>
           <div className="flex items-center gap-4">
             <Button 
-              onClick={() => setIsOpen(true)}
+              onClick={() => setIsCartOpen(true)}
               className="bg-purple-600 hover:bg-purple-700 text-white border-2 border-purple-400 shadow-lg relative px-6 py-3"
               size="lg"
             >
@@ -404,7 +405,10 @@ const Shop: React.FC<ShopProps> = ({ onBack }) => {
           </TabsContent>
         </Tabs>
         
-        <CartModal />
+        <CartModal 
+          isOpen={isCartOpen} 
+          onClose={() => setIsCartOpen(false)} 
+        />
       </div>
     </div>
   );

@@ -1,24 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PracticalLifeOverview from '@/components/PracticalLifeOverview';
 import PracticalLifeSkills from '@/components/PracticalLifeSkills';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 
 const PracticalLifePage: React.FC = () => {
-  const [selectedSkill, setSelectedSkill] = React.useState<string>('');
-  const [completedSkills, setCompletedSkills] = React.useState<string[]>([]);
+  const [selectedSkill, setSelectedSkill] = useState<string>('');
+  const [completedSkills, setCompletedSkills] = useState<string[]>([]);
   const { isPremium } = useSubscription();
 
   const practicalSkills = [
     // Care of the Person
-    'hand-washing', 'washing-hands', 'dressing-frames', 'brushing-teeth', 'nose-blowing', 'using-napkin', 'packing-lunch', 'brushing-hair',
+    'hand-washing', 'dressing-frames', 'brushing-teeth', 'nose-blowing', 'using-napkin', 'packing-lunch', 'brushing-hair',
     // Care of the Environment  
     'sweeping-floor', 'watering-plants', 'dusting-furniture', 'organizing-shelf', 'dishwashing', 'table-wiping', 'window-washing',
-    'table-setting', 'flower-arranging', 'polishing-mirror', 'mopping-floor', 'cloth-washing', 'leaf-polishing', 'laundry-sorting',
+    'table-setting', 'flower-arranging', 'polishing-mirror',
     // Grace and Courtesy
-    'greeting-others', 'saying-please-thank-you', 'waiting-turn', 'interrupting-politely', 'offering-help', 'table-manners', 'walking-indoors',
+    'greeting-people', 'saying-please-thank-you', 'waiting-turn', 'interrupting-politely', 'offering-help',
     // Control of Movement
-    'walking-line', 'carrying-objects', 'pouring-exercises', 'pouring-water', 'opening-closing', 'folding-cloth', 'transferring-activities',
-    'dry-pouring', 'wet-pouring', 'squeezing-orange-juice', 'spooning-beans'
+    'walking-line', 'carrying-objects', 'pouring-exercises', 'opening-closing', 'folding-cloth', 'transferring-activities',
+    'dry-pouring', 'wet-pouring', 'squeezing-orange-juice'
   ];
 
   const handleSkillSelect = (skillId: string) => {

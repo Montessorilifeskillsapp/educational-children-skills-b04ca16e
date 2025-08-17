@@ -9,7 +9,6 @@ import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
-import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import SkillShopItems from './SkillShopItems';
 
 interface Step {
@@ -31,8 +30,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
               careOfEnvironmentSkills[skillId] || 
               graceAndCourtesySkills[skillId] || 
               controlOfMovementSkills[skillId] ||
-              additionalPracticalLifeSkills[skillId] ||
-              enhancedPracticalLifeSkills[skillId];
+              additionalPracticalLifeSkills[skillId];
   
   if (!skill) return null;
 

@@ -5,7 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { ProfileProvider } from "@/contexts/ProfileContext";
 import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
 import { AppProvider } from "@/contexts/AppContext";
-import { CartProvider } from "@/contexts/CartContext";
+import { CartProvider } from "@/components/CartContext";
 import { MobileSecurityProvider } from "@/components/MobileSecurityProvider";
 import Index from "./pages/Index";
 import PracticalLifePage from "./pages/PracticalLifePage";

@@ -6,7 +6,7 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ProfileProvider } from '@/contexts/ProfileContext';
 import { SubscriptionProvider } from '@/contexts/SubscriptionContext';
 import { AppProvider } from '@/contexts/AppContext';
-import { CartProvider } from '@/contexts/CartContext';
+import { CartProvider } from '@/components/CartContext';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return (
