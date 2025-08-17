@@ -9,7 +9,7 @@ import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
-import { EnhancedMontessoriSkill } from '@/types/montessoriSkill';
+import SkillShopItems from './SkillShopItems';
 
 interface Step {
   id: string;
@@ -97,19 +97,25 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
           </CardHeader>
         </Card>
 
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Materials Needed</CardTitle>
-            <div className="grid grid-cols-1 gap-2 mt-2">
-              {(skill.materials || []).map((material, index) => (
-                <div key={index} className="flex items-center text-sm">
-                  <span className="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
-                  {material}
-                </div>
-              ))}
-            </div>
-          </CardHeader>
-        </Card>
+        {/* Shop Items Section */}
+        {skill.shopItems && skill.shopItems.length > 0 ? (
+          <SkillShopItems shopItemIds={skill.shopItems} skillTitle={skill.title} />
+        ) : (
+          /* Materials Section - Only show if no shop items */
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle>Materials Needed</CardTitle>
+              <div className="grid grid-cols-1 gap-2 mt-2">
+                {(skill.materials || []).map((material, index) => (
+                  <div key={index} className="flex items-center text-sm">
+                    <span className="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
+                    {material}
+                  </div>
+                ))}
+              </div>
+            </CardHeader>
+          </Card>
+        )}
         
         <Card className="mb-6">
           <CardHeader>

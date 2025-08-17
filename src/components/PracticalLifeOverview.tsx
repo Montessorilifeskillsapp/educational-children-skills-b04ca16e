@@ -7,6 +7,26 @@ import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
 import { careOfPersonSkills } from '@/data/careOfPersonSkills';
 import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
+import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
+
+// Add shopItems to existing skills
+Object.values(careOfPersonSkills).forEach(skill => {
+  if (!(skill as any).shopItems) {
+    (skill as any).shopItems = getShopItemsForSkill(skill.id);
+  }
+});
+
+Object.values(careOfEnvironmentSkills).forEach(skill => {
+  if (!(skill as any).shopItems) {
+    (skill as any).shopItems = getShopItemsForSkill(skill.id);
+  }
+});
+
+Object.values(controlOfMovementSkills).forEach(skill => {
+  if (!(skill as any).shopItems) {
+    (skill as any).shopItems = getShopItemsForSkill(skill.id);
+  }
+});
 
 interface PracticalLifeOverviewProps {
   onBack: () => void;
@@ -26,7 +46,8 @@ const careOfPersonSkillsFormatted = [
     difficulty: skill.isPremium ? 'Medium' : 'Easy',
     ageRange: skill.ageRange,
     duration: skill.duration,
-    isPremium: skill.isPremium
+    isPremium: skill.isPremium,
+    hasShopItems: getShopItemsForSkill(skill.id).length > 0
   })),
   // Add brushing hair
   {
@@ -38,7 +59,8 @@ const careOfPersonSkillsFormatted = [
     difficulty: additionalPracticalLifeSkills['brushing-hair'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['brushing-hair'].ageRange,
     duration: '6-8 minutes',
-    isPremium: additionalPracticalLifeSkills['brushing-hair'].isPremium
+    isPremium: additionalPracticalLifeSkills['brushing-hair'].isPremium,
+    hasShopItems: getShopItemsForSkill('brushing-hair').length > 0
   }
 ];
 

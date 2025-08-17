@@ -44,8 +44,9 @@ export interface EnhancedMontessoriSkill {
   category: string;
   isPremium: boolean;
   icon: string;
-  materials: string[];
-  materialsPurpose: string[];
+  materials?: string[];
+  materialsPurpose?: string[];
+  shopItems?: string[]; // IDs of shop items needed for this skill
   directAims: string[];
   indirectAims: string[];
   controlOfError: string[];

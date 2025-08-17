@@ -11,22 +11,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Care of Environment',
     isPremium: false,
     icon: '🍽️',
-    materials: [
-      'Child-sized placemat',
-      'Plate',
-      'Cup or glass',
-      'Fork and knife',
-      'Napkin',
-      'Small vase for flower (optional)'
-    ],
-    materialsPurpose: [
-      'Child-sized placemat: Defines the workspace and teaches proper spacing',
-      'Plate: Central focus point for the place setting',
-      'Cup or glass: Teaches liquid container placement and care',
-      'Fork and knife: Introduces proper utensil placement and use',
-      'Napkin: Emphasizes cleanliness and proper etiquette',
-      'Small vase: Adds beauty and respect for the dining experience'
-    ],
+    shopItems: ['child-table-setting'],
     directAims: [
       'Learn proper table setting sequence',
       'Develop spatial awareness and order',
@@ -152,22 +137,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Care of Environment',
     isPremium: false,
     icon: '🌸',
-    materials: [
-      'Fresh flowers with stems',
-      'Child-sized vase',
-      'Small scissors or flower snips',
-      'Water in small pitcher',
-      'Towel for cleanup',
-      'Tray to contain activity'
-    ],
-    materialsPurpose: [
-      'Fresh flowers: Provide natural beauty and teach respect for living things',
-      'Child-sized vase: Appropriate scale for small hands and workspace',
-      'Small scissors: Develop cutting skills and proper tool use',
-      'Water in small pitcher: Teaches plant care and pouring skills',
-      'Towel: Maintains clean workspace and develops care habits',
-      'Tray: Contains activity and creates defined workspace'
-    ],
+    shopItems: ['flower-arranging'],
     directAims: [
       'Learn to handle flowers with gentle care',
       'Develop cutting and trimming skills',
@@ -293,20 +263,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Care of Environment',
     isPremium: true,
     icon: '🪞',
-    materials: [
-      'Small hand mirror or low wall mirror',
-      'Spray bottle with glass cleaner (child-safe)',
-      'Lint-free cloth or microfiber cloth',
-      'Small tray',
-      'Towel for protection'
-    ],
-    materialsPurpose: [
-      'Small mirror: Appropriate size for child to manage completely',
-      'Glass cleaner: Provides proper cleaning solution for mirrors',
-      'Lint-free cloth: Prevents streaking and ensures clear results',
-      'Small tray: Contains materials and prevents spills',
-      'Towel: Protects surfaces and catches drips'
-    ],
+    shopItems: ['polishing-set'],
     directAims: [
       'Learn proper mirror cleaning technique',
       'Develop controlled circular motions',
@@ -431,24 +388,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Food Preparation',
     isPremium: false,
     icon: '🍊',
-    materials: [
-      'Fresh oranges (room temperature)',
-      'Child-sized manual juicer or reamer',
-      'Small bowl for juice',
-      'Strainer (optional)',
-      'Cutting board',
-      'Child-safe knife',
-      'Towel for cleanup'
-    ],
-    materialsPurpose: [
-      'Fresh oranges: Provide natural fruit experience and nutrition',
-      'Manual juicer: Develops hand strength and proper tool use',
-      'Small bowl: Appropriate size for child to manage juice',
-      'Strainer: Removes pulp if desired, teaches filtering',
-      'Cutting board: Safe surface for food preparation',
-      'Child-safe knife: Introduces proper cutting technique',
-      'Towel: Maintains clean workspace'
-    ],
+    shopItems: ['food-preparation'],
     directAims: [
       'Learn proper fruit cutting technique',
       'Develop hand strength through squeezing',
@@ -574,20 +514,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Care of the Person',
     isPremium: false,
     icon: '🪮',
-    materials: [
-      'Child-appropriate brush or comb',
-      'Hand mirror',
-      'Hair ties or clips (if desired)',
-      'Small towel for shoulders',
-      'Spray bottle with water (for tangles)'
-    ],
-    materialsPurpose: [
-      'Appropriate brush: Size and gentleness suitable for child use',
-      'Hand mirror: Allows child to see and guide their work',
-      'Hair ties: Provide options for completing hair care',
-      'Small towel: Protects clothing and shows care',
-      'Spray bottle: Helps with difficult tangles without pain'
-    ],
+    shopItems: ['hair-care-set'],
     directAims: [
       'Learn proper brushing technique',
       'Develop gentle, caring touch',
@@ -712,20 +639,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Control of Movement',
     isPremium: false,
     icon: '🌾',
-    materials: [
-      'Two identical small pitchers',
-      'Dry material (rice, lentils, or small beans)',
-      'Tray to contain activity',
-      'Small brush for cleanup',
-      'Child-sized apron'
-    ],
-    materialsPurpose: [
-      'Two identical pitchers: Ensures balance and allows complete transfer',
-      'Dry material: Provides visual and auditory feedback without liquid mess',
-      'Tray: Contains all materials and defines workspace',
-      'Small brush: Enables independent cleanup and care of environment',
-      'Child-sized apron: Protects clothing and shows preparation for work'
-    ],
+    shopItems: ['dry-pouring-set'],
     directAims: [
       'Develop precise pouring movement',
       'Coordinate both hands in bilateral activity',
@@ -860,22 +774,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Control of Movement',
     isPremium: false,
     icon: '💧',
-    materials: [
-      'Two identical glass pitchers (child-sized)',
-      'Colored water (food coloring)',
-      'Large tray with sides',
-      'Natural sponge',
-      'Small cloth for drying',
-      'Waterproof apron'
-    ],
-    materialsPurpose: [
-      'Glass pitchers: Provide weight and reality, develop careful handling',
-      'Colored water: Makes water visible and activity more attractive',
-      'Tray with sides: Contains spills and defines workspace clearly',
-      'Natural sponge: Absorbs spills effectively and feels natural',
-      'Small cloth: For final drying and completing the cycle',
-      'Waterproof apron: Protects clothing and shows serious preparation'
-    ],
+    shopItems: ['glass-pitcher-set'],
     directAims: [
       'Master liquid pouring technique',
       'Develop precise hand and wrist control',

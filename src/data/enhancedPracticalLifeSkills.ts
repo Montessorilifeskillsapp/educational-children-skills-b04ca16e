@@ -11,7 +11,7 @@ export const enhancedPracticalLifeSkills: Record<string, EnhancedMontessoriSkill
     category: 'Practical Life',
     isPremium: false,
     icon: '💧',
-    materials: ['Two identical pitchers', 'Colored water', 'Tray', 'Sponge', 'Funnel (optional)'],
+    shopItems: ['pouring-set'],
     materialsPurpose: [
       'Two identical pitchers: One for pouring from, one for receiving',
       'Colored water: Makes the activity more appealing and visible',
