@@ -128,6 +128,30 @@ const controlOfMovementSkillsFormatted = [
     ageRange: additionalPracticalLifeSkills['squeezing-orange-juice'].ageRange,
     duration: '10-12 minutes',
     isPremium: additionalPracticalLifeSkills['squeezing-orange-juice'].isPremium
+  },
+  // Add dry pouring
+  {
+    id: additionalPracticalLifeSkills['dry-pouring'].id,
+    title: additionalPracticalLifeSkills['dry-pouring'].title,
+    description: additionalPracticalLifeSkills['dry-pouring'].description,
+    icon: additionalPracticalLifeSkills['dry-pouring'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['dry-pouring'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['dry-pouring'].ageRange,
+    duration: '6-8 minutes',
+    isPremium: additionalPracticalLifeSkills['dry-pouring'].isPremium
+  },
+  // Add wet pouring
+  {
+    id: additionalPracticalLifeSkills['wet-pouring'].id,
+    title: additionalPracticalLifeSkills['wet-pouring'].title,
+    description: additionalPracticalLifeSkills['wet-pouring'].description,
+    icon: additionalPracticalLifeSkills['wet-pouring'].icon,
+    category: 'Practical Life',
+    difficulty: additionalPracticalLifeSkills['wet-pouring'].isPremium ? 'Medium' : 'Easy',
+    ageRange: additionalPracticalLifeSkills['wet-pouring'].ageRange,
+    duration: '8-10 minutes',
+    isPremium: additionalPracticalLifeSkills['wet-pouring'].isPremium
   }
 ];
 
