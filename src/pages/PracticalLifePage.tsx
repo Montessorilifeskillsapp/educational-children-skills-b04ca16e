@@ -2,7 +2,6 @@ import React from 'react';
 import PracticalLifeOverview from '@/components/PracticalLifeOverview';
 import PracticalLifeSkills from '@/components/PracticalLifeSkills';
 import { useSubscription } from '@/contexts/SubscriptionContext';
-import { CartProvider } from '@/contexts/CartContext';
 
 const PracticalLifePage: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = React.useState<string>('');
@@ -40,25 +39,21 @@ const PracticalLifePage: React.FC = () => {
 
   if (selectedSkill && practicalSkills.includes(selectedSkill)) {
     return (
-      <CartProvider>
-        <PracticalLifeSkills
-          skillId={selectedSkill}
-          onBack={handleBack}
-          onComplete={handleComplete}
-        />
-      </CartProvider>
+      <PracticalLifeSkills
+        skillId={selectedSkill}
+        onBack={handleBack}
+        onComplete={handleComplete}
+      />
     );
   }
 
   return (
-    <CartProvider>
-      <PracticalLifeOverview
-        onBack={handleBackToHome}
-        onSkillSelect={handleSkillSelect}
-        completedSkills={completedSkills}
-        isPremium={isPremium}
-      />
-    </CartProvider>
+    <PracticalLifeOverview
+      onBack={handleBackToHome}
+      onSkillSelect={handleSkillSelect}
+      completedSkills={completedSkills}
+      isPremium={isPremium}
+    />
   );
 };
 
