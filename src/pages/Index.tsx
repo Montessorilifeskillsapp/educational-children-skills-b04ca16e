@@ -10,11 +10,16 @@ const Index: React.FC = () => {
   // SEO optimization
   useSEO(SEO_CONFIG.home);
 
+  const handleEnterApp = () => {
+    console.log('handleEnterApp called');
+    setShowBuilderAccess(false);
+  };
+
   if (showBuilderAccess) {
     return (
       <SEOOptimizer>
         <BuilderAccess 
-          onEnterApp={() => setShowBuilderAccess(false)}
+          onEnterApp={handleEnterApp}
         />
       </SEOOptimizer>
     );
