@@ -38,10 +38,25 @@ const AppLayout: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
-  const subscriptionContext = useSubscription();
-  const profileContext = useProfile();
-  const { user, loading } = useAuthContext();
+  // Add error boundary for context hooks
+  let subscriptionContext, profileContext, authContext;
+  try {
+    subscriptionContext = useSubscription();
+    profileContext = useProfile();
+    authContext = useAuthContext();
+  } catch (error) {
+    console.error('Context hook error:', error);
+    return (
+      <div className="min-h-screen flex items-center justify-center p-4">
+        <div className="text-center">
+          <h2 className="text-xl font-bold mb-2">Loading Error</h2>
+          <p className="text-gray-600">Please refresh the page</p>
+        </div>
+      </div>
+    );
+  }
   
+  const { user, loading } = authContext;
   const { isPremium } = subscriptionContext;
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = profileContext;
   
