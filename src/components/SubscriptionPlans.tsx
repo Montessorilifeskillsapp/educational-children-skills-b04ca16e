@@ -97,15 +97,28 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const { currentPlan, subscribe } = useSubscription();
 
   const handleSubscribe = (plan: Plan) => {
-    if (plan.id === 'free') {
-      subscribe(plan);
+    console.log('handleSubscribe called with plan:', plan);
+    try {
+      if (plan.id === 'free') {
+        console.log('Subscribing to free plan...');
+        subscribe(plan);
+        console.log('Free plan subscription completed');
+        toast({
+          title: "Welcome to Free Starter Plan!",
+          description: "You can now access basic Montessori activities and start your learning journey.",
+        });
+      } else {
+        console.log('Opening payment modal for premium plan');
+        setSelectedPlanId(plan.id);
+        setPaymentModalOpen(true);
+      }
+    } catch (error) {
+      console.error('Error in handleSubscribe:', error);
       toast({
-        title: "Welcome to Free Starter Plan!",
-        description: "You can now access basic Montessori activities and start your learning journey.",
+        title: "Subscription Error",
+        description: "There was an issue processing your request. Please try again.",
+        variant: "destructive"
       });
-    } else {
-      setSelectedPlanId(plan.id);
-      setPaymentModalOpen(true);
     }
   };
 
