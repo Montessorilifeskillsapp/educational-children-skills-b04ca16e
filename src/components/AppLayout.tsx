@@ -21,6 +21,11 @@ import ProfileSelector from './ProfileSelector';
 import Resources from './Resources';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
+import { useAuthContext } from '@/components/AuthProvider';
+import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { LogIn, UserPlus } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
 import { mathSkillsData } from '@/data/mathSkills';
@@ -35,6 +40,7 @@ const AppLayout: React.FC = () => {
 
   const subscriptionContext = useSubscription();
   const profileContext = useProfile();
+  const { user, loading } = useAuthContext();
   
   const { isPremium } = subscriptionContext;
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = profileContext;
@@ -45,6 +51,41 @@ const AppLayout: React.FC = () => {
     'flower-arranging', 'polishing', 'sweeping', 'folding-clothes',
     'watering-plants', 'cutting-with-scissors', 'preparing-snack'
   ];
+
+  // Show authentication prompt if not logged in
+  if (!loading && !user) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl mb-2">Welcome to Montessori Learning</CardTitle>
+            <p className="text-gray-600">Sign in to access your dashboard and track progress</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Link to="/auth">
+              <Button className="w-full" size="lg">
+                <LogIn className="mr-2 h-4 w-4" />
+                Sign In
+              </Button>
+            </Link>
+            <Link to="/auth">
+              <Button variant="outline" className="w-full" size="lg">
+                <UserPlus className="mr-2 h-4 w-4" />
+                Create Account
+              </Button>
+            </Link>
+            <Button 
+              variant="ghost" 
+              className="w-full" 
+              onClick={() => completeOnboarding([])}
+            >
+              Continue as Guest (Limited Features)
+            </Button>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   if (!isOnboarded) {
     return <OnboardingFlow onComplete={completeOnboarding} />;

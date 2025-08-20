@@ -6,6 +6,8 @@ import { User, ShoppingCart, Crown, Users, BookOpen, Star, FileText, Eye, Shield
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
+import { useAuthContext } from '@/components/AuthProvider';
+import { Link } from 'react-router-dom';
 
 interface DashboardProps {
   onSkillSelect: (skillId: string) => void;
@@ -47,6 +49,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   isPremium,
   activeProfile
 }) => {
+  const { user, signOut } = useAuthContext();
+  
   // SEO optimization for dashboard
   useSEO({
     title: 'Child Progress Dashboard - Track Learning Milestones',
@@ -85,7 +89,27 @@ const Dashboard: React.FC<DashboardProps> = ({
                   Welcome back, {activeProfile.name}!
                 </p>
               )}
+              {user && (
+                <p className="text-sm text-gray-600 mt-1">
+                  Logged in as: {user.email}
+                </p>
+              )}
             </div>
+          </div>
+          
+          <div className="flex gap-2">
+            {!user ? (
+              <Link to="/auth">
+                <Button variant="outline">
+                  <User className="mr-2 h-4 w-4" />
+                  Sign In
+                </Button>
+              </Link>
+            ) : (
+              <Button variant="outline" onClick={() => signOut()}>
+                Sign Out
+              </Button>
+            )}
           </div>
         </div>
 

@@ -6,6 +6,8 @@ import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
 import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
+import { useAuthContext } from '@/components/AuthProvider';
+import { Link } from 'react-router-dom';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -33,6 +35,7 @@ const Home: React.FC<HomeProps> = ({
   onArtView, onGraceCourtesyView, onParentView, onProfilesView
 }) => {
   useSEO(SEO_CONFIG.home);
+  const { user } = useAuthContext();
 
   const features = [
     { icon: CheckCircle, text: "50+ Life Skills Activities", color: "text-emerald-600" },
@@ -70,7 +73,14 @@ const Home: React.FC<HomeProps> = ({
       </div>
 
       {/* Navigation */}
-      <div className="absolute top-4 right-4 z-50">
+      <div className="absolute top-4 right-4 z-50 flex gap-2">
+        {!user && (
+          <Link to="/auth">
+            <Button variant="outline" className="bg-white/90 backdrop-blur-sm">
+              Sign In
+            </Button>
+          </Link>
+        )}
         <NavigationMenu
           onDashboardView={onDashboardView}
           
