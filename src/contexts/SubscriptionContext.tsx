@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface SubscriptionPlan {
   id: string;
@@ -39,9 +39,36 @@ const defaultFreePlan: SubscriptionPlan = {
 };
 
 export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Start with free plan as default
-  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(defaultFreePlan);
-  const [purchasedItems, setPurchasedItems] = useState<string[]>([]);
+  // Initialize with saved plan from localStorage or default free plan
+  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(() => {
+    try {
+      const saved = localStorage.getItem('subscription-plan');
+      return saved ? JSON.parse(saved) : defaultFreePlan;
+    } catch {
+      return defaultFreePlan;
+    }
+  });
+
+  const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
+    try {
+      const saved = localStorage.getItem('purchased-items');
+      return saved ? JSON.parse(saved) : [];
+    } catch {
+      return [];
+    }
+  });
+
+  // Save to localStorage whenever plan changes
+  useEffect(() => {
+    if (currentPlan) {
+      localStorage.setItem('subscription-plan', JSON.stringify(currentPlan));
+    }
+  }, [currentPlan]);
+
+  // Save to localStorage whenever purchased items change
+  useEffect(() => {
+    localStorage.setItem('purchased-items', JSON.stringify(purchasedItems));
+  }, [purchasedItems]);
 
   const isPremium = currentPlan?.id === 'premium' || currentPlan?.id === 'family';
   const isFamily = currentPlan?.id === 'family';
