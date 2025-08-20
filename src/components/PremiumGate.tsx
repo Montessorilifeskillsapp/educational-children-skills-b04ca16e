@@ -18,10 +18,6 @@ const PremiumGate: React.FC<PremiumGateProps> = ({
   title = "Premium Content",
   description = "Upgrade to access this exclusive content"
 }) => {
-  // Always show content for creator browsing
-  return <>{children}</>;
-  
-  /*
   if (isPremium) {
     return <>{children}</>;
   }
@@ -73,7 +69,6 @@ const PremiumGate: React.FC<PremiumGateProps> = ({
       </div>
     </div>
   );
-  */
 };
 
 export default PremiumGate;

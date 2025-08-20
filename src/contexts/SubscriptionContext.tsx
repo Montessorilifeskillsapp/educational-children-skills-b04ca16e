@@ -27,8 +27,8 @@ const defaultFreePlan: SubscriptionPlan = {
 };
 
 export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Start with null so users can select the free plan
-  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(null);
+  // Start with free plan as default
+  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(defaultFreePlan);
   const [purchasedItems, setPurchasedItems] = useState<string[]>([]);
 
   const isPremium = currentPlan?.id === 'premium' || currentPlan?.id === 'family';
