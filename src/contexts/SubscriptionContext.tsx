@@ -43,10 +43,17 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(() => {
     try {
       const saved = localStorage.getItem('subscription-plan');
-      return saved ? JSON.parse(saved) : defaultFreePlan;
-    } catch {
-      return defaultFreePlan;
+      if (saved) {
+        const parsedPlan = JSON.parse(saved);
+        // Validate the saved plan has all required properties
+        if (parsedPlan && parsedPlan.id && parsedPlan.name && parsedPlan.features) {
+          return parsedPlan;
+        }
+      }
+    } catch (error) {
+      console.warn('Failed to parse saved subscription plan:', error);
     }
+    return defaultFreePlan;
   });
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
