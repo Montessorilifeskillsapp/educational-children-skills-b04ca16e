@@ -4,7 +4,11 @@ interface SubscriptionPlan {
   id: string;
   name: string;
   price: number;
+  period?: string;
+  description?: string;
   features: string[];
+  popular?: boolean;
+  premium?: boolean;
 }
 
 interface SubscriptionContextType {
@@ -21,9 +25,17 @@ const SubscriptionContext = createContext<SubscriptionContextType | undefined>(u
 
 const defaultFreePlan: SubscriptionPlan = {
   id: 'free',
-  name: 'Free',
+  name: 'Free Starter',
   price: 0,
-  features: ['5 basic activities', 'Progress tracking']
+  period: 'forever',
+  description: 'Perfect for getting started with Montessori learning',
+  features: [
+    '5 basic practical life activities',
+    'Basic progress tracking dashboard',
+    'Community support forum access',
+    'Essential materials guide PDF',
+    'Email learning tips newsletter'
+  ]
 };
 
 export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
