@@ -87,8 +87,10 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
         interests: ['cooking', 'gardening', 'art'],
         learningStyle: 'visual'
       };
-      setProfiles([demoProfile]);
-      setActiveProfileAndSave(demoProfile);
+      setProfilesState([demoProfile]);
+      setActiveProfile(demoProfile);
+      localStorage.setItem('montessori_profiles', JSON.stringify([demoProfile]));
+      localStorage.setItem('montessori_active_profile', JSON.stringify(demoProfile));
     } else {
       setProfiles(newProfiles);
       if (newProfiles.length > 0) {
