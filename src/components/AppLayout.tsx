@@ -52,8 +52,8 @@ const AppLayout: React.FC = () => {
     'watering-plants', 'cutting-with-scissors', 'preparing-snack'
   ];
 
-  // Show authentication prompt if not logged in
-  if (!loading && !user) {
+  // Show authentication prompt if not logged in AND not onboarded (demo mode)
+  if (!loading && !user && !isOnboarded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
