@@ -22,19 +22,10 @@ interface ProfileContextType {
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 
 export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  // Mock profiles for creator browsing
-  const [profiles, setProfilesState] = useState<ChildProfile[]>([
-    {
-      id: 'creator-child-1',
-      name: 'Emma',
-      age: 4,
-      avatar: '👧',
-      interests: ['cooking', 'gardening', 'art'],
-      learningStyle: 'visual'
-    }
-  ]);
-  const [activeProfile, setActiveProfile] = useState<ChildProfile | null>(profiles[0]);
-  const [isOnboarded, setIsOnboarded] = useState(true); // Skip onboarding for creator browsing
+  // Start with empty profiles - let users choose demo or create account
+  const [profiles, setProfilesState] = useState<ChildProfile[]>([]);
+  const [activeProfile, setActiveProfile] = useState<ChildProfile | null>(null);
+  const [isOnboarded, setIsOnboarded] = useState(false); // Start with false to show proper flow
 
   // Load data from localStorage on mount
   useEffect(() => {
@@ -86,13 +77,27 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const completeOnboarding = (newProfiles: ChildProfile[]) => {
-    setProfiles(newProfiles);
+    // If no profiles provided, set up demo mode with default profile
+    if (newProfiles.length === 0) {
+      const demoProfile: ChildProfile = {
+        id: 'demo-child-1',
+        name: 'Demo Child',
+        age: 4,
+        avatar: '👧',
+        interests: ['cooking', 'gardening', 'art'],
+        learningStyle: 'visual'
+      };
+      setProfiles([demoProfile]);
+      setActiveProfileAndSave(demoProfile);
+    } else {
+      setProfiles(newProfiles);
+      if (newProfiles.length > 0) {
+        setActiveProfileAndSave(newProfiles[0]);
+      }
+    }
+    
     setIsOnboarded(true);
     localStorage.setItem('montessori_onboarded', 'true');
-    
-    if (newProfiles.length > 0) {
-      setActiveProfileAndSave(newProfiles[0]);
-    }
   };
 
   const updateProfile = (updatedProfile: ChildProfile) => {
