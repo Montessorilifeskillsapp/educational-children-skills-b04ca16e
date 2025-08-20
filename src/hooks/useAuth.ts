@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
-import { supabase, dbOperations } from '@/lib/supabase'
+import { supabase } from '@/integrations/supabase/client'
+import { dbOperations } from '@/lib/supabase'
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
@@ -18,14 +19,7 @@ export const useAuth = () => {
       async (event, session) => {
         setUser(session?.user ?? null)
         
-        // Create user profile on sign up
-        if (event === 'SIGNED_IN' && session?.user && !session.user.email_confirmed_at) {
-          await dbOperations.createUserProfile(
-            session.user.id,
-            session.user.email || '',
-            session.user.user_metadata?.full_name || ''
-          )
-        }
+        // User profile creation is now handled by database trigger
         
         setLoading(false)
       }
@@ -46,6 +40,9 @@ export const useAuth = () => {
     const { error } = await supabase.auth.signUp({
       email,
       password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/`
+      }
     })
     return { error }
   }
