@@ -2,13 +2,14 @@
 import { supabase } from '@/integrations/supabase/client'
 export { supabase }
 
-// Database types
+// Database types that match our schema
 export interface UserProfile {
   id: string
+  user_id: string
   email: string
-  full_name: string
+  full_name?: string
   avatar_url?: string
-  subscription_status: 'free' | 'premium'
+  subscription_status: 'free' | 'premium' | 'family'
   created_at: string
   updated_at: string
 }
@@ -46,15 +47,15 @@ export interface ActivitySession {
   created_at: string
 }
 
-// Database operations
+// Database operations using the integrated client
 export const dbOperations = {
   // User profiles
-  async createUserProfile(userId: string, email: string, fullName: string) {
+  async createUserProfile(userId: string, email: string, fullName?: string) {
     return await supabase
       .from('user_profiles')
       .insert([
         {
-          id: userId,
+          user_id: userId,
           email,
           full_name: fullName,
           subscription_status: 'free'
@@ -68,7 +69,7 @@ export const dbOperations = {
     return await supabase
       .from('user_profiles')
       .select('*')
-      .eq('id', userId)
+      .eq('user_id', userId)
       .single()
   },
 
@@ -76,7 +77,7 @@ export const dbOperations = {
     return await supabase
       .from('user_profiles')
       .update(updates)
-      .eq('id', userId)
+      .eq('user_id', userId)
       .select()
       .single()
   },
@@ -182,5 +183,27 @@ export const dbOperations = {
       .eq('child_id', childId)
       .order('created_at', { ascending: false })
       .limit(limit)
+  },
+
+  // Subscription management
+  async getSubscriberInfo(userId: string) {
+    return await supabase
+      .from('subscribers')
+      .select('*')
+      .eq('user_id', userId)
+      .single()
+  },
+
+  async updateSubscriberInfo(userId: string, updates: any) {
+    return await supabase
+      .from('subscribers')
+      .upsert([
+        {
+          user_id: userId,
+          ...updates
+        }
+      ])
+      .select()
+      .single()
   }
 }
