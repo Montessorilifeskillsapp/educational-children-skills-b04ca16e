@@ -6,8 +6,9 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuthContext } from '@/components/AuthProvider';
+import { useProfile } from '@/contexts/ProfileContext';
 import { toast } from '@/hooks/use-toast';
-import { Loader2 } from 'lucide-react';
+import { Loader2, Heart } from 'lucide-react';
 
 const AuthPage = () => {
   const [email, setEmail] = useState('');
@@ -15,6 +16,7 @@ const AuthPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user, signIn, signUp, loading } = useAuthContext();
+  const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
 
   // Redirect authenticated users to home
@@ -233,6 +235,20 @@ const AuthPage = () => {
               </form>
             </TabsContent>
           </Tabs>
+          
+          <div className="mt-6 pt-4 border-t">
+            <Button 
+              variant="outline" 
+              className="w-full"
+              onClick={() => {
+                completeOnboarding([]);
+                navigate('/');
+              }}
+            >
+              <Heart className="mr-2 h-4 w-4" />
+              Try Demo (No Account Needed)
+            </Button>
+          </div>
         </CardContent>
       </Card>
     </div>
