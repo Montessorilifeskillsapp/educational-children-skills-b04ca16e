@@ -14,7 +14,190 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activity_sessions: {
+        Row: {
+          child_id: string | null
+          completed: boolean
+          created_at: string
+          duration_minutes: number
+          id: string
+          notes: string | null
+          skill_id: string
+        }
+        Insert: {
+          child_id?: string | null
+          completed?: boolean
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          skill_id: string
+        }
+        Update: {
+          child_id?: string | null
+          completed?: boolean
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          skill_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activity_sessions_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "child_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      child_profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          date_of_birth: string
+          id: string
+          name: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          date_of_birth: string
+          id?: string
+          name: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          date_of_birth?: string
+          id?: string
+          name?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      skill_progress: {
+        Row: {
+          child_id: string | null
+          completed: boolean
+          completed_at: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          skill_category: string
+          skill_id: string
+          steps_completed: number[] | null
+          updated_at: string
+        }
+        Insert: {
+          child_id?: string | null
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          skill_category: string
+          skill_id: string
+          steps_completed?: number[] | null
+          updated_at?: string
+        }
+        Update: {
+          child_id?: string | null
+          completed?: boolean
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          skill_category?: string
+          skill_id?: string
+          steps_completed?: number[] | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "skill_progress_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "child_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscribers: {
+        Row: {
+          created_at: string
+          email: string
+          id: string
+          stripe_customer_id: string | null
+          subscribed: boolean
+          subscription_end: string | null
+          subscription_tier: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          email: string
+          id?: string
+          stripe_customer_id?: string | null
+          subscribed?: boolean
+          subscription_end?: string | null
+          subscription_tier?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          email?: string
+          id?: string
+          stripe_customer_id?: string | null
+          subscribed?: boolean
+          subscription_end?: string | null
+          subscription_tier?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      user_profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          subscription_status: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id?: string
+          subscription_status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          subscription_status?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
