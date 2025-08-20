@@ -25,7 +25,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LogIn, UserPlus } from 'lucide-react';
+import { LogIn, UserPlus, Heart } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
 import { mathSkillsData } from '@/data/mathSkills';
@@ -62,25 +62,30 @@ const AppLayout: React.FC = () => {
             <p className="text-gray-600">Sign in to access your dashboard and track progress</p>
           </CardHeader>
           <CardContent className="space-y-4">
-            <Link to="/auth">
-              <Button className="w-full" size="lg">
-                <LogIn className="mr-2 h-4 w-4" />
-                Sign In
-              </Button>
-            </Link>
-            <Link to="/auth">
-              <Button variant="outline" className="w-full" size="lg">
-                <UserPlus className="mr-2 h-4 w-4" />
-                Create Account
-              </Button>
-            </Link>
             <Button 
-              variant="ghost" 
-              className="w-full" 
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" 
+              size="lg"
               onClick={() => completeOnboarding([])}
             >
-              Continue as Guest (Limited Features)
+              <Heart className="mr-2 h-4 w-4" />
+              Try Demo (No Account Needed)
             </Button>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or sign in for full access
+                </span>
+              </div>
+            </div>
+            <Link to="/auth">
+              <Button variant="outline" className="w-full" size="lg">
+                <LogIn className="mr-2 h-4 w-4" />
+                Sign In / Create Account
+              </Button>
+            </Link>
           </CardContent>
         </Card>
       </div>
