@@ -23,7 +23,7 @@ const PlansPage: React.FC = () => {
   return (
     <SEOOptimizer>
       <PageLayout title="Choose Your Plan" onBack={handleBack}>
-        <SubscriptionPlans />
+        <SubscriptionPlans onBack={handleBack} />
       </PageLayout>
     </SEOOptimizer>
   );

@@ -84,8 +84,8 @@ interface SubscriptionPlansProps {
 }
 
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
+  // Always call hooks at the top level
   useSEO(SEO_CONFIG.subscription);
-
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
   const [selectedPlanId, setSelectedPlanId] = useState<string>('');
   const { toast } = useToast();
