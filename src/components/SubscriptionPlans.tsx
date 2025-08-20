@@ -8,7 +8,7 @@ import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
 
 import { useState } from 'react';
-import { useToast } from '@/components/ui/use-toast';
+import { useToast } from '@/hooks/use-toast';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import PaymentModal from './PaymentModal';
 import { Shield, Zap } from 'lucide-react';
