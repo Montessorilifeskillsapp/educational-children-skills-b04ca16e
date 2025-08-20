@@ -260,15 +260,17 @@ const Dashboard: React.FC<DashboardProps> = ({
             </Card>
 
             <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-orange-200 bg-orange-50`}
+              className="cursor-pointer hover:shadow-xl transition-all border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-pink-50 transform hover:scale-105"
               onClick={onSubscriptionView}
             >
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-3">
-                  <Crown className="h-6 w-6 text-orange-600" />
+                  <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
+                    <Crown className="h-6 w-6 text-white" />
+                  </div>
                   <div>
-                    <h3 className="text-orange-700">Subscription Plans</h3>
-                    <p className="text-sm text-gray-600">Upgrade your access</p>
+                    <h3 className="text-purple-700 font-bold">Premium Plans</h3>
+                    <p className="text-sm text-purple-600">Unlock all features & content</p>
                   </div>
                 </CardTitle>
               </CardHeader>

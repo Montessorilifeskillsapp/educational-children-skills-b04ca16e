@@ -268,19 +268,27 @@ const Home: React.FC<HomeProps> = ({
             <p className="text-xl text-white/90 mb-8 leading-relaxed">
               Join thousands of families building independence, confidence, and real-world skills through authentic Montessori education
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button 
-                onClick={onGetStarted}
-                size="lg"
-                className="bg-white text-purple-600 hover:bg-gray-50 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold"
-              >
-                Start Your Free Trial <ArrowRight className="ml-2 h-6 w-6" />
-              </Button>
-              <div className="flex items-center gap-2 text-white/90">
-                <Shield className="w-5 h-5" />
-                <span>No credit card required • Cancel anytime</span>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+                <Button 
+                  onClick={onGetStarted}
+                  size="lg"
+                  className="bg-white text-purple-600 hover:bg-gray-50 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold"
+                >
+                  Start Your Free Trial <ArrowRight className="ml-2 h-6 w-6" />
+                </Button>
+                <Button 
+                  onClick={onSubscriptionView}
+                  size="lg"
+                  variant="outline"
+                  className="bg-white/20 text-white border-white/30 hover:bg-white/30 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold backdrop-blur-sm"
+                >
+                  View Plans & Pricing
+                </Button>
+                <div className="flex items-center gap-2 text-white/90">
+                  <Shield className="w-5 h-5" />
+                  <span>No credit card required • Cancel anytime</span>
+                </div>
               </div>
-            </div>
           </div>
         </section>
       </div>
