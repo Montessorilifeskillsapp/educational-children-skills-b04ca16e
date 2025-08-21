@@ -6,9 +6,11 @@ import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 
 const PlansPage: React.FC = () => {
+  console.log('🔥 PlansPage.tsx: PlansPage component rendering');
   const navigate = useNavigate();
   
   // SEO optimization for plans page
+  console.log('🔥 PlansPage.tsx: About to call useSEO');
   useSEO({
     title: "Premium Plans - Montessori Learning App",
     description: "Choose the perfect Montessori learning plan for your family. Premium access to advanced activities, progress tracking, and expert guidance.",

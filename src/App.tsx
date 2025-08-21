@@ -18,7 +18,10 @@ import { analytics } from "@/lib/analytics";
 import { useEffect } from "react";
 
 const App = () => {
+  console.log('🔥 App.tsx: App component rendering');
+  
   useEffect(() => {
+    console.log('🔥 App.tsx: useEffect running');
     // Initialize analytics on app start
     analytics.init();
     

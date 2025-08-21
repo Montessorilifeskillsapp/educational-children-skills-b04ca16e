@@ -17,7 +17,9 @@ export const useSEO = ({
   ogImage,
   structuredData 
 }: SEOProps) => {
+  console.log('🔥 useSEO: Hook called with:', { title, description });
   useEffect(() => {
+    console.log('🔥 useSEO: useEffect running');
     // Update title
     if (title) {
       document.title = `${title} | Montessori Skills Guide`;
