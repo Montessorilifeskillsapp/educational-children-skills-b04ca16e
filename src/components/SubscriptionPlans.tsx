@@ -100,13 +100,29 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     console.log('handleSubscribe called with plan:', plan);
     try {
       if (plan.id === 'free') {
-        console.log('Subscribing to free plan...');
-        subscribe(plan);
-        console.log('Free plan subscription completed');
-        toast({
-          title: "Welcome to Free Starter Plan!",
-          description: "You can now access basic Montessori activities and start your learning journey.",
-        });
+        if (currentPlan?.id === 'free') {
+          console.log('User already on free plan');
+          toast({
+            title: "You're already on the Free Plan!",
+            description: "Start exploring your Montessori activities now.",
+          });
+          // Navigate back or to dashboard to show activities
+          if (onBack) {
+            onBack();
+          }
+        } else {
+          console.log('Subscribing to free plan...');
+          subscribe(plan);
+          console.log('Free plan subscription completed');
+          toast({
+            title: "Welcome to Free Starter Plan!",
+            description: "You can now access basic Montessori activities and start your learning journey.",
+          });
+          // Navigate back after subscribing
+          if (onBack) {
+            setTimeout(() => onBack(), 1500);
+          }
+        }
       } else {
         console.log('Opening payment modal for premium plan');
         setSelectedPlanId(plan.id);
@@ -218,14 +234,16 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                         }`}
                         variant={plan.id === 'free' ? 'outline' : 'default'}
                         onClick={() => handleSubscribe(plan)}
-                        disabled={currentPlan?.id === plan.id}
+                        disabled={currentPlan?.id === plan.id && plan.id !== 'free'}
                         aria-label={`Subscribe to ${plan.name} plan for $${plan.price} per ${plan.period}`}
                       >
-                        {currentPlan?.id === plan.id
-                          ? 'Current Active Plan' 
-                          : plan.id === 'free' 
-                            ? 'Start Free Today' 
-                            : `Start ${plan.name} Plan`
+                        {currentPlan?.id === plan.id && plan.id === 'free'
+                          ? 'Explore Your Activities' 
+                          : currentPlan?.id === plan.id
+                            ? 'Current Active Plan' 
+                            : plan.id === 'free' 
+                              ? 'Start Free Today' 
+                              : `Start ${plan.name} Plan`
                         }
                       </Button>
                       
