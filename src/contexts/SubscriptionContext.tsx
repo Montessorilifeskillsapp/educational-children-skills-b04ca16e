@@ -65,17 +65,36 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     }
   });
 
-  // Save to localStorage whenever plan changes
-  useEffect(() => {
-    if (currentPlan) {
-      localStorage.setItem('subscription-plan', JSON.stringify(currentPlan));
-    }
-  }, [currentPlan]);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Save to localStorage whenever purchased items change
+  // Initialize once to prevent infinite loops
   useEffect(() => {
-    localStorage.setItem('purchased-items', JSON.stringify(purchasedItems));
-  }, [purchasedItems]);
+    if (!isInitialized) {
+      setIsInitialized(true);
+    }
+  }, [isInitialized]);
+
+  // Save to localStorage whenever plan changes, but only after initialization
+  useEffect(() => {
+    if (isInitialized && currentPlan) {
+      const savedPlan = localStorage.getItem('subscription-plan');
+      const currentPlanString = JSON.stringify(currentPlan);
+      if (savedPlan !== currentPlanString) {
+        localStorage.setItem('subscription-plan', currentPlanString);
+      }
+    }
+  }, [currentPlan, isInitialized]);
+
+  // Save to localStorage whenever purchased items change, but only after initialization
+  useEffect(() => {
+    if (isInitialized) {
+      const savedItems = localStorage.getItem('purchased-items');
+      const currentItemsString = JSON.stringify(purchasedItems);
+      if (savedItems !== currentItemsString) {
+        localStorage.setItem('purchased-items', currentItemsString);
+      }
+    }
+  }, [purchasedItems, isInitialized]);
 
   const isPremium = currentPlan?.id === 'premium' || currentPlan?.id === 'family';
   const isFamily = currentPlan?.id === 'family';
