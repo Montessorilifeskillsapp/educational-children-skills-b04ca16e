@@ -2,14 +2,19 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Crown, Gift, ArrowRight } from 'lucide-react';
-import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useSubscription } from '@/hooks/useSubscription';
 
 interface PaymentSuccessProps {
   onContinue: () => void;
 }
 
 const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ onContinue }) => {
-  const { currentPlan, isPremium } = useSubscription();
+  const { subscription_tier, subscribed, checkSubscription } = useSubscription();
+
+  React.useEffect(() => {
+    // Refresh subscription status when component mounts
+    checkSubscription();
+  }, [checkSubscription]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 flex items-center justify-center p-6">
@@ -28,12 +33,12 @@ const PaymentSuccess: React.FC<PaymentSuccessProps> = ({ onContinue }) => {
             Thank you for your purchase! Your payment has been processed successfully.
           </p>
           
-          {isPremium && (
+          {subscribed && (
             <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-lg">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <Crown className="w-5 h-5 text-purple-600" />
                 <span className="font-semibold text-purple-800">
-                  Welcome to {currentPlan?.name}!
+                  Welcome to {subscription_tier} Plan!
                 </span>
               </div>
               <p className="text-sm text-purple-700">

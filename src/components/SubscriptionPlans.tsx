@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Crown, Star, Users } from 'lucide-react';
+import { Check, Crown, Star, Users, ExternalLink } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
@@ -10,7 +10,8 @@ import BackButton from '@/components/ui/back-button';
 import { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
 import { useSubscription } from '@/contexts/SubscriptionContext';
-import PaymentModal from './PaymentModal';
+import { useAuthContext } from './AuthProvider';
+import { supabase } from '@/integrations/supabase/client';
 import { Shield, Zap } from 'lucide-react';
 
 interface Plan {
@@ -42,9 +43,23 @@ const plans: Plan[] = [
     ]
   },
   {
+    id: 'basic',
+    name: 'Basic Plan',
+    price: 7.99,
+    period: 'month',
+    description: 'Essential Montessori activities for your child',
+    features: [
+      '20+ curated activities',
+      'Basic progress tracking',
+      'Activity instructions & guides',
+      'Email support',
+      'Mobile access'
+    ]
+  },
+  {
     id: 'premium',
-    name: 'Premium Individual',
-    price: 9.99,
+    name: 'Premium Plan',
+    price: 14.99,
     period: 'month',
     description: 'Unlock your child\'s full learning potential',
     features: [
@@ -61,12 +76,12 @@ const plans: Plan[] = [
   },
   {
     id: 'family',
-    name: 'Family Premium',
-    price: 19.99,
+    name: 'Family Plan',
+    price: 24.99,
     period: 'month',
     description: 'Perfect for families with multiple children',
     features: [
-      'Everything in Premium Individual',
+      'Everything in Premium Plan',
       'Up to 5 child profiles & tracking',
       'Family progress dashboard overview',
       '20% discount on all materials bundles',
@@ -91,12 +106,12 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     keywords: 'montessori premium, family learning plan, educational subscription, advanced activities',
     canonical: '/plans'
   });
-  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-  const [selectedPlanId, setSelectedPlanId] = useState<string>('');
+  const [loading, setLoading] = useState<string | null>(null);
   const { toast } = useToast();
   const { currentPlan, subscribe } = useSubscription();
+  const { user } = useAuthContext();
 
-  const handleSubscribe = (plan: Plan) => {
+  const handleSubscribe = async (plan: Plan) => {
     console.log('handleSubscribe called with plan:', plan);
     try {
       if (plan.id === 'free') {
@@ -124,9 +139,42 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           }
         }
       } else {
-        console.log('Opening payment modal for premium plan');
-        setSelectedPlanId(plan.id);
-        setPaymentModalOpen(true);
+        if (!user) {
+          toast({
+            title: "Sign In Required",
+            description: "Please sign in to subscribe to a premium plan.",
+            variant: "destructive"
+          });
+          return;
+        }
+        
+        console.log('Creating Stripe checkout for premium plan');
+        setLoading(plan.id);
+        
+        try {
+          const { data, error } = await supabase.functions.invoke('create-checkout', {
+            body: { planId: plan.id }
+          });
+          
+          if (error) throw error;
+          
+          // Open Stripe checkout in a new tab
+          window.open(data.url, '_blank');
+          
+          toast({
+            title: "Redirecting to Checkout",
+            description: "Opening Stripe payment page in a new tab...",
+          });
+        } catch (error) {
+          console.error('Checkout error:', error);
+          toast({
+            title: "Checkout Error",
+            description: "Failed to start checkout process. Please try again.",
+            variant: "destructive"
+          });
+        } finally {
+          setLoading(null);
+        }
       }
     } catch (error) {
       console.error('Error in handleSubscribe:', error);
@@ -234,17 +282,22 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                         }`}
                         variant={plan.id === 'free' ? 'outline' : 'default'}
                         onClick={() => handleSubscribe(plan)}
-                        disabled={currentPlan?.id === plan.id && plan.id !== 'free'}
+                        disabled={(currentPlan?.id === plan.id && plan.id !== 'free') || loading === plan.id}
                         aria-label={`Subscribe to ${plan.name} plan for $${plan.price} per ${plan.period}`}
                       >
-                        {currentPlan?.id === plan.id && plan.id === 'free'
-                          ? 'Explore Your Activities' 
-                          : currentPlan?.id === plan.id
-                            ? 'Current Active Plan' 
-                            : plan.id === 'free' 
-                              ? 'Start Free Today' 
-                              : `Start ${plan.name} Plan`
-                        }
+                        {loading === plan.id ? (
+                          <>
+                            Processing... <ExternalLink className="w-4 h-4 ml-2" />
+                          </>
+                        ) : currentPlan?.id === plan.id && plan.id === 'free' ? (
+                          'Explore Your Activities' 
+                        ) : currentPlan?.id === plan.id ? (
+                          'Current Active Plan' 
+                        ) : plan.id === 'free' ? (
+                          'Start Free Today' 
+                        ) : (
+                          `Start ${plan.name} Plan`
+                        )}
                       </Button>
                       
                       {plan.id !== 'free' && (
@@ -260,12 +313,6 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           </div>
         </section>
 
-      <PaymentModal
-        isOpen={paymentModalOpen}
-        onClose={() => setPaymentModalOpen(false)}
-        onSuccess={handlePaymentSuccess}
-        planId={selectedPlanId}
-      />
     </div>
   );
 
