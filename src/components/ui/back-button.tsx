@@ -16,16 +16,15 @@ const BackButton: React.FC<BackButtonProps> = ({
   className = ''
 }) => {
   return (
-    <div className="mb-6">
-      <Button
-        variant={variant}
-        onClick={onClick}
-        className={`flex items-center gap-2 hover:bg-accent/50 transition-colors ${className}`}
-      >
-        <ArrowLeft className="w-4 h-4" />
-        {label}
-      </Button>
-    </div>
+    <Button
+      variant={variant}
+      onClick={onClick}
+      size="sm"
+      className={`flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-accent/50 transition-colors ${className}`}
+    >
+      <ArrowLeft className="w-4 h-4" />
+      {label}
+    </Button>
   );
 };
 export default BackButton;

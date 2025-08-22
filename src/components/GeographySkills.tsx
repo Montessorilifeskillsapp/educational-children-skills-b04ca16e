@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowLeft } from 'lucide-react';
+import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
 import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
@@ -37,13 +37,7 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
     <div className={`min-h-screen ${montessoriTheme.backgrounds.geography} p-4`}>
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
-          <button
-            onClick={onBack}
-            className="flex items-center gap-2 text-green-600 hover:text-green-700 mb-4"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            Back to Dashboard
-          </button>
+          <BackButton onClick={onBack} label="Back to Dashboard" />
         </div>
 
         <div className="text-center mb-12">

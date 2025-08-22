@@ -1,6 +1,5 @@
 import React from 'react';
-import { Button } from '@/components/ui/button';
-import { ArrowLeft } from 'lucide-react';
+import BackButton from '@/components/ui/back-button';
 
 interface PageLayoutProps {
   title: string;
@@ -23,15 +22,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           {showBackButton && (
-            <Button
-              onClick={onBack}
-              variant="ghost"
-              size="sm"
-              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back
-            </Button>
+            <BackButton onClick={onBack} />
           )}
           <h1 className="text-2xl font-bold text-foreground flex-1 text-center">
             {title}

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '@/components/ui/button';
+import BackButton from '@/components/ui/back-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
@@ -80,7 +81,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
     <div className={`min-h-screen ${montessoriTheme.backgrounds.practical} p-6 pb-20`}>
       <div className="max-w-2xl mx-auto">
         <div className="flex items-center justify-between mb-6">
-          <Button onClick={onBack} variant="outline">← Back</Button>
+          <BackButton onClick={onBack} />
           <div className="text-center">
             {/* Icon without background */}
             <div className="mb-2 flex justify-center">

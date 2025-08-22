@@ -22,6 +22,8 @@ import Resources from './Resources';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
+import { Badge } from '@/components/ui/badge';
+import BackButton from '@/components/ui/back-button';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -334,12 +336,7 @@ const AppLayout: React.FC = () => {
           />
 
           <div className="mt-6">
-            <button
-              onClick={handleBack}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-            >
-              Continue to Learning
-            </button>
+            <BackButton onClick={handleBack} label="Continue to Learning" variant="default" />
           </div>
         </div>
       </div>

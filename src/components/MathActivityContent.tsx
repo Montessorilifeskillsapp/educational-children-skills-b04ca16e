@@ -1,7 +1,19 @@
 import React from 'react';
+import BackButton from '@/components/ui/back-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { MathSkillData } from '@/data/mathSkills';
+
+interface MathSkillData {
+  icon: string;
+  title: string;
+  ageRange: string;
+  difficulty: string;
+  purpose: string;
+  materialsPurpose?: string[];
+  detailedSteps?: string[];
+  objectives: string[];
+  extensions: string[];
+}
 
 interface MathActivityContentProps {
   skill: MathSkillData;
@@ -12,12 +24,7 @@ const MathActivityContent: React.FC<MathActivityContentProps> = ({ skill, onBack
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
       <div className="max-w-4xl mx-auto">
-        <button 
-          onClick={onBack}
-          className="mb-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700"
-        >
-          ← Back to Math Skills
-        </button>
+        <BackButton onClick={onBack} label="Back to Math Skills" />
 
         <div className="mb-6">
           <h1 className="text-3xl font-bold text-blue-900 flex items-center gap-2">

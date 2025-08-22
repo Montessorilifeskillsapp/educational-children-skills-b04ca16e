@@ -1,4 +1,5 @@
 import React from 'react';
+import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
 import { artSkillsEnhanced } from '../data/artSkillsEnhanced';
 import SkillActivity from './SkillActivity';
@@ -24,12 +25,7 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.art}`}><div className="container mx-auto px-4 py-8">
       {onBack && (
-        <button
-          onClick={onBack}
-          className="mb-6 flex items-center gap-2 px-4 py-2 bg-purple-100 text-purple-700 rounded-lg hover:bg-purple-200 transition-colors"
-        >
-          ← Back to Skills
-        </button>
+        <BackButton onClick={onBack} label="Back to Skills" />
       )}
       <div className="text-center mb-8">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">

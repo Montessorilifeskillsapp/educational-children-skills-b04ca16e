@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Clock, Users, Star, Lock } from 'lucide-react';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
@@ -24,14 +25,7 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
     <div className="min-h-screen bg-gradient-to-br from-rose-50 to-orange-50 p-4">
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
-          <Button
-            variant="ghost"
-            onClick={onBack}
-            className="mr-4 hover:bg-white/50"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Skills
-          </Button>
+          <BackButton onClick={onBack} label="Back to Skills" />
           <div>
             <h1 className="text-3xl font-bold text-gray-800">Grace and Courtesy</h1>
             <p className="text-gray-600 mt-2">Social skills and polite behavior</p>
