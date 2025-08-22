@@ -4,7 +4,6 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Check, Crown, Star, Users, ExternalLink } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
-import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
 
 import { useState } from 'react';
@@ -100,13 +99,6 @@ interface SubscriptionPlansProps {
 }
 
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
-  // Always call hooks at the top level
-  useSEO({
-    title: 'Premium Family Learning Plans - Unlock Advanced Activities',
-    description: 'Unlock advanced Montessori activities and exclusive content with our premium family plans. 30-day money-back guarantee.',
-    keywords: 'montessori premium, family learning plan, educational subscription, advanced activities',
-    canonical: '/plans'
-  });
   const [loading, setLoading] = useState<string | null>(null);
   const { toast } = useToast();
   const { currentPlan, subscribe } = useSubscription();
