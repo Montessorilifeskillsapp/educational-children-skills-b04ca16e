@@ -13,6 +13,13 @@ import Index from "./pages/Index";
 import PracticalLifePage from "./pages/PracticalLifePage";
 import PlansPage from "./pages/PlansPage";
 import AuthPage from "./pages/AuthPage";
+import PaymentSuccessPage from "./pages/PaymentSuccessPage";
+import PaymentCancelPage from "./pages/PaymentCancelPage";
+import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
+import TermsOfServicePage from "./pages/TermsOfServicePage";
+import ContactPage from "./pages/ContactPage";
+import HelpPage from "./pages/HelpPage";
+import AboutPage from "./pages/AboutPage";
 import NotFound from "./pages/NotFound";
 import { analytics } from "@/lib/analytics";
 import { useEffect } from "react";
@@ -46,6 +53,13 @@ const App = () => {
                           <Route path="/practical-life" element={<PracticalLifePage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
+                          <Route path="/payment-success" element={<PaymentSuccessPage />} />
+                          <Route path="/payment-cancel" element={<PaymentCancelPage />} />
+                          <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                          <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                          <Route path="/contact" element={<ContactPage />} />
+                          <Route path="/help" element={<HelpPage />} />
+                          <Route path="/about" element={<AboutPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                       </BrowserRouter>
