@@ -85,7 +85,7 @@ const TermsOfServicePage: React.FC = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-xl font-semibred mb-4">Intellectual Property</h2>
+                <h2 className="text-xl font-semibold mb-4">Intellectual Property</h2>
                 <p>
                   All content, features, and functionality of the app are owned by us and are protected by copyright, 
                   trademark, and other intellectual property laws. You may not reproduce, distribute, or create 
