@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 import BuilderAccess from '@/components/BuilderAccess';
 import AppLayout from '@/components/AppLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -8,7 +9,16 @@ const Index: React.FC = () => {
   const [showBuilderAccess, setShowBuilderAccess] = useState(() => {
     // Check if user has already entered the app in this session
     try {
-      return !sessionStorage.getItem('appEntered');
+      // Clear any potentially corrupt session data on first load
+      const appEntered = sessionStorage.getItem('appEntered');
+      if (!appEntered) {
+        // Clear localStorage to prevent issues with corrupted data
+        localStorage.removeItem('montessori_profiles');
+        localStorage.removeItem('montessori_active_profile');
+        localStorage.removeItem('subscription-plan');
+        localStorage.removeItem('purchased-items');
+      }
+      return !appEntered;
     } catch (error) {
       console.error('SessionStorage error:', error);
       return true; // Default to showing BuilderAccess if sessionStorage fails
@@ -55,20 +65,49 @@ const Index: React.FC = () => {
 
   if (showBuilderAccess) {
     return (
-      <SEOOptimizer>
-        <BuilderAccess 
-          onEnterApp={handleEnterApp}
-        />
-      </SEOOptimizer>
+      <ErrorBoundary>
+        <SEOOptimizer>
+          <BuilderAccess 
+            onEnterApp={handleEnterApp}
+          />
+        </SEOOptimizer>
+      </ErrorBoundary>
     );
   }
 
   return (
-    <SEOOptimizer>
-      <div className="app-container">
-        <AppLayout />
+    <ErrorBoundary fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+        <div className="text-center max-w-md">
+          <h1 className="text-2xl font-bold mb-4">Unable to Load Montessori App</h1>
+          <p className="text-gray-600 mb-4">We're having trouble loading the app. This is usually a temporary issue.</p>
+          <div className="space-y-3">
+            <button 
+              onClick={() => window.location.reload()} 
+              className="block w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+            >
+              Refresh Page
+            </button>
+            <button 
+              onClick={() => {
+                localStorage.clear();
+                sessionStorage.clear();
+                window.location.reload();
+              }} 
+              className="block w-full px-6 py-3 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
+            >
+              Clear Data & Refresh
+            </button>
+          </div>
+        </div>
       </div>
-    </SEOOptimizer>
+    }>
+      <SEOOptimizer>
+        <div className="app-container">
+          <AppLayout />
+        </div>
+      </SEOOptimizer>
+    </ErrorBoundary>
   );
 };
 
