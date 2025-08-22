@@ -53,50 +53,7 @@ const AppLayout: React.FC = () => {
     'watering-plants', 'cutting-with-scissors', 'preparing-snack'
   ];
 
-  // Show authentication prompt if not logged in AND not onboarded (demo mode)
-  if (!loading && !user && !isOnboarded) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
-        <Card className="w-full max-w-md">
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl mb-2">Welcome to Montessori Learning</CardTitle>
-            <p className="text-gray-600">Sign in to access your dashboard and track progress</p>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <Button 
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" 
-              size="lg"
-              onClick={() => completeOnboarding([])}
-            >
-              <Heart className="mr-2 h-4 w-4" />
-              Try Demo (No Account Needed)
-            </Button>
-            <div className="relative">
-              <div className="absolute inset-0 flex items-center">
-                <span className="w-full border-t" />
-              </div>
-              <div className="relative flex justify-center text-xs uppercase">
-                <span className="bg-background px-2 text-muted-foreground">
-                  Or sign in for full access
-                </span>
-              </div>
-            </div>
-            <Link to="/auth">
-              <Button variant="outline" className="w-full" size="lg">
-                <LogIn className="mr-2 h-4 w-4" />
-                Sign In / Create Account
-              </Button>
-            </Link>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
-  if (!isOnboarded) {
-    return <OnboardingFlow onComplete={completeOnboarding} />;
-  }
-
+  // ALL useCallback hooks must be defined before any conditional returns
   const handleSkillSelect = useCallback((skillId: string) => {
     setSelectedSkill(skillId);
     setCurrentView('activity');
@@ -121,6 +78,7 @@ const AppLayout: React.FC = () => {
   const handleBotanyView = useCallback(() => {
     setCurrentView('botany');
   }, []);
+  
   const handleArtView = useCallback(() => {
     setCurrentView('art');
   }, []);
@@ -132,7 +90,6 @@ const AppLayout: React.FC = () => {
   const handlePracticalLifeView = useCallback(() => {
     setCurrentView('practical');
   }, []);
-
 
   const handleGetStarted = useCallback(() => {
     setCurrentView('dashboard');
@@ -179,6 +136,51 @@ const AppLayout: React.FC = () => {
   const handleComplete = useCallback((skillId: string) => {
     setCompletedSkills(prev => [...prev, skillId]);
   }, []);
+
+  // Show authentication prompt if not logged in AND not onboarded (demo mode)
+  if (!loading && !user && !isOnboarded) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+        <Card className="w-full max-w-md">
+          <CardHeader className="text-center">
+            <CardTitle className="text-2xl mb-2">Welcome to Montessori Learning</CardTitle>
+            <p className="text-gray-600">Sign in to access your dashboard and track progress</p>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <Button 
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" 
+              size="lg"
+              onClick={() => completeOnboarding([])}
+            >
+              <Heart className="mr-2 h-4 w-4" />
+              Try Demo (No Account Needed)
+            </Button>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <span className="w-full border-t" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or sign in for full access
+                </span>
+              </div>
+            </div>
+            <Link to="/auth">
+              <Button variant="outline" className="w-full" size="lg">
+                <LogIn className="mr-2 h-4 w-4" />
+                Sign In / Create Account
+              </Button>
+            </Link>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (!isOnboarded) {
+    return <OnboardingFlow onComplete={completeOnboarding} />;
+  }
+
   if (currentView === 'home') {
     return (
       <Home 
