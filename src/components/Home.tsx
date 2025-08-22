@@ -284,10 +284,6 @@ const Home: React.FC<HomeProps> = ({
                 >
                   View Plans & Pricing
                 </Button>
-                <div className="flex items-center gap-2 text-white/90">
-                  <Shield className="w-5 h-5" />
-                  <span>No credit card required • Cancel anytime</span>
-                </div>
               </div>
           </div>
         </section>
