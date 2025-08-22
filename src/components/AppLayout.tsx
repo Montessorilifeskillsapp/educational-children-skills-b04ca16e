@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import Dashboard from './Dashboard';
 import SkillActivity from './SkillActivity';
-
 import PracticalLifeOverview from './PracticalLifeOverview';
 import PracticalLifeSkills from './PracticalLifeSkills';
 import SensorialSkills from './SensorialSkills';
@@ -22,12 +21,11 @@ import Resources from './Resources';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
-import { Badge } from '@/components/ui/badge';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { LogIn, UserPlus, Heart } from 'lucide-react';
+import { LogIn, Heart } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
 import { mathSkillsData } from '@/data/mathSkills';
@@ -35,96 +33,42 @@ import { geographySkillsData } from '@/data/geographySkills';
 import { artSkillsData } from '@/data/artSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { botanySkillsData } from '@/data/botanySkills';
+
 const AppLayout: React.FC = () => {
-  // Initialize state first
+  // State
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'grace-courtesy' | 'shop' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
-  // Always call hooks - never conditionally
+  // Hooks - called in same order every time
   const { user, loading } = useAuthContext();
   const { isPremium } = useSubscription(); 
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
   
-  const practicalSkills = [
-    'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed', 
-    'setting-table', 'tying-shoes', 'pouring', 'spooning', 
-    'flower-arranging', 'polishing', 'sweeping', 'folding-clothes',
-    'watering-plants', 'cutting-with-scissors', 'preparing-snack'
-  ];
-
-  // ALL useCallback hooks must be defined before any conditional returns
+  // Callbacks - all defined at top level
   const handleSkillSelect = useCallback((skillId: string) => {
     setSelectedSkill(skillId);
     setCurrentView('activity');
   }, []);
 
-  const handleSensorialView = useCallback(() => {
-    setCurrentView('sensorial');
+  const handleComplete = useCallback((skillId: string) => {
+    setCompletedSkills(prev => [...prev, skillId]);
   }, []);
 
-  const handleLanguageView = useCallback(() => {
-    setCurrentView('language');
-  }, []);
+  const handleBackToPractical = useCallback(() => setCurrentView('practical'), []);
+  const handleBackToSensorial = useCallback(() => setCurrentView('sensorial'), []);
+  const handleBackToLanguage = useCallback(() => setCurrentView('language'), []);
+  const handleBackToMath = useCallback(() => setCurrentView('math'), []);
+  const handleBackToGeography = useCallback(() => setCurrentView('geography'), []);
+  const handleBackToBotany = useCallback(() => setCurrentView('botany'), []);
+  const handleBackToDashboard = useCallback(() => setCurrentView('dashboard'), []);
+  const handleBackToHome = useCallback(() => setCurrentView('home'), []);
 
-  const handleMathView = useCallback(() => {
-    setCurrentView('math');
-  }, []);
-
-  const handleGeographyView = useCallback(() => {
-    setCurrentView('geography');
-  }, []);
-
-  const handleBotanyView = useCallback(() => {
-    setCurrentView('botany');
-  }, []);
-  
-  const handleArtView = useCallback(() => {
-    setCurrentView('art');
-  }, []);
-
-  const handleGraceCourtesyView = useCallback(() => {
-    setCurrentView('grace-courtesy');
-  }, []);
-
-  const handlePracticalLifeView = useCallback(() => {
-    setCurrentView('practical');
-  }, []);
-
-  const handleGetStarted = useCallback(() => {
-    setCurrentView('dashboard');
-  }, []);
-
-  const handleShopView = useCallback(() => {
-    setCurrentView('shop');
-  }, []);
-
-  const handleSubscriptionView = useCallback(() => {
-    setCurrentView('subscription');
-  }, []);
-
-  const handleParentView = useCallback(() => {
-    setCurrentView('parent');
-  }, []);
-
-  const handleProfilesView = useCallback(() => {
-    setCurrentView('profiles');
-  }, []);
-
-  const handleResourcesView = useCallback(() => {
-    setCurrentView('resources');
-  }, []);
-
-  const handleBackToHome = useCallback(() => {
-    setCurrentView('home');
-  }, []);
-
-  const handleBackToDashboard = useCallback(() => {
-    setCurrentView('dashboard');
+  const handleViewChange = useCallback((view: typeof currentView) => {
+    setCurrentView(view);
   }, []);
 
   const handleBack = useCallback(() => {
-    // Navigate back based on current view
     if (currentView === 'activity') {
       setCurrentView('dashboard');
     } else {
@@ -133,11 +77,15 @@ const AppLayout: React.FC = () => {
     setSelectedSkill('');
   }, [currentView]);
 
-  const handleComplete = useCallback((skillId: string) => {
-    setCompletedSkills(prev => [...prev, skillId]);
-  }, []);
+  // Constants
+  const practicalSkills = [
+    'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed', 
+    'setting-table', 'tying-shoes', 'pouring', 'spooning', 
+    'flower-arranging', 'polishing', 'sweeping', 'folding-clothes',
+    'watering-plants', 'cutting-with-scissors', 'preparing-snack'
+  ];
 
-  // Show authentication prompt if not logged in AND not onboarded (demo mode)
+  // Early returns after all hooks are called
   if (!loading && !user && !isOnboarded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
@@ -181,29 +129,28 @@ const AppLayout: React.FC = () => {
     return <OnboardingFlow onComplete={completeOnboarding} />;
   }
 
+  // View routing
   if (currentView === 'home') {
     return (
       <Home 
-        onGetStarted={handleGetStarted}
-        onShopView={handleShopView}
-        onResourcesView={handleResourcesView}
-        onSubscriptionView={handleSubscriptionView}
-        onDashboardView={() => setCurrentView('dashboard')}
-        
-        onPracticalView={handlePracticalLifeView}
-        onSensorialView={handleSensorialView}
-        onLanguageView={handleLanguageView}
-        onMathView={handleMathView}
-        onGeographyView={handleGeographyView}
-        onBotanyView={handleBotanyView}
-        onArtView={handleArtView}
-        onGraceCourtesyView={handleGraceCourtesyView}
-        onParentView={handleParentView}
-        onProfilesView={handleProfilesView}
+        onGetStarted={() => handleViewChange('dashboard')}
+        onShopView={() => handleViewChange('shop')}
+        onResourcesView={() => handleViewChange('resources')}
+        onSubscriptionView={() => handleViewChange('subscription')}
+        onDashboardView={() => handleViewChange('dashboard')}
+        onPracticalView={() => handleViewChange('practical')}
+        onSensorialView={() => handleViewChange('sensorial')}
+        onLanguageView={() => handleViewChange('language')}
+        onMathView={() => handleViewChange('math')}
+        onGeographyView={() => handleViewChange('geography')}
+        onBotanyView={() => handleViewChange('botany')}
+        onArtView={() => handleViewChange('art')}
+        onGraceCourtesyView={() => handleViewChange('grace-courtesy')}
+        onParentView={() => handleViewChange('parent')}
+        onProfilesView={() => handleViewChange('profiles')}
       />
     );
   }
-
 
   if (currentView === 'grace-courtesy') {
     return (
@@ -261,6 +208,7 @@ const AppLayout: React.FC = () => {
       />
     );
   }
+
   if (currentView === 'geography') {
     return (
       <GeographySkills
@@ -272,6 +220,7 @@ const AppLayout: React.FC = () => {
       />
     );
   }
+
   if (currentView === 'botany') {
     return (
       <BotanySkills
@@ -282,6 +231,7 @@ const AppLayout: React.FC = () => {
       />
     );
   }
+
   if (currentView === 'art') {
     return (
       <ArtSkills
@@ -291,6 +241,7 @@ const AppLayout: React.FC = () => {
       />
     );
   }
+
   if (currentView === 'shop') {
     return <Shop onBack={handleBack} />;
   }
@@ -320,7 +271,6 @@ const AppLayout: React.FC = () => {
             totalSkills={practicalSkills.length}
             onBack={() => setCurrentView('home')}
           />
-
           <div className="mt-6">
             <BackButton onClick={handleBack} label="Continue to Learning" variant="default" />
           </div>
@@ -334,7 +284,7 @@ const AppLayout: React.FC = () => {
       return (
         <PracticalLifeSkills
           skillId={selectedSkill}
-          onBack={() => setCurrentView('practical')}
+          onBack={handleBackToPractical}
           onComplete={handleComplete}
         />
       );
@@ -344,18 +294,17 @@ const AppLayout: React.FC = () => {
       return (
         <SkillActivity
           skillId={selectedSkill}
-          onBack={() => setCurrentView('practical')}
+          onBack={handleBackToPractical}
           onComplete={handleComplete}
         />
       );
     }
 
-    
     if (sensorialSkills[selectedSkill]) {
       return (
         <SkillActivity
           skillId={selectedSkill}
-          onBack={() => setCurrentView('sensorial')}
+          onBack={handleBackToSensorial}
           onComplete={handleComplete}
         />
       );
@@ -365,7 +314,7 @@ const AppLayout: React.FC = () => {
       return (
         <SkillActivity
           skillId={selectedSkill}
-          onBack={() => setCurrentView('language')}
+          onBack={handleBackToLanguage}
           onComplete={handleComplete}
         />
       );
@@ -375,7 +324,7 @@ const AppLayout: React.FC = () => {
       return (
         <MathActivityContent
           skill={mathSkillsData[selectedSkill]}
-          onBack={() => setCurrentView('math')}
+          onBack={handleBackToMath}
         />
       );
     }
@@ -384,7 +333,7 @@ const AppLayout: React.FC = () => {
       return (
         <SkillActivity
           skillId={selectedSkill}
-          onBack={() => setCurrentView('geography')}
+          onBack={handleBackToGeography}
           onComplete={handleComplete}
         />
       );
@@ -394,7 +343,7 @@ const AppLayout: React.FC = () => {
       return (
         <SkillActivity
           skillId={selectedSkill}
-          onBack={() => setCurrentView('botany')}
+          onBack={handleBackToBotany}
           onComplete={handleComplete}
         />
       );
@@ -409,7 +358,6 @@ const AppLayout: React.FC = () => {
     );
   }
 
-  // Don't render Dashboard until activeProfile is available
   if (!activeProfile) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center">
@@ -424,17 +372,17 @@ const AppLayout: React.FC = () => {
   return (
     <Dashboard
       onSkillSelect={handleSkillSelect}
-      onPracticalLifeView={handlePracticalLifeView}
-      onSensorialView={handleSensorialView}
-      onLanguageView={handleLanguageView}
-      onMathView={handleMathView}
-      onGeographyView={handleGeographyView}
-      onBotanyView={handleBotanyView}
-      onArtView={handleArtView}
-      onShopView={handleShopView}
-      onSubscriptionView={handleSubscriptionView}
-      onParentView={handleParentView}
-      onResourcesView={handleResourcesView}
+      onPracticalLifeView={() => handleViewChange('practical')}
+      onSensorialView={() => handleViewChange('sensorial')}
+      onLanguageView={() => handleViewChange('language')}
+      onMathView={() => handleViewChange('math')}
+      onGeographyView={() => handleViewChange('geography')}
+      onBotanyView={() => handleViewChange('botany')}
+      onArtView={() => handleViewChange('art')}
+      onShopView={() => handleViewChange('shop')}
+      onSubscriptionView={() => handleViewChange('subscription')}
+      onParentView={() => handleViewChange('parent')}
+      onResourcesView={() => handleViewChange('resources')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
       isPremium={isPremium}
