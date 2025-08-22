@@ -60,30 +60,32 @@ serve(async (req) => {
 
     // Define pricing based on planId
     let priceData;
+    let mode: "subscription" | "payment" = "subscription";
+    
     switch (planId) {
-      case 'basic':
+      case 'premium-monthly':
         priceData = {
           currency: "usd",
-          product_data: { name: "Basic Plan" },
-          unit_amount: 799, // $7.99
+          product_data: { name: "Premium Monthly Plan" },
+          unit_amount: 999, // $9.99
           recurring: { interval: "month" },
         };
         break;
-      case 'premium':
+      case 'premium-annual':
         priceData = {
           currency: "usd",
-          product_data: { name: "Premium Plan" },
-          unit_amount: 1499, // $14.99
-          recurring: { interval: "month" },
+          product_data: { name: "Premium Annual Plan" },
+          unit_amount: 7999, // $79.99
+          recurring: { interval: "year" },
         };
         break;
-      case 'family':
+      case 'premium-lifetime':
         priceData = {
           currency: "usd",
-          product_data: { name: "Family Plan" },
-          unit_amount: 2499, // $24.99
-          recurring: { interval: "month" },
+          product_data: { name: "Premium Lifetime Plan" },
+          unit_amount: 14900, // $149.00
         };
+        mode = "payment"; // One-time payment for lifetime
         break;
       default:
         throw new Error("Invalid plan ID");
@@ -101,7 +103,7 @@ serve(async (req) => {
           quantity: 1,
         },
       ],
-      mode: "subscription",
+      mode: mode,
       success_url: `${origin}/payment-success`,
       cancel_url: `${origin}/plans`,
     });

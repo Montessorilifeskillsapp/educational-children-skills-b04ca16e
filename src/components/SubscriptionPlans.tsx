@@ -30,65 +30,66 @@ interface Plan {
 const plans: Plan[] = [
   {
     id: 'free',
-    name: 'Free Starter',
+    name: 'Free Plan',
     price: 0,
     period: 'forever',
-    description: 'Perfect for getting started with Montessori learning',
+    description: 'Start with the Basics - Perfect for exploring Montessori-style learning at home',
     features: [
-      '5 basic practical life activities',
-      'Basic progress tracking dashboard',
-      'Community support forum access',
-      'Essential materials guide PDF',
-      'Email learning tips newsletter'
+      '3 core activities (pouring, sweeping, rolling a mat)',
+      '1 printable activity sheet',
+      'Daily Life Skill Prompt',
+      'Gentle, ad-free experience'
     ]
   },
   {
-    id: 'basic',
-    name: 'Basic Plan',
-    price: 7.99,
+    id: 'premium-monthly',
+    name: 'Premium Monthly',
+    price: 9.99,
     period: 'month',
-    description: 'Essential Montessori activities for your child',
+    description: 'Unlock Their Potential - Complete monthly access to all premium features',
     features: [
-      '20+ curated activities',
-      'Basic progress tracking',
-      'Activity instructions & guides',
-      'Email support',
-      'Mobile access'
-    ]
-  },
-  {
-    id: 'premium',
-    name: 'Premium Plan',
-    price: 14.99,
-    period: 'month',
-    description: 'Unlock your child\'s full learning potential',
-    features: [
-      'Unlimited access to 50+ activities',
-      'Advanced progress analytics & reports',
-      'Premium materials bundles discount',
-      'HD video tutorials for each activity',
-      'Priority customer support',
-      'Printable worksheets & certificates',
-      'Age-appropriate activity recommendations',
-      'Offline activity access'
+      '20+ Montessori life skill activities',
+      'All new content every month',
+      'Beautifully illustrated printable bundles',
+      'Voice-guided instructions (coming soon!)',
+      'Progress badges and certificates',
+      'Parent dashboard with skill tracking'
     ],
     popular: true
   },
   {
-    id: 'family',
-    name: 'Family Plan',
-    price: 24.99,
-    period: 'month',
-    description: 'Perfect for families with multiple children',
+    id: 'premium-annual',
+    name: 'Premium Annual',
+    price: 79.99,
+    period: 'year',
+    description: 'Best Value - Save 33% with annual billing plus bonus seasonal packs',
     features: [
-      'Everything in Premium Plan',
-      'Up to 5 child profiles & tracking',
-      'Family progress dashboard overview',
-      '20% discount on all materials bundles',
-      'Monthly parent training video calls',
-      'Custom learning paths for each child',
-      'Sibling activity coordination tools',
-      'Extended customer support hours'
+      '20+ Montessori life skill activities',
+      'All new content every month',
+      'Beautifully illustrated printable bundles',
+      'Voice-guided instructions (coming soon!)',
+      'Progress badges and certificates',
+      'Parent dashboard with skill tracking',
+      'Bonus seasonal activity packs',
+      'Save 33% compared to monthly'
+    ]
+  },
+  {
+    id: 'premium-lifetime',
+    name: 'Premium Lifetime',
+    price: 149,
+    period: 'one-time',
+    description: 'Forever Access - Pay once, enjoy premium features for life',
+    features: [
+      '20+ Montessori life skill activities',
+      'All new content every month',
+      'Beautifully illustrated printable bundles',
+      'Voice-guided instructions (coming soon!)',
+      'Progress badges and certificates',
+      'Parent dashboard with skill tracking',
+      'Bonus seasonal activity packs',
+      'Lifetime access - no recurring fees',
+      'Future feature updates included'
     ],
     premium: true
   }
@@ -223,7 +224,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
         <section aria-label="Montessori learning subscription plans">
           <h2 className="sr-only">Choose Your Montessori Learning Subscription Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {plans.map((plan) => (
               <article key={plan.id}>
                 <Card 

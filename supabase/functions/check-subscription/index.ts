@@ -82,18 +82,29 @@ serve(async (req) => {
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
       
-      // Determine subscription tier from price
+      // Determine subscription tier from price and interval
       const priceId = subscription.items.data[0].price.id;
       const price = await stripe.prices.retrieve(priceId);
       const amount = price.unit_amount || 0;
-      if (amount <= 999) {
-        subscriptionTier = "Basic";
-      } else if (amount <= 1999) {
-        subscriptionTier = "Premium";
+      const interval = price.recurring?.interval;
+      
+      if (amount === 999 && interval === "month") {
+        subscriptionTier = "Premium Monthly";
+      } else if (amount === 7999 && interval === "year") {
+        subscriptionTier = "Premium Annual";
+      } else if (amount === 14900 && !interval) {
+        subscriptionTier = "Premium Lifetime";
       } else {
-        subscriptionTier = "Family";
+        // Fallback for any existing legacy subscriptions
+        if (amount <= 999) {
+          subscriptionTier = "Premium";
+        } else if (amount <= 8000) {
+          subscriptionTier = "Premium Annual";
+        } else {
+          subscriptionTier = "Premium Lifetime";
+        }
       }
-      logStep("Determined subscription tier", { priceId, amount, subscriptionTier });
+      logStep("Determined subscription tier", { priceId, amount, interval, subscriptionTier });
     } else {
       logStep("No active subscription found");
     }
