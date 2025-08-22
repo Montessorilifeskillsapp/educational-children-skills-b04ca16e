@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import PracticalLifeOverview from '@/components/PracticalLifeOverview';
 import PracticalLifeSkills from '@/components/PracticalLifeSkills';
 import { useSubscription } from '@/contexts/SubscriptionContext';
@@ -6,6 +7,7 @@ import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 
 const PracticalLifePage: React.FC = () => {
+  const navigate = useNavigate();
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
   const { isPremium } = useSubscription();
@@ -44,7 +46,7 @@ const PracticalLifePage: React.FC = () => {
   };
 
   const handleBackToHome = () => {
-    window.history.back();
+    navigate('/');
   };
 
   if (selectedSkill && practicalSkills.includes(selectedSkill)) {

@@ -27,13 +27,13 @@ const PageLayout: React.FC<PageLayoutProps> = ({
               onClick={onBack}
               variant="ghost"
               size="sm"
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-800"
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
             >
               <ArrowLeft className="w-4 h-4" />
               Back
             </Button>
           )}
-          <h1 className="text-2xl font-bold text-gray-800 flex-1 text-center">
+          <h1 className="text-2xl font-bold text-foreground flex-1 text-center">
             {title}
           </h1>
           <div className="w-16"></div> {/* Spacer for centering */}

@@ -20,7 +20,7 @@ const BackButton: React.FC<BackButtonProps> = ({
       <Button
         variant={variant}
         onClick={onClick}
-        className={`flex items-center gap-2 hover:bg-gray-100 transition-colors ${className}`}
+        className={`flex items-center gap-2 hover:bg-accent/50 transition-colors ${className}`}
       >
         <ArrowLeft className="w-4 h-4" />
         {label}
