@@ -40,74 +40,11 @@ const AppLayout: React.FC = () => {
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'grace-courtesy' | 'shop' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
-  const [contextError, setContextError] = useState<string | null>(null);
 
-  // Call hooks at top level with error handling
-  let user = null;
-  let loading = false;
-  let isPremium = false;
-  let profiles: any[] = [];
-  let activeProfile = null;
-  let isOnboarded = true;
-  let completeOnboarding = (profiles: any[]) => {};
-  let setProfiles = (profiles: any[]) => {};
-  let setActiveProfile = (profile: any) => {};
-
-  try {
-    const authContext = useAuthContext();
-    const subscriptionContext = useSubscription();
-    const profileContext = useProfile();
-    
-    user = authContext.user;
-    loading = authContext.loading;
-    isPremium = subscriptionContext.isPremium;
-    profiles = profileContext.profiles;
-    activeProfile = profileContext.activeProfile;
-    isOnboarded = profileContext.isOnboarded;
-    completeOnboarding = profileContext.completeOnboarding;
-    setProfiles = profileContext.setProfiles;
-    setActiveProfile = profileContext.setActiveProfile;
-  } catch (error) {
-    console.error('Context error in AppLayout:', error);
-    setContextError(error instanceof Error ? error.message : 'Unknown context error');
-    // Fallback: allow basic functionality without full context
-    isOnboarded = true;
-    activeProfile = {
-      id: 'fallback',
-      name: 'Demo Child',
-      age: 4,
-      avatar: '👧',
-      interests: ['learning'],
-      learningStyle: 'visual'
-    };
-    completeOnboarding = (profiles) => {
-      console.log('Fallback completeOnboarding called');
-    };
-    setProfiles = (profiles) => {
-      console.log('Fallback setProfiles called');
-    };
-    setActiveProfile = (profile) => {
-      console.log('Fallback setActiveProfile called');
-    };
-  }
-
-  // Show error state if context failed
-  if (contextError) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
-        <div className="text-center max-w-md">
-          <h2 className="text-2xl font-bold mb-4">App Loading Error</h2>
-          <p className="text-gray-600 mb-4">We're having trouble loading the app. This might be a temporary issue.</p>
-          <button 
-            onClick={() => window.location.reload()} 
-            className="px-6 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
-          >
-            Refresh App
-          </button>
-        </div>
-      </div>
-    );
-  }
+  // Always call hooks - never conditionally
+  const { user, loading } = useAuthContext();
+  const { isPremium } = useSubscription(); 
+  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
   
   const practicalSkills = [
     'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed', 
