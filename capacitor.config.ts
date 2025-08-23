@@ -1,19 +1,38 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.8014cebf2b954c64aa6cdf0224122d0f',
-  appName: 'kid-skill-builder',
+  appId: 'com.montessori.lifeskills',
+  appName: 'Montessori Life Skills',
   webDir: 'dist',
-  server: {
-    url: 'https://8014cebf-2b95-4c64-aa6c-df0224122d0f.lovableproject.com?forceHideBadge=true',
-    cleartext: true
-  },
+  bundledWebRuntime: false,
   plugins: {
     SplashScreen: {
-      launchShowDuration: 2000,
+      launchShowDuration: 3000,
       backgroundColor: '#10B981',
-      showSpinner: false
+      showSpinner: true,
+      spinnerColor: '#ffffff',
+      androidSplashResourceName: 'splash',
+      androidScaleType: 'CENTER_CROP',
+      iosSpinnerStyle: 'small'
+    },
+    StatusBar: {
+      backgroundColor: '#10B981',
+      style: 'DARK'
+    },
+    Keyboard: {
+      resize: 'body',
+      style: 'DARK',
+      resizeOnFullScreen: true
     }
+  },
+  ios: {
+    contentInset: 'automatic',
+    allowsLinkPreview: false
+  },
+  android: {
+    allowMixedContent: true,
+    captureInput: true,
+    webContentsDebuggingEnabled: false
   }
 };
 
