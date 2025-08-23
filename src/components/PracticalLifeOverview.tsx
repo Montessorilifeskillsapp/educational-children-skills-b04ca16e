@@ -45,7 +45,6 @@ const careOfPersonSkillsFormatted = [
     category: 'Practical Life',
     difficulty: skill.isPremium ? 'Medium' : 'Easy',
     ageRange: skill.ageRange,
-    duration: skill.duration,
     isPremium: skill.isPremium,
     hasShopItems: getShopItemsForSkill(skill.id).length > 0
   })),
@@ -58,7 +57,6 @@ const careOfPersonSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['brushing-hair'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['brushing-hair'].ageRange,
-    duration: '6-8 minutes',
     isPremium: additionalPracticalLifeSkills['brushing-hair'].isPremium,
     hasShopItems: getShopItemsForSkill('brushing-hair').length > 0
   }
@@ -73,7 +71,6 @@ const graceCourtesySkillsFormatted = Object.values(graceAndCourtesySkills).map(s
   category: 'Practical Life',
   difficulty: skill.isPremium ? 'Medium' : 'Easy',
   ageRange: skill.ageRange,
-  duration: skill.duration,
   isPremium: skill.isPremium
 }));
 
@@ -87,7 +84,6 @@ const careOfEnvironmentSkillsFormatted = [
     category: 'Practical Life',
     difficulty: skill.isPremium ? 'Medium' : 'Easy',
     ageRange: skill.ageRange,
-    duration: skill.duration,
     isPremium: skill.isPremium
   })),
   // Add additional environment skills
@@ -99,7 +95,6 @@ const careOfEnvironmentSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['table-setting'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['table-setting'].ageRange,
-    duration: '8-10 minutes',
     isPremium: additionalPracticalLifeSkills['table-setting'].isPremium
   },
   {
@@ -110,7 +105,6 @@ const careOfEnvironmentSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['flower-arranging'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['flower-arranging'].ageRange,
-    duration: '10-12 minutes',
     isPremium: additionalPracticalLifeSkills['flower-arranging'].isPremium
   },
   {
@@ -121,7 +115,6 @@ const careOfEnvironmentSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['polishing-mirror'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['polishing-mirror'].ageRange,
-    duration: '8-10 minutes',
     isPremium: additionalPracticalLifeSkills['polishing-mirror'].isPremium
   }
 ];
@@ -136,7 +129,6 @@ const controlOfMovementSkillsFormatted = [
     category: 'Practical Life',
     difficulty: skill.isPremium ? 'Medium' : 'Easy',
     ageRange: skill.ageRange,
-    duration: skill.duration,
     isPremium: skill.isPremium
   })),
   // Add food preparation skill
@@ -148,7 +140,6 @@ const controlOfMovementSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['squeezing-orange-juice'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['squeezing-orange-juice'].ageRange,
-    duration: '10-12 minutes',
     isPremium: additionalPracticalLifeSkills['squeezing-orange-juice'].isPremium
   },
   // Add dry pouring
@@ -160,7 +151,6 @@ const controlOfMovementSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['dry-pouring'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['dry-pouring'].ageRange,
-    duration: '6-8 minutes',
     isPremium: additionalPracticalLifeSkills['dry-pouring'].isPremium
   },
   // Add wet pouring
@@ -172,7 +162,6 @@ const controlOfMovementSkillsFormatted = [
     category: 'Practical Life',
     difficulty: additionalPracticalLifeSkills['wet-pouring'].isPremium ? 'Medium' : 'Easy',
     ageRange: additionalPracticalLifeSkills['wet-pouring'].ageRange,
-    duration: '8-10 minutes',
     isPremium: additionalPracticalLifeSkills['wet-pouring'].isPremium
   }
 ];
