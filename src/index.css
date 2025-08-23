@@ -7,44 +7,33 @@
 
 @layer base {
   :root {
-    /* Montessori-inspired warm and natural color palette */
-    --background: 35 20% 96%;
-    --foreground: 25 15% 15%;
+    --background: 210 40% 98%;
+    --foreground: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
-    --card-foreground: 25 15% 15%;
+    --card-foreground: 222.2 84% 4.9%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 25 15% 15%;
+    --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 28 85% 55%;
-    --primary-foreground: 0 0% 98%;
+    --primary: 221 83% 53%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 35 25% 88%;
-    --secondary-foreground: 25 15% 25%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
 
-    --muted: 35 15% 92%;
-    --muted-foreground: 25 8% 45%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 120 25% 75%;
-    --accent-foreground: 25 15% 25%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
 
-    --destructive: 0 75% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 35 12% 85%;
-    --input: 35 12% 85%;
-    --ring: 28 85% 55%;
-
-    /* Montessori-specific colors */
-    --montessori-wood: 28 35% 65%;
-    --montessori-earth: 25 20% 45%;
-    --montessori-sage: 120 25% 75%;
-    --montessori-cream: 35 25% 94%;
-    --montessori-terracotta: 15 65% 65%;
-    --montessori-sky: 200 40% 85%;
-    --montessori-forest: 140 35% 45%;
-    --montessori-sand: 40 25% 85%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221 83% 53%;
 
     --radius: 0.5rem;
 
@@ -59,44 +48,33 @@
   }
 
   .dark {
-    /* Dark mode with Montessori-inspired colors */
-    --background: 25 25% 8%;
-    --foreground: 35 15% 92%;
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
 
-    --card: 25 25% 12%;
-    --card-foreground: 35 15% 92%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 25 25% 12%;
-    --popover-foreground: 35 15% 92%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 28 75% 65%;
-    --primary-foreground: 25 25% 8%;
+    --primary: 217.2 91.2% 59.8%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
-    --secondary: 25 20% 18%;
-    --secondary-foreground: 35 15% 88%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 25 20% 18%;
-    --muted-foreground: 35 10% 65%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 120 20% 45%;
-    --accent-foreground: 35 15% 88%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
 
-    --destructive: 0 65% 55%;
-    --destructive-foreground: 35 15% 92%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 25 20% 22%;
-    --input: 25 20% 22%;
-    --ring: 28 75% 65%;
-
-    /* Dark mode Montessori colors */
-    --montessori-wood: 28 25% 35%;
-    --montessori-earth: 25 15% 25%;
-    --montessori-sage: 120 20% 45%;
-    --montessori-cream: 35 15% 18%;
-    --montessori-terracotta: 15 45% 45%;
-    --montessori-sky: 200 30% 35%;
-    --montessori-forest: 140 25% 25%;
-    --montessori-sand: 40 15% 25%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 224.3 76.3% 48%;
 
     --sidebar-background: 215 28% 17%;
     --sidebar-foreground: 210 40% 98%;

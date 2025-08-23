@@ -63,13 +63,13 @@ const Home: React.FC<HomeProps> = ({
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-montessori-cream via-montessori-sand to-montessori-sky relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-montessori-sage/30 to-montessori-forest/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-montessori-terracotta/30 to-montessori-wood/20 rounded-full blur-lg animate-bounce"></div>
-        <div className="absolute bottom-32 left-32 w-20 h-20 bg-gradient-to-br from-montessori-sage/20 to-accent/30 rounded-full blur-md animate-pulse"></div>
-        <div className="absolute bottom-20 right-40 w-16 h-16 bg-gradient-to-br from-primary/20 to-montessori-terracotta/20 rounded-full blur-sm animate-bounce"></div>
+        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
+        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-red-400/20 rounded-full blur-lg animate-bounce"></div>
+        <div className="absolute bottom-32 left-32 w-20 h-20 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-md animate-pulse"></div>
+        <div className="absolute bottom-20 right-40 w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full blur-sm animate-bounce"></div>
       </div>
 
       {/* Navigation */}
@@ -107,7 +107,7 @@ const Home: React.FC<HomeProps> = ({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center">
               {/* Trust Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-white/90 backdrop-blur-sm text-montessori-forest rounded-full text-sm font-medium mb-8 shadow-lg animate-fade-in">
+              <div className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm text-emerald-700 rounded-full text-sm font-medium mb-8 shadow-lg animate-fade-in">
                 <Sparkles className="w-4 h-4 mr-2" />
                 Trusted by 10,000+ families worldwide
               </div>
@@ -115,8 +115,8 @@ const Home: React.FC<HomeProps> = ({
               {/* Hero Image */}
               <div className="mb-8 animate-scale-in">
                 <div className="relative inline-block">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary to-montessori-wood rounded-3xl blur-2xl opacity-30 scale-110"></div>
-                  <div className="relative bg-gradient-to-r from-primary to-montessori-wood rounded-3xl p-2 shadow-2xl">
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl blur-2xl opacity-30 scale-110"></div>
+                  <div className="relative bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-2 shadow-2xl">
                     <img 
                       src={realisticHeroImage} 
                       alt="Children learning with Montessori materials - puzzle and leaf" 
@@ -128,15 +128,15 @@ const Home: React.FC<HomeProps> = ({
 
               {/* Main Headline */}
               <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-                <span className="bg-gradient-to-r from-primary via-montessori-wood to-montessori-sage bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent">
                   Montessori Life Skills
                 </span>
                 <br />
-                <span className="bg-gradient-to-r from-montessori-sage via-montessori-wood to-primary bg-clip-text text-transparent">for Every Child</span>
+                <span className="bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">for Every Child</span>
               </h1>
 
               {/* Subtitle */}
-              <p className="text-xl md:text-2xl text-montessori-earth mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-in">
+              <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-in">
                 Transform your child's learning journey with authentic Montessori activities that build independence, confidence, and real-world skills
               </p>
 
@@ -145,7 +145,7 @@ const Home: React.FC<HomeProps> = ({
                 {features.map((feature, index) => (
                   <div key={index} className="flex items-center bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
                     <feature.icon className={`w-5 h-5 mr-2 ${feature.color}`} />
-                    <span className="text-montessori-earth font-medium">{feature.text}</span>
+                    <span className="text-slate-700 font-medium">{feature.text}</span>
                   </div>
                 ))}
               </div>
@@ -155,11 +155,11 @@ const Home: React.FC<HomeProps> = ({
                 <Button 
                   onClick={onGetStarted}
                   size="lg"
-                  className="bg-gradient-to-r from-primary to-montessori-wood hover:from-primary/90 hover:to-montessori-wood/90 text-primary-foreground px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
                 >
                   Start Free Journey <ArrowRight className="ml-2 h-6 w-6" />
                 </Button>
-                <div className="flex items-center gap-2 text-montessori-earth bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full">
+                <div className="flex items-center gap-2 text-slate-600 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full">
                   <Star className="w-5 h-5 text-yellow-500 fill-current" />
                   <span className="font-medium">4.9/5 from 2,000+ reviews</span>
                 </div>
@@ -172,52 +172,52 @@ const Home: React.FC<HomeProps> = ({
         <section className="py-20 bg-white/40 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
                 Why Parents Choose Our Platform
               </h2>
-              <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Experience the authentic Montessori method with modern technology and expert guidance
               </p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-gradient-to-br from-montessori-sky/30 to-montessori-sky/50 border-montessori-sky hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
+              <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
                 <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-primary to-montessori-wood rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <BookOpen className="w-6 h-6 text-primary-foreground" />
+                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <BookOpen className="w-6 h-6 text-white" />
                   </div>
-                  <CardTitle className="text-2xl text-montessori-forest group-hover:text-montessori-forest/80 transition-colors">Child-Led Learning</CardTitle>
+                  <CardTitle className="text-2xl text-blue-800 group-hover:text-blue-900 transition-colors">Child-Led Learning</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-montessori-earth text-center text-lg leading-relaxed">
+                  <CardDescription className="text-blue-700 text-center text-lg leading-relaxed">
                     Follow your child's natural curiosity and developmental pace with activities that spark genuine interest and sustained focus
                   </CardDescription>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-montessori-sage/30 to-montessori-sage/50 border-montessori-sage hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
+              <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
                 <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-montessori-sage to-montessori-forest rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Target className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl text-montessori-forest group-hover:text-montessori-forest/80 transition-colors">Hands-On Activities</CardTitle>
+                  <CardTitle className="text-2xl text-emerald-800 group-hover:text-emerald-900 transition-colors">Hands-On Activities</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-montessori-earth text-center text-lg leading-relaxed">
+                  <CardDescription className="text-emerald-700 text-center text-lg leading-relaxed">
                     Real Montessori materials and purposeful activities that develop practical life skills, coordination, and independence
                   </CardDescription>
                 </CardContent>
               </Card>
 
-              <Card className="bg-gradient-to-br from-montessori-terracotta/30 to-montessori-terracotta/50 border-montessori-terracotta hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
+              <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
                 <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-montessori-terracotta to-primary rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
+                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
                     <Award className="w-8 h-8 text-white" />
                   </div>
-                  <CardTitle className="text-2xl text-montessori-forest group-hover:text-montessori-forest/80 transition-colors">Expert Guidance</CardTitle>
+                  <CardTitle className="text-2xl text-purple-800 group-hover:text-purple-900 transition-colors">Expert Guidance</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <CardDescription className="text-montessori-earth text-center text-lg leading-relaxed">
+                  <CardDescription className="text-purple-700 text-center text-lg leading-relaxed">
                     Comprehensive step-by-step instructions and progress tracking to support both child and parent through the learning journey
                   </CardDescription>
                 </CardContent>
@@ -230,10 +230,10 @@ const Home: React.FC<HomeProps> = ({
         <section className="py-20">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
                 Loved by Families Everywhere
               </h2>
-              <p className="text-xl text-muted-foreground">Real stories from parents and educators</p>
+              <p className="text-xl text-slate-600">Real stories from parents and educators</p>
             </div>
 
             <div className="grid md:grid-cols-3 gap-8">
@@ -245,12 +245,12 @@ const Home: React.FC<HomeProps> = ({
                         <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
                       ))}
                     </div>
-                    <p className="text-lg text-montessori-earth mb-6 italic leading-relaxed">
+                    <p className="text-lg text-slate-700 mb-6 italic leading-relaxed">
                       "{testimonial.quote}"
                     </p>
                     <div>
-                      <p className="font-semibold text-foreground">{testimonial.author}</p>
-                      <p className="text-muted-foreground">{testimonial.role}</p>
+                      <p className="font-semibold text-slate-800">{testimonial.author}</p>
+                      <p className="text-slate-600">{testimonial.role}</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -260,7 +260,7 @@ const Home: React.FC<HomeProps> = ({
         </section>
 
         {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-primary via-montessori-wood to-montessori-sage">
+        <section className="py-20 bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
               Ready to Transform Your Child's Learning?
@@ -272,7 +272,7 @@ const Home: React.FC<HomeProps> = ({
                 <Button 
                   onClick={onGetStarted}
                   size="lg"
-                  className="bg-white text-primary hover:bg-gray-50 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold"
+                  className="bg-white text-purple-600 hover:bg-gray-50 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold"
                 >
                   Start Your Free Trial <ArrowRight className="ml-2 h-6 w-6" />
                 </Button>
