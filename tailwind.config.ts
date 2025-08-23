@@ -54,6 +54,16 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))'
         },
+        montessori: {
+          wood: 'hsl(var(--montessori-wood))',
+          earth: 'hsl(var(--montessori-earth))',
+          sage: 'hsl(var(--montessori-sage))',
+          cream: 'hsl(var(--montessori-cream))',
+          terracotta: 'hsl(var(--montessori-terracotta))',
+          sky: 'hsl(var(--montessori-sky))',
+          forest: 'hsl(var(--montessori-forest))',
+          sand: 'hsl(var(--montessori-sand))'
+        },
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar-background))',
           foreground: 'hsl(var(--sidebar-foreground))',
