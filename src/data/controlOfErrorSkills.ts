@@ -10,11 +10,12 @@ export const controlOfErrorSkills = {
     purpose: 'Develops control of movement and self-correction',
     materials: ['Two identical pitchers', 'Water', 'Sponge', 'Tray'],
     steps: [
-      'Place both pitchers on tray',
-      'Pour water slowly from one pitcher to the other',
-      'Notice if water spills (control of error)',
-      'Use sponge to clean any spills',
-      'Practice until no spills occur'
+      'Put both pitchers on the tray next to each other',
+      'Pick up the pitcher with water and hold it carefully with both hands',
+      'Pour the water very slowly into the empty pitcher',
+      'Watch carefully - if water spills, you can see it right away!',
+      'Use the soft sponge to wipe up any water that spilled',
+      'Keep practicing until you can pour without any spills'
     ]
   },
   'spooning-beans': {
@@ -28,11 +29,11 @@ export const controlOfErrorSkills = {
     purpose: 'Develops fine motor control and concentration',
     materials: ['Two bowls', 'Spoon', 'Dried beans', 'Tray'],
     steps: [
-      'Place bowls and spoon on tray',
-      'Spoon beans one at a time',
-      'Count beans that fall (control of error)',
-      'Pick up dropped beans',
-      'Continue until all beans transferred'
+      'Put both bowls and the spoon on your tray',
+      'Pick up one bean at a time with your spoon',
+      'If a bean falls down, you can count how many fell',
+      'Pick up the beans that fell and try again',
+      'Keep spooning until all the beans are in the other bowl'
     ]
   },
   'folding-cloth': {
@@ -46,11 +47,11 @@ export const controlOfErrorSkills = {
     purpose: 'Develops order, sequence, and self-correction',
     materials: ['Square cloth with lines marked', 'Basket'],
     steps: [
-      'Lay cloth flat on table',
-      'Fold along marked lines',
-      'Check that edges align (control of error)',
-      'Refold if edges don\'t match',
-      'Place folded cloth in basket'
+      'Put the cloth flat on the table so you can see the lines',
+      'Fold the cloth along the first line you see',
+      'Look at the edges - do they match up perfectly?',
+      'If the edges don\'t match, unfold and try folding again',
+      'When it looks just right, put your folded cloth in the basket'
     ]
   },
   'sorting-objects': {
@@ -64,11 +65,12 @@ export const controlOfErrorSkills = {
     purpose: 'Develops classification and logical thinking',
     materials: ['Mixed objects', 'Sorting trays', 'Control chart'],
     steps: [
-      'Examine all objects carefully',
-      'Sort objects by chosen attribute',
-      'Check sorting against control chart',
-      'Correct any mistakes found',
-      'Mix objects and repeat activity'
+      'Look at all the objects and touch them gently',
+      'Choose how you want to sort them - by color, size, or shape',
+      'Put each object in the right place on your tray',
+      'Look at the picture chart to see if you sorted correctly',
+      'If something is in the wrong place, move it to where it belongs',
+      'Mix up all the objects and try sorting them a different way'
     ]
   }
 };

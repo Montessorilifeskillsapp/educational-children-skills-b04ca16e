@@ -14,12 +14,12 @@ export const controlOfMovementSkills = {
       'Optional: music for rhythm'
     ],
     steps: [
-      { id: '1', instruction: 'Stand at any point on the line', completed: false },
-      { id: '2', instruction: 'Place right foot on the line, heel to toe', completed: false },
-      { id: '3', instruction: 'Bring left foot forward, heel touching right toe', completed: false },
-      { id: '4', instruction: 'Continue walking heel-to-toe around the line', completed: false },
-      { id: '5', instruction: 'Keep arms balanced and body upright', completed: false },
-      { id: '6', instruction: 'Complete full circle maintaining balance', completed: false }
+      { id: '1', instruction: 'Find a spot on the line and stand with both feet together', completed: false },
+      { id: '2', instruction: 'Place your right foot carefully on the line', completed: false },
+      { id: '3', instruction: 'Put your left foot in front, touching your right heel', completed: false },
+      { id: '4', instruction: 'Walk slowly, always keeping one foot touching the other', completed: false },
+      { id: '5', instruction: 'Hold your arms out to help you balance', completed: false },
+      { id: '6', instruction: 'Walk all the way around the line without stepping off', completed: false }
     ]
   },
 
@@ -39,12 +39,12 @@ export const controlOfMovementSkills = {
       'Designated carrying paths'
     ],
     steps: [
-      { id: '1', instruction: 'Assess the object to be carried', completed: false },
-      { id: '2', instruction: 'Use both hands when possible', completed: false },
-      { id: '3', instruction: 'Hold object close to body', completed: false },
-      { id: '4', instruction: 'Walk slowly and deliberately', completed: false },
-      { id: '5', instruction: 'Watch path for obstacles', completed: false },
-      { id: '6', instruction: 'Place object gently at destination', completed: false }
+      { id: '1', instruction: 'Look at what you need to carry and think about how heavy it is', completed: false },
+      { id: '2', instruction: 'Use both hands to pick up the object safely', completed: false },
+      { id: '3', instruction: 'Hold the object close to your body like a hug', completed: false },
+      { id: '4', instruction: 'Walk slowly and carefully, taking small steps', completed: false },
+      { id: '5', instruction: 'Look where you are going and watch for things in your way', completed: false },
+      { id: '6', instruction: 'Gently put the object down where it belongs', completed: false }
     ]
   },
 
@@ -64,13 +64,13 @@ export const controlOfMovementSkills = {
       'Tray to contain activity'
     ],
     steps: [
-      { id: '1', instruction: 'Place full pitcher on left, empty on right', completed: false },
-      { id: '2', instruction: 'Grasp pitcher handle with dominant hand', completed: false },
-      { id: '3', instruction: 'Support pitcher bottom with other hand', completed: false },
-      { id: '4', instruction: 'Pour slowly and steadily into empty pitcher', completed: false },
-      { id: '5', instruction: 'Stop pouring before pitcher is full', completed: false },
-      { id: '6', instruction: 'Return pitcher to tray', completed: false },
-      { id: '7', instruction: 'Clean any spills with sponge', completed: false }
+      { id: '1', instruction: 'Put the full pitcher on your left side and empty one on your right', completed: false },
+      { id: '2', instruction: 'Hold the pitcher handle with your stronger hand', completed: false },
+      { id: '3', instruction: 'Use your other hand to support the bottom of the pitcher', completed: false },
+      { id: '4', instruction: 'Pour very slowly and watch the beans move', completed: false },
+      { id: '5', instruction: 'Stop pouring when the second pitcher is almost full', completed: false },
+      { id: '6', instruction: 'Put the pitcher back on the tray gently', completed: false },
+      { id: '7', instruction: 'Use the sponge to clean up any beans that fell', completed: false }
     ]
   },
 
@@ -90,12 +90,12 @@ export const controlOfMovementSkills = {
       'Tray for organization'
     ],
     steps: [
-      { id: '1', instruction: 'Choose container to practice with', completed: false },
-      { id: '2', instruction: 'Use appropriate grip for the mechanism', completed: false },
-      { id: '3', instruction: 'Open container carefully', completed: false },
-      { id: '4', instruction: 'Place or remove objects as desired', completed: false },
-      { id: '5', instruction: 'Close container securely', completed: false },
-      { id: '6', instruction: 'Try different types of containers', completed: false }
+      { id: '1', instruction: 'Pick a container that looks interesting to you', completed: false },
+      { id: '2', instruction: 'Look at how it opens - twist, lift, or pull?', completed: false },
+      { id: '3', instruction: 'Open the container slowly and carefully', completed: false },
+      { id: '4', instruction: 'Put something small inside or take something out', completed: false },
+      { id: '5', instruction: 'Close the container so it fits tightly', completed: false },
+      { id: '6', instruction: 'Try another container that opens differently', completed: false }
     ]
   },
 
@@ -115,12 +115,12 @@ export const controlOfMovementSkills = {
       'Basket for storage'
     ],
     steps: [
-      { id: '1', instruction: 'Lay cloth flat on surface', completed: false },
-      { id: '2', instruction: 'Smooth out any wrinkles', completed: false },
-      { id: '3', instruction: 'Fold cloth in half, matching edges exactly', completed: false },
-      { id: '4', instruction: 'Smooth fold with hand', completed: false },
-      { id: '5', instruction: 'Continue folding as desired', completed: false },
-      { id: '6', instruction: 'Place folded cloth in basket', completed: false }
+      { id: '1', instruction: 'Spread the cloth out flat on the table', completed: false },
+      { id: '2', instruction: 'Use your hands to make the cloth smooth and flat', completed: false },
+      { id: '3', instruction: 'Fold the cloth in half, making the edges meet perfectly', completed: false },
+      { id: '4', instruction: 'Press down on the fold with your hand to make it neat', completed: false },
+      { id: '5', instruction: 'Fold it again if you want to make it smaller', completed: false },
+      { id: '6', instruction: 'Put your folded cloth carefully in the basket', completed: false }
     ]
   },
 
@@ -140,12 +140,12 @@ export const controlOfMovementSkills = {
       'Small cloth for cleanup'
     ],
     steps: [
-      { id: '1', instruction: 'Place full bowl on left, empty on right', completed: false },
-      { id: '2', instruction: 'Select appropriate tool for material', completed: false },
-      { id: '3', instruction: 'Pick up one item at a time', completed: false },
-      { id: '4', instruction: 'Transfer carefully to empty bowl', completed: false },
-      { id: '5', instruction: 'Continue until all items are transferred', completed: false },
-      { id: '6', instruction: 'Clean workspace when finished', completed: false }
+      { id: '1', instruction: 'Put the full bowl on your left and empty bowl on your right', completed: false },
+      { id: '2', instruction: 'Choose the best tool - spoon for big things, tongs for small', completed: false },
+      { id: '3', instruction: 'Pick up just one item with your tool', completed: false },
+      { id: '4', instruction: 'Move it carefully to the empty bowl', completed: false },
+      { id: '5', instruction: 'Keep going until you move everything to the other bowl', completed: false },
+      { id: '6', instruction: 'Wipe the table clean when you are all done', completed: false }
     ]
   }
 };

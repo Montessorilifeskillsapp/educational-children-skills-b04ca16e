@@ -26,11 +26,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Choose a sandpaper letter and place on table', completed: false },
-      { id: '2', instruction: 'Trace letter with index and middle finger in writing direction', completed: false },
-      { id: '3', instruction: 'Say the phonetic sound (not letter name) while tracing', completed: false },
-      { id: '4', instruction: 'Repeat tracing and sound three times', completed: false },
-      { id: '5', instruction: 'Have child trace and say sound independently', completed: false }
+      { id: '1', instruction: 'Pick a sandpaper letter and put it in front of you on the table', completed: false },
+      { id: '2', instruction: 'Use two fingers to trace the letter the same way you write it', completed: false },
+      { id: '3', instruction: 'Say the letter sound (like "mmm" not "em") while you trace', completed: false },
+      { id: '4', instruction: 'Trace and say the sound three times to remember it', completed: false },
+      { id: '5', instruction: 'Now you try! Trace the letter and say the sound by yourself', completed: false }
     ]
   },
   'moveable-alphabet': {
@@ -42,11 +42,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: true,
     steps: [
-      { id: '1', instruction: 'Unroll mat and place alphabet box at top', completed: false },
-      { id: '2', instruction: 'Think of or choose an object to spell', completed: false },
-      { id: '3', instruction: 'Sound out word slowly and find each letter', completed: false },
-      { id: '4', instruction: 'Place letters in sequence to build word', completed: false },
-      { id: '5', instruction: 'Read completed word and build another', completed: false }
+      { id: '1', instruction: 'Unroll your mat and put the letter box at the top', completed: false },
+      { id: '2', instruction: 'Think of something you want to spell, like "cat" or "dog"', completed: false },
+      { id: '3', instruction: 'Say your word very slowly and listen for each sound', completed: false },
+      { id: '4', instruction: 'Find the letters for each sound and put them in order', completed: false },
+      { id: '5', instruction: 'Read your word out loud and make another word', completed: false }
     ]
   },
   'pink-series': {
@@ -58,11 +58,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Lay out reading mat and select pink word card', completed: false },
-      { id: '2', instruction: 'Point to each letter and say its sound', completed: false },
-      { id: '3', instruction: 'Blend sounds together slowly to read word', completed: false },
-      { id: '4', instruction: 'Find matching object and place beside card', completed: false },
-      { id: '5', instruction: 'Continue with more pink series words', completed: false }
+      { id: '1', instruction: 'Put your reading mat down and pick a pink word card', completed: false },
+      { id: '2', instruction: 'Point to each letter and say its sound slowly', completed: false },
+      { id: '3', instruction: 'Put the sounds together to read the whole word', completed: false },
+      { id: '4', instruction: 'Find the small object that matches your word', completed: false },
+      { id: '5', instruction: 'Try reading more pink words the same way', completed: false }
     ]
   },
   'metal-insets': {
@@ -74,11 +74,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: true,
     steps: [
-      { id: '1', instruction: 'Select metal inset and place frame on paper', completed: false },
-      { id: '2', instruction: 'Hold frame steady and trace inside edge with pencil', completed: false },
-      { id: '3', instruction: 'Remove frame and trace around outside of shape', completed: false },
-      { id: '4', instruction: 'Fill shape with parallel lines from left to right', completed: false },
-      { id: '5', instruction: 'Add decorative elements and return materials to tray', completed: false }
+      { id: '1', instruction: 'Choose a metal shape you like and put the frame on paper', completed: false },
+      { id: '2', instruction: 'Hold the frame still and trace inside with your pencil', completed: false },
+      { id: '3', instruction: 'Take away the frame and trace around the outside of your shape', completed: false },
+      { id: '4', instruction: 'Fill your shape with straight lines going from left to right', completed: false },
+      { id: '5', instruction: 'Add pretty colors or patterns, then put everything away', completed: false }
     ]
   },
   'sound-games': {
@@ -90,11 +90,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Gather 6-8 objects with clear beginning sounds', completed: false },
-      { id: '2', instruction: 'Say "I spy with my little eye something beginning with /m/"', completed: false },
-      { id: '3', instruction: 'Child identifies object with that beginning sound', completed: false },
-      { id: '4', instruction: 'Continue with different beginning sounds', completed: false },
-      { id: '5', instruction: 'Progress to middle and ending sound games', completed: false }
+      { id: '1', instruction: 'Collect 6-8 objects that start with different sounds', completed: false },
+      { id: '2', instruction: 'Say "I spy something that starts with /mmm/" (make the sound)', completed: false },
+      { id: '3', instruction: 'Listen carefully and find the object with that beginning sound', completed: false },
+      { id: '4', instruction: 'Try again with different beginning sounds', completed: false },
+      { id: '5', instruction: 'When you\'re good at this, try sounds in the middle and end', completed: false }
     ]
   },
   'blue-series': {
@@ -106,11 +106,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Advanced',
     isPremium: true,
     steps: [
-      { id: '1', instruction: 'Select blue series card with consonant blend', completed: false },
-      { id: '2', instruction: 'Identify and sound out the blend (bl, cr, st, etc.)', completed: false },
-      { id: '3', instruction: 'Sound out remaining letters and blend together', completed: false },
-      { id: '4', instruction: 'Read word smoothly and check with control card', completed: false },
-      { id: '5', instruction: 'Practice with blue series booklet for fluency', completed: false }
+      { id: '1', instruction: 'Pick a blue word card with letters that stick together', completed: false },
+      { id: '2', instruction: 'Find the letters that work together (like "bl" or "st") and say their sound', completed: false },
+      { id: '3', instruction: 'Say the other letter sounds and put them all together', completed: false },
+      { id: '4', instruction: 'Read the whole word smoothly and check if you\'re right', completed: false },
+      { id: '5', instruction: 'Practice by reading a blue book with lots of these words', completed: false }
     ]
   },
   'matching-cards-objects': {
@@ -122,11 +122,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Spread picture cards on work mat', completed: false },
-      { id: '2', instruction: 'Take one object from basket and name it', completed: false },
-      { id: '3', instruction: 'Find matching picture card for the object', completed: false },
-      { id: '4', instruction: 'Place object on top of corresponding card', completed: false },
-      { id: '5', instruction: 'Continue until all objects are matched', completed: false }
+      { id: '1', instruction: 'Spread your picture cards out on the mat where you can see them all', completed: false },
+      { id: '2', instruction: 'Pick up one object from the basket and say its name out loud', completed: false },
+      { id: '3', instruction: 'Look for the picture card that shows the same thing', completed: false },
+      { id: '4', instruction: 'Put your object right on top of the matching picture', completed: false },
+      { id: '5', instruction: 'Keep going until every object has found its matching picture', completed: false }
     ]
   },
   'green-series': {
@@ -186,11 +186,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Select three pictures, two that rhyme and one that doesn\'t', completed: false },
-      { id: '2', instruction: 'Say each word clearly and listen to ending sounds', completed: false },
-      { id: '3', instruction: 'Identify which two words rhyme', completed: false },
-      { id: '4', instruction: 'Remove the non-rhyming picture', completed: false },
-      { id: '5', instruction: 'Continue with new sets of rhyming pictures', completed: false }
+      { id: '1', instruction: 'Pick three pictures - two that sound alike at the end and one different', completed: false },
+      { id: '2', instruction: 'Say each word clearly and listen to how they end', completed: false },
+      { id: '3', instruction: 'Find the two words that rhyme (sound the same at the end)', completed: false },
+      { id: '4', instruction: 'Put away the picture that doesn\'t rhyme', completed: false },
+      { id: '5', instruction: 'Try again with new pictures and find more rhyming pairs', completed: false }
     ]
   },
   'classified-cards': {
@@ -202,11 +202,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Choose classified card set (e.g., farm animals)', completed: false },
-      { id: '2', instruction: 'Spread picture cards on work mat', completed: false },
-      { id: '3', instruction: 'Read label cards and match to pictures', completed: false },
-      { id: '4', instruction: 'Check work with control cards', completed: false },
-      { id: '5', instruction: 'Discuss characteristics of each item', completed: false }
+      { id: '1', instruction: 'Choose a set of pictures that go together (like animals or fruits)', completed: false },
+      { id: '2', instruction: 'Put the picture cards on your mat where you can see them', completed: false },
+      { id: '3', instruction: 'Read the word cards and match each one to its picture', completed: false },
+      { id: '4', instruction: 'Check your work by looking at the answer cards', completed: false },
+      { id: '5', instruction: 'Talk about what makes each thing special or different', completed: false }
     ]
   },
   'storytelling-oral': {
@@ -218,11 +218,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Choose story sequence cards and mix them up', completed: false },
-      { id: '2', instruction: 'Look at pictures and arrange in logical order', completed: false },
-      { id: '3', instruction: 'Tell story using sequence cards as guide', completed: false },
-      { id: '4', instruction: 'Add details and descriptive language', completed: false },
-      { id: '5', instruction: 'Retell story to another person or record it', completed: false }
+      { id: '1', instruction: 'Take the story pictures and mix them all up', completed: false },
+      { id: '2', instruction: 'Look at each picture carefully and put them in the right order', completed: false },
+      { id: '3', instruction: 'Tell the story using your pictures to help you remember', completed: false },
+      { id: '4', instruction: 'Add lots of details to make your story interesting', completed: false },
+      { id: '5', instruction: 'Tell your story to a friend or grown-up', completed: false }
     ]
   },
   'word-building': {
@@ -234,11 +234,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Select picture card and name the object', completed: false },
-      { id: '2', instruction: 'Say word slowly to hear each sound', completed: false },
-      { id: '3', instruction: 'Find letter cards for each sound heard', completed: false },
-      { id: '4', instruction: 'Arrange letters to spell the word', completed: false },
-      { id: '5', instruction: 'Check spelling and read completed word', completed: false }
+      { id: '1', instruction: 'Pick a picture card and say what you see', completed: false },
+      { id: '2', instruction: 'Say the word very slowly so you can hear each sound', completed: false },
+      { id: '3', instruction: 'Find the letter cards that match each sound you hear', completed: false },
+      { id: '4', instruction: 'Put the letters in order to build your word', completed: false },
+      { id: '5', instruction: 'Read your word to check if it looks right', completed: false }
     ]
   },
   'sentence-analysis': {
@@ -266,11 +266,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Choose book at appropriate phonetic level', completed: false },
-      { id: '2', instruction: 'Look at cover and predict story content', completed: false },
-      { id: '3', instruction: 'Read story aloud, sounding out unfamiliar words', completed: false },
-      { id: '4', instruction: 'Discuss story meaning and favorite parts', completed: false },
-      { id: '5', instruction: 'Record book title in reading log', completed: false }
+      { id: '1', instruction: 'Choose a book that has words you can read', completed: false },
+      { id: '2', instruction: 'Look at the cover and guess what the story might be about', completed: false },
+      { id: '3', instruction: 'Read the story out loud, sounding out words you don\'t know', completed: false },
+      { id: '4', instruction: 'Talk about what happened and what you liked best', completed: false },
+      { id: '5', instruction: 'Write the book name in your reading journal', completed: false }
     ]
   }
 };
