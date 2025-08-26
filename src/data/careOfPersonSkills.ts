@@ -5,7 +5,7 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
     id: 'hand-washing',
     title: 'Hand Washing',
     description: 'Master proper handwashing technique for hygiene and health',
-    purpose: 'Develop independence in personal hygiene and understanding of cleanliness',
+    purpose: 'Montessori handwashing is a detailed, multi purpose activity that teaches children independence and thoroughness',
     ageRange: '2-4 years',
     difficulty: 'Beginner',
     category: 'Care of Self',
