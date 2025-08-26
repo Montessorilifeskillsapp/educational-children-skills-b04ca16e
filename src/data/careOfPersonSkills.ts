@@ -47,16 +47,22 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
     learningProcess: {
       presentation: {
         title: 'Handwashing Demonstration',
-        description: 'Teacher demonstrates complete handwashing sequence',
+        description: 'Complete handwashing sequence emphasizing independence, thoroughness, and hygiene for developing gross motor, fine motor, and sequencing skills',
         steps: [
-          'Put on apron to protect clothing',
-          'Pour water from pitcher into basin',
-          'Wet hands completely in the water',
-          'Apply soap to hands and create lather',
-          'Rub hands together, washing between fingers and under nails',
-          'Rinse hands thoroughly in basin',
-          'Dry hands completely with clean towel',
-          'Empty basin and clean workspace'
+          'Purpose: I am learning to wash my hands to keep them clean and healthy, developing my independence and motor skills',
+          'I gather my supplies: basin, jug of water, soap, and towels',
+          'I roll up my sleeves to keep them dry',
+          'I carefully pour water from the jug into the basin',
+          'I wet my hands thoroughly by scooping water and pouring it over my palms and backs of hands',
+          'I apply soap to my hands and create a lather',
+          'I wash my palms, the backs of my hands, and between my fingers',
+          'I gently rotate my thumb with the opposite hand, washing my wrists and fingertips',
+          'I scrub for at least 20 seconds, long enough to sing "Happy Birthday" twice in my head',
+          'I hold my hands with fingertips pointing down',
+          'I rinse all the soap off by scooping water over my hands until no bubbles remain',
+          'I gently shake my hands and dry them thoroughly with a clean towel',
+          'I empty the basin into a bucket or sink',
+          'I clean and dry the basin and place all supplies back in their designated spots'
         ],
         keyPoints: [
           'Use gentle, thorough movements',
