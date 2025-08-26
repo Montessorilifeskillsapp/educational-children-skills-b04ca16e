@@ -26,11 +26,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Pick a sandpaper letter and put it in front of you on the table', completed: false },
-      { id: '2', instruction: 'Use two fingers to trace the letter the same way you write it', completed: false },
-      { id: '3', instruction: 'Say the letter sound (like "mmm" not "em") while you trace', completed: false },
-      { id: '4', instruction: 'Trace and say the sound three times to remember it', completed: false },
-      { id: '5', instruction: 'Now you try! Trace the letter and say the sound by yourself', completed: false }
+      { id: '1', instruction: 'Select one sandpaper letter and place it directly in front of you, oriented correctly for tracing', completed: false },
+      { id: '2', instruction: 'Use index and middle finger together to trace letter following exact writing direction', completed: false },
+      { id: '3', instruction: 'Say phonetic sound (not letter name) clearly while tracing - "mmm" not "em"', completed: false },
+      { id: '4', instruction: 'Repeat tracing and sounding sequence exactly three times with consistent rhythm', completed: false },
+      { id: '5', instruction: 'Trace letter independently while saying sound - check your finger follows correct path', completed: false }
     ]
   },
   'moveable-alphabet': {
@@ -42,11 +42,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: true,
     steps: [
-      { id: '1', instruction: 'Unroll your mat and put the letter box at the top', completed: false },
-      { id: '2', instruction: 'Think of something you want to spell, like "cat" or "dog"', completed: false },
-      { id: '3', instruction: 'Say your word very slowly and listen for each sound', completed: false },
-      { id: '4', instruction: 'Find the letters for each sound and put them in order', completed: false },
-      { id: '5', instruction: 'Read your word out loud and make another word', completed: false }
+      { id: '1', instruction: 'Spread work mat completely flat, position alphabet box at top with easy access to all letters', completed: false },
+      { id: '2', instruction: 'Choose a concrete noun you can picture clearly - start with 3-letter words like "cat"', completed: false },
+      { id: '3', instruction: 'Segment word into individual phonemes: /c/ /a/ /t/ - say each sound distinctly', completed: false },
+      { id: '4', instruction: 'Locate letters matching each sound, arrange left to right in phonetic sequence', completed: false },
+      { id: '5', instruction: 'Blend sounds together to read completed word, then construct a new word systematically', completed: false }
     ]
   },
   'pink-series': {
@@ -58,11 +58,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Put your reading mat down and pick a pink word card', completed: false },
-      { id: '2', instruction: 'Point to each letter and say its sound slowly', completed: false },
-      { id: '3', instruction: 'Put the sounds together to read the whole word', completed: false },
-      { id: '4', instruction: 'Find the small object that matches your word', completed: false },
-      { id: '5', instruction: 'Try reading more pink words the same way', completed: false }
+      { id: '1', instruction: 'Place reading mat in position, select one pink series word card with clear printed text', completed: false },
+      { id: '2', instruction: 'Point under each letter individually, saying pure phonetic sound - not letter name', completed: false },
+      { id: '3', instruction: 'Blend phonetic sounds smoothly from left to right to decode complete word', completed: false },
+      { id: '4', instruction: 'Search among objects to find exact match for word you just read', completed: false },
+      { id: '5', instruction: 'Apply same systematic decoding process to additional pink series words', completed: false }
     ]
   },
   'metal-insets': {
@@ -74,11 +74,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Intermediate',
     isPremium: true,
     steps: [
-      { id: '1', instruction: 'Choose a metal shape you like and put the frame on paper', completed: false },
-      { id: '2', instruction: 'Hold the frame still and trace inside with your pencil', completed: false },
-      { id: '3', instruction: 'Take away the frame and trace around the outside of your shape', completed: false },
-      { id: '4', instruction: 'Fill your shape with straight lines going from left to right', completed: false },
-      { id: '5', instruction: 'Add pretty colors or patterns, then put everything away', completed: false }
+      { id: '1', instruction: 'Select geometric metal inset, center frame precisely on paper with equal margins', completed: false },
+      { id: '2', instruction: 'Hold frame firmly with non-dominant hand, trace inner edge with controlled pencil pressure', completed: false },
+      { id: '3', instruction: 'Remove frame carefully, place inset shape over outline and trace exterior border', completed: false },
+      { id: '4', instruction: 'Fill interior with parallel lines, spacing evenly from left margin to right margin', completed: false },
+      { id: '5', instruction: 'Complete design with decorative elements, organize materials systematically when finished', completed: false }
     ]
   },
   'sound-games': {
@@ -90,11 +90,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
     difficulty: 'Beginner',
     isPremium: false,
     steps: [
-      { id: '1', instruction: 'Collect 6-8 objects that start with different sounds', completed: false },
-      { id: '2', instruction: 'Say "I spy something that starts with /mmm/" (make the sound)', completed: false },
-      { id: '3', instruction: 'Listen carefully and find the object with that beginning sound', completed: false },
-      { id: '4', instruction: 'Try again with different beginning sounds', completed: false },
-      { id: '5', instruction: 'When you\'re good at this, try sounds in the middle and end', completed: false }
+      { id: '1', instruction: 'Gather 6-8 familiar objects ensuring each begins with distinctly different phonetic sound', completed: false },
+      { id: '2', instruction: 'State clearly: "I spy something beginning with /mmm/" - emphasize pure phonetic sound', completed: false },
+      { id: '3', instruction: 'Isolate initial sound of each object name until finding correct phonetic match', completed: false },
+      { id: '4', instruction: 'Continue game using different initial sounds, varying difficulty systematically', completed: false },
+      { id: '5', instruction: 'Progress to medial and final sound games when initial sound mastery is achieved', completed: false }
     ]
   },
   'blue-series': {
