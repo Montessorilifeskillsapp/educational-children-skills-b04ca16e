@@ -77,11 +77,11 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Supported Handwashing',
         description: 'Child practices with teacher guidance and support',
         steps: [
-          'I put on my apron properly with help',
-          'I pour water and check temperature with guidance',
-          'I apply soap and create lather with assistance',
-          'I wash all hand surfaces thoroughly with encouragement',
-          'I rinse and dry using proper technique with support'
+          'Put on apron properly with help',
+          'Pour water and check temperature with guidance',
+          'Apply soap and create lather with assistance',
+          'Wash all hand surfaces thoroughly with encouragement',
+          'Rinse and dry using proper technique with support'
         ],
         supportStrategies: [
           'Use songs or counting for washing duration',
@@ -95,10 +95,10 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Independent Handwashing',
         description: 'Child performs handwashing independently',
         indicators: [
-          'I complete the sequence without reminders',
-          'I wash all hand surfaces thoroughly',
-          'I use appropriate amount of soap and water',
-          'I clean workspace independently'
+          'Complete the sequence without reminders',
+          'Wash all hand surfaces thoroughly',
+          'Use appropriate amount of soap and water',
+          'Clean workspace independently'
         ],
         troubleshooting: [
           'If rushing: use timer or washing songs',
@@ -118,10 +118,10 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
           'Helps teach others handwashing'
         ],
         indicators: [
-          'I initiate handwashing before meals',
-          'I wash after using bathroom independently',
-          'I recognize when I need handwashing',
-          'I show pride in my clean hands'
+          'Initiate handwashing before meals',
+          'Wash after using bathroom independently',
+          'Recognize when handwashing is needed',
+          'Show pride in clean hands'
         ]
       },
       extensions: {
