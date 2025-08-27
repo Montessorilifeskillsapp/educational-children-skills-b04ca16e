@@ -49,8 +49,7 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Handwashing Demonstration',
         description: 'Complete handwashing sequence emphasizing independence, thoroughness, and hygiene for developing gross motor, fine motor, and sequencing skills',
         steps: [
-          'Put on apron (optional, if used for water works)',
-          'Roll up sleeves neatly to keep dry',
+          'Put on apron and roll up sleeves neatly to keep dry',
           'Fill pitcher with water from a designated source',
           'Pour water into the basin slowly, with control',
           'Wet hands in the basin gently',
@@ -59,11 +58,9 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
           '(Optional) Use nail brush and rinse it afterward',
           'Rinse hands in the basin thoroughly',
           'Dry hands completely with a towel, starting at the fingertips and moving toward the wrists',
-          'Hang the towel back up or place it in the laundry basket if it\'s dirty',
           'Empty the basin into a bucket or designated area',
-          'Rinse the basin and wipe the area dry with a sponge if there were spills',
-          'Return all materials to their proper places, neatly',
-          'Remove apron and hang it up'
+          'Clean the basin and wipe area dry with a sponge if there were spills',
+          'Return all materials to their proper places and hang up apron'
         ],
         keyPoints: [
           'Use gentle, thorough movements',
