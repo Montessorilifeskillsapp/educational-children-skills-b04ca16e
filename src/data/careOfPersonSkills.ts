@@ -49,18 +49,15 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Handwashing Demonstration',
         description: 'Complete handwashing sequence emphasizing independence, thoroughness, and hygiene for developing gross motor, fine motor, and sequencing skills',
         steps: [
-          'Put on apron and roll up sleeves neatly to keep dry',
-          'Fill pitcher with water from a designated source',
-          'Pour water into the basin slowly, with control',
-          'Wet hands in the basin gently',
-          'Pick up the soap and rub it between both hands until a lather forms',
-          'Scrub all parts of the hands — palms, backs, between fingers, wrists',
-          '(Optional) Use nail brush and rinse it afterward',
-          'Rinse hands in the basin thoroughly',
-          'Dry hands completely with a towel, starting at the fingertips and moving toward the wrists',
-          'Empty the basin into a bucket or designated area',
-          'Clean the basin and wipe area dry with a sponge if there were spills',
-          'Return all materials to their proper places and hang up apron'
+          'Put on apron and roll up sleeves',
+          'Fill pitcher and pour water into basin with control',
+          'Wet hands gently in the basin',
+          'Apply soap and create lather on all hand surfaces',
+          'Scrub palms, backs, between fingers, and wrists thoroughly',
+          'Rinse hands completely in the basin',
+          'Dry hands with towel from fingertips to wrists',
+          'Empty basin and clean workspace',
+          'Return materials to proper places'
         ],
         keyPoints: [
           'Use gentle, thorough movements',
@@ -74,11 +71,8 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Supported Handwashing',
         description: 'Child practices with teacher guidance and support',
         steps: [
-          'Put on apron properly with help',
-          'Pour water and check temperature with guidance',
-          'Apply soap and create lather with assistance',
-          'Wash all hand surfaces thoroughly with encouragement',
-          'Rinse and dry using proper technique with support'
+          'Practice with adult guidance',
+          'Focus on thorough hand coverage'
         ],
         supportStrategies: [
           'Use songs or counting for washing duration',
@@ -92,10 +86,7 @@ export const careOfPersonSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Independent Handwashing',
         description: 'Child performs handwashing independently',
         indicators: [
-          'Complete the sequence without reminders',
-          'Wash all hand surfaces thoroughly',
-          'Use appropriate amount of soap and water',
-          'Clean workspace independently'
+          'Complete handwashing independently'
         ],
         troubleshooting: [
           'If rushing: use timer or washing songs',
