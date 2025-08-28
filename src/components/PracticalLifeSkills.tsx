@@ -4,12 +4,7 @@ import BackButton from '@/components/ui/back-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
-import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
-import { careOfPersonSkills } from '@/data/careOfPersonSkills';
-import { careOfEnvironmentSkills } from '@/data/careOfEnvironmentSkills';
-import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
-import { controlOfMovementSkills } from '@/data/controlOfMovementSkills';
-import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
+import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import SkillShopItems from './SkillShopItems';
 
 interface Step {
@@ -25,21 +20,16 @@ interface PracticalLifeSkillsProps {
 }
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-  // Get skill from all data sources
-  let skill = comprehensivePracticalLifeSkills[skillId] || 
-              careOfPersonSkills[skillId] || 
-              careOfEnvironmentSkills[skillId] || 
-              graceAndCourtesySkills[skillId] || 
-              controlOfMovementSkills[skillId] ||
-              additionalPracticalLifeSkills[skillId];
+  // Get skill from the concise skills collection
+  let skill = concisePracticalLifeSkills[skillId];
   
   if (!skill) return null;
 
   // Handle different skill formats
   let allSteps: Step[] = [];
   
+  // All concise skills use the learning process format
   if ('learningProcess' in skill && skill.learningProcess) {
-    // Enhanced Montessori skill with full learning process
     allSteps = [
       ...skill.learningProcess.presentation.steps.map((step, index) => ({
         id: `presentation-${index}`,
@@ -57,13 +47,6 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
         completed: false
       }))
     ];
-  } else if ('steps' in skill && skill.steps) {
-    // Simple skill with just steps
-    allSteps = skill.steps.map(step => ({
-      id: step.id,
-      instruction: step.instruction,
-      completed: false
-    }));
   }
 
   const [steps, setSteps] = useState<Step[]>(allSteps);
