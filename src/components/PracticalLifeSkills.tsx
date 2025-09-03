@@ -111,14 +111,6 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
           </Card>
         )}
         
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle>Progress</CardTitle>
-            <Progress value={progress} className="h-3 mt-2" />
-            <p className="text-sm mt-1">{completedSteps} of {steps.length} steps completed</p>
-          </CardHeader>
-        </Card>
-
         <div className="space-y-3 mb-8">
           {steps.map((step, index) => (
             <Card 
