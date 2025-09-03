@@ -367,130 +367,133 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
 
   'brushing-teeth': {
     id: 'brushing-teeth',
-    title: 'Brushing Teeth',
-    description: 'Learn proper dental hygiene',
-    purpose: 'Establish oral health habits',
-    ageRange: '2-4 years',
+    title: 'Montessori Teeth Brushing',
+    description: 'Child-centered practical life steps for independent teeth brushing',
+    purpose: 'To support independence, sequencing, care of the body, and the development of healthy daily routines',
+    ageRange: '2-6 years',
     difficulty: 'Beginner',
     category: 'Care of Self',
     isPremium: false,
-    icon: '🦷',
+    icon: '🪥',
     materials: [
       'Child toothbrush',
       'Child toothpaste',
       'Water cup',
       'Mirror',
-      'Towel'
+      'Towel or cloth'
     ],
     materialsPurpose: [
-      'Toothbrush: Proper size',
-      'Toothpaste: Age-appropriate',
-      'Cup: Controlled rinsing',
-      'Mirror: Visual feedback',
-      'Towel: Cleanup'
+      'Toothbrush: Child-sized for proper handling',
+      'Toothpaste: Gentle formula for children',
+      'Cup: For rinsing and water access',
+      'Mirror: Visual feedback for technique',
+      'Towel: For drying mouth and cleanup'
     ],
     directAims: [
-      'Learn brushing technique',
-      'Develop oral routine',
-      'Build independence'
+      'Learn proper brushing sequence',
+      'Develop oral hygiene habits',
+      'Build independence in self-care'
     ],
     indirectAims: [
       'Foster health awareness',
-      'Develop coordination',
-      'Build daily habits',
-      'Advanced self-care prep'
+      'Develop fine motor coordination',
+      'Build responsibility for body care',
+      'Strengthen sequential thinking'
     ],
     controlOfError: [
-      'Mirror feedback',
-      'Clean teeth taste',
-      'Timer for duration',
-      'Adult supervision'
+      'Mirror provides visual feedback',
+      'Clean teeth taste indicates thoroughness',
+      'Organized materials guide sequence',
+      'Adult modeling when needed'
     ],
     learningProcess: {
       presentation: {
-        title: 'Tooth Brushing Demo',
-        description: 'Show complete routine',
+        title: 'Teeth Brushing Demonstration',
+        description: 'Show complete child-friendly sequence',
         steps: [
-          'Wet toothbrush',
-          'Apply pea-sized paste',
-          'Brush front teeth circles',
-          'Brush back teeth',
-          'Clean tongue gently',
-          'Rinse mouth',
-          'Clean toothbrush'
+          '1️⃣ Pick up your toothbrush - Use one hand to hold the brush and the other to steady the cup or counter',
+          '2️⃣ Squeeze a small bit of toothpaste - Gently squeeze a tiny dot onto the bristles — just a pea-sized amount',
+          '3️⃣ Wet the brush - Dip the brush into the cup of water or briefly under running water',
+          '4️⃣ Brush your teeth slowly - Start with your front teeth using small circles, then brush the sides and back teeth, including the inside',
+          '5️⃣ Brush your tongue - Gently brush your tongue from back to front to make your mouth feel fresh',
+          '6️⃣ Spit into the sink or cup - Lean forward and spit the toothpaste foam carefully',
+          '7️⃣ Rinse your mouth - Take a small sip of water, swish it gently, and spit it out',
+          '8️⃣ Rinse the toothbrush - Hold the brush under water and rinse until clean',
+          '9️⃣ Wipe your mouth - Use your towel or cloth to gently dry around your mouth',
+          '🔟 Put everything away - Place the toothbrush and cup back in their places'
         ],
         keyPoints: [
-          'Gentle circles',
-          'Full 2 minutes',
-          'All surfaces',
-          'Include tongue'
+          'Move slowly and carefully',
+          'Use gentle circular motions',
+          'Clean all tooth surfaces',
+          'Keep everything organized'
         ],
-        duration: '4-6 minutes'
+        duration: '5-8 minutes'
       },
       guidedPractice: {
-        title: 'Supported Brushing',
-        description: 'Practice with help',
+        title: 'Supported Brushing Practice',
+        description: 'Practice sequence with gentle guidance',
         steps: [
-          'Guide brush holding',
-          'Support proper motions',
-          'Encourage thoroughness',
-          'Help with cleanup'
+          'Guide toothbrush holding technique',
+          'Support proper circular motions',
+          'Encourage complete sequence',
+          'Help with material organization'
         ],
         supportStrategies: [
-          'Brushing songs',
-          'Hand guidance',
-          'Tooth charts',
-          'Positive reinforcement'
+          'Gentle verbal reminders',
+          'Point to next step without touching',
+          'Encourage self-correction',
+          'Celebrate small successes'
         ],
-        duration: '6-10 minutes'
+        duration: '8-12 minutes'
       },
       independentPractice: {
-        title: 'Independent Brushing',
-        description: 'Brush alone',
+        title: 'Independent Teeth Brushing',
+        description: 'Complete routine alone with confidence',
         indicators: [
-          'Complete without reminders',
-          'Proper technique',
-          'Appropriate duration',
-          'Clean area maintained'
+          'Follows all 10 steps in sequence',
+          'Uses appropriate amount of toothpaste',
+          'Brushes thoroughly and gently',
+          'Maintains clean workspace'
         ],
         troubleshooting: [
-          'Timer for rushing',
-          'Visual guides',
-          'Make enjoyable',
-          'Return to guided practice'
+          'Visual step cards if sequence forgotten',
+          'Timer for adequate brushing duration',
+          'Return to guided practice if needed',
+          'Focus on one challenging step at a time'
         ],
-        duration: '3-5 minutes'
+        duration: '5-8 minutes'
       },
       mastery: {
-        title: 'Oral Independence',
-        description: 'Complete dental care',
+        title: 'Oral Care Independence',
+        description: 'Confident, consistent dental hygiene routine',
         assessmentCriteria: [
-          'Twice daily routine',
-          'Health understanding',
-          'Consistent cleanliness',
-          'Appointment responsibility'
+          'Initiates brushing without reminders',
+          'Demonstrates proper technique consistently',
+          'Maintains twice-daily routine',
+          'Takes pride in oral health'
         ],
         indicators: [
-          'Initiates independently',
-          'Shows pride',
-          'Reminds others',
-          'Asks health questions'
+          'Teaches technique to others',
+          'Asks questions about dental health',
+          'Shows responsibility for oral care',
+          'Seeks to improve technique'
         ]
       },
       extensions: {
-        title: 'Advanced Oral Care',
-        description: 'Extended dental awareness',
+        title: 'Advanced Oral Care Activities',
+        description: 'Expanding dental health awareness',
         activities: [
-          'Dental tool learning',
-          'Animal tooth brushing',
-          'Healthy food exploration',
-          'Brushing charts'
+          'Create brushing time charts',
+          'Learn about different types of teeth',
+          'Practice brushing dolls or stuffed animals',
+          'Explore healthy foods for teeth'
         ],
         variations: [
-          'Different techniques',
-          'Electric vs manual',
-          'Flossing introduction',
-          'Cultural practices'
+          'Morning vs evening routines',
+          'Different toothbrush types exploration',
+          'Introduction to flossing concepts',
+          'Cultural dental care practices'
         ]
       }
     }
