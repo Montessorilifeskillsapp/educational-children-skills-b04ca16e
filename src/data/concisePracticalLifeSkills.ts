@@ -130,7 +130,7 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
     id: 'table-setting',
     title: 'Table Setting',
     description: 'Prepare table for meals with proper placement',
-    purpose: 'Develop order, sequence, and dining preparation',
+    purpose: 'To foster independence, order, sequencing, and care for others through real-life tasks',
     ageRange: '3-6 years',
     difficulty: 'Intermediate',
     category: 'Care of Environment',
@@ -158,13 +158,13 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
         title: 'Table Setting Demo',
         description: 'Show complete setting sequence',
         steps: [
-          'Place placemat flat',
-          'Center plate on mat',
-          'Fork left of plate',
-          'Knife right, blade inward',
-          'Cup above knife',
-          'Fold napkin neatly',
-          'Add flower decoration'
+          'Carry the tray to the table. Use both hands to carry your tray carefully to where you will set the table.',
+          'Lay down the placemat. Place the mat in the center of the table to help guide where everything goes.',
+          'Place the plate in the center. Gently set the plate right in the middle of the mat.',
+          'Put the fork on the left. The fork goes to the left side of the plate, handle facing out.',
+          'Place the knife and spoon on the right. The knife is closest to the plate, with the blade facing in. The spoon goes next to it.',
+          'Set the glass above the knife. The cup or glass goes just above the knife, where the person can reach it.',
+          'Fold and place the napkin. Fold your napkin neatly and place it either to the left of the fork or on the plate.'
         ],
         keyPoints: [
           'Move with purpose',
