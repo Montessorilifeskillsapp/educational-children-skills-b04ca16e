@@ -256,15 +256,6 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
     category: 'Care of Self',
     isPremium: false,
     icon: '🧼',
-    materialsPurpose: [
-      'Basin: Child-sized for independence',
-      'Pitcher: Controlled water amount',
-      'Soap: Real bar soap for authentic experience',
-      'Towel: Proper drying technique',
-      'Nail brush: Optional for thorough cleaning',
-      'Sponge: Area cleanup',
-      'Tray: Materials organized left-to-right'
-    ],
     directAims: [
       'Learn proper washing sequence',
       'Develop self-care independence',
