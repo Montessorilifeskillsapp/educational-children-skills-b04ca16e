@@ -5,6 +5,7 @@ import { ShoppingCart, Star } from 'lucide-react';
 import { skillBasedProducts } from '@/data/skillBasedProducts';
 import { montessoriMaterials } from '@/data/montessoriMaterials';
 import { additionalShopItems } from '@/data/additionalShopItems';
+import { useCart } from './CartContext';
 
 interface SkillShopItemsProps {
   shopItemIds: string[];
@@ -12,6 +13,7 @@ interface SkillShopItemsProps {
 }
 
 const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle }) => {
+  const { addToCart } = useCart();
   // Find products from all data sources
   const getShopItems = (itemIds: string[]) => {
     const items: any[] = [];
@@ -49,7 +51,7 @@ const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ShoppingCart className="h-5 w-5 text-primary" />
-            Recommended Materials
+            Materials
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -64,7 +66,7 @@ const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <ShoppingCart className="h-5 w-5 text-primary" />
-          Recommended Materials
+          Materials
         </CardTitle>
       </CardHeader>
       <CardContent>
@@ -99,10 +101,7 @@ const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle
                 <span className="text-2xl font-bold text-primary">${item.price}</span>
                 <Button 
                   className="flex items-center gap-2"
-                  onClick={() => {
-                    // This would normally add to cart or navigate to product page
-                    console.log('Adding to cart:', item.name);
-                  }}
+                  onClick={() => addToCart(item)}
                 >
                   <ShoppingCart className="h-4 w-4" />
                   Add to Cart
