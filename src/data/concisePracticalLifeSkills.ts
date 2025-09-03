@@ -249,131 +249,138 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
   'hand-washing': {
     id: 'hand-washing',
     title: 'Hand Washing',
-    description: 'Master proper handwashing for health',
-    purpose: 'Develop hygiene habits and independence',
+    description: 'Master proper handwashing for health and independence',
+    purpose: 'To develop independence, order, sequencing, and care of self',
     ageRange: '2-4 years',
     difficulty: 'Beginner',
     category: 'Care of Self',
     isPremium: false,
     icon: '🧼',
     materials: [
-      'Child washbasin',
-      'Pitcher with warm water',
-      'Soap',
+      'Small ceramic washbasin',
+      'Small pitcher with water', 
+      'Bar of soap',
       'Clean towel',
-      'Sponge',
-      'Apron'
+      'Small nail brush (optional)',
+      'Sponge or cloth',
+      'Tray'
     ],
     materialsPurpose: [
-      'Washbasin: Right size for independence',
+      'Basin: Child-sized for independence',
       'Pitcher: Controlled water amount',
-      'Soap: Effective cleaning',
-      'Towel: Proper drying',
-      'Sponge: Gentle cleaning',
-      'Apron: Clothing protection'
+      'Soap: Real bar soap for authentic experience',
+      'Towel: Proper drying technique',
+      'Nail brush: Optional for thorough cleaning',
+      'Sponge: Area cleanup',
+      'Tray: Materials organized left-to-right'
     ],
     directAims: [
-      'Learn washing sequence',
-      'Develop hygiene independence',
-      'Understand cleanliness'
+      'Learn proper washing sequence',
+      'Develop self-care independence',
+      'Master hygiene technique'
     ],
     indirectAims: [
-      'Build self-care habits',
-      'Develop coordination',
+      'Build daily routines',
+      'Develop order and sequence',
       'Foster health awareness',
-      'Prepare for food activities'
+      'Prepare for food preparation'
     ],
     controlOfError: [
       'Soap lather visibility',
-      'Clean vs dirty feel',
-      'Mirror feedback',
-      'Adult guidance'
+      'Clean vs dirty sensation',
+      'Water clarity changes',
+      'Tray organization'
     ],
     learningProcess: {
       presentation: {
-        title: 'Handwashing Demo',
-        description: 'Show complete sequence',
+        title: 'Hand Washing Presentation',
+        description: 'Present slowly and silently to model the process',
         steps: [
-          'Put on apron',
-          'Pour water in basin',
-          'Wet hands completely',
-          'Apply soap, create lather',
-          'Scrub all surfaces',
-          'Rinse thoroughly',
-          'Dry hands completely',
-          'Empty basin',
-          'Clean workspace'
+          '1. Roll up your sleeves - Gently push sleeves up so they don\'t get wet',
+          '2. Pour water into basin - Use small pitcher to pour a little water',
+          '3. Wet your hands - Dip both hands into water, make sure they get wet all over',
+          '4. Rub the soap - Pick up bar of soap and rub between hands to make bubbles',
+          '5. Wash your hands - Rub palms, backs of hands, between fingers, and thumbs',
+          '6. Scrub with nail brush - If using, gently brush nails to clean under them',
+          '7. Rinse your hands - Dip hands back into water to rinse off soap',
+          '8. Dry your hands - Use towel to dry hands carefully',
+          '9. Empty the basin - Carry basin to sink and pour out water',
+          '10. Wipe the area - Use sponge or cloth to wipe tray or table dry'
         ],
         keyPoints: [
-          'Gentle movements',
-          'Cover all surfaces',
-          'Rinse completely',
-          'Dry thoroughly'
+          'Use real materials, not toys',
+          'Present silently first time',
+          'Move slowly and deliberately',
+          'Left-to-right material order'
         ],
-        duration: '4-6 minutes'
+        duration: '5-8 minutes'
       },
       guidedPractice: {
-        title: 'Supported Washing',
-        description: 'Practice with help',
+        title: 'Supported Practice',
+        description: 'Guide child through sequence with minimal intervention',
         steps: [
-          'Guide through sequence',
-          'Check hand coverage'
+          'Observe child\'s technique',
+          'Guide gently if needed'
         ],
         supportStrategies: [
-          'Counting songs',
-          'Hand-over-hand',
-          'Visual reminders',
-          'Positive reinforcement'
+          'Point to next material',
+          'Demonstrate specific step if needed',
+          'Encourage thoroughness',
+          'Allow repetition'
         ],
-        duration: '6-10 minutes'
+        duration: '8-12 minutes'
       },
       independentPractice: {
         title: 'Independent Washing',
-        description: 'Wash alone',
+        description: 'Child completes activity alone',
         indicators: [
-          'Complete independently'
+          'Follows complete sequence',
+          'Handles materials carefully',
+          'Cleans area thoroughly'
         ],
         troubleshooting: [
-          'Use timer if rushing',
-          'Visual guides for missed areas',
-          'Show proper soap amount',
-          'Model cleanup'
+          'Return to presentation if confused',
+          'Ensure materials are accessible',
+          'Check water temperature',
+          'Replenish materials as needed'
         ],
-        duration: '4-6 minutes'
+        duration: '6-10 minutes'
       },
       mastery: {
-        title: 'Hygiene Independence',
-        description: 'Complete competence',
+        title: 'Washing Mastery',
+        description: 'Complete independence achieved',
         assessmentCriteria: [
-          'Washes when needed',
-          'Proper technique',
-          'Clean hands maintained',
-          'Teaches others'
+          'Initiates washing when needed',
+          'Completes full sequence',
+          'Maintains clean workspace',
+          'Shows care for materials'
         ],
         indicators: [
-          'Initiates before meals',
-          'Washes after bathroom',
-          'Recognizes need',
-          'Shows pride'
+          'Chooses activity regularly',
+          'Demonstrates to others',
+          'Applies to daily routines',
+          'Shows pride in cleanliness'
         ]
       },
       extensions: {
-        title: 'Hygiene Extensions',
-        description: 'Advanced hygiene concepts',
+        title: 'Extensions',
+        description: 'Advanced applications',
         activities: [
-          'Germ experiments',
-          'Teaching dolls',
-          'Hygiene charts',
-          'Different soaps'
+          'Washing different objects',
+          'Teaching younger children',
+          'Preparing for food work',
+          'Cultural hand washing practices'
         ],
         variations: [
-          'Different settings',
-          'Cultural practices',
-          'Seasonal considerations',
-          'Community health'
+          'Different soap types',
+          'Warm vs cool water',
+          'Various bowl sizes',
+          'Outdoor washing station'
         ]
       }
-    }
+    },
+    videoUrl: '/videos/hand-washing.mp4',
+    imageUrl: '/images/hand-washing.jpg'
   },
 
   'brushing-teeth': {
