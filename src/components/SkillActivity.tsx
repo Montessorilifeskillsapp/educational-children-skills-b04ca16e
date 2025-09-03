@@ -15,7 +15,7 @@ import { geographySkillsData } from '@/data/geographySkills';
 import { artSkillsEnhanced } from '@/data/artSkillsEnhanced';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { botanySkillsData } from '@/data/botanySkills';
-import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
+import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { enhancedMathSkills } from '@/data/enhancedMathSkills';
 import { useSEO } from '@/hooks/useSEO';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
@@ -27,8 +27,8 @@ interface SkillActivityProps {
 }
 
 const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComplete }) => {
-  // Check enhanced skills first
-  const enhancedPracticalLifeSkill = enhancedPracticalLifeSkills[skillId];
+  // Check concise skills first
+  const concisePracticalLifeSkill = concisePracticalLifeSkills[skillId];
   const enhancedMathSkill = enhancedMathSkills[skillId];
   
   // Check all skill sources
@@ -46,9 +46,9 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const botanySkill = botanySkillsData[skillId];
   const regularSkill = skillsData[skillId];
   
-  // Determine which skill data to use - prioritize enhanced skills
-  const skill = enhancedPracticalLifeSkill || enhancedMathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || sensorialSkill || regularSkill;
-  const isEnhancedSkill = enhancedPracticalLifeSkill || enhancedMathSkill;
+  // Determine which skill data to use - prioritize concise skills
+  const skill = concisePracticalLifeSkill || enhancedMathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || sensorialSkill || regularSkill;
+  const isEnhancedSkill = concisePracticalLifeSkill || enhancedMathSkill;
   
   if (!skill) {
     return <div>Skill not found</div>;
