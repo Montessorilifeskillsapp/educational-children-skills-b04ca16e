@@ -256,15 +256,6 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
     category: 'Care of Self',
     isPremium: false,
     icon: '🧼',
-    materials: [
-      'Small ceramic washbasin',
-      'Small pitcher with water', 
-      'Bar of soap',
-      'Clean towel',
-      'Small nail brush (optional)',
-      'Sponge or cloth',
-      'Tray'
-    ],
     materialsPurpose: [
       'Basin: Child-sized for independence',
       'Pitcher: Controlled water amount',
