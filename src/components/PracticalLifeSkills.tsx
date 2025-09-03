@@ -30,23 +30,33 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
   
   // All concise skills use the learning process format
   if ('learningProcess' in skill && skill.learningProcess) {
-    allSteps = [
-      ...skill.learningProcess.presentation.steps.map((step, index) => ({
+    // For teeth brushing, only show presentation steps
+    if (skillId === 'brushing-teeth') {
+      allSteps = skill.learningProcess.presentation.steps.map((step, index) => ({
         id: `presentation-${index}`,
         instruction: step,
         completed: false
-      })),
-      ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
-        id: `guided-${index}`,
-        instruction: step,
-        completed: false
-      })),
-      ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
-        id: `independent-${index}`,
-        instruction: indicator,
-        completed: false
-      }))
-    ];
+      }));
+    } else {
+      // For other skills, show all steps
+      allSteps = [
+        ...skill.learningProcess.presentation.steps.map((step, index) => ({
+          id: `presentation-${index}`,
+          instruction: step,
+          completed: false
+        })),
+        ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
+          id: `guided-${index}`,
+          instruction: step,
+          completed: false
+        })),
+        ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
+          id: `independent-${index}`,
+          instruction: indicator,
+          completed: false
+        }))
+      ];
+    }
   }
 
   const [steps, setSteps] = useState<Step[]>(allSteps);
