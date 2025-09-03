@@ -49,7 +49,7 @@ const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ShoppingCart className="h-5 w-5 text-primary" />
-            Materials for {skillTitle}
+            Recommended Materials
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -64,11 +64,8 @@ const SkillShopItems: React.FC<SkillShopItemsProps> = ({ shopItemIds, skillTitle
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <ShoppingCart className="h-5 w-5 text-primary" />
-          Materials for {skillTitle}
+          Recommended Materials
         </CardTitle>
-        <p className="text-sm text-gray-600 mt-2">
-          Get the authentic Montessori materials needed for this activity
-        </p>
       </CardHeader>
       <CardContent>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
