@@ -30,8 +30,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
   
   // All concise skills use the learning process format
   if ('learningProcess' in skill && skill.learningProcess) {
-    // For teeth brushing, only show presentation steps
-    if (skillId === 'brushing-teeth') {
+    // For teeth brushing and table setting, only show presentation steps
+    if (skillId === 'brushing-teeth' || skillId === 'table-setting') {
       allSteps = skill.learningProcess.presentation.steps.map((step, index) => ({
         id: `presentation-${index}`,
         instruction: step,
