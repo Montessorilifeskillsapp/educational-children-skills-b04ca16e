@@ -4,6 +4,8 @@ import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
+import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
+import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 
 // All concise skills already have shopItems if needed
@@ -13,8 +15,17 @@ Object.values(concisePracticalLifeSkills).forEach(skill => {
   }
 });
 
-// Merge concise with additional skills (concise takes precedence on duplicates)
-const mergedPracticalLifeSkills = { ...additionalPracticalLifeSkills, ...concisePracticalLifeSkills };
+// Merge all practical life skills (concise takes highest precedence)
+const mergedPracticalLifeSkills = { 
+  ...comprehensivePracticalLifeSkills,
+  ...enhancedPracticalLifeSkills,
+  ...additionalPracticalLifeSkills, 
+  ...concisePracticalLifeSkills 
+};
+
+// Debug: Log available skills
+console.log('Available skills:', Object.keys(mergedPracticalLifeSkills));
+console.log('Total skills count:', Object.keys(mergedPracticalLifeSkills).length);
 
 interface PracticalLifeOverviewProps {
   onBack: () => void;
@@ -126,6 +137,29 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {controlOfMovementSkills.map((skill) => (
+              <SkillCard
+                key={skill.id}
+                skill={skill}
+                onSelect={() => onSkillSelect(skill.id)}
+                isCompleted={completedSkills.includes(skill.id)}
+                isPremium={isPremium}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Food Preparation Section */}
+      {foodPreparationSkills.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            🥗 Food Preparation
+          </h2>
+          <p className="text-gray-600 mb-6 max-w-3xl">
+            Activities that build independence in preparing simple foods safely and with care.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {foodPreparationSkills.map((skill) => (
               <SkillCard
                 key={skill.id}
                 skill={skill}

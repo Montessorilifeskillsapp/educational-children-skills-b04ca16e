@@ -6,6 +6,8 @@ import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
+import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
+import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import SkillShopItems from './SkillShopItems';
 
 interface Step {
@@ -21,8 +23,11 @@ interface PracticalLifeSkillsProps {
 }
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-// Get skill from combined skills collections
-let skill = concisePracticalLifeSkills[skillId] || additionalPracticalLifeSkills[skillId];
+// Get skill from combined skills collections (check all sources)
+let skill = concisePracticalLifeSkills[skillId] || 
+            additionalPracticalLifeSkills[skillId] || 
+            comprehensivePracticalLifeSkills[skillId] || 
+            enhancedPracticalLifeSkills[skillId];
   
 if (!skill) return null;
 
