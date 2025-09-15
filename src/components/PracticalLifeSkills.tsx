@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
+import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import SkillShopItems from './SkillShopItems';
 
 interface Step {
@@ -20,10 +21,10 @@ interface PracticalLifeSkillsProps {
 }
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-  // Get skill from the concise skills collection
-  let skill = concisePracticalLifeSkills[skillId];
+// Get skill from combined skills collections
+let skill = concisePracticalLifeSkills[skillId] || additionalPracticalLifeSkills[skillId];
   
-  if (!skill) return null;
+if (!skill) return null;
 
   // Handle different skill formats
   let allSteps: Step[] = [];

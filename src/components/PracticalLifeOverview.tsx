@@ -3,6 +3,7 @@ import SkillCard from './SkillCard';
 import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
+import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 
 // All concise skills already have shopItems if needed
@@ -12,6 +13,9 @@ Object.values(concisePracticalLifeSkills).forEach(skill => {
   }
 });
 
+// Merge concise with additional skills (concise takes precedence on duplicates)
+const mergedPracticalLifeSkills = { ...additionalPracticalLifeSkills, ...concisePracticalLifeSkills };
+
 interface PracticalLifeOverviewProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -19,13 +23,13 @@ interface PracticalLifeOverviewProps {
   isPremium: boolean;
 }
 
-// Convert concise skills to display format
-const allSkillsFormatted = Object.values(concisePracticalLifeSkills).map(skill => ({
+// Convert merged skills to display format
+const allSkillsFormatted = Object.values(mergedPracticalLifeSkills).map(skill => ({
   id: skill.id,
   title: skill.title,
   description: skill.description,
   icon: skill.icon,
-  category: 'Practical Life',
+  category: skill.category,
   difficulty: skill.isPremium ? 'Medium' : 'Easy',
   ageRange: skill.ageRange,
   isPremium: skill.isPremium,
@@ -34,17 +38,20 @@ const allSkillsFormatted = Object.values(concisePracticalLifeSkills).map(skill =
 
 // Organize by categories
 const careOfPersonSkills = allSkillsFormatted.filter(skill => 
-  ['hand-washing', 'brushing-teeth'].includes(skill.id)
+  skill.category === 'Care of Self'
 );
 
 const careOfEnvironmentSkills = allSkillsFormatted.filter(skill => 
-  ['table-setting'].includes(skill.id)
+  skill.category === 'Care of Environment'
 );
 
 const controlOfMovementSkills = allSkillsFormatted.filter(skill => 
-  ['pouring-water', 'spooning-beans'].includes(skill.id)
+  skill.category === 'Control of Movement'
 );
 
+const foodPreparationSkills = allSkillsFormatted.filter(skill => 
+  skill.category === 'Food Preparation'
+);
 export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   onBack,
   onSkillSelect,
@@ -57,9 +64,9 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Develop independence and self-confidence through purposeful tasks related to daily life
         </p>
-        <p className="text-lg text-gray-500 mt-2">
-          Three main areas: Care of the Person • Care of the Environment • Control of Movement
-        </p>
+<p className="text-lg text-gray-500 mt-2">
+  Areas include: Care of the Person • Care of the Environment • Control of Movement • Food Preparation
+</p>
       </div>
 
       {/* Care of the Person Section */}
