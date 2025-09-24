@@ -6,7 +6,6 @@ import { TooltipProvider } from '@/components/ui/tooltip';
 import { ProfileProvider } from '@/contexts/ProfileContext';
 import { SubscriptionProvider } from '@/contexts/SubscriptionContext';
 import { AppProvider } from '@/contexts/AppContext';
-import { CartProvider } from '@/components/CartContext';
 
 const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
   return (
@@ -16,9 +15,7 @@ const AllTheProviders = ({ children }: { children: React.ReactNode }) => {
           <AppProvider>
             <ProfileProvider>
               <SubscriptionProvider>
-                <CartProvider>
-                  {children}
-                </CartProvider>
+                {children}
               </SubscriptionProvider>
             </ProfileProvider>
           </AppProvider>

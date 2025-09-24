@@ -11,7 +11,7 @@ import GeographySkills from './GeographySkills';
 import BotanySkills from './BotanySkills';
 import ArtSkills from './ArtSkills';
 import GraceAndCourtesySkills from './GraceAndCourtesySkills';
-import Shop from './Shop';
+
 import Home from './Home';
 import SubscriptionPlans from './SubscriptionPlans';
 import ParentDashboard from './ParentDashboard';
@@ -36,7 +36,7 @@ import { botanySkillsData } from '@/data/botanySkills';
 
 const AppLayout: React.FC = () => {
   // State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'grace-courtesy' | 'shop' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
@@ -134,7 +134,6 @@ const AppLayout: React.FC = () => {
     return (
       <Home 
         onGetStarted={() => handleViewChange('dashboard')}
-        onShopView={() => handleViewChange('shop')}
         onResourcesView={() => handleViewChange('resources')}
         onSubscriptionView={() => handleViewChange('subscription')}
         onDashboardView={() => handleViewChange('dashboard')}
@@ -242,9 +241,6 @@ const AppLayout: React.FC = () => {
     );
   }
 
-  if (currentView === 'shop') {
-    return <Shop onBack={handleBack} />;
-  }
 
   if (currentView === 'subscription') {
     return <SubscriptionPlans onBack={handleBack} />;
@@ -379,7 +375,7 @@ const AppLayout: React.FC = () => {
       onGeographyView={() => handleViewChange('geography')}
       onBotanyView={() => handleViewChange('botany')}
       onArtView={() => handleViewChange('art')}
-      onShopView={() => handleViewChange('shop')}
+      
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}
       onResourcesView={() => handleViewChange('resources')}

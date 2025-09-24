@@ -8,7 +8,7 @@ import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
-import SkillShopItems from './SkillShopItems';
+
 
 interface Step {
   id: string;
@@ -97,25 +97,26 @@ if (!skill) return null;
           </CardHeader>
         </Card>
 
-        {/* Shop Items Section */}
-        {skill.shopItems && skill.shopItems.length > 0 ? (
-          <SkillShopItems shopItemIds={skill.shopItems} skillTitle={skill.title} />
-        ) : (
-          /* Materials Section - Only show if no shop items */
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle>Materials Needed</CardTitle>
-              <div className="grid grid-cols-1 gap-2 mt-2">
-                {(skill.materials || []).map((material, index) => (
-                  <div key={index} className="flex items-center text-sm">
-                    <span className="w-2 h-2 bg-gray-400 rounded-full mr-2"></span>
-                    {material}
+        {/* Materials Section */}
+        <Card className="mb-6">
+          <CardHeader>
+            <CardTitle className="text-lg text-montessori-earth">Required Materials</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {skill.materials ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                {skill.materials.map((material, index) => (
+                  <div key={index} className="flex items-center p-3 bg-gray-50 rounded-lg">
+                    <div className="w-3 h-3 bg-montessori-sage rounded-full mr-3 flex-shrink-0" />
+                    <span className="text-gray-700">{material}</span>
                   </div>
                 ))}
               </div>
-            </CardHeader>
-          </Card>
-        )}
+            ) : (
+              <p className="text-gray-600">No specific materials required</p>
+            )}
+          </CardContent>
+        </Card>
         
         <div className="space-y-3 mb-8">
           {steps.map((step, index) => (

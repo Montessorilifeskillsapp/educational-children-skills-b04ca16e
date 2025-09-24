@@ -6,7 +6,6 @@ import { AuthProvider } from "@/components/AuthProvider";
 import { ProfileProvider } from "@/contexts/ProfileContext";
 import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
 import { AppProvider } from "@/contexts/AppContext";
-import { CartProvider } from "@/components/CartContext";
 import { MobileSecurityProvider } from "@/components/MobileSecurityProvider";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import Index from "./pages/Index";
@@ -45,9 +44,8 @@ const App = () => {
               <AppProvider>
                 <ProfileProvider>
                   <SubscriptionProvider>
-                    <CartProvider>
-                      <Toaster />
-                      <BrowserRouter>
+                    <Toaster />
+                    <BrowserRouter>
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/practical-life" element={<PracticalLifePage />} />
@@ -62,8 +60,7 @@ const App = () => {
                           <Route path="/about" element={<AboutPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
-                      </BrowserRouter>
-                    </CartProvider>
+                    </BrowserRouter>
                   </SubscriptionProvider>
                 </ProfileProvider>
               </AppProvider>

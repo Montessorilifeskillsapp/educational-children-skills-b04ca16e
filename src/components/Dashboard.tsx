@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, ShoppingCart, Crown, Users, BookOpen, Star, FileText, Eye, Shield, Baby } from 'lucide-react';
+import { User, Crown, Users, BookOpen, Star, FileText, Eye, Shield, Baby } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
@@ -18,7 +18,6 @@ interface DashboardProps {
   onGeographyView?: () => void;
   onBotanyView?: () => void;
   onArtView?: () => void;
-  onShopView: () => void;
   onSubscriptionView: () => void;
   onParentView: () => void;
   onProfilesView?: () => void;
@@ -39,7 +38,6 @@ const Dashboard: React.FC<DashboardProps> = ({
   onGeographyView,
   onBotanyView,
   onArtView,
-  onShopView,
   onSubscriptionView,
   onParentView,
   onProfilesView,
@@ -244,21 +242,6 @@ const Dashboard: React.FC<DashboardProps> = ({
             Additional Pages & Features
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-purple-200 bg-purple-50`}
-              onClick={onShopView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <ShoppingCart className="h-6 w-6 text-purple-600" />
-                  <div>
-                    <h3 className="text-purple-700">Shop</h3>
-                    <p className="text-sm text-gray-600">Learning materials</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
             <Card 
               className="cursor-pointer hover:shadow-xl transition-all border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-pink-50 transform hover:scale-105"
               onClick={onSubscriptionView}

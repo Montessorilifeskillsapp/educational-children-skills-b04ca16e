@@ -6,7 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { CreditCard, Lock, Shield, Plus } from 'lucide-react';
-import { useCart } from './CartContext';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { PaymentService, SecureCardData } from '@/lib/payments';
 import { PCIComplianceService } from '@/lib/pciCompliance';
@@ -41,7 +40,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
   
-  const { items, total, clearCart } = useCart();
   const { currentPlan } = useSubscription();
   const mockPlans = [
     { id: 'basic', name: 'Basic Plan', price: 9.99 },
@@ -49,7 +47,7 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
   ];
   
   const selectedPlan = planId ? mockPlans.find(p => p.id === planId) : currentPlan;
-  const displayPrice = selectedPlan ? selectedPlan.price : total;
+  const displayPrice = selectedPlan ? selectedPlan.price : 0;
 
   const validateCardData = async () => {
     const newErrors: Record<string, string> = {};
@@ -90,13 +88,13 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
     setLoading(true);
     try {
       await PCIComplianceService.logSecurityEvent('tokenized_payment_initiated', {
-        planId: selectedPlan?.id || 'cart',
+        planId: selectedPlan?.id || 'subscription',
         amount: displayPrice,
         method: paymentMethod
       });
 
       const paymentIntent = await PaymentService.createPaymentIntent({
-        planId: selectedPlan?.id || 'cart',
+        planId: selectedPlan?.id || 'subscription',
         amount: Math.round(displayPrice * 100),
         currency: 'usd'
       });
@@ -135,7 +133,6 @@ const PaymentModal: React.FC<PaymentModalProps> = ({
           threeDSAuthenticated: true
         });
         
-        if (!selectedPlan) clearCart();
         onSuccess();
         onClose();
       } else {

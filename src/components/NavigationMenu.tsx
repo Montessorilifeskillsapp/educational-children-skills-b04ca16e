@@ -2,12 +2,10 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
-import { CartModal } from './CartModal';
-import { useCart } from './CartContext';
 import { 
-  Menu, ShoppingBag, BookOpen, Settings, Home, Brain, 
+  Menu, BookOpen, Settings, Home, Brain, 
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, ShoppingCart
+  ChevronDown, ChevronUp
 } from 'lucide-react';
 interface NavigationMenuProps {
   onDashboardView?: () => void;
@@ -20,23 +18,19 @@ interface NavigationMenuProps {
   onBotanyView?: () => void;
   onArtView?: () => void;
   onGraceCourtesyView?: () => void;
-  onShopView?: () => void;
   onResourcesView?: () => void;
   onSubscriptionView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
-  showCart?: boolean; // New prop to control cart visibility
 }
 
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onGraceCourtesyView, onShopView, onResourcesView,
-  onSubscriptionView, onParentView, onProfilesView, showCart = true
+  onArtView, onGraceCourtesyView, onResourcesView,
+  onSubscriptionView, onParentView, onProfilesView
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isCartOpen, setIsCartOpen] = useState(false);
-  const { totalItems } = useCart();
   const navigate = useNavigate();
 
   const navigationItems = [
@@ -50,7 +44,6 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Botany', icon: Leaf, onClick: onBotanyView, color: 'border-green-400' },
     { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-pink-400' },
     { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-purple-400' },
-    { label: 'Shop', icon: ShoppingBag, onClick: onShopView, color: 'border-gray-300' },
     { label: 'Resources', icon: BookOpen, onClick: onResourcesView, color: 'border-gray-300' },
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-gray-300' },
     { label: 'Parent Dashboard', icon: User, onClick: onParentView, color: 'border-gray-300' },
@@ -61,23 +54,6 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     <div className="relative">
       <div className="flex items-center space-x-2 mb-2">
         <SecurityStatusIndicator />
-        {/* Conditionally show cart button based on showCart prop */}
-        {showCart && (
-          <Button
-            onClick={() => setIsCartOpen(true)}
-            variant="outline"
-            size="sm"
-            className="bg-white border-2 border-purple-400 hover:bg-purple-50 relative shadow-md"
-          >
-            <ShoppingCart className="w-4 h-4 text-purple-600" />
-            <span className="ml-2 font-medium text-purple-600">Cart</span>
-            {totalItems > 0 && (
-              <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-6 w-6 flex items-center justify-center font-bold animate-pulse">
-                {totalItems}
-              </span>
-            )}
-          </Button>
-        )}
       </div>
       <Button
         onClick={() => setIsOpen(!isOpen)}
@@ -115,11 +91,6 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
           </div>
         </div>
       )}
-      
-      <CartModal 
-        isOpen={isCartOpen} 
-        onClose={() => setIsCartOpen(false)} 
-      />
     </div>
   );
 };

@@ -29,7 +29,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ 
-  onGetStarted, onShopView, onResourcesView, onSubscriptionView,
+  onGetStarted, onResourcesView, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onGraceCourtesyView, onParentView, onProfilesView
@@ -92,12 +92,10 @@ const Home: React.FC<HomeProps> = ({
           onBotanyView={onBotanyView}
           onArtView={onArtView}
           onGraceCourtesyView={onGraceCourtesyView}
-          onShopView={onShopView}
           onResourcesView={onResourcesView}
           onSubscriptionView={onSubscriptionView}
           onParentView={onParentView}
           onProfilesView={onProfilesView}
-          showCart={false}
         />
       </div>
 
