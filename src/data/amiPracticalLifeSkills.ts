@@ -274,7 +274,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     ageRange: '4-6 years',
     difficulty: 'Advanced',
     category: 'Care of Self',
-    isPremium: true,
+    isPremium: false,
     icon: '👞',
     materials: ['Leather shoes', 'Shoe polish', 'Soft cloths', 'Brush', 'Newspaper', 'Apron'],
     directAims: ['Learn shoe care technique', 'Develop circular polishing motion', 'Understand material care'],
