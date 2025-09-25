@@ -6,6 +6,7 @@ import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
+import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 
 // All concise skills already have shopItems if needed
@@ -15,12 +16,13 @@ Object.values(concisePracticalLifeSkills).forEach(skill => {
   }
 });
 
-// Merge all practical life skills (concise takes highest precedence)
+// Merge all practical life skills, prioritizing concise skills, then AMI skills
 const mergedPracticalLifeSkills = { 
   ...comprehensivePracticalLifeSkills,
   ...enhancedPracticalLifeSkills,
   ...additionalPracticalLifeSkills, 
-  ...concisePracticalLifeSkills 
+  ...amiPracticalLifeSkills,
+  ...concisePracticalLifeSkills // Highest precedence
 };
 
 // Debug: Log available skills
@@ -60,6 +62,10 @@ const controlOfMovementSkills = allSkillsFormatted.filter(skill =>
   skill.category === 'Control of Movement'
 );
 
+const graceAndCourtesySkills = allSkillsFormatted.filter(skill => 
+  skill.category === 'Grace and Courtesy'
+);
+
 const foodPreparationSkills = allSkillsFormatted.filter(skill => 
   skill.category === 'Food Preparation'
 );
@@ -75,16 +81,16 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Develop independence and self-confidence through purposeful tasks related to daily life
         </p>
-<p className="text-lg text-gray-500 mt-2">
-  Areas include: Care of the Person • Care of the Environment • Control of Movement • Food Preparation
-</p>
+        <p className="text-lg text-gray-500 mt-2">
+          Areas include: Care of Self • Care of Environment • Control of Movement • Grace and Courtesy • Food Preparation
+        </p>
       </div>
 
-      {/* Care of the Person Section */}
+      {/* Care of Self Section */}
       {careOfPersonSkills.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🧼 Care of the Person
+            🧼 Care of Self
           </h2>
           <p className="text-gray-600 mb-6 max-w-3xl">
             Self-care and personal hygiene activities that help children learn to manage their own bodies and needs.
@@ -137,6 +143,29 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
           </p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {controlOfMovementSkills.map((skill) => (
+              <SkillCard
+                key={skill.id}
+                skill={skill}
+                onSelect={() => onSkillSelect(skill.id)}
+                isCompleted={completedSkills.includes(skill.id)}
+                isPremium={isPremium}
+              />
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Grace and Courtesy Section */}
+      {graceAndCourtesySkills.length > 0 && (
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+            🤝 Grace and Courtesy
+          </h2>
+          <p className="text-gray-600 mb-6 max-w-3xl">
+            Social skills and polite behaviors that help children interact respectfully and confidently with others.
+          </p>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {graceAndCourtesySkills.map((skill) => (
               <SkillCard
                 key={skill.id}
                 skill={skill}

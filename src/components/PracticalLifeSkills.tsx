@@ -8,6 +8,7 @@ import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
+import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 
 
 interface Step {
@@ -27,7 +28,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
 let skill = concisePracticalLifeSkills[skillId] || 
             additionalPracticalLifeSkills[skillId] || 
             comprehensivePracticalLifeSkills[skillId] || 
-            enhancedPracticalLifeSkills[skillId];
+            enhancedPracticalLifeSkills[skillId] ||
+            amiPracticalLifeSkills[skillId];
   
 if (!skill) return null;
 
