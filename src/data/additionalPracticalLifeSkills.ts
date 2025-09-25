@@ -386,7 +386,7 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     purpose: 'Develop self-care skills, body awareness, and personal hygiene habits',
     ageRange: '3-6 years',
     difficulty: 'Beginner',
-    category: 'Care of the Person',
+    category: 'Care of Self',
     isPremium: false,
     icon: '🪮',
     shopItems: ['hair-care-set'],
