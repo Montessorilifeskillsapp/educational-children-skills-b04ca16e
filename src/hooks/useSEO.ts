@@ -103,7 +103,7 @@ export const SEO_CONFIG = {
       "operatingSystem": "Web",
       "audience": {
         "@type": "Audience",
-        "audienceType": "Parents and Educators",
+        "audienceType": "Parents, Teachers, and Educators",
         "suggestedMinAge": 2,
         "suggestedMaxAge": 6
       },
@@ -134,14 +134,14 @@ export const SEO_CONFIG = {
   },
   subscription: {
     title: 'Premium Family Learning Plans - Unlock Advanced Activities',
-    description: 'Unlock advanced Montessori activities and exclusive content with our premium family plans. 30-day money-back guarantee.',
-    keywords: 'montessori premium, family learning plan, educational subscription, advanced activities',
+    description: 'Unlock advanced Montessori activities and exclusive content with our premium plans for families and educators. 30-day money-back guarantee.',
+    keywords: 'montessori premium, family learning plan, educational subscription, advanced activities, teacher resources',
     canonical: 'https://montessori-skills.com/subscription'
   },
   parentDashboard: {
-    title: 'Parent Dashboard - Monitor Child Development',
-    description: 'Comprehensive parent dashboard to monitor your child\'s Montessori learning progress, set goals, and communicate with educators.',
-    keywords: 'parent dashboard, child monitoring, learning progress, montessori parent tools',
+    title: 'Family Dashboard - Monitor Child Development',
+    description: 'Comprehensive family and educator dashboard to monitor children\'s Montessori learning progress, set goals, and track development.',
+    keywords: 'family dashboard, teacher dashboard, child monitoring, learning progress, montessori tools',
     canonical: 'https://montessori-skills.com/parent-dashboard'
   },
   skillActivity: {

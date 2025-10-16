@@ -267,7 +267,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 <CardTitle className="flex items-center gap-3">
                   <User className="h-6 w-6 text-teal-600" />
                   <div>
-                    <h3 className="text-teal-700">Parent Dashboard</h3>
+                    <h3 className="text-teal-700">Family Dashboard</h3>
                     <p className="text-sm text-gray-600">Track progress</p>
                   </div>
                 </CardTitle>

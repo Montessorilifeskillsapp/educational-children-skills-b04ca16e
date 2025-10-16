@@ -171,7 +171,7 @@ const Home: React.FC<HomeProps> = ({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-                Why Parents Choose Our Platform
+                Why Parents & Teachers Choose Our Platform
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Experience the authentic Montessori method with modern technology and expert guidance
@@ -216,7 +216,7 @@ const Home: React.FC<HomeProps> = ({
                 </CardHeader>
                 <CardContent>
                   <CardDescription className="text-purple-700 text-center text-lg leading-relaxed">
-                    Comprehensive step-by-step instructions and progress tracking to support both child and parent through the learning journey
+                    Comprehensive step-by-step instructions and progress tracking to support children, parents, and teachers through the learning journey
                   </CardDescription>
                 </CardContent>
               </Card>

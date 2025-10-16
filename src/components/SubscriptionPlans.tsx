@@ -52,7 +52,7 @@ const plans: Plan[] = [
       'Beautifully illustrated printable bundles',
       'Voice-guided instructions (coming soon!)',
       'Progress badges and certificates',
-      'Parent dashboard with skill tracking'
+      'Family dashboard with skill tracking'
     ],
     popular: true
   },
@@ -68,7 +68,7 @@ const plans: Plan[] = [
       'Beautifully illustrated printable bundles',
       'Voice-guided instructions (coming soon!)',
       'Progress badges and certificates',
-      'Parent dashboard with skill tracking',
+      'Family dashboard with skill tracking',
       'Bonus seasonal activity packs',
       'Save 33% compared to monthly'
     ]
@@ -85,7 +85,7 @@ const plans: Plan[] = [
       'Beautifully illustrated printable bundles',
       'Voice-guided instructions (coming soon!)',
       'Progress badges and certificates',
-      'Parent dashboard with skill tracking',
+      'Family dashboard with skill tracking',
       'Bonus seasonal activity packs',
       'Lifetime access - no recurring fees',
       'Future feature updates included'

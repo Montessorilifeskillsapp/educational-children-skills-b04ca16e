@@ -94,10 +94,10 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
         
         <header className="mb-6">
           <h1 className={`text-3xl font-bold ${montessoriTheme.text.primary}`}>
-            Parent Dashboard
+            Family Dashboard
           </h1>
           <p className={montessoriTheme.text.muted}>
-            Manage your child's Montessori education journey
+            Track and manage children's Montessori learning journey
           </p>
         </header>
 

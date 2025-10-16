@@ -76,7 +76,7 @@ const AboutPage: React.FC = () => {
                 <div>
                   <h3 className="font-semibold mb-2">Family-Centered</h3>
                   <p className="text-sm text-muted-foreground">
-                    We support the parent-child relationship with tools for tracking progress and celebrating 
+                    We support family and educator-child relationships with tools for tracking progress and celebrating 
                     achievements together.
                   </p>
                 </div>

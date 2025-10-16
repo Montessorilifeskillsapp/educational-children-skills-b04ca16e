@@ -298,8 +298,8 @@ Generated on: ${new Date().toLocaleDateString()}
             >
               <ExternalLink className="w-5 h-5 text-blue-600" />
               <div>
-                <h3 className="font-medium">Parent Community Forum</h3>
-                <p className="text-sm text-gray-600">Connect with other Montessori parents</p>
+                <h3 className="font-medium">Parent & Teacher Community</h3>
+                <p className="text-sm text-gray-600">Connect with Montessori parents and educators</p>
               </div>
             </div>
           </div>
