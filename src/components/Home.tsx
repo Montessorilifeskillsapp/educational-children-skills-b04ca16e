@@ -135,7 +135,7 @@ const Home: React.FC<HomeProps> = ({
 
               {/* Subtitle */}
               <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-in">
-                Transform your child's learning journey with authentic Montessori activities that build independence, confidence, and real-world skills
+                Transform your child's learning journey with authentic Montessori activities for homeschooling parents and classroom teachers that build independence, confidence, and real-world skills
               </p>
 
               {/* Feature Pills */}
@@ -171,7 +171,7 @@ const Home: React.FC<HomeProps> = ({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
               <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-                Why Parents & Teachers Choose Our Platform
+                Why Homeschooling Parents & Classroom Teachers Choose Our Platform
               </h2>
               <p className="text-xl text-slate-600 max-w-3xl mx-auto">
                 Experience the authentic Montessori method with modern technology and expert guidance
@@ -264,7 +264,7 @@ const Home: React.FC<HomeProps> = ({
               Ready to Transform Your Child's Learning?
             </h2>
             <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Join thousands of families building independence, confidence, and real-world skills through authentic Montessori education
+              Join thousands of homeschooling parents and classroom teachers building independence, confidence, and real-world skills through authentic Montessori education
             </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <Button 
