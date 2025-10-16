@@ -1,85 +1,788 @@
-import { graceAndCourtesySkillsComplete } from './graceAndCourtesySkillsComplete';
+import { EnhancedMontessoriSkill } from '../types/montessoriSkill';
 
-export const graceAndCourtesySkills = {
+export const graceAndCourtesySkills: Record<string, EnhancedMontessoriSkill> = {
   'greeting-others': {
     id: 'greeting-others',
     title: 'Greeting Others',
-    description: 'Learn proper ways to greet friends, family, and teachers',
+    description: 'Learn proper ways to greet friends, family, and teachers with warmth and respect',
+    purpose: 'Develop social awareness, build community connections, and practice polite communication',
     ageRange: '2-6 years',
-    duration: '10-15 minutes',
-    materials: ['Mirror', 'Practice cards'],
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
     isPremium: false,
-    category: 'grace-courtesy',
-    objectives: [
-      'Practice saying hello and goodbye',
+    icon: '👋',
+    materials: ['Mirror', 'Practice cards with greeting scenarios'],
+    materialsPurpose: [
+      'Mirror: For practicing facial expressions and eye contact',
+      'Practice cards: Visual guides for different greeting situations'
+    ],
+    directAims: [
       'Learn appropriate greetings for different times of day',
-      'Understand eye contact and smiling'
+      'Practice making eye contact when greeting',
+      'Develop confident greeting voice'
     ],
-    instructions: [
-      'Stand in front of a mirror and practice different greetings',
-      'Practice saying "Good morning," "Good afternoon," and "Good evening"',
-      'Make eye contact and smile when greeting others',
-      'Practice handshakes and waves appropriately'
+    indirectAims: [
+      'Build social confidence',
+      'Develop awareness of others',
+      'Foster community connection',
+      'Prepare for social situations'
     ],
-    tips: [
-      'Model appropriate greetings throughout the day',
-      'Encourage children to greet visitors and guests',
-      'Practice greetings in different languages for cultural awareness'
-    ]
+    controlOfError: [
+      'Mirror shows facial expression and posture',
+      'Adult modeling and feedback',
+      'Response from person being greeted',
+      'Practice scenarios reveal understanding'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Greeting Demonstration',
+        description: 'Teacher models warm, respectful greetings',
+        steps: [
+          'Invite child: "I would like to show you how we greet others in our community"',
+          'Stand facing child at eye level',
+          'Make gentle eye contact and smile warmly',
+          'Say clearly: "Good morning, [name]" or "Hello, [name]"',
+          'Demonstrate appropriate physical greeting (wave, gentle handshake, or nod)',
+          'Practice with different times of day: "Good afternoon," "Good evening"',
+          'Show greeting when leaving: "Goodbye," "See you tomorrow"',
+          'Demonstrate with mirror: "Watch your face - see your friendly smile?"'
+        ],
+        keyPoints: [
+          'Make eye contact first',
+          'Smile warmly and genuinely',
+          'Use clear, friendly voice',
+          'Respect personal space'
+        ],
+        duration: '5-8 minutes'
+      },
+      guidedPractice: {
+        title: 'Practicing Greetings Together',
+        description: 'Child practices greetings with teacher support',
+        steps: [
+          'Invite child to practice: "Now you may try greeting me"',
+          'Guide child to make eye contact',
+          'Encourage smile and friendly tone',
+          'Practice different greetings for different times',
+          'Role-play greeting different people (friends, teachers, visitors)',
+          'Practice both arriving and leaving greetings'
+        ],
+        supportStrategies: [
+          'Model appropriate greeting first each time',
+          'Gently remind about eye contact',
+          'Praise warm, genuine greetings',
+          'Practice with stuffed animals or dolls first if shy'
+        ],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Greeting Practice',
+        description: 'Child greets others throughout the day',
+        indicators: [
+          'Greets people spontaneously',
+          'Makes appropriate eye contact',
+          'Uses correct greeting for time of day',
+          'Shows genuine warmth in greeting'
+        ],
+        troubleshooting: [
+          'If avoiding eye contact: practice with mirror first',
+          'If too quiet: practice voice volume',
+          'If forgetting time-appropriate greetings: use visual cues',
+          'If shy: start with familiar people only'
+        ],
+        duration: 'Throughout the day'
+      },
+      mastery: {
+        title: 'Greeting Mastery',
+        description: 'Child greets others with confidence and warmth',
+        assessmentCriteria: [
+          'Greets people appropriately and spontaneously',
+          'Shows cultural awareness in greetings',
+          'Adapts greeting to situation and person',
+          'Makes others feel welcomed'
+        ],
+        indicators: [
+          'Welcomes visitors warmly',
+          'Helps younger children practice greetings',
+          'Shows interest in greetings from other cultures',
+          'Models greeting behavior for peers'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Greeting Activities',
+        description: 'Expanding greeting awareness and skills',
+        activities: [
+          'Learning greetings in different languages',
+          'Practicing formal vs. informal greetings',
+          'Greeting visitors to the classroom',
+          'Cultural greeting customs exploration',
+          'Creating greeting cards'
+        ],
+        variations: [
+          'Sign language greetings',
+          'Greetings for special occasions',
+          'Professional greetings (doctor, librarian)',
+          'Greeting elders with respect'
+        ]
+      }
+    }
   },
+
   'saying-please-thank-you': {
     id: 'saying-please-thank-you',
     title: 'Saying Please and Thank You',
-    description: 'Practice using polite words in daily interactions',
+    description: 'Practice using polite words in daily interactions with genuine meaning',
+    purpose: 'Develop gratitude expression, respectful communication, and awareness of others\' kindness',
     ageRange: '2-6 years',
-    duration: '10-15 minutes',
-    materials: ['Role-play scenarios', 'Picture cards'],
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
     isPremium: false,
-    category: 'grace-courtesy',
-    objectives: [
-      'Use "please" when asking for something',
-      'Say "thank you" when receiving help',
-      'Understand when to use polite words'
+    icon: '🙏',
+    materials: ['Role-play scenario cards', 'Picture cards showing polite situations', 'Practice objects for requesting'],
+    materialsPurpose: [
+      'Scenario cards: Visual guides for when to use polite words',
+      'Picture cards: Recognition of polite situations',
+      'Practice objects: Real items for making genuine requests'
     ],
-    instructions: [
-      'Practice asking for items using "please"',
-      'Role-play scenarios where thank you is appropriate',
-      'Use picture cards to identify polite situations',
-      'Practice with real-life situations during snack time'
+    directAims: [
+      'Use "please" when making requests',
+      'Say "thank you" when receiving help or gifts',
+      'Understand the meaning behind polite words'
     ],
-    tips: [
-      'Model polite language consistently',
-      'Gently remind children when they forget',
-      'Praise children when they use polite words naturally'
-    ]
+    indirectAims: [
+      'Develop genuine gratitude',
+      'Build awareness of others\' efforts',
+      'Foster respectful relationships',
+      'Prepare for social interactions'
+    ],
+    controlOfError: [
+      'Positive response from others',
+      'Natural opportunities arise daily',
+      'Adult modeling and gentle reminders',
+      'Visual cues in environment'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Please and Thank You Demonstration',
+        description: 'Teacher models genuine polite requests and gratitude',
+        steps: [
+          'Create a natural situation: "I need a pencil. May I borrow yours, please?"',
+          'Wait for response, make eye contact',
+          'Receive item with care',
+          'Say warmly: "Thank you" while making eye contact',
+          'Show why it matters: "When I say please, it shows I respect you"',
+          'Demonstrate: "When I say thank you, you know I appreciate your kindness"',
+          'Practice both: requesting with "please" and acknowledging with "thank you"',
+          'Show that tone matters as much as words'
+        ],
+        keyPoints: [
+          'Use genuine, warm tone',
+          'Make eye contact when speaking',
+          'Mean what you say',
+          'Show appreciation through actions too'
+        ],
+        duration: '6-8 minutes'
+      },
+      guidedPractice: {
+        title: 'Practicing Polite Words',
+        description: 'Child practices in real situations with guidance',
+        steps: [
+          'Create natural opportunities for requests',
+          'Pause before helping: "How can you ask for that?"',
+          'Guide complete request: "May I have the scissors, please?"',
+          'Help child notice when others help them',
+          'Prompt gently: "What do we say when someone helps us?"',
+          'Practice at snack time, during activities, throughout the day'
+        ],
+        supportStrategies: [
+          'Model every time without criticism',
+          'Pause to give child time to remember',
+          'Whisper gentle reminder if needed',
+          'Praise genuine, warm usage'
+        ],
+        duration: 'Throughout daily activities'
+      },
+      independentPractice: {
+        title: 'Independent Polite Communication',
+        description: 'Child uses polite words naturally and genuinely',
+        indicators: [
+          'Says "please" spontaneously when requesting',
+          'Says "thank you" without prompting',
+          'Uses polite words with warm, genuine tone',
+          'Notices and acknowledges others\' kindness'
+        ],
+        troubleshooting: [
+          'If forgetting: gentle verbal cue without criticism',
+          'If mechanical/insincere: model genuine appreciation',
+          'If saying too quietly: practice comfortable voice volume',
+          'If resisting: examine if too many forced practices'
+        ],
+        duration: 'Throughout the day'
+      },
+      mastery: {
+        title: 'Genuine Politeness Mastery',
+        description: 'Child uses polite language naturally with authentic gratitude',
+        assessmentCriteria: [
+          'Uses polite words spontaneously',
+          'Shows genuine appreciation in tone and manner',
+          'Extends politeness to all interactions',
+          'Models for younger children'
+        ],
+        indicators: [
+          'Expresses gratitude without reminders',
+          'Makes polite requests naturally',
+          'Thanks others for small kindnesses',
+          'Shows appreciation through actions and words'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Courtesy Language',
+        description: 'Expanding polite communication skills',
+        activities: [
+          'Writing thank you notes',
+          'Expressing gratitude for intangible gifts',
+          'Polite refusal: "No, thank you"',
+          'Apology and forgiveness: "I\'m sorry," "That\'s okay"',
+          'Polite interruption: "Excuse me, please"'
+        ],
+        variations: [
+          'Cultural expressions of gratitude',
+          'Formal vs. casual politeness',
+          'Politeness in different settings',
+          'Expressing deep gratitude'
+        ]
+      }
+    }
   },
+
   'waiting-turn': {
     id: 'waiting-turn',
     title: 'Waiting Your Turn',
-    description: 'Learn patience and respect for others in group activities',
+    description: 'Learn patience and respect for others through graceful waiting',
+    purpose: 'Develop self-control, respect for others\' work time, and peaceful community awareness',
     ageRange: '3-6 years',
-    duration: '15-20 minutes',
-    materials: ['Timer', 'Activity cards'],
+    difficulty: 'Intermediate',
+    category: 'Grace and Courtesy',
     isPremium: true,
-    category: 'grace-courtesy',
-    objectives: [
-      'Practice waiting patiently',
+    icon: '⏰',
+    materials: ['Timer', 'Activity cards', 'Popular classroom materials', 'Waiting mat or chair'],
+    materialsPurpose: [
+      'Timer: Visual representation of wait time',
+      'Activity cards: Alternative activities while waiting',
+      'Popular materials: For turn-taking practice',
+      'Waiting area: Designated peaceful waiting space'
+    ],
+    directAims: [
+      'Practice waiting patiently without interrupting',
       'Respect others\' time with materials',
-      'Learn to observe while waiting'
+      'Learn to observe others\' work'
     ],
-    instructions: [
-      'Use a timer to show how long each person gets with materials',
-      'Practice sitting quietly while others work',
-      'Learn to observe and appreciate others\' work',
-      'Take turns with popular classroom materials'
+    indirectAims: [
+      'Develop self-control and patience',
+      'Build empathy and respect',
+      'Prepare for group situations',
+      'Develop inner peace'
     ],
-    tips: [
-      'Start with shorter waiting periods and gradually increase',
-      'Provide alternative activities for children who are waiting',
-      'Acknowledge and praise patient waiting behavior'
-    ]
+    controlOfError: [
+      'Timer shows remaining wait time visually',
+      'Social feedback from peers',
+      'Adult guidance and support',
+      'Natural consequences of patience'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Waiting with Grace Demonstration',
+        description: 'Teacher models patient waiting and respectful observation',
+        steps: [
+          'Identify a material another child is using',
+          'Approach quietly and observe from a respectful distance',
+          'Make eye contact and smile, but don\'t interrupt',
+          'If child notices you: "I see you\'re using the pink tower. May I use it when you\'re finished?"',
+          'If child doesn\'t notice: wait patiently without interrupting',
+          'Choose a nearby activity to do while waiting',
+          'Work on alternative activity with focus',
+          'When material is available: thank the child and take your turn',
+          'Show appreciation: "Thank you for letting me know you were finished"'
+        ],
+        keyPoints: [
+          'Never interrupt someone\'s work',
+          'Wait at respectful distance',
+          'Find meaningful activity while waiting',
+          'Express gratitude when turn comes'
+        ],
+        duration: '8-12 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Waiting Practice',
+        description: 'Child practices waiting with teacher guidance',
+        steps: [
+          'When child wants busy material: "I see someone is using that. What can we do?"',
+          'Guide appropriate approach and observation',
+          'Help child make polite request: "May I use it when you\'re finished?"',
+          'Help identify alternative activity',
+          'Support patience: "Let\'s work on this while we wait"',
+          'Use timer for short waits initially: "The timer will help us know when to check"',
+          'Acknowledge patience: "You waited so peacefully"'
+        ],
+        supportStrategies: [
+          'Start with shorter wait times',
+          'Provide engaging alternative activities',
+          'Use timer for visual support',
+          'Praise patient behavior specifically'
+        ],
+        duration: '10-20 minutes per situation'
+      },
+      independentPractice: {
+        title: 'Independent Patient Waiting',
+        description: 'Child waits gracefully without adult support',
+        indicators: [
+          'Approaches respectfully when material is busy',
+          'Waits without interrupting or hovering',
+          'Engages in meaningful alternative work',
+          'Shows patience and inner calm'
+        ],
+        troubleshooting: [
+          'If hovering: guide to find waiting activity',
+          'If interrupting: model respectful approach again',
+          'If impatient: reduce wait times temporarily',
+          'If upset: validate feelings and practice self-calming'
+        ],
+        duration: 'Throughout the day as needed'
+      },
+      mastery: {
+        title: 'Patience and Respect Mastery',
+        description: 'Child embodies patience and respect for others\' work',
+        assessmentCriteria: [
+          'Waits patiently for extended periods',
+          'Finds meaningful work while waiting',
+          'Shows respect for others\' concentration',
+          'Models graceful waiting for peers'
+        ],
+        indicators: [
+          'Never interrupts others\' work',
+          'Uses wait time productively',
+          'Shows understanding that everyone deserves uninterrupted time',
+          'Helps younger children learn to wait'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Patience and Turn-Taking',
+        description: 'Complex waiting and sharing situations',
+        activities: [
+          'Waiting in longer queues',
+          'Taking turns in group games',
+          'Sharing popular outdoor equipment',
+          'Waiting during group discussions',
+          'Planning ahead for popular materials'
+        ],
+        variations: [
+          'Creating sign-up systems for popular materials',
+          'Partner work and collaboration',
+          'Understanding fair sharing principles',
+          'Cultural perspectives on turn-taking'
+        ]
+      }
+    }
   },
-  ...graceAndCourtesySkillsComplete
+
+  'table-manners': {
+    id: 'table-manners',
+    title: 'Table Manners',
+    description: 'Proper behavior and etiquette during meals with grace and consideration',
+    purpose: 'Develop mealtime grace, social awareness, and respect for shared dining experiences',
+    ageRange: '3-6 years',
+    difficulty: 'Intermediate',
+    category: 'Grace and Courtesy',
+    isPremium: true,
+    icon: '🍽️',
+    materials: ['Complete place setting', 'Cloth napkins', 'Practice foods', 'Child-sized utensils', 'Placemat'],
+    materialsPurpose: [
+      'Place setting: Real dishes for authentic practice',
+      'Cloth napkins: For learning proper napkin use',
+      'Practice foods: Safe foods for utensil practice',
+      'Child-sized utensils: Appropriate for small hands',
+      'Placemat: Guide for proper placement'
+    ],
+    directAims: [
+      'Use utensils correctly and gracefully',
+      'Sit properly with good posture',
+      'Practice mealtime conversation'
+    ],
+    indirectAims: [
+      'Develop social grace',
+      'Build confidence in dining situations',
+      'Prepare for community meals',
+      'Foster pleasant mealtime atmosphere'
+    ],
+    controlOfError: [
+      'Visual feedback from proper placement',
+      'Adult modeling throughout',
+      'Natural consequences of technique',
+      'Social feedback from dining companions'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Graceful Dining Demonstration',
+        description: 'Teacher models elegant, respectful mealtime behavior',
+        steps: [
+          'Set table beautifully together, placing items carefully',
+          'Approach table calmly and sit with good posture',
+          'Place napkin on lap gently',
+          'Wait until everyone is seated before beginning',
+          'Hold utensils correctly: fork in left hand (or right), knife in right',
+          'Cut food into small, manageable pieces',
+          'Bring food to mouth (not mouth to plate)',
+          'Chew with mouth closed, take time between bites',
+          'Place utensils on plate when speaking',
+          'Use napkin to dab mouth gently as needed',
+          'Finish chewing before speaking',
+          'Ask politely for items: "Please pass the water"',
+          'When finished: place utensils parallel on plate',
+          'Place napkin beside plate (not on it)',
+          'Thank host or cook'
+        ],
+        keyPoints: [
+          'Move with grace and deliberation',
+          'Never speak with mouth full',
+          'Pass items with care',
+          'Maintain pleasant conversation'
+        ],
+        duration: '15-20 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Dining Practice',
+        description: 'Child practices table manners with gentle guidance',
+        steps: [
+          'Practice table setting together first',
+          'Guide proper sitting and napkin placement',
+          'Model correct utensil holding',
+          'Practice cutting soft foods',
+          'Encourage small bites and thorough chewing',
+          'Demonstrate polite requesting and passing',
+          'Practice pleasant conversation topics',
+          'Guide proper completion of meal'
+        ],
+        supportStrategies: [
+          'Start with finger foods, add utensils gradually',
+          'Practice with softer, easier foods first',
+          'Make mealtimes pleasant and unpressured',
+          'Model consistently without criticism'
+        ],
+        duration: 'Each meal time, 20-30 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Graceful Dining',
+        description: 'Child demonstrates table manners naturally',
+        indicators: [
+          'Uses utensils correctly and gracefully',
+          'Maintains good posture throughout meal',
+          'Participates in pleasant conversation appropriately',
+          'Shows consideration for others at table'
+        ],
+        troubleshooting: [
+          'If slouching: gentle reminder about sitting tall',
+          'If speaking with full mouth: pause and wait',
+          'If struggling with utensils: return to easier foods',
+          'If rushing: model slower, mindful eating'
+        ],
+        duration: 'Every meal time'
+      },
+      mastery: {
+        title: 'Dining Grace Mastery',
+        description: 'Child embodies graceful, considerate dining behavior',
+        assessmentCriteria: [
+          'Demonstrates proper table manners consistently',
+          'Adapts behavior to different dining situations',
+          'Makes others comfortable at table',
+          'Shows genuine enjoyment of shared meals'
+        ],
+        indicators: [
+          'Models behavior for younger children',
+          'Comfortable in various dining settings',
+          'Helps set table beautifully',
+          'Contributes to pleasant mealtime atmosphere'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Dining Etiquette',
+        description: 'Complex dining situations and cultural awareness',
+        activities: [
+          'Formal table setting practice',
+          'Different cultural dining customs',
+          'Restaurant etiquette',
+          'Serving guests properly',
+          'Special occasion meals'
+        ],
+        variations: [
+          'Different types of utensils and their uses',
+          'Finger foods vs. utensil foods',
+          'Buffet etiquette',
+          'Cultural meal traditions'
+        ]
+      }
+    }
+  },
+
+  'offering-help': {
+    id: 'offering-help',
+    title: 'Offering Help',
+    description: 'Learn to recognize when others need assistance and offer help respectfully',
+    purpose: 'Develop empathy, community awareness, and respectful helping skills',
+    ageRange: '3-6 years',
+    difficulty: 'Intermediate',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '🤝',
+    materials: ['Scenario cards', 'Practice activities requiring assistance', 'Props for role-play'],
+    materialsPurpose: [
+      'Scenario cards: Visual guides for helping situations',
+      'Practice activities: Real situations for offering help',
+      'Role-play props: Items for practicing helping scenarios'
+    ],
+    directAims: [
+      'Recognize when someone might need help',
+      'Ask respectfully if help is wanted',
+      'Provide appropriate assistance'
+    ],
+    indirectAims: [
+      'Develop empathy and awareness',
+      'Build community connection',
+      'Understand consent and respect',
+      'Foster helpful attitude'
+    ],
+    controlOfError: [
+      'Response from person being helped',
+      'Success or struggle of helping attempt',
+      'Adult modeling and guidance',
+      'Natural social feedback'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Respectful Helping Demonstration',
+        description: 'Teacher models noticing needs and offering help appropriately',
+        steps: [
+          'Notice someone working or struggling (staged scenario)',
+          'Observe for a moment to assess the situation',
+          'Approach calmly and respectfully',
+          'Make eye contact and speak clearly: "I notice you\'re carrying many things. May I help you?"',
+          'Wait for response - respect if they say no',
+          'If yes: "How would you like me to help?"',
+          'Provide requested help, not more',
+          'When finished: "You\'re welcome" if thanked',
+          'Demonstrate also: "I can do it myself, but thank you for asking"',
+          'Show that asking is helpful even if help is declined'
+        ],
+        keyPoints: [
+          'Observe before offering',
+          'Ask, don\'t assume help is wanted',
+          'Respect if help is declined',
+          'Provide only the help requested'
+        ],
+        duration: '8-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Helping Practice',
+        description: 'Child practices offering and providing help with guidance',
+        steps: [
+          'Create natural opportunities for helping',
+          'Guide child to notice: "Look, do you think Sarah needs help with those blocks?"',
+          'Help formulate offer: "How can you ask if she wants help?"',
+          'Support respectful approach and clear asking',
+          'Guide appropriate helping without taking over',
+          'Discuss when help is declined: "That\'s okay, asking was kind"',
+          'Practice both offering and declining help'
+        ],
+        supportStrategies: [
+          'Model noticing others\' needs throughout day',
+          'Praise thoughtful observations',
+          'Discuss why someone might not want help',
+          'Practice specific helping phrases'
+        ],
+        duration: 'Throughout daily activities, 10-15 minutes per practice'
+      },
+      independentPractice: {
+        title: 'Independent Thoughtful Helping',
+        description: 'Child offers help appropriately without prompting',
+        indicators: [
+          'Notices when others might need assistance',
+          'Asks respectfully before helping',
+          'Accepts gracefully if help is declined',
+          'Provides helpful assistance without taking over'
+        ],
+        troubleshooting: [
+          'If forcing help: discuss respecting others\' wishes',
+          'If not noticing needs: practice observation games',
+          'If hurt when declined: explain it\'s about independence',
+          'If taking over: practice letting others lead'
+        ],
+        duration: 'Throughout the day'
+      },
+      mastery: {
+        title: 'Empathetic Helping Mastery',
+        description: 'Child demonstrates mature, respectful helping skills',
+        assessmentCriteria: [
+          'Consistently notices others\' needs',
+          'Offers help respectfully and appropriately',
+          'Respects independence and boundaries',
+          'Provides effective, considerate assistance'
+        ],
+        indicators: [
+          'Helps without being asked when appropriate',
+          'Knows when to offer and when to let be',
+          'Models respectful helping for peers',
+          'Shows genuine desire to support community'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Helping and Community Care',
+        description: 'Complex helping situations and community awareness',
+        activities: [
+          'Identifying different types of help people need',
+          'Understanding when NOT to help',
+          'Helping with complex tasks requiring coordination',
+          'Teaching others skills they want to learn',
+          'Community service concepts'
+        ],
+        variations: [
+          'Helping in different settings (home, school, community)',
+          'Emotional support vs. physical help',
+          'Helping adults respectfully',
+          'Cultural perspectives on helping'
+        ]
+      }
+    }
+  },
+
+  'walking-indoors': {
+    id: 'walking-indoors',
+    title: 'Walking Indoors',
+    description: 'Practice moving gracefully and quietly indoors with awareness and control',
+    purpose: 'Develop body control, spatial awareness, and respect for the peaceful environment',
+    ageRange: '2-5 years',
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '🚶',
+    materials: ['Tape lines on floor', 'Various objects to carry', 'Bell or fragile items for advanced practice'],
+    materialsPurpose: [
+      'Tape lines: Guides for controlled walking practice',
+      'Objects to carry: Practice balance and care while moving',
+      'Bell: Advanced control exercise',
+      'Fragile items: Develops extreme care and awareness'
+    ],
+    directAims: [
+      'Walk without running indoors',
+      'Move quietly and carefully',
+      'Carry objects safely while walking'
+    ],
+    indirectAims: [
+      'Develop balance and coordination',
+      'Build self-control and awareness',
+      'Respect others\' concentration',
+      'Prepare for carrying work materials'
+    ],
+    controlOfError: [
+      'Sound of footsteps reveals control',
+      'Bell rings if movement isn\'t smooth',
+      'Objects drop if carrying isn\'t careful',
+      'Bumping into things shows lack of awareness'
+    ],
+    learningProcess: {
+      presentation: {
+        title: 'Graceful Walking Demonstration',
+        description: 'Teacher models controlled, aware indoor movement',
+        steps: [
+          'Stand with good posture, feet together',
+          'Begin walking slowly, heel to toe',
+          'Keep eyes forward, looking where you\'re going',
+          'Walk along the line, placing each foot carefully',
+          'Move arms gently, naturally at sides',
+          'Walk around others\' work mats without stepping on them',
+          'Demonstrate wide arc around someone working',
+          'Show careful movement between furniture',
+          'Practice carrying a tray while walking the line',
+          'Demonstrate quiet, controlled movement throughout'
+        ],
+        keyPoints: [
+          'Heel-to-toe walking for control',
+          'Eyes forward, aware of surroundings',
+          'Move smoothly without rushing',
+          'Respect others\' work space'
+        ],
+        duration: '10-12 minutes'
+      },
+      guidedPractice: {
+        title: 'Supported Walking Practice',
+        description: 'Child practices controlled indoor walking with guidance',
+        steps: [
+          'Invite child to walk the line',
+          'Guide posture and initial position',
+          'Encourage slow, controlled steps',
+          'Practice walking around obstacles',
+          'Add carrying simple objects',
+          'Guide movement around work areas',
+          'Practice quiet footsteps',
+          'Gradually increase complexity of carried items'
+        ],
+        supportStrategies: [
+          'Walk behind child initially for support',
+          'Use music for rhythm and pacing',
+          'Praise controlled, graceful movement',
+          'Make game of carrying increasingly delicate items'
+        ],
+        duration: '15-20 minutes per session'
+      },
+      independentPractice: {
+        title: 'Independent Graceful Movement',
+        description: 'Child moves through environment with grace and awareness',
+        indicators: [
+          'Walks without running throughout the day',
+          'Moves quietly without disturbing others',
+          'Carries materials carefully and safely',
+          'Shows awareness of others\' work spaces'
+        ],
+        troubleshooting: [
+          'If running: gently redirect to walking',
+          'If loud footsteps: practice softer steps',
+          'If bumping into things: practice spatial awareness games',
+          'If disturbing others: review respectful movement'
+        ],
+        duration: 'Throughout the day'
+      },
+      mastery: {
+        title: 'Movement Grace Mastery',
+        description: 'Child embodies graceful, aware movement at all times',
+        assessmentCriteria: [
+          'Moves gracefully without reminders',
+          'Naturally avoids disturbing others',
+          'Carries even delicate items safely',
+          'Shows complete body control and awareness'
+        ],
+        indicators: [
+          'Models graceful movement for younger children',
+          'Can carry water without spilling',
+          'Walks with bell without ringing it',
+          'Shows pride in controlled movement'
+        ]
+      },
+      extensions: {
+        title: 'Advanced Movement and Control',
+        description: 'Complex movement challenges and applications',
+        activities: [
+          'Walking with glass of water without spilling',
+          'Carrying bell without ringing',
+          'Walking on raised line (balance beam)',
+          'Carrying multiple or heavy items',
+          'Moving chairs and furniture quietly'
+        ],
+        variations: [
+          'Walking on different surfaces',
+          'Moving through crowded spaces',
+          'Walking backward along line',
+          'Cultural walking and movement styles'
+        ]
+      }
+    }
+  }
 };
 
 export default graceAndCourtesySkills;

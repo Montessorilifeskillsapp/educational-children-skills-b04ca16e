@@ -138,8 +138,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   // Convert steps to proper format based on skill type
   const skillSteps = botanySkill?.steps ? 
     botanySkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
-    graceCourtesySkill?.instructions ? 
-    graceCourtesySkill.instructions.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
+    graceCourtesySkill?.learningProcess?.presentation?.steps ? 
+    graceCourtesySkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
     artSkill?.steps ? 
     artSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
     geographySkill?.activities ? 
@@ -279,18 +279,18 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Tips Section for Grace & Courtesy Skills */}
-        {graceCourtesySkill?.tips && (
+        {/* Key Points Section for Grace & Courtesy Skills */}
+        {graceCourtesySkill?.learningProcess?.presentation?.keyPoints && (
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <span className="text-2xl">💡</span>
-                Teaching Tips
+                Key Teaching Points
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="list-disc list-inside space-y-1">
-                {graceCourtesySkill.tips.map((tip, index) => (
+                {graceCourtesySkill.learningProcess.presentation.keyPoints.map((tip, index) => (
                   <li key={index} className="text-gray-700">{tip}</li>
                 ))}
               </ul>
@@ -298,18 +298,18 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Objectives Section for Grace & Courtesy Skills */}
-        {graceCourtesySkill?.objectives && (
+        {/* Direct Aims Section for Grace & Courtesy Skills */}
+        {graceCourtesySkill?.directAims && (
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <span className="text-2xl">🎯</span>
-                Learning Objectives
+                Direct Aims
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="list-disc list-inside space-y-1">
-                {graceCourtesySkill.objectives.map((objective, index) => (
+                {graceCourtesySkill.directAims.map((objective, index) => (
                   <li key={index} className="text-gray-700">{objective}</li>
                 ))}
               </ul>
