@@ -224,41 +224,43 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Steps Section */}
-        <Card className="mb-6">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <span className="text-2xl">📋</span>
-              Activity Steps
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            {steps.map((step, index) => (
-              <div key={step.id} className="flex items-start gap-3 p-3 rounded-lg bg-white border">
-                <button
-                  onClick={() => toggleStep(step.id)}
-                  className="mt-1 flex-shrink-0"
-                >
-                  {step.completed ? (
-                    <CheckCircle className="h-6 w-6 text-green-600" />
-                  ) : (
-                    <Circle className="h-6 w-6 text-gray-400" />
-                  )}
-                </button>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className={`px-2 py-1 rounded text-sm font-medium ${category.color}`}>
-                      Step {index + 1}
-                    </span>
+        {/* Steps Section - Only show for non-sensorial skills that don't have learningProcess */}
+        {!sensorialSkill?.learningProcess && (
+          <Card className="mb-6">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <span className="text-2xl">📋</span>
+                Activity Steps
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {steps.map((step, index) => (
+                <div key={step.id} className="flex items-start gap-3 p-3 rounded-lg bg-white border">
+                  <button
+                    onClick={() => toggleStep(step.id)}
+                    className="mt-1 flex-shrink-0"
+                  >
+                    {step.completed ? (
+                      <CheckCircle className="h-6 w-6 text-green-600" />
+                    ) : (
+                      <Circle className="h-6 w-6 text-gray-400" />
+                    )}
+                  </button>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className={`px-2 py-1 rounded text-sm font-medium ${category.color}`}>
+                        Step {index + 1}
+                      </span>
+                    </div>
+                    <p className={`${step.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
+                      {step.instruction}
+                    </p>
                   </div>
-                  <p className={`${step.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
-                    {step.instruction}
-                  </p>
                 </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+              ))}
+            </CardContent>
+          </Card>
+        )}
 
         {/* Enhanced Montessori Learning Process for Sensorial Skills */}
         {sensorialSkill?.learningProcess && (
