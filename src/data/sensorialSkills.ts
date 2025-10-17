@@ -33,6 +33,7 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Demonstrate building the Pink Tower with precision and control',
+        invitation: 'Would you like to work with the Pink Tower?',
         duration: '10-15 minutes',
         steps: [
           'Invite the child to the shelf where the Pink Tower is kept',
@@ -139,6 +140,7 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Demonstrate building the Brown Stair with attention to thickness gradation',
+        invitation: 'Would you like to work with the Brown Stair?',
         duration: '10-15 minutes',
         steps: [
           'Invite the child to the Brown Stair shelf',
@@ -247,6 +249,7 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Demonstrate arranging the Red Rods by length with precision',
+        invitation: 'Would you like to work with the Red Rods?',
         duration: '15-20 minutes',
         steps: [
           'Invite the child to the Red Rods storage area',

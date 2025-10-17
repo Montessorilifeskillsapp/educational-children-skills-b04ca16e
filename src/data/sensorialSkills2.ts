@@ -33,6 +33,7 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Demonstrate matching and grading color tablets with Box 1 (primary colors)',
+        invitation: 'Would you like to work with the Color Tablets?',
         duration: '10-12 minutes',
         steps: [
           'Invite the child to the Color Tablets Box 1 shelf',
@@ -146,6 +147,7 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Demonstrate matching sound cylinders through careful listening',
+        invitation: 'Would you like to work with the Sound Cylinders?',
         duration: '10-15 minutes',
         steps: [
           'Choose a quiet time and location with minimal background noise',
@@ -262,6 +264,7 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Demonstrate matching fabric textures through careful touch',
+        invitation: 'Would you like to work with the Fabric Box?',
         duration: '8-10 minutes',
         steps: [
           'Invite the child to the Fabric Box shelf',

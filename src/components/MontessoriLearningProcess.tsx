@@ -104,6 +104,15 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                     <span className="text-sm text-gray-500">{phase.data.duration}</span>
                   </div>
                 )}
+                {'invitation' in phase.data && phase.data.invitation && (
+                  <div className="mt-4 p-4 bg-amber-50 border-2 border-amber-200 rounded-lg">
+                    <h4 className="font-medium text-amber-900 mb-2 flex items-center gap-2">
+                      <span className="text-xl">🤝</span>
+                      Invitation
+                    </h4>
+                    <p className="text-amber-800 italic">"{phase.data.invitation}"</p>
+                  </div>
+                )}
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Steps */}

@@ -2,6 +2,7 @@ export interface MontessoriLearningProcess {
   presentation: {
     title: string;
     description: string;
+    invitation?: string;
     steps: string[];
     keyPoints: string[];
     duration: string;

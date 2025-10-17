@@ -33,6 +33,7 @@ export const tactileSensorialSkills: Record<string, SensorialSkill> = {
       presentation: {
         title: 'Presentation',
         description: 'Introduce rough and smooth sensations',
+        invitation: 'Would you like to work with the Touch Boards?',
         duration: '5-8 minutes',
         steps: [
           'Invite child to Touch Boards',
