@@ -1,32 +1,5 @@
 // Additional Montessori Sensorial Skills Data
-export interface MontessoriLearningProcess {
-  presentation: {
-    description: string;
-    duration: string;
-    steps: string[];
-    keyPoints: string[];
-  };
-  guidedPractice: {
-    description: string;
-    duration: string;
-    activities: string[];
-    supportStrategies: string[];
-  };
-  independentPractice: {
-    description: string;
-    indicators: string[];
-    variations: string[];
-  };
-  mastery: {
-    description: string;
-    assessmentCriteria: string[];
-    extensions: string[];
-  };
-  troubleshooting?: {
-    commonChallenges: string[];
-    solutions: string[];
-  };
-}
+import { MontessoriLearningProcess } from '@/types/montessoriSkill';
 
 export interface SensorialSkill {
   id: string;
@@ -58,6 +31,7 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
     color: 'rainbow',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Demonstrate matching and grading color tablets with Box 1 (primary colors)',
         duration: '10-12 minutes',
         steps: [
@@ -85,9 +59,10 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Child practices matching colors with educator observing',
         duration: '1-2 weeks with Box 1, then progress to Box 2 and Box 3',
-        activities: [
+        steps: [
           'Child removes tablets and places them randomly',
           'Child matches each color pair independently',
           'Child names colors during or after matching',
@@ -104,7 +79,9 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Child works independently with all Color Tablet boxes',
+        duration: '4-8 weeks',
         indicators: [
           'Matches all colors accurately in Box 1 and Box 2',
           'Grades colors from light to dark correctly in Box 3',
@@ -112,15 +89,14 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
           'Can name all primary and secondary colors',
           'Works with sustained focus and care'
         ],
-        variations: [
-          'Match colors in Box 2 with eyes partially closed',
-          'Grade just two color families together for comparison',
-          'Create patterns or designs with the tablets',
-          'Work with tablets in different lighting conditions (with supervision)',
-          'Mix tablets from different boxes for a challenge'
+        troubleshooting: [
+          'If color gradation is difficult, work with only 2-3 gradations first',
+          'If touching color surfaces, gently remind about edges',
+          'If lighting is poor, move near a window'
         ]
       },
       mastery: {
+        title: 'Mastery',
         description: 'Child demonstrates color expertise and creative exploration',
         assessmentCriteria: [
           'Accurately matches and grades all color tablets',
@@ -129,35 +105,27 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
           'Handles materials with consistent care and respect',
           'Can identify matching colors in the environment'
         ],
-        extensions: [
+        indicators: [
+          'Confident color discrimination',
+          'Can teach others',
+          'Shows refined color sense'
+        ]
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced color activities',
+        activities: [
           'Find objects in the classroom matching each tablet color',
           'Create a color scavenger hunt using the tablets',
           'Match paint samples to the tablets',
           'Learn color mixing concepts with art materials',
+          'Create artwork inspired by specific color tablets'
+        ],
+        variations: [
           'Identify warm vs cool colors',
-          'Create artwork inspired by specific color tablets',
           'Learn color names in different languages',
-          'Explore color theory: complementary colors, analogous colors',
           'Match fabric swatches to color tablets',
           'Create a color sorting activity with natural objects'
-        ]
-      },
-      troubleshooting: {
-        commonChallenges: [
-          'Child struggles with color gradation in Box 3',
-          'Child touches color surfaces instead of edges',
-          'Color names are confused or forgotten',
-          'Child loses interest in matching activity',
-          'Lighting makes color discrimination difficult'
-        ],
-        solutions: [
-          'Work with only 2-3 gradations at first, then expand',
-          'Gently remind and model proper handling',
-          'Use the three-period lesson more frequently',
-          'Introduce color scavenger hunts to renew interest',
-          'Move activity near a window for natural light',
-          'Check for color vision differences; adapt as needed',
-          'Pair color work with art activities for variety'
         ]
       }
     }
@@ -176,6 +144,7 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
     color: 'blue',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Demonstrate matching sound cylinders through careful listening',
         duration: '10-15 minutes',
         steps: [
@@ -205,9 +174,10 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Child practices matching sound cylinders with minimal support',
         duration: '2-3 weeks of practice',
-        activities: [
+        steps: [
           'Child sets up materials independently',
           'Child shakes cylinders one at a time, listening carefully',
           'Child matches all pairs through auditory comparison',
@@ -224,7 +194,9 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Child works independently with sound cylinders',
+        duration: '4-6 weeks',
         indicators: [
           'Consistently matches all cylinder pairs correctly',
           'Shakes each cylinder consistently and gently',
@@ -233,15 +205,14 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
           'Works in silence without reminders',
           'Handles materials carefully'
         ],
-        variations: [
-          'Match with eyes closed to emphasize auditory sense',
-          'Work with only 3-4 pairs for a quicker activity',
-          'Grade cylinders from softest to loudest after matching',
-          'Switch which color set you match first',
-          'Create a "memory" game: shake red, then find blue from memory'
+        troubleshooting: [
+          'If environment is noisy, schedule during quiet times',
+          'If shaking too hard, demonstrate gentle motion again',
+          'If frustrated, start with fewer pairs (3-4)'
         ]
       },
       mastery: {
+        title: 'Mastery',
         description: 'Child demonstrates refined auditory discrimination',
         assessmentCriteria: [
           'Matches all pairs accurately on first try',
@@ -250,34 +221,27 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
           'Shows refined listening skills in other contexts',
           'Maintains focus for the entire activity'
         ],
-        extensions: [
+        indicators: [
+          'Confident auditory discrimination',
+          'Can teach others',
+          'Shows refined listening skills'
+        ]
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced sound activities',
+        activities: [
           'Grade all cylinders from softest to loudest sound',
           'Create rhythm patterns by shaking cylinders in sequence',
           'Identify which cylinder is louder/softer between two',
-          'Make your own sound cylinders with identical containers and different materials (rice, beans, sand)',
-          'Match environmental sounds to cylinder sounds',
-          'Explore musical instruments and their sound qualities',
-          'Learn vocabulary: loud, soft, volume, pitch, tone',
-          'Close eyes and identify classroom sounds',
-          'Create a sound walk: listen to outdoor sounds and describe them'
-        ]
-      },
-      troubleshooting: {
-        commonChallenges: [
-          'Environment is too noisy for accurate listening',
-          'Child shakes cylinders too vigorously',
-          'Child becomes frustrated when struggling to match',
-          'Child rushes through without careful listening',
-          'Cylinders are difficult to distinguish'
+          'Make your own sound cylinders with identical containers and different materials',
+          'Explore musical instruments and their sound qualities'
         ],
-        solutions: [
-          'Schedule activity during quiet times; use "quiet work" sign',
-          'Demonstrate gentle shaking again; perhaps hold child\'s hand to guide',
-          'Start with fewer pairs (3-4) to build confidence',
-          'Model the peaceful, patient attitude needed for listening',
-          'Check that cylinders haven\'t been damaged; refill if needed',
-          'Ensure child has had silence game or other listening preparation',
-          'Consider individual differences in auditory processing'
+        variations: [
+          'Match with eyes closed',
+          'Work with only 3-4 pairs for quicker activity',
+          'Create a "memory" game: shake red, then find blue from memory',
+          'Close eyes and identify classroom sounds'
         ]
       }
     }
@@ -296,6 +260,7 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
     color: 'green',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Demonstrate matching fabric textures through careful touch',
         duration: '8-10 minutes',
         steps: [
@@ -325,9 +290,10 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Child practices matching fabrics with educator present',
         duration: '1-2 weeks of regular practice',
-        activities: [
+        steps: [
           'Child removes and arranges all fabric squares',
           'Child matches pairs through touch and sight',
           'Child names textures using descriptive vocabulary',
@@ -344,7 +310,9 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Child works independently with Fabric Box',
+        duration: '3-6 weeks',
         indicators: [
           'Matches all fabric pairs accurately',
           'Uses fingertips purposefully to explore texture',
@@ -352,15 +320,14 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
           'Works with focus and care',
           'Attempts matching with eyes closed or blindfolded'
         ],
-        variations: [
-          'Match fabrics with eyes completely closed',
-          'Sort fabrics by texture type (all soft ones, all rough ones)',
-          'Arrange fabrics from smoothest to roughest',
-          'Match fabrics with one hand behind back',
-          'Create patterns or designs with the fabric squares'
+        troubleshooting: [
+          'If relying only on sight, encourage eyes-closed practice',
+          'If rushing, model slow touching again',
+          'If avoiding certain textures, respect sensitivity and offer gradually'
         ]
       },
       mastery: {
+        title: 'Mastery',
         description: 'Child demonstrates refined tactile discrimination',
         assessmentCriteria: [
           'Accurately matches all pairs without visual cues',
@@ -369,164 +336,27 @@ export const additionalSensorialSkills: Record<string, SensorialSkill> = {
           'Shows heightened tactile awareness in daily life',
           'Handles materials with consistent care'
         ],
-        extensions: [
+        indicators: [
+          'Confident tactile discrimination',
+          'Can teach others',
+          'Shows refined touch sensitivity'
+        ]
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced texture activities',
+        activities: [
           'Find classroom objects with matching textures',
           'Create a texture book with fabric samples',
           'Match natural materials (leaves, bark, stones) by texture',
           'Explore textures during nature walks',
-          'Sort fabrics by multiple criteria (soft AND smooth)',
-          'Learn about fabric sources (cotton plant, sheep\'s wool, silkworm)',
-          'Create art projects using different textured materials',
-          'Develop texture vocabulary in multiple languages',
-          'Match fabrics to descriptive word cards',
-          'Design a texture sensory path with different materials'
-        ]
-      },
-      troubleshooting: {
-        commonChallenges: [
-          'Child relies entirely on visual matching',
-          'Child rushes through without careful feeling',
-          'Textures are too similar for child to distinguish',
-          'Child avoids certain textures due to sensitivity',
-          'Fabric squares are becoming worn or dirty'
-        ],
-        solutions: [
-          'Encourage eyes-closed practice from early stages',
-          'Model slow, mindful touching again',
-          'Start with very different textures (silk vs. sandpaper)',
-          'Respect sensory sensitivities; don\'t force touching',
-          'Replace worn fabrics to maintain clear differences',
-          'Ensure fabrics are clean and pleasant to touch',
-          'Pair with other tactile activities: sand, water, textured objects'
-        ]
-      }
-    }
-  },
-  'geometric-solids': {
-    id: 'geometric-solids',
-    title: 'Geometric Solids',
-    icon: '📐',
-    category: 'Stereognostic',
-    difficulty: 'Advanced',
-    isPremium: true,
-    description: 'Exploring three-dimensional shapes through touch and sight.',
-    ageRange: '4-6 years',
-    materials: ['Set of 10 geometric solids (sphere, cube, cone, cylinder, square-based pyramid, triangular-based pyramid, ovoid, ellipsoid, rectangular prism, triangular prism)', 'Mystery bag or basket', 'Work mat'],
-    purpose: 'Develops stereognostic sense (recognition through touch), geometric vocabulary, and spatial awareness',
-    color: 'purple',
-    learningProcess: {
-      presentation: {
-        description: 'Introduce geometric solids through sensorial exploration and naming',
-        duration: '15-20 minutes for initial presentation',
-        steps: [
-          'Invite the child to the Geometric Solids shelf',
-          'Carry the basket of solids to a work mat or table',
-          'Remove three contrasting solids first (e.g., sphere, cube, cone)',
-          'Hold the sphere with both hands',
-          'Rotate it slowly, exploring its surface with your fingertips',
-          'Roll it gently on the mat to show it rolls in all directions',
-          'Set it aside and pick up the cube',
-          'Feel each face, edge, and corner deliberately',
-          'Try to roll it - show that it doesn\'t roll',
-          'Pick up the cone and explore its features',
-          'Feel the circular base, the curved surface, the pointed apex',
-          'Show that it rolls in a circle',
-          'Conduct three-period lesson for names: "This is a sphere. This is a cube. This is a cone."',
-          'Introduce remaining solids gradually over multiple sessions',
-          'Once several solids are familiar, introduce the mystery bag activity',
-          'Place one solid in the bag without child seeing',
-          'Model reaching in, feeling carefully, and identifying before removing',
-          'Invite child to try with a familiar solid'
-        ],
-        keyPoints: [
-          'Introduce 2-3 solids at a time to avoid overwhelming',
-          'Emphasize tactile exploration over visual',
-          'Use precise geometric vocabulary from the start',
-          'Show the properties: which roll, which stack, which slide',
-          'Model thoughtful, slow exploration of each feature'
-        ]
-      },
-      guidedPractice: {
-        description: 'Child explores solids independently and with mystery bag',
-        duration: '3-4 weeks, introducing 2-3 new solids each week',
-        activities: [
-          'Child freely explores all introduced solids',
-          'Child names each solid independently',
-          'Child identifies solids in the mystery bag by touch',
-          'Child sorts solids by properties (rolls, doesn\'t roll)',
-          'Child describes each solid\'s features (faces, edges, corners)',
-          'Child matches solids to corresponding shapes in the environment'
-        ],
-        supportStrategies: [
-          'If child struggles with mystery bag, let them look first, then feel with eyes closed',
-          'Use three-period lesson frequently to reinforce vocabulary',
-          'Ask open-ended questions: "What do you feel?" "How is this different from the cube?"',
-          'Encourage child to rotate solids and explore from all angles',
-          'Celebrate discoveries: "You found that the cylinder has two circular faces!"',
-          'Allow ample time for free exploration before structured activities'
-        ]
-      },
-      independentPractice: {
-        description: 'Child works independently with all geometric solids',
-        indicators: [
-          'Names all solids correctly',
-          'Identifies solids in mystery bag accurately',
-          'Can describe features using geometric vocabulary',
-          'Explores solids methodically (faces, edges, vertices)',
-          'Recognizes solid shapes in the environment',
-          'Works with sustained concentration'
+          'Create art projects using different textured materials'
         ],
         variations: [
-          'Identify solids with eyes completely closed',
-          'Sort by number of faces, edges, or vertices',
-          'Arrange solids by complexity (simple to complex)',
-          'Create structures by stacking compatible solids',
-          'Match solids to photographic cards',
-          'Trace faces of solids onto paper'
-        ]
-      },
-      mastery: {
-        description: 'Child demonstrates complete understanding of three-dimensional geometry',
-        assessmentCriteria: [
-          'Accurately identifies all 10 solids by touch alone',
-          'Uses precise geometric vocabulary consistently',
-          'Can describe properties: number of faces, shape of faces, edges, vertices',
-          'Recognizes solids in real-world objects',
-          'Explains differences between similar solids (cube vs. rectangular prism)',
-          'Shows confidence and independence with material'
-        ],
-        extensions: [
-          'Find real objects matching each solid (ball=sphere, box=rectangular prism)',
-          'Learn the relationship between 2D shapes and solid faces',
-          'Match solids to their 2D "footprints" (base shapes)',
-          'Draw solids from different perspectives',
-          'Learn mathematical properties: count faces, edges, vertices',
-          'Introduce Euler\'s formula: F + V - E = 2',
-          'Build with solid blocks and describe the structures',
-          'Create art projects using solid-shaped objects',
-          'Learn about solids in nature and architecture',
-          'Compare volume by filling hollow versions with rice or water',
-          'Study cross-sections of solids',
-          'Learn vocabulary in multiple languages'
-        ]
-      },
-      troubleshooting: {
-        commonChallenges: [
-          'Child confuses similar solids (cone vs. pyramid)',
-          'Child struggles with stereognostic identification',
-          'Vocabulary is difficult to remember or pronounce',
-          'Child loses interest in exploration',
-          'Child rushes through without careful examination'
-        ],
-        solutions: [
-          'Work with only very different solids initially',
-          'Practice with eyes open first, then partially closed, then fully closed',
-          'Use frequent three-period lessons and name games',
-          'Introduce real-world connections: "The ball is a sphere!"',
-          'Model slow, thoughtful exploration again',
-          'Ensure child has strong experience with 2D geometric shapes first',
-          'Make the mystery bag activity into a game with family members',
-          'Create art or building projects using the solids to renew interest'
+          'Match with eyes completely closed',
+          'Sort fabrics by texture type (all soft ones, all rough ones)',
+          'Arrange fabrics from smoothest to roughest',
+          'Create patterns or designs with the fabric squares'
         ]
       }
     }

@@ -1,32 +1,5 @@
 // Montessori Sensorial Skills Data
-export interface MontessoriLearningProcess {
-  presentation: {
-    description: string;
-    duration: string;
-    steps: string[];
-    keyPoints: string[];
-  };
-  guidedPractice: {
-    description: string;
-    duration: string;
-    activities: string[];
-    supportStrategies: string[];
-  };
-  independentPractice: {
-    description: string;
-    indicators: string[];
-    variations: string[];
-  };
-  mastery: {
-    description: string;
-    assessmentCriteria: string[];
-    extensions: string[];
-  };
-  troubleshooting?: {
-    commonChallenges: string[];
-    solutions: string[];
-  };
-}
+import { MontessoriLearningProcess } from '@/types/montessoriSkill';
 
 export interface SensorialSkill {
   id: string;
@@ -58,6 +31,7 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
     color: 'pink',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Demonstrate building the Pink Tower with precision and control',
         duration: '10-15 minutes',
         steps: [
@@ -82,9 +56,10 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Support the child as they build the tower independently',
         duration: '2-3 weeks of daily practice',
-        activities: [
+        steps: [
           'Child carries cubes one by one to the mat',
           'Child builds the tower with educator observing nearby',
           'Child checks their own work by viewing from different angles',
@@ -99,7 +74,9 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Child works with Pink Tower completely independently',
+        duration: '4-6 weeks',
         indicators: [
           'Carries all cubes without assistance',
           'Builds tower with accurate centering',
@@ -107,14 +84,14 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
           'Works with sustained concentration',
           'Returns materials properly to shelf'
         ],
-        variations: [
-          'Build the tower in different locations in the room',
-          'Build horizontally instead of vertically',
-          'Create patterns with the cubes',
-          'Combine with Brown Stair or Red Rods'
+        troubleshooting: [
+          'If cubes fall, suggest building more slowly',
+          'If alignment is off, view tower from the side together',
+          'If rushing, model careful movements again'
         ]
       },
       mastery: {
+        title: 'Mastery',
         description: 'Child demonstrates complete mastery and explores extensions',
         assessmentCriteria: [
           'Builds tower perfectly centered every time',
@@ -123,29 +100,25 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
           'Can explain the purpose of the activity',
           'Demonstrates sustained focus throughout the activity'
         ],
-        extensions: [
-          'Count the cubes (1-10)',
-          'Use mathematical language: largest, smallest, bigger than, smaller than',
-          'Build the tower with eyes closed using tactile sense',
-          'Create geometric designs by combining with other materials',
-          'Measure real objects using the cubes as units',
-          'Draw or paint the tower',
-          'Build cooperative towers with multiple children'
+        indicators: [
+          'Confident and independent work',
+          'Can teach others',
+          'Shows pride in precise work'
         ]
       },
-      troubleshooting: {
-        commonChallenges: [
-          'Child rushes and cubes fall over',
-          'Cubes are not centered properly',
-          'Child becomes frustrated with the challenge',
-          'Child loses interest quickly'
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced activities to extend learning',
+        activities: [
+          'Count the cubes (1-10)',
+          'Build the tower with eyes closed using tactile sense',
+          'Measure real objects using the cubes as units',
+          'Draw or paint the tower'
         ],
-        solutions: [
-          'Model slower movements and emphasize the beauty of careful work',
-          'Show the side view to help child see alignment',
-          'Break the activity into smaller goals (build just 5 cubes first)',
-          'Ensure child has mastered carrying activities before introducing Pink Tower',
-          'Vary the location or time of day for the activity'
+        variations: [
+          'Build horizontally instead of vertically',
+          'Create patterns with the cubes',
+          'Combine with Brown Stair or Red Rods'
         ]
       }
     }
@@ -164,6 +137,7 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
     color: 'brown',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Demonstrate building the Brown Stair with attention to thickness gradation',
         duration: '10-15 minutes',
         steps: [
@@ -188,9 +162,10 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Child practices building the Brown Stair with observation',
         duration: '2-3 weeks of regular practice',
-        activities: [
+        steps: [
           'Child selects and carries each prism independently',
           'Child builds the stair formation',
           'Child checks alignment of left ends',
@@ -206,7 +181,9 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Child works independently with the Brown Stair',
+        duration: '4-6 weeks',
         indicators: [
           'Correctly orders prisms from thickest to thinnest',
           'Aligns left ends without measuring',
@@ -214,15 +191,14 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
           'Self-corrects errors independently',
           'Handles materials with care and respect'
         ],
-        variations: [
-          'Build the stair vertically (with educator permission)',
-          'Build from thinnest to thickest',
-          'Place the stair in different orientations',
-          'Create patterns with the prisms',
-          'Build in different locations around the room'
+        troubleshooting: [
+          'If order is incorrect, suggest comparing two prisms side by side',
+          'If alignment is off, use a straight edge as a guide',
+          'If carrying multiple prisms, reinforce one-at-a-time rule'
         ]
       },
       mastery: {
+        title: 'Mastery',
         description: 'Child demonstrates complete mastery and explores extensions',
         assessmentCriteria: [
           'Builds perfect stair formation consistently',
@@ -231,29 +207,26 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
           'Can verbalize the concept of thickness gradation',
           'Shows pride in precise work'
         ],
-        extensions: [
-          'Combine Brown Stair with Pink Tower for complex designs',
-          'Use mathematical vocabulary: thick, thin, thicker, thinnest',
-          'Match prisms to corresponding Pink Tower cubes',
-          'Find objects in the environment matching each thickness',
-          'Trace the stair shape on paper',
-          'Build the stair blindfolded using tactile sense',
-          'Create symmetrical patterns using two Brown Stairs'
+        indicators: [
+          'Confident independent work',
+          'Can teach others',
+          'Understands thickness gradation'
         ]
       },
-      troubleshooting: {
-        commonChallenges: [
-          'Child mixes up the order of middle prisms',
-          'Left ends are not aligned',
-          'Child carries multiple prisms at once',
-          'Prisms roll off the mat'
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced activities to extend learning',
+        activities: [
+          'Combine Brown Stair with Pink Tower for complex designs',
+          'Match prisms to corresponding Pink Tower cubes',
+          'Find objects in the environment matching each thickness',
+          'Trace the stair shape on paper'
         ],
-        solutions: [
-          'Show child how to compare two prisms side by side to check thickness',
-          'Use a marker or small object to show alignment point',
-          'Reinforce one-at-a-time carrying through modeling',
-          'Ensure mat is on a stable, level surface',
-          'Consider if the child needs more time with simpler materials first'
+        variations: [
+          'Build the stair vertically (with educator permission)',
+          'Build from thinnest to thickest',
+          'Place the stair in different orientations',
+          'Create patterns with the prisms'
         ]
       }
     }
@@ -272,6 +245,7 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
     color: 'red',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Demonstrate arranging the Red Rods by length with precision',
         duration: '15-20 minutes',
         steps: [
@@ -299,9 +273,10 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Child practices arranging Red Rods with minimal guidance',
         duration: '3-4 weeks of regular practice',
-        activities: [
+        steps: [
           'Child lays out the work mat',
           'Child carries and places all rods on the mat',
           'Child arranges rods in order from longest to shortest',
@@ -318,7 +293,9 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
         ]
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Child works completely independently with Red Rods',
+        duration: '4-8 weeks',
         indicators: [
           'Carries rods safely without assistance',
           'Correctly orders all ten rods from longest to shortest',
@@ -326,15 +303,14 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
           'Works with focus for the entire activity',
           'Returns materials without reminders'
         ],
-        variations: [
-          'Build the rods vertically against a wall',
-          'Arrange in reverse order (shortest to longest)',
-          'Create different formations (circular, radial)',
-          'Use rods in different areas of the room',
-          'Time challenge (with child\'s consent): "Can you arrange them before the sand timer runs out?"'
+        troubleshooting: [
+          'If order is incorrect, have child compare rods side by side',
+          'If rods roll, ensure mat is on flat, stable surface',
+          'If child is fatigued, break into two sessions'
         ]
       },
       mastery: {
+        title: 'Mastery',
         description: 'Child demonstrates complete mastery and explores extensions',
         assessmentCriteria: [
           'Arranges all rods perfectly every time',
@@ -344,33 +320,26 @@ export const sensorialSkills: Record<string, SensorialSkill> = {
           'Shows consistent care for materials',
           'Maintains concentration throughout long activity'
         ],
-        extensions: [
-          'Combine Red Rods with Number Rods for math introduction',
-          'Measure classroom objects using specific rods as units',
-          'Use mathematical vocabulary: long, short, longer, longest, shortest',
-          'Compare lengths: "This rod is 3 units longer than this one"',
-          'Create a maze using all the rods',
-          'Build geometric designs with Pink Tower and Brown Stair',
-          'Estimate lengths before measuring',
-          'Draw the rod configuration on paper',
-          'Build a fence or structure using the rods creatively'
+        indicators: [
+          'Confident independent work',
+          'Can teach others',
+          'Understands length gradation'
         ]
       },
-      troubleshooting: {
-        commonChallenges: [
-          'Child struggles to identify correct rod order',
-          'Rods roll or fall off the mat',
-          'Child becomes fatigued by the physical demand',
-          'Alignment is consistently inaccurate',
-          'Child loses interest midway'
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced activities to extend learning',
+        activities: [
+          'Combine Red Rods with Number Rods for math introduction',
+          'Measure classroom objects using specific rods as units',
+          'Estimate lengths before measuring',
+          'Draw the rod configuration on paper'
         ],
-        solutions: [
-          'Have child directly compare rods by placing them side by side',
-          'Ensure mat is on a completely flat, stable surface',
-          'Break activity into two sessions: first gather rods, then arrange',
-          'Use a straight edge or pointer to show the alignment line',
-          'Ensure child has had success with simpler sensorial materials first',
-          'Offer the activity when child is well-rested and focused'
+        variations: [
+          'Build the rods vertically against a wall',
+          'Arrange in reverse order (shortest to longest)',
+          'Create different formations (circular, radial)',
+          'Create a maze using all the rods'
         ]
       }
     }

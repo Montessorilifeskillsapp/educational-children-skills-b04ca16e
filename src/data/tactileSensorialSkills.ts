@@ -1,32 +1,5 @@
 // Tactile Montessori Sensorial Skills Data
-export interface MontessoriLearningProcess {
-  presentation: {
-    description: string;
-    duration: string;
-    steps: string[];
-    keyPoints: string[];
-  };
-  guidedPractice: {
-    description: string;
-    duration: string;
-    activities: string[];
-    supportStrategies: string[];
-  };
-  independentPractice: {
-    description: string;
-    indicators: string[];
-    variations: string[];
-  };
-  mastery: {
-    description: string;
-    assessmentCriteria: string[];
-    extensions: string[];
-  };
-  troubleshooting?: {
-    commonChallenges: string[];
-    solutions: string[];
-  };
-}
+import { MontessoriLearningProcess } from '@/types/montessoriSkill';
 
 export interface SensorialSkill {
   id: string;
@@ -58,6 +31,7 @@ export const tactileSensorialSkills: Record<string, SensorialSkill> = {
     color: 'beige',
     learningProcess: {
       presentation: {
+        title: 'Presentation',
         description: 'Introduce rough and smooth sensations',
         duration: '5-8 minutes',
         steps: [
@@ -71,20 +45,30 @@ export const tactileSensorialSkills: Record<string, SensorialSkill> = {
         keyPoints: ['Use light touch', 'Work in silence', 'Show focused attention']
       },
       guidedPractice: {
+        title: 'Guided Practice',
         description: 'Child practices with observation',
         duration: '1-2 weeks',
-        activities: ['Child touches boards', 'Names textures', 'Tries with eyes closed'],
+        steps: ['Child touches boards', 'Names textures', 'Tries with eyes closed'],
         supportStrategies: ['Model gentle touch', 'Allow repetition', 'Use minimal language']
       },
       independentPractice: {
+        title: 'Independent Practice',
         description: 'Independent exploration',
+        duration: '2-4 weeks',
         indicators: ['Correct texture identification', 'Gentle touch', 'Sustained focus'],
-        variations: ['Eyes closed practice', 'Find similar textures in room']
+        troubleshooting: ['If too rough, guide hand gently', 'Remind to use fingertips only']
       },
       mastery: {
+        title: 'Mastery',
         description: 'Complete understanding',
         assessmentCriteria: ['Accurate identification', 'Can explain differences'],
-        extensions: ['Find rough/smooth objects', 'Grade textures', 'Draw textures']
+        indicators: ['Confident discrimination', 'Can teach others']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Advanced tactile activities',
+        activities: ['Find rough/smooth objects', 'Grade textures', 'Draw textures'],
+        variations: ['Create texture collections', 'Tactile matching games']
       }
     }
   }
