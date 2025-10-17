@@ -145,8 +145,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     geographySkill?.activities ? 
     geographySkill.activities.map((activity, index) => ({ id: `step-${index}`, instruction: activity, completed: false })) :
     languageSkill?.steps || 
-    (sensorialSkill ? 
-      sensorialSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
+    (sensorialSkill?.learningProcess?.presentation?.steps ? 
+      sensorialSkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
       skill.steps);
     
   const [steps, setSteps] = useState<Step[]>(skillSteps);
@@ -260,23 +260,14 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </CardContent>
         </Card>
 
-        {/* Extensions Section for Sensorial Skills */}
-        {sensorialSkill?.extensions && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">🌟</span>
-                Extensions
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc list-inside space-y-1">
-                {sensorialSkill.extensions.map((extension, index) => (
-                  <li key={index} className="text-gray-700">{extension}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
+        {/* Enhanced Montessori Learning Process for Sensorial Skills */}
+        {sensorialSkill?.learningProcess && (
+          <div className="mb-6">
+            <MontessoriLearningProcessComponent 
+              learningProcess={sensorialSkill.learningProcess} 
+              skillTitle={sensorialSkill.title}
+            />
+          </div>
         )}
 
         {/* Key Points Section for Grace & Courtesy Skills */}

@@ -1,4 +1,33 @@
 // Tactile Montessori Sensorial Skills Data
+export interface MontessoriLearningProcess {
+  presentation: {
+    description: string;
+    duration: string;
+    steps: string[];
+    keyPoints: string[];
+  };
+  guidedPractice: {
+    description: string;
+    duration: string;
+    activities: string[];
+    supportStrategies: string[];
+  };
+  independentPractice: {
+    description: string;
+    indicators: string[];
+    variations: string[];
+  };
+  mastery: {
+    description: string;
+    assessmentCriteria: string[];
+    extensions: string[];
+  };
+  troubleshooting?: {
+    commonChallenges: string[];
+    solutions: string[];
+  };
+}
+
 export interface SensorialSkill {
   id: string;
   title: string;
@@ -9,10 +38,9 @@ export interface SensorialSkill {
   description: string;
   ageRange: string;
   materials: string[];
-  steps: string[];
   purpose: string;
-  extensions: string[];
   color?: string;
+  learningProcess: MontessoriLearningProcess;
 }
 
 export const tactileSensorialSkills: Record<string, SensorialSkill> = {
@@ -26,82 +54,38 @@ export const tactileSensorialSkills: Record<string, SensorialSkill> = {
     description: 'Feeling smooth and rough surfaces to develop tactile discrimination.',
     ageRange: '2.5-4 years',
     materials: ['Rough and smooth boards', 'Blindfold (optional)'],
-    steps: [
-      'Place the boards on your work mat',
-      'Use light fingertip touch on the smooth board',
-      'Feel the entire surface gently',
-      'Now touch the rough board the same way',
-      'Compare the two sensations',
-      'Try with eyes closed to focus on touch'
-    ],
     purpose: 'Develops tactile discrimination between rough and smooth',
-    extensions: ['Find rough and smooth objects around you', 'Grade from smooth to rough', 'Draw the textures'],
-    color: 'beige'
-  },
-  'touch-tablets': {
-    id: 'touch-tablets',
-    title: 'Touch Tablets',
-    icon: '📱',
-    category: 'Tactile Discrimination',
-    difficulty: 'Intermediate',
-    isPremium: true,
-    description: 'Matching pairs of tablets with different textures and gradations.',
-    ageRange: '3-5 years',
-    materials: ['Touch tablets with various textures', 'Work mat', 'Blindfold'],
-    steps: [
-      'Arrange tablets randomly on your mat',
-      'Feel the first tablet with light touch',
-      'Search for its matching pair',
-      'Continue until all pairs are matched',
-      'Grade tablets from smoothest to roughest',
-      'Practice with eyes closed for better focus'
-    ],
-    purpose: 'Refines tactile discrimination and develops grading skills',
-    extensions: ['Create texture patterns', 'Find matching textures in nature', 'Describe textures with words'],
-    color: 'tan'
-  },
-  'mystery-bag': {
-    id: 'mystery-bag',
-    title: 'Mystery Bag',
-    icon: '🎒',
-    category: 'Stereognostic',
-    difficulty: 'Intermediate',
-    isPremium: false,
-    description: 'Identifying objects by touch alone to develop stereognostic sense.',
-    ageRange: '3-6 years',
-    materials: ['Cloth bag', 'Various small objects', 'Matching objects (optional)'],
-    steps: [
-      'Place familiar objects in the mystery bag',
-      'Put your hand in without looking',
-      'Feel one object carefully',
-      'Explore its shape, size, and texture',
-      'Guess what the object is',
-      'Remove it to check your answer'
-    ],
-    purpose: 'Develops stereognostic sense and object recognition through touch',
-    extensions: ['Use geometric solids', 'Try with letters or numbers', 'Describe objects before guessing'],
-    color: 'brown'
-  },
-  'thermic-tablets': {
-    id: 'thermic-tablets',
-    title: 'Thermic Tablets',
-    icon: '🌡️',
-    category: 'Tactile Discrimination',
-    difficulty: 'Advanced',
-    isPremium: true,
-    description: 'Discriminating between different temperatures through touch.',
-    ageRange: '4-6 years',
-    materials: ['Thermic tablets (metal, wood, felt, etc.)', 'Work mat'],
-    steps: [
-      'Arrange tablets on your work mat',
-      'Touch each tablet with the back of your hand',
-      'Notice the temperature differences',
-      'Sort from coolest to warmest',
-      'Match pairs of the same material',
-      'Discuss why materials feel different temperatures'
-    ],
-    purpose: 'Develops thermic sense and understanding of material properties',
-    extensions: ['Test other materials', 'Explore temperature in daily life', 'Learn about conductivity'],
-    color: 'silver'
+    color: 'beige',
+    learningProcess: {
+      presentation: {
+        description: 'Introduce rough and smooth sensations',
+        duration: '5-8 minutes',
+        steps: [
+          'Invite child to Touch Boards',
+          'Place boards on work mat',
+          'Use light fingertip touch on smooth board',
+          'Feel entire surface gently',
+          'Touch rough board the same way',
+          'Compare the two sensations'
+        ],
+        keyPoints: ['Use light touch', 'Work in silence', 'Show focused attention']
+      },
+      guidedPractice: {
+        description: 'Child practices with observation',
+        duration: '1-2 weeks',
+        activities: ['Child touches boards', 'Names textures', 'Tries with eyes closed'],
+        supportStrategies: ['Model gentle touch', 'Allow repetition', 'Use minimal language']
+      },
+      independentPractice: {
+        description: 'Independent exploration',
+        indicators: ['Correct texture identification', 'Gentle touch', 'Sustained focus'],
+        variations: ['Eyes closed practice', 'Find similar textures in room']
+      },
+      mastery: {
+        description: 'Complete understanding',
+        assessmentCriteria: ['Accurate identification', 'Can explain differences'],
+        extensions: ['Find rough/smooth objects', 'Grade textures', 'Draw textures']
+      }
+    }
   }
 };
