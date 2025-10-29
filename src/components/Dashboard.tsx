@@ -131,6 +131,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-amber-100/50 rounded-lg p-3 border border-amber-200">
+                    <p className="text-xs font-semibold text-amber-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-amber-800 leading-relaxed">
+                      <strong>Why:</strong> Practical Life is the foundation of Montessori education. These activities develop concentration, coordination, independence, and order—the four pillars of learning. Children gain confidence through meaningful work that mirrors real adult tasks, satisfying their innate desire to contribute to family and community life.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
             
@@ -148,6 +156,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-pink-100/50 rounded-lg p-3 border border-pink-200">
+                    <p className="text-xs font-semibold text-pink-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-pink-800 leading-relaxed">
+                      <strong>Why:</strong> Dr. Montessori believed the senses are the gateway to intelligence. Sensorial materials isolate specific qualities (size, color, texture, sound, weight) to sharpen perception and develop powers of observation. This refined sensory awareness forms the foundation for mathematical thinking, scientific exploration, and artistic expression.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
 
@@ -165,6 +181,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-yellow-100/50 rounded-lg p-3 border border-yellow-200">
+                    <p className="text-xs font-semibold text-yellow-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-yellow-800 leading-relaxed">
+                      <strong>Why:</strong> Language development follows the child's sensitive period for oral and written communication. Montessori's phonetic approach with tactile sandpaper letters engages multiple senses, making abstract symbols concrete. Children naturally progress from spoken language to writing (encoding) before reading (decoding), respecting natural developmental stages.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
 
@@ -182,6 +206,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-red-100/50 rounded-lg p-3 border border-red-200">
+                    <p className="text-xs font-semibold text-red-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-red-800 leading-relaxed">
+                      <strong>Why:</strong> Mathematics is presented as concrete experiences before abstract concepts. The child manipulates physical materials (Golden Beads, Number Rods) to internalize quantity, sequence, and operations. This hands-on approach builds the "mathematical mind"—understanding relationships, patterns, and logic that extend far beyond arithmetic.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
 
@@ -199,6 +231,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-blue-100/50 rounded-lg p-3 border border-blue-200">
+                    <p className="text-xs font-semibold text-blue-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-blue-800 leading-relaxed">
+                      <strong>Why:</strong> Geography cultivates cosmic education—the child's place within the larger world. Through tactile puzzle maps and cultural studies, children develop spatial awareness, respect for diversity, and interconnectedness. This fosters global citizenship and environmental stewardship from an early age.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
 
@@ -216,6 +256,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-green-100/50 rounded-lg p-3 border border-green-200">
+                    <p className="text-xs font-semibold text-green-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-green-800 leading-relaxed">
+                      <strong>Why:</strong> Botany connects children to the natural world through direct observation and care. Understanding plant life cycles, structure, and needs teaches responsibility, patience, and scientific inquiry. Children develop reverence for life and ecological awareness while practicing categorization and nomenclature skills.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
             {onArtView && (
@@ -232,6 +280,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                   </CardTitle>
                 </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-orange-100/50 rounded-lg p-3 border border-orange-200">
+                    <p className="text-xs font-semibold text-orange-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-orange-800 leading-relaxed">
+                      <strong>Why:</strong> Art in Montessori is process-oriented, not product-focused. Children explore materials freely to express inner creativity, refine fine motor control, and develop aesthetic sensibility. Open-ended art experiences build confidence in self-expression while respecting each child's unique creative voice and developmental readiness.
+                    </p>
+                  </div>
+                </CardContent>
               </Card>
             )}
           </div>
