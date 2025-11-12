@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield } from 'lucide-react';
+import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield, GraduationCap, Home as HomeIcon, Users2 } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
@@ -218,6 +218,112 @@ const Home: React.FC<HomeProps> = ({
                   <CardDescription className="text-purple-700 text-center text-lg leading-relaxed">
                     Comprehensive step-by-step instructions and progress tracking to support children, parents, and teachers through the learning journey
                   </CardDescription>
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* User Types Section */}
+        <section className="py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+                Built for Parents, Teachers & Assistants
+              </h2>
+              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
+                Whether you're homeschooling, teaching in a classroom, or assisting in early education, our platform adapts to your unique needs
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-3 gap-8">
+              <Card className="bg-white border-2 border-pink-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 to-rose-500"></div>
+                <CardHeader className="text-center pb-4 pt-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <HomeIcon className="w-10 h-10 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-slate-800 group-hover:text-pink-600 transition-colors">For Parents</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-8">
+                  <ul className="space-y-3 text-slate-700">
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Easy-to-follow activities for homeschooling success</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Track your child's progress and developmental milestones</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Build independence and confidence at home</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">No teaching experience required</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-2 border-blue-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
+                <CardHeader className="text-center pb-4 pt-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <GraduationCap className="w-10 h-10 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-slate-800 group-hover:text-blue-600 transition-colors">For Teachers</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-8">
+                  <ul className="space-y-3 text-slate-700">
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Complete curriculum aligned with Montessori principles</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Manage multiple students with individual progress tracking</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Save time with ready-to-use lesson plans</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Generate detailed progress reports for parents</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white border-2 border-purple-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden">
+                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 to-violet-500"></div>
+                <CardHeader className="text-center pb-4 pt-8">
+                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                    <Users2 className="w-10 h-10 text-white" />
+                  </div>
+                  <CardTitle className="text-3xl text-slate-800 group-hover:text-purple-600 transition-colors">For Assistants</CardTitle>
+                </CardHeader>
+                <CardContent className="px-6 pb-8">
+                  <ul className="space-y-3 text-slate-700">
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Step-by-step guidance for presenting activities</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Learn authentic Montessori methods on the job</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Support teachers with organized activity resources</span>
+                    </li>
+                    <li className="flex items-start">
+                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
+                      <span className="text-base">Build confidence in early childhood education</span>
+                    </li>
+                  </ul>
                 </CardContent>
               </Card>
             </div>
