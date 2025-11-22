@@ -52,11 +52,33 @@ export const useAuth = () => {
     return { error }
   }
 
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${window.location.origin}/`,
+      }
+    })
+    return { error }
+  }
+
+  const signInWithApple = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'apple',
+      options: {
+        redirectTo: `${window.location.origin}/`,
+      }
+    })
+    return { error }
+  }
+
   return {
     user,
     loading,
     signIn,
     signUp,
     signOut,
+    signInWithGoogle,
+    signInWithApple,
   }
 }
