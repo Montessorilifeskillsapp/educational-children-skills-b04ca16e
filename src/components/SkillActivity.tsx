@@ -40,6 +40,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   
   const sensorialSkill = allSensorialSkills[skillId];
   const languageSkill = languageSkillsData[skillId];
+  const mathSkill = mathSkillsData[skillId];
   const geographySkill = geographySkillsData[skillId];
   const artSkill = artSkillsEnhanced[skillId];
   const graceCourtesySkill = graceAndCourtesySkills[skillId];
@@ -47,14 +48,28 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const regularSkill = skillsData[skillId];
   
   // Determine which skill data to use - prioritize concise skills
-  const skill = concisePracticalLifeSkill || enhancedMathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || sensorialSkill || regularSkill;
+  const skill = concisePracticalLifeSkill || enhancedMathSkill || mathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || sensorialSkill || regularSkill;
   const isEnhancedSkill = concisePracticalLifeSkill || enhancedMathSkill;
   
   if (!skill) {
     return <div>Skill not found</div>;
   }
   
-  const category = botanySkill ? 
+  const category = (mathSkill || enhancedMathSkill) ? 
+    { 
+      name: 'Mathematics', 
+      icon: '🔢', 
+      color: 'bg-blue-100 border-blue-300 text-blue-800', 
+      description: 'Developing mathematical understanding through hands-on materials' 
+    } :
+    concisePracticalLifeSkill ? 
+    { 
+      name: 'Practical Life', 
+      icon: '🏠', 
+      color: 'bg-amber-100 border-amber-300 text-amber-800', 
+      description: 'Building independence through everyday activities' 
+    } :
+    botanySkill ? 
     { 
       name: 'Botany', 
       icon: '🌱', 
@@ -136,20 +151,56 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   });
   
   // Convert steps to proper format based on skill type
-  const skillSteps = botanySkill?.steps ? 
-    botanySkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
-    graceCourtesySkill?.learningProcess?.presentation?.steps ? 
-    graceCourtesySkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
-    artSkill?.steps ? 
-    artSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
-    geographySkill?.activities ? 
-    geographySkill.activities.map((activity, index) => ({ id: `step-${index}`, instruction: activity, completed: false })) :
-    languageSkill?.steps || 
-    (sensorialSkill?.learningProcess?.presentation?.steps ? 
-      sensorialSkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false })) :
-      skill.steps);
+  const getSkillSteps = (): Step[] => {
+    // Enhanced skills with learningProcess
+    if (isEnhancedSkill && skill.learningProcess?.presentation?.steps) {
+      return skill.learningProcess.presentation.steps.map((step: string, index: number) => ({ 
+        id: `step-${index}`, 
+        instruction: step, 
+        completed: false 
+      }));
+    }
+    // Math skills with steps array
+    if (mathSkill?.steps) {
+      return mathSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+    }
+    // Botany skills
+    if (botanySkill?.steps) {
+      return botanySkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+    }
+    // Grace & Courtesy skills
+    if (graceCourtesySkill?.learningProcess?.presentation?.steps) {
+      return graceCourtesySkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+    }
+    // Art skills
+    if (artSkill?.steps) {
+      return artSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+    }
+    // Geography skills
+    if (geographySkill?.activities) {
+      return geographySkill.activities.map((activity, index) => ({ id: `step-${index}`, instruction: activity, completed: false }));
+    }
+    // Language skills
+    if (languageSkill?.steps) {
+      return languageSkill.steps;
+    }
+    // Sensorial skills with learningProcess
+    if (sensorialSkill?.learningProcess?.presentation?.steps) {
+      return sensorialSkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+    }
+    // Regular skills with steps
+    if (skill.steps) {
+      return Array.isArray(skill.steps) ? skill.steps.map((step: any, index: number) => {
+        if (typeof step === 'string') {
+          return { id: `step-${index}`, instruction: step, completed: false };
+        }
+        return step;
+      }) : [];
+    }
+    return [];
+  };
     
-  const [steps, setSteps] = useState<Step[]>(skillSteps);
+  const [steps, setSteps] = useState<Step[]>(getSkillSteps());
   
   const completedSteps = steps.filter(step => step.completed).length;
   const progress = (completedSteps / steps.length) * 100;
