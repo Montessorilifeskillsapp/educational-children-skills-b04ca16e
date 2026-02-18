@@ -67,25 +67,9 @@ serve(async (req) => {
         priceData = {
           currency: "usd",
           product_data: { name: "Premium Monthly Plan" },
-          unit_amount: 999, // $9.99
+          unit_amount: 1200, // $12.00
           recurring: { interval: "month" },
         };
-        break;
-      case 'premium-annual':
-        priceData = {
-          currency: "usd",
-          product_data: { name: "Premium Annual Plan" },
-          unit_amount: 7999, // $79.99
-          recurring: { interval: "year" },
-        };
-        break;
-      case 'premium-lifetime':
-        priceData = {
-          currency: "usd",
-          product_data: { name: "Premium Lifetime Plan" },
-          unit_amount: 14900, // $149.00
-        };
-        mode = "payment"; // One-time payment for lifetime
         break;
       default:
         throw new Error("Invalid plan ID");
