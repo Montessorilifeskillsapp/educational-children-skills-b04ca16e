@@ -29,10 +29,10 @@ interface Plan {
 const plans: Plan[] = [
   {
     id: 'free',
-    name: 'Free Plan',
+    name: 'Free',
     price: 0,
     period: 'forever',
-    description: 'Start with the Basics - Perfect for exploring Montessori-style learning at home',
+    description: 'Start with the Basics - Explore Montessori-style learning at home',
     features: [
       '3 core activities (pouring, sweeping, rolling a mat)',
       '1 printable activity sheet',
@@ -42,55 +42,20 @@ const plans: Plan[] = [
   },
   {
     id: 'premium-monthly',
-    name: 'Premium Monthly',
-    price: 9.99,
+    name: 'Premium',
+    price: 12,
     period: 'month',
-    description: 'Unlock Their Potential - Complete monthly access to all premium features',
+    description: 'Unlock Their Potential - Full access to all premium features',
     features: [
       '20+ Montessori life skill activities',
       'All new content every month',
       'Beautifully illustrated printable bundles',
       'Voice-guided instructions (coming soon!)',
       'Progress badges and certificates',
-      'Family dashboard with skill tracking'
+      'Family dashboard with skill tracking',
+      'Bonus seasonal activity packs'
     ],
     popular: true
-  },
-  {
-    id: 'premium-annual',
-    name: 'Premium Annual',
-    price: 79.99,
-    period: 'year',
-    description: 'Best Value - Save 33% with annual billing plus bonus seasonal packs',
-    features: [
-      '20+ Montessori life skill activities',
-      'All new content every month',
-      'Beautifully illustrated printable bundles',
-      'Voice-guided instructions (coming soon!)',
-      'Progress badges and certificates',
-      'Family dashboard with skill tracking',
-      'Bonus seasonal activity packs',
-      'Save 33% compared to monthly'
-    ]
-  },
-  {
-    id: 'premium-lifetime',
-    name: 'Premium Lifetime',
-    price: 149,
-    period: 'one-time',
-    description: 'Forever Access - Pay once, enjoy premium features for life',
-    features: [
-      '20+ Montessori life skill activities',
-      'All new content every month',
-      'Beautifully illustrated printable bundles',
-      'Voice-guided instructions (coming soon!)',
-      'Progress badges and certificates',
-      'Family dashboard with skill tracking',
-      'Bonus seasonal activity packs',
-      'Lifetime access - no recurring fees',
-      'Future feature updates included'
-    ],
-    premium: true
   }
 ];
 
@@ -216,7 +181,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
         <section aria-label="Montessori learning subscription plans">
           <h2 className="sr-only">Choose Your Montessori Learning Subscription Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
             {plans.map((plan) => (
               <article key={plan.id}>
                 <Card 
