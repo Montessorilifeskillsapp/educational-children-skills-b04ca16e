@@ -28,7 +28,7 @@ Allow: /
 Crawl-delay: 1
 
 # Sitemap location
-Sitemap: https://montessori-life-skills.com/sitemap.xml
+Sitemap: https://montessorilifeskillsapp.com/sitemap.xml
 
 # Host directive
-Host: https://montessori-life-skills.com
+Host: https://montessorilifeskillsapp.com
