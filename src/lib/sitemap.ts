@@ -22,7 +22,7 @@ ${urlElements}
 };
 
 export const getSitemapUrls = (): SitemapUrl[] => {
-  const baseUrl = 'https://montessori-life-skills.com';
+  const baseUrl = 'https://montessorilifeskillsapp.com';
   const currentDate = new Date().toISOString().split('T')[0];
   
   return [

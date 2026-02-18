@@ -13,7 +13,7 @@ export const generateCourseSchema = (skill: any): StructuredData => ({
   provider: {
     '@type': 'Organization',
     name: 'Montessori Life Skills',
-    url: 'https://montessori-life-skills.com'
+    url: 'https://montessorilifeskillsapp.com'
   },
   educationalLevel: 'Preschool',
   teaches: skill.title,
@@ -57,8 +57,8 @@ export const generateOrganizationSchema = (): StructuredData => ({
   '@type': 'EducationalOrganization',
   name: 'Montessori Life Skills',
   description: 'Interactive Montessori-based life skills learning platform for children',
-  url: 'https://montessori-life-skills.com',
-  logo: 'https://montessori-life-skills.com/logo.png',
+  url: 'https://montessorilifeskillsapp.com',
+  logo: 'https://montessorilifeskillsapp.com/logo.png',
   sameAs: [
     'https://facebook.com/montessori-life-skills',
     'https://twitter.com/montessori_life',
@@ -75,10 +75,10 @@ export const generateWebsiteSchema = (): StructuredData => ({
   '@context': 'https://schema.org',
   '@type': 'WebSite',
   name: 'Montessori Life Skills',
-  url: 'https://montessori-life-skills.com',
+  url: 'https://montessorilifeskillsapp.com',
   potentialAction: {
     '@type': 'SearchAction',
-    target: 'https://montessori-life-skills.com/search?q={search_term_string}',
+    target: 'https://montessorilifeskillsapp.com/search?q={search_term_string}',
     'query-input': 'required name=search_term_string'
   }
 });

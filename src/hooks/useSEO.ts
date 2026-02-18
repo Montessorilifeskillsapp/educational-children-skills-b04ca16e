@@ -92,13 +92,13 @@ export const SEO_CONFIG = {
     title: 'Practical Life Skills for Children - Montessori Learning App',
     description: 'Teach your child essential life skills with our Montessori-based app. Interactive activities, progress tracking, and premium materials for ages 2-6. Start free today!',
     keywords: 'montessori, children education, life skills, practical life, toddler activities, preschool learning, child development, independence skills',
-    canonical: 'https://montessori-skills.com',
+    canonical: 'https://montessorilifeskillsapp.com',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Montessori Skills Guide",
       "description": "Montessori-based learning app for children's practical life skills development",
-      "url": "https://montessori-skills.com",
+      "url": "https://montessorilifeskillsapp.com",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web",
       "audience": {
@@ -118,13 +118,13 @@ export const SEO_CONFIG = {
     title: 'Child Progress Dashboard - Track Learning Milestones',
     description: 'Track your child\'s learning progress with detailed analytics and skill development milestones in our Montessori-based learning app.',
     keywords: 'child progress, learning analytics, montessori tracking, skill development, educational dashboard',
-    canonical: 'https://montessori-skills.com/dashboard'
+    canonical: 'https://montessorilifeskillsapp.com/dashboard'
   },
   shop: {
     title: 'Montessori Learning Materials & Educational Bundles',
     description: 'Premium Montessori learning materials and activity bundles. High-quality educational tools to enhance your child\'s practical life skills development.',
     keywords: 'montessori materials, educational toys, learning bundles, practical life materials, child development tools',
-    canonical: 'https://montessori-skills.com/shop',
+    canonical: 'https://montessorilifeskillsapp.com/shop',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "Store",
@@ -136,24 +136,24 @@ export const SEO_CONFIG = {
     title: 'Premium Family Learning Plans - Unlock Advanced Activities',
     description: 'Unlock advanced Montessori activities and exclusive content with our premium plans for families and educators. 30-day money-back guarantee.',
     keywords: 'montessori premium, family learning plan, educational subscription, advanced activities, teacher resources',
-    canonical: 'https://montessori-skills.com/subscription'
+    canonical: 'https://montessorilifeskillsapp.com/subscription'
   },
   parentDashboard: {
     title: 'Family Dashboard - Monitor Child Development',
     description: 'Comprehensive family and educator dashboard to monitor children\'s Montessori learning progress, set goals, and track development.',
     keywords: 'family dashboard, teacher dashboard, child monitoring, learning progress, montessori tools',
-    canonical: 'https://montessori-skills.com/parent-dashboard'
+    canonical: 'https://montessorilifeskillsapp.com/parent-dashboard'
   },
   skillActivity: {
     title: 'Interactive Montessori Activity',
     description: 'Engage in hands-on Montessori practical life activities designed to develop independence and essential life skills.',
     keywords: 'montessori activity, practical life skills, interactive learning, child independence',
-    canonical: 'https://montessori-skills.com/activity'
+    canonical: 'https://montessorilifeskillsapp.com/activity'
   },
   resources: {
     title: 'Montessori Learning Resources & Educational Materials',
     description: 'Download comprehensive Montessori guides, activity packs, and educational resources for home learning.',
     keywords: 'montessori resources, educational downloads, learning guides, activity packs, home learning',
-    canonical: 'https://montessori-skills.com/resources'
+    canonical: 'https://montessorilifeskillsapp.com/resources'
   }
 };
