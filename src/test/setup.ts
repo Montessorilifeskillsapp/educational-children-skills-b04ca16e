@@ -5,14 +5,15 @@ import { vi } from 'vitest';
 global.IntersectionObserver = class IntersectionObserver {
   root = null;
   rootMargin = '';
-  thresholds = [];
+  thresholds = [] as number[];
+  scrollMargin = '';
   
-  constructor() {}
+  constructor(public callback: IntersectionObserverCallback, public options?: IntersectionObserverInit) {}
   disconnect() {}
   observe() {}
   unobserve() {}
-  takeRecords() { return []; }
-};
+  takeRecords(): IntersectionObserverEntry[] { return []; }
+} as unknown as typeof globalThis.IntersectionObserver;
 
 // Mock ResizeObserver
 global.ResizeObserver = class ResizeObserver {
