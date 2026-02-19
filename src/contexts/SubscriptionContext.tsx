@@ -96,7 +96,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     }
   }, [purchasedItems, isInitialized]);
 
-  const isPremium = currentPlan?.id === 'premium' || currentPlan?.id === 'family';
+  const isPremium = currentPlan?.id === 'premium' || currentPlan?.id === 'premium-monthly' || currentPlan?.id === 'family';
   const isFamily = currentPlan?.id === 'family';
 
   const subscribe = (plan: SubscriptionPlan) => {
