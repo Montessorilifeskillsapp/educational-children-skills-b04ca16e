@@ -8,6 +8,7 @@ import { montessoriTheme } from './ThemeConfig';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { additionalSensorialSkills } from '@/data/sensorialSkills2';
 import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
+import { completeSensorialSkills } from '@/data/completeSensorialSkills';
 import { useSEO } from '@/hooks/useSEO';
 interface SensorialSkillsProps {
   onBack: () => void;
@@ -35,7 +36,8 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
   const allSkills = {
     ...sensorialSkills,
     ...additionalSensorialSkills,
-    ...tactileSensorialSkills
+    ...tactileSensorialSkills,
+    ...completeSensorialSkills
   };
 
   const skills = Object.keys(allSkills).map(skillId => ({
