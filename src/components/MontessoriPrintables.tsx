@@ -6,6 +6,16 @@ import { Download, Printer, Lock } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import BackButton from '@/components/ui/back-button';
 
+import pouringImg from '@/assets/printables/pouring-practice.jpg';
+import cuttingImg from '@/assets/printables/cutting-strips.jpg';
+import spooningImg from '@/assets/printables/spooning-sorting.jpg';
+import sandpaperImg from '@/assets/printables/sandpaper-letters.jpg';
+import numberRodsImg from '@/assets/printables/number-rods.jpg';
+import pinkTowerImg from '@/assets/printables/pink-tower.jpg';
+import continentImg from '@/assets/printables/continent-map.jpg';
+import graceImg from '@/assets/printables/grace-courtesy.jpg';
+import leafImg from '@/assets/printables/leaf-shapes.jpg';
+
 interface Printable {
   id: string;
   title: string;
@@ -15,6 +25,7 @@ interface Printable {
   pages: number;
   isPremium: boolean;
   icon: string;
+  image: string;
 }
 
 const printables: Printable[] = [
@@ -27,6 +38,7 @@ const printables: Printable[] = [
     pages: 3,
     isPremium: false,
     icon: '🫗',
+    image: pouringImg,
   },
   {
     id: 'cutting-strips',
@@ -37,6 +49,7 @@ const printables: Printable[] = [
     pages: 4,
     isPremium: false,
     icon: '✂️',
+    image: cuttingImg,
   },
   {
     id: 'spooning-sorting',
@@ -47,6 +60,7 @@ const printables: Printable[] = [
     pages: 2,
     isPremium: false,
     icon: '🥄',
+    image: spooningImg,
   },
   {
     id: 'sandpaper-letters',
@@ -57,6 +71,7 @@ const printables: Printable[] = [
     pages: 26,
     isPremium: true,
     icon: '🔤',
+    image: sandpaperImg,
   },
   {
     id: 'number-rods',
@@ -67,6 +82,7 @@ const printables: Printable[] = [
     pages: 4,
     isPremium: true,
     icon: '🔢',
+    image: numberRodsImg,
   },
   {
     id: 'pink-tower-patterns',
@@ -77,6 +93,7 @@ const printables: Printable[] = [
     pages: 6,
     isPremium: true,
     icon: '🏗️',
+    image: pinkTowerImg,
   },
   {
     id: 'continent-coloring',
@@ -87,6 +104,7 @@ const printables: Printable[] = [
     pages: 7,
     isPremium: true,
     icon: '🌍',
+    image: continentImg,
   },
   {
     id: 'grace-courtesy-cards',
@@ -97,6 +115,7 @@ const printables: Printable[] = [
     pages: 12,
     isPremium: true,
     icon: '🤝',
+    image: graceImg,
   },
   {
     id: 'leaf-shapes',
@@ -107,6 +126,7 @@ const printables: Printable[] = [
     pages: 8,
     isPremium: true,
     icon: '🍃',
+    image: leafImg,
   },
 ];
 
@@ -208,10 +228,18 @@ interface PrintableCardProps {
 
 const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, categoryColor, onDownload, onUpgrade }) => (
   <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+    <div className="aspect-square overflow-hidden">
+      <img
+        src={printable.image}
+        alt={printable.title}
+        className="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </div>
     <CardHeader className="pb-2">
       <div className="flex items-start justify-between">
         <span className="text-2xl">{printable.icon}</span>
-        <Badge className={categoryColor || 'bg-gray-100 text-gray-800'}>{printable.category}</Badge>
+        <Badge className={categoryColor || 'bg-muted text-muted-foreground'}>{printable.category}</Badge>
       </div>
       <CardTitle className="text-lg mt-2">{printable.title}</CardTitle>
       <CardDescription>{printable.description}</CardDescription>
