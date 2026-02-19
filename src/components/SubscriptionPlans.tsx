@@ -43,7 +43,7 @@ const plans: Plan[] = [
   {
     id: 'premium-monthly',
     name: 'Premium',
-    price: 12,
+    price: 15,
     period: 'month',
     description: 'Unlock Their Potential - Full access to all premium features',
     features: [

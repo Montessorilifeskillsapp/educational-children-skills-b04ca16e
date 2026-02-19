@@ -67,7 +67,7 @@ serve(async (req) => {
         priceData = {
           currency: "usd",
           product_data: { name: "Premium Monthly Plan" },
-          unit_amount: 1200, // $12.00
+          unit_amount: 1500, // $15.00
           recurring: { interval: "month" },
         };
         break;
