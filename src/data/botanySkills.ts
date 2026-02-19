@@ -1,4 +1,6 @@
-export const botanySkillsData = {
+import { amiBotanySkills } from './amiBotanySkills';
+
+const baseBotanySkills = {
   // Plant Parts
   'plant-parts': {
     title: 'Parts of a Plant',
@@ -124,6 +126,11 @@ export const botanySkillsData = {
     ],
     activities: ['Plant care routine', 'Light experiment', 'Watering practice']
   }
+};
+
+export const botanySkillsData = {
+  ...baseBotanySkills,
+  ...amiBotanySkills
 };
 
 export default botanySkillsData;
