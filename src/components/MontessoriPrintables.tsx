@@ -185,7 +185,7 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
               <PrintableCard
                 key={p.id}
                 printable={p}
-                locked={!isPremium}
+                locked={false}
                 categoryColor={categoryColors[p.category]}
                 onDownload={() => handleDownload(p)}
                 onUpgrade={onSubscriptionView}
