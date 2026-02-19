@@ -26,13 +26,15 @@ interface HomeProps {
   onGraceCourtesyView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
+  onPrintablesView?: () => void;
 }
 
 const Home: React.FC<HomeProps> = ({ 
   onGetStarted, onResourcesView, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onGraceCourtesyView, onParentView, onProfilesView
+  onArtView, onGraceCourtesyView, onParentView, onProfilesView,
+  onPrintablesView
 }) => {
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
@@ -96,6 +98,7 @@ const Home: React.FC<HomeProps> = ({
           onSubscriptionView={onSubscriptionView}
           onParentView={onParentView}
           onProfilesView={onProfilesView}
+          onPrintablesView={onPrintablesView}
         />
       </div>
 

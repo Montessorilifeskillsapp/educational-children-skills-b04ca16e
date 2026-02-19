@@ -5,7 +5,7 @@ import { SecurityStatusIndicator } from './SecurityStatusIndicator';
 import { 
   Menu, BookOpen, Settings, Home, Brain, 
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp
+  ChevronDown, ChevronUp, Printer
 } from 'lucide-react';
 interface NavigationMenuProps {
   onDashboardView?: () => void;
@@ -22,13 +22,14 @@ interface NavigationMenuProps {
   onSubscriptionView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
+  onPrintablesView?: () => void;
 }
 
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onGraceCourtesyView, onResourcesView,
-  onSubscriptionView, onParentView, onProfilesView
+  onSubscriptionView, onParentView, onProfilesView, onPrintablesView
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -45,6 +46,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-pink-400' },
     { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-purple-400' },
     { label: 'Resources', icon: BookOpen, onClick: onResourcesView, color: 'border-gray-300' },
+    { label: 'Printables', icon: Printer, onClick: onPrintablesView, color: 'border-amber-400' },
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-gray-300' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-gray-300' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-gray-300' }
