@@ -1,6 +1,7 @@
 // Geography skills data with emoji icons and step-by-step activities
+import { amiGeographySkills } from './amiGeographySkills';
 
-export const geographySkillsData = {
+const baseGeographySkills = {
   // Basic Geography Concepts
   'land-water-forms': {
     title: 'Land and Water Forms',
@@ -188,6 +189,11 @@ export const geographySkillsData = {
       { id: '4', instruction: 'Navigate using your created map', completed: false }
     ]
   }
+};
+
+export const geographySkillsData = {
+  ...baseGeographySkills,
+  ...amiGeographySkills
 };
 
 export default geographySkillsData;
