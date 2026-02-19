@@ -53,7 +53,8 @@ export const montessoriTheme = {
     math: 'bg-gradient-to-br from-red-50 via-rose-50 to-red-100',
     geography: 'bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50',
     botany: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
-    art: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50'
+    art: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
+    cultural: 'bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-50'
   },
   
   // Card styling for consistency

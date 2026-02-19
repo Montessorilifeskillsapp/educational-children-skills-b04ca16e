@@ -17,6 +17,7 @@ interface NavigationMenuProps {
   onGeographyView?: () => void;
   onBotanyView?: () => void;
   onArtView?: () => void;
+  onCulturalView?: () => void;
   onGraceCourtesyView?: () => void;
   onResourcesView?: () => void;
   onSubscriptionView?: () => void;
@@ -28,7 +29,7 @@ interface NavigationMenuProps {
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onGraceCourtesyView, onResourcesView,
+  onArtView, onCulturalView, onGraceCourtesyView, onResourcesView,
   onSubscriptionView, onParentView, onProfilesView, onPrintablesView
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -44,6 +45,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Geography', icon: Globe, onClick: onGeographyView, color: 'border-cyan-400' },
     { label: 'Botany', icon: Leaf, onClick: onBotanyView, color: 'border-green-400' },
     { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-pink-400' },
+    { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-violet-400' },
     { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-purple-400' },
     { label: 'Resources', icon: BookOpen, onClick: onResourcesView, color: 'border-gray-300' },
     { label: 'Printables', icon: Printer, onClick: onPrintablesView, color: 'border-amber-400' },
