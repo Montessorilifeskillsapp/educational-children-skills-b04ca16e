@@ -1,3 +1,5 @@
+import { amiLanguageSkills } from './amiLanguageSkills';
+
 interface Step {
   id: string;
   instruction: string;
@@ -7,6 +9,7 @@ interface Step {
 
 interface LanguageSkillData {
   title: string;
+  description?: string;
   icon: string;
   purpose: string;
   materials: string[];
@@ -16,7 +19,7 @@ interface LanguageSkillData {
   isPremium: boolean;
 }
 
-export const languageSkillsData: Record<string, LanguageSkillData> = {
+const baseLanguageSkills: Record<string, LanguageSkillData> = {
   'sandpaper-letters': {
     title: 'Sandpaper Letters',
     icon: '🔤',
@@ -273,6 +276,11 @@ export const languageSkillsData: Record<string, LanguageSkillData> = {
       { id: '5', instruction: 'I write the book name in my reading journal', completed: false }
     ]
   }
+};
+
+export const languageSkillsData: Record<string, LanguageSkillData> = {
+  ...baseLanguageSkills,
+  ...amiLanguageSkills
 };
 
 export type { Step, LanguageSkillData };
