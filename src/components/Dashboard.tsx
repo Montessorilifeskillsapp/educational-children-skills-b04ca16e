@@ -18,6 +18,7 @@ interface DashboardProps {
   onGeographyView?: () => void;
   onBotanyView?: () => void;
   onArtView?: () => void;
+  onCulturalView?: () => void;
   onSubscriptionView: () => void;
   onParentView: () => void;
   onProfilesView?: () => void;
@@ -38,6 +39,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   onGeographyView,
   onBotanyView,
   onArtView,
+  onCulturalView,
   onSubscriptionView,
   onParentView,
   onProfilesView,
@@ -285,6 +287,30 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <p className="text-xs font-semibold text-orange-900 mb-1">Montessori Principle:</p>
                     <p className="text-xs text-orange-800 leading-relaxed">
                       <strong>Why:</strong> Art in Montessori is process-oriented, not product-focused. Children explore materials freely to express inner creativity, refine fine motor control, and develop aesthetic sensibility. Open-ended art experiences build confidence in self-expression while respecting each child's unique creative voice and developmental readiness.
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            {onCulturalView && (
+              <Card 
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.cultural} cursor-pointer hover:shadow-lg transition-all border-violet-200`}
+                onClick={onCulturalView}
+              >
+                <CardHeader className="pb-3">
+                  <CardTitle className="flex items-center gap-3">
+                    <span className="text-2xl">🏛️</span>
+                    <div>
+                      <h3 className="text-violet-800">Cultural Studies</h3>
+                      <p className="text-sm text-gray-700">History, music, science & world cultures</p>
+                    </div>
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-0">
+                  <div className="bg-violet-100/50 rounded-lg p-3 border border-violet-200">
+                    <p className="text-xs font-semibold text-violet-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-violet-800 leading-relaxed">
+                      <strong>Why:</strong> Cultural studies unite all areas of knowledge into Montessori's vision of cosmic education. Through history, music, science, and world cultures, children discover their place in the universe and develop respect for human achievement and diversity across time and place.
                     </p>
                   </div>
                 </CardContent>

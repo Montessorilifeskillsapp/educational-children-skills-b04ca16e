@@ -23,6 +23,7 @@ interface HomeProps {
   onGeographyView?: () => void;
   onBotanyView?: () => void;
   onArtView?: () => void;
+  onCulturalView?: () => void;
   onGraceCourtesyView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
@@ -33,7 +34,7 @@ const Home: React.FC<HomeProps> = ({
   onGetStarted, onResourcesView, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onGraceCourtesyView, onParentView, onProfilesView,
+  onArtView, onCulturalView, onGraceCourtesyView, onParentView, onProfilesView,
   onPrintablesView
 }) => {
   useSEO(SEO_CONFIG.home);
@@ -93,6 +94,7 @@ const Home: React.FC<HomeProps> = ({
           onGeographyView={onGeographyView}
           onBotanyView={onBotanyView}
           onArtView={onArtView}
+          onCulturalView={onCulturalView}
           onGraceCourtesyView={onGraceCourtesyView}
           onResourcesView={onResourcesView}
           onSubscriptionView={onSubscriptionView}

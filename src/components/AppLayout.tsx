@@ -10,6 +10,7 @@ import MathActivityContent from './MathActivityContent';
 import GeographySkills from './GeographySkills';
 import BotanySkills from './BotanySkills';
 import ArtSkills from './ArtSkills';
+import CulturalSkills from './CulturalSkills';
 import GraceAndCourtesySkills from './GraceAndCourtesySkills';
 
 import Home from './Home';
@@ -34,10 +35,11 @@ import { geographySkillsData } from '@/data/geographySkills';
 import { artSkillsData } from '@/data/artSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { botanySkillsData } from '@/data/botanySkills';
+import { culturalSkillsData } from '@/data/culturalSkills';
 
 const AppLayout: React.FC = () => {
   // State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources' | 'printables'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources' | 'printables'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
@@ -62,6 +64,7 @@ const AppLayout: React.FC = () => {
   const handleBackToMath = useCallback(() => setCurrentView('math'), []);
   const handleBackToGeography = useCallback(() => setCurrentView('geography'), []);
   const handleBackToBotany = useCallback(() => setCurrentView('botany'), []);
+  const handleBackToCultural = useCallback(() => setCurrentView('cultural'), []);
   const handleBackToDashboard = useCallback(() => setCurrentView('dashboard'), []);
   const handleBackToHome = useCallback(() => setCurrentView('home'), []);
 
@@ -145,6 +148,7 @@ const AppLayout: React.FC = () => {
         onGeographyView={() => handleViewChange('geography')}
         onBotanyView={() => handleViewChange('botany')}
         onArtView={() => handleViewChange('art')}
+        onCulturalView={() => handleViewChange('cultural')}
         onGraceCourtesyView={() => handleViewChange('grace-courtesy')}
         onParentView={() => handleViewChange('parent')}
         onProfilesView={() => handleViewChange('profiles')}
@@ -243,6 +247,17 @@ const AppLayout: React.FC = () => {
     );
   }
 
+  if (currentView === 'cultural') {
+    return (
+      <CulturalSkills
+        onBack={handleBack}
+        onSkillSelect={handleSkillSelect}
+        completedSkills={completedSkills}
+        isPremium={isPremium}
+      />
+    );
+  }
+
 
   if (currentView === 'subscription') {
     return <SubscriptionPlans onBack={handleBack} />;
@@ -332,7 +347,17 @@ const AppLayout: React.FC = () => {
     }
 
     if (geographySkillsData[selectedSkill]) {
+    if (culturalSkillsData[selectedSkill]) {
       return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={handleBackToCultural}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    return (
         <SkillActivity
           skillId={selectedSkill}
           onBack={handleBackToGeography}
@@ -381,6 +406,7 @@ const AppLayout: React.FC = () => {
       onGeographyView={() => handleViewChange('geography')}
       onBotanyView={() => handleViewChange('botany')}
       onArtView={() => handleViewChange('art')}
+      onCulturalView={() => handleViewChange('cultural')}
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}
