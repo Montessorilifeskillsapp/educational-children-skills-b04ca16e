@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield, GraduationCap, Home as HomeIcon, Users2 } from 'lucide-react';
+import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield, GraduationCap, Home as HomeIcon, Users2, Printer } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
@@ -329,6 +329,44 @@ const Home: React.FC<HomeProps> = ({
                   </ul>
                 </CardContent>
               </Card>
+            </div>
+          </div>
+        </section>
+
+        {/* Printables Section */}
+        <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-yellow-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col md:flex-row items-center gap-12">
+              <div className="flex-1 text-center md:text-left">
+                <div className="inline-flex items-center px-4 py-2 bg-amber-100 text-amber-800 rounded-full text-sm font-medium mb-6">
+                  <Printer className="w-4 h-4 mr-2" />
+                  Free & Premium Printables
+                </div>
+                <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
+                  Montessori Activity Sheets
+                </h2>
+                <p className="text-xl text-slate-600 mb-6 leading-relaxed">
+                  Beautiful, curriculum-aligned printable worksheets for tracing, cutting, pouring guides, and more. Download and print at home — 3 free sheets to start!
+                </p>
+                <Button
+                  onClick={onPrintablesView}
+                  size="lg"
+                  className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105"
+                >
+                  Browse Printables <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+              </div>
+              <div className="flex-1 grid grid-cols-2 gap-4 max-w-sm">
+                {['Tracing Letters', 'Pouring Guide', 'Number Rods', 'Leaf Shapes'].map((title, i) => (
+                  <div key={i} className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 text-center">
+                    <div className="w-12 h-12 bg-gradient-to-br from-amber-400 to-orange-400 rounded-xl flex items-center justify-center mx-auto mb-3">
+                      <Printer className="w-6 h-6 text-white" />
+                    </div>
+                    <p className="text-sm font-semibold text-slate-700">{title}</p>
+                    <p className="text-xs text-slate-500 mt-1">{i < 2 ? 'Free' : 'Premium'}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>
