@@ -257,7 +257,7 @@ const AppLayout: React.FC = () => {
   }
 
   if (currentView === 'printables') {
-    return <MontessoriPrintables onBack={handleBack} />;
+    return <MontessoriPrintables onBack={handleBack} onSubscriptionView={() => handleViewChange('subscription')} />;
   }
 
   if (currentView === 'profiles') {

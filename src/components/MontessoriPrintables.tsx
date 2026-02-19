@@ -112,9 +112,10 @@ const printables: Printable[] = [
 
 interface MontessoriPrintablesProps {
   onBack?: () => void;
+  onSubscriptionView?: () => void;
 }
 
-const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack }) => {
+const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onSubscriptionView }) => {
   const { isPremium } = useSubscription();
 
   const categoryColors: Record<string, string> = {
@@ -187,6 +188,7 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack }) =
                 locked={!isPremium}
                 categoryColor={categoryColors[p.category]}
                 onDownload={() => handleDownload(p)}
+                onUpgrade={onSubscriptionView}
               />
             ))}
           </div>
@@ -201,9 +203,10 @@ interface PrintableCardProps {
   locked: boolean;
   categoryColor?: string;
   onDownload: () => void;
+  onUpgrade?: () => void;
 }
 
-const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, categoryColor, onDownload }) => (
+const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, categoryColor, onDownload, onUpgrade }) => (
   <Card className="overflow-hidden hover:shadow-lg transition-shadow">
     <CardHeader className="pb-2">
       <div className="flex items-start justify-between">
@@ -222,15 +225,18 @@ const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, catego
         className="w-full"
         size="sm"
         variant={locked ? 'outline' : 'default'}
-        disabled={locked}
         onClick={(e) => {
           e.preventDefault();
-          onDownload();
+          if (locked && onUpgrade) {
+            onUpgrade();
+          } else {
+            onDownload();
+          }
         }}
       >
         {locked ? (
           <>
-            <Lock className="w-4 h-4 mr-2" /> Premium Only
+            <Lock className="w-4 h-4 mr-2" /> Upgrade to Download
           </>
         ) : (
           <>
