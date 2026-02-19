@@ -21,12 +21,14 @@ export interface MathSkillData {
 import { completeMathSkills } from './completeMathSkills';
 import { advancedMathSkills } from './advancedMathSkills';
 import { additionalMathSkills } from './additionalMathSkills';
+import { amiMathSkills } from './amiMathSkills';
 
 // Enhanced math skills with comprehensive information
 export const mathSkillsData: Record<string, MathSkillData> = {
   ...completeMathSkills,
   ...advancedMathSkills,
   ...additionalMathSkills,
+  ...amiMathSkills,
   
   'teen-boards': {
     title: 'Teen Boards',
