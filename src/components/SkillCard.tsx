@@ -11,6 +11,7 @@ interface Skill {
   difficulty: string;
   isPremium: boolean;
   color?: string;
+  image?: string;
 }
 
 interface SkillCardProps {
@@ -124,13 +125,23 @@ const SkillCard: React.FC<SkillCardProps> = ({
         )}
 
         <CardHeader className="pb-3">
-          <div className="text-center">
-            {/* Icon without background */}
-            <div className="mb-2 flex justify-center">
+          {skill.image ? (
+            <div className="mb-3">
+              <img
+                src={skill.image}
+                alt={`${skill.title} Montessori material`}
+                className="w-full h-32 object-cover rounded-lg"
+                loading="lazy"
+              />
+            </div>
+          ) : (
+            <div className="text-center mb-2 flex justify-center">
               <div className="text-4xl" role="img" aria-label={`${skill.title} activity icon`}>
                 {skill.icon}
               </div>
             </div>
+          )}
+          <div className="text-center">
             <CardTitle className={`text-lg ${getTitleColor(skill.color)}`}>
               {skill.title}
             </CardTitle>
