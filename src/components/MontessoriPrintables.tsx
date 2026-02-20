@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Download, Printer, Lock } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import BackButton from '@/components/ui/back-button';
+import PrintableDetail from '@/components/PrintableDetail';
 
 import pouringImg from '@/assets/printables/pouring-practice.jpg';
 import cuttingImg from '@/assets/printables/cutting-strips.jpg';
@@ -29,105 +30,15 @@ interface Printable {
 }
 
 const printables: Printable[] = [
-  {
-    id: 'pouring-practice',
-    title: 'Pouring Practice Lines',
-    description: 'Tracing lines to build hand control before real pouring activities',
-    category: 'Practical Life',
-    ageRange: '2–4',
-    pages: 3,
-    isPremium: false,
-    icon: '🫗',
-    image: pouringImg,
-  },
-  {
-    id: 'cutting-strips',
-    title: 'Cutting Strips',
-    description: 'Progressively thicker lines for scissor practice — straight, zigzag, and curves',
-    category: 'Practical Life',
-    ageRange: '2.5–5',
-    pages: 4,
-    isPremium: false,
-    icon: '✂️',
-    image: cuttingImg,
-  },
-  {
-    id: 'spooning-sorting',
-    title: 'Spooning & Sorting Mat',
-    description: 'Printable sorting mat with labeled bowls for dry-transfer spooning work',
-    category: 'Practical Life',
-    ageRange: '2–4',
-    pages: 2,
-    isPremium: false,
-    icon: '🥄',
-    image: spooningImg,
-  },
-  {
-    id: 'sandpaper-letters',
-    title: 'Sandpaper Letter Templates',
-    description: 'Lowercase letter outlines for tracing on sandpaper or textured paper',
-    category: 'Language',
-    ageRange: '3–5',
-    pages: 26,
-    isPremium: true,
-    icon: '🔤',
-    image: sandpaperImg,
-  },
-  {
-    id: 'number-rods',
-    title: 'Number Rods Worksheet',
-    description: 'Color-coded rod matching and counting exercises (1–10)',
-    category: 'Math',
-    ageRange: '3–5',
-    pages: 4,
-    isPremium: true,
-    icon: '🔢',
-    image: numberRodsImg,
-  },
-  {
-    id: 'pink-tower-patterns',
-    title: 'Pink Tower Pattern Cards',
-    description: 'Pattern cards showing different ways to stack and arrange the pink tower',
-    category: 'Sensorial',
-    ageRange: '2.5–5',
-    pages: 6,
-    isPremium: true,
-    icon: '🏗️',
-    image: pinkTowerImg,
-  },
-  {
-    id: 'continent-coloring',
-    title: 'Continent Coloring Maps',
-    description: 'Montessori-colored continent maps for coloring and labeling',
-    category: 'Geography',
-    ageRange: '3–6',
-    pages: 7,
-    isPremium: true,
-    icon: '🌍',
-    image: continentImg,
-  },
-  {
-    id: 'grace-courtesy-cards',
-    title: 'Grace & Courtesy Scenario Cards',
-    description: 'Illustrated cards showing polite greetings, table manners, and turn-taking',
-    category: 'Grace & Courtesy',
-    ageRange: '2.5–6',
-    pages: 12,
-    isPremium: true,
-    icon: '🤝',
-    image: graceImg,
-  },
-  {
-    id: 'leaf-shapes',
-    title: 'Botany Leaf Shape Cards',
-    description: 'Three-part cards for common leaf shapes — identify, match, and label',
-    category: 'Botany',
-    ageRange: '3–6',
-    pages: 8,
-    isPremium: true,
-    icon: '🍃',
-    image: leafImg,
-  },
+  { id: 'pouring-practice', title: 'Pouring Practice Lines', description: 'Tracing lines to build hand control before real pouring activities', category: 'Practical Life', ageRange: '2–4', pages: 3, isPremium: false, icon: '🫗', image: pouringImg },
+  { id: 'cutting-strips', title: 'Cutting Strips', description: 'Progressively thicker lines for scissor practice — straight, zigzag, and curves', category: 'Practical Life', ageRange: '2.5–5', pages: 4, isPremium: false, icon: '✂️', image: cuttingImg },
+  { id: 'spooning-sorting', title: 'Spooning & Sorting Mat', description: 'Printable sorting mat with labeled bowls for dry-transfer spooning work', category: 'Practical Life', ageRange: '2–4', pages: 2, isPremium: false, icon: '🥄', image: spooningImg },
+  { id: 'sandpaper-letters', title: 'Sandpaper Letter Templates', description: 'Lowercase letter outlines for tracing on sandpaper or textured paper', category: 'Language', ageRange: '3–5', pages: 26, isPremium: true, icon: '🔤', image: sandpaperImg },
+  { id: 'number-rods', title: 'Number Rods Worksheet', description: 'Color-coded rod matching and counting exercises (1–10)', category: 'Math', ageRange: '3–5', pages: 4, isPremium: true, icon: '🔢', image: numberRodsImg },
+  { id: 'pink-tower-patterns', title: 'Pink Tower Pattern Cards', description: 'Pattern cards showing different ways to stack and arrange the pink tower', category: 'Sensorial', ageRange: '2.5–5', pages: 6, isPremium: true, icon: '🏗️', image: pinkTowerImg },
+  { id: 'continent-coloring', title: 'Continent Coloring Maps', description: 'Montessori-colored continent maps for coloring and labeling', category: 'Geography', ageRange: '3–6', pages: 7, isPremium: true, icon: '🌍', image: continentImg },
+  { id: 'grace-courtesy-cards', title: 'Grace & Courtesy Scenario Cards', description: 'Illustrated cards showing polite greetings, table manners, and turn-taking', category: 'Grace & Courtesy', ageRange: '2.5–6', pages: 12, isPremium: true, icon: '🤝', image: graceImg },
+  { id: 'leaf-shapes', title: 'Botany Leaf Shape Cards', description: 'Three-part cards for common leaf shapes — identify, match, and label', category: 'Botany', ageRange: '3–6', pages: 8, isPremium: true, icon: '🍃', image: leafImg },
 ];
 
 interface MontessoriPrintablesProps {
@@ -137,6 +48,7 @@ interface MontessoriPrintablesProps {
 
 const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onSubscriptionView }) => {
   const { isPremium } = useSubscription();
+  const [selectedPrintable, setSelectedPrintable] = useState<Printable | null>(null);
 
   const categoryColors: Record<string, string> = {
     'Practical Life': 'bg-green-100 text-green-800',
@@ -150,7 +62,6 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
 
   const handleDownload = (printable: Printable) => {
     const content = `${printable.title}\n\nDescription: ${printable.description}\nCategory: ${printable.category}\nAge Range: ${printable.ageRange}\nPages: ${printable.pages}\n\nThis is a sample Montessori printable activity sheet.\nPrint this page and follow the instructions for the activity.\n\nGenerated on: ${new Date().toLocaleDateString()}`;
-
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
@@ -162,6 +73,17 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
   };
+
+  if (selectedPrintable) {
+    return (
+      <PrintableDetail
+        printableId={selectedPrintable.id}
+        title={selectedPrintable.title}
+        icon={selectedPrintable.icon}
+        onBack={() => setSelectedPrintable(null)}
+      />
+    );
+  }
 
   const freePrintables = printables.filter((p) => !p.isPremium);
   const premiumPrintables = printables.filter((p) => p.isPremium);
@@ -181,7 +103,6 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
           </p>
         </header>
 
-        {/* Free printables */}
         <section className="mb-10">
           <h2 className="text-xl font-semibold text-foreground mb-4">Free Printables</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -192,12 +113,12 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
                 locked={false}
                 categoryColor={categoryColors[p.category]}
                 onDownload={() => handleDownload(p)}
+                onViewSteps={() => setSelectedPrintable(p)}
               />
             ))}
           </div>
         </section>
 
-        {/* Premium printables */}
         <section>
           <h2 className="text-xl font-semibold text-foreground mb-4">Premium Printables</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
@@ -209,6 +130,7 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
                 categoryColor={categoryColors[p.category]}
                 onDownload={() => handleDownload(p)}
                 onUpgrade={onSubscriptionView}
+                onViewSteps={() => setSelectedPrintable(p)}
               />
             ))}
           </div>
@@ -224,17 +146,13 @@ interface PrintableCardProps {
   categoryColor?: string;
   onDownload: () => void;
   onUpgrade?: () => void;
+  onViewSteps: () => void;
 }
 
-const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, categoryColor, onDownload, onUpgrade }) => (
-  <Card className="overflow-hidden hover:shadow-lg transition-shadow">
+const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, categoryColor, onDownload, onUpgrade, onViewSteps }) => (
+  <Card className="overflow-hidden hover:shadow-lg transition-shadow cursor-pointer" onClick={onViewSteps}>
     <div className="aspect-square overflow-hidden">
-      <img
-        src={printable.image}
-        alt={printable.title}
-        className="w-full h-full object-cover"
-        loading="lazy"
-      />
+      <img src={printable.image} alt={printable.title} className="w-full h-full object-cover" loading="lazy" />
     </div>
     <CardHeader className="pb-2">
       <div className="flex items-start justify-between">
@@ -254,7 +172,7 @@ const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, catego
         size="sm"
         variant={locked ? 'outline' : 'default'}
         onClick={(e) => {
-          e.preventDefault();
+          e.stopPropagation();
           if (locked && onUpgrade) {
             onUpgrade();
           } else {
@@ -263,13 +181,9 @@ const PrintableCard: React.FC<PrintableCardProps> = ({ printable, locked, catego
         }}
       >
         {locked ? (
-          <>
-            <Lock className="w-4 h-4 mr-2" /> Upgrade to Download
-          </>
+          <><Lock className="w-4 h-4 mr-2" /> Upgrade to Download</>
         ) : (
-          <>
-            <Download className="w-4 h-4 mr-2" /> Download PDF
-          </>
+          <><Download className="w-4 h-4 mr-2" /> Download PDF</>
         )}
       </Button>
     </CardContent>
