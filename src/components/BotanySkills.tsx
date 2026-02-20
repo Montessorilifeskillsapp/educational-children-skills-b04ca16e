@@ -3,6 +3,7 @@ import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
 import { botanySkillsData } from '@/data/botanySkills';
 import { montessoriTheme } from './ThemeConfig';
+import { botanyImages } from '@/assets/botany';
 interface BotanySkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -38,7 +39,8 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
               key={skillId}
               skill={{
                 id: skillId,
-                ...skill
+                ...skill,
+                image: botanyImages[skillId],
               }}
               isCompleted={completedSkills.includes(skillId)}
               onSelect={() => onSkillSelect(skillId)}
