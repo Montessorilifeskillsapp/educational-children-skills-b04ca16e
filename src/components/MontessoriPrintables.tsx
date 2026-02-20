@@ -9,12 +9,12 @@ import BackButton from '@/components/ui/back-button';
 import pouringImg from '@/assets/printables/pouring-practice.jpg';
 import cuttingImg from '@/assets/printables/cutting-strips.jpg';
 import spooningImg from '@/assets/printables/spooning-sorting.jpg';
-import sandpaperImg from '@/assets/printables/sandpaper-letters.jpg';
-import numberRodsImg from '@/assets/printables/number-rods.jpg';
-import pinkTowerImg from '@/assets/printables/pink-tower.jpg';
-import continentImg from '@/assets/printables/continent-map.jpg';
+import sandpaperImg from '@/assets/language/sandpaper-letters.jpg';
+import numberRodsImg from '@/assets/math/number-rods.jpg';
+import pinkTowerImg from '@/assets/sensorial/pink-tower.jpg';
+import continentImg from '@/assets/geography/continents.jpg';
 import graceImg from '@/assets/printables/grace-courtesy.jpg';
-import leafImg from '@/assets/printables/leaf-shapes.jpg';
+import leafImg from '@/assets/botany/leaf-shapes.jpg';
 
 interface Printable {
   id: string;
