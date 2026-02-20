@@ -17,6 +17,7 @@ import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { botanySkillsData } from '@/data/botanySkills';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { enhancedMathSkills } from '@/data/enhancedMathSkills';
+import { culturalSkillsData } from '@/data/culturalSkills';
 import { useSEO } from '@/hooks/useSEO';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 
@@ -45,10 +46,11 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const artSkill = artSkillsEnhanced[skillId];
   const graceCourtesySkill = graceAndCourtesySkills[skillId];
   const botanySkill = botanySkillsData[skillId];
+  const culturalSkill = culturalSkillsData[skillId];
   const regularSkill = skillsData[skillId];
   
   // Determine which skill data to use - prioritize concise skills
-  const skill = concisePracticalLifeSkill || enhancedMathSkill || mathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || sensorialSkill || regularSkill;
+  const skill = concisePracticalLifeSkill || enhancedMathSkill || mathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || culturalSkill || sensorialSkill || regularSkill;
   const isEnhancedSkill = concisePracticalLifeSkill || enhancedMathSkill;
   
   if (!skill) {
@@ -97,7 +99,14 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       color: 'bg-emerald-100 border-emerald-300 text-emerald-800', 
       description: 'Exploring our world through Montessori geography' 
     } :
-    languageSkill ? 
+    culturalSkill ? 
+    { 
+      name: 'Cultural Studies', 
+      icon: '🏛️', 
+      color: 'bg-violet-100 border-violet-300 text-violet-800', 
+      description: 'Exploring history, music, science, and world cultures' 
+    } :
+    languageSkill ?
     { 
       name: 'Language', 
       icon: '📚', 
@@ -179,6 +188,10 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     // Geography skills
     if (geographySkill?.activities) {
       return geographySkill.activities.map((activity, index) => ({ id: `step-${index}`, instruction: activity, completed: false }));
+    }
+    // Cultural skills
+    if (culturalSkill?.steps) {
+      return culturalSkill.steps;
     }
     // Language skills
     if (languageSkill?.steps) {
