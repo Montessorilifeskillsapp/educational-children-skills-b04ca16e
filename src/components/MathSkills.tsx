@@ -6,6 +6,7 @@ import SkillCard from './SkillCard';
 import { montessoriTheme } from './ThemeConfig';
 import { mathSkillsData } from '@/data/mathSkills';
 import PageLayout from './PageLayout';
+import { mathImages } from '@/assets/math';
 
 interface MathSkillsProps {
   onSkillSelect: (skillId: string) => void;
@@ -24,7 +25,8 @@ const MathSkills: React.FC<MathSkillsProps> = ({
 }) => {
   const skills = Object.keys(mathSkillsData).map(skillId => ({
     id: skillId,
-    ...mathSkillsData[skillId]
+    ...mathSkillsData[skillId],
+    image: mathImages[skillId],
   }));
 
   const completionRate = (completedSkills.filter(skill => 

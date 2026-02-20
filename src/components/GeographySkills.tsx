@@ -4,6 +4,7 @@ import SkillCard from './SkillCard';
 import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
+import { geographyImages } from '@/assets/geography';
 interface GeographySkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -55,7 +56,8 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
               key={skillId}
               skill={{
                 id: skillId,
-                ...skill
+                ...skill,
+                image: geographyImages[skillId],
               }}
               isCompleted={completedSkills.includes(skillId)}
               onSelect={() => onSkillSelect(skillId)}

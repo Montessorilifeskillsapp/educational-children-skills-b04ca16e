@@ -5,6 +5,7 @@ import { BookOpen } from 'lucide-react';
 import SkillCard from './SkillCard';
 import PageLayout from './PageLayout';
 import { languageSkillsData } from '@/data/languageSkills';
+import { languageImages } from '@/assets/language';
 
 interface LanguageSkillsProps {
   onSkillSelect: (skillId: string) => void;
@@ -23,7 +24,8 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
 }) => {
   const skills = Object.keys(languageSkillsData).map(skillId => ({
     id: skillId,
-    ...languageSkillsData[skillId]
+    ...languageSkillsData[skillId],
+    image: languageImages[skillId],
   }));
 
   const completionRate = (completedSkills.length / skills.length) * 100;
