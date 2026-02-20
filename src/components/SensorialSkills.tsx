@@ -9,6 +9,7 @@ import { sensorialSkills } from '@/data/sensorialSkills';
 import { additionalSensorialSkills } from '@/data/sensorialSkills2';
 import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
 import { completeSensorialSkills } from '@/data/completeSensorialSkills';
+import { sensorialImages } from '@/assets/sensorial';
 import { useSEO } from '@/hooks/useSEO';
 interface SensorialSkillsProps {
   onBack: () => void;
@@ -42,7 +43,8 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
 
   const skills = Object.keys(allSkills).map(skillId => ({
     id: skillId,
-    ...allSkills[skillId]
+    ...allSkills[skillId],
+    image: sensorialImages[skillId],
   }));
 
   const completionRate = (completedSkills.filter(skill => 
