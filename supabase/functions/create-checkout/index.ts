@@ -4,13 +4,26 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 // Helper logging function for debugging
-const logStep = (step: string, details?: any) => {
-  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
+const logStep = (step: string, details?: unknown) => {
+  const detailsStr = details ? ` - ${JSON.stringify(details)}` : "";
   console.log(`[CREATE-CHECKOUT] ${step}${detailsStr}`);
+};
+
+const PLAN_CONFIG = {
+  premium: {
+    productName: "Premium Monthly Plan",
+    unitAmount: 1500,
+    interval: "month" as const,
+  },
+  "premium-monthly": {
+    productName: "Premium Monthly Plan",
+    unitAmount: 1500,
+    interval: "month" as const,
+  },
 };
 
 serve(async (req) => {
@@ -27,7 +40,7 @@ serve(async (req) => {
 
   try {
     logStep("Function started");
-    
+
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
     if (!stripeKey) throw new Error("STRIPE_SECRET_KEY is not set");
     logStep("Stripe key verified");
@@ -44,13 +57,20 @@ serve(async (req) => {
     logStep("User authenticated", { userId: user.id, email: user.email });
 
     const { planId } = await req.json();
-    logStep("Request data parsed", { planId });
+    const normalizedPlanId = typeof planId === "string" ? planId : "";
+    const selectedPlan = PLAN_CONFIG[normalizedPlanId as keyof typeof PLAN_CONFIG];
+
+    if (!selectedPlan) {
+      throw new Error("Invalid plan ID");
+    }
+
+    logStep("Request data parsed", { planId: normalizedPlanId });
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
-    
-    // Check if customer exists
+
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    let customerId;
+    let customerId: string | undefined;
+
     if (customers.data.length > 0) {
       customerId = customers.data[0].id;
       logStep("Existing customer found", { customerId });
@@ -58,38 +78,34 @@ serve(async (req) => {
       logStep("No existing customer found");
     }
 
-    // Define pricing based on planId
-    let priceData;
-    let mode: "subscription" | "payment" = "subscription";
-    
-    switch (planId) {
-      case 'premium-monthly':
-        priceData = {
-          currency: "usd",
-          product_data: { name: "Premium Monthly Plan" },
-          unit_amount: 1500, // $15.00
-          recurring: { interval: "month" },
-        };
-        break;
-      default:
-        throw new Error("Invalid plan ID");
-    }
-
-    logStep("Price data configured", priceData);
-
     const origin = req.headers.get("origin") || "http://localhost:3000";
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
       line_items: [
         {
-          price_data: priceData,
+          price_data: {
+            currency: "usd",
+            product_data: { name: selectedPlan.productName },
+            unit_amount: selectedPlan.unitAmount,
+            recurring: { interval: selectedPlan.interval },
+          },
           quantity: 1,
         },
       ],
-      mode: mode,
-      success_url: `${origin}/payment-success`,
-      cancel_url: `${origin}/plans`,
+      mode: "subscription",
+      success_url: `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}&planId=${encodeURIComponent(normalizedPlanId)}`,
+      cancel_url: `${origin}/payment-cancel?planId=${encodeURIComponent(normalizedPlanId)}`,
+      metadata: {
+        planId: normalizedPlanId,
+        userId: user.id,
+      },
+      subscription_data: {
+        metadata: {
+          planId: normalizedPlanId,
+          userId: user.id,
+        },
+      },
     });
 
     logStep("Checkout session created", { sessionId: session.id, url: session.url });

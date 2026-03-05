@@ -4,13 +4,41 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
 // Helper logging function for debugging
-const logStep = (step: string, details?: any) => {
-  const detailsStr = details ? ` - ${JSON.stringify(details)}` : '';
+const logStep = (step: string, details?: unknown) => {
+  const detailsStr = details ? ` - ${JSON.stringify(details)}` : "";
   console.log(`[CHECK-SUBSCRIPTION] ${step}${detailsStr}`);
+};
+
+const getSubscriptionTier = (amount: number, interval?: string | null) => {
+  if (amount === 1500 && interval === "month") {
+    return "Premium";
+  }
+
+  if (amount === 999 && interval === "month") {
+    return "Premium";
+  }
+
+  if (amount === 7999 && interval === "year") {
+    return "Premium Annual";
+  }
+
+  if (amount === 14900 && !interval) {
+    return "Premium Lifetime";
+  }
+
+  if (amount <= 1500) {
+    return "Premium";
+  }
+
+  if (amount <= 8000) {
+    return "Premium Annual";
+  }
+
+  return "Premium Lifetime";
 };
 
 serve(async (req) => {
@@ -38,7 +66,7 @@ serve(async (req) => {
 
     const token = authHeader.replace("Bearer ", "");
     logStep("Authenticating user with token");
-    
+
     const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
     if (userError) throw new Error(`Authentication error: ${userError.message}`);
     const user = userData.user;
@@ -47,7 +75,7 @@ serve(async (req) => {
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
-    
+
     if (customers.data.length === 0) {
       logStep("No customer found, updating unsubscribed state");
       await supabaseClient.from("subscribers").upsert({
@@ -58,8 +86,8 @@ serve(async (req) => {
         subscription_tier: null,
         subscription_end: null,
         updated_at: new Date().toISOString(),
-      }, { onConflict: 'email' });
-      return new Response(JSON.stringify({ subscribed: false }), {
+      }, { onConflict: "email" });
+      return new Response(JSON.stringify({ subscribed: false, subscription_tier: null, subscription_end: null }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
@@ -81,29 +109,13 @@ serve(async (req) => {
       const subscription = subscriptions.data[0];
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
-      
-      // Determine subscription tier from price and interval
-      const priceId = subscription.items.data[0].price.id;
-      const price = await stripe.prices.retrieve(priceId);
-      const amount = price.unit_amount || 0;
-      const interval = price.recurring?.interval;
-      
-      if (amount === 999 && interval === "month") {
-        subscriptionTier = "Premium Monthly";
-      } else if (amount === 7999 && interval === "year") {
-        subscriptionTier = "Premium Annual";
-      } else if (amount === 14900 && !interval) {
-        subscriptionTier = "Premium Lifetime";
-      } else {
-        // Fallback for any existing legacy subscriptions
-        if (amount <= 999) {
-          subscriptionTier = "Premium";
-        } else if (amount <= 8000) {
-          subscriptionTier = "Premium Annual";
-        } else {
-          subscriptionTier = "Premium Lifetime";
-        }
-      }
+
+      const priceId = subscription.items.data[0]?.price.id;
+      const price = priceId ? await stripe.prices.retrieve(priceId) : null;
+      const amount = price?.unit_amount || 0;
+      const interval = price?.recurring?.interval;
+
+      subscriptionTier = getSubscriptionTier(amount, interval);
       logStep("Determined subscription tier", { priceId, amount, interval, subscriptionTier });
     } else {
       logStep("No active subscription found");
@@ -117,13 +129,13 @@ serve(async (req) => {
       subscription_tier: subscriptionTier,
       subscription_end: subscriptionEnd,
       updated_at: new Date().toISOString(),
-    }, { onConflict: 'email' });
+    }, { onConflict: "email" });
 
     logStep("Updated database with subscription info", { subscribed: hasActiveSub, subscriptionTier });
     return new Response(JSON.stringify({
       subscribed: hasActiveSub,
       subscription_tier: subscriptionTier,
-      subscription_end: subscriptionEnd
+      subscription_end: subscriptionEnd,
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
