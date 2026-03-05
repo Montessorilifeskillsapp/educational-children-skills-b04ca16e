@@ -115,14 +115,14 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           });
           
           if (error) throw error;
-          
-          // Open Stripe checkout in a new tab
-          window.open(data.url, '_blank');
+          if (!data?.url) throw new Error('Stripe checkout URL was not returned');
           
           toast({
             title: "Redirecting to Checkout",
-            description: "Opening Stripe payment page in a new tab...",
+            description: "Taking you to Stripe’s secure payment page...",
           });
+
+          window.location.assign(data.url);
         } catch (error) {
           console.error('Checkout error:', error);
           toast({
