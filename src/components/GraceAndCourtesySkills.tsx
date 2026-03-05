@@ -1,10 +1,10 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
-import { ArrowLeft, Clock, Users, Star, Lock } from 'lucide-react';
+import { Clock, Users, Star, Lock } from 'lucide-react';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
 interface GraceAndCourtesySkillsProps {
   onBack: () => void;
@@ -19,7 +19,7 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
-  const skills = Object.values(graceAndCourtesySkills);
+  const skills = applyFirstFreeItemLimit(Object.values(graceAndCourtesySkills));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 to-orange-50 p-4">
