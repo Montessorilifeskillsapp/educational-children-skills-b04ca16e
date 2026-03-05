@@ -8,24 +8,22 @@ import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalL
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
-// All concise skills already have shopItems if needed
 Object.values(concisePracticalLifeSkills).forEach(skill => {
   if (!skill.shopItems) {
     skill.shopItems = getShopItemsForSkill(skill.id);
   }
 });
 
-// Merge all practical life skills, prioritizing concise skills, then AMI skills
 const mergedPracticalLifeSkills = { 
   ...comprehensivePracticalLifeSkills,
   ...enhancedPracticalLifeSkills,
   ...additionalPracticalLifeSkills, 
   ...amiPracticalLifeSkills,
-  ...concisePracticalLifeSkills // Highest precedence
+  ...concisePracticalLifeSkills
 };
 
-// Debug: Log available skills
 console.log('Available skills:', Object.keys(mergedPracticalLifeSkills));
 console.log('Total skills count:', Object.keys(mergedPracticalLifeSkills).length);
 
@@ -36,20 +34,20 @@ interface PracticalLifeOverviewProps {
   isPremium: boolean;
 }
 
-// Convert merged skills to display format
-const allSkillsFormatted = Object.values(mergedPracticalLifeSkills).map(skill => ({
-  id: skill.id,
-  title: skill.title,
-  description: skill.description,
-  icon: skill.icon,
-  category: skill.category,
-  difficulty: skill.isPremium ? 'Medium' : 'Easy',
-  ageRange: skill.ageRange,
-  isPremium: skill.isPremium,
-  hasShopItems: skill.shopItems && skill.shopItems.length > 0
-}));
+const allSkillsFormatted = applyFirstFreeItemLimit(
+  Object.values(mergedPracticalLifeSkills).map(skill => ({
+    id: skill.id,
+    title: skill.title,
+    description: skill.description,
+    icon: skill.icon,
+    category: skill.category,
+    difficulty: skill.isPremium ? 'Medium' : 'Easy',
+    ageRange: skill.ageRange,
+    isPremium: skill.isPremium,
+    hasShopItems: skill.shopItems && skill.shopItems.length > 0
+  }))
+);
 
-// Organize by categories
 const careOfPersonSkills = allSkillsFormatted.filter(skill => 
   skill.category === 'Care of Self'
 );
@@ -69,6 +67,7 @@ const graceAndCourtesySkills = allSkillsFormatted.filter(skill =>
 const foodPreparationSkills = allSkillsFormatted.filter(skill => 
   skill.category === 'Food Preparation'
 );
+
 export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   onBack,
   onSkillSelect,
@@ -86,7 +85,6 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </p>
       </div>
 
-      {/* Care of Self Section */}
       {careOfPersonSkills.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -109,7 +107,6 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       )}
 
-      {/* Care of the Environment Section */}
       {careOfEnvironmentSkills.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -132,7 +129,6 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       )}
 
-      {/* Control of Movement Section */}
       {controlOfMovementSkills.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -155,7 +151,6 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       )}
 
-      {/* Grace and Courtesy Section */}
       {graceAndCourtesySkills.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -178,7 +173,6 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       )}
 
-      {/* Food Preparation Section */}
       {foodPreparationSkills.length > 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
@@ -201,7 +195,6 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         </div>
       )}
 
-      {/* All Skills Section if no categorization */}
       {careOfPersonSkills.length === 0 && careOfEnvironmentSkills.length === 0 && controlOfMovementSkills.length === 0 && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">

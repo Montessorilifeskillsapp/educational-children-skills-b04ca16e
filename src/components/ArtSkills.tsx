@@ -4,6 +4,9 @@ import SkillCard from './SkillCard';
 import { artSkillsEnhanced } from '../data/artSkillsEnhanced';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
+
 interface ArtSkillsProps {
   selectedSkill?: string;
   onSkillSelect: (skillId: string) => void;
@@ -11,7 +14,9 @@ interface ArtSkillsProps {
 }
 
 export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSelect, onBack }) => {
-  // If a skill is selected, show the activity
+  const { isPremium } = useSubscription();
+  const skills = applyFirstFreeItemLimit(Object.entries(artSkillsEnhanced).map(([key, skill]) => ({ id: key, ...skill })));
+
   if (selectedSkill && artSkillsEnhanced[selectedSkill]) {
     return (
       <SkillActivity
@@ -37,13 +42,13 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {Object.entries(artSkillsEnhanced).map(([key, skill]) => (
+        {skills.map((skill) => (
           <SkillCard
-            key={key}
+            key={skill.id}
             skill={skill}
             isCompleted={false}
-            isPremium={skill.isPremium}
-            onSelect={() => onSkillSelect(key)}
+            isPremium={isPremium}
+            onSelect={() => onSkillSelect(skill.id)}
           />
         ))}
       </div>
