@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield, GraduationCap, Home as HomeIcon, Users2, Printer } from 'lucide-react';
+import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield, GraduationCap, Home as HomeIcon, Users2 } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
@@ -27,15 +27,13 @@ interface HomeProps {
   onGraceCourtesyView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
-  onPrintablesView?: () => void;
 }
 
 const Home: React.FC<HomeProps> = ({ 
   onGetStarted, onResourcesView, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onCulturalView, onGraceCourtesyView, onParentView, onProfilesView,
-  onPrintablesView
+  onArtView, onCulturalView, onGraceCourtesyView, onParentView, onProfilesView
 }) => {
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
@@ -100,7 +98,6 @@ const Home: React.FC<HomeProps> = ({
           onSubscriptionView={onSubscriptionView}
           onParentView={onParentView}
           onProfilesView={onProfilesView}
-          onPrintablesView={onPrintablesView}
         />
       </div>
 
