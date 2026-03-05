@@ -86,21 +86,19 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
     onSubscriptionView?.();
   };
 
-  if (selectedPrintable) {
-    const currentPrintable = limitedPrintables.find((printable) => printable.id === selectedPrintable.id);
+  const activePrintable = selectedPrintable
+    ? limitedPrintables.find((printable) => printable.id === selectedPrintable.id)
+    : null;
 
-    if (currentPrintable && (!currentPrintable.isPremium || isPremium)) {
-      return (
-        <PrintableDetail
-          printableId={currentPrintable.id}
-          title={currentPrintable.title}
-          icon={currentPrintable.icon}
-          onBack={() => setSelectedPrintable(null)}
-        />
-      );
-    }
-
-    setSelectedPrintable(null);
+  if (activePrintable && (!activePrintable.isPremium || isPremium)) {
+    return (
+      <PrintableDetail
+        printableId={activePrintable.id}
+        title={activePrintable.title}
+        icon={activePrintable.icon}
+        onBack={() => setSelectedPrintable(null)}
+      />
+    );
   }
 
   const freePrintables = limitedPrintables.filter((p) => !p.isPremium);
