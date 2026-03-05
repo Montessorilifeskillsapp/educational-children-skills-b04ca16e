@@ -2,11 +2,13 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
-import { 
-  Menu, BookOpen, Settings, Home, Brain, 
+import { useAuthContext } from '@/components/AuthProvider';
+import {
+  Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, Printer
+  ChevronDown, ChevronUp, Printer, LogIn
 } from 'lucide-react';
+
 interface NavigationMenuProps {
   onDashboardView?: () => void;
   
@@ -34,24 +36,25 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useAuthContext();
 
   const navigationItems = [
-    { label: 'Dashboard', icon: Home, onClick: onDashboardView, color: 'border-gray-300' },
-    
-    { label: 'Practical Life', icon: Heart, onClick: () => { onPracticalView?.(); navigate('/practical-life'); }, color: 'border-amber-400' },
-    { label: 'Sensorial', icon: Brain, onClick: onSensorialView, color: 'border-blue-400' },
-    { label: 'Language', icon: BookOpen, onClick: onLanguageView, color: 'border-yellow-400' },
-    { label: 'Math', icon: Calculator, onClick: onMathView, color: 'border-red-400' },
-    { label: 'Geography', icon: Globe, onClick: onGeographyView, color: 'border-cyan-400' },
-    { label: 'Botany', icon: Leaf, onClick: onBotanyView, color: 'border-green-400' },
-    { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-pink-400' },
-    { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-violet-400' },
-    { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-purple-400' },
-    { label: 'Resources', icon: BookOpen, onClick: onResourcesView, color: 'border-gray-300' },
-    { label: 'Printables', icon: Printer, onClick: onPrintablesView, color: 'border-amber-400' },
-    { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-gray-300' },
-    { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-gray-300' },
-    { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-gray-300' }
+    ...(!user ? [{ label: 'Login', icon: LogIn, onClick: () => navigate('/auth'), color: 'border-primary/30' }] : []),
+    { label: 'Dashboard', icon: Home, onClick: onDashboardView, color: 'border-border' },
+    { label: 'Practical Life', icon: Heart, onClick: () => { onPracticalView?.(); navigate('/practical-life'); }, color: 'border-primary/40' },
+    { label: 'Sensorial', icon: Brain, onClick: onSensorialView, color: 'border-primary/40' },
+    { label: 'Language', icon: BookOpen, onClick: onLanguageView, color: 'border-primary/40' },
+    { label: 'Math', icon: Calculator, onClick: onMathView, color: 'border-primary/40' },
+    { label: 'Geography', icon: Globe, onClick: onGeographyView, color: 'border-primary/40' },
+    { label: 'Botany', icon: Leaf, onClick: onBotanyView, color: 'border-primary/40' },
+    { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-primary/40' },
+    { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-primary/40' },
+    { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-primary/40' },
+    { label: 'Resources', icon: BookOpen, onClick: onResourcesView, color: 'border-border' },
+    { label: 'Printables', icon: Printer, onClick: onPrintablesView, color: 'border-primary/40' },
+    { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
+    { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
+    { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' }
   ];
 
   return (
@@ -63,7 +66,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
         onClick={() => setIsOpen(!isOpen)}
         variant="outline"
         size="sm"
-        className="bg-white/80 backdrop-blur-sm border-purple-200 hover:bg-purple-50"
+        className="bg-background/80 backdrop-blur-sm border-border hover:bg-accent"
       >
         <Menu className="w-4 h-4 mr-2" />
         Menu
@@ -71,7 +74,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
       </Button>
       
       {isOpen && (
-        <div className="absolute top-full right-0 mt-2 w-56 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg border border-purple-200 z-30 max-h-96 overflow-y-auto">
+        <div className="absolute top-full right-0 mt-2 w-56 bg-background/95 backdrop-blur-sm rounded-lg shadow-lg border border-border z-30 max-h-96 overflow-y-auto">
           <div className="p-2">
             {navigationItems.map((item, index) => {
               if (!item.onClick) return null;
@@ -85,7 +88,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
                   }}
                   variant="ghost"
                   size="sm"
-                  className={`w-full justify-start mb-1 hover:bg-purple-50 border ${item.color}`}
+                  className={`w-full justify-start mb-1 hover:bg-accent border ${item.color}`}
                 >
                   <Icon className="w-4 h-4 mr-3" />
                   {item.label}
@@ -98,6 +101,5 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     </div>
   );
 };
-
 
 export default NavigationMenu;
