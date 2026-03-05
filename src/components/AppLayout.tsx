@@ -19,7 +19,6 @@ import ParentDashboard from './ParentDashboard';
 import OnboardingFlow from './OnboardingFlow';
 import ProfileSelector from './ProfileSelector';
 import Resources from './Resources';
-import MontessoriPrintables from './MontessoriPrintables';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -39,7 +38,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 
 const AppLayout: React.FC = () => {
   // State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources' | 'printables'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
@@ -152,7 +151,6 @@ const AppLayout: React.FC = () => {
         onGraceCourtesyView={() => handleViewChange('grace-courtesy')}
         onParentView={() => handleViewChange('parent')}
         onProfilesView={() => handleViewChange('profiles')}
-        onPrintablesView={() => handleViewChange('printables')}
       />
     );
   }
@@ -271,9 +269,6 @@ const AppLayout: React.FC = () => {
     return <Resources onBack={handleBack} />;
   }
 
-  if (currentView === 'printables') {
-    return <MontessoriPrintables onBack={handleBack} onSubscriptionView={() => handleViewChange('subscription')} />;
-  }
 
   if (currentView === 'profiles') {
     return (
