@@ -219,21 +219,21 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const hasAccess = concisePracticalLifeSkill
     ? true
     : (mathSkill || enhancedMathSkill)
-      ? canAccessSectionItem(Object.values(allMathSkills).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+      ? canAccessSectionItem(Object.entries(allMathSkills).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
       : botanySkill
-        ? canAccessSectionItem(Object.values(botanySkillsData).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+        ? canAccessSectionItem(Object.entries(botanySkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
         : graceCourtesySkill
           ? canAccessSectionItem(Object.values(graceAndCourtesySkills).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
           : artSkill
-            ? canAccessSectionItem(Object.values(artSkillsEnhanced).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+            ? canAccessSectionItem(Object.entries(artSkillsEnhanced).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
             : geographySkill
-              ? canAccessSectionItem(Object.values(geographySkillsData).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+              ? canAccessSectionItem(Object.entries(geographySkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
               : culturalSkill
-                ? canAccessSectionItem(Object.values(culturalSkillsData).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+                ? canAccessSectionItem(Object.entries(culturalSkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
                 : languageSkill
-                  ? canAccessSectionItem(Object.values(languageSkillsData).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+                  ? canAccessSectionItem(Object.entries(languageSkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
                   : sensorialSkill
-                    ? canAccessSectionItem(Object.values(allSensorialSkills).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+                    ? canAccessSectionItem(Object.entries(allSensorialSkills).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
                     : !skill.isPremium || isPremium;
 
   if (!hasAccess) {
