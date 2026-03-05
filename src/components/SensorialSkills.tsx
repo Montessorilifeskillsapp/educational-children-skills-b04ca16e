@@ -11,6 +11,8 @@ import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
 import { completeSensorialSkills } from '@/data/completeSensorialSkills';
 import { sensorialImages } from '@/assets/sensorial';
 import { useSEO } from '@/hooks/useSEO';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
+
 interface SensorialSkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -33,7 +35,6 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
     canonical: 'https://montessori-skills.com/sensorial'
   });
 
-  // Combine all sensorial skills
   const allSkills = {
     ...sensorialSkills,
     ...additionalSensorialSkills,
@@ -41,11 +42,13 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
     ...completeSensorialSkills
   };
 
-  const skills = Object.keys(allSkills).map(skillId => ({
-    id: skillId,
-    ...allSkills[skillId],
-    image: sensorialImages[skillId],
-  }));
+  const skills = applyFirstFreeItemLimit(
+    Object.keys(allSkills).map(skillId => ({
+      id: skillId,
+      ...allSkills[skillId],
+      image: sensorialImages[skillId],
+    }))
+  );
 
   const completionRate = (completedSkills.filter(skill => 
     Object.keys(allSkills).includes(skill)
@@ -56,7 +59,6 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
 
   return (
     <PageLayout title="Sensorial Development" onBack={onBack} className={montessoriTheme.backgrounds.sensorial}>
-      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -72,7 +74,6 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
         </div>
       </div>
 
-      {/* Progress Overview */}
       <Card className="bg-white border border-gray-200 mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -107,7 +108,6 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Sensorial Skills Grid */}
       <section>
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Montessori Sensorial Activities

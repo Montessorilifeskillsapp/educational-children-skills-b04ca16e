@@ -1,15 +1,15 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
 import { montessoriTheme } from './ThemeConfig';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
 import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
-
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { canAccessSectionItem } from '@/lib/freeTierAccess';
 
 interface Step {
   id: string;
@@ -23,54 +23,90 @@ interface PracticalLifeSkillsProps {
   onComplete: (skillId: string) => void;
 }
 
-const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-// Get skill from combined skills collections (check all sources)
-let skill = concisePracticalLifeSkills[skillId] || 
-            additionalPracticalLifeSkills[skillId] || 
-            comprehensivePracticalLifeSkills[skillId] || 
-            enhancedPracticalLifeSkills[skillId] ||
-            amiPracticalLifeSkills[skillId];
-  
-if (!skill) return null;
+const mergedPracticalLifeSkills = {
+  ...comprehensivePracticalLifeSkills,
+  ...enhancedPracticalLifeSkills,
+  ...additionalPracticalLifeSkills,
+  ...amiPracticalLifeSkills,
+  ...concisePracticalLifeSkills,
+};
 
-  // Handle different skill formats
-  let allSteps: Step[] = [];
-  
-  // All concise skills use the learning process format
-  if ('learningProcess' in skill && skill.learningProcess) {
-    // For teeth brushing and table setting, only show presentation steps
+const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
+  const { isPremium } = useSubscription();
+
+  const skill = mergedPracticalLifeSkills[skillId];
+
+  const buildSteps = (): Step[] => {
+    if (!skill || !('learningProcess' in skill) || !skill.learningProcess) {
+      return [];
+    }
+
     if (skillId === 'brushing-teeth' || skillId === 'table-setting') {
-      allSteps = skill.learningProcess.presentation.steps.map((step, index) => ({
+      return skill.learningProcess.presentation.steps.map((step, index) => ({
         id: `presentation-${index}`,
         instruction: step,
         completed: false
       }));
-    } else {
-      // For other skills, show all steps
-      allSteps = [
-        ...skill.learningProcess.presentation.steps.map((step, index) => ({
-          id: `presentation-${index}`,
-          instruction: step,
-          completed: false
-        })),
-        ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
-          id: `guided-${index}`,
-          instruction: step,
-          completed: false
-        })),
-        ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
-          id: `independent-${index}`,
-          instruction: indicator,
-          completed: false
-        }))
-      ];
     }
+
+    return [
+      ...skill.learningProcess.presentation.steps.map((step, index) => ({
+        id: `presentation-${index}`,
+        instruction: step,
+        completed: false
+      })),
+      ...skill.learningProcess.guidedPractice.steps.map((step, index) => ({
+        id: `guided-${index}`,
+        instruction: step,
+        completed: false
+      })),
+      ...skill.learningProcess.independentPractice.indicators.map((indicator, index) => ({
+        id: `independent-${index}`,
+        instruction: indicator,
+        completed: false
+      }))
+    ];
+  };
+
+  const [steps, setSteps] = useState<Step[]>(buildSteps());
+
+  useEffect(() => {
+    setSteps(buildSteps());
+  }, [skillId]);
+
+  if (!skill) {
+    return null;
   }
 
-  const [steps, setSteps] = useState<Step[]>(allSteps);
+  const hasAccess = canAccessSectionItem(
+    Object.values(mergedPracticalLifeSkills).map((sectionSkill) => ({
+      id: sectionSkill.id,
+      isPremium: sectionSkill.isPremium,
+    })),
+    skillId,
+    isPremium,
+  );
+
+  if (!hasAccess) {
+    return (
+      <div className={`min-h-screen ${montessoriTheme.backgrounds.practical} p-6`}>
+        <div className="max-w-xl mx-auto pt-12">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-center">Premium activity</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center space-y-4">
+              <p className="text-muted-foreground">Only the first existing free Practical Life activity is available on the free plan.</p>
+              <Button onClick={onBack}>Back to Practical Life</Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   const completedSteps = steps.filter(step => step.completed).length;
-  const progress = (completedSteps / steps.length) * 100;
-  const isComplete = completedSteps === steps.length;
+  const isComplete = steps.length > 0 && completedSteps === steps.length;
 
   const toggleStep = (stepId: string) => {
     setSteps(prev => prev.map(step => 
@@ -84,7 +120,6 @@ if (!skill) return null;
         <div className="flex items-center justify-between mb-6">
           <BackButton onClick={onBack} />
           <div className="text-center">
-            {/* Icon without background */}
             <div className="mb-2 flex justify-center">
               <div className="text-4xl">{skill.icon}</div>
             </div>
@@ -99,7 +134,6 @@ if (!skill) return null;
           </CardHeader>
         </Card>
 
-        {/* Materials Section */}
         <Card className="mb-6">
           <CardHeader>
             <CardTitle className="text-lg text-montessori-earth">Required Materials</CardTitle>

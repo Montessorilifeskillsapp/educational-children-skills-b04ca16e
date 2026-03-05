@@ -3,6 +3,7 @@ import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { montessoriTheme } from './ThemeConfig';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
 interface CulturalSkillsProps {
   onBack: () => void;
@@ -17,6 +18,13 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
   completedSkills,
   isPremium
 }) => {
+  const limitedSkills = applyFirstFreeItemLimit(
+    Object.entries(culturalSkillsData).map(([skillId, skill]) => ({
+      id: skillId,
+      ...skill,
+    }))
+  );
+
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.cultural} p-4`}>
       <div className="max-w-6xl mx-auto">
@@ -33,20 +41,19 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
           </p>
         </div>
 
-        {/* Sub-category sections */}
         {(['Cultural - History', 'Cultural - Music', 'Cultural - Science', 'Cultural - World Cultures'] as const).map((cat) => {
-          const skills = Object.entries(culturalSkillsData).filter(([, s]) => s.category === cat);
+          const skills = limitedSkills.filter((skill) => skill.category === cat);
           const label = cat.replace('Cultural - ', '');
           return (
             <div key={cat} className="mb-10">
               <h2 className="text-2xl font-bold text-violet-700 mb-4">{label}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {skills.map(([skillId, skill]) => (
+                {skills.map((skill) => (
                   <SkillCard
-                    key={skillId}
-                    skill={{ id: skillId, ...skill }}
-                    isCompleted={completedSkills.includes(skillId)}
-                    onSelect={() => onSkillSelect(skillId)}
+                    key={skill.id}
+                    skill={skill}
+                    isCompleted={completedSkills.includes(skill.id)}
+                    onSelect={() => onSkillSelect(skill.id)}
                     isPremium={isPremium}
                   />
                 ))}

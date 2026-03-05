@@ -4,6 +4,8 @@ import SkillCard from './SkillCard';
 import { botanySkillsData } from '@/data/botanySkills';
 import { montessoriTheme } from './ThemeConfig';
 import { botanyImages } from '@/assets/botany';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
+
 interface BotanySkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -17,6 +19,14 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
   completedSkills,
   isPremium
 }) => {
+  const skills = applyFirstFreeItemLimit(
+    Object.entries(botanySkillsData).map(([skillId, skill]) => ({
+      id: skillId,
+      ...skill,
+      image: botanyImages[skillId],
+    }))
+  );
+
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.botany} p-4`}>
       <div className="max-w-6xl mx-auto">
@@ -34,16 +44,12 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(botanySkillsData).map(([skillId, skill]) => (
+          {skills.map((skill) => (
             <SkillCard
-              key={skillId}
-              skill={{
-                id: skillId,
-                ...skill,
-                image: botanyImages[skillId],
-              }}
-              isCompleted={completedSkills.includes(skillId)}
-              onSelect={() => onSkillSelect(skillId)}
+              key={skill.id}
+              skill={skill}
+              isCompleted={completedSkills.includes(skill.id)}
+              onSelect={() => onSkillSelect(skill.id)}
               isPremium={isPremium}
             />
           ))}

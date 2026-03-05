@@ -6,6 +6,7 @@ import SkillCard from './SkillCard';
 import PageLayout from './PageLayout';
 import { languageSkillsData } from '@/data/languageSkills';
 import { languageImages } from '@/assets/language';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
 interface LanguageSkillsProps {
   onSkillSelect: (skillId: string) => void;
@@ -22,18 +23,19 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
   isPremium,
   activeProfile
 }) => {
-  const skills = Object.keys(languageSkillsData).map(skillId => ({
-    id: skillId,
-    ...languageSkillsData[skillId],
-    image: languageImages[skillId],
-  }));
+  const skills = applyFirstFreeItemLimit(
+    Object.keys(languageSkillsData).map(skillId => ({
+      id: skillId,
+      ...languageSkillsData[skillId],
+      image: languageImages[skillId],
+    }))
+  );
 
   const completionRate = (completedSkills.length / skills.length) * 100;
   const completedCount = completedSkills.length;
 
   return (
     <PageLayout title="Language Development" onBack={onBack}>
-      {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
@@ -49,7 +51,6 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
         </div>
       </div>
 
-      {/* Progress Overview */}
       <Card className="bg-white border border-gray-200 mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -84,7 +85,6 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Language Skills Grid */}
       <section>
         <h2 className="text-xl font-semibold text-gray-800 mb-4">
           Montessori Language Activities

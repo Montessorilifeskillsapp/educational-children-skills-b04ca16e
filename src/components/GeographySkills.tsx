@@ -5,6 +5,8 @@ import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
 import { geographyImages } from '@/assets/geography';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
+
 interface GeographySkillsProps {
   onBack: () => void;
   onSkillSelect: (skillId: string) => void;
@@ -20,14 +22,20 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
   isPremium,
   selectedSkill
 }) => {
-  // If a skill is selected, show the skill activity
+  const skills = applyFirstFreeItemLimit(
+    Object.entries(geographySkillsData).map(([skillId, skill]) => ({
+      id: skillId,
+      ...skill,
+      image: geographyImages[skillId],
+    }))
+  );
+
   if (selectedSkill && geographySkillsData[selectedSkill]) {
     return (
       <SkillActivity
         skillId={selectedSkill}
         onBack={() => onSkillSelect('')}
-        onComplete={(skillId) => {
-          // Handle completion logic here if needed
+        onComplete={() => {
           onSkillSelect('');
         }}
       />
@@ -51,16 +59,12 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {Object.entries(geographySkillsData).map(([skillId, skill]) => (
+          {skills.map((skill) => (
             <SkillCard
-              key={skillId}
-              skill={{
-                id: skillId,
-                ...skill,
-                image: geographyImages[skillId],
-              }}
-              isCompleted={completedSkills.includes(skillId)}
-              onSelect={() => onSkillSelect(skillId)}
+              key={skill.id}
+              skill={skill}
+              isCompleted={completedSkills.includes(skill.id)}
+              onSelect={() => onSkillSelect(skill.id)}
               isPremium={isPremium}
             />
           ))}

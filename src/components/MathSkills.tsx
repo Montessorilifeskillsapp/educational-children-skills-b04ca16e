@@ -1,12 +1,12 @@
 import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Crown, Calculator } from 'lucide-react';
+import { Calculator } from 'lucide-react';
 import SkillCard from './SkillCard';
 import { montessoriTheme } from './ThemeConfig';
 import { mathSkillsData } from '@/data/mathSkills';
 import PageLayout from './PageLayout';
 import { mathImages } from '@/assets/math';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
 interface MathSkillsProps {
   onSkillSelect: (skillId: string) => void;
@@ -23,11 +23,13 @@ const MathSkills: React.FC<MathSkillsProps> = ({
   isPremium,
   activeProfile
 }) => {
-  const skills = Object.keys(mathSkillsData).map(skillId => ({
-    id: skillId,
-    ...mathSkillsData[skillId],
-    image: mathImages[skillId],
-  }));
+  const skills = applyFirstFreeItemLimit(
+    Object.keys(mathSkillsData).map(skillId => ({
+      id: skillId,
+      ...mathSkillsData[skillId],
+      image: mathImages[skillId],
+    }))
+  );
 
   const completionRate = (completedSkills.filter(skill => 
     Object.keys(mathSkillsData).includes(skill)
@@ -55,7 +57,6 @@ const MathSkills: React.FC<MathSkillsProps> = ({
         </div>
       </div>
 
-      {/* Skills Info Banner */}
       <Card className="mb-6 bg-gradient-to-r from-blue-50 to-green-50 border-2 border-blue-300">
         <CardContent className="p-4">
           <div className="flex items-center gap-3">
@@ -68,7 +69,6 @@ const MathSkills: React.FC<MathSkillsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Progress Overview */}
       <Card className="bg-white border border-gray-200 mb-6">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
@@ -92,7 +92,6 @@ const MathSkills: React.FC<MathSkillsProps> = ({
         </CardContent>
       </Card>
 
-      {/* Skills Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {skills.map((skill) => (
           <div key={skill.id} className="relative">
@@ -102,7 +101,6 @@ const MathSkills: React.FC<MathSkillsProps> = ({
               onSelect={() => onSkillSelect(skill.id)}
               isPremium={isPremium}
             />
-            {/* Enhanced content indicator */}
             <div className="absolute -top-2 -left-2 bg-green-500 text-white text-xs px-2 py-1 rounded-full">
               Enhanced ✨
             </div>

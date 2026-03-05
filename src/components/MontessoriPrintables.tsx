@@ -6,6 +6,7 @@ import { Download, Printer, Lock } from 'lucide-react';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import BackButton from '@/components/ui/back-button';
 import PrintableDetail from '@/components/PrintableDetail';
+import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
 import pouringImg from '@/assets/printables/pouring-practice.jpg';
 import cuttingImg from '@/assets/printables/cutting-strips.jpg';
@@ -60,6 +61,8 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
     Botany: 'bg-emerald-100 text-emerald-800',
   };
 
+  const limitedPrintables = applyFirstFreeItemLimit(printables);
+
   const handleDownload = (printable: Printable) => {
     const content = `${printable.title}\n\nDescription: ${printable.description}\nCategory: ${printable.category}\nAge Range: ${printable.ageRange}\nPages: ${printable.pages}\n\nThis is a sample Montessori printable activity sheet.\nPrint this page and follow the instructions for the activity.\n\nGenerated on: ${new Date().toLocaleDateString()}`;
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
@@ -74,19 +77,32 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
     URL.revokeObjectURL(url);
   };
 
-  if (selectedPrintable) {
+  const handleViewPrintable = (printable: Printable) => {
+    if (!printable.isPremium || isPremium) {
+      setSelectedPrintable(printable);
+      return;
+    }
+
+    onSubscriptionView?.();
+  };
+
+  const activePrintable = selectedPrintable
+    ? limitedPrintables.find((printable) => printable.id === selectedPrintable.id)
+    : null;
+
+  if (activePrintable && (!activePrintable.isPremium || isPremium)) {
     return (
       <PrintableDetail
-        printableId={selectedPrintable.id}
-        title={selectedPrintable.title}
-        icon={selectedPrintable.icon}
+        printableId={activePrintable.id}
+        title={activePrintable.title}
+        icon={activePrintable.icon}
         onBack={() => setSelectedPrintable(null)}
       />
     );
   }
 
-  const freePrintables = printables.filter((p) => !p.isPremium);
-  const premiumPrintables = printables.filter((p) => p.isPremium);
+  const freePrintables = limitedPrintables.filter((p) => !p.isPremium);
+  const premiumPrintables = limitedPrintables.filter((p) => p.isPremium);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-4">
@@ -113,7 +129,7 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
                 locked={false}
                 categoryColor={categoryColors[p.category]}
                 onDownload={() => handleDownload(p)}
-                onViewSteps={() => setSelectedPrintable(p)}
+                onViewSteps={() => handleViewPrintable(p)}
               />
             ))}
           </div>
@@ -126,11 +142,11 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
               <PrintableCard
                 key={p.id}
                 printable={p}
-                locked={false}
+                locked={!isPremium}
                 categoryColor={categoryColors[p.category]}
                 onDownload={() => handleDownload(p)}
                 onUpgrade={onSubscriptionView}
-                onViewSteps={() => setSelectedPrintable(p)}
+                onViewSteps={() => handleViewPrintable(p)}
               />
             ))}
           </div>

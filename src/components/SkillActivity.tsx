@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { CheckCircle, Circle, Play, Pause } from 'lucide-react';
+import { CheckCircle, Circle } from 'lucide-react';
 import { skillsData, type Step } from '@/data/skillsData';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { additionalSensorialSkills } from '@/data/sensorialSkills2';
@@ -20,6 +19,8 @@ import { enhancedMathSkills } from '@/data/enhancedMathSkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { useSEO } from '@/hooks/useSEO';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { canAccessSectionItem } from '@/lib/freeTierAccess';
 
 interface SkillActivityProps {
   skillId: string;
@@ -27,18 +28,22 @@ interface SkillActivityProps {
   onComplete: (skillId: string) => void;
 }
 
+const allSensorialSkills = {
+  ...sensorialSkills,
+  ...additionalSensorialSkills,
+  ...tactileSensorialSkills
+};
+
+const allMathSkills = {
+  ...mathSkillsData,
+  ...enhancedMathSkills,
+};
+
 const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComplete }) => {
-  // Check concise skills first
+  const { isPremium } = useSubscription();
+
   const concisePracticalLifeSkill = concisePracticalLifeSkills[skillId];
   const enhancedMathSkill = enhancedMathSkills[skillId];
-  
-  // Check all skill sources
-  const allSensorialSkills = {
-    ...sensorialSkills,
-    ...additionalSensorialSkills,
-    ...tactileSensorialSkills
-  };
-  
   const sensorialSkill = allSensorialSkills[skillId];
   const languageSkill = languageSkillsData[skillId];
   const mathSkill = mathSkillsData[skillId];
@@ -48,15 +53,10 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const botanySkill = botanySkillsData[skillId];
   const culturalSkill = culturalSkillsData[skillId];
   const regularSkill = skillsData[skillId];
-  
-  // Determine which skill data to use - prioritize concise skills
+
   const skill = concisePracticalLifeSkill || enhancedMathSkill || mathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || culturalSkill || sensorialSkill || regularSkill;
-  const isEnhancedSkill = concisePracticalLifeSkill || enhancedMathSkill;
-  
-  if (!skill) {
-    return <div>Skill not found</div>;
-  }
-  
+  const isEnhancedSkill = Boolean(concisePracticalLifeSkill || enhancedMathSkill);
+
   const category = (mathSkill || enhancedMathSkill) ? 
     { 
       name: 'Mathematics', 
@@ -121,9 +121,9 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       description: getCategoryDescription(sensorialSkill.category) 
     } :
     { name: 'Skills', icon: '🎯', color: 'bg-gray-100 border-gray-300 text-gray-800', description: 'General skill development' };
-  
-  function getCategoryIcon(category: string) {
-    switch (category) {
+
+  function getCategoryIcon(categoryName: string) {
+    switch (categoryName) {
       case 'Visual Discrimination': return '👁️';
       case 'Auditory Discrimination': return '👂';
       case 'Tactile Discrimination': return '✋';
@@ -132,8 +132,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     }
   }
 
-  function getCategoryColor(category: string) {
-    switch (category) {
+  function getCategoryColor(categoryName: string) {
+    switch (categoryName) {
       case 'Visual Discrimination': return 'bg-blue-100 border-blue-300 text-blue-800';
       case 'Auditory Discrimination': return 'bg-purple-100 border-purple-300 text-purple-800';
       case 'Tactile Discrimination': return 'bg-green-100 border-green-300 text-green-800';
@@ -142,8 +142,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     }
   }
 
-  function getCategoryDescription(category: string) {
-    switch (category) {
+  function getCategoryDescription(categoryName: string) {
+    switch (categoryName) {
       case 'Visual Discrimination': return 'Refining visual perception and discrimination';
       case 'Auditory Discrimination': return 'Developing listening skills and sound awareness';
       case 'Tactile Discrimination': return 'Enhancing touch sensitivity and texture recognition';
@@ -151,17 +151,12 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       default: return 'Sensorial development';
     }
   }
-  
-  useSEO({
-    title: `${skill.title} - ${category.name} - Montessori Skills`,
-    description: `Learn ${skill.title.toLowerCase()} with step-by-step Montessori method.`,
-    keywords: `montessori, ${category.name.toLowerCase()}, ${skill.title.toLowerCase()}`,
-    canonical: `https://montessori-skills.com/skill/${skillId}`
-  });
-  
-  // Convert steps to proper format based on skill type
+
   const getSkillSteps = (): Step[] => {
-    // Enhanced skills with learningProcess
+    if (!skill) {
+      return [];
+    }
+
     if (isEnhancedSkill && skill.learningProcess?.presentation?.steps) {
       return skill.learningProcess.presentation.steps.map((step: string, index: number) => ({ 
         id: `step-${index}`, 
@@ -169,39 +164,30 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
         completed: false 
       }));
     }
-    // Math skills with steps array
     if (mathSkill?.steps) {
       return mathSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
     }
-    // Botany skills
     if (botanySkill?.steps) {
       return botanySkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
     }
-    // Grace & Courtesy skills
     if (graceCourtesySkill?.learningProcess?.presentation?.steps) {
       return graceCourtesySkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
     }
-    // Art skills
     if (artSkill?.steps) {
       return artSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
     }
-    // Geography skills
     if (geographySkill?.activities) {
       return geographySkill.activities.map((activity, index) => ({ id: `step-${index}`, instruction: activity, completed: false }));
     }
-    // Cultural skills
     if (culturalSkill?.steps) {
       return culturalSkill.steps;
     }
-    // Language skills
     if (languageSkill?.steps) {
       return languageSkill.steps;
     }
-    // Sensorial skills with learningProcess
     if (sensorialSkill?.learningProcess?.presentation?.steps) {
       return sensorialSkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
     }
-    // Regular skills with steps
     if (skill.steps) {
       return Array.isArray(skill.steps) ? skill.steps.map((step: any, index: number) => {
         if (typeof step === 'string') {
@@ -212,12 +198,64 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     }
     return [];
   };
-    
+
+  useSEO({
+    title: skill ? `${skill.title} - ${category.name} - Montessori Skills` : 'Skill Not Found - Montessori Skills',
+    description: skill ? `Learn ${skill.title.toLowerCase()} with step-by-step Montessori method.` : 'Montessori skill activity.',
+    keywords: skill ? `montessori, ${category.name.toLowerCase()}, ${skill.title.toLowerCase()}` : 'montessori skill',
+    canonical: `https://montessori-skills.com/skill/${skillId}`
+  });
+
   const [steps, setSteps] = useState<Step[]>(getSkillSteps());
-  
+
+  useEffect(() => {
+    setSteps(getSkillSteps());
+  }, [skillId]);
+
+  if (!skill) {
+    return <div>Skill not found</div>;
+  }
+
+  const hasAccess = concisePracticalLifeSkill
+    ? true
+    : (mathSkill || enhancedMathSkill)
+      ? canAccessSectionItem(Object.entries(allMathSkills).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+      : botanySkill
+        ? canAccessSectionItem(Object.entries(botanySkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+        : graceCourtesySkill
+          ? canAccessSectionItem(Object.values(graceAndCourtesySkills).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+          : artSkill
+            ? canAccessSectionItem(Object.entries(artSkillsEnhanced).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+            : geographySkill
+              ? canAccessSectionItem(Object.entries(geographySkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+              : culturalSkill
+                ? canAccessSectionItem(Object.entries(culturalSkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+                : languageSkill
+                  ? canAccessSectionItem(Object.entries(languageSkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+                  : sensorialSkill
+                    ? canAccessSectionItem(Object.entries(allSensorialSkills).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
+                    : !skill.isPremium || isPremium;
+
+  if (!hasAccess) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-6">
+        <div className="max-w-xl mx-auto pt-12">
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-center">Premium activity</CardTitle>
+            </CardHeader>
+            <CardContent className="text-center space-y-4">
+              <p className="text-muted-foreground">Only the first existing free activity in this section is available on the free plan.</p>
+              <Button onClick={onBack}>Go back</Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
+  }
+
   const completedSteps = steps.filter(step => step.completed).length;
-  const progress = (completedSteps / steps.length) * 100;
-  const isComplete = completedSteps === steps.length;
+  const isComplete = steps.length > 0 && completedSteps === steps.length;
 
   const toggleStep = (stepId: string) => {
     setSteps(prev => prev.map(step => 
@@ -233,7 +271,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   return (
     <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-6">
       <div className="max-w-2xl mx-auto">
-        {/* Category Banner */}
         <div className={`${category.color} border-4 border-current rounded-xl p-6 mb-6 text-center shadow-lg`}>
           <div className="text-6xl mb-3">{category.icon}</div>
           <h2 className="text-3xl font-bold mb-2">{category.name}</h2>
@@ -243,7 +280,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
         <header className="flex items-center justify-between mb-6">
           <BackButton onClick={onBack} />
           <div className="text-center">
-            {/* Icon without background */}
             <div className="mb-2 flex justify-center">
               <div className="text-4xl">{skill.icon}</div>
             </div>
@@ -254,7 +290,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </div>
           <div className="w-20"></div>
         </header>
-        {/* Materials Section */}
         {skill.materials && (
           <Card className="mb-6">
             <CardHeader>
@@ -273,7 +308,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Purpose Section */}
         {skill.purpose && (
           <Card className="mb-6">
             <CardHeader>
@@ -288,7 +322,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Steps Section - Only show for non-sensorial skills that don't have learningProcess */}
         {!sensorialSkill?.learningProcess && (
           <Card className="mb-6">
             <CardHeader>
@@ -326,7 +359,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Enhanced Montessori Learning Process for Sensorial Skills */}
         {sensorialSkill?.learningProcess && (
           <div className="mb-6">
             <MontessoriLearningProcessComponent 
@@ -336,7 +368,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </div>
         )}
 
-        {/* Key Points Section for Grace & Courtesy Skills */}
         {graceCourtesySkill?.learningProcess?.presentation?.keyPoints && (
           <Card className="mb-6">
             <CardHeader>
@@ -355,7 +386,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Direct Aims Section for Grace & Courtesy Skills */}
         {graceCourtesySkill?.directAims && (
           <Card className="mb-6">
             <CardHeader>
@@ -374,7 +404,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </Card>
         )}
 
-        {/* Enhanced Montessori Learning Process */}
         {isEnhancedSkill && skill.learningProcess && (
           <div className="mb-6">
             <MontessoriLearningProcessComponent 
@@ -384,7 +413,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </div>
         )}
 
-        {/* Completion Section */}
         {isComplete && (
           <Card className="mb-6 bg-green-50 border-green-200">
             <CardContent className="text-center py-8">
