@@ -41,7 +41,7 @@ const InstallPage = () => {
 
   if (isInstalled) {
     return (
-      <PageLayout title="App Installed">
+      <div className="min-h-screen bg-background">
         <div className="max-w-lg mx-auto text-center py-16 px-4">
           <div className="text-6xl mb-4">🎉</div>
           <h1 className="text-2xl font-bold text-foreground mb-2">App Installed!</h1>
@@ -49,12 +49,12 @@ const InstallPage = () => {
             Montessori Life Skills is now on your home screen. Open it anytime like a regular app.
           </p>
         </div>
-      </PageLayout>
+      </div>
     );
   }
 
   return (
-    <PageLayout title="Install App">
+    <div className="min-h-screen bg-background">
       <div className="max-w-lg mx-auto py-12 px-4 space-y-8">
         <div className="text-center space-y-3">
           <Smartphone className="w-16 h-16 mx-auto text-primary" />
@@ -121,7 +121,7 @@ const InstallPage = () => {
           Works offline · No app store needed · Always up to date
         </div>
       </div>
-    </PageLayout>
+    </div>
   );
 };
 
