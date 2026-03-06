@@ -19,6 +19,7 @@ import TermsOfServicePage from "./pages/TermsOfServicePage";
 import ContactPage from "./pages/ContactPage";
 import HelpPage from "./pages/HelpPage";
 import AboutPage from "./pages/AboutPage";
+import InstallPage from "./pages/InstallPage";
 import NotFound from "./pages/NotFound";
 import { analytics } from "@/lib/analytics";
 import { useEffect } from "react";
@@ -63,6 +64,7 @@ const App = () => {
                           <Route path="/contact" element={<ContactPage />} />
                           <Route path="/help" element={<HelpPage />} />
                           <Route path="/about" element={<AboutPage />} />
+                          <Route path="/install" element={<InstallPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
