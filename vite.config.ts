@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
-    VitePWA({
+    mode === 'production' && VitePWA({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "icon-192.png", "icon-512.png", "og.jpg"],
       workbox: {
@@ -31,7 +31,7 @@ export default defineConfig(({ mode }) => ({
           },
         ],
       },
-      manifest: false, // Use existing manifest.json
+      manifest: false,
     }),
   ].filter(Boolean),
   resolve: {
