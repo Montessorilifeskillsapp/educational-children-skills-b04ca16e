@@ -41,7 +41,7 @@ const InstallPage = () => {
 
   if (isInstalled) {
     return (
-      <PageLayout title="App Installed" description="You're all set!">
+      <PageLayout title="App Installed">
         <div className="max-w-lg mx-auto text-center py-16 px-4">
           <div className="text-6xl mb-4">🎉</div>
           <h1 className="text-2xl font-bold text-foreground mb-2">App Installed!</h1>
@@ -54,7 +54,7 @@ const InstallPage = () => {
   }
 
   return (
-    <PageLayout title="Install App" description="Install Montessori Life Skills on your device">
+    <PageLayout title="Install App">
       <div className="max-w-lg mx-auto py-12 px-4 space-y-8">
         <div className="text-center space-y-3">
           <Smartphone className="w-16 h-16 mx-auto text-primary" />
