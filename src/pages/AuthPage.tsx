@@ -245,8 +245,8 @@ const AuthPage = () => {
                 navigate('/');
               }}
             >
-              <Heart className="mr-2 h-4 w-4" />
-              Try Demo (No Account Needed)
+              <Sparkles className="mr-2 h-4 w-4" />
+              Explore Free Activities
             </Button>
           </div>
         </CardContent>

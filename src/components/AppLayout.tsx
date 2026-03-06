@@ -103,8 +103,8 @@ const AppLayout: React.FC = () => {
               size="lg"
               onClick={() => completeOnboarding([])}
             >
-              <Heart className="mr-2 h-4 w-4" />
-              Try Demo (No Account Needed)
+              <Sparkles className="mr-2 h-4 w-4" />
+              Explore Free Activities
             </Button>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
