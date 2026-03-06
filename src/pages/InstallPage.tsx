@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Download, Smartphone, Share, MoreVertical, Plus, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import PageLayout from "@/components/PageLayout";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
