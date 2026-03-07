@@ -5,20 +5,34 @@ const baseGeographySkills = {
   // Basic Geography Concepts
   'land-water-forms': {
     title: 'Land and Water Forms',
-    description: 'Explore islands, peninsulas, lakes, and bays',
+    description: 'Explore all 5 paired land and water forms: Island/Lake, Peninsula/Gulf, Isthmus/Strait, Cape/Bay, Archipelago/System of Lakes',
     icon: '🌊',
     category: 'Geography',
     isPremium: false,
     difficulty: 'Beginner',
     ageRange: '3-6',
-    purpose: 'Introduces basic geographical concepts through tactile exploration and visual recognition of land and water formations.',
-    materials: ['Sandpaper land forms', 'Blue water trays', 'Small objects for islands', 'Pouring materials', 'Towels'],
+    purpose: 'Introduces the 5 paired land and water forms through tactile exploration with clay trays. Each land form has an opposite water form, helping the child understand how land and water relate to one another.',
+    materials: [
+      'Land and water form trays (5 pairs, 10 trays total)',
+      'Small pitcher of water tinted with blue food colouring',
+      'Sponge and towel for cleanup',
+      'Land and water form nomenclature cards',
+      'Clay or plasticine for modeling',
+      'Control chart showing all 10 forms'
+    ],
     steps: [
-      { id: '1', instruction: 'Set up land and water form trays on work mat', completed: false },
-      { id: '2', instruction: 'Feel the sandpaper land forms with fingertips', completed: false },
-      { id: '3', instruction: 'Pour water carefully into the blue sections', completed: false },
-      { id: '4', instruction: 'Place small objects to represent islands and peninsulas', completed: false },
-      { id: '5', instruction: 'Name each formation: "This is an island, this is a lake"', completed: false }
+      { id: '1', instruction: 'Invite the child: "Would you like to work with the land and water forms?"', completed: false },
+      { id: '2', instruction: 'Carry the first pair of trays (Island / Lake) to the work mat', completed: false },
+      { id: '3', instruction: 'Pour water into the Island tray — feel the land surrounded by water. Say: "This is an island."', completed: false },
+      { id: '4', instruction: 'Pour water into the Lake tray — feel the water surrounded by land. Say: "This is a lake."', completed: false },
+      { id: '5', instruction: 'Present the Peninsula / Gulf pair: Peninsula is land surrounded by water on three sides; Gulf is water surrounded by land on three sides', completed: false },
+      { id: '6', instruction: 'Present the Isthmus / Strait pair: Isthmus is a narrow strip of land connecting two larger land masses; Strait is a narrow strip of water connecting two larger bodies of water', completed: false },
+      { id: '7', instruction: 'Present the Cape / Bay pair: Cape is a point of land extending into water; Bay is a body of water partly enclosed by land', completed: false },
+      { id: '8', instruction: 'Present the Archipelago / System of Lakes pair: Archipelago is a chain of islands; System of Lakes is a chain of lakes', completed: false },
+      { id: '9', instruction: 'Lay out all 10 nomenclature cards and match each card to its tray', completed: false },
+      { id: '10', instruction: 'Three-period lesson: "Show me the isthmus," "What is this?", reviewing all forms', completed: false },
+      { id: '11', instruction: 'Child models a chosen pair in clay and pours water to verify the form', completed: false },
+      { id: '12', instruction: 'Return all trays to the shelf, emptying and drying each one', completed: false }
     ]
   },
   'continents': {
