@@ -62,7 +62,7 @@ const plans: Plan[] = [
     name: 'Private Consultation',
     price: 149,
     period: 'session',
-    description: 'Personalized Homeschool Setup - A custom Montessori plan built around your child and family',
+    description: 'Personalized Homeschool Setup - A custom Montessori plan built around your child and family (0–1 hour session)',
     features: [
       '1-on-1 consultation with a Montessori guide',
       'Customized curriculum tailored to your child\'s age & interests',
