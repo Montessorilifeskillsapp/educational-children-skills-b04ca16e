@@ -205,7 +205,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
         <section aria-label="Montessori learning subscription plans">
           <h2 className="sr-only">Choose Your Montessori Learning Subscription Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {plans.map((plan) => (
               <article key={plan.id}>
                 <Card 
