@@ -99,7 +99,15 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           if (onBack) {
             onBack();
           }
-        } else {
+      } else if (plan.id === 'consultation') {
+        // Open email for consultation booking
+        window.location.href = 'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation%20to%20set%20up%20a%20customized%20Montessori%20homeschool%20plan%20for%20my%20family.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
+        toast({
+          title: "Consultation Request",
+          description: "Your email app should open shortly. We'll get back to you within 24 hours!",
+        });
+        return;
+      } else {
           console.log('Subscribing to free plan...');
           subscribe(plan);
           console.log('Free plan subscription completed');
