@@ -56,6 +56,22 @@ const plans: Plan[] = [
       'Bonus seasonal activity packs'
     ],
     popular: true
+  },
+  {
+    id: 'consultation',
+    name: 'Private Consultation',
+    price: 149,
+    period: 'session',
+    description: 'Personalized Homeschool Setup - A custom Montessori plan built around your child and family',
+    features: [
+      '1-on-1 consultation with a Montessori guide',
+      'Customized curriculum tailored to your child\'s age & interests',
+      'Family lifestyle & schedule integration',
+      'Personalized materials & activity recommendations',
+      'Written homeschool action plan delivered after session',
+      'Follow-up email support for 2 weeks'
+    ],
+    premium: true
   }
 ];
 
