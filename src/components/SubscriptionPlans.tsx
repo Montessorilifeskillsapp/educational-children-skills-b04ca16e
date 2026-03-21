@@ -56,6 +56,22 @@ const plans: Plan[] = [
       'Bonus seasonal activity packs'
     ],
     popular: true
+  },
+  {
+    id: 'consultation',
+    name: 'Private Consultation',
+    price: 149,
+    period: 'session',
+    description: 'Personalized Homeschool Setup - A custom Montessori plan built around your child and family',
+    features: [
+      '1-on-1 consultation with a Montessori guide',
+      'Customized curriculum tailored to your child\'s age & interests',
+      'Family lifestyle & schedule integration',
+      'Personalized materials & activity recommendations',
+      'Written homeschool action plan delivered after session',
+      'Follow-up email support for 2 weeks'
+    ],
+    premium: true
   }
 ];
 
@@ -72,14 +88,20 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const handleSubscribe = async (plan: Plan) => {
     console.log('handleSubscribe called with plan:', plan);
     try {
-      if (plan.id === 'free') {
+      if (plan.id === 'consultation') {
+        window.location.href = 'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation%20to%20set%20up%20a%20customized%20Montessori%20homeschool%20plan%20for%20my%20family.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
+        toast({
+          title: "Consultation Request",
+          description: "Your email app should open shortly. We'll get back to you within 24 hours!",
+        });
+        return;
+      } else if (plan.id === 'free') {
         if (currentPlan?.id === 'free') {
           console.log('User already on free plan');
           toast({
             title: "You're already on the Free Plan!",
             description: "Start exploring your Montessori activities now.",
           });
-          // Navigate back or to dashboard to show activities
           if (onBack) {
             onBack();
           }
@@ -181,7 +203,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
         <section aria-label="Montessori learning subscription plans">
           <h2 className="sr-only">Choose Your Montessori Learning Subscription Plan</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {plans.map((plan) => (
               <article key={plan.id}>
                 <Card 
