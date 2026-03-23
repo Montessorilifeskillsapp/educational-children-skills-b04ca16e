@@ -22,7 +22,7 @@ class Analytics {
     
     if (this.isEnabled) {
       // Initialize your analytics service here (GA4, Mixpanel, etc.)
-      console.log('Analytics initialized for user:', this.userId);
+      // Analytics initialized
     }
   }
 
