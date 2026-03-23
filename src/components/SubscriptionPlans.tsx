@@ -128,7 +128,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           return;
         }
         
-        console.log('Creating Stripe checkout for premium plan');
+        
         setLoading(plan.id);
         
         try {

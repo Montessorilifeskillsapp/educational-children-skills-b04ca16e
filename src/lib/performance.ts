@@ -105,10 +105,11 @@ export const getOptimizedImageUrl = (
 export const monitorMemoryUsage = () => {
   if ('memory' in performance) {
     const memory = (performance as any).memory;
-    console.log({
+    // Memory stats available for monitoring
+    return {
       usedJSHeapSize: memory.usedJSHeapSize,
       totalJSHeapSize: memory.totalJSHeapSize,
       jsHeapSizeLimit: memory.jsHeapSizeLimit,
-    });
+    };
   }
 };

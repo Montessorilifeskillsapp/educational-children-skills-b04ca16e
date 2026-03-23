@@ -100,10 +100,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const isFamily = currentPlan?.id === 'family';
 
   const subscribe = (plan: SubscriptionPlan) => {
-    console.log('SubscriptionContext.subscribe called with:', plan);
     try {
       setCurrentPlan(plan);
-      console.log('Plan set successfully in subscription context');
     } catch (error) {
       console.error('Error setting plan in subscription context:', error);
       throw error;

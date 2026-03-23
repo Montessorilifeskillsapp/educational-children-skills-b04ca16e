@@ -158,7 +158,7 @@ class Analytics {
     // - Mixpanel: mixpanel.track(event.event, event.customParameters)
     // - Custom API: fetch('/api/analytics', { method: 'POST', body: JSON.stringify(event) })
     
-    console.log('Analytics Event:', event);
+    // TODO: Send to analytics provider
   }
 
   // Utility: Track time spent on page
