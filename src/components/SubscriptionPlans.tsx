@@ -43,7 +43,7 @@ const plans: Plan[] = [
   {
     id: 'premium-monthly',
     name: 'Premium',
-    price: 15,
+    price: 29,
     period: 'month',
     description: 'Unlock Their Potential - Full access to all premium features',
     features: [
@@ -53,23 +53,25 @@ const plans: Plan[] = [
       'Voice-guided instructions (coming soon!)',
       'Progress badges and certificates',
       'Family dashboard with skill tracking',
-      'Bonus seasonal activity packs'
+      'Bonus seasonal activity packs',
+      'Yearly price $199 (43% Discount)'
     ],
     popular: true
   },
   {
     id: 'consultation',
     name: 'Private Consultation',
-    price: 149,
-    period: 'session',
-    description: 'Personalized Homeschool Setup - A custom Montessori plan built around your child and family (0–1 hour session)',
+    price: 225,
+    period: 'hour',
+    description: 'Personalized, one-on-one guidance to support your child\'s independence, routines, and behavior using authentic Montessori principles.',
     features: [
       '1-on-1 consultation with a Montessori guide',
       'Customized curriculum tailored to your child\'s age & interests',
       'Family lifestyle & schedule integration',
       'Personalized materials & activity recommendations',
       'Written homeschool action plan delivered after session',
-      'Follow-up email support for 2 weeks'
+      'Follow-up email support for 2 weeks',
+      '3 Session Package $600 (Save $75.00)'
     ],
     premium: true
   }
