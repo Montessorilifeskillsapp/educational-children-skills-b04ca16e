@@ -24,8 +24,6 @@ const mergedPracticalLifeSkills = {
   ...concisePracticalLifeSkills
 };
 
-console.log('Available skills:', Object.keys(mergedPracticalLifeSkills));
-console.log('Total skills count:', Object.keys(mergedPracticalLifeSkills).length);
 
 interface PracticalLifeOverviewProps {
   onBack: () => void;
