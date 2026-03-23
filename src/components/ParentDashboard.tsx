@@ -22,7 +22,7 @@ interface ParentDashboardProps {
 const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
   useSEO(SEO_CONFIG.parentDashboard);
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'shop' | 'progress' | 'goals' | 'communication' | 'notifications' | 'calendar' | 'reports' | 'profiles'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'goals' | 'communication' | 'notifications' | 'calendar' | 'reports' | 'profiles'>('overview');
 
   const childProgress = {
     name: "Emma",
