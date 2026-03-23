@@ -84,8 +84,7 @@ export const preloadResource = (href: string, as: string = 'script') => {
 // Web vitals reporting
 export const reportWebVitals = (metric: any) => {
   if (process.env.NODE_ENV === 'production') {
-    // Send to analytics
-    console.log(metric);
+    // TODO: Send metric to analytics service
   }
 };
 
@@ -106,10 +105,11 @@ export const getOptimizedImageUrl = (
 export const monitorMemoryUsage = () => {
   if ('memory' in performance) {
     const memory = (performance as any).memory;
-    console.log({
+    // Memory stats available for monitoring
+    return {
       usedJSHeapSize: memory.usedJSHeapSize,
       totalJSHeapSize: memory.totalJSHeapSize,
       jsHeapSizeLimit: memory.jsHeapSizeLimit,
-    });
+    };
   }
 };

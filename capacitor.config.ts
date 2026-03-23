@@ -1,10 +1,14 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.montessori.lifeskills',
-  appName: 'Montessori Life Skills',
+  appId: 'app.lovable.cad132a64b2841b093d9ba4b9938bbc8',
+  appName: 'educational-children-skills',
   webDir: 'dist',
   bundledWebRuntime: false,
+  server: {
+    url: 'https://cad132a6-4b28-41b0-93d9-ba4b9938bbc8.lovableproject.com?forceHideBadge=true',
+    cleartext: true
+  },
   plugins: {
     SplashScreen: {
       launchShowDuration: 3000,

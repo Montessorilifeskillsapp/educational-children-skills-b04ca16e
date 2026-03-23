@@ -22,7 +22,7 @@ class Analytics {
     
     if (this.isEnabled) {
       // Initialize your analytics service here (GA4, Mixpanel, etc.)
-      console.log('Analytics initialized for user:', this.userId);
+      // Analytics initialized
     }
   }
 
@@ -148,7 +148,7 @@ class Analytics {
   // Send event to analytics service
   private sendEvent(event: AnalyticsEvent) {
     if (!this.isEnabled) {
-      console.log('Analytics Event (Dev Mode):', event);
+      // Dev mode - events not sent
       return;
     }
 
@@ -158,7 +158,7 @@ class Analytics {
     // - Mixpanel: mixpanel.track(event.event, event.customParameters)
     // - Custom API: fetch('/api/analytics', { method: 'POST', body: JSON.stringify(event) })
     
-    console.log('Analytics Event:', event);
+    // TODO: Send to analytics provider
   }
 
   // Utility: Track time spent on page

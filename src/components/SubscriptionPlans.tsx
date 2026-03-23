@@ -88,7 +88,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const { user } = useAuthContext();
 
   const handleSubscribe = async (plan: Plan) => {
-    console.log('handleSubscribe called with plan:', plan);
+    
     try {
       if (plan.id === 'consultation') {
         window.location.href = 'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation%20to%20set%20up%20a%20customized%20Montessori%20homeschool%20plan%20for%20my%20family.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
@@ -99,7 +99,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       } else if (plan.id === 'free') {
         if (currentPlan?.id === 'free') {
-          console.log('User already on free plan');
+          
           toast({
             title: "You're already on the Free Plan!",
             description: "Start exploring your Montessori activities now.",
@@ -108,9 +108,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             onBack();
           }
         } else {
-          console.log('Subscribing to free plan...');
           subscribe(plan);
-          console.log('Free plan subscription completed');
           toast({
             title: "Welcome to Free Starter Plan!",
             description: "You can now access basic Montessori activities and start your learning journey.",
@@ -130,7 +128,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           return;
         }
         
-        console.log('Creating Stripe checkout for premium plan');
+        
         setLoading(plan.id);
         
         try {

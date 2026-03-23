@@ -19,10 +19,7 @@ const BuilderAccess: React.FC<BuilderAccessProps> = ({ onEnterApp }) => {
             Montessori Life Skills App - Creator Dashboard
           </p>
           <Button 
-            onClick={() => {
-              console.log('BuilderAccess button clicked');
-              onEnterApp();
-            }}
+            onClick={() => onEnterApp()}
             size="lg"
             className="px-8 py-3 text-lg bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
           >
