@@ -15,7 +15,7 @@ const AuthPage = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { user, signIn, signUp, loading } = useAuthContext();
+  const { user, signIn, signUp, signInWithGoogle, loading } = useAuthContext();
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
 
