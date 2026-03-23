@@ -148,7 +148,7 @@ class Analytics {
   // Send event to analytics service
   private sendEvent(event: AnalyticsEvent) {
     if (!this.isEnabled) {
-      console.log('Analytics Event (Dev Mode):', event);
+      // Dev mode - events not sent
       return;
     }
 
