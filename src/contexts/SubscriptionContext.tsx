@@ -1,4 +1,6 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
+import { supabase } from '@/integrations/supabase/client';
+import { useAuthContext } from '@/components/AuthProvider';
 
 interface SubscriptionPlan {
   id: string;
@@ -19,6 +21,7 @@ interface SubscriptionContextType {
   cancel: () => void;
   purchasedItems: string[];
   purchaseItem: (itemId: string) => void;
+  loading: boolean;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -39,22 +42,11 @@ const defaultFreePlan: SubscriptionPlan = {
 };
 
 export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  // Initialize with saved plan from localStorage or default free plan
-  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(() => {
-    try {
-      const saved = localStorage.getItem('subscription-plan');
-      if (saved) {
-        const parsedPlan = JSON.parse(saved);
-        // Validate the saved plan has all required properties
-        if (parsedPlan && parsedPlan.id && parsedPlan.name && parsedPlan.features) {
-          return parsedPlan;
-        }
-      }
-    } catch (error) {
-      console.warn('Failed to parse saved subscription plan:', error);
-    }
-    return defaultFreePlan;
-  });
+  const { user } = useAuthContext();
+  const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(defaultFreePlan);
+  const [serverVerifiedPremium, setServerVerifiedPremium] = useState(false);
+  const [serverVerifiedFamily, setServerVerifiedFamily] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
     try {
@@ -65,51 +57,81 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     }
   });
 
-  const [isInitialized, setIsInitialized] = useState(false);
-
-  // Initialize once to prevent infinite loops
-  useEffect(() => {
-    if (!isInitialized) {
-      setIsInitialized(true);
+  // Server-side subscription verification — the authoritative source of truth
+  const verifySubscription = useCallback(async () => {
+    if (!user) {
+      setServerVerifiedPremium(false);
+      setServerVerifiedFamily(false);
+      setCurrentPlan(defaultFreePlan);
+      setLoading(false);
+      return;
     }
-  }, [isInitialized]);
 
-  // Save to localStorage whenever plan changes, but only after initialization
-  useEffect(() => {
-    if (isInitialized && currentPlan) {
-      const savedPlan = localStorage.getItem('subscription-plan');
-      const currentPlanString = JSON.stringify(currentPlan);
-      if (savedPlan !== currentPlanString) {
-        localStorage.setItem('subscription-plan', currentPlanString);
+    try {
+      const { data, error } = await supabase.functions.invoke('check-subscription');
+
+      if (error) {
+        console.error('Subscription verification failed:', error);
+        setServerVerifiedPremium(false);
+        setServerVerifiedFamily(false);
+        setCurrentPlan(defaultFreePlan);
+        setLoading(false);
+        return;
       }
-    }
-  }, [currentPlan, isInitialized]);
 
-  // Save to localStorage whenever purchased items change, but only after initialization
-  useEffect(() => {
-    if (isInitialized) {
-      const savedItems = localStorage.getItem('purchased-items');
-      const currentItemsString = JSON.stringify(purchasedItems);
-      if (savedItems !== currentItemsString) {
-        localStorage.setItem('purchased-items', currentItemsString);
+      const isSubscribed = Boolean(data?.subscribed);
+      const tier = data?.subscription_tier ?? null;
+
+      setServerVerifiedPremium(isSubscribed && tier !== null);
+      setServerVerifiedFamily(tier === 'Family');
+
+      if (isSubscribed && tier) {
+        const premiumPlan: SubscriptionPlan = {
+          id: tier === 'Family' ? 'family' : 'premium',
+          name: tier === 'Family' ? 'Family Plan' : 'Premium Plan',
+          price: tier === 'Family' ? 199 : 29,
+          period: tier === 'Family' ? 'year' : 'month',
+          features: [],
+          premium: true,
+        };
+        setCurrentPlan(premiumPlan);
+      } else {
+        setCurrentPlan(defaultFreePlan);
       }
+    } catch (error) {
+      console.error('Subscription verification error:', error);
+      setServerVerifiedPremium(false);
+      setServerVerifiedFamily(false);
+      setCurrentPlan(defaultFreePlan);
+    } finally {
+      setLoading(false);
     }
-  }, [purchasedItems, isInitialized]);
+  }, [user]);
 
-  const isPremium = currentPlan?.id === 'premium' || currentPlan?.id === 'premium-monthly' || currentPlan?.id === 'family';
-  const isFamily = currentPlan?.id === 'family';
+  // Verify on mount and when user changes
+  useEffect(() => {
+    setLoading(true);
+    void verifySubscription();
+  }, [verifySubscription]);
+
+  // Save purchased items to localStorage
+  useEffect(() => {
+    localStorage.setItem('purchased-items', JSON.stringify(purchasedItems));
+  }, [purchasedItems]);
+
+  // isPremium and isFamily are ALWAYS derived from server verification
+  const isPremium = serverVerifiedPremium;
+  const isFamily = serverVerifiedFamily;
 
   const subscribe = (plan: SubscriptionPlan) => {
-    try {
-      setCurrentPlan(plan);
-    } catch (error) {
-      console.error('Error setting plan in subscription context:', error);
-      throw error;
-    }
+    // This is called after successful Stripe checkout redirect
+    // Trigger a re-verification from the server
+    void verifySubscription();
   };
 
   const cancel = () => {
-    setCurrentPlan(defaultFreePlan);
+    // Trigger server re-verification rather than trusting client
+    void verifySubscription();
   };
 
   const purchaseItem = (itemId: string) => {
@@ -124,7 +146,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       subscribe,
       cancel,
       purchasedItems,
-      purchaseItem
+      purchaseItem,
+      loading
     }}>
       {children}
     </SubscriptionContext.Provider>
