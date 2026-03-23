@@ -104,7 +104,6 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
         <nav className="flex gap-2 mb-6 flex-wrap" role="navigation" aria-label="Dashboard sections">
           {[
             { key: 'overview', label: 'Overview', icon: '🏠' },
-            { key: 'shop', label: 'Shop', icon: '🛒' },
             { key: 'progress', label: 'Analytics', icon: '📊' },
             { key: 'goals', label: 'Goals', icon: '🎯' },
             { key: 'communication', label: 'Educator', icon: '💬' },
