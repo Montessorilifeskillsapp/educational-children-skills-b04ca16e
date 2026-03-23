@@ -108,9 +108,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             onBack();
           }
         } else {
-          console.log('Subscribing to free plan...');
           subscribe(plan);
-          console.log('Free plan subscription completed');
           toast({
             title: "Welcome to Free Starter Plan!",
             description: "You can now access basic Montessori activities and start your learning journey.",
