@@ -84,8 +84,7 @@ export const preloadResource = (href: string, as: string = 'script') => {
 // Web vitals reporting
 export const reportWebVitals = (metric: any) => {
   if (process.env.NODE_ENV === 'production') {
-    // Send to analytics
-    console.log(metric);
+    // TODO: Send metric to analytics service
   }
 };
 
