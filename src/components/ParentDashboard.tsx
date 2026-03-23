@@ -128,21 +128,6 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
 
         <main role="main">
           {activeTab === 'overview' && renderOverview()}
-          {activeTab === 'shop' && (
-            <div className="space-y-4">
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
-                <ShoppingCart className="w-16 h-16 mx-auto text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Shop Integration</h3>
-                <p className="text-gray-600 mb-4">Access our full materials shop from the main navigation</p>
-                <Button 
-                  onClick={() => window.location.href = '#shop'} 
-                  className="bg-blue-500 hover:bg-blue-600"
-                >
-                  Go to Shop
-                </Button>
-              </div>
-            </div>
-          )}
           {activeTab === 'progress' && <ProgressAnalytics />}
           {activeTab === 'goals' && <GoalCustomization />}
           {activeTab === 'communication' && <EducatorCommunication />}

@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 
 interface HomeProps {
   onGetStarted: () => void;
-  onShopView?: () => void;
   onResourcesView?: () => void;
   onSubscriptionView?: () => void;
   onDashboardView?: () => void;
