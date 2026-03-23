@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Progress } from '@/components/ui/progress';
-import { BarChart, Users, Settings, Calendar, FileText, Bell, User, ShoppingCart } from 'lucide-react';
+import { BarChart, Users, Settings, Calendar, FileText, Bell, User } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
@@ -22,7 +22,7 @@ interface ParentDashboardProps {
 const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
   useSEO(SEO_CONFIG.parentDashboard);
 
-  const [activeTab, setActiveTab] = useState<'overview' | 'shop' | 'progress' | 'goals' | 'communication' | 'notifications' | 'calendar' | 'reports' | 'profiles'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'progress' | 'goals' | 'communication' | 'notifications' | 'calendar' | 'reports' | 'profiles'>('overview');
 
   const childProgress = {
     name: "Emma",
@@ -104,7 +104,6 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
         <nav className="flex gap-2 mb-6 flex-wrap" role="navigation" aria-label="Dashboard sections">
           {[
             { key: 'overview', label: 'Overview', icon: '🏠' },
-            { key: 'shop', label: 'Shop', icon: '🛒' },
             { key: 'progress', label: 'Analytics', icon: '📊' },
             { key: 'goals', label: 'Goals', icon: '🎯' },
             { key: 'communication', label: 'Educator', icon: '💬' },
@@ -129,21 +128,6 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
 
         <main role="main">
           {activeTab === 'overview' && renderOverview()}
-          {activeTab === 'shop' && (
-            <div className="space-y-4">
-              <div className="text-center p-8 bg-white rounded-lg shadow-sm">
-                <ShoppingCart className="w-16 h-16 mx-auto text-blue-500 mb-4" />
-                <h3 className="text-xl font-semibold mb-2">Shop Integration</h3>
-                <p className="text-gray-600 mb-4">Access our full materials shop from the main navigation</p>
-                <Button 
-                  onClick={() => window.location.href = '#shop'} 
-                  className="bg-blue-500 hover:bg-blue-600"
-                >
-                  Go to Shop
-                </Button>
-              </div>
-            </div>
-          )}
           {activeTab === 'progress' && <ProgressAnalytics />}
           {activeTab === 'goals' && <GoalCustomization />}
           {activeTab === 'communication' && <EducatorCommunication />}
