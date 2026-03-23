@@ -99,7 +99,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       } else if (plan.id === 'free') {
         if (currentPlan?.id === 'free') {
-          console.log('User already on free plan');
+          
           toast({
             title: "You're already on the Free Plan!",
             description: "Start exploring your Montessori activities now.",
