@@ -234,9 +234,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                         ${plan.price}
                       </span>
                       <span className={montessoriTheme.text.muted}>/{plan.period}</span>
-                      {plan.price > 0 && (
+                      {plan.id === 'premium-monthly' && (
                         <div className="text-sm text-green-600 mt-1">
-                          Save ${((plan.price * 12) - (plan.price * 10)).toFixed(2)} with annual billing
+                          Or $199/year (43% Discount)
                         </div>
                       )}
                     </div>
