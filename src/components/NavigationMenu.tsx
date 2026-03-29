@@ -29,7 +29,7 @@ interface NavigationMenuProps {
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onCulturalView, onGraceCourtesyView, onResourcesView,
+  onArtView, onCulturalView, onGraceCourtesyView,
   onSubscriptionView, onParentView, onProfilesView
 }) => {
   const [isOpen, setIsOpen] = useState(false);
