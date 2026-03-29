@@ -18,7 +18,7 @@ import SubscriptionPlans from './SubscriptionPlans';
 import ParentDashboard from './ParentDashboard';
 import OnboardingFlow from './OnboardingFlow';
 import ProfileSelector from './ProfileSelector';
-import Resources from './Resources';
+
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
