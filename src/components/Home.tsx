@@ -92,7 +92,6 @@ const Home: React.FC<HomeProps> = ({
           onArtView={onArtView}
           onCulturalView={onCulturalView}
           onGraceCourtesyView={onGraceCourtesyView}
-          onResourcesView={onResourcesView}
           onSubscriptionView={onSubscriptionView}
           onParentView={onParentView}
           onProfilesView={onProfilesView}

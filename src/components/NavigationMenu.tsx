@@ -48,7 +48,6 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-primary/40' },
     { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-primary/40' },
     { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-primary/40' },
-    { label: 'Resources', icon: BookOpen, onClick: onResourcesView, color: 'border-border' },
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' }

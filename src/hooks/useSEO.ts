@@ -148,10 +148,6 @@ export const SEO_CONFIG = {
     keywords: 'montessori activity, practical life skills, interactive learning, child independence',
     canonical: 'https://montessorilifeskillsapp.com/activity'
   },
-  resources: {
-    title: 'Montessori Learning Resources & Educational Materials',
-    description: 'Download comprehensive Montessori guides, activity packs, and educational resources for home learning.',
-    keywords: 'montessori resources, educational downloads, learning guides, activity packs, home learning',
-    canonical: 'https://montessorilifeskillsapp.com/resources'
-  }
+
+
 };

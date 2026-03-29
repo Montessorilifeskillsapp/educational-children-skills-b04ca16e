@@ -386,20 +386,8 @@ const Dashboard: React.FC<DashboardProps> = ({
               </CardHeader>
             </Card>
 
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-pink-200 bg-pink-50`}
-              onClick={onResourcesView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <FileText className="h-6 w-6 text-pink-600" />
-                  <div>
-                    <h3 className="text-pink-700">Resources</h3>
-                    <p className="text-sm text-gray-600">Learning guides</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
+
+
           </div>
         </section>
 

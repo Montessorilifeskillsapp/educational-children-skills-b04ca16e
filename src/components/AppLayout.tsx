@@ -402,7 +402,6 @@ const AppLayout: React.FC = () => {
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}
-      onResourcesView={() => handleViewChange('resources')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
       isPremium={isPremium}
