@@ -137,7 +137,6 @@ const AppLayout: React.FC = () => {
     return (
       <Home 
         onGetStarted={() => handleViewChange('dashboard')}
-        onResourcesView={() => handleViewChange('resources')}
         onSubscriptionView={() => handleViewChange('subscription')}
         onDashboardView={() => handleViewChange('dashboard')}
         onPracticalView={() => handleViewChange('practical')}
