@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, Crown, Users, BookOpen, Star, FileText, Eye, Shield, Baby } from 'lucide-react';
+import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
