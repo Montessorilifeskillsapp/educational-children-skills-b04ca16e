@@ -42,7 +42,6 @@ const Dashboard: React.FC<DashboardProps> = ({
   onSubscriptionView,
   onParentView,
   onProfilesView,
-  onResourcesView,
   onBack,
   completedSkills,
   isPremium,
