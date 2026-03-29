@@ -28,7 +28,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ 
-  onGetStarted, onResourcesView, onSubscriptionView,
+  onGetStarted, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onCulturalView, onGraceCourtesyView, onParentView, onProfilesView
