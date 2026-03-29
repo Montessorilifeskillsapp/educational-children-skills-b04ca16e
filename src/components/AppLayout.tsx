@@ -264,9 +264,7 @@ const AppLayout: React.FC = () => {
     return <ParentDashboard onBack={handleBackToDashboard} />;
   }
 
-  if (currentView === 'resources') {
-    return <Resources onBack={handleBack} />;
-  }
+
 
 
   if (currentView === 'profiles') {
