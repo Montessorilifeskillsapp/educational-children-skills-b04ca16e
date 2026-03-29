@@ -44,12 +44,8 @@ export const getSitemapUrls = (): SitemapUrl[] => {
       changefreq: 'weekly',
       priority: 0.8
     },
-    {
-      loc: `${baseUrl}/resources`,
-      lastmod: currentDate,
-      changefreq: 'weekly',
-      priority: 0.7
-    },
+
+
     // Add skill pages
     {
       loc: `${baseUrl}/skill/brushing-teeth`,

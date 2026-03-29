@@ -11,7 +11,6 @@ import { Link } from 'react-router-dom';
 
 interface HomeProps {
   onGetStarted: () => void;
-  onResourcesView?: () => void;
   onSubscriptionView?: () => void;
   onDashboardView?: () => void;
   
@@ -29,7 +28,7 @@ interface HomeProps {
 }
 
 const Home: React.FC<HomeProps> = ({ 
-  onGetStarted, onResourcesView, onSubscriptionView,
+  onGetStarted, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onCulturalView, onGraceCourtesyView, onParentView, onProfilesView
@@ -93,7 +92,6 @@ const Home: React.FC<HomeProps> = ({
           onArtView={onArtView}
           onCulturalView={onCulturalView}
           onGraceCourtesyView={onGraceCourtesyView}
-          onResourcesView={onResourcesView}
           onSubscriptionView={onSubscriptionView}
           onParentView={onParentView}
           onProfilesView={onProfilesView}

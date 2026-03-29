@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, Crown, Users, BookOpen, Star, FileText, Eye, Shield, Baby } from 'lucide-react';
+import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
@@ -22,7 +22,6 @@ interface DashboardProps {
   onSubscriptionView: () => void;
   onParentView: () => void;
   onProfilesView?: () => void;
-  onResourcesView: () => void;
   onBack?: () => void;
   completedSkills: string[];
   isPremium: boolean;
@@ -43,7 +42,6 @@ const Dashboard: React.FC<DashboardProps> = ({
   onSubscriptionView,
   onParentView,
   onProfilesView,
-  onResourcesView,
   onBack,
   completedSkills,
   isPremium,
@@ -388,20 +386,8 @@ const Dashboard: React.FC<DashboardProps> = ({
               </CardHeader>
             </Card>
 
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-pink-200 bg-pink-50`}
-              onClick={onResourcesView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <FileText className="h-6 w-6 text-pink-600" />
-                  <div>
-                    <h3 className="text-pink-700">Resources</h3>
-                    <p className="text-sm text-gray-600">Learning guides</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
+
+
           </div>
         </section>
 

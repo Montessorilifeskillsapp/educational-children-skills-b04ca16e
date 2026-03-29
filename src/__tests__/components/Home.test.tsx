@@ -71,7 +71,6 @@ const renderHome = (props = {}) => {
   const defaultProps = {
     onGetStarted: vi.fn(),
     onShopView: vi.fn(),
-    onResourcesView: vi.fn(),
     onSubscriptionView: vi.fn(),
     onDashboardView: vi.fn(),
     onPracticalView: vi.fn(),

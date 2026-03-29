@@ -18,7 +18,7 @@ import SubscriptionPlans from './SubscriptionPlans';
 import ParentDashboard from './ParentDashboard';
 import OnboardingFlow from './OnboardingFlow';
 import ProfileSelector from './ProfileSelector';
-import Resources from './Resources';
+
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -38,7 +38,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 
 const AppLayout: React.FC = () => {
   // State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
@@ -137,7 +137,6 @@ const AppLayout: React.FC = () => {
     return (
       <Home 
         onGetStarted={() => handleViewChange('dashboard')}
-        onResourcesView={() => handleViewChange('resources')}
         onSubscriptionView={() => handleViewChange('subscription')}
         onDashboardView={() => handleViewChange('dashboard')}
         onPracticalView={() => handleViewChange('practical')}
@@ -265,9 +264,7 @@ const AppLayout: React.FC = () => {
     return <ParentDashboard onBack={handleBackToDashboard} />;
   }
 
-  if (currentView === 'resources') {
-    return <Resources onBack={handleBack} />;
-  }
+
 
 
   if (currentView === 'profiles') {
@@ -405,7 +402,6 @@ const AppLayout: React.FC = () => {
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}
-      onResourcesView={() => handleViewChange('resources')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
       isPremium={isPremium}
