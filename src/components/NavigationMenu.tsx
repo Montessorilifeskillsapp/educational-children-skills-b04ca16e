@@ -21,7 +21,6 @@ interface NavigationMenuProps {
   onArtView?: () => void;
   onCulturalView?: () => void;
   onGraceCourtesyView?: () => void;
-  onResourcesView?: () => void;
   onSubscriptionView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
