@@ -22,7 +22,6 @@ interface DashboardProps {
   onSubscriptionView: () => void;
   onParentView: () => void;
   onProfilesView?: () => void;
-  onResourcesView: () => void;
   onBack?: () => void;
   completedSkills: string[];
   isPremium: boolean;
