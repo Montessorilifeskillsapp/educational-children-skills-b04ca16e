@@ -38,7 +38,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 
 const AppLayout: React.FC = () => {
   // State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles' | 'resources'>('home');
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
