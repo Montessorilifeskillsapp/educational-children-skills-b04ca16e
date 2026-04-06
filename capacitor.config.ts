@@ -5,10 +5,7 @@ const config: CapacitorConfig = {
   appName: 'educational-children-skills',
   webDir: 'dist',
   bundledWebRuntime: false,
-  server: {
-    url: 'https://cad132a6-4b28-41b0-93d9-ba4b9938bbc8.lovableproject.com?forceHideBadge=true',
-    cleartext: true
-  },
+  // server block removed for production - app uses bundled files from dist/
   plugins: {
     SplashScreen: {
       launchShowDuration: 3000,
