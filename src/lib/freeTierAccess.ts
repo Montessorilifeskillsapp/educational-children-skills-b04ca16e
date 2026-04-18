@@ -3,15 +3,37 @@ export interface FreeTierItem {
   isPremium: boolean;
 }
 
-// TEMP: All activities unlocked for everyone. Revert this file to restore paywall.
 export const applyFirstFreeItemLimit = <T extends FreeTierItem>(items: T[]): T[] => {
-  return items.map((item) => ({ ...item, isPremium: false }));
+  let firstFreeItemFound = false;
+
+  return items.map((item) => {
+    if (item.isPremium) {
+      return item;
+    }
+
+    if (!firstFreeItemFound) {
+      firstFreeItemFound = true;
+      return item;
+    }
+
+    return {
+      ...item,
+      isPremium: true,
+    };
+  });
 };
 
 export const canAccessSectionItem = <T extends FreeTierItem>(
-  _items: T[],
-  _itemId: string,
-  _isPremiumUser: boolean,
+  items: T[],
+  itemId: string,
+  isPremiumUser: boolean,
 ): boolean => {
-  return true;
+  if (isPremiumUser) {
+    return true;
+  }
+
+  const limitedItems = applyFirstFreeItemLimit(items);
+  const selectedItem = limitedItems.find((item) => item.id === itemId);
+
+  return Boolean(selectedItem && !selectedItem.isPremium);
 };
