@@ -10,6 +10,7 @@ import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
 
+
 interface HomeProps {
   onGetStarted: () => void;
   onSubscriptionView?: () => void;
@@ -73,7 +74,7 @@ const Home: React.FC<HomeProps> = ({
       </div>
 
       {/* Navigation */}
-      <div className="absolute top-4 right-4 z-50 flex gap-2">
+      <div className="absolute top-4 right-4 z-50 flex gap-2 items-start">
         {!user && (
           <Link to="/auth">
             <Button variant="outline" className="bg-white/90 backdrop-blur-sm">
