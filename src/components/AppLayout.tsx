@@ -407,6 +407,7 @@ const AppLayout: React.FC = () => {
       onParentView={() => handleViewChange('parent')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
+      streak={streak}
       isPremium={isPremium}
       activeProfile={activeProfile}
     />
