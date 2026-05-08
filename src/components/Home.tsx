@@ -74,7 +74,7 @@ const Home: React.FC<HomeProps> = ({
       </div>
 
       {/* Navigation */}
-      <div className="absolute top-4 right-4 z-50 flex gap-2">
+      <div className="absolute top-4 right-4 z-50 flex gap-2 items-start">
         {!user && (
           <Link to="/auth">
             <Button variant="outline" className="bg-white/90 backdrop-blur-sm">
@@ -98,6 +98,13 @@ const Home: React.FC<HomeProps> = ({
           onParentView={onParentView}
           onProfilesView={onProfilesView}
         />
+      </div>
+
+      {/* Version Badge */}
+      <div className="absolute top-4 left-4 z-50">
+        <span className="inline-flex items-center px-2 py-1 bg-white/90 backdrop-blur-sm text-slate-500 text-xs font-medium rounded-full shadow-sm border border-slate-200">
+          v{packageJson.version}
+        </span>
       </div>
 
       <div className="relative z-10">
