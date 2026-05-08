@@ -9,7 +9,7 @@ import InstallBanner from './InstallBanner';
 import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
-const APP_VERSION = "1.0.0"; // Update this with each release
+
 
 interface HomeProps {
   onGetStarted: () => void;
