@@ -38,6 +38,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const [age, setAge] = useState<number>(4);
   const [avatar, setAvatar] = useState(AVATARS[0]);
   const [focusAreas, setFocusAreas] = useState<string[]>([]);
+  const [savedProfile, setSavedProfile] = useState<ChildProfile | null>(null);
 
   const toggleFocus = (id: string) => {
     setFocusAreas(prev => {
@@ -62,7 +63,11 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
       interests: focusAreas,
       learningStyle: 'hands-on',
     };
-    onComplete([profile]);
+    setSavedProfile(profile);
+  };
+
+  const handleFinish = () => {
+    if (savedProfile) onComplete([savedProfile]);
   };
 
   const totalSteps = 3;
