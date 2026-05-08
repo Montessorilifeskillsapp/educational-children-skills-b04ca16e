@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby, Target } from 'lucide-react';
+import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby, Target, Flame, Award, Trophy, Sparkles, Medal } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
@@ -49,6 +49,7 @@ interface DashboardProps {
   onProfilesView?: () => void;
   onBack?: () => void;
   completedSkills: string[];
+  streak?: number;
   isPremium: boolean;
   activeProfile?: any;
 }
@@ -69,6 +70,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   onProfilesView,
   onBack,
   completedSkills,
+  streak = 0,
   isPremium,
   activeProfile
 }) => {
@@ -137,6 +139,90 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Skill Categories Navigation */}
+        {/* Streak + Badges */}
+        {activeProfile && (() => {
+          const totalDone = completedSkills.length;
+          const focusAreas: string[] = activeProfile.interests || [];
+          const masteredAreas = focusAreas.filter(areaId => {
+            const meta = FOCUS_AREA_META[areaId];
+            if (!meta) return false;
+            const ids = meta.ids();
+            return ids.length > 0 && ids.every(id => completedSkills.includes(id));
+          });
+          const badges = [
+            { id: 'first-step',   label: 'First Step',     desc: 'Complete 1 activity',     icon: Sparkles, earned: totalDone >= 1,  color: 'from-yellow-400 to-amber-500' },
+            { id: 'five-strong',  label: 'Five Strong',    desc: 'Complete 5 activities',   icon: Star,     earned: totalDone >= 5,  color: 'from-blue-400 to-indigo-500' },
+            { id: 'ten-explorer', label: 'Ten Explorer',   desc: 'Complete 10 activities',  icon: Medal,    earned: totalDone >= 10, color: 'from-purple-400 to-pink-500' },
+            { id: 'streak-3',     label: '3-Day Streak',   desc: 'Practice 3 days in a row', icon: Flame,   earned: streak >= 3,     color: 'from-orange-400 to-red-500' },
+            { id: 'streak-7',     label: 'Week Streak',    desc: 'Practice 7 days in a row', icon: Flame,   earned: streak >= 7,     color: 'from-red-500 to-rose-600' },
+            { id: 'area-master',  label: 'Focus Master',   desc: 'Complete a full focus area', icon: Trophy, earned: masteredAreas.length >= 1, color: 'from-emerald-400 to-green-600' },
+          ];
+          const earnedCount = badges.filter(b => b.earned).length;
+
+          return (
+            <section className="mb-8">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+                {/* Streak card */}
+                <Card className="lg:col-span-1 border-orange-200 bg-gradient-to-br from-orange-50 to-amber-50">
+                  <CardContent className="p-5 flex items-center gap-4">
+                    <div className="bg-gradient-to-br from-orange-500 to-red-500 rounded-2xl p-3 shadow-lg">
+                      <Flame className="h-8 w-8 text-white" />
+                    </div>
+                    <div>
+                      <div className="text-3xl font-bold text-orange-700 leading-none">
+                        {streak} <span className="text-base font-medium text-orange-600">day{streak === 1 ? '' : 's'}</span>
+                      </div>
+                      <div className="text-xs text-orange-700/80 mt-1">
+                        {streak === 0 ? 'Start a streak today!' : 'Current learning streak'}
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                {/* Badges card */}
+                <Card className="lg:col-span-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+                  <CardHeader className="pb-2">
+                    <CardTitle className="flex items-center justify-between text-base">
+                      <span className="flex items-center gap-2 text-purple-800">
+                        <Award className="h-5 w-5" />
+                        Achievements
+                      </span>
+                      <span className="text-xs font-mono text-purple-700">
+                        {earnedCount} / {badges.length}
+                      </span>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="pt-0">
+                    <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                      {badges.map(b => {
+                        const Icon = b.icon;
+                        return (
+                          <div
+                            key={b.id}
+                            title={`${b.label} — ${b.desc}`}
+                            className={`flex flex-col items-center text-center p-2 rounded-xl transition ${
+                              b.earned
+                                ? 'bg-white shadow-md'
+                                : 'bg-white/40 opacity-50 grayscale'
+                            }`}
+                          >
+                            <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${b.color} flex items-center justify-center mb-1 shadow`}>
+                              <Icon className="h-5 w-5 text-white" />
+                            </div>
+                            <div className="text-[10px] font-semibold text-gray-700 leading-tight">
+                              {b.label}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </section>
+          );
+        })()}
+
         {/* Focus Plan Progress */}
         {activeProfile?.interests && activeProfile.interests.length > 0 && (
           <section className="mb-8">

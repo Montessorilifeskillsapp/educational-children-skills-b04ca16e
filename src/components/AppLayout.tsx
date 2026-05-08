@@ -23,6 +23,7 @@ import ProfileSelector from './ProfileSelector';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
+import { useActivityCompletions } from '@/hooks/useActivityCompletions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
@@ -41,13 +42,14 @@ const AppLayout: React.FC = () => {
   // State
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
-  const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
   // Hooks - called in same order every time
   const { user, loading } = useAuthContext();
-  const { isPremium } = useSubscription(); 
+  const { isPremium } = useSubscription();
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
-  
+  const { completedSkillIds, logCompletion, streak } = useActivityCompletions(activeProfile?.id);
+  const completedSkills = completedSkillIds;
+
   // Callbacks - all defined at top level
   const handleSkillSelect = useCallback((skillId: string) => {
     setSelectedSkill(skillId);
@@ -55,8 +57,8 @@ const AppLayout: React.FC = () => {
   }, []);
 
   const handleComplete = useCallback((skillId: string) => {
-    setCompletedSkills(prev => [...prev, skillId]);
-  }, []);
+    logCompletion(skillId);
+  }, [logCompletion]);
 
   const handleBackToPractical = useCallback(() => setCurrentView('practical'), []);
   const handleBackToSensorial = useCallback(() => setCurrentView('sensorial'), []);
@@ -405,6 +407,7 @@ const AppLayout: React.FC = () => {
       onParentView={() => handleViewChange('parent')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
+      streak={streak}
       isPremium={isPremium}
       activeProfile={activeProfile}
     />
