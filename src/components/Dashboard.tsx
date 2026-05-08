@@ -137,6 +137,57 @@ const Dashboard: React.FC<DashboardProps> = ({
         </div>
 
         {/* Skill Categories Navigation */}
+        {/* Focus Plan Progress */}
+        {activeProfile?.interests && activeProfile.interests.length > 0 && (
+          <section className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <Target className="h-5 w-5 text-purple-600" />
+              <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary}`}>
+                {activeProfile.name}'s Focus Plan
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {activeProfile.interests.map((areaId: string) => {
+                const meta = FOCUS_AREA_META[areaId];
+                if (!meta) return null;
+                const allIds = meta.ids();
+                const total = allIds.length || 1;
+                const done = allIds.filter(id => completedSkills.includes(id)).length;
+                const pct = Math.round((done / total) * 100);
+                const handlers: Record<string, (() => void) | undefined> = {
+                  onPracticalLifeView, onSensorialView, onLanguageView, onMathView,
+                  onGeographyView, onBotanyView, onArtView, onCulturalView,
+                };
+                const onClick = meta.onView ? handlers[meta.onView] : undefined;
+                return (
+                  <Card
+                    key={areaId}
+                    onClick={onClick}
+                    className={`${montessoriTheme.card.base} ${onClick ? 'cursor-pointer hover:shadow-lg' : ''} transition-all border-${meta.color}-200`}
+                  >
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center justify-between text-base">
+                        <span className="flex items-center gap-2">
+                          <span className="text-2xl">{meta.emoji}</span>
+                          <span className={`text-${meta.color}-800`}>{meta.label}</span>
+                        </span>
+                        <span className={`text-sm font-mono text-${meta.color}-700`}>{pct}%</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <Progress value={pct} className="h-2 mb-2" />
+                      <p className="text-xs text-gray-600">
+                        {done} of {total} activities completed
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </section>
+        )}
+
+        {/* Skill Categories Navigation */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-blue-300 mb-4 text-center">
             Explore Skill Categories
