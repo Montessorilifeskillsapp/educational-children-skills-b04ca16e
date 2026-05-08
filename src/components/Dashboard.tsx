@@ -23,15 +23,15 @@ const PRACTICAL_LIFE_IDS = [
   'folding-clothes','watering-plants','cutting-with-scissors','preparing-snack'
 ];
 
-const FOCUS_AREA_META: Record<string, { label: string; emoji: string; color: string; ids: () => string[]; onView?: string }> = {
-  'practical-life':  { label: 'Practical Life',     emoji: '🧺', color: 'amber',   ids: () => PRACTICAL_LIFE_IDS,                onView: 'onPracticalLifeView' },
-  'sensorial':       { label: 'Sensorial',          emoji: '🎨', color: 'pink',    ids: () => Object.keys(sensorialSkills),      onView: 'onSensorialView' },
-  'language':        { label: 'Language',           emoji: '📚', color: 'yellow',  ids: () => Object.keys(languageSkillsData),   onView: 'onLanguageView' },
-  'math':            { label: 'Math',               emoji: '🔢', color: 'red',     ids: () => Object.keys(mathSkillsData),       onView: 'onMathView' },
-  'geography':       { label: 'Geography',          emoji: '🌍', color: 'blue',    ids: () => Object.keys(geographySkillsData),  onView: 'onGeographyView' },
-  'botany':          { label: 'Botany',             emoji: '🌱', color: 'green',   ids: () => Object.keys(botanySkillsData),     onView: 'onBotanyView' },
-  'art':             { label: 'Art',                emoji: '🎭', color: 'orange',  ids: () => Object.keys(artSkillsData),        onView: 'onArtView' },
-  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', color: 'violet',  ids: () => Object.keys(graceAndCourtesySkills) },
+const FOCUS_AREA_META: Record<string, { label: string; emoji: string; border: string; text: string; pct: string; ids: () => string[]; onView?: string }> = {
+  'practical-life':  { label: 'Practical Life',     emoji: '🧺', border: 'border-amber-200',  text: 'text-amber-800',  pct: 'text-amber-700',  ids: () => PRACTICAL_LIFE_IDS,                onView: 'onPracticalLifeView' },
+  'sensorial':       { label: 'Sensorial',          emoji: '🎨', border: 'border-pink-200',   text: 'text-pink-800',   pct: 'text-pink-700',   ids: () => Object.keys(sensorialSkills),      onView: 'onSensorialView' },
+  'language':        { label: 'Language',           emoji: '📚', border: 'border-yellow-200', text: 'text-yellow-800', pct: 'text-yellow-700', ids: () => Object.keys(languageSkillsData),   onView: 'onLanguageView' },
+  'math':            { label: 'Math',               emoji: '🔢', border: 'border-red-200',    text: 'text-red-800',    pct: 'text-red-700',    ids: () => Object.keys(mathSkillsData),       onView: 'onMathView' },
+  'geography':       { label: 'Geography',          emoji: '🌍', border: 'border-blue-200',   text: 'text-blue-800',   pct: 'text-blue-700',   ids: () => Object.keys(geographySkillsData),  onView: 'onGeographyView' },
+  'botany':          { label: 'Botany',             emoji: '🌱', border: 'border-green-200',  text: 'text-green-800',  pct: 'text-green-700',  ids: () => Object.keys(botanySkillsData),     onView: 'onBotanyView' },
+  'art':             { label: 'Art',                emoji: '🎭', border: 'border-orange-200', text: 'text-orange-800', pct: 'text-orange-700', ids: () => Object.keys(artSkillsData),        onView: 'onArtView' },
+  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', border: 'border-violet-200', text: 'text-violet-800', pct: 'text-violet-700', ids: () => Object.keys(graceAndCourtesySkills) },
 };
 
 interface DashboardProps {
