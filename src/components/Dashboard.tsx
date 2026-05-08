@@ -70,6 +70,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   onProfilesView,
   onBack,
   completedSkills,
+  streak = 0,
   isPremium,
   activeProfile
 }) => {
