@@ -51,7 +51,16 @@ serve(async (req) => {
     const customerId = customers.data[0].id;
     logStep("Found Stripe customer", { customerId });
 
-    const origin = req.headers.get("origin") || "http://localhost:3000";
+    const ALLOWED_ORIGINS = [
+      "https://montessorilifeskillsapp.com",
+      "https://educational-children-skills.lovable.app",
+      "https://id-preview--cad132a6-4b28-41b0-93d9-ba4b9938bbc8.lovable.app",
+      "http://localhost:3000",
+    ];
+    const requestOrigin = req.headers.get("origin") || "";
+    const origin = ALLOWED_ORIGINS.includes(requestOrigin)
+      ? requestOrigin
+      : (Deno.env.get("SITE_URL") ?? ALLOWED_ORIGINS[0]);
     const portalSession = await stripe.billingPortal.sessions.create({
       customer: customerId,
       return_url: `${origin}/`,
@@ -65,7 +74,7 @@ serve(async (req) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     logStep("ERROR in customer-portal", { message: errorMessage });
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    return new Response(JSON.stringify({ error: "Unable to open customer portal." }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });

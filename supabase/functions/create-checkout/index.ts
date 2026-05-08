@@ -78,7 +78,16 @@ serve(async (req) => {
       logStep("No existing customer found");
     }
 
-    const origin = req.headers.get("origin") || "http://localhost:3000";
+    const ALLOWED_ORIGINS = [
+      "https://montessorilifeskillsapp.com",
+      "https://educational-children-skills.lovable.app",
+      "https://id-preview--cad132a6-4b28-41b0-93d9-ba4b9938bbc8.lovable.app",
+      "http://localhost:3000",
+    ];
+    const requestOrigin = req.headers.get("origin") || "";
+    const origin = ALLOWED_ORIGINS.includes(requestOrigin)
+      ? requestOrigin
+      : (Deno.env.get("SITE_URL") ?? ALLOWED_ORIGINS[0]);
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId ? undefined : user.email,
@@ -117,7 +126,7 @@ serve(async (req) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     logStep("ERROR in create-checkout", { message: errorMessage });
-    return new Response(JSON.stringify({ error: errorMessage }), {
+    return new Response(JSON.stringify({ error: "Unable to create checkout session." }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
     });
