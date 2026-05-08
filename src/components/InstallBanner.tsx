@@ -17,6 +17,19 @@ const InstallBanner = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // Guard against iframe and preview hosts
+    const isInIframe = (() => {
+      try {
+        return window.self !== window.top;
+      } catch (e) {
+        return true;
+      }
+    })();
+    const isPreviewHost =
+      window.location.hostname.includes("id-preview--") ||
+      window.location.hostname.includes("lovableproject.com");
+    if (isPreviewHost || isInIframe) return;
+
     // Don't show in standalone mode or if dismissed
     if (window.matchMedia("(display-mode: standalone)").matches) return;
     if (localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY) === "true") return;
