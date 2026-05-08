@@ -178,18 +178,39 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
           {currentStep === 2 && (
             <div className="text-center space-y-4">
               <div className="text-5xl">{avatar}</div>
-              <p className="text-gray-700">
-                <span className="font-semibold">{name}</span>'s plan focuses on:
-              </p>
-              <div className="flex flex-wrap gap-2 justify-center">
-                {focusAreas.map(id => {
-                  const area = FOCUS_AREAS.find(a => a.id === id);
-                  return (
-                    <span key={id} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                      {area?.emoji} {area?.label}
-                    </span>
-                  );
-                })}
+              <div className="flex items-center justify-center gap-2">
+                <p className="text-gray-700">
+                  <span className="font-semibold">{name}</span>, age {age}
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setCurrentStep(0)}
+                  className="text-xs text-purple-600 hover:text-purple-800 underline font-medium"
+                >
+                  Edit
+                </button>
+              </div>
+              <div className="space-y-2">
+                <div className="flex items-center justify-center gap-2">
+                  <p className="text-sm text-gray-600">Focus areas:</p>
+                  <button
+                    type="button"
+                    onClick={() => setCurrentStep(1)}
+                    className="text-xs text-purple-600 hover:text-purple-800 underline font-medium"
+                  >
+                    Edit
+                  </button>
+                </div>
+                <div className="flex flex-wrap gap-2 justify-center">
+                  {focusAreas.map(id => {
+                    const area = FOCUS_AREAS.find(a => a.id === id);
+                    return (
+                      <span key={id} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                        {area?.emoji} {area?.label}
+                      </span>
+                    );
+                  })}
+                </div>
               </div>
               <div className="bg-green-50 p-4 rounded-lg text-left">
                 <h3 className="font-semibold text-green-800 mb-2 text-sm">What's next</h3>
