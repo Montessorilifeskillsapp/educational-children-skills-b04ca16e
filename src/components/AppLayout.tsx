@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+const APP_VERSION = "1.0.0";
 import Dashboard from './Dashboard';
 import SkillActivity from './SkillActivity';
 import PracticalLifeOverview from './PracticalLifeOverview';
