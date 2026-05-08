@@ -163,15 +163,15 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <Card
                     key={areaId}
                     onClick={onClick}
-                    className={`${montessoriTheme.card.base} ${onClick ? 'cursor-pointer hover:shadow-lg' : ''} transition-all border-${meta.color}-200`}
+                    className={`${montessoriTheme.card.base} ${onClick ? 'cursor-pointer hover:shadow-lg' : ''} transition-all ${meta.border}`}
                   >
                     <CardHeader className="pb-2">
                       <CardTitle className="flex items-center justify-between text-base">
                         <span className="flex items-center gap-2">
                           <span className="text-2xl">{meta.emoji}</span>
-                          <span className={`text-${meta.color}-800`}>{meta.label}</span>
+                          <span className={meta.text}>{meta.label}</span>
                         </span>
-                        <span className={`text-sm font-mono text-${meta.color}-700`}>{pct}%</span>
+                        <span className={`text-sm font-mono ${meta.pct}`}>{pct}%</span>
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pt-0">
