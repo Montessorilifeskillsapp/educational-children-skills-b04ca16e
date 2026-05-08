@@ -4,7 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { ArrowRight, ArrowLeft, Sparkles, Check } from 'lucide-react';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
+import { ArrowRight, ArrowLeft, Sparkles, Check, PartyPopper } from 'lucide-react';
 
 interface ChildProfile {
   id: string;
@@ -38,6 +39,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const [age, setAge] = useState<number>(4);
   const [avatar, setAvatar] = useState(AVATARS[0]);
   const [focusAreas, setFocusAreas] = useState<string[]>([]);
+  const [savedProfile, setSavedProfile] = useState<ChildProfile | null>(null);
 
   const toggleFocus = (id: string) => {
     setFocusAreas(prev => {
@@ -62,7 +64,11 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
       interests: focusAreas,
       learningStyle: 'hands-on',
     };
-    onComplete([profile]);
+    setSavedProfile(profile);
+  };
+
+  const handleFinish = () => {
+    if (savedProfile) onComplete([savedProfile]);
   };
 
   const totalSteps = 3;
@@ -247,6 +253,59 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
           </div>
         </CardContent>
       </Card>
+
+      <Dialog open={!!savedProfile} onOpenChange={(open) => { if (!open) handleFinish(); }}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <div className="mx-auto mb-2 bg-gradient-to-br from-green-400 to-emerald-500 p-3 rounded-full text-white w-fit">
+              <PartyPopper className="h-7 w-7" />
+            </div>
+            <DialogTitle className="text-center text-2xl">Plan saved!</DialogTitle>
+            <DialogDescription className="text-center">
+              Your child's Montessori plan is ready to begin.
+            </DialogDescription>
+          </DialogHeader>
+
+          {savedProfile && (
+            <div className="space-y-4 py-2">
+              <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
+                <span className="text-4xl">{savedProfile.avatar}</span>
+                <div>
+                  <div className="font-semibold text-purple-900">{savedProfile.name}</div>
+                  <div className="text-sm text-purple-700">Age {savedProfile.age}</div>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                  Focus areas ({savedProfile.interests.length})
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {savedProfile.interests.map(id => {
+                    const area = FOCUS_AREAS.find(a => a.id === id);
+                    return (
+                      <span key={id} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                        {area?.emoji} {area?.label}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          )}
+
+          <DialogFooter>
+            <Button
+              onClick={handleFinish}
+              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              size="lg"
+            >
+              Go to dashboard
+              <ArrowRight className="h-4 w-4 ml-2" />
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
