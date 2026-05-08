@@ -100,13 +100,6 @@ const Home: React.FC<HomeProps> = ({
         />
       </div>
 
-      {/* Version Badge */}
-      <div className="absolute top-4 left-4 z-50">
-        <span className="inline-flex items-center px-2 py-1 bg-red-600 text-white text-xs font-bold rounded shadow-lg">
-          v{APP_VERSION}
-        </span>
-      </div>
-
       <div className="relative z-10">
         {/* Hero Section */}
         <section className="pt-20 pb-16">
