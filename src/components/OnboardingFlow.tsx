@@ -239,9 +239,9 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             ) : (
-              <Button onClick={handleComplete} className="bg-gradient-to-r from-purple-600 to-pink-600">
-                Start Learning
-                <Sparkles className="h-4 w-4 ml-2" />
+              <Button onClick={handleComplete} size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 font-semibold shadow-lg">
+                <Check className="h-4 w-4 mr-2" />
+                Save plan
               </Button>
             )}
           </div>
