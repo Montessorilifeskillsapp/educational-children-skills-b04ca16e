@@ -23,6 +23,7 @@ import ProfileSelector from './ProfileSelector';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from '@/components/AuthProvider';
+import { useActivityCompletions } from '@/hooks/useActivityCompletions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
