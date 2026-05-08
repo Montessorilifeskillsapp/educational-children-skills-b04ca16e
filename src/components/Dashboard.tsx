@@ -2,12 +2,37 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby } from 'lucide-react';
+import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby, Target } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
+import { sensorialSkills } from '@/data/sensorialSkills';
+import { languageSkillsData } from '@/data/languageSkills';
+import { mathSkillsData } from '@/data/mathSkills';
+import { geographySkillsData } from '@/data/geographySkills';
+import { botanySkillsData } from '@/data/botanySkills';
+import { artSkillsData } from '@/data/artSkills';
+import { culturalSkillsData } from '@/data/culturalSkills';
+import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
+
+const PRACTICAL_LIFE_IDS = [
+  'brushing-teeth','washing-hands','getting-dressed','making-bed','setting-table',
+  'tying-shoes','pouring','spooning','flower-arranging','polishing','sweeping',
+  'folding-clothes','watering-plants','cutting-with-scissors','preparing-snack'
+];
+
+const FOCUS_AREA_META: Record<string, { label: string; emoji: string; border: string; text: string; pct: string; ids: () => string[]; onView?: string }> = {
+  'practical-life':  { label: 'Practical Life',     emoji: '🧺', border: 'border-amber-200',  text: 'text-amber-800',  pct: 'text-amber-700',  ids: () => PRACTICAL_LIFE_IDS,                onView: 'onPracticalLifeView' },
+  'sensorial':       { label: 'Sensorial',          emoji: '🎨', border: 'border-pink-200',   text: 'text-pink-800',   pct: 'text-pink-700',   ids: () => Object.keys(sensorialSkills),      onView: 'onSensorialView' },
+  'language':        { label: 'Language',           emoji: '📚', border: 'border-yellow-200', text: 'text-yellow-800', pct: 'text-yellow-700', ids: () => Object.keys(languageSkillsData),   onView: 'onLanguageView' },
+  'math':            { label: 'Math',               emoji: '🔢', border: 'border-red-200',    text: 'text-red-800',    pct: 'text-red-700',    ids: () => Object.keys(mathSkillsData),       onView: 'onMathView' },
+  'geography':       { label: 'Geography',          emoji: '🌍', border: 'border-blue-200',   text: 'text-blue-800',   pct: 'text-blue-700',   ids: () => Object.keys(geographySkillsData),  onView: 'onGeographyView' },
+  'botany':          { label: 'Botany',             emoji: '🌱', border: 'border-green-200',  text: 'text-green-800',  pct: 'text-green-700',  ids: () => Object.keys(botanySkillsData),     onView: 'onBotanyView' },
+  'art':             { label: 'Art',                emoji: '🎭', border: 'border-orange-200', text: 'text-orange-800', pct: 'text-orange-700', ids: () => Object.keys(artSkillsData),        onView: 'onArtView' },
+  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', border: 'border-violet-200', text: 'text-violet-800', pct: 'text-violet-700', ids: () => Object.keys(graceAndCourtesySkills) },
+};
 
 interface DashboardProps {
   onSkillSelect: (skillId: string) => void;
@@ -110,6 +135,57 @@ const Dashboard: React.FC<DashboardProps> = ({
             )}
           </div>
         </div>
+
+        {/* Skill Categories Navigation */}
+        {/* Focus Plan Progress */}
+        {activeProfile?.interests && activeProfile.interests.length > 0 && (
+          <section className="mb-8">
+            <div className="flex items-center gap-2 mb-4">
+              <Target className="h-5 w-5 text-purple-600" />
+              <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary}`}>
+                {activeProfile.name}'s Focus Plan
+              </h2>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {activeProfile.interests.map((areaId: string) => {
+                const meta = FOCUS_AREA_META[areaId];
+                if (!meta) return null;
+                const allIds = meta.ids();
+                const total = allIds.length || 1;
+                const done = allIds.filter(id => completedSkills.includes(id)).length;
+                const pct = Math.round((done / total) * 100);
+                const handlers: Record<string, (() => void) | undefined> = {
+                  onPracticalLifeView, onSensorialView, onLanguageView, onMathView,
+                  onGeographyView, onBotanyView, onArtView, onCulturalView,
+                };
+                const onClick = meta.onView ? handlers[meta.onView] : undefined;
+                return (
+                  <Card
+                    key={areaId}
+                    onClick={onClick}
+                    className={`${montessoriTheme.card.base} ${onClick ? 'cursor-pointer hover:shadow-lg' : ''} transition-all ${meta.border}`}
+                  >
+                    <CardHeader className="pb-2">
+                      <CardTitle className="flex items-center justify-between text-base">
+                        <span className="flex items-center gap-2">
+                          <span className="text-2xl">{meta.emoji}</span>
+                          <span className={meta.text}>{meta.label}</span>
+                        </span>
+                        <span className={`text-sm font-mono ${meta.pct}`}>{pct}%</span>
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="pt-0">
+                      <Progress value={pct} className="h-2 mb-2" />
+                      <p className="text-xs text-gray-600">
+                        {done} of {total} activities completed
+                      </p>
+                    </CardContent>
+                  </Card>
+                );
+              })}
+            </div>
+          </section>
+        )}
 
         {/* Skill Categories Navigation */}
         <div className="mb-8">
