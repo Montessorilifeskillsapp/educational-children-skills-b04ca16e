@@ -2,12 +2,37 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby } from 'lucide-react';
+import { User, Crown, Users, BookOpen, Star, Eye, Shield, Baby, Target } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
+import { sensorialSkills } from '@/data/sensorialSkills';
+import { languageSkillsData } from '@/data/languageSkills';
+import { mathSkillsData } from '@/data/mathSkills';
+import { geographySkillsData } from '@/data/geographySkills';
+import { botanySkillsData } from '@/data/botanySkills';
+import { artSkillsData } from '@/data/artSkills';
+import { culturalSkillsData } from '@/data/culturalSkills';
+import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
+
+const PRACTICAL_LIFE_IDS = [
+  'brushing-teeth','washing-hands','getting-dressed','making-bed','setting-table',
+  'tying-shoes','pouring','spooning','flower-arranging','polishing','sweeping',
+  'folding-clothes','watering-plants','cutting-with-scissors','preparing-snack'
+];
+
+const FOCUS_AREA_META: Record<string, { label: string; emoji: string; color: string; ids: () => string[]; onView?: string }> = {
+  'practical-life':  { label: 'Practical Life',     emoji: '🧺', color: 'amber',   ids: () => PRACTICAL_LIFE_IDS,                onView: 'onPracticalLifeView' },
+  'sensorial':       { label: 'Sensorial',          emoji: '🎨', color: 'pink',    ids: () => Object.keys(sensorialSkills),      onView: 'onSensorialView' },
+  'language':        { label: 'Language',           emoji: '📚', color: 'yellow',  ids: () => Object.keys(languageSkillsData),   onView: 'onLanguageView' },
+  'math':            { label: 'Math',               emoji: '🔢', color: 'red',     ids: () => Object.keys(mathSkillsData),       onView: 'onMathView' },
+  'geography':       { label: 'Geography',          emoji: '🌍', color: 'blue',    ids: () => Object.keys(geographySkillsData),  onView: 'onGeographyView' },
+  'botany':          { label: 'Botany',             emoji: '🌱', color: 'green',   ids: () => Object.keys(botanySkillsData),     onView: 'onBotanyView' },
+  'art':             { label: 'Art',                emoji: '🎭', color: 'orange',  ids: () => Object.keys(artSkillsData),        onView: 'onArtView' },
+  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', color: 'violet',  ids: () => Object.keys(graceAndCourtesySkills) },
+};
 
 interface DashboardProps {
   onSkillSelect: (skillId: string) => void;
