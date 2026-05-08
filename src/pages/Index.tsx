@@ -4,6 +4,8 @@ import AppLayout from '@/components/AppLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 
+const APP_VERSION = "1.0.0";
+
 const Index: React.FC = () => {
   // SEO optimization
   useSEO(SEO_CONFIG.home);
