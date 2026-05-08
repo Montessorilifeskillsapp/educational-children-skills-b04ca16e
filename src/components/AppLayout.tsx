@@ -41,13 +41,14 @@ const AppLayout: React.FC = () => {
   // State
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>('home');
   const [selectedSkill, setSelectedSkill] = useState<string>('');
-  const [completedSkills, setCompletedSkills] = useState<string[]>([]);
 
   // Hooks - called in same order every time
   const { user, loading } = useAuthContext();
-  const { isPremium } = useSubscription(); 
+  const { isPremium } = useSubscription();
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
-  
+  const { completedSkillIds, logCompletion, streak } = useActivityCompletions(activeProfile?.id);
+  const completedSkills = completedSkillIds;
+
   // Callbacks - all defined at top level
   const handleSkillSelect = useCallback((skillId: string) => {
     setSelectedSkill(skillId);
@@ -55,8 +56,8 @@ const AppLayout: React.FC = () => {
   }, []);
 
   const handleComplete = useCallback((skillId: string) => {
-    setCompletedSkills(prev => [...prev, skillId]);
-  }, []);
+    logCompletion(skillId);
+  }, [logCompletion]);
 
   const handleBackToPractical = useCallback(() => setCurrentView('practical'), []);
   const handleBackToSensorial = useCallback(() => setCurrentView('sensorial'), []);
