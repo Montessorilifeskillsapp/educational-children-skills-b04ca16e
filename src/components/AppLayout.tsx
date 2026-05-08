@@ -130,7 +130,7 @@ const AppLayout: React.FC = () => {
   }
 
   if (!isOnboarded) {
-    return <OnboardingFlow onComplete={completeOnboarding} />;
+    return <OnboardingFlow onComplete={(profiles) => { completeOnboarding(profiles); setCurrentView('dashboard'); }} />;
   }
 
   // View routing
