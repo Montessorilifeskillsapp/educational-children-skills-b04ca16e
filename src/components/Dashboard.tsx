@@ -49,6 +49,7 @@ interface DashboardProps {
   onProfilesView?: () => void;
   onBack?: () => void;
   completedSkills: string[];
+  streak?: number;
   isPremium: boolean;
   activeProfile?: any;
 }
