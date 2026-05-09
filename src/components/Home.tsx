@@ -74,12 +74,12 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: 
 
 const curriculumAreas = [
   { name: 'Practical Life', icon: Utensils, color: 'from-amber-500 to-orange-500', image: montessoriImages['pouring-set'] },
-  { name: 'Sensorial', icon: Brain, color: 'from-pink-500 to-rose-500', image: montessoriImages['pink-tower'] },
-  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-rose-600', image: montessoriImages['golden-beads-set'] },
-  { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: montessoriImages['sandpaper-letters'] },
-  { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: montessoriImages['puzzle-maps'] },
-  { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: montessoriImages['child-broom-set'] },
-  { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: montessoriImages['color-tablets-box1'] },
+  { name: 'Sensorial', icon: Brain, color: 'from-pink-500 to-rose-500', image: sensorialImages['pink-tower'] },
+  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-rose-600', image: mathImages['golden-beads'] },
+  { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: languageImages['sandpaper-letters'] },
+  { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: geographyImages['continents'] },
+  { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: botanyImages['flower-parts'] },
+  { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: sensorialImages['color-tablets'] },
   { name: 'Grace & Courtesy', icon: HandHelping, color: 'from-violet-500 to-purple-600', image: montessoriImages['dressing-frames-set'] },
 ];
 
