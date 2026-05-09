@@ -9,6 +9,11 @@ import {
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
+import { sensorialImages } from '@/assets/sensorial';
+import { mathImages } from '@/assets/math';
+import { languageImages } from '@/assets/language';
+import { geographyImages } from '@/assets/geography';
+import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
@@ -69,12 +74,12 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: 
 
 const curriculumAreas = [
   { name: 'Practical Life', icon: Utensils, color: 'from-amber-500 to-orange-500', image: montessoriImages['pouring-set'] },
-  { name: 'Sensorial', icon: Brain, color: 'from-pink-500 to-rose-500', image: montessoriImages['pink-tower'] },
-  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-rose-600', image: montessoriImages['golden-beads-set'] },
-  { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: montessoriImages['sandpaper-letters'] },
-  { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: montessoriImages['puzzle-maps'] },
-  { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: montessoriImages['child-broom-set'] },
-  { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: montessoriImages['color-tablets-box1'] },
+  { name: 'Sensorial', icon: Brain, color: 'from-pink-500 to-rose-500', image: sensorialImages['pink-tower'] },
+  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-rose-600', image: mathImages['golden-beads'] },
+  { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: languageImages['sandpaper-letters'] },
+  { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: geographyImages['continents'] },
+  { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: botanyImages['flower-parts'] },
+  { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: sensorialImages['color-tablets'] },
   { name: 'Grace & Courtesy', icon: HandHelping, color: 'from-violet-500 to-purple-600', image: montessoriImages['dressing-frames-set'] },
 ];
 
@@ -84,18 +89,21 @@ const howItWorks = [
     title: 'Choose an Activity',
     desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
     icon: BookOpen,
+    image: sensorialImages['knobbed-cylinders'],
   },
   {
     step: '02',
     title: 'Follow the Guide',
     desc: 'Get step-by-step presentation instructions with photos, videos, and material lists — no Montessori training required.',
     icon: Play,
+    image: mathImages['number-rods'],
   },
   {
     step: '03',
     title: 'Track Progress',
     desc: 'Log completions, celebrate milestones, and watch your child build independence day by day.',
     icon: BarChart3,
+    image: sensorialImages['brown-stair'],
   },
 ];
 
@@ -345,7 +353,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── The Problem ─── */}
       <section className="py-20 lg:py-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
               <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">The Struggle Is Real</p>
@@ -358,17 +366,33 @@ const Home: React.FC<HomeProps> = ({
             </div>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
-            {painPoints.map((point, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <div className="flex items-start gap-4 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5">
-                  <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-rose-500 font-bold text-sm">{i + 1}</span>
-                  </div>
-                  <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
+          <div className="grid lg:grid-cols-5 gap-10 items-center">
+            {/* Material image collage */}
+            <Reveal className="lg:col-span-2">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-rose-200/40 to-orange-200/40 rounded-3xl blur-2xl" />
+                <div className="relative grid grid-cols-2 gap-3">
+                  <img src={sensorialImages['pink-tower']} alt="Pink Tower Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
+                  <img src={mathImages['golden-beads']} alt="Golden Beads Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
+                  <img src={languageImages['sandpaper-letters']} alt="Sandpaper Letters Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
+                  <img src={sensorialImages['knobbed-cylinders']} alt="Knobbed Cylinders Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
                 </div>
-              </Reveal>
-            ))}
+              </div>
+            </Reveal>
+
+            {/* Pain points */}
+            <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+              {painPoints.map((point, i) => (
+                <Reveal key={i} delay={i * 100}>
+                  <div className="flex items-start gap-4 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5 h-full">
+                    <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-rose-500 font-bold text-sm">{i + 1}</span>
+                    </div>
+                    <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -378,6 +402,15 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
+              <div className="relative inline-block mb-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/50 to-purple-200/50 rounded-3xl blur-2xl" />
+                <img
+                  src={sensorialImages['brown-stair']}
+                  alt="Brown Stair — authentic Montessori sensorial material"
+                  className="relative w-64 h-40 object-cover rounded-2xl shadow-xl border-4 border-white mx-auto"
+                  loading="lazy"
+                />
+              </div>
               <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-3">The Better Way</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Everything You Need, All in One Place
@@ -474,11 +507,19 @@ const Home: React.FC<HomeProps> = ({
 
             {howItWorks.map((step, i) => (
               <Reveal key={step.step} delay={i * 150}>
-                <div className="relative text-center">
-                  <div className="relative z-10 w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-xl mb-6">
-                    <step.icon className="w-7 h-7 text-white" />
+                <div className="relative text-center bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <div className="relative mx-auto w-32 h-32 mb-5 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                    <img
+                      src={step.image}
+                      alt={`Authentic Montessori material — ${step.title}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-xl border-2 border-white">
+                      <step.icon className="w-5 h-5 text-white" />
+                    </div>
                   </div>
-                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-3">
+                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-3 mt-3">
                     {step.step}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
@@ -512,6 +553,7 @@ const Home: React.FC<HomeProps> = ({
                 title: 'For Parents',
                 color: 'from-pink-500 to-rose-500',
                 bg: 'from-pink-50 to-rose-50',
+                image: montessoriImages['dressing-frames-set'],
                 items: ['Easy-to-follow activities for homeschooling', 'Track progress & milestones', 'Build independence at home', 'No teaching experience needed'],
               },
               {
@@ -519,6 +561,7 @@ const Home: React.FC<HomeProps> = ({
                 title: 'For Teachers',
                 color: 'from-blue-500 to-indigo-500',
                 bg: 'from-blue-50 to-indigo-50',
+                image: sensorialImages['geometric-cabinet'],
                 items: ['Complete AMI-aligned curriculum', 'Multi-student progress tracking', 'Ready-to-use lesson plans', 'Detailed reports for parents'],
               },
               {
@@ -526,15 +569,25 @@ const Home: React.FC<HomeProps> = ({
                 title: 'For Assistants',
                 color: 'from-purple-500 to-violet-500',
                 bg: 'from-purple-50 to-violet-50',
+                image: mathImages['spindle-box'],
                 items: ['Step-by-step presentation guides', 'Learn Montessori on the job', 'Support teachers with resources', 'Build confidence in the classroom'],
               },
             ].map((audience, i) => (
               <Reveal key={audience.title} delay={i * 120}>
                 <Card className={`h-full bg-gradient-to-b ${audience.bg} border-0 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1`}>
-                  <CardContent className="p-6 pt-8">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${audience.color} flex items-center justify-center mb-5 shadow-lg`}>
-                      <audience.icon className="w-7 h-7 text-white" />
+                  <div className="relative h-36 overflow-hidden">
+                    <img
+                      src={audience.image}
+                      alt={`Authentic Montessori material — ${audience.title}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${audience.bg} opacity-40`} />
+                    <div className={`absolute -bottom-7 left-6 w-14 h-14 rounded-2xl bg-gradient-to-br ${audience.color} flex items-center justify-center shadow-lg border-4 border-white`}>
+                      <audience.icon className="w-6 h-6 text-white" />
                     </div>
+                  </div>
+                  <CardContent className="p-6 pt-10">
                     <h3 className="text-xl font-bold text-slate-900 mb-4">{audience.title}</h3>
                     <ul className="space-y-3">
                       {audience.items.map((item, j) => (
