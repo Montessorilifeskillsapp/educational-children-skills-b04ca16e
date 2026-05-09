@@ -4,20 +4,12 @@ import AppLayout from '@/components/AppLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 
-const APP_VERSION = "1.0.0";
-
 const Index: React.FC = () => {
   // SEO optimization
   useSEO(SEO_CONFIG.home);
 
   return (
     <>
-      {/* Version Badge — always visible */}
-      <div className="fixed top-3 left-3 z-[9999]">
-        <span className="inline-flex items-center px-2 py-1 bg-slate-800/90 text-white text-[10px] font-mono font-medium rounded shadow-lg backdrop-blur-sm">
-          v{APP_VERSION}
-        </span>
-      </div>
       <ErrorBoundary fallback={
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 p-4">
           <div className="text-center max-w-md">
