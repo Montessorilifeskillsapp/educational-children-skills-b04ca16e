@@ -6,6 +6,7 @@ import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
 import InstallBanner from './InstallBanner';
+import SocialLinks from './SocialLinks';
 import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
@@ -164,6 +165,12 @@ const Home: React.FC<HomeProps> = ({
                   <Star className="w-5 h-5 text-yellow-500 fill-current" />
                   <span className="font-medium">4.9/5 from 2,000+ reviews</span>
                 </div>
+              </div>
+
+              {/* Social Follow */}
+              <div className="flex flex-col items-center gap-3 animate-fade-in">
+                <p className="text-sm font-medium text-slate-600">Follow us for daily Montessori inspiration</p>
+                <SocialLinks variant="dark" />
               </div>
             </div>
           </div>
@@ -392,6 +399,10 @@ const Home: React.FC<HomeProps> = ({
                 >
                   View Plans & Pricing
                 </Button>
+              </div>
+              <div className="mt-10 pt-8 border-t border-white/20">
+                <p className="text-white/90 text-sm font-medium mb-4">Connect with our community</p>
+                <SocialLinks variant="light" />
               </div>
           </div>
         </section>
