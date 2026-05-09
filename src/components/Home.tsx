@@ -1,23 +1,25 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ArrowRight, Heart, Star, Users, CheckCircle, Sparkles, Award, BookOpen, Target, Shield, GraduationCap, Home as HomeIcon, Users2 } from 'lucide-react';
-import { montessoriTheme } from './ThemeConfig';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
+  Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
+  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain,
+  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
+} from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
-import NavigationMenu from './NavigationMenu';
+import { montessoriImages } from '@/assets/images';
 import InstallBanner from './InstallBanner';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
-import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
-
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
 interface HomeProps {
   onGetStarted: () => void;
   onSubscriptionView?: () => void;
   onDashboardView?: () => void;
-  
   onPracticalView?: () => void;
   onSensorialView?: () => void;
   onLanguageView?: () => void;
@@ -31,7 +33,145 @@ interface HomeProps {
   onProfilesView?: () => void;
 }
 
-const Home: React.FC<HomeProps> = ({ 
+// ─── Scroll-reveal hook ───
+function useReveal(threshold = 0.12) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [revealed, setRevealed] = useState(false);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setRevealed(true); obs.disconnect(); } },
+      { threshold }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, [threshold]);
+  return { ref, revealed };
+}
+
+const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: number }> = ({ children, className = '', delay = 0 }) => {
+  const { ref, revealed } = useReveal();
+  return (
+    <div
+      ref={ref}
+      className={`transition-all duration-700 ${className}`}
+      style={{
+        opacity: revealed ? 1 : 0,
+        transform: revealed ? 'translateY(0)' : 'translateY(28px)',
+        transitionDelay: `${delay}ms`
+      }}
+    >
+      {children}
+    </div>
+  );
+};
+
+const curriculumAreas = [
+  { name: 'Practical Life', icon: Utensils, color: 'from-amber-500 to-orange-500', image: montessoriImages['pouring-set'] },
+  { name: 'Sensorial', icon: Brain, color: 'from-pink-500 to-rose-500', image: montessoriImages['pink-tower'] },
+  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-rose-600', image: montessoriImages['golden-beads-set'] },
+  { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: montessoriImages['sandpaper-letters'] },
+  { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: montessoriImages['puzzle-maps'] },
+  { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: montessoriImages['child-broom-set'] },
+  { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: montessoriImages['color-tablets-box1'] },
+  { name: 'Grace & Courtesy', icon: HandHelping, color: 'from-violet-500 to-purple-600', image: montessoriImages['dressing-frames-set'] },
+];
+
+const howItWorks = [
+  {
+    step: '01',
+    title: 'Choose an Activity',
+    desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
+    icon: BookOpen,
+  },
+  {
+    step: '02',
+    title: 'Follow the Guide',
+    desc: 'Get step-by-step presentation instructions with photos, videos, and material lists — no Montessori training required.',
+    icon: Play,
+  },
+  {
+    step: '03',
+    title: 'Track Progress',
+    desc: 'Log completions, celebrate milestones, and watch your child build independence day by day.',
+    icon: BarChart3,
+  },
+];
+
+const painPoints = [
+  'You want to teach independence but don\'t know where to start',
+  'Pinterest has ideas but no real Montessori sequence or methodology',
+  'You\'re unsure which activities are age-appropriate for your child',
+  'You spend more time planning than actually doing activities together',
+];
+
+const benefits = [
+  { icon: CheckCircle, title: 'AMI-Aligned Curriculum', desc: 'Every activity follows authentic Montessori sequences and pedagogy.' },
+  { icon: Target, title: 'Age-Appropriate Guidance', desc: 'Activities organized by developmental readiness, not just age.' },
+  { icon: Award, title: 'No Teaching Experience Needed', desc: 'Clear, visual step-by-step instructions for every activity.' },
+  { icon: Clock, title: 'Works Offline', desc: 'Download activities and access them anywhere, anytime.' },
+  { icon: BarChart3, title: 'Progress Tracking', desc: 'Visual reports show your child\'s growth across all skill areas.' },
+  { icon: Users2, title: 'Multiple Profiles', desc: 'Track progress for each of your children individually.' },
+];
+
+const testimonials = [
+  { quote: 'My daughter loves the hands-on activities. She\'s gained so much independence in just 3 weeks!', author: 'Sarah M.', role: 'Parent of 4-year-old', stars: 5 },
+  { quote: 'Finally, authentic Montessori education at home. The step-by-step guidance is perfect for non-teachers.', author: 'Maria K.', role: 'Montessori Educator', stars: 5 },
+  { quote: 'The progress tracking helps me see exactly how my son is developing. Worth every penny.', author: 'David L.', role: 'Father of twins', stars: 5 },
+  { quote: 'I went from overwhelmed to confident. My classroom assistant uses this daily for activity prep.', author: 'Jessica T.', role: 'Preschool Teacher', stars: 5 },
+];
+
+const pricingPlans = [
+  {
+    id: 'free',
+    name: 'Explorer',
+    price: 0,
+    period: 'Free forever',
+    tagline: 'Start with the basics',
+    features: ['3 core activities (pouring, sweeping, rolling a mat)', '1 printable activity sheet', 'Daily Life Skill Prompt', 'Gentle, ad-free experience'],
+    cta: 'Start Free',
+    highlight: false,
+  },
+  {
+    id: 'premium',
+    name: 'Premium',
+    price: 29,
+    period: '/month',
+    tagline: 'Unlock full potential',
+    features: ['100+ Montessori life skill activities', 'All new content every month', 'Beautifully illustrated printable bundles', 'Voice-guided instructions', 'Progress badges & certificates', 'Family dashboard with skill tracking', 'Bonus seasonal activity packs', 'Yearly plan: $199 (43% off)'],
+    cta: 'Start Free Trial',
+    highlight: true,
+  },
+  {
+    id: 'consultation',
+    name: 'Private Consultation',
+    price: 225,
+    period: '/session',
+    tagline: 'Personalized guidance',
+    features: ['1-on-1 with a Montessori guide', 'Customized curriculum for your child', 'Family lifestyle integration', 'Personalized materials recommendations', 'Written homeschool action plan', 'Follow-up email support (2 weeks)', '3-session package: $600 (save $75)'],
+    cta: 'Book Consultation',
+    highlight: false,
+  },
+];
+
+const faqs = [
+  { q: 'Do I need Montessori training to use this app?', a: 'Not at all. Every activity includes clear, visual step-by-step instructions written for parents and caregivers with no teaching background. We explain the "why" behind each activity so you feel confident guiding your child.' },
+  { q: 'What age range is this designed for?', a: 'The activities are designed for children ages 2–6, organized by developmental readiness rather than strict age. This follows true Montessori principles where children progress at their own pace.' },
+  { q: 'Can I use this for multiple children?', a: 'Yes. Premium plans include multiple child profiles so you can track each child\'s progress individually, with personalized recommendations based on their developmental stage.' },
+  { q: 'Does this work without internet?', a: 'Yes. Once you\'ve loaded an activity, it works offline. This is perfect for using the app in classrooms, while traveling, or in areas with limited connectivity.' },
+  { q: 'How is this different from free Montessori resources online?', a: 'Unlike scattered blog posts and Pinterest ideas, our curriculum is a complete, sequenced program aligned with AMI standards. Every activity builds on the last, with proper presentation techniques and control of error.' },
+  { q: 'What if I\'m not satisfied?', a: 'We offer a 30-day money-back guarantee on all premium plans. If you don\'t see your child growing in independence and confidence, we\'ll refund your subscription — no questions asked.' },
+];
+
+const stats = [
+  { value: '10,000+', label: 'Families worldwide' },
+  { value: '100+', label: 'Guided activities' },
+  { value: '8', label: 'Curriculum areas' },
+  { value: '4.9', label: 'Average rating' },
+];
+
+const Home: React.FC<HomeProps> = ({
   onGetStarted, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
@@ -39,381 +179,595 @@ const Home: React.FC<HomeProps> = ({
 }) => {
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
+  const [scrolled, setScrolled] = useState(false);
 
-  const features = [
-    { icon: CheckCircle, text: "50+ Life Skills Activities", color: "text-emerald-600" },
-    { icon: Award, text: "100% Authentic Montessori", color: "text-blue-600" },
-    { icon: Target, text: "Ages 2-6 Curriculum", color: "text-purple-600" },
-    { icon: Shield, text: "Safe & Secure Platform", color: "text-indigo-600" }
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  const testimonials = [
-    {
-      quote: "My daughter loves the hands-on activities. She's gained so much independence!",
-      author: "Sarah M.",
-      role: "Parent of 4-year-old"
-    },
-    {
-      quote: "Finally, authentic Montessori education at home. The step-by-step guidance is perfect.",
-      author: "Maria K.",
-      role: "Montessori Educator"
-    },
-    {
-      quote: "The progress tracking helps me see exactly how my son is developing.",
-      author: "David L.",
-      role: "Father of twins"
-    }
-  ];
+  const handleCurriculumClick = (name: string) => {
+    const map: Record<string, (() => void) | undefined> = {
+      'Practical Life': onPracticalView,
+      Sensorial: onSensorialView,
+      Mathematics: onMathView,
+      Language: onLanguageView,
+      Geography: onGeographyView,
+      Botany: onBotanyView,
+      Art: onArtView,
+      'Grace & Courtesy': onGraceCourtesyView,
+    };
+    map[name]?.();
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
+    <div className="min-h-screen bg-white relative overflow-hidden">
       <InstallBanner />
 
-      {/* Animated Background Elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
-        <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-red-400/20 rounded-full blur-lg animate-bounce"></div>
-        <div className="absolute bottom-32 left-32 w-20 h-20 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-md animate-pulse"></div>
-        <div className="absolute bottom-20 right-40 w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full blur-sm animate-bounce"></div>
-      </div>
+      {/* ─── Sticky Nav ─── */}
+      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex items-center gap-2">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+                <Sparkles className="w-4 h-4 text-white" />
+              </div>
+              <span className={`font-bold text-lg transition-colors ${scrolled ? 'text-slate-800' : 'text-slate-800'}`}>
+                Montessori Skills
+              </span>
+            </div>
+            <div className="flex items-center gap-3">
+              {!user && (
+                <Link to="/auth">
+                  <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign In</Button>
+                </Link>
+              )}
+              <Button
+                onClick={onGetStarted}
+                size="sm"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full px-5"
+              >
+                Start Free
+              </Button>
+            </div>
+          </div>
+        </div>
+      </header>
 
-      {/* Navigation — in normal flow so it never overlaps the install banner */}
-      <div className="relative z-50 flex justify-end gap-2 items-start px-4 pt-4">
-        {!user && (
-          <Link to="/auth">
-            <Button variant="outline" className="bg-white/90 backdrop-blur-sm">
-              Sign In
-            </Button>
-          </Link>
-        )}
-        <NavigationMenu
-          onDashboardView={onDashboardView}
-          
-          onPracticalView={onPracticalView}
-          onSensorialView={onSensorialView}
-          onLanguageView={onLanguageView}
-          onMathView={onMathView}
-          onGeographyView={onGeographyView}
-          onBotanyView={onBotanyView}
-          onArtView={onArtView}
-          onCulturalView={onCulturalView}
-          onGraceCourtesyView={onGraceCourtesyView}
-          onSubscriptionView={onSubscriptionView}
-          onParentView={onParentView}
-          onProfilesView={onProfilesView}
-        />
-      </div>
+      {/* ─── Hero Section ─── */}
+      <section className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
+        {/* Soft gradient background */}
+        <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-blue-50/50 to-white pointer-events-none" />
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-200/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-200/30 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="relative z-10">
-        {/* Hero Section */}
-        <section className="pt-20 pb-16">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center">
-              {/* Trust Badge */}
-              <div className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm text-emerald-700 rounded-full text-sm font-medium mb-8 shadow-lg animate-fade-in">
-                <Sparkles className="w-4 h-4 mr-2" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+            {/* Left: Copy */}
+            <div className="text-center lg:text-left">
+              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-purple-100 rounded-full text-sm font-medium text-purple-700 mb-6 shadow-sm">
+                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                 Trusted by 10,000+ families worldwide
               </div>
 
-              {/* Hero Image */}
-              <div className="mb-8 animate-scale-in">
-                <div className="relative inline-block">
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl blur-2xl opacity-30 scale-110"></div>
-                  <div className="relative bg-gradient-to-r from-purple-600 to-pink-600 rounded-3xl p-2 shadow-2xl">
-                    <img 
-                      src={realisticHeroImage} 
-                      alt="Children learning with Montessori materials - puzzle and leaf" 
-                      className="w-96 h-56 mx-auto rounded-2xl object-cover shadow-xl"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              {/* Main Headline */}
-              <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
-                <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600 bg-clip-text text-transparent">
-                  Montessori Life Skills
-                </span>
-                <br />
-                <span className="bg-gradient-to-r from-emerald-600 via-blue-600 to-purple-600 bg-clip-text text-transparent">for Every Child</span>
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight animate-reveal-delay-1">
+                Teach Your Child{' '}
+                <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">
+                  Real Life Skills
+                </span>{' '}
+                With Confidence
               </h1>
 
-              {/* Subtitle */}
-              <p className="text-xl md:text-2xl text-slate-600 mb-8 max-w-3xl mx-auto leading-relaxed animate-slide-in">
-                Transform your child's learning journey with authentic Montessori activities for homeschooling parents and classroom teachers that build independence, confidence, and real-world skills
+              <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
+                The complete Montessori curriculum for ages 2–6. Step-by-step activity guides, progress tracking, and expert support — no teaching experience required.
               </p>
 
-              {/* Feature Pills */}
-              <div className="flex flex-wrap justify-center gap-4 mb-10 animate-fade-in">
-                {features.map((feature, index) => (
-                  <div key={index} className="flex items-center bg-white/90 backdrop-blur-sm px-4 py-2 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105">
-                    <feature.icon className={`w-5 h-5 mr-2 ${feature.color}`} />
-                    <span className="text-slate-700 font-medium">{feature.text}</span>
-                  </div>
-                ))}
-              </div>
-
-              {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-slide-in">
-                <Button 
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
+                <Button
                   onClick={onGetStarted}
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Start Free Journey <ArrowRight className="ml-2 h-6 w-6" />
+                  Start Free Journey <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <div className="flex items-center gap-2 text-slate-600 bg-white/60 backdrop-blur-sm px-4 py-2 rounded-full">
-                  <Star className="w-5 h-5 text-yellow-500 fill-current" />
-                  <span className="font-medium">4.9/5 from 2,000+ reviews</span>
-                </div>
-              </div>
-
-              {/* Social Follow */}
-              <div className="flex flex-col items-center gap-3 animate-fade-in">
-                <p className="text-sm font-medium text-slate-600">Follow us for daily Montessori inspiration</p>
-                <SocialLinks variant="dark" />
-              </div>
-
-              {/* Share this page */}
-              <div className="mt-8 animate-fade-in">
-                <ShareThisPage variant="dark" />
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Features Section */}
-        <section className="py-20 bg-white/40 backdrop-blur-sm">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-                Why Homeschooling Parents & Classroom Teachers Choose Our Platform
-              </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Experience the authentic Montessori method with modern technology and expert guidance
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <BookOpen className="w-6 h-6 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-blue-800 group-hover:text-blue-900 transition-colors">Child-Led Learning</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-blue-700 text-center text-lg leading-relaxed">
-                    Follow your child's natural curiosity and developmental pace with activities that spark genuine interest and sustained focus
-                  </CardDescription>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-to-br from-emerald-50 to-emerald-100 border-emerald-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Target className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-emerald-800 group-hover:text-emerald-900 transition-colors">Hands-On Activities</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-emerald-700 text-center text-lg leading-relaxed">
-                    Real Montessori materials and purposeful activities that develop practical life skills, coordination, and independence
-                  </CardDescription>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group">
-                <CardHeader className="text-center pb-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                    <Award className="w-8 h-8 text-white" />
-                  </div>
-                  <CardTitle className="text-2xl text-purple-800 group-hover:text-purple-900 transition-colors">Expert Guidance</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-purple-700 text-center text-lg leading-relaxed">
-                    Comprehensive step-by-step instructions and progress tracking to support children, parents, and teachers through the learning journey
-                  </CardDescription>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-        {/* User Types Section */}
-        <section className="py-20 bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-                Built for Parents, Teachers & Assistants
-              </h2>
-              <p className="text-xl text-slate-600 max-w-3xl mx-auto">
-                Whether you're homeschooling, teaching in a classroom, or assisting in early education, our platform adapts to your unique needs
-              </p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              <Card className="bg-white border-2 border-pink-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-pink-500 to-rose-500"></div>
-                <CardHeader className="text-center pb-4 pt-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <HomeIcon className="w-10 h-10 text-white" />
-                  </div>
-                  <CardTitle className="text-3xl text-slate-800 group-hover:text-pink-600 transition-colors">For Parents</CardTitle>
-                </CardHeader>
-                <CardContent className="px-6 pb-8">
-                  <ul className="space-y-3 text-slate-700">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Easy-to-follow activities for homeschooling success</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Track your child's progress and developmental milestones</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Build independence and confidence at home</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-pink-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">No teaching experience required</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white border-2 border-blue-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 to-indigo-500"></div>
-                <CardHeader className="text-center pb-4 pt-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <GraduationCap className="w-10 h-10 text-white" />
-                  </div>
-                  <CardTitle className="text-3xl text-slate-800 group-hover:text-blue-600 transition-colors">For Teachers</CardTitle>
-                </CardHeader>
-                <CardContent className="px-6 pb-8">
-                  <ul className="space-y-3 text-slate-700">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Complete curriculum aligned with Montessori principles</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Manage multiple students with individual progress tracking</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Save time with ready-to-use lesson plans</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-blue-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Generate detailed progress reports for parents</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-
-              <Card className="bg-white border-2 border-purple-200 hover:shadow-2xl transition-all duration-500 hover:scale-105 group overflow-hidden">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 to-violet-500"></div>
-                <CardHeader className="text-center pb-4 pt-8">
-                  <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-violet-600 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                    <Users2 className="w-10 h-10 text-white" />
-                  </div>
-                  <CardTitle className="text-3xl text-slate-800 group-hover:text-purple-600 transition-colors">For Assistants</CardTitle>
-                </CardHeader>
-                <CardContent className="px-6 pb-8">
-                  <ul className="space-y-3 text-slate-700">
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Step-by-step guidance for presenting activities</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Learn authentic Montessori methods on the job</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Support teachers with organized activity resources</span>
-                    </li>
-                    <li className="flex items-start">
-                      <CheckCircle className="w-5 h-5 text-purple-500 mr-2 mt-0.5 flex-shrink-0" />
-                      <span className="text-base">Build confidence in early childhood education</span>
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
-
-
-        {/* Testimonials Section */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl md:text-5xl font-bold text-slate-800 mb-4">
-                Loved by Families Everywhere
-              </h2>
-              <p className="text-xl text-slate-600">Real stories from parents and educators</p>
-            </div>
-
-            <div className="grid md:grid-cols-3 gap-8">
-              {testimonials.map((testimonial, index) => (
-                <Card key={index} className="bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-500 hover:scale-105 border-0 shadow-lg">
-                  <CardContent className="p-8 text-center">
-                    <div className="flex justify-center mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="w-5 h-5 text-yellow-500 fill-current" />
-                      ))}
-                    </div>
-                    <p className="text-lg text-slate-700 mb-6 italic leading-relaxed">
-                      "{testimonial.quote}"
-                    </p>
-                    <div>
-                      <p className="font-semibold text-slate-800">{testimonial.author}</p>
-                      <p className="text-slate-600">{testimonial.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA Section */}
-        <section className="py-20 bg-gradient-to-r from-purple-600 via-blue-600 to-emerald-600">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-              Ready to Transform Your Child's Learning?
-            </h2>
-            <p className="text-xl text-white/90 mb-8 leading-relaxed">
-              Join thousands of homeschooling parents and classroom teachers building independence, confidence, and real-world skills through authentic Montessori education
-            </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <Button 
-                  onClick={onGetStarted}
-                  size="lg"
-                  className="bg-white text-purple-600 hover:bg-gray-50 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold"
-                >
-                  Start Your Free Trial <ArrowRight className="ml-2 h-6 w-6" />
-                </Button>
-                <Button 
+                <Button
                   onClick={onSubscriptionView}
                   size="lg"
                   variant="outline"
-                  className="bg-white/20 text-white border-white/30 hover:bg-white/30 px-10 py-4 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:scale-105 font-semibold backdrop-blur-sm"
+                  className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-6 text-lg rounded-2xl transition-all duration-300"
                 >
-                  View Plans & Pricing
+                  View Plans
                 </Button>
               </div>
-              <div className="mt-10 pt-8 border-t border-white/20">
-                <p className="text-white/90 text-sm font-medium mb-4">Connect with our community</p>
-                <SocialLinks variant="light" />
-              </div>
-          </div>
-        </section>
-      </div>
 
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-slate-500">
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <span>No credit card required</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <span>Cancel anytime</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  <CheckCircle className="w-4 h-4 text-emerald-500" />
+                  <span>30-day guarantee</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Right: Hero Image */}
+            <div className="relative animate-scale-in">
+              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl scale-105" />
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+                <img
+                  src={montessoriImages['pouring-set']}
+                  alt="Child engaged in Montessori practical life activity with pouring materials"
+                  className="w-full h-auto object-cover"
+                  loading="eager"
+                />
+                {/* Floating badge */}
+                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-purple-100 animate-float">
+                  <div className="flex items-center gap-2">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-bold text-slate-800">Independence</p>
+                      <p className="text-xs text-slate-500">Built daily</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Stats Bar ─── */}
+      <section className="py-10 bg-slate-50 border-y border-slate-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+              {stats.map((s, i) => (
+                <div key={i} className="text-center">
+                  <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                    {s.value}
+                  </p>
+                  <p className="text-sm text-slate-500 mt-1 font-medium">{s.label}</p>
+                </div>
+              ))}
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── The Problem ─── */}
+      <section className="py-20 lg:py-28">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">The Struggle Is Real</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Does This Sound Familiar?
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                You know Montessori could help your child, but getting started feels overwhelming.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
+            {painPoints.map((point, i) => (
+              <Reveal key={i} delay={i * 100}>
+                <div className="flex items-start gap-4 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5">
+                  <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-rose-500 font-bold text-sm">{i + 1}</span>
+                  </div>
+                  <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── The Solution ─── */}
+      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-3">The Better Way</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Everything You Need, All in One Place
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Authentic Montessori curriculum, expert guidance, and progress tracking — designed for real parents and educators.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {benefits.map((b, i) => (
+              <Reveal key={i} delay={i * 80}>
+                <Card className="h-full bg-white border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300 group">
+                  <CardContent className="p-6">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                      <b.icon className="w-6 h-6 text-white" />
+                    </div>
+                    <h3 className="text-lg font-bold text-slate-900 mb-2">{b.title}</h3>
+                    <p className="text-slate-600 leading-relaxed">{b.desc}</p>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Curriculum Grid ─── */}
+      <section className="py-20 lg:py-28">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Complete Curriculum</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                8 Montessori Areas. Endless Growth.
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Covering all primary curriculum areas aligned with AMI standards — from Practical Life to Grace & Courtesy.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+            {curriculumAreas.map((area, i) => (
+              <Reveal key={area.name} delay={i * 80}>
+                <button
+                  onClick={() => handleCurriculumClick(area.name)}
+                  className="group w-full text-left rounded-2xl overflow-hidden border border-slate-100 hover:border-purple-200 hover:shadow-xl transition-all duration-300 bg-white"
+                >
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={area.image}
+                      alt={`${area.name} Montessori materials`}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${area.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
+                    <div className="absolute top-3 left-3">
+                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br ${area.color} text-white shadow-lg`}>
+                        <area.icon className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                  <div className="p-4">
+                    <h3 className="font-bold text-slate-900 group-hover:text-purple-700 transition-colors">{area.name}</h3>
+                    <p className="text-sm text-slate-500 mt-1">Explore activities →</p>
+                  </div>
+                </button>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── How It Works ─── */}
+      <section className="py-20 lg:py-28 bg-gradient-to-b from-purple-50/60 to-white">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Simple as 1-2-3</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                How It Works
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Get started in minutes, not months. No lesson planning, no prep work.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-8 relative">
+            {/* Connector line (desktop) */}
+            <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-purple-200 via-blue-200 to-pink-200" />
+
+            {howItWorks.map((step, i) => (
+              <Reveal key={step.step} delay={i * 150}>
+                <div className="relative text-center">
+                  <div className="relative z-10 w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-xl mb-6">
+                    <step.icon className="w-7 h-7 text-white" />
+                  </div>
+                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-3">
+                    {step.step}
+                  </div>
+                  <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
+                  <p className="text-slate-600 leading-relaxed">{step.desc}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Audience Section ─── */}
+      <section className="py-20 lg:py-28">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Built For You</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Parents, Teachers & Assistants
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Whether you're homeschooling one child or managing a classroom, we've got you covered.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              {
+                icon: HomeIcon,
+                title: 'For Parents',
+                color: 'from-pink-500 to-rose-500',
+                bg: 'from-pink-50 to-rose-50',
+                items: ['Easy-to-follow activities for homeschooling', 'Track progress & milestones', 'Build independence at home', 'No teaching experience needed'],
+              },
+              {
+                icon: GraduationCap,
+                title: 'For Teachers',
+                color: 'from-blue-500 to-indigo-500',
+                bg: 'from-blue-50 to-indigo-50',
+                items: ['Complete AMI-aligned curriculum', 'Multi-student progress tracking', 'Ready-to-use lesson plans', 'Detailed reports for parents'],
+              },
+              {
+                icon: Users2,
+                title: 'For Assistants',
+                color: 'from-purple-500 to-violet-500',
+                bg: 'from-purple-50 to-violet-50',
+                items: ['Step-by-step presentation guides', 'Learn Montessori on the job', 'Support teachers with resources', 'Build confidence in the classroom'],
+              },
+            ].map((audience, i) => (
+              <Reveal key={audience.title} delay={i * 120}>
+                <Card className={`h-full bg-gradient-to-b ${audience.bg} border-0 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1`}>
+                  <CardContent className="p-6 pt-8">
+                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${audience.color} flex items-center justify-center mb-5 shadow-lg`}>
+                      <audience.icon className="w-7 h-7 text-white" />
+                    </div>
+                    <h3 className="text-xl font-bold text-slate-900 mb-4">{audience.title}</h3>
+                    <ul className="space-y-3">
+                      {audience.items.map((item, j) => (
+                        <li key={j} className="flex items-start gap-2.5 text-slate-700">
+                          <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${i === 0 ? 'text-pink-500' : i === 1 ? 'text-blue-500' : 'text-purple-500'}`} />
+                          <span className="text-sm leading-relaxed">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Social Proof / Testimonials ─── */}
+      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Loved By Families</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Real Stories, Real Results
+              </h2>
+              <div className="flex items-center justify-center gap-2 mb-2">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
+                ))}
+                <span className="ml-2 text-lg font-bold text-slate-800">4.9/5</span>
+              </div>
+              <p className="text-slate-500">From 2,000+ reviews</p>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
+            {testimonials.map((t, i) => (
+              <Reveal key={i} delay={i * 100}>
+                <Card className="h-full bg-white border border-slate-100 hover:border-purple-100 hover:shadow-lg transition-all duration-300">
+                  <CardContent className="p-5">
+                    <div className="flex gap-0.5 mb-3">
+                      {[...Array(t.stars)].map((_, s) => (
+                        <Star key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                      ))}
+                    </div>
+                    <p className="text-slate-700 mb-4 leading-relaxed text-sm italic">"{t.quote}"</p>
+                    <div>
+                      <p className="font-semibold text-slate-900 text-sm">{t.author}</p>
+                      <p className="text-xs text-slate-500">{t.role}</p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Pricing ─── */}
+      <section className="py-20 lg:py-28" id="pricing">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-14">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Simple Pricing</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Start Free. Scale When Ready.
+              </h2>
+              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
+                Choose the plan that fits your family. All premium plans include a 30-day money-back guarantee.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            {pricingPlans.map((plan, i) => (
+              <Reveal key={plan.id} delay={i * 120}>
+                <Card className={`h-full relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
+                  plan.highlight
+                    ? 'border-2 border-purple-300 shadow-xl shadow-purple-100'
+                    : 'border border-slate-100 hover:shadow-lg'
+                }`}>
+                  {plan.highlight && (
+                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold text-center py-1.5 uppercase tracking-wide">
+                      Most Popular
+                    </div>
+                  )}
+                  <CardContent className={`p-6 ${plan.highlight ? 'pt-10' : ''}`}>
+                    <p className="text-sm font-medium text-slate-500 mb-1">{plan.tagline}</p>
+                    <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.name}</h3>
+                    <div className="flex items-baseline gap-1 mb-4">
+                      <span className="text-4xl font-extrabold text-slate-900">${plan.price}</span>
+                      <span className="text-slate-500 font-medium">{plan.period}</span>
+                    </div>
+                    <ul className="space-y-2.5 mb-6">
+                      {plan.features.map((f, j) => (
+                        <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
+                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-purple-500' : 'text-emerald-500'}`} />
+                          <span>{f}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <Button
+                      onClick={plan.id === 'consultation' ? onSubscriptionView : onGetStarted}
+                      className={`w-full rounded-xl py-5 font-semibold transition-all duration-300 ${
+                        plan.highlight
+                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white'
+                          : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+                      }`}
+                    >
+                      {plan.cta}
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── FAQ ─── */}
+      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 to-white">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-12">
+              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Got Questions?</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
+                Frequently Asked
+              </h2>
+            </div>
+          </Reveal>
+
+          <Reveal>
+            <Accordion type="single" collapsible className="space-y-3">
+              {faqs.map((faq, i) => (
+                <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-slate-100 rounded-xl px-5 data-[state=open]:border-purple-200 transition-colors">
+                  <AccordionTrigger className="text-left font-semibold text-slate-800 hover:no-underline py-4 text-base">
+                    {faq.q}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-slate-600 leading-relaxed pb-4">
+                    {faq.a}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── Final CTA ─── */}
+      <section className="py-20 lg:py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-pink-600" />
+        <div className="absolute inset-0 bg-shimmer" />
+        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Reveal>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
+              Ready to Transform Your Child's Learning?
+            </h2>
+            <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
+              Join thousands of families building independence, confidence, and real-world skills through authentic Montessori education.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
+              <Button
+                onClick={onGetStarted}
+                size="lg"
+                className="bg-white text-purple-600 hover:bg-gray-50 px-10 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 font-bold"
+              >
+                Start Your Free Journey <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+              <Button
+                onClick={onSubscriptionView}
+                size="lg"
+                variant="outline"
+                className="bg-white/10 text-white border-white/30 hover:bg-white/20 px-10 py-6 text-lg rounded-2xl transition-all duration-300 backdrop-blur-sm font-semibold"
+              >
+                View Plans & Pricing
+              </Button>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-6 text-white/80 text-sm mb-10">
+              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> No credit card</span>
+              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> Cancel anytime</span>
+              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> 30-day guarantee</span>
+            </div>
+          </Reveal>
+          <Reveal delay={200}>
+            <div className="pt-8 border-t border-white/20">
+              <p className="text-white/80 text-sm font-medium mb-4">Connect with our community</p>
+              <SocialLinks variant="light" />
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ─── Footer ─── */}
+      <footer className="py-12 bg-slate-900 text-slate-300">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid md:grid-cols-4 gap-8 mb-10">
+            <div className="md:col-span-2">
+              <div className="flex items-center gap-2 mb-4">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-white" />
+                </div>
+                <span className="font-bold text-white text-lg">Montessori Skills Guide</span>
+              </div>
+              <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
+                Helping parents and educators teach essential life skills to children ages 2–6 using the proven Montessori method.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Product</h4>
+              <ul className="space-y-2 text-sm">
+                <li><button onClick={onGetStarted} className="hover:text-white transition-colors">Activities</button></li>
+                <li><button onClick={onDashboardView} className="hover:text-white transition-colors">Progress Tracking</button></li>
+                <li><button onClick={onSubscriptionView} className="hover:text-white transition-colors">Pricing</button></li>
+                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Support</h4>
+              <ul className="space-y-2 text-sm">
+                <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
+                <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
+              </ul>
+            </div>
+          </div>
+          <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <p className="text-sm text-slate-500">© {new Date().getFullYear()} Montessori Life Skills. All rights reserved.</p>
+            <SocialLinks variant="light" />
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
