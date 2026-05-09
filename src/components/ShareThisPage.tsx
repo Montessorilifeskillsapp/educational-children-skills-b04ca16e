@@ -2,6 +2,15 @@ import React from 'react';
 import { Facebook, Instagram, Check, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { analytics } from '@/lib/analytics';
+
+// Event names (kept stable for downstream funnel/conversion reporting)
+export const SHARE_EVENTS = {
+  FACEBOOK_SHARE_CLICK: 'share_facebook_click',
+  INSTAGRAM_COPY_CLICK: 'share_instagram_copy_click',
+  INSTAGRAM_COPY_SUCCESS: 'share_instagram_copy_success',
+  INSTAGRAM_COPY_FAILURE: 'share_instagram_copy_failure',
+} as const;
 
 interface ShareThisPageProps {
   className?: string;
@@ -16,20 +25,38 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({ className = '', variant =
 
   const handleFacebookShare = () => {
     const url = typeof window !== 'undefined' ? window.location.href : '';
+    analytics.trackInteraction('click', SHARE_EVENTS.FACEBOOK_SHARE_CLICK, {
+      network: 'facebook',
+      shared_url: url,
+      page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    });
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank', 'noopener,noreferrer,width=600,height=500');
   };
 
   const handleInstagramCopy = async () => {
+    analytics.trackInteraction('click', SHARE_EVENTS.INSTAGRAM_COPY_CLICK, {
+      network: 'instagram',
+      handle: '@montessoristorybooks',
+      page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+    });
     try {
       await navigator.clipboard.writeText(INSTAGRAM_URL);
       setCopied(true);
+      analytics.trackInteraction('copy', SHARE_EVENTS.INSTAGRAM_COPY_SUCCESS, {
+        network: 'instagram',
+        copied_url: INSTAGRAM_URL,
+      });
       toast({
         title: 'Instagram link copied!',
         description: 'Paste it anywhere to share @montessoristorybooks.',
       });
       setTimeout(() => setCopied(false), 2500);
-    } catch {
+    } catch (err) {
+      analytics.trackInteraction('copy', SHARE_EVENTS.INSTAGRAM_COPY_FAILURE, {
+        network: 'instagram',
+        error: err instanceof Error ? err.message : 'unknown',
+      });
       toast({
         title: 'Could not copy',
         description: INSTAGRAM_URL,
