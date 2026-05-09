@@ -396,7 +396,6 @@ const Home: React.FC<HomeProps> = ({
         </section>
       </div>
 
-      <InstallBanner />
     </div>
   );
 };
