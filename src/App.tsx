@@ -44,6 +44,7 @@ const App = () => {
                 <ProfileProvider>
                   <SubscriptionProvider>
                     <Toaster />
+                    <SplashDebugOverlay />
                     <BrowserRouter
                       future={{
                         v7_startTransition: true,
