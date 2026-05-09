@@ -482,11 +482,19 @@ const Home: React.FC<HomeProps> = ({
 
             {howItWorks.map((step, i) => (
               <Reveal key={step.step} delay={i * 150}>
-                <div className="relative text-center">
-                  <div className="relative z-10 w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-xl mb-6">
-                    <step.icon className="w-7 h-7 text-white" />
+                <div className="relative text-center bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg transition-all duration-300">
+                  <div className="relative mx-auto w-32 h-32 mb-5 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                    <img
+                      src={step.image}
+                      alt={`Authentic Montessori material — ${step.title}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-xl border-2 border-white">
+                      <step.icon className="w-5 h-5 text-white" />
+                    </div>
                   </div>
-                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-3">
+                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-3 mt-3">
                     {step.step}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
