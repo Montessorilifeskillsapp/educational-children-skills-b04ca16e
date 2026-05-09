@@ -353,7 +353,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── The Problem ─── */}
       <section className="py-20 lg:py-28">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
               <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">The Struggle Is Real</p>
@@ -366,17 +366,33 @@ const Home: React.FC<HomeProps> = ({
             </div>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 gap-5 max-w-3xl mx-auto">
-            {painPoints.map((point, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <div className="flex items-start gap-4 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5">
-                  <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                    <span className="text-rose-500 font-bold text-sm">{i + 1}</span>
-                  </div>
-                  <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
+          <div className="grid lg:grid-cols-5 gap-10 items-center">
+            {/* Material image collage */}
+            <Reveal className="lg:col-span-2">
+              <div className="relative">
+                <div className="absolute inset-0 bg-gradient-to-br from-rose-200/40 to-orange-200/40 rounded-3xl blur-2xl" />
+                <div className="relative grid grid-cols-2 gap-3">
+                  <img src={sensorialImages['pink-tower']} alt="Pink Tower Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
+                  <img src={mathImages['golden-beads']} alt="Golden Beads Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
+                  <img src={languageImages['sandpaper-letters']} alt="Sandpaper Letters Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
+                  <img src={sensorialImages['knobbed-cylinders']} alt="Knobbed Cylinders Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
                 </div>
-              </Reveal>
-            ))}
+              </div>
+            </Reveal>
+
+            {/* Pain points */}
+            <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
+              {painPoints.map((point, i) => (
+                <Reveal key={i} delay={i * 100}>
+                  <div className="flex items-start gap-4 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5 h-full">
+                    <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-rose-500 font-bold text-sm">{i + 1}</span>
+                    </div>
+                    <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -386,6 +402,15 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
+              <div className="relative inline-block mb-6">
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/50 to-purple-200/50 rounded-3xl blur-2xl" />
+                <img
+                  src={sensorialImages['brown-stair']}
+                  alt="Brown Stair — authentic Montessori sensorial material"
+                  className="relative w-64 h-40 object-cover rounded-2xl shadow-xl border-4 border-white mx-auto"
+                  loading="lazy"
+                />
+              </div>
               <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-3">The Better Way</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Everything You Need, All in One Place
