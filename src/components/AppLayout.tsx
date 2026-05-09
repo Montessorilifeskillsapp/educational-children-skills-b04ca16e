@@ -341,7 +341,6 @@ const AppLayout: React.FC = () => {
       );
     }
 
-    if (geographySkillsData[selectedSkill]) {
     if (culturalSkillsData[selectedSkill]) {
       return (
         <SkillActivity
@@ -352,7 +351,8 @@ const AppLayout: React.FC = () => {
       );
     }
 
-    return (
+    if (geographySkillsData[selectedSkill]) {
+      return (
         <SkillActivity
           skillId={selectedSkill}
           onBack={handleBackToGeography}
