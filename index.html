@@ -23,9 +23,17 @@
     <link rel="apple-touch-icon" sizes="152x152" href="/icon-152.png" />
     <link rel="apple-touch-icon" sizes="120x120" href="/icon-120.png" />
     <link rel="apple-touch-icon" sizes="76x76" href="/icon-76.png" />
-    
+
+    <!-- iOS launch image (used when app is added to home screen) -->
+    <link rel="apple-touch-startup-image" href="/splash.png" />
+
     <!-- Manifest -->
     <link rel="manifest" href="/manifest.json" />
+
+    <!-- Brand-colored first paint to avoid white flash on launch -->
+    <style>
+      html, body { background-color: #10B981; }
+    </style>
     
     <!-- Google Analytics - Replace G-XXXXXXXXXX with your real GA4 ID -->
     <!-- 
