@@ -17,19 +17,6 @@ const InstallBanner = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Guard against iframe and preview hosts
-    const isInIframe = (() => {
-      try {
-        return window.self !== window.top;
-      } catch (e) {
-        return true;
-      }
-    })();
-    const isPreviewHost =
-      window.location.hostname.includes("id-preview--") ||
-      window.location.hostname.includes("lovableproject.com");
-    if (isPreviewHost || isInIframe) return;
-
     // Don't show in standalone mode or if dismissed
     if (window.matchMedia("(display-mode: standalone)").matches) return;
     if (localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY) === "true") return;
@@ -37,9 +24,6 @@ const InstallBanner = () => {
     const ua = navigator.userAgent;
     const ios = /iPad|iPhone|iPod/.test(ua);
     setIsIOS(ios);
-
-    // Show banner on mobile devices or when install prompt is available
-    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(ua);
 
     const handler = (e: Event) => {
       e.preventDefault();
@@ -49,18 +33,15 @@ const InstallBanner = () => {
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    // For iOS or mobile without deferred prompt, show banner after a delay
-    if (ios || isMobile) {
-      const timer = setTimeout(() => {
-        setIsVisible(true);
-      }, 3000);
-      return () => {
-        clearTimeout(timer);
-        window.removeEventListener("beforeinstallprompt", handler);
-      };
-    }
+    // Show banner after a short delay on all devices (including preview/desktop)
+    const timer = setTimeout(() => {
+      setIsVisible(true);
+    }, 1500);
 
-    return () => window.removeEventListener("beforeinstallprompt", handler);
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener("beforeinstallprompt", handler);
+    };
   }, []);
 
   const handleDismiss = () => {
