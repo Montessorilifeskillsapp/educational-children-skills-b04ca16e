@@ -89,18 +89,21 @@ const howItWorks = [
     title: 'Choose an Activity',
     desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
     icon: BookOpen,
+    image: sensorialImages['knobbed-cylinders'],
   },
   {
     step: '02',
     title: 'Follow the Guide',
     desc: 'Get step-by-step presentation instructions with photos, videos, and material lists — no Montessori training required.',
     icon: Play,
+    image: mathImages['number-rods'],
   },
   {
     step: '03',
     title: 'Track Progress',
     desc: 'Log completions, celebrate milestones, and watch your child build independence day by day.',
     icon: BarChart3,
+    image: sensorialImages['brown-stair'],
   },
 ];
 
