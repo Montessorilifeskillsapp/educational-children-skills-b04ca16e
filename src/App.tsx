@@ -44,7 +44,7 @@ const App = () => {
                 <ProfileProvider>
                   <SubscriptionProvider>
                     <Toaster />
-                    <SplashDebugOverlay />
+                    {import.meta.env.DEV && <SplashDebugOverlay />}
                     <BrowserRouter
                       future={{
                         v7_startTransition: true,
