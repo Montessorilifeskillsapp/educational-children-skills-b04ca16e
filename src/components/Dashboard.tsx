@@ -7,6 +7,8 @@ import { montessoriTheme } from './ThemeConfig';
 import { useSEO } from '@/hooks/useSEO';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
+import { useProfile } from '@/contexts/ProfileContext';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Link } from 'react-router-dom';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
@@ -75,6 +77,8 @@ const Dashboard: React.FC<DashboardProps> = ({
   activeProfile
 }) => {
   const { user, signOut } = useAuthContext();
+  const { profiles, activeProfile: ctxActiveProfile, setActiveProfile } = useProfile();
+  const currentProfile = ctxActiveProfile || activeProfile;
   
   // SEO optimization for dashboard
   useSEO({
@@ -122,7 +126,34 @@ const Dashboard: React.FC<DashboardProps> = ({
             </div>
           </div>
           
-          <div className="flex gap-2">
+          <div className="flex flex-wrap gap-2 items-center">
+            {profiles.length > 0 && (
+              <Select
+                value={currentProfile?.id ?? ''}
+                onValueChange={(id) => {
+                  const next = profiles.find(p => p.id === id);
+                  if (next) setActiveProfile(next);
+                }}
+              >
+                <SelectTrigger className="w-[200px]" aria-label="Select child profile">
+                  <SelectValue placeholder="Select child" />
+                </SelectTrigger>
+                <SelectContent>
+                  {profiles.map(p => (
+                    <SelectItem key={p.id} value={p.id}>
+                      <span className="mr-2">{p.avatar}</span>
+                      {p.name}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
+            {onProfilesView && (
+              <Button variant="outline" size="sm" onClick={onProfilesView}>
+                <Users className="mr-2 h-4 w-4" />
+                Manage
+              </Button>
+            )}
             {!user ? (
               <Link to="/auth">
                 <Button variant="outline">
