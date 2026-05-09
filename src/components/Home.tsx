@@ -6,6 +6,7 @@ import { montessoriTheme } from './ThemeConfig';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
 import InstallBanner from './InstallBanner';
+import SocialLinks from './SocialLinks';
 import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
