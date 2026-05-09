@@ -15,8 +15,8 @@ const socials = [
   },
   {
     name: 'Facebook',
-    handle: 'montessoristorybooks',
-    href: 'https://facebook.com/montessoristorybooks',
+    handle: 'Montessoristorybooks',
+    href: 'https://facebook.com/Montessoristorybooks',
     Icon: Facebook,
   },
   {
