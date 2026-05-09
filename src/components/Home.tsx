@@ -528,6 +528,7 @@ const Home: React.FC<HomeProps> = ({
                 title: 'For Parents',
                 color: 'from-pink-500 to-rose-500',
                 bg: 'from-pink-50 to-rose-50',
+                image: montessoriImages['dressing-frames-set'],
                 items: ['Easy-to-follow activities for homeschooling', 'Track progress & milestones', 'Build independence at home', 'No teaching experience needed'],
               },
               {
@@ -535,6 +536,7 @@ const Home: React.FC<HomeProps> = ({
                 title: 'For Teachers',
                 color: 'from-blue-500 to-indigo-500',
                 bg: 'from-blue-50 to-indigo-50',
+                image: sensorialImages['geometric-cabinet'],
                 items: ['Complete AMI-aligned curriculum', 'Multi-student progress tracking', 'Ready-to-use lesson plans', 'Detailed reports for parents'],
               },
               {
@@ -542,15 +544,25 @@ const Home: React.FC<HomeProps> = ({
                 title: 'For Assistants',
                 color: 'from-purple-500 to-violet-500',
                 bg: 'from-purple-50 to-violet-50',
+                image: mathImages['spindle-box'],
                 items: ['Step-by-step presentation guides', 'Learn Montessori on the job', 'Support teachers with resources', 'Build confidence in the classroom'],
               },
             ].map((audience, i) => (
               <Reveal key={audience.title} delay={i * 120}>
                 <Card className={`h-full bg-gradient-to-b ${audience.bg} border-0 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1`}>
-                  <CardContent className="p-6 pt-8">
-                    <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${audience.color} flex items-center justify-center mb-5 shadow-lg`}>
-                      <audience.icon className="w-7 h-7 text-white" />
+                  <div className="relative h-36 overflow-hidden">
+                    <img
+                      src={audience.image}
+                      alt={`Authentic Montessori material — ${audience.title}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${audience.bg} opacity-40`} />
+                    <div className={`absolute -bottom-7 left-6 w-14 h-14 rounded-2xl bg-gradient-to-br ${audience.color} flex items-center justify-center shadow-lg border-4 border-white`}>
+                      <audience.icon className="w-6 h-6 text-white" />
                     </div>
+                  </div>
+                  <CardContent className="p-6 pt-10">
                     <h3 className="text-xl font-bold text-slate-900 mb-4">{audience.title}</h3>
                     <ul className="space-y-3">
                       {audience.items.map((item, j) => (
