@@ -1,7 +1,6 @@
 import React from 'react';
 import { ErrorBoundary } from '@/components/ErrorBoundary';
 import AppLayout from '@/components/AppLayout';
-import InstallBanner from '@/components/InstallBanner';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 
