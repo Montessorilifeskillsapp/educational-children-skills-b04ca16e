@@ -2,6 +2,15 @@ import React from 'react';
 import { Facebook, Instagram, Check, Copy } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
+import { analytics } from '@/lib/analytics';
+
+// Event names (kept stable for downstream funnel/conversion reporting)
+export const SHARE_EVENTS = {
+  FACEBOOK_SHARE_CLICK: 'share_facebook_click',
+  INSTAGRAM_COPY_CLICK: 'share_instagram_copy_click',
+  INSTAGRAM_COPY_SUCCESS: 'share_instagram_copy_success',
+  INSTAGRAM_COPY_FAILURE: 'share_instagram_copy_failure',
+} as const;
 
 interface ShareThisPageProps {
   className?: string;
