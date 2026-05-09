@@ -21,6 +21,7 @@ import HelpPage from "./pages/HelpPage";
 import AboutPage from "./pages/AboutPage";
 import InstallPage from "./pages/InstallPage";
 import NotFound from "./pages/NotFound";
+import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
 import { useEffect } from "react";
 
