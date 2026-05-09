@@ -66,7 +66,7 @@ const InstallBanner = () => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-3 animate-slide-up">
+    <div className="fixed top-0 left-0 right-0 z-50 p-3 animate-fade-in">
       <div className="max-w-md mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-purple-100 p-4 flex items-center gap-3">
         <div className="w-10 h-10 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center shrink-0">
           <Smartphone className="w-5 h-5 text-white" />
