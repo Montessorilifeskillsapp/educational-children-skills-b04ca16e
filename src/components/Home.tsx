@@ -9,6 +9,11 @@ import {
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
+import { sensorialImages } from '@/assets/sensorial';
+import { mathImages } from '@/assets/math';
+import { languageImages } from '@/assets/language';
+import { geographyImages } from '@/assets/geography';
+import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
