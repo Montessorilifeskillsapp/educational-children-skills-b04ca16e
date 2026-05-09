@@ -7,6 +7,7 @@ import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import NavigationMenu from './NavigationMenu';
 import InstallBanner from './InstallBanner';
 import SocialLinks from './SocialLinks';
+import ShareThisPage from './ShareThisPage';
 import realisticHeroImage from '@/assets/realistic-montessori-children.jpg';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
@@ -171,6 +172,11 @@ const Home: React.FC<HomeProps> = ({
               <div className="flex flex-col items-center gap-3 animate-fade-in">
                 <p className="text-sm font-medium text-slate-600">Follow us for daily Montessori inspiration</p>
                 <SocialLinks variant="dark" />
+              </div>
+
+              {/* Share this page */}
+              <div className="mt-8 animate-fade-in">
+                <ShareThisPage variant="dark" />
               </div>
             </div>
           </div>
