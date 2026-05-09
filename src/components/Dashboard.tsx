@@ -273,6 +273,50 @@ const Dashboard: React.FC<DashboardProps> = ({
           </section>
         )}
 
+        {/* All Areas Progress Strip */}
+        <section className="mb-8">
+          <div className="flex items-center gap-2 mb-4">
+            <BookOpen className="h-5 w-5 text-blue-600" />
+            <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary}`}>
+              Progress Across All Areas
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            {Object.entries(FOCUS_AREA_META).map(([areaId, meta]) => {
+              const allIds = meta.ids();
+              const total = allIds.length || 1;
+              const done = allIds.filter(id => completedSkills.includes(id)).length;
+              const pct = Math.round((done / total) * 100);
+              const handlers: Record<string, (() => void) | undefined> = {
+                onPracticalLifeView, onSensorialView, onLanguageView, onMathView,
+                onGeographyView, onBotanyView, onArtView, onCulturalView,
+              };
+              const onClick = meta.onView ? handlers[meta.onView] : undefined;
+              return (
+                <Card
+                  key={areaId}
+                  onClick={onClick}
+                  className={`${montessoriTheme.card.base} ${onClick ? 'cursor-pointer hover:shadow-md' : ''} transition-all ${meta.border}`}
+                >
+                  <CardContent className="p-3">
+                    <div className="flex items-center justify-between mb-1.5">
+                      <span className="flex items-center gap-1.5 min-w-0">
+                        <span className="text-lg leading-none">{meta.emoji}</span>
+                        <span className={`text-xs font-semibold truncate ${meta.text}`}>{meta.label}</span>
+                      </span>
+                      <span className={`text-xs font-mono ${meta.pct}`}>{pct}%</span>
+                    </div>
+                    <Progress value={pct} className="h-1.5 mb-1" />
+                    <p className="text-[10px] text-gray-600">
+                      {done} / {total}
+                    </p>
+                  </CardContent>
+                </Card>
+              );
+            })}
+          </div>
+        </section>
+
         {/* Skill Categories Navigation */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-blue-300 mb-4 text-center">
