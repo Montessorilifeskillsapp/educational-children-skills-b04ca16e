@@ -1,5 +1,5 @@
 import React from 'react';
-import { Facebook, Instagram, Check, Copy } from 'lucide-react';
+import { Facebook, Instagram, Check, Copy, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
 import { analytics } from '@/lib/analytics';
@@ -10,25 +10,45 @@ export const SHARE_EVENTS = {
   INSTAGRAM_COPY_CLICK: 'share_instagram_copy_click',
   INSTAGRAM_COPY_SUCCESS: 'share_instagram_copy_success',
   INSTAGRAM_COPY_FAILURE: 'share_instagram_copy_failure',
+  NATIVE_SHARE_CLICK: 'share_native_click',
+  NATIVE_SHARE_SUCCESS: 'share_native_success',
+  NATIVE_SHARE_CANCELLED: 'share_native_cancelled',
+  NATIVE_SHARE_FALLBACK_COPY: 'share_native_fallback_copy',
 } as const;
 
 interface ShareThisPageProps {
   className?: string;
   variant?: 'light' | 'dark';
+  title?: string;
+  text?: string;
 }
 
 const INSTAGRAM_URL = 'https://instagram.com/montessoristorybooks';
 
-const ShareThisPage: React.FC<ShareThisPageProps> = ({ className = '', variant = 'dark' }) => {
+const ShareThisPage: React.FC<ShareThisPageProps> = ({
+  className = '',
+  variant = 'dark',
+  title,
+  text,
+}) => {
   const { toast } = useToast();
   const [copied, setCopied] = React.useState(false);
+  const [nativeCopied, setNativeCopied] = React.useState(false);
+  const [canNativeShare, setCanNativeShare] = React.useState(false);
+
+  React.useEffect(() => {
+    setCanNativeShare(typeof navigator !== 'undefined' && typeof navigator.share === 'function');
+  }, []);
+
+  const getPagePath = () =>
+    typeof window !== 'undefined' ? window.location.pathname : '';
 
   const handleFacebookShare = () => {
     const url = typeof window !== 'undefined' ? window.location.href : '';
     analytics.trackInteraction('click', SHARE_EVENTS.FACEBOOK_SHARE_CLICK, {
       network: 'facebook',
       shared_url: url,
-      page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+      page_path: getPagePath(),
     });
     const shareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     window.open(shareUrl, '_blank', 'noopener,noreferrer,width=600,height=500');
@@ -38,7 +58,7 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({ className = '', variant =
     analytics.trackInteraction('click', SHARE_EVENTS.INSTAGRAM_COPY_CLICK, {
       network: 'instagram',
       handle: '@montessoristorybooks',
-      page_path: typeof window !== 'undefined' ? window.location.pathname : '',
+      page_path: getPagePath(),
     });
     try {
       await navigator.clipboard.writeText(INSTAGRAM_URL);
@@ -65,6 +85,63 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({ className = '', variant =
     }
   };
 
+  const fallbackCopyLink = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setNativeCopied(true);
+      analytics.trackInteraction('copy', SHARE_EVENTS.NATIVE_SHARE_FALLBACK_COPY, {
+        copied_url: url,
+        page_path: getPagePath(),
+      });
+      toast({
+        title: 'Link copied!',
+        description: 'Share it anywhere you like.',
+      });
+      setTimeout(() => setNativeCopied(false), 2500);
+    } catch {
+      toast({
+        title: 'Could not copy link',
+        description: url,
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const handleNativeShare = async () => {
+    const url = typeof window !== 'undefined' ? window.location.href : '';
+    const shareTitle = title ?? document.title;
+    const shareText =
+      text ?? 'Authentic Montessori activities for children ages 2–6.';
+
+    analytics.trackInteraction('click', SHARE_EVENTS.NATIVE_SHARE_CLICK, {
+      shared_url: url,
+      page_path: getPagePath(),
+      method: canNativeShare ? 'web_share_api' : 'clipboard_fallback',
+    });
+
+    if (canNativeShare) {
+      try {
+        await navigator.share({ title: shareTitle, text: shareText, url });
+        analytics.trackInteraction('share', SHARE_EVENTS.NATIVE_SHARE_SUCCESS, {
+          shared_url: url,
+          page_path: getPagePath(),
+        });
+      } catch (err) {
+        // User cancelled or share failed — fall back to copy on real failure.
+        const isAbort = err instanceof DOMException && err.name === 'AbortError';
+        if (isAbort) {
+          analytics.trackInteraction('cancel', SHARE_EVENTS.NATIVE_SHARE_CANCELLED, {
+            page_path: getPagePath(),
+          });
+          return;
+        }
+        await fallbackCopyLink(url);
+      }
+    } else {
+      await fallbackCopyLink(url);
+    }
+  };
+
   const isLight = variant === 'light';
 
   return (
@@ -73,6 +150,18 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({ className = '', variant =
         Share this page
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
+        <Button
+          onClick={handleNativeShare}
+          aria-label={canNativeShare ? 'Share this page' : 'Copy link to this page'}
+          className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-5"
+        >
+          {nativeCopied ? (
+            <Check className="w-4 h-4 mr-2" aria-hidden="true" />
+          ) : (
+            <Share2 className="w-4 h-4 mr-2" aria-hidden="true" />
+          )}
+          {nativeCopied ? 'Link copied!' : canNativeShare ? 'Share…' : 'Copy link'}
+        </Button>
         <Button
           onClick={handleFacebookShare}
           aria-label="Share this page on Facebook"
