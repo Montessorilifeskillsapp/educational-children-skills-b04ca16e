@@ -400,6 +400,10 @@ const Home: React.FC<HomeProps> = ({
                   View Plans & Pricing
                 </Button>
               </div>
+              <div className="mt-10 pt-8 border-t border-white/20">
+                <p className="text-white/90 text-sm font-medium mb-4">Connect with our community</p>
+                <SocialLinks variant="light" />
+              </div>
           </div>
         </section>
       </div>
