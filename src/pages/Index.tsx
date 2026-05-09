@@ -47,6 +47,7 @@ const Index: React.FC = () => {
       }>
         <SEOOptimizer>
           <AppLayout />
+          <InstallBanner />
         </SEOOptimizer>
       </ErrorBoundary>
     </>
