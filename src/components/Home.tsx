@@ -173,6 +173,11 @@ const Home: React.FC<HomeProps> = ({
                 <p className="text-sm font-medium text-slate-600">Follow us for daily Montessori inspiration</p>
                 <SocialLinks variant="dark" />
               </div>
+
+              {/* Share this page */}
+              <div className="mt-8 animate-fade-in">
+                <ShareThisPage variant="dark" />
+              </div>
             </div>
           </div>
         </section>
