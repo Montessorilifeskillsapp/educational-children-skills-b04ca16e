@@ -92,6 +92,28 @@ const AppLayout: React.FC = () => {
   ];
 
   // Early returns after all hooks are called
+  // Show marketing landing page regardless of auth state
+  if (currentView === 'home') {
+    return (
+      <Home 
+        onGetStarted={() => handleViewChange('dashboard')}
+        onSubscriptionView={() => handleViewChange('subscription')}
+        onDashboardView={() => handleViewChange('dashboard')}
+        onPracticalView={() => handleViewChange('practical')}
+        onSensorialView={() => handleViewChange('sensorial')}
+        onLanguageView={() => handleViewChange('language')}
+        onMathView={() => handleViewChange('math')}
+        onGeographyView={() => handleViewChange('geography')}
+        onBotanyView={() => handleViewChange('botany')}
+        onArtView={() => handleViewChange('art')}
+        onCulturalView={() => handleViewChange('cultural')}
+        onGraceCourtesyView={() => handleViewChange('grace-courtesy')}
+        onParentView={() => handleViewChange('parent')}
+        onProfilesView={() => handleViewChange('profiles')}
+      />
+    );
+  }
+
   if (!loading && !user && !isOnboarded) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
@@ -135,27 +157,7 @@ const AppLayout: React.FC = () => {
     return <OnboardingFlow onComplete={(profiles) => { completeOnboarding(profiles); setCurrentView('dashboard'); }} />;
   }
 
-  // View routing
-  if (currentView === 'home') {
-    return (
-      <Home 
-        onGetStarted={() => handleViewChange('dashboard')}
-        onSubscriptionView={() => handleViewChange('subscription')}
-        onDashboardView={() => handleViewChange('dashboard')}
-        onPracticalView={() => handleViewChange('practical')}
-        onSensorialView={() => handleViewChange('sensorial')}
-        onLanguageView={() => handleViewChange('language')}
-        onMathView={() => handleViewChange('math')}
-        onGeographyView={() => handleViewChange('geography')}
-        onBotanyView={() => handleViewChange('botany')}
-        onArtView={() => handleViewChange('art')}
-        onCulturalView={() => handleViewChange('cultural')}
-        onGraceCourtesyView={() => handleViewChange('grace-courtesy')}
-        onParentView={() => handleViewChange('parent')}
-        onProfilesView={() => handleViewChange('profiles')}
-      />
-    );
-  }
+  // View routing (home already handled above)
 
   if (currentView === 'grace-courtesy') {
     return (
