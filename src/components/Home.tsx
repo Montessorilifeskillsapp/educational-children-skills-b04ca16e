@@ -166,6 +166,12 @@ const Home: React.FC<HomeProps> = ({
                   <span className="font-medium">4.9/5 from 2,000+ reviews</span>
                 </div>
               </div>
+
+              {/* Social Follow */}
+              <div className="flex flex-col items-center gap-3 animate-fade-in">
+                <p className="text-sm font-medium text-slate-600">Follow us for daily Montessori inspiration</p>
+                <SocialLinks variant="dark" />
+              </div>
             </div>
           </div>
         </section>
