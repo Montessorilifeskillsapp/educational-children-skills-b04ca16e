@@ -15,11 +15,21 @@ export default defineConfig(({ mode }) => ({
     mode === 'development' && componentTagger(),
     mode === 'production' && VitePWA({
       registerType: "autoUpdate",
+      devOptions: { enabled: false },
       includeAssets: ["favicon.ico", "icon-192.png", "icon-512.png", "og.jpg"],
       workbox: {
         globPatterns: ["**/*.{js,css,html,ico,png,svg,jpg,webp,woff,woff2}"],
         navigateFallbackDenylist: [/^\/~oauth/],
         runtimeCaching: [
+          {
+            // HTML navigations: always try network first so new deploys win
+            urlPattern: ({ request }) => request.mode === "navigate",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "html",
+              networkTimeoutSeconds: 3,
+            },
+          },
           {
             urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
             handler: "CacheFirst",
