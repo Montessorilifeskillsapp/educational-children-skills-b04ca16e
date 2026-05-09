@@ -60,7 +60,7 @@ export const generateOrganizationSchema = (): StructuredData => ({
   url: 'https://montessorilifeskillsapp.com',
   logo: 'https://montessorilifeskillsapp.com/logo.png',
   sameAs: [
-    'https://facebook.com/montessori-life-skills',
+    'https://facebook.com/montessoristorybooks',
     'https://twitter.com/montessori_life',
     'https://instagram.com/montessori_life_skills'
   ],
