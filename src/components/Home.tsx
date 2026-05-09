@@ -66,16 +66,17 @@ const Home: React.FC<HomeProps> = ({
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100 relative overflow-hidden">
       <InstallBanner />
+
       {/* Animated Background Elements */}
-      <div className="absolute inset-0">
+      <div className="absolute inset-0 pointer-events-none">
         <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-br from-blue-400/20 to-purple-400/20 rounded-full blur-xl animate-pulse"></div>
         <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-br from-pink-400/20 to-red-400/20 rounded-full blur-lg animate-bounce"></div>
         <div className="absolute bottom-32 left-32 w-20 h-20 bg-gradient-to-br from-green-400/20 to-emerald-400/20 rounded-full blur-md animate-pulse"></div>
         <div className="absolute bottom-20 right-40 w-16 h-16 bg-gradient-to-br from-yellow-400/20 to-orange-400/20 rounded-full blur-sm animate-bounce"></div>
       </div>
 
-      {/* Navigation */}
-      <div className="absolute top-4 right-4 z-50 flex gap-2 items-start">
+      {/* Navigation — in normal flow so it never overlaps the install banner */}
+      <div className="relative z-50 flex justify-end gap-2 items-start px-4 pt-4">
         {!user && (
           <Link to="/auth">
             <Button variant="outline" className="bg-white/90 backdrop-blur-sm">
