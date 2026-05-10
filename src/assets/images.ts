@@ -7,6 +7,7 @@ import sandpaperLetters from './sandpaper-letters.jpg';
 import colorTablets from './color-tablets.jpg';
 import cleaningSet from './cleaning-set.jpg';
 import worldMap from './world-map.jpg';
+import graceCourtesyTableSetting from './grace-courtesy-table-setting.jpg';
 
 export const montessoriImages = {
   'pink-tower': pinkTower,
@@ -17,4 +18,5 @@ export const montessoriImages = {
   'color-tablets-box1': colorTablets,
   'child-broom-set': cleaningSet,
   'puzzle-maps': worldMap,
+  'grace-courtesy-table-setting': graceCourtesyTableSetting,
 };
