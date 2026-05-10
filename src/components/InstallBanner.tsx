@@ -17,6 +17,30 @@ const InstallBanner = () => {
   const navigate = useNavigate();
   const installButtonRef = useRef<HTMLButtonElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  // Expose banner height as --banner-h so the fixed header can sit below it
+  // and the hero padding can compensate, preventing overlap at all breakpoints.
+  useEffect(() => {
+    const el = bannerRef.current;
+    const root = document.documentElement;
+    if (!isVisible || !el) {
+      root.style.setProperty('--banner-h', '0px');
+      return;
+    }
+    const setVar = () => {
+      root.style.setProperty('--banner-h', `${Math.ceil(el.getBoundingClientRect().height)}px`);
+    };
+    setVar();
+    const ro = new ResizeObserver(setVar);
+    ro.observe(el);
+    window.addEventListener('resize', setVar);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', setVar);
+      root.style.setProperty('--banner-h', '0px');
+    };
+  }, [isVisible]);
 
   useEffect(() => {
     if (window.matchMedia("(display-mode: standalone)").matches) return;
