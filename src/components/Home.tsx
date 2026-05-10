@@ -211,10 +211,12 @@ const Home: React.FC<HomeProps> = ({
     ro.observe(el);
     window.addEventListener('resize', setVar);
     window.addEventListener('orientationchange', setVar);
+    window.addEventListener('banner-resize', setVar);
     return () => {
       ro.disconnect();
       window.removeEventListener('resize', setVar);
       window.removeEventListener('orientationchange', setVar);
+      window.removeEventListener('banner-resize', setVar);
     };
   }, []);
 
