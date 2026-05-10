@@ -275,7 +275,7 @@ const Home: React.FC<HomeProps> = ({
       {/* ─── Hero Section ─── */}
       <section
         className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden"
-        style={{ paddingTop: 'max(7rem, calc(var(--nav-h, 64px) + 1.5rem))' }}
+        style={{ paddingTop: 'calc(var(--banner-h, 0px) + var(--nav-h, 64px) + 2rem)' }}
       >
         {/* Soft gradient background */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-blue-50/50 to-white pointer-events-none" />
