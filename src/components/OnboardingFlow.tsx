@@ -74,11 +74,11 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const totalSteps = 3;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl">
         <CardHeader className="text-center">
           <div className="flex items-center justify-center mb-3">
-            <div className="bg-gradient-to-br from-purple-500 to-pink-500 p-3 rounded-full text-white">
+            <div className="bg-gradient-to-br from-primary/200 to-accent/200 p-3 rounded-full text-white">
               <Sparkles className="h-6 w-6" />
             </div>
           </div>
@@ -131,7 +131,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                       type="button"
                       onClick={() => setAvatar(a)}
                       className={`text-3xl p-2 rounded-lg border-2 transition ${
-                        avatar === a ? 'border-purple-500 bg-purple-50' : 'border-transparent hover:bg-gray-50'
+                        avatar === a ? 'border-primary/100 bg-primary/10' : 'border-transparent hover:bg-gray-50'
                       }`}
                       aria-label={`Avatar ${a}`}
                     >
@@ -160,14 +160,14 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                       disabled={disabled}
                       className={`relative text-left p-3 rounded-xl border-2 transition ${
                         selected
-                          ? 'border-purple-500 bg-purple-50'
+                          ? 'border-primary/100 bg-primary/10'
                           : disabled
                           ? 'border-gray-100 opacity-40 cursor-not-allowed'
-                          : 'border-gray-200 hover:border-purple-300 hover:bg-gray-50'
+                          : 'border-gray-200 hover:border-primary/40 hover:bg-gray-50'
                       }`}
                     >
                       {selected && (
-                        <div className="absolute top-2 right-2 bg-purple-500 text-white rounded-full p-0.5">
+                        <div className="absolute top-2 right-2 bg-primary/100 text-white rounded-full p-0.5">
                           <Check className="h-3 w-3" />
                         </div>
                       )}
@@ -191,7 +191,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                 <button
                   type="button"
                   onClick={() => setCurrentStep(0)}
-                  className="text-xs text-purple-600 hover:text-purple-800 underline font-medium"
+                  className="text-xs text-primary hover:text-primary underline font-medium"
                 >
                   Edit
                 </button>
@@ -202,7 +202,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
-                    className="text-xs text-purple-600 hover:text-purple-800 underline font-medium"
+                    className="text-xs text-primary hover:text-primary underline font-medium"
                   >
                     Edit
                   </button>
@@ -211,7 +211,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                   {focusAreas.map(id => {
                     const area = FOCUS_AREAS.find(a => a.id === id);
                     return (
-                      <span key={id} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                      <span key={id} className="px-3 py-1 bg-primary/15 text-primary rounded-full text-sm font-medium">
                         {area?.emoji} {area?.label}
                       </span>
                     );
@@ -245,7 +245,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             ) : (
-              <Button onClick={handleComplete} size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 font-semibold shadow-lg">
+              <Button onClick={handleComplete} size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent font-semibold shadow-lg">
                 <Check className="h-4 w-4 mr-2" />
                 Save plan
               </Button>
@@ -268,11 +268,11 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
 
           {savedProfile && (
             <div className="space-y-4 py-2">
-              <div className="flex items-center gap-3 p-3 bg-purple-50 rounded-lg">
+              <div className="flex items-center gap-3 p-3 bg-primary/10 rounded-lg">
                 <span className="text-4xl">{savedProfile.avatar}</span>
                 <div>
-                  <div className="font-semibold text-purple-900">{savedProfile.name}</div>
-                  <div className="text-sm text-purple-700">Age {savedProfile.age}</div>
+                  <div className="font-semibold text-primary">{savedProfile.name}</div>
+                  <div className="text-sm text-primary">Age {savedProfile.age}</div>
                 </div>
               </div>
 
@@ -284,7 +284,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                   {savedProfile.interests.map(id => {
                     const area = FOCUS_AREAS.find(a => a.id === id);
                     return (
-                      <span key={id} className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
+                      <span key={id} className="px-3 py-1 bg-primary/15 text-primary rounded-full text-sm font-medium">
                         {area?.emoji} {area?.label}
                       </span>
                     );
@@ -297,7 +297,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
           <DialogFooter>
             <Button
               onClick={handleFinish}
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+              className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
               size="lg"
             >
               Go to dashboard

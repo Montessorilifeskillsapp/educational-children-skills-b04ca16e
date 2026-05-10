@@ -27,13 +27,13 @@ const PRACTICAL_LIFE_IDS = [
 
 const FOCUS_AREA_META: Record<string, { label: string; emoji: string; border: string; text: string; pct: string; ids: () => string[]; onView?: string }> = {
   'practical-life':  { label: 'Practical Life',     emoji: '🧺', border: 'border-amber-200',  text: 'text-amber-800',  pct: 'text-amber-700',  ids: () => PRACTICAL_LIFE_IDS,                onView: 'onPracticalLifeView' },
-  'sensorial':       { label: 'Sensorial',          emoji: '🎨', border: 'border-pink-200',   text: 'text-pink-800',   pct: 'text-pink-700',   ids: () => Object.keys(sensorialSkills),      onView: 'onSensorialView' },
+  'sensorial':       { label: 'Sensorial',          emoji: '🎨', border: 'border-accent/25',   text: 'text-accent',   pct: 'text-accent',   ids: () => Object.keys(sensorialSkills),      onView: 'onSensorialView' },
   'language':        { label: 'Language',           emoji: '📚', border: 'border-yellow-200', text: 'text-yellow-800', pct: 'text-yellow-700', ids: () => Object.keys(languageSkillsData),   onView: 'onLanguageView' },
   'math':            { label: 'Math',               emoji: '🔢', border: 'border-red-200',    text: 'text-red-800',    pct: 'text-red-700',    ids: () => Object.keys(mathSkillsData),       onView: 'onMathView' },
   'geography':       { label: 'Geography',          emoji: '🌍', border: 'border-blue-200',   text: 'text-blue-800',   pct: 'text-blue-700',   ids: () => Object.keys(geographySkillsData),  onView: 'onGeographyView' },
   'botany':          { label: 'Botany',             emoji: '🌱', border: 'border-green-200',  text: 'text-green-800',  pct: 'text-green-700',  ids: () => Object.keys(botanySkillsData),     onView: 'onBotanyView' },
   'art':             { label: 'Art',                emoji: '🎭', border: 'border-orange-200', text: 'text-orange-800', pct: 'text-orange-700', ids: () => Object.keys(artSkillsData),        onView: 'onArtView' },
-  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', border: 'border-violet-200', text: 'text-violet-800', pct: 'text-violet-700', ids: () => Object.keys(graceAndCourtesySkills) },
+  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', border: 'border-primary/25', text: 'text-primary', pct: 'text-primary', ids: () => Object.keys(graceAndCourtesySkills) },
 };
 
 interface DashboardProps {
@@ -182,10 +182,10 @@ const Dashboard: React.FC<DashboardProps> = ({
           });
           const badges = [
             { id: 'first-step',   label: 'First Step',     desc: 'Complete 1 activity',     icon: Sparkles, earned: totalDone >= 1,  color: 'from-yellow-400 to-amber-500' },
-            { id: 'five-strong',  label: 'Five Strong',    desc: 'Complete 5 activities',   icon: Star,     earned: totalDone >= 5,  color: 'from-blue-400 to-indigo-500' },
-            { id: 'ten-explorer', label: 'Ten Explorer',   desc: 'Complete 10 activities',  icon: Medal,    earned: totalDone >= 10, color: 'from-purple-400 to-pink-500' },
+            { id: 'five-strong',  label: 'Five Strong',    desc: 'Complete 5 activities',   icon: Star,     earned: totalDone >= 5,  color: 'from-blue-400 to-primary/200' },
+            { id: 'ten-explorer', label: 'Ten Explorer',   desc: 'Complete 10 activities',  icon: Medal,    earned: totalDone >= 10, color: 'from-primary to-accent/200' },
             { id: 'streak-3',     label: '3-Day Streak',   desc: 'Practice 3 days in a row', icon: Flame,   earned: streak >= 3,     color: 'from-orange-400 to-red-500' },
-            { id: 'streak-7',     label: 'Week Streak',    desc: 'Practice 7 days in a row', icon: Flame,   earned: streak >= 7,     color: 'from-red-500 to-rose-600' },
+            { id: 'streak-7',     label: 'Week Streak',    desc: 'Practice 7 days in a row', icon: Flame,   earned: streak >= 7,     color: 'from-red-500 to-accent' },
             { id: 'area-master',  label: 'Focus Master',   desc: 'Complete a full focus area', icon: Trophy, earned: masteredAreas.length >= 1, color: 'from-emerald-400 to-green-600' },
           ];
           const earnedCount = badges.filter(b => b.earned).length;
@@ -211,14 +211,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </Card>
 
                 {/* Badges card */}
-                <Card className="lg:col-span-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50">
+                <Card className="lg:col-span-2 border-primary/25 bg-gradient-to-br from-primary/20 to-accent/20">
                   <CardHeader className="pb-2">
                     <CardTitle className="flex items-center justify-between text-base">
-                      <span className="flex items-center gap-2 text-purple-800">
+                      <span className="flex items-center gap-2 text-primary">
                         <Award className="h-5 w-5" />
                         Achievements
                       </span>
-                      <span className="text-xs font-mono text-purple-700">
+                      <span className="text-xs font-mono text-primary">
                         {earnedCount} / {badges.length}
                       </span>
                     </CardTitle>
@@ -258,7 +258,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {activeProfile?.interests && activeProfile.interests.length > 0 && (
           <section className="mb-8">
             <div className="flex items-center gap-2 mb-4">
-              <Target className="h-5 w-5 text-purple-600" />
+              <Target className="h-5 w-5 text-primary" />
               <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary}`}>
                 {activeProfile.name}'s Focus Plan
               </h2>
@@ -381,22 +381,22 @@ const Dashboard: React.FC<DashboardProps> = ({
             
             {onSensorialView && (
               <Card 
-                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.sensorial} cursor-pointer hover:shadow-lg transition-all border-pink-200`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.sensorial} cursor-pointer hover:shadow-lg transition-all border-accent/25`}
                 onClick={onSensorialView}
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">👁️</span>
                     <div>
-                      <h3 className="text-pink-800">Sensorial Skills</h3>
+                      <h3 className="text-accent">Sensorial Skills</h3>
                       <p className="text-sm text-gray-700">Refine the senses</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="bg-pink-100/50 rounded-lg p-3 border border-pink-200">
-                    <p className="text-xs font-semibold text-pink-900 mb-1">Montessori Principle:</p>
-                    <p className="text-xs text-pink-800 leading-relaxed">
+                  <div className="bg-accent/15/50 rounded-lg p-3 border border-accent/25">
+                    <p className="text-xs font-semibold text-accent mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-accent leading-relaxed">
                       <strong>Why:</strong> Dr. Montessori believed the senses are the gateway to intelligence. Sensorial materials isolate specific qualities (size, color, texture, sound, weight) to sharpen perception and develop powers of observation. This refined sensory awareness forms the foundation for mathematical thinking, scientific exploration, and artistic expression.
                     </p>
                   </div>
@@ -529,22 +529,22 @@ const Dashboard: React.FC<DashboardProps> = ({
             )}
             {onCulturalView && (
               <Card 
-                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.cultural} cursor-pointer hover:shadow-lg transition-all border-violet-200`}
+                className={`${montessoriTheme.card.base} ${montessoriTheme.backgrounds.cultural} cursor-pointer hover:shadow-lg transition-all border-primary/25`}
                 onClick={onCulturalView}
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🏛️</span>
                     <div>
-                      <h3 className="text-violet-800">Cultural Studies</h3>
+                      <h3 className="text-primary">Cultural Studies</h3>
                       <p className="text-sm text-gray-700">History, music, science & world cultures</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
-                  <div className="bg-violet-100/50 rounded-lg p-3 border border-violet-200">
-                    <p className="text-xs font-semibold text-violet-900 mb-1">Montessori Principle:</p>
-                    <p className="text-xs text-violet-800 leading-relaxed">
+                  <div className="bg-primary/15/50 rounded-lg p-3 border border-primary/25">
+                    <p className="text-xs font-semibold text-primary mb-1">Montessori Principle:</p>
+                    <p className="text-xs text-primary leading-relaxed">
                       <strong>Why:</strong> Cultural studies unite all areas of knowledge into Montessori's vision of cosmic education. Through history, music, science, and world cultures, children discover their place in the universe and develop respect for human achievement and diversity across time and place.
                     </p>
                   </div>
@@ -560,17 +560,17 @@ const Dashboard: React.FC<DashboardProps> = ({
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <Card 
-              className="cursor-pointer hover:shadow-xl transition-all border-2 border-purple-300 bg-gradient-to-br from-purple-50 to-pink-50 transform hover:scale-105"
+              className="cursor-pointer hover:shadow-xl transition-all border-2 border-primary/40 bg-gradient-to-br from-primary/20 to-accent/20 transform hover:scale-105"
               onClick={onSubscriptionView}
             >
               <CardHeader className="pb-3">
                 <CardTitle className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
+                  <div className="p-2 bg-gradient-to-r from-primary/200 to-accent/200 rounded-full">
                     <Crown className="h-6 w-6 text-white" />
                   </div>
                   <div>
-                    <h3 className="text-purple-700 font-bold">Premium Plans</h3>
-                    <p className="text-sm text-purple-600">Unlock all features & content</p>
+                    <h3 className="text-primary font-bold">Premium Plans</h3>
+                    <p className="text-sm text-primary">Unlock all features & content</p>
                   </div>
                 </CardTitle>
               </CardHeader>
@@ -593,14 +593,14 @@ const Dashboard: React.FC<DashboardProps> = ({
 
             {onProfilesView && (
               <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-indigo-200 bg-indigo-50`}
+                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-primary/25 bg-primary/10`}
                 onClick={onProfilesView}
               >
                 <CardHeader className="pb-3">
                   <CardTitle className="flex items-center gap-3">
-                    <Users className="h-6 w-6 text-indigo-600" />
+                    <Users className="h-6 w-6 text-primary" />
                     <div>
-                      <h3 className="text-indigo-700">Child Profiles</h3>
+                      <h3 className="text-primary">Child Profiles</h3>
                       <p className="text-sm text-gray-600">Manage profiles</p>
                     </div>
                   </CardTitle>

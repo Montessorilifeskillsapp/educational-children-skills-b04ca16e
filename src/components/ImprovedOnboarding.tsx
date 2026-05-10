@@ -46,9 +46,9 @@ const ImprovedOnboarding: React.FC<ImprovedOnboardingProps> = ({ onComplete }) =
                 Children learn practical life skills they can use every day, building genuine independence.
               </p>
             </div>
-            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <h3 className="font-semibold text-purple-800 mb-2">Self-Directed Learning</h3>
-              <p className="text-sm text-purple-700">
+            <div className="bg-primary/10 p-4 rounded-lg border border-primary/25">
+              <h3 className="font-semibold text-primary mb-2">Self-Directed Learning</h3>
+              <p className="text-sm text-primary">
                 Activities follow the child's natural development and interests, fostering intrinsic motivation.
               </p>
             </div>
@@ -124,9 +124,9 @@ const ImprovedOnboarding: React.FC<ImprovedOnboardingProps> = ({ onComplete }) =
                 Repetition helps build muscle memory and confidence.
               </p>
             </div>
-            <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-              <h3 className="font-semibold text-purple-800 mb-2">Prepare the Environment</h3>
-              <p className="text-sm text-purple-700">
+            <div className="bg-primary/10 p-4 rounded-lg border border-primary/25">
+              <h3 className="font-semibold text-primary mb-2">Prepare the Environment</h3>
+              <p className="text-sm text-primary">
                 Create a calm, organized space for activities.
               </p>
             </div>
@@ -137,8 +137,8 @@ const ImprovedOnboarding: React.FC<ImprovedOnboardingProps> = ({ onComplete }) =
               </p>
             </div>
           </div>
-          <div className="bg-gradient-to-r from-pink-50 to-rose-50 p-4 rounded-lg border border-pink-200">
-            <p className="text-pink-700 font-medium">
+          <div className="bg-gradient-to-r from-accent/20 to-accent/20 p-4 rounded-lg border border-accent/25">
+            <p className="text-accent font-medium">
               💝 Ready to unlock even more activities? Upgrade anytime to access 20+ premium skills!
             </p>
           </div>
@@ -164,7 +164,7 @@ const ImprovedOnboarding: React.FC<ImprovedOnboardingProps> = ({ onComplete }) =
   const progress = ((currentStep + 1) / steps.length) * 100;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-primary/20 to-primary/20 flex items-center justify-center p-4">
       <Card className="w-full max-w-2xl shadow-xl">
         <CardHeader className="text-center">
           <div className="flex justify-center mb-4">

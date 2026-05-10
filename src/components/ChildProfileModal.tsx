@@ -130,7 +130,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
                   onClick={() => toggleInterest(interest)}
                   className={`px-3 py-1 rounded-full text-sm transition-colors ${
                     formData.interests.includes(interest)
-                      ? 'bg-purple-100 text-purple-700 border border-purple-300'
+                      ? 'bg-primary/15 text-primary border border-primary/40'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >

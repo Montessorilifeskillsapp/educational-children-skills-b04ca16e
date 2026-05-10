@@ -46,15 +46,15 @@ export const montessoriTheme = {
     dashboard: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
     skills: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
     shop: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
-    parent: 'bg-gradient-to-br from-rose-50 via-pink-50 to-pink-100',
+    parent: 'bg-gradient-to-br from-accent/20 via-accent/20 to-accent/20',
     profile: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
     practical: 'bg-gradient-to-br from-amber-50 via-amber-100 to-stone-100',
-    sensorial: 'bg-gradient-to-br from-pink-50 via-rose-50 to-pink-100',
-    math: 'bg-gradient-to-br from-red-50 via-rose-50 to-red-100',
+    sensorial: 'bg-gradient-to-br from-accent/20 via-accent/20 to-accent/20',
+    math: 'bg-gradient-to-br from-red-50 via-accent/20 to-red-100',
     geography: 'bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50',
     botany: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
     art: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
-    cultural: 'bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-50'
+    cultural: 'bg-gradient-to-br from-primary/20 via-primary/20 to-primary/20'
   },
   
   // Card styling for consistency
@@ -62,7 +62,7 @@ export const montessoriTheme = {
     base: 'bg-white border-2 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg',
     primary: 'border-amber-200',
     secondary: 'border-green-200', 
-    accent: 'border-purple-200',
+    accent: 'border-primary/25',
     success: 'border-green-300 bg-green-50',
     warning: 'border-amber-300 bg-amber-50',
     info: 'border-blue-300 bg-blue-50'
@@ -72,7 +72,7 @@ export const montessoriTheme = {
   button: {
     primary: 'bg-amber-600 hover:bg-amber-700 text-white',
     secondary: 'bg-green-600 hover:bg-green-700 text-white',
-    accent: 'bg-purple-600 hover:bg-purple-700 text-white',
+    accent: 'bg-primary hover:bg-primary text-white',
     outline: 'border-2 border-amber-600 text-amber-700 hover:bg-amber-50'
   },
   
@@ -80,7 +80,7 @@ export const montessoriTheme = {
   text: {
     primary: 'text-amber-900',
     secondary: 'text-green-800',
-    accent: 'text-purple-800',
+    accent: 'text-primary',
     muted: 'text-gray-600',
     light: 'text-gray-500'
   }

@@ -22,7 +22,7 @@ export const SKILL_CATEGORIES: Record<string, SkillCategory> = {
   'fine-motor': {
     name: 'Fine Motor Skills',
     icon: '✋',
-    color: 'bg-purple-100 border-purple-300 text-purple-800',
+    color: 'bg-primary/15 border-primary/40 text-primary',
     description: 'Hand coordination and dexterity development'
   },
   'environment-care': {
@@ -46,7 +46,7 @@ export const SKILL_CATEGORIES: Record<string, SkillCategory> = {
   'art': {
     name: 'Art Skills',
     icon: '🎨',
-    color: 'bg-pink-100 border-pink-300 text-pink-800',
+    color: 'bg-accent/15 border-accent/40 text-accent',
     description: 'Creative expression through drawing, painting, and color theory'
   }
 };

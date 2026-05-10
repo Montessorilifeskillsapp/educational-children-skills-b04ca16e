@@ -116,7 +116,7 @@ const AppLayout: React.FC = () => {
 
   if (!loading && !user && !isOnboarded) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center p-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
             <CardTitle className="text-2xl mb-2">Welcome to Montessori Learning</CardTitle>
@@ -124,7 +124,7 @@ const AppLayout: React.FC = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <Button 
-              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700" 
+              className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent" 
               size="lg"
               onClick={() => completeOnboarding([])}
             >
@@ -274,7 +274,7 @@ const AppLayout: React.FC = () => {
 
   if (currentView === 'profiles') {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+      <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 p-4">
         <div className="max-w-4xl mx-auto">
           <ProfileSelector
             profiles={profiles}
@@ -384,9 +384,9 @@ const AppLayout: React.FC = () => {
 
   if (!activeProfile) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-50 flex items-center justify-center">
+      <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
           <p className="text-gray-600">Loading your profile...</p>
         </div>
       </div>

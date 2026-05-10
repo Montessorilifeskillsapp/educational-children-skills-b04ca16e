@@ -82,14 +82,14 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     { 
       name: 'Grace & Courtesy', 
       icon: '🤝', 
-      color: 'bg-purple-100 border-purple-300 text-purple-800', 
+      color: 'bg-primary/15 border-primary/40 text-primary', 
       description: 'Building social skills and respectful interactions' 
     } :
     artSkill ? 
     { 
       name: 'Art Skills', 
       icon: '🎨', 
-      color: 'bg-pink-100 border-pink-300 text-pink-800', 
+      color: 'bg-accent/15 border-accent/40 text-accent', 
       description: 'Creative expression through drawing, painting, and color theory' 
     } :
     geographySkill ? 
@@ -103,7 +103,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     { 
       name: 'Cultural Studies', 
       icon: '🏛️', 
-      color: 'bg-violet-100 border-violet-300 text-violet-800', 
+      color: 'bg-primary/15 border-primary/40 text-primary', 
       description: 'Exploring history, music, science, and world cultures' 
     } :
     languageSkill ?
@@ -135,7 +135,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   function getCategoryColor(categoryName: string) {
     switch (categoryName) {
       case 'Visual Discrimination': return 'bg-blue-100 border-blue-300 text-blue-800';
-      case 'Auditory Discrimination': return 'bg-purple-100 border-purple-300 text-purple-800';
+      case 'Auditory Discrimination': return 'bg-primary/15 border-primary/40 text-primary';
       case 'Tactile Discrimination': return 'bg-green-100 border-green-300 text-green-800';
       case 'Stereognostic': return 'bg-orange-100 border-orange-300 text-orange-800';
       default: return 'bg-gray-100 border-gray-300 text-gray-800';

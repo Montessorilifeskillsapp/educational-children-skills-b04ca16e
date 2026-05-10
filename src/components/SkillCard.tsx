@@ -32,7 +32,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
   const getCategoryColor = (category: string, skillColor?: string) => {
     // If skill has specific color, use it with vibrant styling (no borders)
     if (skillColor === 'pink') {
-      return 'bg-pink-200 hover:bg-pink-300 shadow-pink-200';
+      return 'bg-accent/25 hover:bg-accent/40 shadow-accent';
     }
     if (skillColor === 'red') {
       return 'bg-red-200 hover:bg-red-300 shadow-red-200';
@@ -50,7 +50,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
       case 'Geography': return 'bg-blue-50';
       case 'Botany': return 'bg-green-50';
       case 'Visual Discrimination': return 'bg-blue-50';
-      case 'Auditory Discrimination': return 'bg-indigo-50';
+      case 'Auditory Discrimination': return 'bg-primary/10';
       case 'Tactile Discrimination': return 'bg-orange-50';
       case 'Stereognostic': return 'bg-teal-50';
       default: return 'bg-gray-50';
@@ -78,7 +78,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
 
   const getTitleColor = (skillColor?: string) => {
     if (skillColor === 'pink') {
-      return 'text-pink-800 font-bold';
+      return 'text-accent font-bold';
     }
     if (skillColor === 'red') {
       return 'text-red-800 font-bold';

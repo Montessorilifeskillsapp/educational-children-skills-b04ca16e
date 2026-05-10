@@ -51,7 +51,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
       id: 'mastery', 
       title: 'Mastery', 
       icon: '🏆', 
-      color: 'bg-purple-100 border-purple-300 text-purple-800',
+      color: 'bg-primary/15 border-primary/40 text-primary',
       data: learningProcess.mastery 
     },
     { 
@@ -188,13 +188,13 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {'indicators' in phase.data && phase.data.indicators && (
                   <div>
                     <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
-                      <Target className="h-4 w-4 text-purple-600" />
+                      <Target className="h-4 w-4 text-primary" />
                       Indicators
                     </h4>
                     <ul className="space-y-2">
                       {phase.data.indicators.map((indicator, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <Target className="h-3 w-3 text-purple-600 mt-1 flex-shrink-0" />
+                          <Target className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
                           <span className="text-gray-700 text-sm">{indicator}</span>
                         </li>
                       ))}
@@ -224,13 +224,13 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {'activities' in phase.data && phase.data.activities && (
                   <div>
                     <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
-                      <BookOpen className="h-4 w-4 text-indigo-600" />
+                      <BookOpen className="h-4 w-4 text-primary" />
                       Activities
                     </h4>
                     <ul className="space-y-2">
                       {phase.data.activities.map((activity, index) => (
                         <li key={index} className="flex items-start gap-2">
-                          <BookOpen className="h-3 w-3 text-indigo-600 mt-1 flex-shrink-0" />
+                          <BookOpen className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
                           <span className="text-gray-700 text-sm">{activity}</span>
                         </li>
                       ))}
