@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
+import ThemeToggle from './ThemeToggle';
 import { useAuthContext } from '@/components/AuthProvider';
 import {
   Menu, BookOpen, Settings, Home, Brain,
@@ -57,6 +58,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     <div className="relative">
       <div className="flex items-center space-x-2 mb-2">
         <SecurityStatusIndicator />
+        <ThemeToggle />
       </div>
       <Button
         onClick={() => setIsOpen(!isOpen)}
