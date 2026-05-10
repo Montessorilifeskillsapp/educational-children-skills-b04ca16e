@@ -17,6 +17,32 @@ const InstallBanner = () => {
   const navigate = useNavigate();
   const installButtonRef = useRef<HTMLButtonElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
+  const bannerRef = useRef<HTMLDivElement>(null);
+
+  // Expose banner height as --banner-h so the fixed header can sit below it
+  // and the hero padding can compensate, preventing overlap at all breakpoints.
+  useEffect(() => {
+    const el = bannerRef.current;
+    const root = document.documentElement;
+    if (!isVisible || !el) {
+      root.style.setProperty('--banner-h', '0px');
+      return;
+    }
+    const setVar = () => {
+      root.style.setProperty('--banner-h', `${Math.ceil(el.getBoundingClientRect().height)}px`);
+      window.dispatchEvent(new Event('banner-resize'));
+    };
+    setVar();
+    const ro = new ResizeObserver(setVar);
+    ro.observe(el);
+    window.addEventListener('resize', setVar);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', setVar);
+      root.style.setProperty('--banner-h', '0px');
+      window.dispatchEvent(new Event('banner-resize'));
+    };
+  }, [isVisible]);
 
   useEffect(() => {
     if (window.matchMedia("(display-mode: standalone)").matches) return;
@@ -90,10 +116,12 @@ const InstallBanner = () => {
 
   return (
     <div
+      ref={bannerRef}
       role="region"
       aria-label="Install app banner"
       aria-live="polite"
-      className="relative z-50 p-3 animate-fade-in"
+      className="fixed top-0 left-0 right-0 z-[60] p-3 animate-fade-in"
+      style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
     >
       <div className="max-w-md mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-purple-100 p-4 flex items-center gap-3">
         <div

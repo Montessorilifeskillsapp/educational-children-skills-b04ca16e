@@ -202,18 +202,21 @@ const Home: React.FC<HomeProps> = ({
     const el = headerRef.current;
     if (!el) return;
     const setVar = () => {
-      const h = el.getBoundingClientRect().height;
-      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`);
+      // Use bottom edge so --nav-h includes any banner offset above the header
+      const bottom = el.getBoundingClientRect().bottom;
+      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(Math.max(0, bottom))}px`);
     };
     setVar();
     const ro = new ResizeObserver(setVar);
     ro.observe(el);
     window.addEventListener('resize', setVar);
     window.addEventListener('orientationchange', setVar);
+    window.addEventListener('banner-resize', setVar);
     return () => {
       ro.disconnect();
       window.removeEventListener('resize', setVar);
       window.removeEventListener('orientationchange', setVar);
+      window.removeEventListener('banner-resize', setVar);
     };
   }, []);
 
@@ -236,7 +239,11 @@ const Home: React.FC<HomeProps> = ({
       <InstallBanner />
 
       {/* ─── Sticky Nav ─── */}
-      <header ref={headerRef} className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
+      <header
+        ref={headerRef}
+        style={{ top: 'var(--banner-h, 0px)' }}
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
