@@ -90,10 +90,12 @@ const InstallBanner = () => {
 
   return (
     <div
+      ref={bannerRef}
       role="region"
       aria-label="Install app banner"
       aria-live="polite"
-      className="relative z-50 p-3 animate-fade-in"
+      className="fixed top-0 left-0 right-0 z-[60] p-3 animate-fade-in"
+      style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
     >
       <div className="max-w-md mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-purple-100 p-4 flex items-center gap-3">
         <div
