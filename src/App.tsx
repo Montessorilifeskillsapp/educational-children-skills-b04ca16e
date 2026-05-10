@@ -21,6 +21,7 @@ import HelpPage from "./pages/HelpPage";
 import AboutPage from "./pages/AboutPage";
 import InstallPage from "./pages/InstallPage";
 import NotFound from "./pages/NotFound";
+import LandingPage from "./pages/LandingPage";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
 import { useEffect } from "react";
@@ -64,6 +65,7 @@ const App = () => {
                           <Route path="/help" element={<HelpPage />} />
                           <Route path="/about" element={<AboutPage />} />
                           <Route path="/install" element={<InstallPage />} />
+                          <Route path="/welcome" element={<LandingPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                     </BrowserRouter>
