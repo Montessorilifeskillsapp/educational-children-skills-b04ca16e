@@ -188,11 +188,33 @@ const Home: React.FC<HomeProps> = ({
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Safeguard: measure fixed nav height and expose as --nav-h so the hero
+  // can guarantee enough top padding to never be overlapped at any breakpoint.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const setVar = () => {
+      const h = el.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`);
+    };
+    setVar();
+    const ro = new ResizeObserver(setVar);
+    ro.observe(el);
+    window.addEventListener('resize', setVar);
+    window.addEventListener('orientationchange', setVar);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', setVar);
+      window.removeEventListener('orientationchange', setVar);
+    };
   }, []);
 
   const handleCurriculumClick = (name: string) => {
