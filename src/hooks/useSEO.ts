@@ -20,7 +20,7 @@ export const useSEO = ({
   useEffect(() => {
     // Update title
     if (title) {
-      document.title = `${title} | Montessori Skills Guide`;
+      document.title = `${title} | Montessori Life Skills`;
     }
 
     // Update meta description
@@ -94,7 +94,7 @@ export const SEO_CONFIG = {
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
-      "name": "Montessori Skills Guide",
+      "name": "Montessori Life Skills",
       "description": "Montessori-based learning app for children's practical life skills development",
       "url": "https://montessorilifeskillsapp.com",
       "applicationCategory": "EducationalApplication",

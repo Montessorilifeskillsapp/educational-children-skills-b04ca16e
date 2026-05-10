@@ -822,7 +822,7 @@ const Home: React.FC<HomeProps> = ({
                 <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
-                <span className="font-bold text-white text-lg">Montessori Skills Guide</span>
+                <span className="font-bold text-white text-lg">Montessori Life Skills</span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
                 Helping parents and educators teach essential life skills to children ages 2–6 using the proven Montessori method.
