@@ -30,6 +30,7 @@ const InstallBanner = () => {
     }
     const setVar = () => {
       root.style.setProperty('--banner-h', `${Math.ceil(el.getBoundingClientRect().height)}px`);
+      window.dispatchEvent(new Event('banner-resize'));
     };
     setVar();
     const ro = new ResizeObserver(setVar);
@@ -39,6 +40,7 @@ const InstallBanner = () => {
       ro.disconnect();
       window.removeEventListener('resize', setVar);
       root.style.setProperty('--banner-h', '0px');
+      window.dispatchEvent(new Event('banner-resize'));
     };
   }, [isVisible]);
 
