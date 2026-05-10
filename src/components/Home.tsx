@@ -202,9 +202,9 @@ const Home: React.FC<HomeProps> = ({
     const el = headerRef.current;
     if (!el) return;
     const setVar = () => {
-      // Use bottom edge so --nav-h includes any banner offset above the header
-      const bottom = el.getBoundingClientRect().bottom;
-      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(Math.max(0, bottom))}px`);
+      // Store header's own height so hero can compose: banner + nav + gap.
+      const h = el.offsetHeight;
+      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`);
     };
     setVar();
     const ro = new ResizeObserver(setVar);
