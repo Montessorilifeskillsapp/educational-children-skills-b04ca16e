@@ -81,7 +81,7 @@ const NotificationSettings: React.FC = () => {
 
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <AlertCircle className="h-5 w-5 text-purple-500" />
+              <AlertCircle className="h-5 w-5 text-primary0" />
               <div>
                 <Label className={montessoriTheme.text.primary}>Activity Suggestions</Label>
                 <p className={`text-sm ${montessoriTheme.text.muted}`}>Personalized activity recommendations</p>

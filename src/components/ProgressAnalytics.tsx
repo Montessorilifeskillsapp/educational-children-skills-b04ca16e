@@ -98,7 +98,7 @@ const ProgressAnalytics: React.FC = () => {
             <span>Master 5 new sensorial skills</span>
             <Badge variant="secondary">3/5</Badge>
           </div>
-          <div className="flex justify-between items-center p-3 bg-purple-50 rounded-lg">
+          <div className="flex justify-between items-center p-3 bg-primary/10 rounded-lg">
             <span>Read 10 story books together</span>
             <Badge variant="default">12/10</Badge>
           </div>

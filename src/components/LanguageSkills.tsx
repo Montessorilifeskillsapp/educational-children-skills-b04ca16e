@@ -76,9 +76,9 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
                 <div className="text-2xl font-bold text-green-600">{skills.filter(s => s.difficulty === 'Intermediate').length}</div>
                 <div className="text-sm text-green-700">Intermediate Activities</div>
               </div>
-              <div className="bg-purple-50 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-purple-600">{skills.filter(s => s.difficulty === 'Advanced').length}</div>
-                <div className="text-sm text-purple-700">Advanced Activities</div>
+              <div className="bg-primary/10 p-3 rounded-lg">
+                <div className="text-2xl font-bold text-primary">{skills.filter(s => s.difficulty === 'Advanced').length}</div>
+                <div className="text-sm text-primary">Advanced Activities</div>
               </div>
             </div>
           </div>

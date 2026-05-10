@@ -104,7 +104,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 // Add to cart action
                 onAddToCart(product);
               }}
-              className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
+              className="w-full bg-primary hover:bg-primary text-white font-semibold py-2 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105"
               size="lg"
               aria-label={`Add ${product.name} to shopping cart`}
             >
@@ -116,7 +116,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
               <Button 
                 onClick={() => onOpenLink(product.amazonLink)}
                 variant="outline"
-                className="w-full border-purple-200 text-purple-700 hover:bg-purple-50"
+                className="w-full border-primary/25 text-primary hover:bg-primary/10"
                 aria-label={`View ${product.name} on Amazon (opens in new tab)`}
               >
                 <ExternalLink className="w-4 h-4 mr-2" aria-hidden="true" />

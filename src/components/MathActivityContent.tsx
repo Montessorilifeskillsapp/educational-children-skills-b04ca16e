@@ -22,7 +22,7 @@ interface MathActivityContentProps {
 
 const MathActivityContent: React.FC<MathActivityContentProps> = ({ skill, onBack }) => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-primary/20 p-4">
       <div className="max-w-4xl mx-auto">
         <BackButton onClick={onBack} label="Back to Math Skills" />
 
@@ -98,9 +98,9 @@ const MathActivityContent: React.FC<MathActivityContentProps> = ({ skill, onBack
 
         {/* Objectives & Extensions */}
         <div className="grid md:grid-cols-2 gap-6">
-          <Card className="border-2 border-purple-300">
+          <Card className="border-2 border-primary/40">
             <CardHeader>
-              <CardTitle className="text-purple-900 flex items-center gap-2">
+              <CardTitle className="text-primary flex items-center gap-2">
                 <span className="text-2xl">🎯</span>
                 Learning Objectives
               </CardTitle>
@@ -108,8 +108,8 @@ const MathActivityContent: React.FC<MathActivityContentProps> = ({ skill, onBack
             <CardContent>
               <ul className="space-y-2">
                 {skill.objectives.map((objective, index) => (
-                  <li key={index} className="flex items-center gap-2 text-purple-800">
-                    <span className="text-purple-500">•</span>
+                  <li key={index} className="flex items-center gap-2 text-primary">
+                    <span className="text-primary0">•</span>
                     {objective}
                   </li>
                 ))}

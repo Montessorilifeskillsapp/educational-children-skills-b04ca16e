@@ -86,14 +86,14 @@ const PaymentSuccessPage: React.FC = () => {
             </p>
             
             {subscribed ? (
-              <div className="bg-gradient-to-r from-purple-100 to-pink-100 p-4 rounded-lg border border-purple-200">
+              <div className="bg-gradient-to-r from-primary/20 to-accent/20 p-4 rounded-lg border border-primary/25">
                 <div className="flex items-center justify-center gap-2 mb-2">
-                  <Crown className="w-5 h-5 text-purple-600" />
-                  <span className="font-semibold text-purple-800">
+                  <Crown className="w-5 h-5 text-primary" />
+                  <span className="font-semibold text-primary">
                     Welcome to {subscription_tier ?? planLabel}!
                   </span>
                 </div>
-                <p className="text-sm text-purple-700">
+                <p className="text-sm text-primary">
                   You now have access to all premium Montessori activities and content.
                 </p>
               </div>

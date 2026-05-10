@@ -74,13 +74,13 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: 
 
 const curriculumAreas = [
   { name: 'Practical Life', icon: Utensils, color: 'from-amber-500 to-orange-500', image: montessoriImages['pouring-set'] },
-  { name: 'Sensorial', icon: Brain, color: 'from-pink-500 to-rose-500', image: sensorialImages['pink-tower'] },
-  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-rose-600', image: mathImages['golden-beads'] },
+  { name: 'Sensorial', icon: Brain, color: 'from-accent/200 to-accent/200', image: sensorialImages['pink-tower'] },
+  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-accent', image: mathImages['golden-beads'] },
   { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: languageImages['sandpaper-letters'] },
   { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: geographyImages['continents'] },
   { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: botanyImages['flower-parts'] },
   { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: sensorialImages['color-tablets'] },
-  { name: 'Grace & Courtesy', icon: HandHelping, color: 'from-violet-500 to-purple-600', image: montessoriImages['grace-courtesy-table-setting'] },
+  { name: 'Grace & Courtesy', icon: HandHelping, color: 'from-primary/200 to-primary', image: montessoriImages['grace-courtesy-table-setting'] },
 ];
 
 const howItWorks = [
@@ -247,7 +247,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center">
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
               <span className={`font-bold text-lg transition-colors ${scrolled ? 'text-slate-800' : 'text-slate-800'}`}>
@@ -263,7 +263,7 @@ const Home: React.FC<HomeProps> = ({
               <Button
                 onClick={onGetStarted}
                 size="sm"
-                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white rounded-full px-5"
+                className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full px-5"
               >
                 Start Free
               </Button>
@@ -278,22 +278,22 @@ const Home: React.FC<HomeProps> = ({
         style={{ paddingTop: 'calc(var(--banner-h, 0px) + var(--nav-h, 64px) + 2rem)' }}
       >
         {/* Soft gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-blue-50/50 to-white pointer-events-none" />
-        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-200/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-pink-200/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/20/80 via-blue-50/50 to-white pointer-events-none" />
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/25/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/25/30 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Copy */}
             <div className="text-center lg:text-left">
-              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-purple-100 rounded-full text-sm font-medium text-purple-700 mb-6 shadow-sm">
+              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-primary/15 rounded-full text-sm font-medium text-primary mb-6 shadow-sm">
                 <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
                 Trusted by 10,000+ families worldwide
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight animate-reveal-delay-1">
                 Teach Your Child{' '}
-                <span className="bg-gradient-to-r from-purple-600 via-blue-600 to-pink-600 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
                   Real Life Skills
                 </span>{' '}
                 With Confidence
@@ -307,7 +307,7 @@ const Home: React.FC<HomeProps> = ({
                 <Button
                   onClick={onGetStarted}
                   size="lg"
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
+                  className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Start Free Journey <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
@@ -339,7 +339,7 @@ const Home: React.FC<HomeProps> = ({
 
             {/* Right: Hero Image */}
             <div className="relative animate-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 to-pink-500/20 rounded-3xl blur-2xl scale-105" />
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/200/20 to-accent/200/20 rounded-3xl blur-2xl scale-105" />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
                 <img
                   src={montessoriImages['pouring-set']}
@@ -348,9 +348,9 @@ const Home: React.FC<HomeProps> = ({
                   loading="eager"
                 />
                 {/* Floating badge */}
-                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-purple-100 animate-float">
+                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/15 animate-float">
                   <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/200 to-accent/200 flex items-center justify-center">
                       <Heart className="w-5 h-5 text-white" />
                     </div>
                     <div>
@@ -372,7 +372,7 @@ const Home: React.FC<HomeProps> = ({
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {stats.map((s, i) => (
                 <div key={i} className="text-center">
-                  <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+                  <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                     {s.value}
                   </p>
                   <p className="text-sm text-slate-500 mt-1 font-medium">{s.label}</p>
@@ -388,7 +388,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">The Struggle Is Real</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">The Struggle Is Real</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Does This Sound Familiar?
               </h2>
@@ -402,7 +402,7 @@ const Home: React.FC<HomeProps> = ({
             {/* Material image collage */}
             <Reveal className="lg:col-span-2">
               <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-rose-200/40 to-orange-200/40 rounded-3xl blur-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-orange-200/40 rounded-3xl blur-2xl" />
                 <div className="relative grid grid-cols-2 gap-3">
                   <img src={sensorialImages['pink-tower']} alt="Pink Tower Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
                   <img src={mathImages['golden-beads']} alt="Golden Beads Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
@@ -416,9 +416,9 @@ const Home: React.FC<HomeProps> = ({
             <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
               {painPoints.map((point, i) => (
                 <Reveal key={i} delay={i * 100}>
-                  <div className="flex items-start gap-4 bg-gradient-to-br from-rose-50 to-orange-50 border border-rose-100 rounded-2xl p-5 h-full">
-                    <div className="w-10 h-10 rounded-full bg-rose-100 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-rose-500 font-bold text-sm">{i + 1}</span>
+                  <div className="flex items-start gap-4 bg-gradient-to-br from-accent/20 to-orange-50 border border-accent/15 rounded-2xl p-5 h-full">
+                    <div className="w-10 h-10 rounded-full bg-accent/15 flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <span className="text-accent0 font-bold text-sm">{i + 1}</span>
                     </div>
                     <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
                   </div>
@@ -435,7 +435,7 @@ const Home: React.FC<HomeProps> = ({
           <Reveal>
             <div className="text-center mb-14">
               <div className="relative inline-block mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/50 to-purple-200/50 rounded-3xl blur-2xl" />
+                <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/50 to-primary/50 rounded-3xl blur-2xl" />
                 <img
                   src={sensorialImages['brown-stair']}
                   alt="Brown Stair — authentic Montessori sensorial material"
@@ -456,9 +456,9 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {benefits.map((b, i) => (
               <Reveal key={i} delay={i * 80}>
-                <Card className="h-full bg-white border border-slate-100 hover:border-purple-200 hover:shadow-lg transition-all duration-300 group">
+                <Card className="h-full bg-white border border-slate-100 hover:border-primary/25 hover:shadow-lg transition-all duration-300 group">
                   <CardContent className="p-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/200 to-accent/200 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
                       <b.icon className="w-6 h-6 text-white" />
                     </div>
                     <h3 className="text-lg font-bold text-slate-900 mb-2">{b.title}</h3>
@@ -476,7 +476,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Complete Curriculum</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Complete Curriculum</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 8 Montessori Areas. Endless Growth.
               </h2>
@@ -491,7 +491,7 @@ const Home: React.FC<HomeProps> = ({
               <Reveal key={area.name} delay={i * 80}>
                 <button
                   onClick={() => handleCurriculumClick(area.name)}
-                  className="group w-full text-left rounded-2xl overflow-hidden border border-slate-100 hover:border-purple-200 hover:shadow-xl transition-all duration-300 bg-white"
+                  className="group w-full text-left rounded-2xl overflow-hidden border border-slate-100 hover:border-primary/25 hover:shadow-xl transition-all duration-300 bg-white"
                 >
                   <div className="relative h-40 overflow-hidden">
                     <img
@@ -508,7 +508,7 @@ const Home: React.FC<HomeProps> = ({
                     </div>
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-slate-900 group-hover:text-purple-700 transition-colors">{area.name}</h3>
+                    <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors">{area.name}</h3>
                     <p className="text-sm text-slate-500 mt-1">Explore activities →</p>
                   </div>
                 </button>
@@ -519,11 +519,11 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── How It Works ─── */}
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-purple-50/60 to-white">
+      <section className="py-20 lg:py-28 bg-gradient-to-b from-primary/20/60 to-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Simple as 1-2-3</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Simple as 1-2-3</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 How It Works
               </h2>
@@ -535,7 +535,7 @@ const Home: React.FC<HomeProps> = ({
 
           <div className="grid md:grid-cols-3 gap-8 relative">
             {/* Connector line (desktop) */}
-            <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-purple-200 via-blue-200 to-pink-200" />
+            <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary via-blue-200 to-accent" />
 
             {howItWorks.map((step, i) => (
               <Reveal key={step.step} delay={i * 150}>
@@ -547,11 +547,11 @@ const Home: React.FC<HomeProps> = ({
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-xl border-2 border-white">
+                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl border-2 border-white">
                       <step.icon className="w-5 h-5 text-white" />
                     </div>
                   </div>
-                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 font-bold text-sm mb-3 mt-3">
+                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/15 text-primary font-bold text-sm mb-3 mt-3">
                     {step.step}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
@@ -568,7 +568,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Built For You</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built For You</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Parents, Teachers & Assistants
               </h2>
@@ -583,24 +583,24 @@ const Home: React.FC<HomeProps> = ({
               {
                 icon: HomeIcon,
                 title: 'For Parents',
-                color: 'from-pink-500 to-rose-500',
-                bg: 'from-pink-50 to-rose-50',
+                color: 'from-accent/200 to-accent/200',
+                bg: 'from-accent/20 to-accent/20',
                 image: montessoriImages['dressing-frames-set'],
                 items: ['Easy-to-follow activities for homeschooling', 'Track progress & milestones', 'Build independence at home', 'No teaching experience needed'],
               },
               {
                 icon: GraduationCap,
                 title: 'For Teachers',
-                color: 'from-blue-500 to-indigo-500',
-                bg: 'from-blue-50 to-indigo-50',
+                color: 'from-blue-500 to-primary/200',
+                bg: 'from-blue-50 to-primary/20',
                 image: sensorialImages['geometric-cabinet'],
                 items: ['Complete AMI-aligned curriculum', 'Multi-student progress tracking', 'Ready-to-use lesson plans', 'Detailed reports for parents'],
               },
               {
                 icon: Users2,
                 title: 'For Assistants',
-                color: 'from-purple-500 to-violet-500',
-                bg: 'from-purple-50 to-violet-50',
+                color: 'from-primary/200 to-primary/200',
+                bg: 'from-primary/20 to-primary/20',
                 image: mathImages['spindle-box'],
                 items: ['Step-by-step presentation guides', 'Learn Montessori on the job', 'Support teachers with resources', 'Build confidence in the classroom'],
               },
@@ -624,7 +624,7 @@ const Home: React.FC<HomeProps> = ({
                     <ul className="space-y-3">
                       {audience.items.map((item, j) => (
                         <li key={j} className="flex items-start gap-2.5 text-slate-700">
-                          <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${i === 0 ? 'text-pink-500' : i === 1 ? 'text-blue-500' : 'text-purple-500'}`} />
+                          <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${i === 0 ? 'text-accent0' : i === 1 ? 'text-blue-500' : 'text-primary0'}`} />
                           <span className="text-sm leading-relaxed">{item}</span>
                         </li>
                       ))}
@@ -642,7 +642,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Loved By Families</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Loved By Families</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Real Stories, Real Results
               </h2>
@@ -659,7 +659,7 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {testimonials.map((t, i) => (
               <Reveal key={i} delay={i * 100}>
-                <Card className="h-full bg-white border border-slate-100 hover:border-purple-100 hover:shadow-lg transition-all duration-300">
+                <Card className="h-full bg-white border border-slate-100 hover:border-primary/15 hover:shadow-lg transition-all duration-300">
                   <CardContent className="p-5">
                     <div className="flex gap-0.5 mb-3">
                       {[...Array(t.stars)].map((_, s) => (
@@ -684,7 +684,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Simple Pricing</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Simple Pricing</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Start Free. Scale When Ready.
               </h2>
@@ -699,11 +699,11 @@ const Home: React.FC<HomeProps> = ({
               <Reveal key={plan.id} delay={i * 120}>
                 <Card className={`h-full relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
                   plan.highlight
-                    ? 'border-2 border-purple-300 shadow-xl shadow-purple-100'
+                    ? 'border-2 border-primary/40 shadow-xl shadow-primary'
                     : 'border border-slate-100 hover:shadow-lg'
                 }`}>
                   {plan.highlight && (
-                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-xs font-bold text-center py-1.5 uppercase tracking-wide">
+                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold text-center py-1.5 uppercase tracking-wide">
                       Most Popular
                     </div>
                   )}
@@ -717,7 +717,7 @@ const Home: React.FC<HomeProps> = ({
                     <ul className="space-y-2.5 mb-6">
                       {plan.features.map((f, j) => (
                         <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
-                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-purple-500' : 'text-emerald-500'}`} />
+                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-primary0' : 'text-emerald-500'}`} />
                           <span>{f}</span>
                         </li>
                       ))}
@@ -726,7 +726,7 @@ const Home: React.FC<HomeProps> = ({
                       onClick={plan.id === 'consultation' ? onSubscriptionView : onGetStarted}
                       className={`w-full rounded-xl py-5 font-semibold transition-all duration-300 ${
                         plan.highlight
-                          ? 'bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white'
+                          ? 'bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white'
                           : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
                       }`}
                     >
@@ -745,7 +745,7 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-12">
-              <p className="text-sm font-semibold text-purple-600 uppercase tracking-wider mb-3">Got Questions?</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Got Questions?</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
                 Frequently Asked
               </h2>
@@ -755,7 +755,7 @@ const Home: React.FC<HomeProps> = ({
           <Reveal>
             <Accordion type="single" collapsible className="space-y-3">
               {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-slate-100 rounded-xl px-5 data-[state=open]:border-purple-200 transition-colors">
+                <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-slate-100 rounded-xl px-5 data-[state=open]:border-primary/25 transition-colors">
                   <AccordionTrigger className="text-left font-semibold text-slate-800 hover:no-underline py-4 text-base">
                     {faq.q}
                   </AccordionTrigger>
@@ -771,7 +771,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Final CTA ─── */}
       <section className="py-20 lg:py-28 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-purple-600 via-blue-600 to-pink-600" />
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-blue-600 to-accent" />
         <div className="absolute inset-0 bg-shimmer" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
@@ -785,7 +785,7 @@ const Home: React.FC<HomeProps> = ({
               <Button
                 onClick={onGetStarted}
                 size="lg"
-                className="bg-white text-purple-600 hover:bg-gray-50 px-10 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 font-bold"
+                className="bg-white text-primary hover:bg-gray-50 px-10 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 font-bold"
               >
                 Start Your Free Journey <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
@@ -819,7 +819,7 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/200 to-accent/200 flex items-center justify-center">
                   <Sparkles className="w-4 h-4 text-white" />
                 </div>
                 <span className="font-bold text-white text-lg">Montessori Life Skills</span>

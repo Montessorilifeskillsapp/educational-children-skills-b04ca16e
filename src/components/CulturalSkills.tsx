@@ -33,10 +33,10 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
         </div>
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-violet-800 mb-4">
+          <h1 className="text-4xl font-bold text-primary mb-4">
             🏛️ Cultural Studies
           </h1>
-          <p className="text-lg text-violet-600 max-w-2xl mx-auto">
+          <p className="text-lg text-primary max-w-2xl mx-auto">
             Explore history, music, science, and world cultures through hands-on Montessori activities
           </p>
         </div>
@@ -46,7 +46,7 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
           const label = cat.replace('Cultural - ', '');
           return (
             <div key={cat} className="mb-10">
-              <h2 className="text-2xl font-bold text-violet-700 mb-4">{label}</h2>
+              <h2 className="text-2xl font-bold text-primary mb-4">{label}</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {skills.map((skill) => (
                   <SkillCard

@@ -11,14 +11,14 @@ const Index: React.FC = () => {
   return (
     <>
       <ErrorBoundary fallback={
-        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-50 to-pink-50 p-4">
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20 p-4">
           <div className="text-center max-w-md">
             <h1 className="text-2xl font-bold mb-4">Unable to Load Montessori App</h1>
             <p className="text-gray-600 mb-4">We're having trouble loading the app. This is usually a temporary issue.</p>
             <div className="space-y-3">
               <button 
                 onClick={() => window.location.reload()} 
-                className="block w-full px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700"
+                className="block w-full px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary"
               >
                 Refresh Page
               </button>

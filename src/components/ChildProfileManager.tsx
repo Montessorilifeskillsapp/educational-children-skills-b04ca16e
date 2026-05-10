@@ -152,14 +152,14 @@ export const ChildProfileManager: React.FC<ChildProfileManagerProps> = ({ onBack
               </div>
             </div>
 
-            <div className="p-3 bg-gradient-to-r from-purple-100 to-pink-100 rounded-lg hover:scale-105 transition-transform">
+            <div className="p-3 bg-gradient-to-r from-primary/20 to-accent/20 rounded-lg hover:scale-105 transition-transform">
               <div className="flex items-center gap-2 mb-2">
                 <div className="w-6 h-6 bg-orange-500 rounded-full flex items-center justify-center animate-pulse">
                   🔥
                 </div>
-                <span className="font-medium text-purple-800">Learning Streak</span>
+                <span className="font-medium text-primary">Learning Streak</span>
               </div>
-              <p className="text-2xl font-bold text-purple-900">{currentChild.streak} days</p>
+              <p className="text-2xl font-bold text-primary">{currentChild.streak} days</p>
             </div>
 
             <div className="space-y-2">
@@ -169,7 +169,7 @@ export const ChildProfileManager: React.FC<ChildProfileManagerProps> = ({ onBack
                   <Badge 
                     key={index} 
                     variant="secondary" 
-                     className="bg-gradient-to-r from-blue-50 to-purple-50 text-blue-400 hover:scale-110 transition-transform cursor-pointer animate-pulse"
+                     className="bg-gradient-to-r from-blue-50 to-primary/20 text-blue-400 hover:scale-110 transition-transform cursor-pointer animate-pulse"
                     style={{ animationDelay: `${index * 0.2}s` }}
                   >
                     {interest}

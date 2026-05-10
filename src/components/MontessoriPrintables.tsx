@@ -53,11 +53,11 @@ const MontessoriPrintables: React.FC<MontessoriPrintablesProps> = ({ onBack, onS
 
   const categoryColors: Record<string, string> = {
     'Practical Life': 'bg-green-100 text-green-800',
-    Language: 'bg-pink-100 text-pink-800',
+    Language: 'bg-accent/15 text-accent',
     Math: 'bg-orange-100 text-orange-800',
-    Sensorial: 'bg-indigo-100 text-indigo-800',
+    Sensorial: 'bg-primary/15 text-primary',
     Geography: 'bg-blue-100 text-blue-800',
-    'Grace & Courtesy': 'bg-purple-100 text-purple-800',
+    'Grace & Courtesy': 'bg-primary/15 text-primary',
     Botany: 'bg-emerald-100 text-emerald-800',
   };
 

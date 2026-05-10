@@ -31,7 +31,7 @@ const PremiumGate: React.FC<PremiumGateProps> = ({
       <div className="absolute inset-0 flex items-center justify-center">
         <Card className="max-w-md mx-auto bg-white/95 backdrop-blur-sm border-2 border-blue-200">
           <CardHeader className="text-center pb-4">
-            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-primary/200 rounded-full flex items-center justify-center mx-auto mb-4">
               <Crown className="w-8 h-8 text-white" />
             </div>
             <CardTitle className="text-xl font-bold text-gray-800">Premium Access Required</CardTitle>
@@ -55,7 +55,7 @@ const PremiumGate: React.FC<PremiumGateProps> = ({
 
             <Button 
               onClick={onUpgrade}
-              className="w-full bg-gradient-to-r from-blue-500 to-purple-500 hover:from-blue-600 hover:to-purple-600"
+              className="w-full bg-gradient-to-r from-blue-500 to-primary/200 hover:from-blue-600 hover:to-primary"
             >
               <Lock className="w-4 h-4 mr-2" />
               Upgrade to Premium

@@ -98,7 +98,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
             <CardContent>
               <div className="flex justify-between text-sm mb-2">
                 <span className="font-medium">Practical Life Skills Progress</span>
-                <span className="text-purple-600 font-semibold">{completedSkills.length} of {totalSkills} completed</span>
+                <span className="text-primary font-semibold">{completedSkills.length} of {totalSkills} completed</span>
               </div>
               <div className="relative">
                 <Progress value={completionRate} className="h-4 mb-4 bg-gray-200" />
@@ -112,7 +112,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                 {[
                   { value: completedSkills.length, label: "Skills Mastered", color: "text-blue-600", icon: "🎯", bg: "bg-blue-50" },
                   { value: `${Math.round(completionRate)}%`, label: "Progress", color: "text-green-600", icon: "📈", bg: "bg-green-50" },
-                  { value: "7", label: "Day Streak", color: "text-purple-600", icon: "📅", bg: "bg-purple-50" },
+                  { value: "7", label: "Day Streak", color: "text-primary", icon: "📅", bg: "bg-primary/10" },
                   { value: "45m", label: "Today", color: "text-orange-600", icon: "📚", bg: "bg-orange-50" }
                 ].map((stat, index) => (
                   <div key={index} className={`${stat.bg} p-4 rounded-lg text-center hover:scale-105 transition-transform duration-200 cursor-pointer`}>
@@ -179,7 +179,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
             key={profile.id}
             className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group ${
               activeProfile?.id === profile.id
-                ? 'ring-2 ring-purple-500 bg-purple-50 shadow-lg'
+                ? 'ring-2 ring-primary0 bg-primary/10 shadow-lg'
                 : 'hover:bg-gray-50'
             }`}
             onClick={() => onProfileSelect(profile)}
@@ -198,7 +198,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                   <p className="text-sm text-gray-600">{profile.age} years old</p>
                   <div className="flex flex-wrap gap-1 mt-2">
                     {profile.interests.slice(0, 2).map(interest => (
-                      <Badge key={interest} variant="secondary" className="text-xs hover:bg-purple-200 transition-colors">
+                      <Badge key={interest} variant="secondary" className="text-xs hover:bg-primary/25 transition-colors">
                         {interest}
                       </Badge>
                     ))}
