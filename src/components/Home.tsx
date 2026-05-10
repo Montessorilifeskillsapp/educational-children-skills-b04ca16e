@@ -202,8 +202,9 @@ const Home: React.FC<HomeProps> = ({
     const el = headerRef.current;
     if (!el) return;
     const setVar = () => {
-      const h = el.getBoundingClientRect().height;
-      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`);
+      // Use bottom edge so --nav-h includes any banner offset above the header
+      const bottom = el.getBoundingClientRect().bottom;
+      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(Math.max(0, bottom))}px`);
     };
     setVar();
     const ro = new ResizeObserver(setVar);
