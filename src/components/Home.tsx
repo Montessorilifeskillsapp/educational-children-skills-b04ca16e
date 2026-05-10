@@ -188,11 +188,33 @@ const Home: React.FC<HomeProps> = ({
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
   const [scrolled, setScrolled] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  // Safeguard: measure fixed nav height and expose as --nav-h so the hero
+  // can guarantee enough top padding to never be overlapped at any breakpoint.
+  useEffect(() => {
+    const el = headerRef.current;
+    if (!el) return;
+    const setVar = () => {
+      const h = el.getBoundingClientRect().height;
+      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`);
+    };
+    setVar();
+    const ro = new ResizeObserver(setVar);
+    ro.observe(el);
+    window.addEventListener('resize', setVar);
+    window.addEventListener('orientationchange', setVar);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener('resize', setVar);
+      window.removeEventListener('orientationchange', setVar);
+    };
   }, []);
 
   const handleCurriculumClick = (name: string) => {
@@ -214,7 +236,7 @@ const Home: React.FC<HomeProps> = ({
       <InstallBanner />
 
       {/* ─── Sticky Nav ─── */}
-      <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
+      <header ref={headerRef} className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
@@ -244,7 +266,10 @@ const Home: React.FC<HomeProps> = ({
       </header>
 
       {/* ─── Hero Section ─── */}
-      <section className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden">
+      <section
+        className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden"
+        style={{ paddingTop: 'max(7rem, calc(var(--nav-h, 64px) + 1.5rem))' }}
+      >
         {/* Soft gradient background */}
         <div className="absolute inset-0 bg-gradient-to-b from-purple-50/80 via-blue-50/50 to-white pointer-events-none" />
         <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-purple-200/30 rounded-full blur-3xl pointer-events-none" />
