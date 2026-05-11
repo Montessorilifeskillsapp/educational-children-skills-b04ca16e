@@ -57,10 +57,15 @@ const PaymentSuccessPage: React.FC = () => {
 
     void refreshSubscription();
 
+    analytics.track('subscribe_completed', {
+      plan_id: planId,
+      session_id: sessionId,
+    });
+
     return () => {
       isMounted = false;
     };
-  }, [checkSubscription]);
+  }, [checkSubscription, planId, sessionId]);
 
   const handleContinue = () => {
     navigate('/');
