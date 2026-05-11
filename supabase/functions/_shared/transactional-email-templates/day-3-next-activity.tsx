@@ -24,7 +24,7 @@ const Email = ({ name }: Props) => (
           You'll need: two small bowls, a spoon, and a handful of dry beans, rice, or lentils.
         </Text>
         <Section style={{ textAlign: 'center', margin: '28px 0' }}>
-          <Button href={`${APP_URL}/dashboard`} style={button}>
+          <Button href={`${APP_URL}/?utm_source=email&utm_medium=transactional&utm_campaign=day-3-next-activity`} style={button}>
             Open your dashboard
           </Button>
         </Section>
