@@ -61,6 +61,7 @@ const PaymentSuccessPage: React.FC = () => {
     analytics.track('subscribe_completed', {
       plan_id: planId,
       session_id: sessionId,
+      attribution: getStoredUtm(),
     });
 
     return () => {
