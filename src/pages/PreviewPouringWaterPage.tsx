@@ -1,8 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { Link, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, CheckCircle, Sparkles, Star } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
+import { analytics } from '@/lib/analytics';
 import pouringSet from '@/assets/pouring-set.jpg';
 import heroPouring from '@/assets/hero-child-pouring.jpg';
 
