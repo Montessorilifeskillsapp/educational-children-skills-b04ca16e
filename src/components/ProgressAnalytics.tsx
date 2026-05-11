@@ -75,7 +75,7 @@ const ProgressAnalytics: React.FC = () => {
                 </Badge>
               </div>
               <Progress value={skill.progress} className="h-2" />
-              <div className="text-xs text-gray-600">{skill.progress}% mastered</div>
+              <div className="text-xs text-muted-foreground">{skill.progress}% mastered</div>
             </div>
           ))}
         </CardContent>
