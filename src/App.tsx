@@ -20,6 +20,9 @@ import ContactPage from "./pages/ContactPage";
 import HelpPage from "./pages/HelpPage";
 import AboutPage from "./pages/AboutPage";
 import InstallPage from "./pages/InstallPage";
+import GuaranteePage from "./pages/GuaranteePage";
+import PreviewPouringWaterPage from "./pages/PreviewPouringWaterPage";
+import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
@@ -65,9 +68,12 @@ const App = () => {
                           <Route path="/help" element={<HelpPage />} />
                           <Route path="/about" element={<AboutPage />} />
                           <Route path="/install" element={<InstallPage />} />
+                          <Route path="/guarantee" element={<GuaranteePage />} />
+                          <Route path="/preview/pouring-water" element={<PreviewPouringWaterPage />} />
                           <Route path="/welcome" element={<LandingPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
+                        <PWAInstallPrompt />
                     </BrowserRouter>
                   </SubscriptionProvider>
                 </ProfileProvider>

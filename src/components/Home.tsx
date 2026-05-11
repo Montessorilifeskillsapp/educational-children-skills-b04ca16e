@@ -973,11 +973,21 @@ const Home: React.FC<HomeProps> = ({
               <ul className="space-y-2 text-sm">
                 <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
                 <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
+                <li><Link to="/guarantee" className="hover:text-white transition-colors">30-Day Guarantee</Link></li>
                 <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
               </ul>
             </div>
           </div>
+
+          {/* Trust strip */}
+          <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400 border-y border-slate-800 py-4">
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> 30-day refund</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Cancel anytime</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> No card for free tier</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Built by an AMI guide</span>
+          </div>
+
           <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <p className="text-sm text-slate-500">© {new Date().getFullYear()} Montessori Life Skills. All rights reserved.</p>
             <SocialLinks variant="light" />
