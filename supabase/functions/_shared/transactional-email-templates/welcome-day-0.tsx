@@ -26,8 +26,8 @@ const Email = ({ name }: Props) => (
           concentration, coordination, and independence — and takes about 10 minutes to set up.
         </Text>
         <Section style={{ textAlign: 'center', margin: '32px 0' }}>
-          <Button href={`${APP_URL}/preview/pouring-water`} style={button}>
-            Open the Pouring Water guide
+          <Button href={`${APP_URL}/preview/pouring-water?firstrun=1&utm_source=email&utm_medium=transactional&utm_campaign=welcome-day-0`} style={button}>
+            Try Pouring Water with your child
           </Button>
         </Section>
         <Text style={tip}>
