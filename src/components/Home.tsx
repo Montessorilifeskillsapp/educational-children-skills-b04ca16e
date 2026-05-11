@@ -21,6 +21,7 @@ import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link } from 'react-router-dom';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -403,31 +404,56 @@ const Home: React.FC<HomeProps> = ({
             </div>
           </Reveal>
 
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {[
+          {(() => {
+            const sampleActivities = [
               { area: 'Practical Life', name: 'Pouring Water', age: 'Ages 2½–3½', image: montessoriImages['pouring-set'] },
               { area: 'Language', name: 'Sandpaper Letters', age: 'Ages 3½–5', image: languageImages['sandpaper-letters'] },
               { area: 'Mathematics', name: 'Golden Beads', age: 'Ages 4½–6', image: mathImages['golden-beads'] },
-            ].map((a, i) => (
-              <Reveal key={a.name} delay={i * 100}>
-                <Card className="overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 h-full">
-                  <div className="aspect-[4/3] overflow-hidden bg-muted">
-                    <img
-                      src={a.image}
-                      alt={`${a.name} — authentic Montessori material`}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <CardContent className="p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{a.area}</p>
-                    <h3 className="text-lg font-bold text-foreground mb-1">{a.name}</h3>
-                    <p className="text-sm text-muted-foreground">{a.age} · Step-by-step presentation</p>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
+            ];
+            const renderCard = (a: typeof sampleActivities[number]) => (
+              <Card className="overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 h-full">
+                <div className="aspect-[4/3] overflow-hidden bg-muted">
+                  <img
+                    src={a.image}
+                    alt={`${a.name} — authentic Montessori material`}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+                <CardContent className="p-5">
+                  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{a.area}</p>
+                  <h3 className="text-lg font-bold text-foreground mb-1">{a.name}</h3>
+                  <p className="text-sm text-muted-foreground">{a.age} · Step-by-step presentation</p>
+                </CardContent>
+              </Card>
+            );
+            return (
+              <>
+                {/* Mobile carousel */}
+                <div className="sm:hidden -mx-4">
+                  <Carousel opts={{ align: 'start', loop: false }} className="w-full">
+                    <CarouselContent className="px-4">
+                      {sampleActivities.map((a) => (
+                        <CarouselItem key={a.name} className="basis-[85%]">
+                          {renderCard(a)}
+                        </CarouselItem>
+                      ))}
+                    </CarouselContent>
+                  </Carousel>
+                  <p className="text-center text-xs text-muted-foreground mt-3">Swipe to see more →</p>
+                </div>
+
+                {/* Desktop grid */}
+                <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                  {sampleActivities.map((a, i) => (
+                    <Reveal key={a.name} delay={i * 100}>
+                      {renderCard(a)}
+                    </Reveal>
+                  ))}
+                </div>
+              </>
+            );
+          })()}
 
           <div className="text-center mt-10">
             <Button
