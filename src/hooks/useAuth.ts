@@ -58,6 +58,7 @@ export const useAuth = () => {
   }
 
   const signInWithGoogle = async () => {
+    analytics.track('signin_started', { method: 'google' })
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -68,6 +69,7 @@ export const useAuth = () => {
   }
 
   const signInWithApple = async () => {
+    analytics.track('signin_started', { method: 'apple' })
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
