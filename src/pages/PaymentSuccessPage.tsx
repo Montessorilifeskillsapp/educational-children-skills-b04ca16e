@@ -6,6 +6,7 @@ import { CheckCircle, Crown, ArrowRight, Loader2 } from 'lucide-react';
 import { useSubscription } from '@/hooks/useSubscription';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
+import { analytics } from '@/lib/analytics';
 
 const PaymentSuccessPage: React.FC = () => {
   const navigate = useNavigate();
