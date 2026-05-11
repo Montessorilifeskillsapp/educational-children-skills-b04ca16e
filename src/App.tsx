@@ -22,6 +22,7 @@ import AboutPage from "./pages/AboutPage";
 import InstallPage from "./pages/InstallPage";
 import GuaranteePage from "./pages/GuaranteePage";
 import PreviewPouringWaterPage from "./pages/PreviewPouringWaterPage";
+import UnsubscribePage from "./pages/UnsubscribePage";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
@@ -70,6 +71,7 @@ const App = () => {
                           <Route path="/install" element={<InstallPage />} />
                           <Route path="/guarantee" element={<GuaranteePage />} />
                           <Route path="/preview/pouring-water" element={<PreviewPouringWaterPage />} />
+                          <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
