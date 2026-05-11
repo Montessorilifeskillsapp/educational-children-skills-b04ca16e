@@ -1,88 +1,89 @@
 // Unified theme configuration for consistent styling across all pages
+// Aligned with the Montessori palette: turquoise, cream, sage, gold, wood brown
 export const montessoriTheme = {
   // Main color palette inspired by Montessori natural materials
   colors: {
     primary: {
-      50: '#fef7ed',
-      100: '#fdedd3', 
-      200: '#fbd9a6',
-      300: '#f8c16e',
-      400: '#f4a234',
-      500: '#f1900d',
-      600: '#e27808',
-      700: '#bc5d0b',
-      800: '#964710',
-      900: '#7a3b11',
+      50: '#f0f7f7',
+      100: '#d9edec',
+      200: '#b3dbd9',
+      300: '#8cc9c6',
+      400: '#6FB7B3',
+      500: '#52a39e',
+      600: '#418a86',
+      700: '#35706d',
+      800: '#2d5b58',
+      900: '#254a48',
     },
     secondary: {
-      50: '#f0fdf4',
-      100: '#dcfce7',
-      200: '#bbf7d0',
-      300: '#86efac',
-      400: '#4ade80',
-      500: '#22c55e',
-      600: '#16a34a',
-      700: '#15803d',
-      800: '#166534',
-      900: '#14532d',
+      50: '#f2f5f3',
+      100: '#e0e7e3',
+      200: '#c1d0c7',
+      300: '#9fb8a9',
+      400: '#5F7F6E',
+      500: '#4a6655',
+      600: '#3d5447',
+      700: '#33453b',
+      800: '#2b3831',
+      900: '#242e28',
     },
     accent: {
-      50: '#fdf4ff',
-      100: '#fae8ff',
-      200: '#f5d0fe',
-      300: '#f0abfc',
-      400: '#e879f9',
-      500: '#d946ef',
-      600: '#c026d3',
-      700: '#a21caf',
-      800: '#86198f',
-      900: '#701a75',
+      50: '#fbf8ed',
+      100: '#f5efd0',
+      200: '#ece0ab',
+      300: '#e2d086',
+      400: '#E6C567',
+      500: '#dcb84a',
+      600: '#c9a23a',
+      700: '#a58430',
+      800: '#856a2c',
+      900: '#6e5528',
     }
   },
-  
+
   // Background gradients for different sections
   backgrounds: {
-    home: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
-    dashboard: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
-    skills: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
-    shop: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
-    parent: 'bg-gradient-to-br from-accent/20 via-accent/20 to-accent/20',
-    profile: 'bg-gradient-to-br from-slate-50 via-gray-50 to-zinc-50',
-    practical: 'bg-gradient-to-br from-amber-50 via-amber-100 to-stone-100',
-    sensorial: 'bg-gradient-to-br from-accent/20 via-accent/20 to-accent/20',
-    math: 'bg-gradient-to-br from-red-50 via-accent/20 to-red-100',
-    geography: 'bg-gradient-to-br from-sky-50 via-blue-50 to-cyan-50',
-    botany: 'bg-gradient-to-br from-emerald-50 via-green-50 to-teal-50',
-    art: 'bg-gradient-to-br from-orange-50 via-amber-50 to-yellow-50',
-    cultural: 'bg-gradient-to-br from-primary/20 via-primary/20 to-primary/20'
+    home: 'bg-gradient-to-br from-background via-background to-muted',
+    dashboard: 'bg-gradient-to-br from-primary/10 via-background to-secondary/10',
+    skills: 'bg-gradient-to-br from-background via-background to-muted',
+    shop: 'bg-gradient-to-br from-accent/15 via-background to-accent/10',
+    parent: 'bg-gradient-to-br from-primary/10 via-background to-secondary/10',
+    profile: 'bg-gradient-to-br from-background via-background to-muted',
+    practical: 'bg-gradient-to-br from-secondary/10 via-background to-accent/10',
+    sensorial: 'bg-gradient-to-br from-primary/10 via-background to-accent/10',
+    math: 'bg-gradient-to-br from-accent/10 via-background to-primary/10',
+    geography: 'bg-gradient-to-br from-primary/10 via-background to-secondary/10',
+    botany: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
+    art: 'bg-gradient-to-br from-accent/10 via-background to-secondary/10',
+    cultural: 'bg-gradient-to-br from-primary/10 via-background to-accent/10'
   },
-  
+
   // Card styling for consistency
   card: {
-    base: 'bg-white border-2 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg',
-    primary: 'border-amber-200',
-    secondary: 'border-green-200', 
-    accent: 'border-primary/25',
-    success: 'border-green-300 bg-green-50',
-    warning: 'border-amber-300 bg-amber-50',
-    info: 'border-blue-300 bg-blue-50'
+    base: 'bg-card border-2 shadow-sm hover:shadow-md transition-all duration-200 rounded-lg',
+    primary: 'border-primary/30',
+    secondary: 'border-secondary/30',
+    accent: 'border-accent/30',
+    success: 'border-secondary/40 bg-secondary/10',
+    warning: 'border-accent/40 bg-accent/10',
+    info: 'border-primary/40 bg-primary/10'
   },
-  
+
   // Button variants
   button: {
-    primary: 'bg-amber-600 hover:bg-amber-700 text-white',
-    secondary: 'bg-green-600 hover:bg-green-700 text-white',
-    accent: 'bg-primary hover:bg-primary text-white',
-    outline: 'border-2 border-amber-600 text-amber-700 hover:bg-amber-50'
+    primary: 'bg-primary hover:bg-primary/90 text-primary-foreground',
+    secondary: 'bg-secondary hover:bg-secondary/90 text-secondary-foreground',
+    accent: 'bg-accent hover:bg-accent/90 text-accent-foreground',
+    outline: 'border-2 border-primary text-primary hover:bg-primary/10'
   },
-  
+
   // Text colors for consistency
   text: {
-    primary: 'text-amber-900',
-    secondary: 'text-green-800',
-    accent: 'text-primary',
-    muted: 'text-gray-600',
-    light: 'text-gray-500'
+    primary: 'text-primary',
+    secondary: 'text-secondary',
+    accent: 'text-accent',
+    muted: 'text-muted-foreground',
+    light: 'text-muted-foreground/70'
   }
 };
 

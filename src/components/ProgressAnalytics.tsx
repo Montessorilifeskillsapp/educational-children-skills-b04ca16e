@@ -75,7 +75,7 @@ const ProgressAnalytics: React.FC = () => {
                 </Badge>
               </div>
               <Progress value={skill.progress} className="h-2" />
-              <div className="text-xs text-gray-600">{skill.progress}% mastered</div>
+              <div className="text-xs text-muted-foreground">{skill.progress}% mastered</div>
             </div>
           ))}
         </CardContent>
@@ -90,15 +90,15 @@ const ProgressAnalytics: React.FC = () => {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-3">
-          <div className="flex justify-between items-center p-3 bg-green-50 rounded-lg">
+          <div className="flex justify-between items-center p-3 bg-secondary/10 rounded-lg">
             <span>Complete 20 Practical Life activities</span>
             <Badge variant="default">18/20</Badge>
           </div>
-          <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
+          <div className="flex justify-between items-center p-3 bg-primary/10 rounded-lg">
             <span>Master 5 new sensorial skills</span>
             <Badge variant="secondary">3/5</Badge>
           </div>
-          <div className="flex justify-between items-center p-3 bg-primary/10 rounded-lg">
+          <div className="flex justify-between items-center p-3 bg-accent/10 rounded-lg">
             <span>Read 10 story books together</span>
             <Badge variant="default">12/10</Badge>
           </div>
