@@ -33,6 +33,23 @@ Deno.serve(async (req) => {
 
   for (const row of due ?? []) {
     try {
+      // Day-1 abandonment: skip if the user has already started any activity.
+      if (row.template_name === 'day-1-abandonment') {
+        const { count, error: countErr } = await supabase
+          .from('analytics_events')
+          .select('id', { count: 'exact', head: true })
+          .eq('user_id', row.user_id)
+          .eq('event', 'activity_started')
+        if (countErr) throw new Error(countErr.message)
+        if ((count ?? 0) > 0) {
+          await supabase
+            .from('email_schedule')
+            .update({ sent_at: new Date().toISOString(), last_error: 'skipped: user activated' })
+            .eq('id', row.id)
+          continue
+        }
+      }
+
       // Fetch name for personalization
       const { data: profile } = await supabase
         .from('user_profiles')
