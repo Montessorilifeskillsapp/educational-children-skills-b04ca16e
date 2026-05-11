@@ -352,7 +352,7 @@ const Home: React.FC<HomeProps> = ({
       <HeroAppPreview />
 
       {/* ─── Stats Bar ─── */}
-      <section className="py-10 bg-slate-50 border-y border-slate-100">
+      <section className="py-10 bg-muted/40 border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -370,7 +370,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── What's Inside (sample activities) ─── */}
-      <section className="py-16 lg:py-20">
+      <section className="py-16 lg:py-20 bg-background border-t border-border/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-10">
@@ -449,7 +449,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── The Problem ─── */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -495,7 +495,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── The Solution ─── */}
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 to-white">
+      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -537,7 +537,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Curriculum Grid ─── */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -584,7 +584,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── How It Works ─── */}
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-primary/20/60 to-white">
+      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -629,7 +629,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Audience Section ─── */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -703,7 +703,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Meet the Founder ─── */}
-      <section className="py-20 lg:py-28">
+      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
@@ -742,7 +742,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Social Proof / Testimonials ─── */}
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 to-white">
+      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -784,7 +784,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Pricing ─── */}
-      <section className="py-20 lg:py-28" id="pricing">
+      <section className="py-20 lg:py-28 bg-background border-t border-border/60" id="pricing">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -845,7 +845,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── FAQ ─── */}
-      <section className="py-20 lg:py-28 bg-gradient-to-b from-slate-50 to-white">
+      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-12">
@@ -874,7 +874,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Final CTA ─── */}
-      <section className="py-20 lg:py-28 relative overflow-hidden">
+      <section className="py-20 lg:py-28 relative overflow-hidden border-t border-border/60">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-blue-600 to-accent" />
         <div className="absolute inset-0 bg-shimmer" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
