@@ -10,6 +10,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { analytics } from '@/lib/analytics';
+import { getStoredUtm } from '@/hooks/useUtmTracking';
 
 interface Plan {
   id: string;
