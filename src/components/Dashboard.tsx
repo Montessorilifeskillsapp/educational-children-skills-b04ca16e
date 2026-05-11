@@ -170,6 +170,12 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
+        {/* Week One Starter Path — guided 5-day onboarding sequence */}
+        <WeekOneStarterPath
+          completedSkills={completedSkills}
+          onSkillSelect={onSkillSelect}
+        />
+
         {/* Skill Categories Navigation */}
         {/* Streak + Badges */}
         {activeProfile && (() => {
