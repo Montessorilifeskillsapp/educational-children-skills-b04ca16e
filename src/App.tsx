@@ -26,6 +26,7 @@ import UnsubscribePage from "./pages/UnsubscribePage";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
+import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
@@ -80,6 +81,7 @@ const App = () => {
                           <Route path="/preview/pouring-water" element={<PreviewPouringWaterPage />} />
                           <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />
+                          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                         <PWAInstallPrompt />
