@@ -187,8 +187,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         </p>
         <div className={`flex justify-center items-center gap-6 text-sm ${montessoriTheme.text.light} flex-wrap`}>
           <div className="flex items-center gap-2">
-            <Star className="w-4 h-4 fill-blue-400 text-blue-400" aria-hidden="true" />
-            <span>Trusted by 10,000+ families worldwide</span>
+            <Star className="w-4 h-4 fill-accent text-accent" aria-hidden="true" />
+            <span>AMI-aligned Montessori for ages 2–6</span>
           </div>
           <div className="flex items-center gap-2">
             <Shield className="w-4 h-4 text-green-600" aria-hidden="true" />
