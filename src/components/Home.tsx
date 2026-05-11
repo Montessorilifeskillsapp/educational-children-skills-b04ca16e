@@ -286,21 +286,19 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Copy */}
             <div className="text-center lg:text-left">
-              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-primary/15 rounded-full text-sm font-medium text-primary mb-6 shadow-sm">
-                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                Trusted by 10,000+ families worldwide
+              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-card/90 backdrop-blur-sm border border-primary/20 rounded-full text-sm font-medium text-foreground mb-6 shadow-sm">
+                <Star className="w-4 h-4 text-accent fill-accent" />
+                AMI-aligned Montessori for ages 2–6
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight animate-reveal-delay-1">
-                Teach Your Child{' '}
-                <span className="bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
-                  Real Life Skills
-                </span>{' '}
-                With Confidence
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-5 leading-[1.1] animate-reveal-delay-1">
+                Teach your child{' '}
+                <span className="text-primary">real life skills</span>{' '}
+                with confidence.
               </h1>
 
-              <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                The complete Montessori curriculum for ages 2–6. Step-by-step activity guides, progress tracking, and expert support — no teaching experience required.
+              <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
+                A complete, step-by-step Montessori curriculum for home — authentic activities, clear presentations, and progress tracking. No teaching experience required.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
