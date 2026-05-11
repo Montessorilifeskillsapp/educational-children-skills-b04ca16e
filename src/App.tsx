@@ -62,6 +62,7 @@ const App = () => {
                         v7_relativeSplatPath: true
                       }}
                     >
+                        <RouteEffects />
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/practical-life" element={<PracticalLifePage />} />
