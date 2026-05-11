@@ -432,6 +432,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                   Continue Learning
                 </Button>
               </div>
+              <ShareWinCard skillTitle={skill.title} categoryName={category.name} />
             </CardContent>
           </Card>
         )}
