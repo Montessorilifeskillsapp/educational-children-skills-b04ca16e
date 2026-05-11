@@ -10,6 +10,7 @@ import {
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
 import heroChildPouring from '@/assets/hero-child-pouring.jpg';
+import founderKerry from '@/assets/founder-kerry-howard.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
 import { languageImages } from '@/assets/language';
@@ -719,6 +720,45 @@ const Home: React.FC<HomeProps> = ({
               </Reveal>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ─── Meet the Founder ─── */}
+      <section className="py-20 lg:py-28">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
+              <div className="md:col-span-2">
+                <div className="relative">
+                  <div className="absolute -inset-4 bg-gradient-to-br from-primary/25 to-accent/25 rounded-[2rem] blur-2xl" />
+                  <img
+                    src={founderKerry}
+                    alt="Kerry Howard, AMI-trained Montessori guide and founder"
+                    width={512}
+                    height={512}
+                    className="relative rounded-[1.5rem] shadow-xl object-cover w-full aspect-square border-4 border-card"
+                    loading="lazy"
+                  />
+                </div>
+              </div>
+              <div className="md:col-span-3">
+                <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Meet the Founder</p>
+                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5 leading-tight">
+                  Kerry Howard
+                </h2>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/15 border border-accent/30 rounded-full text-sm font-medium text-foreground mb-6">
+                  <Award className="w-4 h-4 text-accent" />
+                  AMI-trained 3–6 Primary Guide
+                </div>
+                <p className="text-lg text-muted-foreground leading-relaxed mb-4">
+                  Every activity in this app is shaped by Kerry's training and years of guiding children in the prepared environment — so you can trust that what you're presenting at home is true to Maria Montessori's method, not a Pinterest approximation.
+                </p>
+                <p className="text-base text-muted-foreground leading-relaxed">
+                  Her mission: make authentic Montessori accessible to every family, no classroom required.
+                </p>
+              </div>
+            </div>
+          </Reveal>
         </div>
       </section>
 
