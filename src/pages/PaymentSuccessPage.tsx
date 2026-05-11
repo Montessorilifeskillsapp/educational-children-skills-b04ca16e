@@ -7,6 +7,7 @@ import { useSubscription } from '@/hooks/useSubscription';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
+import { getStoredUtm } from '@/hooks/useUtmTracking';
 
 const PaymentSuccessPage: React.FC = () => {
   const navigate = useNavigate();
@@ -60,6 +61,7 @@ const PaymentSuccessPage: React.FC = () => {
     analytics.track('subscribe_completed', {
       plan_id: planId,
       session_id: sessionId,
+      attribution: getStoredUtm(),
     });
 
     return () => {

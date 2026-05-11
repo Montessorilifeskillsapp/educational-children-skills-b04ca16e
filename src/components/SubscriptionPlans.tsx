@@ -10,6 +10,7 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { analytics } from '@/lib/analytics';
+import { getStoredUtm } from '@/hooks/useUtmTracking';
 
 interface Plan {
   id: string;
@@ -104,7 +105,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
 
   useEffect(() => {
-    analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id });
+    analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id, attribution: getStoredUtm() });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -143,7 +144,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       setLoading(plan.id);
       try {
-        analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price });
+        analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price, attribution: getStoredUtm() });
         const { data, error } = await supabase.functions.invoke('create-checkout', {
           body: { planId: plan.id },
         });

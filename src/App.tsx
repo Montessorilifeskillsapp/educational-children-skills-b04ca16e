@@ -28,7 +28,13 @@ import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
+import { useUtmTracking } from "@/hooks/useUtmTracking";
 import { useEffect } from "react";
+
+const RouteEffects = () => {
+  useUtmTracking();
+  return null;
+};
 
 const App = () => {
   useEffect(() => {
@@ -56,6 +62,7 @@ const App = () => {
                         v7_relativeSplatPath: true
                       }}
                     >
+                        <RouteEffects />
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/practical-life" element={<PracticalLifePage />} />
