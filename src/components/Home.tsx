@@ -337,8 +337,8 @@ const Home: React.FC<HomeProps> = ({
 
             {/* Right: Hero Image */}
             <div className="relative animate-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/200/20 to-accent/200/20 rounded-3xl blur-2xl scale-105" />
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl scale-105" />
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-card">
                 <img
                   src={montessoriImages['pouring-set']}
                   alt="Child engaged in Montessori practical life activity with pouring materials"
@@ -346,20 +346,19 @@ const Home: React.FC<HomeProps> = ({
                   loading="eager"
                 />
                 {/* Floating badge */}
-                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/15 animate-float">
+                <div className="absolute bottom-4 left-4 bg-card/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/20 animate-float">
                   <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/200 to-accent/200 flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-800">Independence</p>
-                      <p className="text-xs text-slate-500">Built daily</p>
+                      <p className="text-sm font-bold text-foreground">Independence</p>
+                      <p className="text-xs text-muted-foreground">Built daily</p>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
         </div>
       </section>
 
