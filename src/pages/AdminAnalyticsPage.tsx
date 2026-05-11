@@ -41,11 +41,7 @@ const AdminAnalyticsPage = () => {
     if (!isAdmin) return;
     setLoading(true);
     setError(null);
-    supabase.functions
-      .invoke('admin-funnel-stats', { body: null, method: 'GET' as any, headers: {} as any })
-      // supabase-js doesn't support GET query params natively for invoke, so call manually below
-      .then(() => {});
-    // Manual fetch with query string
+    // Manual fetch with query string (supabase-js invoke doesn't carry GET params cleanly)
     (async () => {
       try {
         const { data: sess } = await supabase.auth.getSession();
