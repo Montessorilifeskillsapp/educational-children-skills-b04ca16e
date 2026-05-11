@@ -9,6 +9,7 @@ import {
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
+import heroChildPouring from '@/assets/hero-child-pouring.jpg';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
 import { languageImages } from '@/assets/language';
@@ -340,9 +341,11 @@ const Home: React.FC<HomeProps> = ({
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl scale-105" />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-card">
                 <img
-                  src={montessoriImages['pouring-set']}
-                  alt="Child engaged in Montessori practical life activity with pouring materials"
-                  className="w-full h-auto object-cover"
+                  src={heroChildPouring}
+                  alt="Young child calmly pouring water between glass pitchers in a prepared Montessori environment"
+                  width={1280}
+                  height={1280}
+                  className="w-full h-auto object-cover aspect-square"
                   loading="eager"
                 />
                 {/* Floating badge */}
