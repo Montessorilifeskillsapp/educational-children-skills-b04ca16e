@@ -50,6 +50,22 @@ Deno.serve(async (req) => {
         }
       }
 
+      // Paywall abandon: skip if the user has subscribed since enrolling.
+      if (row.template_name === 'paywall-abandon') {
+        const { data: sub } = await supabase
+          .from('subscribers')
+          .select('subscribed')
+          .eq('user_id', row.user_id)
+          .maybeSingle()
+        if (sub?.subscribed) {
+          await supabase
+            .from('email_schedule')
+            .update({ sent_at: new Date().toISOString(), last_error: 'skipped: user subscribed' })
+            .eq('id', row.id)
+          continue
+        }
+      }
+
       // Fetch name for personalization
       const { data: profile } = await supabase
         .from('user_profiles')
