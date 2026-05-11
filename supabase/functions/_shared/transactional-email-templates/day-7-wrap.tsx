@@ -26,7 +26,7 @@ const Email = ({ name }: Props) => (
           that explain <em>why</em> each material matters.
         </Text>
         <Section style={{ textAlign: 'center', margin: '28px 0' }}>
-          <Button href={`${APP_URL}/pricing`} style={button}>
+          <Button href={`${APP_URL}/plans?utm_source=email&utm_medium=transactional&utm_campaign=day-7-wrap`} style={button}>
             See membership options
           </Button>
         </Section>
