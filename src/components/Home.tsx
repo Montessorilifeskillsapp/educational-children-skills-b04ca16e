@@ -10,6 +10,7 @@ import {
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
 import heroChildPouring from '@/assets/hero-child-pouring.jpg';
+import founderKerry from '@/assets/founder-kerry-howard.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
 import { languageImages } from '@/assets/language';
