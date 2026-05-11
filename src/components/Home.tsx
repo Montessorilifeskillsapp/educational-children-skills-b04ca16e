@@ -258,6 +258,12 @@ const Home: React.FC<HomeProps> = ({
                 Montessori Life Skills
               </span>
             </div>
+            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
+              <a href="#curriculum" className="hover:text-primary transition-colors">Curriculum</a>
+              <a href="#activities" className="hover:text-primary transition-colors">Activities</a>
+              <a href="#founder" className="hover:text-primary transition-colors">About</a>
+              <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
+            </nav>
             <div className="flex items-center gap-3">
               {!user && (
                 <Link to="/auth">
