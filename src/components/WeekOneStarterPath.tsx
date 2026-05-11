@@ -73,21 +73,28 @@ const WeekOneStarterPath: React.FC<WeekOneStarterPathProps> = ({ completedSkills
 
   if (allDone) return null;
 
+  const isFirstTime = doneCount === 0;
+
   return (
     <section className="mb-8">
       <div className="flex items-end justify-between mb-4 gap-4 flex-wrap">
         <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Sparkles className="h-5 w-5 text-primary" />
-            <h2 className="text-xl font-semibold text-foreground">Your First Week</h2>
+          <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/15 border border-primary/25 text-[11px] font-semibold text-primary uppercase tracking-wider mb-2">
+            <Sparkles className="h-3 w-3" />
+            Start Here · Ages 3–6
           </div>
-          <p className="text-sm text-muted-foreground">
-            Five gentle activities, one per day — start here and build momentum.
+          <h2 className="text-2xl font-bold text-foreground mb-1">
+            Your Week 1 Journey
+          </h2>
+          <p className="text-sm text-muted-foreground max-w-xl">
+            {isFirstTime
+              ? "Five carefully sequenced activities — one per day. Just open the app each morning and we'll tell you exactly what to do."
+              : 'Keep going — one activity a day builds focus, coordination, and confidence.'}
           </p>
         </div>
         <div className="text-right min-w-[140px]">
           <p className="text-xs font-medium text-muted-foreground mb-1">
-            {doneCount} of {WEEK_ONE.length} complete
+            Day {Math.min(doneCount + 1, WEEK_ONE.length)} of {WEEK_ONE.length}
           </p>
           <Progress value={pct} className="h-2 w-36" />
         </div>
