@@ -24,6 +24,11 @@ const PLAN_CONFIG = {
     unitAmount: 2900,
     interval: "month" as const,
   },
+  "premium-yearly": {
+    productName: "Premium Annual Plan",
+    unitAmount: 19900,
+    interval: "year" as const,
+  },
 };
 
 serve(async (req) => {
