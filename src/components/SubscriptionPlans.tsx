@@ -106,8 +106,13 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
   useEffect(() => {
     analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id, attribution: getStoredUtm() });
+    // Enroll logged-in non-subscribers in the 24h paywall-abandon recovery email.
+    // The edge function is idempotent (ON CONFLICT DO NOTHING) and self-checks subscription status.
+    if (user && currentPlan?.id !== 'premium-monthly' && currentPlan?.id !== 'premium-yearly') {
+      void supabase.functions.invoke('schedule-paywall-abandon').catch(() => {});
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [user]);
 
   const handleSubscribe = async (plan: Plan) => {
     try {
