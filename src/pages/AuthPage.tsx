@@ -19,10 +19,22 @@ const AuthPage = () => {
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
 
-  // Redirect authenticated users to home
+  // Redirect authenticated users. Brand-new accounts (created within the last
+  // 5 minutes and not yet welcomed) go straight to the Pouring Water guide
+  // for a Day-1 activation moment.
   useEffect(() => {
-    if (user && !loading) {
-      navigate('/');
+    if (!user || loading) return;
+
+    const welcomedKey = `welcomed:${user.id}`;
+    const alreadyWelcomed = localStorage.getItem(welcomedKey);
+    const createdAt = user.created_at ? new Date(user.created_at).getTime() : 0;
+    const isFreshSignup = !alreadyWelcomed && Date.now() - createdAt < 5 * 60 * 1000;
+
+    if (isFreshSignup) {
+      localStorage.setItem(welcomedKey, '1');
+      navigate('/preview/pouring-water?firstrun=1', { replace: true });
+    } else {
+      navigate('/', { replace: true });
     }
   }, [user, loading, navigate]);
 
