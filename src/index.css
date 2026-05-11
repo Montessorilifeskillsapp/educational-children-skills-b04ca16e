@@ -260,6 +260,17 @@
   opacity: 0;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .animate-reveal,
+  .animate-reveal-delay-1,
+  .animate-reveal-delay-2,
+  .animate-reveal-delay-3 {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+
 .animate-float {
   animation: float 4s ease-in-out infinite;
 }
