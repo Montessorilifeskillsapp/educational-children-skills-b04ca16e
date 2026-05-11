@@ -19,6 +19,7 @@ import { artSkillsData } from '@/data/artSkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import WeekOneStarterPath from './WeekOneStarterPath';
+import FounderWeeklyNote from './FounderWeeklyNote';
 
 const PRACTICAL_LIFE_IDS = [
   'brushing-teeth','washing-hands','getting-dressed','making-bed','setting-table',
@@ -175,6 +176,11 @@ const Dashboard: React.FC<DashboardProps> = ({
           completedSkills={completedSkills}
           onSkillSelect={onSkillSelect}
         />
+
+        {/* Founder's weekly note */}
+        <div className="mb-6">
+          <FounderWeeklyNote />
+        </div>
 
         {/* Skill Categories Navigation */}
         {/* Streak + Badges */}
