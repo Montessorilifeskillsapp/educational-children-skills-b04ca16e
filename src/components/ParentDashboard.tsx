@@ -67,11 +67,11 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
               <div className={`text-sm ${montessoriTheme.text.muted}`}>Skills Mastered</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600" aria-label="Learning streak">{childProgress.currentStreak}</div>
+              <div className={`text-2xl font-bold ${montessoriTheme.text.secondary}`} aria-label="Learning streak">{childProgress.currentStreak}</div>
               <div className={`text-sm ${montessoriTheme.text.muted}`}>Day Learning Streak</div>
             </div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-orange-600" aria-label="Weekly learning time">{childProgress.weeklyTime}</div>
+              <div className={`text-2xl font-bold ${montessoriTheme.text.accent}`} aria-label="Weekly learning time">{childProgress.weeklyTime}</div>
               <div className={`text-sm ${montessoriTheme.text.muted}`}>Minutes This Week</div>
             </div>
           </div>
