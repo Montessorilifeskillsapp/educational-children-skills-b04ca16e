@@ -359,6 +359,7 @@ const Home: React.FC<HomeProps> = ({
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </section>
 
