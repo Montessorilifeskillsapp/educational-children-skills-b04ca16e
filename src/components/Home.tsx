@@ -405,9 +405,9 @@ const Home: React.FC<HomeProps> = ({
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[
-              { area: 'Practical Life', name: 'Pouring Water', age: 'Ages 2½–4', image: montessoriImages['pouring-set'] },
-              { area: 'Sensorial', name: 'The Pink Tower', age: 'Ages 3–4', image: sensorialImages['pink-tower'] },
-              { area: 'Mathematics', name: 'Golden Beads', age: 'Ages 4–6', image: mathImages['golden-beads'] },
+              { area: 'Practical Life', name: 'Pouring Water', age: 'Ages 2½–3½', image: montessoriImages['pouring-set'] },
+              { area: 'Language', name: 'Sandpaper Letters', age: 'Ages 3½–5', image: languageImages['sandpaper-letters'] },
+              { area: 'Mathematics', name: 'Golden Beads', age: 'Ages 4½–6', image: mathImages['golden-beads'] },
             ].map((a, i) => (
               <Reveal key={a.name} delay={i * 100}>
                 <Card className="overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 h-full">
