@@ -103,6 +103,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
 
+  useEffect(() => {
+    analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSubscribe = async (plan: Plan) => {
     try {
       if (plan.id === 'consultation') {
