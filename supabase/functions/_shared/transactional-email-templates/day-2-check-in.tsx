@@ -27,7 +27,7 @@ const Email = ({ name }: Props) => (
           If you haven't tried it yet, no pressure — pick a calm 10-minute window today.
         </Text>
         <Section style={{ textAlign: 'center', margin: '28px 0' }}>
-          <Button href={`${APP_URL}/preview/pouring-water`} style={button}>
+          <Button href={`${APP_URL}/preview/pouring-water?utm_source=email&utm_medium=transactional&utm_campaign=day-2-check-in`} style={button}>
             Re-open the guide
           </Button>
         </Section>
