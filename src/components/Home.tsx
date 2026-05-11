@@ -239,7 +239,7 @@ const Home: React.FC<HomeProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-white relative overflow-hidden">
+    <div className="min-h-screen bg-background relative overflow-hidden">
       <InstallBanner />
 
       {/* ─── Sticky Nav ─── */}
@@ -343,7 +343,7 @@ const Home: React.FC<HomeProps> = ({
             </div>
 
             {/* Right: Hero Image */}
-            <div className="relative animate-scale-in">
+            <div className="relative hidden lg:block animate-scale-in">
               <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl scale-105" />
               <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-card">
                 <img
