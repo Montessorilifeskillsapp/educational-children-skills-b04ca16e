@@ -27,6 +27,10 @@ const Email = ({ name }: Props) => (
         <Text style={text}>
           Keep going. Even one activity a week compounds.
         </Text>
+        <Text style={textBold}>
+          One small ask: hit reply and tell me how it's going. What activity has your
+          child loved? What's been hard? I read every reply personally.
+        </Text>
         <Text style={footer}>Kerry, {SITE_NAME}</Text>
       </Container>
     </Body>
@@ -44,4 +48,5 @@ const main = { backgroundColor: '#ffffff', fontFamily: 'Georgia, "Times New Roma
 const container = { padding: '32px 28px', maxWidth: '560px' }
 const h1 = { fontSize: '22px', fontWeight: 'bold', color: '#3d342b', margin: '0 0 16px' }
 const text = { fontSize: '15px', color: '#55504a', lineHeight: '1.7', margin: '0 0 18px' }
+const textBold = { fontSize: '15px', color: '#3d342b', lineHeight: '1.7', margin: '0 0 18px', fontWeight: 600 as const, borderLeft: '3px solid #7bb5b0', paddingLeft: '14px' }
 const footer = { fontSize: '13px', color: '#8a8275', margin: '28px 0 0', fontStyle: 'italic' }
