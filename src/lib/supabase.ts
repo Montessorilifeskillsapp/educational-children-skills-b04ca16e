@@ -161,7 +161,7 @@ export const dbOperations = {
 
   // Activity sessions
   async createActivitySession(childId: string, skillId: string, durationMinutes: number, notes?: string, completed: boolean = false) {
-    return await supabase
+    const result = await supabase
       .from('activity_sessions')
       .insert([
         {
@@ -174,6 +174,14 @@ export const dbOperations = {
       ])
       .select()
       .single()
+    try {
+      const { analytics } = await import('@/lib/analytics');
+      analytics.track(completed ? 'activity_completed' : 'activity_started', {
+        skill_id: skillId,
+        duration_minutes: durationMinutes,
+      });
+    } catch { /* ignore */ }
+    return result
   },
 
   async getActivitySessions(childId: string, limit = 50) {

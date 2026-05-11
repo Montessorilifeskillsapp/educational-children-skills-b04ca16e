@@ -1,205 +1,110 @@
-// Analytics tracking for launch optimization
+// Conversion analytics — persists events to Supabase analytics_events table.
+// Anonymous users are tracked via a stable anon_id stored in localStorage so
+// pre-signup funnel events can be tied to the eventual user.
 
-interface AnalyticsEvent {
-  event: string;
-  category?: string;
-  label?: string;
-  value?: number;
-  customParameters?: Record<string, any>;
-}
+import { supabase } from '@/integrations/supabase/client';
+
+const ANON_KEY = 'mlsa_anon_id';
+
+const getAnonId = (): string => {
+  if (typeof window === 'undefined') return 'ssr';
+  let id = localStorage.getItem(ANON_KEY);
+  if (!id) {
+    id =
+      (crypto as any)?.randomUUID?.() ??
+      `anon_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`;
+    localStorage.setItem(ANON_KEY, id);
+  }
+  return id;
+};
 
 class Analytics {
-  private isEnabled: boolean;
   private userId: string | null = null;
 
-  constructor() {
-    this.isEnabled = process.env.NODE_ENV === 'production';
+  init(userId?: string | null) {
+    this.userId = userId ?? null;
   }
 
-  // Initialize analytics with user ID
-  init(userId?: string) {
-    this.userId = userId || null;
-    
-    if (this.isEnabled) {
-      // Initialize your analytics service here (GA4, Mixpanel, etc.)
-      // Analytics initialized
+  /**
+   * Core tracker. Fire-and-forget; never blocks UI and never throws.
+   */
+  async track(event: string, properties: Record<string, any> = {}): Promise<void> {
+    try {
+      if (typeof window === 'undefined') return;
+      const payload = {
+        event,
+        user_id: this.userId,
+        anon_id: getAnonId(),
+        properties,
+        path: window.location.pathname + window.location.search,
+        referrer: document.referrer || null,
+        user_agent: navigator.userAgent,
+      };
+      // Don't await — non-blocking
+      void supabase.from('analytics_events').insert(payload as any);
+    } catch {
+      // swallow — analytics must never break the app
     }
   }
 
-  // Track page views
   trackPageView(page: string, title?: string) {
-    if (!this.isEnabled) return;
-
-    const event: AnalyticsEvent = {
-      event: 'page_view',
-      category: 'navigation',
-      label: page,
-      customParameters: {
-        page_title: title,
-        user_id: this.userId,
-        timestamp: Date.now()
-      }
-    };
-
-    this.sendEvent(event);
+    return this.track('page_view', { page, title });
   }
 
-  // Track user interactions
   trackInteraction(action: string, element: string, details?: Record<string, any>) {
-    if (!this.isEnabled) return;
-
-    const event: AnalyticsEvent = {
-      event: 'user_interaction',
-      category: 'engagement',
-      label: `${action}_${element}`,
-      customParameters: {
-        action,
-        element,
-        user_id: this.userId,
-        timestamp: Date.now(),
-        ...details
-      }
-    };
-
-    this.sendEvent(event);
+    return this.track('user_interaction', { action, element, ...details });
   }
 
-  // Track skill activities
   trackSkillActivity(skillId: string, action: 'start' | 'complete' | 'abandon', progress?: number) {
-    if (!this.isEnabled) return;
-
-    const event: AnalyticsEvent = {
-      event: 'skill_activity',
-      category: 'learning',
-      label: `${skillId}_${action}`,
-      value: progress,
-      customParameters: {
-        skill_id: skillId,
-        action,
-        progress_percentage: progress,
-        user_id: this.userId,
-        timestamp: Date.now()
-      }
-    };
-
-    this.sendEvent(event);
+    return this.track(action === 'start' ? 'activity_started' : `activity_${action}`, {
+      skill_id: skillId,
+      progress,
+    });
   }
 
-  // Track conversion events
   trackConversion(type: 'signup' | 'upgrade' | 'purchase', value?: number) {
-    if (!this.isEnabled) return;
-
-    const event: AnalyticsEvent = {
-      event: 'conversion',
-      category: 'business',
-      label: type,
-      value: value,
-      customParameters: {
-        conversion_type: type,
-        conversion_value: value,
-        user_id: this.userId,
-        timestamp: Date.now()
-      }
-    };
-
-    this.sendEvent(event);
+    return this.track(type === 'signup' ? 'signup' : `conversion_${type}`, { value });
   }
 
-  // Track errors for debugging
   trackError(error: Error, context?: string) {
-    if (!this.isEnabled) return;
-
-    const event: AnalyticsEvent = {
-      event: 'app_error',
-      category: 'technical',
-      label: error.name,
-      customParameters: {
-        error_message: error.message,
-        error_stack: error.stack,
-        context,
-        user_id: this.userId,
-        timestamp: Date.now()
-      }
-    };
-
-    this.sendEvent(event);
+    return this.track('app_error', {
+      name: error.name,
+      message: error.message,
+      context,
+    });
   }
 
-  // Track performance metrics
-  trackPerformance(metric: string, value: number, unit: string = 'ms') {
-    if (!this.isEnabled) return;
-
-    const event: AnalyticsEvent = {
-      event: 'performance_metric',
-      category: 'technical',
-      label: metric,
-      value: value,
-      customParameters: {
-        metric_name: metric,
-        metric_value: value,
-        metric_unit: unit,
-        timestamp: Date.now()
-      }
-    };
-
-    this.sendEvent(event);
+  trackPerformance(metric: string, value: number, unit = 'ms') {
+    return this.track('performance_metric', { metric, value, unit });
   }
 
-  // Send event to analytics service
-  private sendEvent(event: AnalyticsEvent) {
-    if (!this.isEnabled) {
-      // Dev mode - events not sent
-      return;
-    }
-
-    // Send to your analytics provider
-    // Examples:
-    // - Google Analytics 4: gtag('event', event.event, event.customParameters)
-    // - Mixpanel: mixpanel.track(event.event, event.customParameters)
-    // - Custom API: fetch('/api/analytics', { method: 'POST', body: JSON.stringify(event) })
-    
-    // TODO: Send to analytics provider
-  }
-
-  // Utility: Track time spent on page
   startTimer(pageId: string) {
-    if (!this.isEnabled) return null;
-
-    const startTime = Date.now();
-    
-    return () => {
-      const timeSpent = Date.now() - startTime;
-      this.trackPerformance(`page_time_${pageId}`, timeSpent);
-    };
+    const start = Date.now();
+    return () => this.trackPerformance(`page_time_${pageId}`, Date.now() - start);
   }
 
-  // Utility: Track feature usage
-  trackFeatureUsage(feature: string, usage: 'first_use' | 'repeated_use') {
-    const storageKey = `feature_${feature}_used`;
-    const hasUsedBefore = localStorage.getItem(storageKey);
-    
-    if (!hasUsedBefore) {
-      localStorage.setItem(storageKey, 'true');
-      this.trackInteraction('feature_first_use', feature);
-    } else {
-      this.trackInteraction('feature_repeated_use', feature);
+  trackFeatureUsage(feature: string, _usage?: 'first_use' | 'repeated_use') {
+    if (typeof window === 'undefined') return;
+    const key = `feature_${feature}_used`;
+    const seen = localStorage.getItem(key);
+    if (!seen) {
+      localStorage.setItem(key, 'true');
+      return this.trackInteraction('feature_first_use', feature);
     }
+    return this.trackInteraction('feature_repeated_use', feature);
   }
 }
 
-// Export singleton instance
 export const analytics = new Analytics();
 
-// Export hook for React components
-export const useAnalytics = () => {
-  return {
-    trackPageView: analytics.trackPageView.bind(analytics),
-    trackInteraction: analytics.trackInteraction.bind(analytics),
-    trackSkillActivity: analytics.trackSkillActivity.bind(analytics),
-    trackConversion: analytics.trackConversion.bind(analytics),
-    trackError: analytics.trackError.bind(analytics),
-    trackPerformance: analytics.trackPerformance.bind(analytics),
-    startTimer: analytics.startTimer.bind(analytics),
-    trackFeatureUsage: analytics.trackFeatureUsage.bind(analytics),
-  };
-};
+export const useAnalytics = () => ({
+  track: analytics.track.bind(analytics),
+  trackPageView: analytics.trackPageView.bind(analytics),
+  trackInteraction: analytics.trackInteraction.bind(analytics),
+  trackSkillActivity: analytics.trackSkillActivity.bind(analytics),
+  trackConversion: analytics.trackConversion.bind(analytics),
+  trackError: analytics.trackError.bind(analytics),
+  trackPerformance: analytics.trackPerformance.bind(analytics),
+  startTimer: analytics.startTimer.bind(analytics),
+  trackFeatureUsage: analytics.trackFeatureUsage.bind(analytics),
+});

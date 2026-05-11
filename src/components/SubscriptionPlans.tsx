@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -9,6 +9,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
+import { analytics } from '@/lib/analytics';
 
 interface Plan {
   id: string;
@@ -102,6 +103,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
 
+  useEffect(() => {
+    analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   const handleSubscribe = async (plan: Plan) => {
     try {
       if (plan.id === 'consultation') {
@@ -137,6 +143,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       setLoading(plan.id);
       try {
+        analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price });
         const { data, error } = await supabase.functions.invoke('create-checkout', {
           body: { planId: plan.id },
         });

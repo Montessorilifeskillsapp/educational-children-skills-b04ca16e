@@ -52,6 +52,42 @@ export type Database = {
           },
         ]
       }
+      analytics_events: {
+        Row: {
+          anon_id: string | null
+          created_at: string
+          event: string
+          id: number
+          path: string | null
+          properties: Json
+          referrer: string | null
+          user_agent: string | null
+          user_id: string | null
+        }
+        Insert: {
+          anon_id?: string | null
+          created_at?: string
+          event: string
+          id?: number
+          path?: string | null
+          properties?: Json
+          referrer?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          anon_id?: string | null
+          created_at?: string
+          event?: string
+          id?: number
+          path?: string | null
+          properties?: Json
+          referrer?: string | null
+          user_agent?: string | null
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       child_profiles: {
         Row: {
           avatar_url: string | null

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
+import { analytics } from '@/lib/analytics'
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
@@ -11,6 +12,7 @@ export const useAuth = () => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
       setUser(session?.user ?? null)
+      analytics.init(session?.user?.id ?? null)
       setLoading(false)
     })
 
@@ -18,9 +20,10 @@ export const useAuth = () => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
         setUser(session?.user ?? null)
-        
+        analytics.init(session?.user?.id ?? null)
+
         // User profile creation is now handled by database trigger
-        
+
         setLoading(false)
       }
     )
@@ -33,6 +36,7 @@ export const useAuth = () => {
       email,
       password,
     })
+    if (!error) analytics.track('signin', { method: 'password' })
     return { error }
   }
 
@@ -44,6 +48,7 @@ export const useAuth = () => {
         emailRedirectTo: `${window.location.origin}/`
       }
     })
+    if (!error) analytics.track('signup', { method: 'password' })
     return { error }
   }
 
@@ -53,6 +58,7 @@ export const useAuth = () => {
   }
 
   const signInWithGoogle = async () => {
+    analytics.track('signin_started', { method: 'google' })
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -63,6 +69,7 @@ export const useAuth = () => {
   }
 
   const signInWithApple = async () => {
+    analytics.track('signin_started', { method: 'apple' })
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
