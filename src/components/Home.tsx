@@ -173,10 +173,10 @@ const faqs = [
 ];
 
 const stats = [
-  { value: '10,000+', label: 'Families worldwide' },
   { value: '100+', label: 'Guided activities' },
   { value: '8', label: 'Curriculum areas' },
-  { value: '4.9', label: 'Average rating' },
+  { value: 'AMI', label: 'Aligned method' },
+  { value: '2–6', label: 'Years old' },
 ];
 
 const Home: React.FC<HomeProps> = ({
@@ -278,29 +278,27 @@ const Home: React.FC<HomeProps> = ({
         style={{ paddingTop: 'calc(var(--banner-h, 0px) + var(--nav-h, 64px) + 2rem)' }}
       >
         {/* Soft gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/20/80 via-blue-50/50 to-white pointer-events-none" />
-        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/25/30 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/25/30 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-b from-primary/15 via-background to-background pointer-events-none" />
+        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/20 rounded-full blur-3xl pointer-events-none" />
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Copy */}
             <div className="text-center lg:text-left">
-              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-white/80 backdrop-blur-sm border border-primary/15 rounded-full text-sm font-medium text-primary mb-6 shadow-sm">
-                <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                Trusted by 10,000+ families worldwide
+              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-card/90 backdrop-blur-sm border border-primary/20 rounded-full text-sm font-medium text-foreground mb-6 shadow-sm">
+                <Star className="w-4 h-4 text-accent fill-accent" />
+                AMI-aligned Montessori for ages 2–6
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-6 leading-tight animate-reveal-delay-1">
-                Teach Your Child{' '}
-                <span className="bg-gradient-to-r from-primary via-blue-600 to-accent bg-clip-text text-transparent">
-                  Real Life Skills
-                </span>{' '}
-                With Confidence
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-5 leading-[1.1] animate-reveal-delay-1">
+                Teach your child{' '}
+                <span className="text-primary">real life skills</span>{' '}
+                with confidence.
               </h1>
 
-              <p className="text-lg sm:text-xl text-slate-600 mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                The complete Montessori curriculum for ages 2–6. Step-by-step activity guides, progress tracking, and expert support — no teaching experience required.
+              <p className="text-lg sm:text-xl text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
+                A complete, step-by-step Montessori curriculum for home — authentic activities, clear presentations, and progress tracking. No teaching experience required.
               </p>
 
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
@@ -339,8 +337,8 @@ const Home: React.FC<HomeProps> = ({
 
             {/* Right: Hero Image */}
             <div className="relative animate-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/200/20 to-accent/200/20 rounded-3xl blur-2xl scale-105" />
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
+              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl scale-105" />
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-card">
                 <img
                   src={montessoriImages['pouring-set']}
                   alt="Child engaged in Montessori practical life activity with pouring materials"
@@ -348,14 +346,14 @@ const Home: React.FC<HomeProps> = ({
                   loading="eager"
                 />
                 {/* Floating badge */}
-                <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/15 animate-float">
+                <div className="absolute bottom-4 left-4 bg-card/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/20 animate-float">
                   <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary/200 to-accent/200 flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-white" />
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
+                      <Heart className="w-5 h-5 text-primary-foreground" />
                     </div>
                     <div>
-                      <p className="text-sm font-bold text-slate-800">Independence</p>
-                      <p className="text-xs text-slate-500">Built daily</p>
+                      <p className="text-sm font-bold text-foreground">Independence</p>
+                      <p className="text-xs text-muted-foreground">Built daily</p>
                     </div>
                   </div>
                 </div>
