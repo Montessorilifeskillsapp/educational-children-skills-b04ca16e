@@ -27,6 +27,10 @@ const Email = ({ name }: Props) => (
         <Text style={text}>
           Keep going. Even one activity a week compounds.
         </Text>
+        <Text style={textBold}>
+          One small ask: hit reply and tell me how it's going. What activity has your
+          child loved? What's been hard? I read every reply personally.
+        </Text>
         <Text style={footer}>Kerry, {SITE_NAME}</Text>
       </Container>
     </Body>
