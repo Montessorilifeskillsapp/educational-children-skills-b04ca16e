@@ -342,35 +342,8 @@ const Home: React.FC<HomeProps> = ({
               </div>
             </div>
 
-            {/* Right: Hero Image */}
-            <div className="relative hidden lg:block animate-scale-in">
-              <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-3xl blur-2xl scale-105" />
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-card">
-                <img
-                  src={heroChildPouring}
-                  alt="Young child calmly pouring water between glass pitchers in a prepared Montessori environment"
-                  width={1280}
-                  height={1280}
-                  className="w-full h-auto object-cover aspect-square"
-                  loading="eager"
-                  // @ts-expect-error - fetchpriority is valid HTML, React types lag
-                  fetchpriority="high"
-                  decoding="async"
-                />
-                {/* Floating badge */}
-                <div className="absolute bottom-4 left-4 bg-card/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/20 animate-float">
-                  <div className="flex items-center gap-2">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-                      <Heart className="w-5 h-5 text-primary-foreground" />
-                    </div>
-                    <div>
-                      <p className="text-sm font-bold text-foreground">Independence</p>
-                      <p className="text-xs text-muted-foreground">Built daily</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {/* Right: Hero Image — hidden on mobile */}
+            <div className="hidden lg:block" />
           </div>
         </div>
       </section>
