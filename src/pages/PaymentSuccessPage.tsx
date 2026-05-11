@@ -7,6 +7,7 @@ import { useSubscription } from '@/hooks/useSubscription';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
+import { getStoredUtm } from '@/hooks/useUtmTracking';
 
 const PaymentSuccessPage: React.FC = () => {
   const navigate = useNavigate();
