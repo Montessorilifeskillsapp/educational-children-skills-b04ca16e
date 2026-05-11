@@ -143,6 +143,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       setLoading(plan.id);
       try {
+        analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price });
         const { data, error } = await supabase.functions.invoke('create-checkout', {
           body: { planId: plan.id },
         });
