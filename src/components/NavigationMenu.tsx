@@ -7,7 +7,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, LogIn
+  ChevronDown, ChevronUp, LogIn, BarChart3
 } from 'lucide-react';
 
 interface NavigationMenuProps {
