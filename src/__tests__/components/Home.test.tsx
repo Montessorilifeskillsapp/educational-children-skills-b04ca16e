@@ -107,7 +107,7 @@ describe('Home Component', () => {
 
     it('renders the trust badge', () => {
       renderHome();
-      expect(screen.getByText(/Trusted by 10,000\+ families worldwide/)).toBeInTheDocument();
+      expect(screen.getByText(/AMI-aligned Montessori for ages 2–6/)).toBeInTheDocument();
     });
 
     it('renders the hero image with correct alt text', () => {
