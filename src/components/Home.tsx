@@ -17,6 +17,7 @@ import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
+import HeroAppPreview from './HeroAppPreview';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -371,6 +372,9 @@ const Home: React.FC<HomeProps> = ({
           </div>
         </div>
       </section>
+
+      {/* ─── 30-Second App Preview (animated phone mockup) ─── */}
+      <HeroAppPreview />
 
       {/* ─── Stats Bar ─── */}
       <section className="py-10 bg-slate-50 border-y border-slate-100">
