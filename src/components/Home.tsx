@@ -290,9 +290,9 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Copy */}
             <div className="text-center lg:text-left">
-              <div className="animate-fade-in inline-flex items-center gap-2 px-4 py-2 bg-card/90 backdrop-blur-sm border border-primary/20 rounded-full text-sm font-medium text-foreground mb-6 shadow-sm">
-                <Star className="w-4 h-4 text-accent fill-accent" />
-                AMI-aligned Montessori for ages 2–6
+              <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
+                <Star className="w-3 h-3 text-accent fill-accent" />
+                AMI-aligned Montessori · ages 2–6
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-4 leading-[1.1] animate-reveal-delay-1">
@@ -309,22 +309,21 @@ const Home: React.FC<HomeProps> = ({
                 A complete curriculum for home — authentic materials, clear presentations, and progress tracking. No teaching experience required.
               </p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
+              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
                 <Button
                   onClick={onGetStarted}
                   size="lg"
-                  className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
+                  className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                 >
                   Start Free Journey <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <Button
+                <button
+                  type="button"
                   onClick={onSubscriptionView}
-                  size="lg"
-                  variant="outline"
-                  className="border-slate-300 text-slate-700 hover:bg-slate-50 px-8 py-6 text-lg rounded-2xl transition-all duration-300"
+                  className="text-base font-medium text-foreground/80 hover:text-primary underline-offset-4 hover:underline transition-colors"
                 >
-                  View Plans
-                </Button>
+                  View plans →
+                </button>
               </div>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-slate-500">
@@ -354,6 +353,9 @@ const Home: React.FC<HomeProps> = ({
                   height={1280}
                   className="w-full h-auto object-cover aspect-square"
                   loading="eager"
+                  // @ts-expect-error - fetchpriority is valid HTML, React types lag
+                  fetchpriority="high"
+                  decoding="async"
                 />
                 {/* Floating badge */}
                 <div className="absolute bottom-4 left-4 bg-card/95 backdrop-blur-sm rounded-2xl p-3 shadow-lg border border-primary/20 animate-float">
