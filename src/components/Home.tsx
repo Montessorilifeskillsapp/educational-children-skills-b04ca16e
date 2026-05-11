@@ -255,7 +255,7 @@ const Home: React.FC<HomeProps> = ({
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
               <span className={`font-bold text-lg transition-colors ${scrolled ? 'text-slate-800' : 'text-slate-800'}`}>
-                Montessori Skills
+                Montessori Life Skills
               </span>
             </div>
             <div className="flex items-center gap-3">
