@@ -173,10 +173,10 @@ const faqs = [
 ];
 
 const stats = [
-  { value: '10,000+', label: 'Families worldwide' },
   { value: '100+', label: 'Guided activities' },
   { value: '8', label: 'Curriculum areas' },
-  { value: '4.9', label: 'Average rating' },
+  { value: 'AMI', label: 'Aligned method' },
+  { value: '2–6', label: 'Years old' },
 ];
 
 const Home: React.FC<HomeProps> = ({
