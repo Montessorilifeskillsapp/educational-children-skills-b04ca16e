@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
 import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
+import { analytics } from '@/lib/analytics'
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
