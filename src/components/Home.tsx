@@ -388,6 +388,60 @@ const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
+      {/* ─── What's Inside (sample activities) ─── */}
+      <section className="py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="text-center mb-10">
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">What's Inside</p>
+              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
+                A peek at real activities
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
+                Every activity uses authentic materials with a clear, photo-guided presentation.
+              </p>
+            </div>
+          </Reveal>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {[
+              { area: 'Practical Life', name: 'Pouring Water', age: 'Ages 2½–4', image: montessoriImages['pouring-set'] },
+              { area: 'Sensorial', name: 'The Pink Tower', age: 'Ages 3–4', image: sensorialImages['pink-tower'] },
+              { area: 'Mathematics', name: 'Golden Beads', age: 'Ages 4–6', image: mathImages['golden-beads'] },
+            ].map((a, i) => (
+              <Reveal key={a.name} delay={i * 100}>
+                <Card className="overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 h-full">
+                  <div className="aspect-[4/3] overflow-hidden bg-muted">
+                    <img
+                      src={a.image}
+                      alt={`${a.name} — authentic Montessori material`}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                  </div>
+                  <CardContent className="p-5">
+                    <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{a.area}</p>
+                    <h3 className="text-lg font-bold text-foreground mb-1">{a.name}</h3>
+                    <p className="text-sm text-muted-foreground">{a.age} · Step-by-step presentation</p>
+                  </CardContent>
+                </Card>
+              </Reveal>
+            ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Button
+              onClick={onGetStarted}
+              variant="outline"
+              size="lg"
+              className="rounded-full px-8 border-primary/30 text-primary hover:bg-primary/10"
+            >
+              Explore all 100+ activities <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </div>
+      </section>
+
       {/* ─── The Problem ─── */}
       <section className="py-20 lg:py-28">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
