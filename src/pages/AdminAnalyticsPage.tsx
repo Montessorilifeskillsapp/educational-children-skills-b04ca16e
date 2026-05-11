@@ -66,12 +66,25 @@ const AdminAnalyticsPage = () => {
   }
   if (!user) return <Navigate to="/auth" replace />;
   if (!isAdmin) {
+    const claim = async () => {
+      const { data, error } = await supabase.functions.invoke('admin-bootstrap');
+      if (error || (data as any)?.error) {
+        setError((data as any)?.error ?? error?.message ?? 'Failed to claim admin');
+        return;
+      }
+      setIsAdmin(true);
+    };
     return (
       <div className="flex items-center justify-center min-h-screen p-6">
         <Card className="max-w-md">
-          <CardHeader><CardTitle>Access denied</CardTitle></CardHeader>
-          <CardContent className="text-muted-foreground">
-            This page is restricted to admin users.
+          <CardHeader><CardTitle>Admin access</CardTitle></CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-muted-foreground text-sm">
+              No admin has claimed this dashboard yet. If this is your project, click below to
+              grant yourself admin access. After the first claim, this button stops working.
+            </p>
+            {error && <p className="text-destructive text-sm">{error}</p>}
+            <Button onClick={claim} className="w-full">Claim admin access</Button>
           </CardContent>
         </Card>
       </div>
