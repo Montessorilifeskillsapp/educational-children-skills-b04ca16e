@@ -376,7 +376,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── What's Inside (sample activities) ─── */}
-      <section className="py-16 lg:py-20 bg-background border-t border-border/60">
+      <section id="activities" className="py-16 lg:py-20 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-10">
@@ -543,7 +543,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Curriculum Grid ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="curriculum" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -709,7 +709,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Meet the Founder ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
+      <section id="founder" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
@@ -790,7 +790,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Pricing ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60" id="pricing">
+      <section className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24" id="pricing">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
