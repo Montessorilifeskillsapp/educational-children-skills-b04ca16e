@@ -18,6 +18,7 @@ import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { enhancedMathSkills } from '@/data/enhancedMathSkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { useSEO } from '@/hooks/useSEO';
+import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { canAccessSectionItem } from '@/lib/freeTierAccess';
@@ -432,6 +433,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                   Continue Learning
                 </Button>
               </div>
+              <ShareWinCard skillTitle={skill.title} categoryName={category.name} />
             </CardContent>
           </Card>
         )}
