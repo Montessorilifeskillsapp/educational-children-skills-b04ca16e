@@ -105,7 +105,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
 
   useEffect(() => {
-    analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id });
+    analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id, attribution: getStoredUtm() });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
