@@ -82,6 +82,42 @@ export type Database = {
         }
         Relationships: []
       }
+      email_schedule: {
+        Row: {
+          attempts: number
+          created_at: string
+          email: string
+          id: string
+          last_error: string | null
+          send_at: string
+          sent_at: string | null
+          template_name: string
+          user_id: string
+        }
+        Insert: {
+          attempts?: number
+          created_at?: string
+          email: string
+          id?: string
+          last_error?: string | null
+          send_at: string
+          sent_at?: string | null
+          template_name: string
+          user_id: string
+        }
+        Update: {
+          attempts?: number
+          created_at?: string
+          email?: string
+          id?: string
+          last_error?: string | null
+          send_at?: string
+          sent_at?: string | null
+          template_name?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       skill_progress: {
         Row: {
           child_id: string | null
