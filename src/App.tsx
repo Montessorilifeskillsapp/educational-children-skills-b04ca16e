@@ -27,6 +27,7 @@ import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
+import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
@@ -85,6 +86,7 @@ const App = () => {
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                         <PWAInstallPrompt />
+                        <AdminAnalyticsLink />
                     </BrowserRouter>
                   </SubscriptionProvider>
                 </ProfileProvider>
