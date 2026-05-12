@@ -67,6 +67,8 @@ const App = () => {
                         <RouteEffects />
                         <Routes>
                           <Route path="/" element={<Index />} />
+                          <Route path="/index" element={<Index />} />
+                          <Route path="/home" element={<Index />} />
                           <Route path="/practical-life" element={<PracticalLifePage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
