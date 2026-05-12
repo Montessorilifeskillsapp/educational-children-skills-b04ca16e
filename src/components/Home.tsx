@@ -184,18 +184,7 @@ const stats = [
   { value: '2–6', label: 'Years old' },
 ];
 
-const homeNavLinks = [
-  { label: 'Activities', href: '#activities' },
-  { label: 'Struggle', href: '#struggle' },
-  { label: 'Solution', href: '#solution' },
-  { label: 'Curriculum', href: '#curriculum' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'For You', href: '#audience' },
-  { label: 'About', href: '#founder' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
-];
+// Curriculum area nav links are built inside the component to access handlers
 
 const Home: React.FC<HomeProps> = ({
   onGetStarted, onSubscriptionView,
@@ -207,6 +196,17 @@ const Home: React.FC<HomeProps> = ({
   const { user } = useAuthContext();
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+
+  const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
+    { label: 'Practical Life', onClick: onPracticalView },
+    { label: 'Sensorial', onClick: onSensorialView },
+    { label: 'Math', onClick: onMathView },
+    { label: 'Language', onClick: onLanguageView },
+    { label: 'Botany', onClick: onBotanyView },
+    { label: 'Geography', onClick: onGeographyView },
+    { label: 'Science', onClick: onCulturalView },
+    { label: 'Art', onClick: onArtView },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -272,11 +272,15 @@ const Home: React.FC<HomeProps> = ({
                 Montessori Life Skills
               </span>
             </div>
-            <nav className="hidden xl:flex items-center gap-3 text-xs font-medium text-muted-foreground">
+            <nav className="hidden lg:flex items-center gap-1 text-sm font-medium text-muted-foreground">
               {homeNavLinks.map((link) => (
-                <a key={link.href} href={link.href} className="hover:text-primary transition-colors whitespace-nowrap">
+                <button
+                  key={link.label}
+                  onClick={link.onClick}
+                  className="px-2.5 py-1.5 rounded-md hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
+                >
                   {link.label}
-                </a>
+                </button>
               ))}
             </nav>
             <div className="flex items-center gap-3">
@@ -295,20 +299,23 @@ const Home: React.FC<HomeProps> = ({
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="xl:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
+                  <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
                     <Leaf className="w-5 h-5" />
                     <span className="sr-only">Open menu</span>
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="z-[70] w-72 sm:w-80 overflow-y-auto">
                   <div className="flex flex-col gap-6 mt-8">
-                    <nav className="flex flex-col gap-3 text-base font-medium">
+                    <nav className="flex flex-col gap-2 text-base font-medium">
                       {homeNavLinks.map((link) => (
-                        <SheetClose key={link.href} asChild>
-                          <a href={link.href} className="flex items-center gap-3 rounded-lg px-2 py-1.5 text-foreground hover:bg-accent hover:text-primary transition-colors">
+                        <SheetClose key={link.label} asChild>
+                          <button
+                            onClick={link.onClick}
+                            className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground hover:bg-accent hover:text-primary transition-colors text-left"
+                          >
                             <Leaf className="w-4 h-4 text-primary" />
                             {link.label}
-                          </a>
+                          </button>
                         </SheetClose>
                       ))}
                     </nav>
