@@ -184,18 +184,7 @@ const stats = [
   { value: '2–6', label: 'Years old' },
 ];
 
-const homeNavLinks = [
-  { label: 'Activities', href: '#activities' },
-  { label: 'Struggle', href: '#struggle' },
-  { label: 'Solution', href: '#solution' },
-  { label: 'Curriculum', href: '#curriculum' },
-  { label: 'How It Works', href: '#how-it-works' },
-  { label: 'For You', href: '#audience' },
-  { label: 'About', href: '#founder' },
-  { label: 'Reviews', href: '#reviews' },
-  { label: 'Pricing', href: '#pricing' },
-  { label: 'FAQ', href: '#faq' },
-];
+// Curriculum area nav links are built inside the component to access handlers
 
 const Home: React.FC<HomeProps> = ({
   onGetStarted, onSubscriptionView,
