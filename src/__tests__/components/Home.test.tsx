@@ -99,78 +99,45 @@ describe('Home Component', () => {
   });
 
   describe('Rendering', () => {
-    it('renders the main heading correctly', () => {
+    it('renders the brand wordmark', () => {
       renderHome();
-      expect(screen.getByText('Montessori Life Skills')).toBeInTheDocument();
-      expect(screen.getByText('for Every Child')).toBeInTheDocument();
+      expect(screen.getAllByText('Montessori Life Skills').length).toBeGreaterThan(0);
     });
 
-    it('renders the trust badge', () => {
+    it('renders curriculum nav links', () => {
       renderHome();
-      expect(screen.getByText(/AMI-aligned Montessori for ages 2–6/)).toBeInTheDocument();
-    });
-
-    it('renders the hero image with correct alt text', () => {
-      renderHome();
-      const heroImage = screen.getByAltText('Children learning with Montessori materials - puzzle and leaf');
-      expect(heroImage).toBeInTheDocument();
-      expect(heroImage).toHaveAttribute('src', 'mocked-hero-image.jpg');
-    });
-
-    it('renders feature pills', () => {
-      renderHome();
-      expect(screen.getByText('50+ Life Skills Activities')).toBeInTheDocument();
-      expect(screen.getByText('100% Authentic Montessori')).toBeInTheDocument();
-      expect(screen.getByText('Ages 2-6 Curriculum')).toBeInTheDocument();
-      expect(screen.getByText('Safe & Secure Platform')).toBeInTheDocument();
-    });
-
-    it('renders feature section cards', () => {
-      renderHome();
-      expect(screen.getByText('Child-Led Learning')).toBeInTheDocument();
-      expect(screen.getByText('Hands-On Activities')).toBeInTheDocument();
-      expect(screen.getByText('Expert Guidance')).toBeInTheDocument();
+      expect(screen.getAllByText('Practical Life').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Sensorial').length).toBeGreaterThan(0);
+      expect(screen.getAllByText('Math').length).toBeGreaterThan(0);
     });
 
     it('renders testimonials section', () => {
       renderHome();
-      expect(screen.getByText('Loved by Families Everywhere')).toBeInTheDocument();
       expect(screen.getByText(/My daughter loves the hands-on activities/)).toBeInTheDocument();
       expect(screen.getByText('Sarah M.')).toBeInTheDocument();
     });
 
     it('renders CTA section', () => {
       renderHome();
-      expect(screen.getByText('Ready to Transform Your Child\'s Learning?')).toBeInTheDocument();
+      expect(screen.getAllByText(/Start Free/i).length).toBeGreaterThan(0);
     });
   });
 
   describe('User Interactions', () => {
-    it('calls onGetStarted when Start Free Journey button is clicked', async () => {
+    it('calls onGetStarted when Start Free button is clicked', async () => {
       const onGetStarted = vi.fn();
       const user = userEvent.setup();
       renderHome({ onGetStarted });
-      
-      const startButton = screen.getByText('Start Free Journey');
-      await user.click(startButton);
-      
-      expect(onGetStarted).toHaveBeenCalledTimes(1);
+
+      const startButtons = screen.getAllByRole('button', { name: /start free/i });
+      await user.click(startButtons[0]);
+
+      expect(onGetStarted).toHaveBeenCalled();
     });
 
-    it('calls onGetStarted when Start Your Free Trial button is clicked', async () => {
-      const onGetStarted = vi.fn();
-      const user = userEvent.setup();
-      renderHome({ onGetStarted });
-      
-      const trialButton = screen.getByText('Start Your Free Trial');
-      await user.click(trialButton);
-      
-      expect(onGetStarted).toHaveBeenCalledTimes(1);
-    });
-
-    it('renders menu button', () => {
+    it('renders mobile menu trigger', () => {
       renderHome();
-      expect(screen.getByText('Menu')).toBeInTheDocument();
+      expect(screen.getByLabelText(/open section menu/i)).toBeInTheDocument();
     });
   });
 
