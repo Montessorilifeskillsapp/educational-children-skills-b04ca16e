@@ -197,6 +197,17 @@ const Home: React.FC<HomeProps> = ({
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
 
+  const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
+    { label: 'Practical Life', onClick: onPracticalView },
+    { label: 'Sensorial', onClick: onSensorialView },
+    { label: 'Math', onClick: onMathView },
+    { label: 'Language', onClick: onLanguageView },
+    { label: 'Botany', onClick: onBotanyView },
+    { label: 'Geography', onClick: onGeographyView },
+    { label: 'Science', onClick: onCulturalView },
+    { label: 'Art', onClick: onArtView },
+  ];
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
     window.addEventListener('scroll', onScroll, { passive: true });
