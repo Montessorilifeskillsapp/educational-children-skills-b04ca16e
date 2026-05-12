@@ -2,19 +2,24 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-bootstrap-secret',
 }
 
-// One-time bootstrap: gated behind a server-side BOOTSTRAP_SECRET so a random
-// registered user cannot race-claim admin. The caller must:
+// One-time bootstrap: gated behind a server-side bootstrap_secret (Vault) so a
+// random registered user cannot race-claim admin. The caller must:
 //   1. Authenticate (Authorization: Bearer <user JWT>)
-//   2. Provide the X-Bootstrap-Secret header matching the BOOTSTRAP_SECRET env var
+//   2. Provide X-Bootstrap-Secret header matching the value stored in vault
 // After the first admin is granted, the endpoint refuses all further requests.
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
 
   try {
-    const bootstrapSecret = Deno.env.get('BOOTSTRAP_SECRET')
+    const supabase = createClient(
+      Deno.env.get('SUPABASE_URL')!,
+      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+    )
+
+    const { data: bootstrapSecret } = await supabase.rpc('internal_get_secret', { p_name: 'bootstrap_secret' })
     const provided = req.headers.get('x-bootstrap-secret')
     if (!bootstrapSecret || provided !== bootstrapSecret) {
       return new Response(JSON.stringify({ error: 'forbidden' }), {
@@ -28,11 +33,6 @@ Deno.serve(async (req) => {
         status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
       })
     }
-
-    const supabase = createClient(
-      Deno.env.get('SUPABASE_URL')!,
-      Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-    )
 
     const token = authHeader.replace(/^Bearer\s+/i, '')
     const { data: { user } } = await supabase.auth.getUser(token)

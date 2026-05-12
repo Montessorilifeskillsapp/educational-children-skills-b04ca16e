@@ -11,7 +11,12 @@ const corsHeaders = {
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
 
-  const cronSecret = Deno.env.get('CRON_SECRET')
+  const supabase = createClient(
+    Deno.env.get('SUPABASE_URL')!,
+    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
+  )
+
+  const { data: cronSecret } = await supabase.rpc('internal_get_secret', { p_name: 'cron_secret' })
   const provided = req.headers.get('x-cron-secret')
   if (!cronSecret || provided !== cronSecret) {
     return new Response(JSON.stringify({ error: 'forbidden' }), {
@@ -19,11 +24,6 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }
-
-  const supabase = createClient(
-    Deno.env.get('SUPABASE_URL')!,
-    Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!,
-  )
 
   const { data: due, error } = await supabase
     .from('email_schedule')
