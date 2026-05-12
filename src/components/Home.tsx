@@ -299,7 +299,7 @@ const Home: React.FC<HomeProps> = ({
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="xl:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
+                  <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
                     <Leaf className="w-5 h-5" />
                     <span className="sr-only">Open menu</span>
                   </Button>
