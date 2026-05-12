@@ -5,12 +5,23 @@ const corsHeaders = {
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
 }
 
-// One-time bootstrap: the FIRST authenticated user to call this becomes admin.
-// After an admin exists, this endpoint refuses all further requests.
+// One-time bootstrap: gated behind a server-side BOOTSTRAP_SECRET so a random
+// registered user cannot race-claim admin. The caller must:
+//   1. Authenticate (Authorization: Bearer <user JWT>)
+//   2. Provide the X-Bootstrap-Secret header matching the BOOTSTRAP_SECRET env var
+// After the first admin is granted, the endpoint refuses all further requests.
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
 
   try {
+    const bootstrapSecret = Deno.env.get('BOOTSTRAP_SECRET')
+    const provided = req.headers.get('x-bootstrap-secret')
+    if (!bootstrapSecret || provided !== bootstrapSecret) {
+      return new Response(JSON.stringify({ error: 'forbidden' }), {
+        status: 403, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+      })
+    }
+
     const authHeader = req.headers.get('Authorization')
     if (!authHeader) {
       return new Response(JSON.stringify({ error: 'unauthorized' }), {
@@ -59,8 +70,8 @@ Deno.serve(async (req) => {
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e)
-    return new Response(JSON.stringify({ error: msg }), {
+    console.error('admin-bootstrap error', e)
+    return new Response(JSON.stringify({ error: 'internal_error' }), {
       status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
   }
