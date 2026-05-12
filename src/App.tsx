@@ -86,6 +86,7 @@ const App = () => {
                           <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+                          <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                         <PWAInstallPrompt />
