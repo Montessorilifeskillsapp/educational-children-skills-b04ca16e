@@ -272,11 +272,15 @@ const Home: React.FC<HomeProps> = ({
                 Montessori Life Skills
               </span>
             </div>
-            <nav className="hidden xl:flex items-center gap-3 text-xs font-medium text-muted-foreground">
+            <nav className="hidden lg:flex items-center gap-1 text-sm font-medium text-muted-foreground">
               {homeNavLinks.map((link) => (
-                <a key={link.href} href={link.href} className="hover:text-primary transition-colors whitespace-nowrap">
+                <button
+                  key={link.label}
+                  onClick={link.onClick}
+                  className="px-2.5 py-1.5 rounded-md hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
+                >
                   {link.label}
-                </a>
+                </button>
               ))}
             </nav>
             <div className="flex items-center gap-3">
