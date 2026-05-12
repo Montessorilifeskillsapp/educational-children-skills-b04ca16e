@@ -510,7 +510,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── The Problem ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="struggle" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -556,7 +556,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── The Solution ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
+      <section id="solution" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -645,7 +645,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── How It Works ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
+      <section id="how-it-works" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -690,7 +690,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Audience Section ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="audience" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -803,7 +803,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Social Proof / Testimonials ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="reviews" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -906,7 +906,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── FAQ ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="faq" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-12">
