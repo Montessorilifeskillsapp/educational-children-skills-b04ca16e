@@ -306,13 +306,16 @@ const Home: React.FC<HomeProps> = ({
                 </SheetTrigger>
                 <SheetContent side="right" className="z-[70] w-72 sm:w-80 overflow-y-auto">
                   <div className="flex flex-col gap-6 mt-8">
-                    <nav className="flex flex-col gap-3 text-base font-medium">
+                    <nav className="flex flex-col gap-2 text-base font-medium">
                       {homeNavLinks.map((link) => (
-                        <SheetClose key={link.href} asChild>
-                          <a href={link.href} className="flex items-center gap-3 rounded-lg px-2 py-1.5 text-foreground hover:bg-accent hover:text-primary transition-colors">
+                        <SheetClose key={link.label} asChild>
+                          <button
+                            onClick={link.onClick}
+                            className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground hover:bg-accent hover:text-primary transition-colors text-left"
+                          >
                             <Leaf className="w-4 h-4 text-primary" />
                             {link.label}
-                          </a>
+                          </button>
                         </SheetClose>
                       ))}
                     </nav>
