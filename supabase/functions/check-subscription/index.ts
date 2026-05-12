@@ -165,6 +165,36 @@ serve(async (req) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     logStep("ERROR in check-subscription", { message: errorMessage });
+
+    // Last-resort fallback: try to read cached subscriber row by auth header
+    try {
+      const authHeader = req.headers.get("Authorization");
+      if (authHeader) {
+        const token = authHeader.replace("Bearer ", "");
+        const { data: userData } = await supabaseClient.auth.getUser(token);
+        if (userData?.user) {
+          const { data: cached } = await supabaseClient
+            .from("subscribers")
+            .select("subscribed, subscription_tier, subscription_end")
+            .eq("user_id", userData.user.id)
+            .maybeSingle();
+          if (cached) {
+            return new Response(JSON.stringify({
+              subscribed: Boolean(cached.subscribed),
+              subscription_tier: cached.subscription_tier ?? null,
+              subscription_end: cached.subscription_end ?? null,
+              stale: true,
+            }), {
+              headers: { ...corsHeaders, "Content-Type": "application/json" },
+              status: 200,
+            });
+          }
+        }
+      }
+    } catch (_fallbackErr) {
+      // ignore — fall through to error response
+    }
+
     return new Response(JSON.stringify({ error: "Unable to check subscription status." }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 500,
