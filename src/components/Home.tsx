@@ -5,7 +5,7 @@ import {
   ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
   Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
   Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain,
-  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones, Menu, X
+  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
@@ -184,6 +184,19 @@ const stats = [
   { value: '2–6', label: 'Years old' },
 ];
 
+const homeNavLinks = [
+  { label: 'Activities', href: '#activities' },
+  { label: 'Struggle', href: '#struggle' },
+  { label: 'Solution', href: '#solution' },
+  { label: 'Curriculum', href: '#curriculum' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'For You', href: '#audience' },
+  { label: 'About', href: '#founder' },
+  { label: 'Reviews', href: '#reviews' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'FAQ', href: '#faq' },
+];
+
 const Home: React.FC<HomeProps> = ({
   onGetStarted, onSubscriptionView,
   onDashboardView, onPracticalView, onSensorialView,
@@ -259,11 +272,12 @@ const Home: React.FC<HomeProps> = ({
                 Montessori Life Skills
               </span>
             </div>
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
-              <a href="#curriculum" className="hover:text-primary transition-colors">Curriculum</a>
-              <a href="#activities" className="hover:text-primary transition-colors">Activities</a>
-              <a href="#founder" className="hover:text-primary transition-colors">About</a>
-              <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
+            <nav className="hidden xl:flex items-center gap-3 text-xs font-medium text-muted-foreground">
+              {homeNavLinks.map((link) => (
+                <a key={link.href} href={link.href} className="hover:text-primary transition-colors whitespace-nowrap">
+                  {link.label}
+                </a>
+              ))}
             </nav>
             <div className="flex items-center gap-3">
               {!user && (
@@ -281,26 +295,22 @@ const Home: React.FC<HomeProps> = ({
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden">
-                    <Menu className="w-5 h-5" />
+                  <Button variant="ghost" size="icon" className="xl:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
+                    <Leaf className="w-5 h-5" />
                     <span className="sr-only">Open menu</span>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-72 sm:w-80">
+                <SheetContent side="right" className="z-[70] w-72 sm:w-80 overflow-y-auto">
                   <div className="flex flex-col gap-6 mt-8">
-                    <nav className="flex flex-col gap-4 text-base font-medium">
-                      <SheetClose asChild>
-                        <a href="#curriculum" className="text-slate-700 hover:text-primary transition-colors">Curriculum</a>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <a href="#activities" className="text-slate-700 hover:text-primary transition-colors">Activities</a>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <a href="#founder" className="text-slate-700 hover:text-primary transition-colors">About</a>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <a href="#pricing" className="text-slate-700 hover:text-primary transition-colors">Pricing</a>
-                      </SheetClose>
+                    <nav className="flex flex-col gap-3 text-base font-medium">
+                      {homeNavLinks.map((link) => (
+                        <SheetClose key={link.href} asChild>
+                          <a href={link.href} className="flex items-center gap-3 rounded-lg px-2 py-1.5 text-foreground hover:bg-accent hover:text-primary transition-colors">
+                            <Leaf className="w-4 h-4 text-primary" />
+                            {link.label}
+                          </a>
+                        </SheetClose>
+                      ))}
                     </nav>
                     <div className="flex flex-col gap-3 pt-4 border-t border-border">
                       {!user && (
@@ -500,7 +510,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── The Problem ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="struggle" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -546,7 +556,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── The Solution ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
+      <section id="solution" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -635,7 +645,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── How It Works ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60">
+      <section id="how-it-works" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -680,7 +690,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Audience Section ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="audience" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -793,7 +803,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Social Proof / Testimonials ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="reviews" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-14">
@@ -896,7 +906,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── FAQ ─── */}
-      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+      <section id="faq" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="text-center mb-12">
