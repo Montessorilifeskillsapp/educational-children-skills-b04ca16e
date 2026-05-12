@@ -300,7 +300,7 @@ const Home: React.FC<HomeProps> = ({
                     <span className="sr-only">Open menu</span>
                   </Button>
                 </SheetTrigger>
-                <SheetContent side="right" className="w-72 sm:w-80">
+                <SheetContent side="right" className="z-[70] w-72 sm:w-80 overflow-y-auto">
                   <div className="flex flex-col gap-6 mt-8">
                     <nav className="flex flex-col gap-3 text-base font-medium">
                       {homeNavLinks.map((link) => (
