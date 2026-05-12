@@ -303,6 +303,7 @@ export type Database = {
         }
         Returns: boolean
       }
+      internal_get_secret: { Args: { p_name: string }; Returns: string }
     }
     Enums: {
       app_role: "admin" | "user"
