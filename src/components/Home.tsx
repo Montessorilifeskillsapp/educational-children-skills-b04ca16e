@@ -272,11 +272,12 @@ const Home: React.FC<HomeProps> = ({
                 Montessori Life Skills
               </span>
             </div>
-            <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-slate-700">
-              <a href="#curriculum" className="hover:text-primary transition-colors">Curriculum</a>
-              <a href="#activities" className="hover:text-primary transition-colors">Activities</a>
-              <a href="#founder" className="hover:text-primary transition-colors">About</a>
-              <a href="#pricing" className="hover:text-primary transition-colors">Pricing</a>
+            <nav className="hidden xl:flex items-center gap-3 text-xs font-medium text-muted-foreground">
+              {homeNavLinks.map((link) => (
+                <a key={link.href} href={link.href} className="hover:text-primary transition-colors whitespace-nowrap">
+                  {link.label}
+                </a>
+              ))}
             </nav>
             <div className="flex items-center gap-3">
               {!user && (
@@ -294,26 +295,22 @@ const Home: React.FC<HomeProps> = ({
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="md:hidden">
-                    <Menu className="w-5 h-5" />
+                  <Button variant="ghost" size="icon" className="xl:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
+                    <Leaf className="w-5 h-5" />
                     <span className="sr-only">Open menu</span>
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="w-72 sm:w-80">
                   <div className="flex flex-col gap-6 mt-8">
-                    <nav className="flex flex-col gap-4 text-base font-medium">
-                      <SheetClose asChild>
-                        <a href="#curriculum" className="text-slate-700 hover:text-primary transition-colors">Curriculum</a>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <a href="#activities" className="text-slate-700 hover:text-primary transition-colors">Activities</a>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <a href="#founder" className="text-slate-700 hover:text-primary transition-colors">About</a>
-                      </SheetClose>
-                      <SheetClose asChild>
-                        <a href="#pricing" className="text-slate-700 hover:text-primary transition-colors">Pricing</a>
-                      </SheetClose>
+                    <nav className="flex flex-col gap-3 text-base font-medium">
+                      {homeNavLinks.map((link) => (
+                        <SheetClose key={link.href} asChild>
+                          <a href={link.href} className="flex items-center gap-3 rounded-lg px-2 py-1.5 text-foreground hover:bg-accent hover:text-primary transition-colors">
+                            <Leaf className="w-4 h-4 text-primary" />
+                            {link.label}
+                          </a>
+                        </SheetClose>
+                      ))}
                     </nav>
                     <div className="flex flex-col gap-3 pt-4 border-t border-border">
                       {!user && (
