@@ -2,11 +2,23 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-cron-secret',
 }
 
+// This function is invoked only by the pg_cron job. It requires a shared
+// secret in the X-Cron-Secret header. Without it, anyone with the URL could
+// trigger batch sends. The same secret is sent by the cron job (see migration).
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response(null, { headers: corsHeaders })
+
+  const cronSecret = Deno.env.get('CRON_SECRET')
+  const provided = req.headers.get('x-cron-secret')
+  if (!cronSecret || provided !== cronSecret) {
+    return new Response(JSON.stringify({ error: 'forbidden' }), {
+      status: 403,
+      headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+    })
+  }
 
   const supabase = createClient(
     Deno.env.get('SUPABASE_URL')!,
@@ -22,7 +34,8 @@ Deno.serve(async (req) => {
     .limit(50)
 
   if (error) {
-    return new Response(JSON.stringify({ error: error.message }), {
+    console.error('email_schedule query failed', error)
+    return new Response(JSON.stringify({ error: 'internal_error' }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
@@ -40,7 +53,7 @@ Deno.serve(async (req) => {
           .select('id', { count: 'exact', head: true })
           .eq('user_id', row.user_id)
           .eq('event', 'activity_started')
-        if (countErr) throw new Error(countErr.message)
+        if (countErr) throw new Error('analytics check failed')
         if ((count ?? 0) > 0) {
           await supabase
             .from('email_schedule')
@@ -82,7 +95,7 @@ Deno.serve(async (req) => {
         },
       })
 
-      if (invokeError) throw new Error(invokeError.message)
+      if (invokeError) throw new Error('send failed')
 
       await supabase
         .from('email_schedule')
@@ -90,7 +103,8 @@ Deno.serve(async (req) => {
         .eq('id', row.id)
       sent++
     } catch (e) {
-      const msg = e instanceof Error ? e.message : String(e)
+      const msg = e instanceof Error ? e.message : 'unknown'
+      console.error('onboarding row failed', { id: row.id, msg })
       await supabase
         .from('email_schedule')
         .update({ attempts: row.attempts + 1, last_error: msg })
