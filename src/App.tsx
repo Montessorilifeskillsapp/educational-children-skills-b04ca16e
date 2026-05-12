@@ -27,6 +27,7 @@ import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
+import AdminVerifyPage from "./pages/AdminVerifyPage";
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
