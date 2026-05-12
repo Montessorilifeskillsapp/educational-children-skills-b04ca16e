@@ -5,7 +5,7 @@ import {
   ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
   Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
   Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain,
-  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones, Menu, X
+  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
@@ -182,6 +182,19 @@ const stats = [
   { value: '8', label: 'Curriculum areas' },
   { value: 'AMI', label: 'Aligned method' },
   { value: '2–6', label: 'Years old' },
+];
+
+const homeNavLinks = [
+  { label: 'Activities', href: '#activities' },
+  { label: 'Struggle', href: '#struggle' },
+  { label: 'Solution', href: '#solution' },
+  { label: 'Curriculum', href: '#curriculum' },
+  { label: 'How It Works', href: '#how-it-works' },
+  { label: 'For You', href: '#audience' },
+  { label: 'About', href: '#founder' },
+  { label: 'Reviews', href: '#reviews' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'FAQ', href: '#faq' },
 ];
 
 const Home: React.FC<HomeProps> = ({
