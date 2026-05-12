@@ -274,10 +274,54 @@ const Home: React.FC<HomeProps> = ({
               <Button
                 onClick={onGetStarted}
                 size="sm"
-                className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full px-5"
+                className="hidden sm:inline-flex bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full px-5"
               >
                 Start Free
               </Button>
+              {/* Mobile menu */}
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="md:hidden">
+                    <Menu className="w-5 h-5" />
+                    <span className="sr-only">Open menu</span>
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="w-72 sm:w-80">
+                  <div className="flex flex-col gap-6 mt-8">
+                    <nav className="flex flex-col gap-4 text-base font-medium">
+                      <SheetClose asChild>
+                        <a href="#curriculum" className="text-slate-700 hover:text-primary transition-colors">Curriculum</a>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <a href="#activities" className="text-slate-700 hover:text-primary transition-colors">Activities</a>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <a href="#founder" className="text-slate-700 hover:text-primary transition-colors">About</a>
+                      </SheetClose>
+                      <SheetClose asChild>
+                        <a href="#pricing" className="text-slate-700 hover:text-primary transition-colors">Pricing</a>
+                      </SheetClose>
+                    </nav>
+                    <div className="flex flex-col gap-3 pt-4 border-t border-border">
+                      {!user && (
+                        <SheetClose asChild>
+                          <Link to="/auth">
+                            <Button variant="outline" className="w-full">Sign In</Button>
+                          </Link>
+                        </SheetClose>
+                      )}
+                      <SheetClose asChild>
+                        <Button
+                          onClick={onGetStarted}
+                          className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full"
+                        >
+                          Start Free
+                        </Button>
+                      </SheetClose>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
         </div>
