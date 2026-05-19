@@ -7,7 +7,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, LogIn, BarChart3
+  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag
 } from 'lucide-react';
 
 interface NavigationMenuProps {
@@ -49,6 +49,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-primary/40' },
     { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-primary/40' },
     { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-primary/40' },
+    { label: 'Shop', icon: ShoppingBag, onClick: () => navigate('/shop'), color: 'border-primary/30' },
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
