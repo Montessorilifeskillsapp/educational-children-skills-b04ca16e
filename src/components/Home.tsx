@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import {
   ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
   Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
-  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain,
+  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain, Menu,
   Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
@@ -300,7 +300,7 @@ const Home: React.FC<HomeProps> = ({
               <Sheet>
                 <SheetTrigger asChild>
                   <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
-                    <Leaf className="w-5 h-5" />
+                    <Menu className="w-5 h-5" />
                     <span className="sr-only">Open menu</span>
                   </Button>
                 </SheetTrigger>
