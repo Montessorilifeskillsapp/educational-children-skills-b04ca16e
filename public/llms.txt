@@ -1,0 +1,23 @@
+# Montessori Life Skills
+
+> AMI-aligned Montessori activities and guidance for families, teachers, and assistants supporting children's independence and learning at home.
+
+Montessori Life Skills is a focus-oriented learning app built around authentic AMI Montessori practice. It guides adults through presenting Practical Life, Sensorial, Language, Math, Geography, Botany, Cultural, and Grace & Courtesy activities using real Montessori materials.
+
+## Pages
+
+- [Home](/): Overview of the app and featured Montessori activities.
+- [Welcome](/welcome): Landing page introducing the approach and getting started.
+- [About](/about): The mission, AMI alignment, and who the app is for.
+- [Practical Life](/practical-life): Activities that build independence, coordination, and care of self and environment.
+- [Preview: Pouring Water](/preview/pouring-water): Free sample activity showing the full 5-phase presentation format.
+- [Plans](/plans): Subscription tiers and what's included.
+- [Guarantee](/guarantee): Our satisfaction guarantee.
+- [Install](/install): How to install the app on iOS and Android.
+- [Help](/help): Guidance for families using the app.
+- [Contact](/contact): Get in touch with the team.
+
+## Optional
+
+- [Privacy Policy](/privacy-policy): How user data is handled.
+- [Terms of Service](/terms-of-service): Terms governing use of the app.
