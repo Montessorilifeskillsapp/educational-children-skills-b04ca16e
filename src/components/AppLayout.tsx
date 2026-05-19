@@ -27,7 +27,7 @@ import { useActivityCompletions } from '@/hooks/useActivityCompletions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { LogIn, Sparkles } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
@@ -44,6 +44,7 @@ const AppLayout: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = useState<string>('');
 
   // Hooks - called in same order every time
+  const navigate = useNavigate();
   const { user, loading } = useAuthContext();
   const { isPremium } = useSubscription();
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
@@ -99,15 +100,15 @@ const AppLayout: React.FC = () => {
         onGetStarted={() => handleViewChange('dashboard')}
         onSubscriptionView={() => handleViewChange('subscription')}
         onDashboardView={() => handleViewChange('dashboard')}
-        onPracticalView={() => handleViewChange('practical')}
-        onSensorialView={() => handleViewChange('sensorial')}
-        onLanguageView={() => handleViewChange('language')}
-        onMathView={() => handleViewChange('math')}
-        onGeographyView={() => handleViewChange('geography')}
-        onBotanyView={() => handleViewChange('botany')}
-        onArtView={() => handleViewChange('art')}
-        onCulturalView={() => handleViewChange('cultural')}
-        onGraceCourtesyView={() => handleViewChange('grace-courtesy')}
+        onPracticalView={() => navigate('/practical-life')}
+        onSensorialView={() => navigate('/sensorial')}
+        onLanguageView={() => navigate('/language')}
+        onMathView={() => navigate('/math')}
+        onGeographyView={() => navigate('/geography')}
+        onBotanyView={() => navigate('/botany')}
+        onArtView={() => navigate('/art')}
+        onCulturalView={() => navigate('/cultural')}
+        onGraceCourtesyView={() => navigate('/grace-courtesy')}
         onParentView={() => handleViewChange('parent')}
         onProfilesView={() => handleViewChange('profiles')}
       />
@@ -396,14 +397,14 @@ const AppLayout: React.FC = () => {
   return (
     <Dashboard
       onSkillSelect={handleSkillSelect}
-      onPracticalLifeView={() => handleViewChange('practical')}
-      onSensorialView={() => handleViewChange('sensorial')}
-      onLanguageView={() => handleViewChange('language')}
-      onMathView={() => handleViewChange('math')}
-      onGeographyView={() => handleViewChange('geography')}
-      onBotanyView={() => handleViewChange('botany')}
-      onArtView={() => handleViewChange('art')}
-      onCulturalView={() => handleViewChange('cultural')}
+      onPracticalLifeView={() => navigate('/practical-life')}
+      onSensorialView={() => navigate('/sensorial')}
+      onLanguageView={() => navigate('/language')}
+      onMathView={() => navigate('/math')}
+      onGeographyView={() => navigate('/geography')}
+      onBotanyView={() => navigate('/botany')}
+      onArtView={() => navigate('/art')}
+      onCulturalView={() => navigate('/cultural')}
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}

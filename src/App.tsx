@@ -10,6 +10,14 @@ import { MobileSecurityProvider } from "@/components/MobileSecurityProvider";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import Index from "./pages/Index";
 import PracticalLifePage from "./pages/PracticalLifePage";
+import SensorialPage from "./pages/SensorialPage";
+import LanguagePage from "./pages/LanguagePage";
+import MathPage from "./pages/MathPage";
+import GeographyPage from "./pages/GeographyPage";
+import BotanyPage from "./pages/BotanyPage";
+import ArtPage from "./pages/ArtPage";
+import CulturalPage from "./pages/CulturalPage";
+import GraceCourtesyPage from "./pages/GraceCourtesyPage";
 import PlansPage from "./pages/PlansPage";
 import AuthPage from "./pages/AuthPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
@@ -71,6 +79,14 @@ const App = () => {
                           <Route path="/index" element={<Index />} />
                           <Route path="/home" element={<Index />} />
                           <Route path="/practical-life" element={<PracticalLifePage />} />
+                          <Route path="/sensorial" element={<SensorialPage />} />
+                          <Route path="/language" element={<LanguagePage />} />
+                          <Route path="/math" element={<MathPage />} />
+                          <Route path="/geography" element={<GeographyPage />} />
+                          <Route path="/botany" element={<BotanyPage />} />
+                          <Route path="/art" element={<ArtPage />} />
+                          <Route path="/cultural" element={<CulturalPage />} />
+                          <Route path="/grace-courtesy" element={<GraceCourtesyPage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />
