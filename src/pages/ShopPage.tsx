@@ -22,6 +22,7 @@ const CATEGORIES = [
   'Botany',
   'Art',
   'Cultural',
+  'Story Books',
 ];
 
 const ShopPage: React.FC = () => {
