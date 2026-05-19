@@ -21,7 +21,7 @@ import HeroAppPreview from './HeroAppPreview';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
@@ -196,6 +196,7 @@ const Home: React.FC<HomeProps> = ({
   const { user } = useAuthContext();
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
     { label: 'Practical Life', onClick: onPracticalView },
@@ -206,6 +207,7 @@ const Home: React.FC<HomeProps> = ({
     { label: 'Geography', onClick: onGeographyView },
     { label: 'Science', onClick: onCulturalView },
     { label: 'Art', onClick: onArtView },
+    { label: 'Shop', onClick: () => navigate('/shop') },
   ];
 
   useEffect(() => {
