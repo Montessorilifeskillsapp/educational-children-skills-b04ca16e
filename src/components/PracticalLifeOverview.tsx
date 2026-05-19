@@ -1,5 +1,6 @@
 import React from 'react';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
@@ -211,6 +212,7 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
           </div>
         </div>
       )}
+      <ShopSectionCTA category="Practical Life" />
     </PageLayout>
   );
 };

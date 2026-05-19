@@ -18,6 +18,7 @@ import BotanyPage from "./pages/BotanyPage";
 import ArtPage from "./pages/ArtPage";
 import CulturalPage from "./pages/CulturalPage";
 import GraceCourtesyPage from "./pages/GraceCourtesyPage";
+import ShopPage from "./pages/ShopPage";
 import PlansPage from "./pages/PlansPage";
 import AuthPage from "./pages/AuthPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
@@ -87,6 +88,7 @@ const App = () => {
                           <Route path="/art" element={<ArtPage />} />
                           <Route path="/cultural" element={<CulturalPage />} />
                           <Route path="/grace-courtesy" element={<GraceCourtesyPage />} />
+                          <Route path="/shop" element={<ShopPage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { montessoriTheme } from './ThemeConfig';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
@@ -62,6 +63,7 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
           );
         })}
       </div>
+      <ShopSectionCTA category="Cultural" />
     </div>
   );
 };

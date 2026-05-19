@@ -4,6 +4,7 @@ import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
 import { Clock, Users, Star, Lock } from 'lucide-react';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
+import ShopSectionCTA from './ShopSectionCTA';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
 interface GraceAndCourtesySkillsProps {
@@ -103,6 +104,7 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
             Grace and Courtesy activities help children develop social skills, respect for others, and confidence in social situations. These skills form the foundation for positive relationships and community participation.
           </p>
         </div>
+        <ShopSectionCTA category="Practical Life" label="Shop Grace & Courtesy Materials" />
       </div>
     </div>
   );
