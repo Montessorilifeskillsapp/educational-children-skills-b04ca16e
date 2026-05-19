@@ -196,6 +196,7 @@ const Home: React.FC<HomeProps> = ({
   const { user } = useAuthContext();
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const navigate = useNavigate();
 
   const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
     { label: 'Practical Life', onClick: onPracticalView },
