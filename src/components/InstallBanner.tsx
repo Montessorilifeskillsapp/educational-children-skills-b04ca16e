@@ -144,7 +144,7 @@ const InstallBanner = () => {
           onClick={handleInstall}
           aria-label={`Install app: ${description}`}
           aria-describedby="install-banner-desc"
-          className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white shrink-0 rounded-xl gap-1 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary0"
+          className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white shrink-0 rounded-xl gap-1 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
         >
           <Download aria-hidden="true" className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Install</span>
@@ -153,7 +153,7 @@ const InstallBanner = () => {
           type="button"
           onClick={handleDismiss}
           aria-label="Dismiss install banner (Escape)"
-          className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary0"
+          className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           <X aria-hidden="true" className="w-4 h-4 text-slate-400" />
         </button>
