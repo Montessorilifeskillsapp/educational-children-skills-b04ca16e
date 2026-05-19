@@ -206,6 +206,7 @@ const Home: React.FC<HomeProps> = ({
     { label: 'Geography', onClick: onGeographyView },
     { label: 'Science', onClick: onCulturalView },
     { label: 'Art', onClick: onArtView },
+    { label: 'Shop', onClick: () => navigate('/shop') },
   ];
 
   useEffect(() => {
