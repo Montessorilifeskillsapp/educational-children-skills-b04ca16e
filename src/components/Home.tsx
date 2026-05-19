@@ -4,7 +4,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import {
   ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
   Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
-  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain,
+  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain, Menu,
   Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
