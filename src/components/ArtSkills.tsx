@@ -1,6 +1,7 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import { artSkillsEnhanced } from '../data/artSkillsEnhanced';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
@@ -52,6 +53,7 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
           />
         ))}
       </div>
+      <ShopSectionCTA category="Art" />
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
@@ -69,6 +70,7 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
             />
           ))}
         </div>
+        <ShopSectionCTA category="Geography" />
       </div>
     </div>
   );

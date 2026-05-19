@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { BookOpen } from 'lucide-react';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
 import { languageSkillsData } from '@/data/languageSkills';
 import { languageImages } from '@/assets/language';
@@ -101,6 +102,7 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
           ))}
         </div>
       </section>
+      <ShopSectionCTA category="Language" />
     </PageLayout>
   );
 };

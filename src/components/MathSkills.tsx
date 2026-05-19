@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calculator } from 'lucide-react';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import { montessoriTheme } from './ThemeConfig';
 import { mathSkillsData } from '@/data/mathSkills';
 import PageLayout from './PageLayout';
@@ -107,6 +108,7 @@ const MathSkills: React.FC<MathSkillsProps> = ({
           </div>
         ))}
       </div>
+      <ShopSectionCTA category="Mathematics" />
     </PageLayout>
   );
 };

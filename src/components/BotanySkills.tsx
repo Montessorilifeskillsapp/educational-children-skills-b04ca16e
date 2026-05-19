@@ -1,6 +1,7 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import { botanySkillsData } from '@/data/botanySkills';
 import { montessoriTheme } from './ThemeConfig';
 import { botanyImages } from '@/assets/botany';
@@ -54,6 +55,7 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
             />
           ))}
         </div>
+        <ShopSectionCTA category="Botany" />
       </div>
     </div>
   );
