@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Eye } from 'lucide-react';
 import SkillCard from './SkillCard';
+import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
 import { sensorialSkills } from '@/data/sensorialSkills';
@@ -124,6 +125,7 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
           ))}
         </div>
       </section>
+      <ShopSectionCTA category="Sensorial" />
     </PageLayout>
   );
 };
