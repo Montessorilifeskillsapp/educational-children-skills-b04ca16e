@@ -16,9 +16,9 @@ const ShopPage: React.FC = () => {
   const [search, setSearch] = useState('');
 
   useSEO({
-    title: 'Shop Montessori Materials - Authentic Learning Tools',
+    title: 'Shop Montessori Life Skills Story Books',
     description:
-      'Shop recommended authentic Montessori materials for Practical Life, Sensorial, Language, Math, Geography, Botany, Art, and Cultural activities.',
+      'Shop Montessori life skills story books for young children, with themes that support practical independence at home.',
     canonical: '/shop',
   });
 
@@ -35,17 +35,17 @@ const ShopPage: React.FC = () => {
 
   return (
     <SEOOptimizer>
-      <PageLayout title="Shop Materials" onBack={() => navigate('/')}>
+      <PageLayout title="Books" onBack={() => navigate('/')}>
         <div className="space-y-4">
           <div className="relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input
               type="search"
-              placeholder="Search materials..."
+              placeholder="Search books..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="pl-9"
-              aria-label="Search materials"
+              aria-label="Search books"
             />
           </div>
 
@@ -57,7 +57,7 @@ const ShopPage: React.FC = () => {
         {filtered.length === 0 ? (
           <Card>
             <CardContent className="p-8 text-center text-muted-foreground">
-              No materials found. Try a different category or search term.
+              No books found. Try a different search term.
             </CardContent>
           </Card>
         ) : (
