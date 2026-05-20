@@ -12,7 +12,7 @@ const allShopItems: any[] = [...storyBooks];
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
 
-const CATEGORIES = ['All', 'Story Books'];
+const CATEGORIES = ['Books'];
 
 const ShopPage: React.FC = () => {
   const navigate = useNavigate();
