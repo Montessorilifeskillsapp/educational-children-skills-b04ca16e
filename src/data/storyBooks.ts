@@ -233,5 +233,23 @@ export const storyBooks: StoryBook[] = [
     themes: ['Geography', 'Continents', 'Concentration', 'Independence', 'Cultural'],
     website: 'shop.ingramspark.com',
     amazonLink: 'https://shop.ingramspark.com/b/084?params=oCqNdqlwxWMd2gpnu8dnA1cXOkdNUOrFPjU7glX2Z2v'
+  },
+  {
+    id: 'skip-puppy-pour',
+    name: 'Skip Puppy Learns to Pour',
+    price: 16.99,
+    originalPrice: 24.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840033.jpg?viewkey=41016d95809b1d9ee9805f1318498f300e150c73743cea07e9d9afbd7fb43e92',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A heartwarming Montessori-inspired story where Skip explores the joy of pouring—one careful step at a time, practicing focus, patience, and independence.',
+    inStock: false,
+    author: 'Kerry Howard',
+    pages: 42,
+    ageRange: '3-6 years',
+    skillLevel: 'Beginner',
+    themes: ['Practical Life', 'Pouring', 'Concentration', 'Independence', 'Control of Movement'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=aEUfmxIj2ztmCXScDVpFnvDywU3sTimxMHe4frk0ZvE'
   }
 ];
