@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ExternalLink, Search, Star } from 'lucide-react';
@@ -12,13 +11,8 @@ const allShopItems: any[] = [...storyBooks];
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
 
-const CATEGORIES = ['All', 'Story Books'];
-
 const ShopPage: React.FC = () => {
   const navigate = useNavigate();
-  const [params, setParams] = useSearchParams();
-  const initialCategory = params.get('category') ?? 'All';
-  const [category, setCategory] = useState(initialCategory);
   const [search, setSearch] = useState('');
 
   useSEO({
@@ -30,25 +24,14 @@ const ShopPage: React.FC = () => {
 
   const filtered = useMemo(() => {
     return allShopItems.filter((p) => {
-      const matchesCat =
-        category === 'All' || (p.category && p.category.toLowerCase() === category.toLowerCase());
       const matchesSearch =
         !search ||
         p.name.toLowerCase().includes(search.toLowerCase()) ||
         (p.description && p.description.toLowerCase().includes(search.toLowerCase()));
-      return matchesCat && matchesSearch;
+      return matchesSearch;
     });
-  }, [category, search]);
+  }, [search]);
 
-  const handleCategory = (cat: string) => {
-    setCategory(cat);
-    if (cat === 'All') {
-      params.delete('category');
-    } else {
-      params.set('category', cat);
-    }
-    setParams(params, { replace: true });
-  };
 
   return (
     <SEOOptimizer>
@@ -66,24 +49,8 @@ const ShopPage: React.FC = () => {
             />
           </div>
 
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Categories">
-            {CATEGORIES.map((cat) => (
-              <Button
-                key={cat}
-                variant={category === cat ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => handleCategory(cat)}
-                role="tab"
-                aria-selected={category === cat}
-              >
-                {cat}
-              </Button>
-            ))}
-          </div>
-
           <p className="text-sm text-muted-foreground">
-            {filtered.length} {filtered.length === 1 ? 'material' : 'materials'}
-            {category !== 'All' && ` in ${category}`}
+            {filtered.length} {filtered.length === 1 ? 'book' : 'books'}
           </p>
         </div>
 
@@ -104,9 +71,6 @@ const ShopPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <CardContent className="flex-1 flex flex-col p-4">
-                    <Badge variant="outline" className="w-fit text-xs mb-2">
-                      {product.category}
-                    </Badge>
                     <h2 className="text-base font-semibold text-foreground mb-1">
                       {product.name}
                     </h2>
