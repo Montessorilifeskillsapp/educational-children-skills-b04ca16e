@@ -19,7 +19,7 @@ export interface StoryBook {
 
 export const storyBooks: StoryBook[] = [
   {
-
+    id: 'macaroon-owl-planets',
     name: 'Macaroon Owl Learns the Planets',
     price: 19.00,
     originalPrice: 29.00,
