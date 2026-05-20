@@ -17,7 +17,7 @@ const CATEGORIES = ['Books'];
 const ShopPage: React.FC = () => {
   const navigate = useNavigate();
   const [params, setParams] = useSearchParams();
-  const initialCategory = params.get('category') ?? 'All';
+  const initialCategory = 'Books';
   const [category, setCategory] = useState(initialCategory);
   const [search, setSearch] = useState('');
 
