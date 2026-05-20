@@ -420,6 +420,29 @@ const Home: React.FC<HomeProps> = ({
       {/* ─── 30-Second App Preview (animated phone mockup) ─── */}
       <HeroAppPreview />
 
+      {/* ─── From Reminders to Routines ─── */}
+      <section className="py-16 lg:py-20 bg-gradient-to-b from-background via-primary/5 to-background border-t border-border/60">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Reveal>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-[1.15]">
+              From constant reminders to{' '}
+              <span className="text-primary">confident routines.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+              Montessori-based practical life lessons for ages 2–6.
+            </p>
+            <Button
+              onClick={onGetStarted}
+              size="lg"
+              className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
+            >
+              Start Free <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
+          </Reveal>
+        </div>
+      </section>
+
+
       {/* ─── Stats Bar ─── */}
       <section className="py-10 bg-muted/40 border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
