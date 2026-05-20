@@ -217,6 +217,24 @@ export const storyBooks: StoryBook[] = [
     amazonLink: 'https://shop.ingramspark.com/b/084?params=AR0g9S67o7Bv0m3AFeX9zj159nrIKMDfqulgABdmGGy'
   },
   {
+    id: 'caramel-kitten-set-the-table',
+    name: 'Caramel Kitten Learns to Set the Table',
+    price: 16.99,
+    originalPrice: 25.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840181.jpg?viewkey=c06e542477848e60b20a30f5b852a1cb40bc2c1f884813b567b3f1711d3a9957',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A calm, Montessori-aligned life skills story that gently introduces young children to the practical art of table setting.',
+    inStock: true,
+    author: 'Kerry Howard',
+    pages: 54,
+    ageRange: '3-6 years',
+    skillLevel: 'Beginner',
+    themes: ['Practical Life', 'Grace and Courtesy', 'Independence', 'Responsibility', 'Order'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=TMRnRMu1UDGa7ujfhqWc8P4HN6pPcpfAYUJByx0REau'
+  },
+  {
     id: 'skip-puppy-learns-to-pour',
     name: 'Skip Puppy Learns to Pour',
     price: 19.00,
