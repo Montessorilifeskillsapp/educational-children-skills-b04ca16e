@@ -7,8 +7,7 @@ import { Input } from '@/components/ui/input';
 import { ExternalLink, Search, Star } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { LazyImage } from '@/components/LazyImage';
-import { storyBooks } from '@/data/storyBooks';
-const allShopItems: any[] = [...storyBooks];
+const allShopItems: any[] = [];
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
 
