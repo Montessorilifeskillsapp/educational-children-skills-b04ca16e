@@ -64,24 +64,8 @@ const ShopPage: React.FC = () => {
             />
           </div>
 
-          <div className="flex flex-wrap gap-2" role="tablist" aria-label="Categories">
-            {CATEGORIES.map((cat) => (
-              <Button
-                key={cat}
-                variant={category === cat ? 'default' : 'outline'}
-                size="sm"
-                onClick={() => handleCategory(cat)}
-                role="tab"
-                aria-selected={category === cat}
-              >
-                {cat}
-              </Button>
-            ))}
-          </div>
-
           <p className="text-sm text-muted-foreground">
-            {filtered.length} {filtered.length === 1 ? 'material' : 'materials'}
-            {category !== 'All' && ` in ${category}`}
+            {filtered.length} {filtered.length === 1 ? 'book' : 'books'}
           </p>
         </div>
 
