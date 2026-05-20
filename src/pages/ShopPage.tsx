@@ -1,7 +1,6 @@
 import React, { useMemo, useState } from 'react';
-import { useNavigate, useSearchParams, Link } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { ExternalLink, Search, Star } from 'lucide-react';
@@ -12,13 +11,8 @@ const allShopItems: any[] = [...storyBooks];
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
 
-const CATEGORIES = ['Books'];
-
 const ShopPage: React.FC = () => {
   const navigate = useNavigate();
-  const [params, setParams] = useSearchParams();
-  const initialCategory = 'Books';
-  const [category, setCategory] = useState(initialCategory);
   const [search, setSearch] = useState('');
 
   useSEO({
@@ -38,15 +32,6 @@ const ShopPage: React.FC = () => {
     });
   }, [search]);
 
-  const handleCategory = (cat: string) => {
-    setCategory(cat);
-    if (cat === 'All') {
-      params.delete('category');
-    } else {
-      params.set('category', cat);
-    }
-    setParams(params, { replace: true });
-  };
 
   return (
     <SEOOptimizer>
