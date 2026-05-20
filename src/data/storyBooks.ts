@@ -21,9 +21,9 @@ export const storyBooks: StoryBook[] = [
   {
     id: 'macaroon-owl-planets',
     name: 'Macaroon Owl Learns the Planets',
-    price: 19.00,
-    originalPrice: 29.00,
-    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798349505867.jpg?viewkey=b6a16d38194e3bc54d8831f485bb41148efe3c61b279602de2d88af108658c35',
+    price: 16.99,
+    originalPrice: 27.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840092.jpg?viewkey=240afd4d64c3a84fa21410d7d02ff50906d4e302b57b9dca60916ac25d158195',
     rating: 4.8,
     category: 'Story Books',
     description: 'A softly illustrated Montessori life skills story designed to introduce early astronomy to young children',
@@ -34,7 +34,7 @@ export const storyBooks: StoryBook[] = [
     skillLevel: 'Intermediate',
     themes: ['Astronomy', 'Planets', 'Science', 'Nature', 'Sequencing'],
     website: 'shop.ingramspark.com',
-    amazonLink: 'https://shop.ingramspark.com/b/084?params=ELjeOxww7DldvrBBKtqat4kcAKy7dINv2dOVgKn6ARm'
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=e7A2hhwBuniwjSrt3ErETaRNVxTzbkSWxeElHk1gP8q'
   },
   {
     id: 'biscuit-bunny-learns-to-say-no',
