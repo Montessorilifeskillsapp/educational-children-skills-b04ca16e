@@ -17,7 +17,9 @@ export interface StoryBook {
   amazonLink?: string;
 }
 
-export const storyBooks: StoryBook[] = [
+export const storyBooks: StoryBook[] = [];
+
+const _archivedStoryBooks: StoryBook[] = [
   {
     id: 'practical-life-stories',
     name: 'Practical Life Stories Collection',
