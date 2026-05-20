@@ -5,13 +5,12 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 interface ShopSectionCTAProps {
-  category: string;
+  category?: string;
   label?: string;
 }
 
 /**
- * CTA shown at the end of each activity section page,
- * linking to the Shop filtered to materials for that section.
+ * CTA shown at the end of activity pages, linking to the Books shop.
  */
 const ShopSectionCTA: React.FC<ShopSectionCTAProps> = ({ label }) => {
   return (
