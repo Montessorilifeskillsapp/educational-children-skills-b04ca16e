@@ -21,9 +21,9 @@ export const storyBooks: StoryBook[] = [
   {
     id: 'macaroon-owl-planets',
     name: 'Macaroon Owl Learns the Planets',
-    price: 19.00,
-    originalPrice: 29.00,
-    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798349505867.jpg?viewkey=b6a16d38194e3bc54d8831f485bb41148efe3c61b279602de2d88af108658c35',
+    price: 16.99,
+    originalPrice: 27.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840092.jpg?viewkey=240afd4d64c3a84fa21410d7d02ff50906d4e302b57b9dca60916ac25d158195',
     rating: 4.8,
     category: 'Story Books',
     description: 'A softly illustrated Montessori life skills story designed to introduce early astronomy to young children',
@@ -34,14 +34,14 @@ export const storyBooks: StoryBook[] = [
     skillLevel: 'Intermediate',
     themes: ['Astronomy', 'Planets', 'Science', 'Nature', 'Sequencing'],
     website: 'shop.ingramspark.com',
-    amazonLink: 'https://shop.ingramspark.com/b/084?params=ELjeOxww7DldvrBBKtqat4kcAKy7dINv2dOVgKn6ARm'
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=e7A2hhwBuniwjSrt3ErETaRNVxTzbkSWxeElHk1gP8q'
   },
   {
     id: 'biscuit-bunny-learns-to-say-no',
     name: 'Biscuit Bunny Learns to Say No',
-    price: 19.00,
-    originalPrice: 29.00,
-    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798218657703.jpg?viewkey=e7de8919c43473f46c8d05d555e2e8197dced01afd8c4bd6563025a211f03c70',
+    price: 16.99,
+    originalPrice: 27.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840009.jpg?viewkey=3f150bf3971e2f94644d0fed4999cf9dc705e917d077ea8c0b494ac16a8aa857',
     rating: 4.8,
     category: 'Story Books',
     description: 'A kind and gentle story about setting boundaries, self-care, and saying no with kindness',
@@ -52,25 +52,25 @@ export const storyBooks: StoryBook[] = [
     skillLevel: 'Intermediate',
     themes: ['Setting Boundaries', 'Self-Care', 'Empathy', 'Grace and Courtesy', 'Self-Awareness'],
     website: 'shop.ingramspark.com',
-    amazonLink: 'https://shop.ingramspark.com/b/084?params=XBd6w4URC2IgcMw5AUnXg9yUjQVUavBLHoUNCNsDCVK'
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=keQH53SlBHGV51FzUPgvQY9saJ0qjJYux6vnjldvYwZ'
   },
   {
     id: 'pickles-cat-learns-to-clean-up',
     name: 'Pickles Cat Learns to Clean Up',
-    price: 19.00,
-    originalPrice: 29.00,
-    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798349364129.jpg?viewkey=89c50be260b539a9608ef3c30a49bd84a01cb2f4503095e484047b2ac02f8f61',
+    price: 16.99,
+    originalPrice: 27.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840068.jpg?viewkey=250729b8a7eb2e0c08f0e383aa634f446fc597fb18486f5c61b081f7df103b99',
     rating: 4.8,
     category: 'Story Books',
     description: 'A Montessori life skills story about learning to clean up with gentle guidance and joyful songs',
     inStock: true,
     author: 'Kerry Howard',
-    pages: 54,
+    pages: 56,
     ageRange: '3-6 years',
     skillLevel: 'Beginner',
     themes: ['Independence', 'Order', 'Responsibility', 'Care of Environment', 'Practical Life'],
     website: 'shop.ingramspark.com',
-    amazonLink: 'https://shop.ingramspark.com/b/084?params=AR0g9S67o7Bv0m3AFeX9zj159nrIKMDfqulgABdmGGy'
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=he3BQzmnkkA7LIeRdkALdETEk7tchpCj31CbwinIkvi'
   },
   {
     id: 'cupcake-kitten-ready-for-bed',
@@ -233,5 +233,23 @@ export const storyBooks: StoryBook[] = [
     themes: ['Geography', 'Continents', 'Concentration', 'Independence', 'Cultural'],
     website: 'shop.ingramspark.com',
     amazonLink: 'https://shop.ingramspark.com/b/084?params=oCqNdqlwxWMd2gpnu8dnA1cXOkdNUOrFPjU7glX2Z2v'
+  },
+  {
+    id: 'skip-puppy-pour',
+    name: 'Skip Puppy Learns to Pour',
+    price: 16.99,
+    originalPrice: 24.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840033.jpg?viewkey=41016d95809b1d9ee9805f1318498f300e150c73743cea07e9d9afbd7fb43e92',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A heartwarming Montessori-inspired story where Skip explores the joy of pouring—one careful step at a time, practicing focus, patience, and independence.',
+    inStock: false,
+    author: 'Kerry Howard',
+    pages: 42,
+    ageRange: '3-6 years',
+    skillLevel: 'Beginner',
+    themes: ['Practical Life', 'Pouring', 'Concentration', 'Independence', 'Control of Movement'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=aEUfmxIj2ztmCXScDVpFnvDywU3sTimxMHe4frk0ZvE'
   }
 ];
