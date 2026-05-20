@@ -13,9 +13,9 @@ interface ShopSectionCTAProps {
  * CTA shown at the end of each activity section page,
  * linking to the Shop filtered to materials for that section.
  */
-const ShopSectionCTA: React.FC<ShopSectionCTAProps> = ({ category, label }) => {
+const ShopSectionCTA: React.FC<ShopSectionCTAProps> = ({ label }) => {
   return (
-    <section aria-label={`Shop ${category} materials`} className="mt-10">
+    <section aria-label="Shop Montessori life skills story books" className="mt-10">
       <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
         <CardContent className="p-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
@@ -24,16 +24,16 @@ const ShopSectionCTA: React.FC<ShopSectionCTAProps> = ({ category, label }) => {
             </div>
             <div>
               <h3 className="text-lg font-semibold text-foreground">
-                {label ?? `Shop ${category} Materials`}
+                {label ?? 'Shop Montessori Life Skills Story Books'}
               </h3>
               <p className="text-sm text-muted-foreground">
-                Recommended authentic Montessori materials for these activities.
+                Beautifully illustrated story books that bring Montessori life skills to life.
               </p>
             </div>
           </div>
           <Button asChild size="lg" className="shrink-0">
-            <Link to={`/shop?category=${encodeURIComponent(category)}`}>
-              Browse Shop
+            <Link to="/shop">
+              Browse Books
               <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
             </Link>
           </Button>
