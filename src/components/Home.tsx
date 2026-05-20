@@ -366,17 +366,16 @@ const Home: React.FC<HomeProps> = ({
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-4 leading-[1.1] animate-reveal-delay-1">
-                Teach your child{' '}
-                <span className="text-primary">real life skills</span>{' '}
-                with confidence.
+                This isn't screen time.{' '}
+                <span className="text-primary">It's preparation for life.</span>
               </h1>
 
               <p className="text-base sm:text-lg font-medium text-foreground/80 mb-3 max-w-xl mx-auto lg:mx-0 animate-reveal-delay-2">
-                AMI-aligned Montessori activities for ages 2–6, guided step-by-step.
+                Calm Montessori lessons that help children become more independent at home.
               </p>
 
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                A complete curriculum for home — authentic materials, clear presentations, and progress tracking. No teaching experience required.
+                AMI-aligned activities for ages 2–6 — authentic materials, clear presentations, and progress tracking. No teaching experience required.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
