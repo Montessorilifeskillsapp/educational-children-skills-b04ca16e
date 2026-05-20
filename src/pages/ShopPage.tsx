@@ -86,9 +86,6 @@ const ShopPage: React.FC = () => {
                     className="w-full h-48 object-cover"
                   />
                   <CardContent className="flex-1 flex flex-col p-4">
-                    <Badge variant="outline" className="w-fit text-xs mb-2">
-                      {product.category}
-                    </Badge>
                     <h2 className="text-base font-semibold text-foreground mb-1">
                       {product.name}
                     </h2>
