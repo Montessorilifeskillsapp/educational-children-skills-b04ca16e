@@ -161,5 +161,23 @@ export const storyBooks: StoryBook[] = [
     themes: ['Botany', 'Care of Environment', 'Patience', 'Responsibility', 'Practical Life'],
     website: 'shop.ingramspark.com',
     amazonLink: 'https://shop.ingramspark.com/b/084?params=Q61Vv5ap3CnxktYuaysoDxZJozs2vbWjVOXbtWX69qm'
+  },
+  {
+    id: 'snow-cone-bunny-bake',
+    name: 'Snow Cone Bunny Learns to Bake',
+    price: 16.99,
+    originalPrice: 24.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840246.jpg?viewkey=e5c1c8917ca8945250d7d60e32330d8a3c6aa83c07f606716438344f5f231db2',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A thoughtful Montessori life skills story about doing real work with care and intention—measuring, pouring, preparing, and tidying with focused hands and a peaceful heart.',
+    inStock: true,
+    author: 'Kerry Howard',
+    pages: 54,
+    ageRange: '3-7 years',
+    skillLevel: 'Beginner',
+    themes: ['Practical Life', 'Independence', 'Concentration', 'Control of Movement', 'Order'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=5TLCZpDVtc0f8HjwWefUuRCJ8vsyyzPhA6GjwoZfuiw'
   }
 ];
