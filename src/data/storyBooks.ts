@@ -39,9 +39,9 @@ export const storyBooks: StoryBook[] = [
   {
     id: 'biscuit-bunny-learns-to-say-no',
     name: 'Biscuit Bunny Learns to Say No',
-    price: 19.00,
-    originalPrice: 29.00,
-    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798218657703.jpg?viewkey=e7de8919c43473f46c8d05d555e2e8197dced01afd8c4bd6563025a211f03c70',
+    price: 16.99,
+    originalPrice: 27.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840009.jpg?viewkey=3f150bf3971e2f94644d0fed4999cf9dc705e917d077ea8c0b494ac16a8aa857',
     rating: 4.8,
     category: 'Story Books',
     description: 'A kind and gentle story about setting boundaries, self-care, and saying no with kindness',
@@ -52,7 +52,7 @@ export const storyBooks: StoryBook[] = [
     skillLevel: 'Intermediate',
     themes: ['Setting Boundaries', 'Self-Care', 'Empathy', 'Grace and Courtesy', 'Self-Awareness'],
     website: 'shop.ingramspark.com',
-    amazonLink: 'https://shop.ingramspark.com/b/084?params=XBd6w4URC2IgcMw5AUnXg9yUjQVUavBLHoUNCNsDCVK'
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=keQH53SlBHGV51FzUPgvQY9saJ0qjJYux6vnjldvYwZ'
   },
   {
     id: 'pickles-cat-learns-to-clean-up',
