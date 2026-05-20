@@ -251,23 +251,5 @@ export const storyBooks: StoryBook[] = [
     themes: ['Practical Life', 'Grace and Courtesy', 'Independence', 'Responsibility', 'Order'],
     website: 'shop.ingramspark.com',
     amazonLink: 'https://shop.ingramspark.com/b/084?params=TMRnRMu1UDGa7ujfhqWc8P4HN6pPcpfAYUJByx0REau'
-  },
-  {
-    id: 'skip-puppy-learns-to-pour',
-    name: 'Skip Puppy Learns to Pour',
-    price: 19.00,
-    originalPrice: 29.00,
-    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/9798349257766.jpg?viewkey=7e9907b9d49e7833e454cf8ab2591ed3efb63f9c2641f6faecaaa29f2ac22c1a',
-    rating: 4.8,
-    category: 'Story Books',
-    description: 'A gentle story about learning to pour with patience and care, emphasizing fine motor skills and practical life',
-    inStock: true,
-    author: 'Kerry Howard',
-    pages: 54,
-    ageRange: '3-6 years',
-    skillLevel: 'Beginner',
-    themes: ['Practical Life Skills', 'Independence', 'Concentration', 'Fine Motor Skills', 'Sequencing'],
-    website: 'shop.ingramspark.com',
-    amazonLink: 'https://shop.ingramspark.com/b/084?params=bcxXx1WVBRWNdCo2vEhm2EhFhZelBADogpR0HMBhxE2'
   }
 ];
