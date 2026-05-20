@@ -30,15 +30,13 @@ const ShopPage: React.FC = () => {
 
   const filtered = useMemo(() => {
     return allShopItems.filter((p) => {
-      const matchesCat =
-        category === 'All' || (p.category && p.category.toLowerCase() === category.toLowerCase());
       const matchesSearch =
         !search ||
         p.name.toLowerCase().includes(search.toLowerCase()) ||
         (p.description && p.description.toLowerCase().includes(search.toLowerCase()));
-      return matchesCat && matchesSearch;
+      return matchesSearch;
     });
-  }, [category, search]);
+  }, [search]);
 
   const handleCategory = (cat: string) => {
     setCategory(cat);
