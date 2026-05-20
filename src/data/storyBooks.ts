@@ -217,6 +217,24 @@ export const storyBooks: StoryBook[] = [
     amazonLink: 'https://shop.ingramspark.com/b/084?params=AR0g9S67o7Bv0m3AFeX9zj159nrIKMDfqulgABdmGGy'
   },
   {
+    id: 'cupcake-kitten-ready-for-bed',
+    name: 'Cupcake Kitten Learns to Get Ready for Bed',
+    price: 16.99,
+    originalPrice: 25.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/197184036X.jpg?viewkey=db1a796c6c6236081a12ae6af75aceaa40878be5d7a9fbcf80f5cb6b6a26fea3',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A gentle Montessori life skills story about preparing for bed with calm, confidence, and independence.',
+    inStock: true,
+    author: 'Kerry Howard',
+    pages: 54,
+    ageRange: '3-6 years',
+    skillLevel: 'Beginner',
+    themes: ['Care of Self', 'Independence', 'Routine', 'Emotional Regulation', 'Practical Life'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=Mll3lIORQxOWntOdsCRbxnx1QOUCXgBRWMGIsw5qAgd'
+  },
+  {
     id: 'caramel-kitten-set-the-table',
     name: 'Caramel Kitten Learns to Set the Table',
     price: 16.99,
