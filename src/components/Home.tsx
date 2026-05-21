@@ -25,6 +25,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
+import LeadMagnetForm from './LeadMagnetForm';
 
 interface HomeProps {
   onGetStarted: () => void;
