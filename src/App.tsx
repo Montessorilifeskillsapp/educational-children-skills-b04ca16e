@@ -37,7 +37,9 @@ import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import FreePdfPage from "./pages/FreePdfPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
+import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
+
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
@@ -106,6 +108,8 @@ const App = () => {
                           <Route path="/welcome" element={<LandingPage />} />
                           <Route path="/free-pdf" element={<FreePdfPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+                          <Route path="/admin/leads" element={<AdminLeadsPage />} />
+
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>

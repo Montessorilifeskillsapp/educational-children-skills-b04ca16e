@@ -95,3 +95,7 @@ verify_jwt = true
 [functions.subscribe-lead-magnet]
 verify_jwt = false
 
+[functions.admin-lead-stats]
+verify_jwt = true
+
+
