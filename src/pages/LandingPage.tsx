@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Hand, Brain, Leaf, Sparkles, BookOpen, Users } from 'lucide-react';
 import heroImage from '@/assets/landing-hero.jpg';
+import LeadMagnetForm from '@/components/LeadMagnetForm';
 
 const features = [
   { icon: Hand, title: 'Hands-On Learning', desc: 'Authentic Nienhuis-inspired materials guide each activity, from the Pink Tower to the Golden Beads.' },
@@ -79,8 +80,40 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Lead magnet */}
+      <section className="container mx-auto px-6 pb-8">
+        <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 md:p-12 grid md:grid-cols-5 gap-8 items-center">
+          <div className="md:col-span-3 space-y-4">
+            <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
+              Free download
+            </span>
+            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
+              The Week 1 Starter Path
+            </h2>
+            <p className="text-muted-foreground leading-relaxed">
+              Five carefully sequenced AMI activities — one for each day of your child's first week.
+              Materials, presentation steps, and a quiet observation prompt. Delivered straight to your inbox.
+            </p>
+            <LeadMagnetForm />
+          </div>
+          <div className="md:col-span-2 relative">
+            <div className="absolute -inset-3 bg-gradient-to-tr from-primary/15 to-accent/20 rounded-2xl blur-xl" />
+            <div className="relative aspect-[3/4] rounded-2xl bg-gradient-to-br from-background to-muted border border-border/60 shadow-xl flex flex-col items-center justify-center p-8 text-center">
+              <p className="text-[11px] uppercase tracking-[0.2em] text-secondary font-semibold mb-3">PDF · 6 pages</p>
+              <p className="font-serif text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-3">
+                Week 1<br/>Starter Path
+              </p>
+              <p className="text-xs text-muted-foreground italic">
+                Pouring · Spooning · Pink Tower · Sandpaper Letters · Number Rods
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* CTA */}
       <section className="container mx-auto px-6 pb-24">
+
         <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-primary to-accent p-10 md:p-16 text-primary-foreground text-center">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--background)/0.25),transparent_60%)]" />
           <div className="relative max-w-2xl mx-auto space-y-5">
