@@ -322,19 +322,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
         )}
 
 
-        {skill.purpose && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
-                Purpose
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">{skill.purpose}</p>
-            </CardContent>
-          </Card>
-        )}
 
         {!sensorialSkill?.learningProcess && (
           <Card className="mb-6">
