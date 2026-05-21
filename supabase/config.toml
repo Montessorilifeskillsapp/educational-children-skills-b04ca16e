@@ -91,3 +91,7 @@ verify_jwt = true
 
 [functions.admin-bootstrap]
 verify_jwt = true
+
+[functions.subscribe-lead-magnet]
+verify_jwt = false
+
