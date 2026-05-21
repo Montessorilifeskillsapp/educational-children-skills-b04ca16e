@@ -47,8 +47,55 @@ const ParentDashboard: React.FC<ParentDashboardProps> = ({ onBack }) => {
 
   const progressPercentage = (childProgress.completedActivities / childProgress.totalActivities) * 100;
 
+  const weeklyGoalMinutes = 150;
+  const weeklyPct = Math.min(100, Math.round((childProgress.weeklyTime / weeklyGoalMinutes) * 100));
+  const today = new Date();
+  const weekStart = new Date(today);
+  weekStart.setDate(today.getDate() - today.getDay());
+  const weekLabel = `${weekStart.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${today.toLocaleDateString(undefined, { month: 'short', day: 'numeric' })}`;
+
   const renderOverview = () => (
     <section aria-label="Child learning overview" className="space-y-6">
+      {/* This Week summary */}
+      <Card className="border-primary/20 bg-gradient-to-br from-primary/5 via-card to-accent/5">
+        <CardHeader className="pb-3">
+          <div className="flex items-start justify-between gap-3 flex-wrap">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">This Week · {weekLabel}</p>
+              <CardTitle className="text-2xl text-foreground">
+                {childProgress.name} did <span className="text-primary">{childProgress.weeklyTime} minutes</span> of focused work
+              </CardTitle>
+            </div>
+            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-secondary/15 border border-secondary/30 text-sm font-semibold text-secondary">
+              🔥 {childProgress.currentStreak}-day streak
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-5">
+          <div>
+            <div className="flex justify-between text-xs text-muted-foreground mb-1.5">
+              <span>Weekly goal · {weeklyGoalMinutes} min</span>
+              <span className="font-semibold">{weeklyPct}%</span>
+            </div>
+            <Progress value={weeklyPct} className="h-2" />
+          </div>
+          <div className="grid grid-cols-3 gap-3">
+            <div className="text-center p-3 rounded-lg bg-background/60 border border-border/60">
+              <div className="text-xl font-bold text-foreground">{recentActivities.length}</div>
+              <div className="text-xs text-muted-foreground mt-0.5">Activities</div>
+            </div>
+            <div className="text-center p-3 rounded-lg bg-background/60 border border-border/60">
+              <div className="text-xl font-bold text-foreground">{childProgress.favoriteSkill.split(' ')[0]}</div>
+              <div className="text-xs text-muted-foreground mt-0.5">Top area</div>
+            </div>
+            <div className="text-center p-3 rounded-lg bg-background/60 border border-border/60">
+              <div className="text-xl font-bold text-foreground">{childProgress.completedActivities}</div>
+              <div className="text-xs text-muted-foreground mt-0.5">Total mastered</div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card className={`${montessoriTheme.card.base} ${montessoriTheme.card.primary}`}>
         <CardHeader>
           <CardTitle className={`flex items-center gap-2 ${montessoriTheme.text.primary}`}>

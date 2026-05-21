@@ -291,6 +291,22 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </div>
           <div className="w-20"></div>
         </header>
+
+        {skill.materials && skill.materials.length > 0 && (
+          <div className="mb-6 p-4 bg-white/70 border border-amber-200 rounded-xl">
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-base">📦</span>
+              <p className="text-xs font-semibold uppercase tracking-wider text-amber-900/70">What you'll need</p>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {skill.materials.map((m, i) => (
+                <span key={i} className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 border border-amber-200 text-sm text-amber-900">
+                  {m}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
         {skill.materials && (
           <Card className="mb-6">
             <CardHeader>

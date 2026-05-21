@@ -442,6 +442,75 @@ const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
+      {/* ─── Two Sides: Child & Adult ─── */}
+      <section className="py-16 lg:py-24 bg-background border-t border-border/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-12">
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for two</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4 leading-[1.15]">
+              One app. <span className="text-primary">Two experiences.</span>
+            </h2>
+            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
+              A calm, focused space for your child — and a clear, helpful view for you.
+            </p>
+          </Reveal>
+
+          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
+            <Reveal>
+              <Card className="h-full border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <CardContent className="p-7 lg:p-9">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-5">
+                    <Baby className="w-3.5 h-3.5" /> For the child
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">A calm place to work</h3>
+                  <p className="text-muted-foreground mb-5 leading-relaxed">
+                    Distraction-free activity pages — no scores, no streaks, no flashing badges. Just one clear presentation at a time, the Montessori way.
+                  </p>
+                  <ul className="space-y-2.5">
+                    {[
+                      'Photo-guided presentations of real materials',
+                      'Self-paced — no timers or pressure',
+                      'Quiet visuals, soft palette, large touch targets',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
+                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </Reveal>
+
+            <Reveal delay={100}>
+              <Card className="h-full border border-border/60 hover:border-accent/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
+                <CardContent className="p-7 lg:p-9">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-semibold text-accent uppercase tracking-wider mb-5">
+                    <Users2 className="w-3.5 h-3.5" /> For the adult
+                  </div>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">A guide you can trust</h3>
+                  <p className="text-muted-foreground mb-5 leading-relaxed">
+                    The Family Dashboard gives parents, teachers, and assistants a clear weekly view — what's been worked on, what's next, and why it matters.
+                  </p>
+                  <ul className="space-y-2.5">
+                    {[
+                      'Weekly summary of activities & focus areas',
+                      'AMI-aligned "why this matters" for every area',
+                      'Multiple child profiles in one account',
+                    ].map((item) => (
+                      <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
+                        <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
+                        {item}
+                      </li>
+                    ))}
+                  </ul>
+                </CardContent>
+              </Card>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
 
       {/* ─── Stats Bar ─── */}
       <section className="py-10 bg-muted/40 border-t border-border/60">
