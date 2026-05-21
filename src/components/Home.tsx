@@ -698,7 +698,30 @@ const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
+      {/* ─── Slim Lead Capture Bar ─── */}
+      <section className="py-10 lg:py-12 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 border-t border-border/60">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
+              <div className="md:max-w-sm">
+                <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-1">Free · PDF · 6 pages</p>
+                <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
+                  The Week 1 Starter Path
+                </h3>
+                <p className="text-sm text-slate-600 mt-1">
+                  Five AMI activities — one for each day. Sent to your inbox.
+                </p>
+              </div>
+              <div className="flex-1 md:max-w-md">
+                <LeadMagnetForm />
+              </div>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ─── Curriculum Grid ─── */}
+
       <section id="curriculum" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
