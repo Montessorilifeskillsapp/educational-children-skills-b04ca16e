@@ -58,17 +58,12 @@ export const generateOrganizationSchema = (): StructuredData => ({
   name: 'Montessori Life Skills',
   description: 'Interactive Montessori-based life skills learning platform for children',
   url: 'https://montessorilifeskillsapp.com',
-  logo: 'https://montessorilifeskillsapp.com/logo.png',
+  logo: 'https://montessorilifeskillsapp.com/icon-512.png',
   sameAs: [
+    'https://instagram.com/montessoristorybooks',
     'https://facebook.com/Montessoristorybooks',
-    'https://twitter.com/montessori_life',
-    'https://instagram.com/montessori_life_skills'
-  ],
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+1-555-MONTESSORI',
-    contactType: 'customer service'
-  }
+    'https://youtube.com/@montessoristorybooks'
+  ]
 });
 
 export const generateWebsiteSchema = (): StructuredData => ({
