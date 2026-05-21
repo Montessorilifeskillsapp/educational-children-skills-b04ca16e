@@ -37,7 +37,9 @@ import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import FreePdfPage from "./pages/FreePdfPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
+import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
+
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
