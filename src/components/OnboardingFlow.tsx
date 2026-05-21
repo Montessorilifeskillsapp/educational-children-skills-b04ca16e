@@ -251,6 +251,18 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               </Button>
             )}
           </div>
+
+          {currentStep < totalSteps - 1 && (
+            <div className="mt-5 pt-4 border-t border-border/60 text-center">
+              <button
+                type="button"
+                onClick={() => onComplete([])}
+                className="text-sm text-muted-foreground hover:text-primary underline-offset-4 hover:underline transition-colors"
+              >
+                Skip setup — take me to the first activity →
+              </button>
+            </div>
+          )}
         </CardContent>
       </Card>
 

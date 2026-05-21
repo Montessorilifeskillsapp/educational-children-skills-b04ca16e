@@ -204,6 +204,25 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           </span>
         </div>
 
+        {/* Comparison strip */}
+        <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-8 text-left">
+          <div className="p-3 sm:p-4 rounded-xl border border-border/60 bg-muted/40">
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Material kits</p>
+            <p className="text-lg sm:text-2xl font-bold text-foreground">$400+</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">Boxes to store</p>
+          </div>
+          <div className="p-3 sm:p-4 rounded-xl border border-border/60 bg-muted/40">
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Private school</p>
+            <p className="text-lg sm:text-2xl font-bold text-foreground">$15k+</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">Per child / year</p>
+          </div>
+          <div className="p-3 sm:p-4 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10">
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-primary mb-1">This app</p>
+            <p className="text-lg sm:text-2xl font-bold text-foreground">$199<span className="text-sm font-medium text-muted-foreground">/yr</span></p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">Whole family</p>
+          </div>
+        </div>
+
         {/* Billing toggle */}
         <div className="inline-flex items-center bg-muted rounded-full p-1 border border-border">
           <button
