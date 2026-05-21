@@ -307,23 +307,20 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
             </div>
           </div>
         )}
-        {skill.materials && (
+        {skill.purpose && (
           <Card className="mb-6">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">📦</span>
-                Materials Needed
+                <span className="text-2xl">🎯</span>
+                Purpose
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <ul className="list-disc list-inside space-y-1">
-                {skill.materials.map((material, index) => (
-                  <li key={index} className="text-gray-700">{material}</li>
-                ))}
-              </ul>
+              <p className="text-gray-700">{skill.purpose}</p>
             </CardContent>
           </Card>
         )}
+
 
         {skill.purpose && (
           <Card className="mb-6">
