@@ -35,6 +35,7 @@ import UnsubscribePage from "./pages/UnsubscribePage";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
+import FreePdfPage from "./pages/FreePdfPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
@@ -103,6 +104,7 @@ const App = () => {
                           <Route path="/preview/pouring-water" element={<PreviewPouringWaterPage />} />
                           <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />
+                          <Route path="/free-pdf" element={<FreePdfPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
