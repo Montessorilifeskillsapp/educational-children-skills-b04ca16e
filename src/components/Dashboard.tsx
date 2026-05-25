@@ -98,12 +98,9 @@ const Dashboard: React.FC<DashboardProps> = ({
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="flex items-center gap-4">
-            {/* Brand mark — themed */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md opacity-60"></div>
-              <div className="relative z-10 bg-gradient-to-br from-primary to-secondary rounded-xl p-3 shadow-lg flex items-center justify-center w-16 h-16">
-                <Leaf className="w-8 h-8 text-primary-foreground" aria-hidden="true" />
-              </div>
+            {/* Brand mark — matches Home header */}
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-md">
+              <Sparkles className="w-6 h-6 text-white" aria-hidden="true" />
             </div>
             <div>
               <h1 className={`text-3xl font-bold ${montessoriTheme.text.secondary} flex items-center gap-2`}>
