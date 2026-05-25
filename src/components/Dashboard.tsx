@@ -98,15 +98,11 @@ const Dashboard: React.FC<DashboardProps> = ({
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="flex items-center gap-4">
-            {/* Logo with Blue Background */}
+            {/* Brand mark — themed */}
             <div className="relative">
-              <div className="absolute inset-0 bg-blue-200 rounded-xl blur-md opacity-40"></div>
-              <div className="relative z-10 bg-blue-200 rounded-xl p-3 shadow-lg">
-                <img 
-                  src="https://d64gsuwffb70l.cloudfront.net/688778d3289f1c9b05c2ffb1_1753917128245_83f1e130.jpeg" 
-                  alt="Montessori Life Skills Logo" 
-                  className="w-16 h-10 rounded-lg object-cover shadow-md"
-                />
+              <div className="absolute inset-0 bg-primary/20 rounded-xl blur-md opacity-60"></div>
+              <div className="relative z-10 bg-gradient-to-br from-primary to-secondary rounded-xl p-3 shadow-lg flex items-center justify-center w-16 h-16">
+                <Leaf className="w-8 h-8 text-primary-foreground" aria-hidden="true" />
               </div>
             </div>
             <div>
