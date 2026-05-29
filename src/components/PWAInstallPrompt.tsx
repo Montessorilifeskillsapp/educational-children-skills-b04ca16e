@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Download, Share, X } from 'lucide-react';
+import appLogo from '@/assets/app-logo.png';
 
 const DISMISS_KEY = 'pwa-install-dismissed-at';
 const DISMISS_DAYS = 14;
@@ -82,8 +83,8 @@ const PWAInstallPrompt: React.FC = () => {
         <X className="w-4 h-4" />
       </button>
       <div className="flex items-start gap-3">
-        <div className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center">
-          <Download className="w-5 h-5 text-primary-foreground" />
+        <div className="shrink-0 w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center overflow-hidden">
+          <img src={appLogo} alt="Montessori Life Skills" className="w-8 h-8 object-cover rounded-lg" />
         </div>
         <div className="flex-1">
           <p className="font-semibold text-foreground text-sm">Install for one-tap access</p>
