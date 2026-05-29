@@ -63,7 +63,7 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Eye className="h-8 w-8 text-orange-600" />
+            <Eye className="h-8 w-8 text-primary" />
             <span className="text-lg text-gray-600">Montessori Sensorial Skills</span>
           </div>
           {activeProfile && (
