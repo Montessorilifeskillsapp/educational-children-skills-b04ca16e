@@ -40,7 +40,7 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="h-8 w-8 text-blue-600" />
+            <BookOpen className="h-8 w-8 text-primary" />
             <span className="text-lg text-gray-600">Montessori Language Skills</span>
           </div>
           {activeProfile && (
