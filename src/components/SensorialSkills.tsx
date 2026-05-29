@@ -62,9 +62,11 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
     <PageLayout title="Sensorial Development" onBack={onBack} className={montessoriTheme.backgrounds.sensorial}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <Eye className="h-8 w-8 text-primary" />
-            <span className="text-lg text-gray-600">Montessori Sensorial Skills</span>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg">
+              <Eye className="h-6 w-6" />
+            </span>
+            <span className="text-lg text-muted-foreground">Montessori Sensorial Skills</span>
           </div>
           {activeProfile && (
             <p className="text-gray-600 flex items-center gap-2">
