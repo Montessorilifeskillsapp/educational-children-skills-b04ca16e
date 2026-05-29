@@ -2,7 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
-import { Clock, Users, Star, Lock } from 'lucide-react';
+import { Clock, Users, Star, Lock, HandHelping } from 'lucide-react';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import ShopSectionCTA from './ShopSectionCTA';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
