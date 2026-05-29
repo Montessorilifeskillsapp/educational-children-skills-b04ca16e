@@ -79,15 +79,17 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: 
   );
 };
 
+// Uniform badge styling across all curriculum areas for visual consistency
+const AREA_BADGE = 'from-primary to-accent';
 const curriculumAreas = [
-  { name: 'Practical Life', icon: Utensils, color: 'from-amber-500 to-orange-500', image: montessoriImages['pouring-set'] },
-  { name: 'Sensorial', icon: Brain, color: 'from-accent/200 to-accent/200', image: sensorialImages['pink-tower'] },
-  { name: 'Mathematics', icon: Target, color: 'from-red-500 to-accent', image: mathImages['golden-beads'] },
-  { name: 'Language', icon: BookOpen, color: 'from-sky-500 to-blue-600', image: languageImages['sandpaper-letters'] },
-  { name: 'Geography', icon: Globe, color: 'from-cyan-500 to-blue-500', image: geographyImages['continents'] },
-  { name: 'Botany', icon: Leaf, color: 'from-emerald-500 to-green-600', image: botanyImages['flower-parts'] },
-  { name: 'Art', icon: Palette, color: 'from-orange-500 to-amber-500', image: sensorialImages['color-tablets'] },
-  { name: 'Grace & Courtesy', icon: HandHelping, color: 'from-primary/200 to-primary', image: montessoriImages['grace-courtesy-table-setting'] },
+  { name: 'Practical Life', icon: Utensils, color: AREA_BADGE, image: montessoriImages['pouring-set'] },
+  { name: 'Sensorial', icon: Brain, color: AREA_BADGE, image: sensorialImages['pink-tower'] },
+  { name: 'Mathematics', icon: Target, color: AREA_BADGE, image: mathImages['golden-beads'] },
+  { name: 'Language', icon: BookOpen, color: AREA_BADGE, image: languageImages['sandpaper-letters'] },
+  { name: 'Geography', icon: Globe, color: AREA_BADGE, image: geographyImages['continents'] },
+  { name: 'Botany', icon: Leaf, color: AREA_BADGE, image: botanyImages['flower-parts'] },
+  { name: 'Art', icon: Palette, color: AREA_BADGE, image: sensorialImages['color-tablets'] },
+  { name: 'Grace & Courtesy', icon: HandHelping, color: AREA_BADGE, image: montessoriImages['grace-courtesy-table-setting'] },
 ];
 
 const howItWorks = [
