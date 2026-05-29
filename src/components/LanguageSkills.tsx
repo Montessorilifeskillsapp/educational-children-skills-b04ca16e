@@ -39,9 +39,11 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
     <PageLayout title="Language Development" onBack={onBack}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
-          <div className="flex items-center gap-2 mb-2">
-            <BookOpen className="h-8 w-8 text-blue-600" />
-            <span className="text-lg text-gray-600">Montessori Language Skills</span>
+          <div className="flex items-center gap-3 mb-2">
+            <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg">
+              <BookOpen className="h-6 w-6" />
+            </span>
+            <span className="text-lg text-muted-foreground">Montessori Language Skills</span>
           </div>
           {activeProfile && (
             <p className="text-gray-600 flex items-center gap-2">

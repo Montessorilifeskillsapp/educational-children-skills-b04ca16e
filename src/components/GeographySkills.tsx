@@ -1,4 +1,5 @@
 import React from 'react';
+import { Globe } from 'lucide-react';
 import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
 import ShopSectionCTA from './ShopSectionCTA';
@@ -51,10 +52,13 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
         </div>
 
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-green-800 mb-4">
-            🌍 Geography Skills
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg mb-4">
+            <Globe className="h-7 w-7" />
+          </div>
+          <h1 className="text-4xl font-bold text-primary mb-4">
+            Geography Skills
           </h1>
-          <p className="text-lg text-green-600 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Explore our world through Montessori geography activities
           </p>
         </div>
