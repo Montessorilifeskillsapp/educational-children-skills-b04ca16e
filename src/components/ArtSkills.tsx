@@ -1,4 +1,5 @@
 import React from 'react';
+import { Palette } from 'lucide-react';
 import BackButton from '@/components/ui/back-button';
 import SkillCard from './SkillCard';
 import ShopSectionCTA from './ShopSectionCTA';
