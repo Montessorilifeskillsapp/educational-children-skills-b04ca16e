@@ -35,10 +35,13 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
         <BackButton onClick={onBack} label="Back to Skills" />
       )}
       <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          🎨 Montessori Art Skills
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg mb-4">
+          <Palette className="h-7 w-7" />
+        </div>
+        <h1 className="text-4xl font-bold text-primary mb-4">
+          Montessori Art Skills
         </h1>
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
           Explore creativity through drawing, painting, and color theory with hands-on Montessori art activities.
         </p>
       </div>
