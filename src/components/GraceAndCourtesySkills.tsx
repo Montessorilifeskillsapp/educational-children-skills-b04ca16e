@@ -27,10 +27,13 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
           <BackButton onClick={onBack} label="Back to Skills" />
-          <div>
-            <h1 className="text-3xl font-bold text-gray-800">Grace and Courtesy</h1>
-            <p className="text-gray-600 mt-2">Social skills and polite behavior</p>
+        </div>
+        <div className="text-center mb-12">
+          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg mb-4">
+            <HandHelping className="h-7 w-7" />
           </div>
+          <h1 className="text-4xl font-bold text-primary mb-4">Grace and Courtesy</h1>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">Social skills and polite behavior</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
