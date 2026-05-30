@@ -21,6 +21,7 @@ import GraceCourtesyPage from "./pages/GraceCourtesyPage";
 import ShopPage from "./pages/ShopPage";
 import PlansPage from "./pages/PlansPage";
 import AuthPage from "./pages/AuthPage";
+import AuthCallbackPage from "./pages/AuthCallbackPage";
 import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentCancelPage from "./pages/PaymentCancelPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
@@ -96,6 +97,7 @@ const App = () => {
                           <Route path="/shop" element={<ShopPage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
+                          <Route path="/auth/callback" element={<AuthCallbackPage />} />
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />
                           <Route path="/payment-cancel" element={<PaymentCancelPage />} />
                           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
