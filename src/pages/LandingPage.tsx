@@ -7,7 +7,7 @@ import heroImage from '@/assets/landing-hero.jpg';
 import LeadMagnetForm from '@/components/LeadMagnetForm';
 
 const features = [
-  { icon: Hand, title: 'Hands-On Learning', desc: 'Authentic Nienhuis-inspired materials guide each activity, from the Pink Tower to the Golden Beads.' },
+  { icon: Hand, title: 'Hands-On Learning', desc: 'Authentic Montessori materials guide each activity, from the Pink Tower to the Golden Beads.' },
   { icon: Brain, title: 'AMI Curriculum', desc: 'Eight prepared areas — Practical Life, Sensorial, Language, Math, Geography, Botany, Art, and Grace & Courtesy.' },
   { icon: Leaf, title: 'Calm by Design', desc: 'A focused, distraction-free interface that respects the child and the prepared environment.' },
   { icon: Sparkles, title: 'Photoreal Materials', desc: 'Every lesson uses true-to-life imagery of authentic Montessori apparatus.' },
