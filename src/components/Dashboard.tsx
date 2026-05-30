@@ -1,5 +1,4 @@
 import React from 'react';
-import appLogo from '@/assets/app-logo.png';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -99,8 +98,9 @@ const Dashboard: React.FC<DashboardProps> = ({
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="flex items-center gap-4">
-            {/* Brand mark — matches Home header */}
-            <img src={appLogo} alt="Montessori Life Skills App" className="w-12 h-12 rounded-xl shadow-md object-cover" />
+            <span className="w-12 h-12 rounded-xl shadow-md bg-gradient-to-br from-primary to-accent flex items-center justify-center" aria-hidden="true">
+              <Leaf className="w-6 h-6 text-primary-foreground" />
+            </span>
             <div>
               <h1 className={`text-3xl font-bold ${montessoriTheme.text.secondary} flex items-center gap-2`}>
                 <Star className="h-6 w-6 text-green-600" />

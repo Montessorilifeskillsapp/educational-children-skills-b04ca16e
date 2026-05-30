@@ -1,8 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Download, X, Smartphone } from "lucide-react";
+import { Download, Leaf, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import appLogo from "@/assets/app-logo.png";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -141,7 +140,7 @@ const InstallBanner = () => {
           aria-hidden="true"
           className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
         >
-          <img src={appLogo} alt="Montessori Life Skills" className="w-8 h-8 object-cover rounded-lg" />
+          <Leaf className="w-5 h-5 text-primary-foreground" />
         </div>
         <div className="flex-1 min-w-0">
           <p id="install-banner-title" className="text-sm font-semibold text-slate-800 truncate">

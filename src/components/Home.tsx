@@ -11,7 +11,6 @@ import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
 import heroChildPouring from '@/assets/hero-child-pouring.jpg';
 import founderKerry from '@/assets/founder-kerry-howard.png';
-import appLogo from '@/assets/app-logo.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
 import { languageImages } from '@/assets/language';
@@ -270,7 +269,9 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center gap-2">
-              <img src={appLogo} alt="Montessori Life Skills App" className="w-9 h-9 rounded-lg object-cover" />
+              <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm" aria-hidden="true">
+                <Leaf className="w-5 h-5 text-primary-foreground" />
+              </span>
               <span className={`font-bold text-lg transition-colors ${scrolled ? 'text-slate-800' : 'text-slate-800'}`}>
                 Montessori Life Skills
               </span>
@@ -1108,7 +1109,9 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
-                <img src={appLogo} alt="Montessori Life Skills App" className="w-9 h-9 rounded-lg object-cover" />
+                <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center" aria-hidden="true">
+                  <Leaf className="w-5 h-5 text-primary-foreground" />
+                </span>
                 <span className="font-bold text-white text-lg">Montessori Life Skills</span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
