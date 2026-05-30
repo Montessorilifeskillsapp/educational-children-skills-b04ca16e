@@ -33,6 +33,7 @@ import GuaranteePage from "./pages/GuaranteePage";
 import PreviewPouringWaterPage from "./pages/PreviewPouringWaterPage";
 import UnsubscribePage from "./pages/UnsubscribePage";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+import InstallBanner from "@/components/InstallBanner";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import FreePdfPage from "./pages/FreePdfPage";
@@ -78,6 +79,7 @@ const App = () => {
                       }}
                     >
                         <RouteEffects />
+                        <InstallBanner />
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/index" element={<Index />} />
