@@ -260,7 +260,6 @@ const Home: React.FC<HomeProps> = ({
 
   return (
     <div className="min-h-screen bg-background relative overflow-hidden">
-      <InstallBanner />
 
       {/* ─── Sticky Nav ─── */}
       <header
