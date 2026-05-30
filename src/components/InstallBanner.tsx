@@ -46,13 +46,11 @@ const InstallBanner = () => {
   }, [isVisible]);
 
   useEffect(() => {
-    // Dev/test override: ?forceInstallBanner=1 to enable, =0 to clear.
-    // Once enabled, persists in localStorage so it survives reloads.
+    // Dev/test override: ?forceInstallBanner=1 shows the banner for this URL only.
+    // Clear the older persisted test flag so previews do not keep showing it.
     const params = new URLSearchParams(window.location.search);
-    const forceParam = params.get("forceInstallBanner");
-    if (forceParam === "1") localStorage.setItem("pwa-install-banner-force", "true");
-    if (forceParam === "0") localStorage.removeItem("pwa-install-banner-force");
-    const forced = localStorage.getItem("pwa-install-banner-force") === "true";
+    localStorage.removeItem("pwa-install-banner-force");
+    const forced = params.get("forceInstallBanner") === "1";
 
     if (!forced) {
       if (window.matchMedia("(display-mode: standalone)").matches) return;
@@ -61,7 +59,10 @@ const InstallBanner = () => {
 
     const ua = navigator.userAgent;
     const ios = /iPad|iPhone|iPod/.test(ua);
+    const android = /Android/i.test(ua);
     setIsIOS(ios);
+
+    if (!forced && !ios && !android) return;
 
     const handler = (e: Event) => {
       e.preventDefault();
@@ -83,7 +84,7 @@ const InstallBanner = () => {
 
   const handleDismiss = () => {
     setIsVisible(false);
-    const forced = localStorage.getItem("pwa-install-banner-force") === "true";
+    const forced = new URLSearchParams(window.location.search).get("forceInstallBanner") === "1";
     if (!forced) localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, "true");
     // Restore focus to whatever was focused before the banner appeared
     previouslyFocusedRef.current?.focus?.();
