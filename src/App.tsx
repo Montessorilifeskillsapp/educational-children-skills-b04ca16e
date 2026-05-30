@@ -79,6 +79,7 @@ const App = () => {
                       }}
                     >
                         <RouteEffects />
+                        <InstallBanner />
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/index" element={<Index />} />
