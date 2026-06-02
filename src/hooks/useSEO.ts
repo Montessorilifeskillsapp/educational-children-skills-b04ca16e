@@ -18,54 +18,58 @@ export const useSEO = ({
   structuredData 
 }: SEOProps) => {
   useEffect(() => {
+    const fullTitle = title ? `${title} | Montessori Life Skills` : document.title;
+
     // Update title
     if (title) {
-      document.title = `${title} | Montessori Life Skills`;
+      document.title = fullTitle;
     }
+
+    const setMeta = (selector: string, attr: string, key: string, value: string) => {
+      let el = document.querySelector(selector) as HTMLMetaElement | null;
+      if (!el) {
+        el = document.createElement('meta');
+        el.setAttribute(attr, key);
+        document.head.appendChild(el);
+      }
+      el.setAttribute('content', value);
+    };
 
     // Update meta description
     if (description) {
-      let metaDesc = document.querySelector('meta[name="description"]');
-      if (!metaDesc) {
-        metaDesc = document.createElement('meta');
-        metaDesc.setAttribute('name', 'description');
-        document.head.appendChild(metaDesc);
-      }
-      metaDesc.setAttribute('content', description);
+      setMeta('meta[name="description"]', 'name', 'description', description);
+      setMeta('meta[property="og:description"]', 'property', 'og:description', description);
+      setMeta('meta[name="twitter:description"]', 'name', 'twitter:description', description);
+    }
+
+    // OG / Twitter title sync
+    if (title) {
+      setMeta('meta[property="og:title"]', 'property', 'og:title', fullTitle);
+      setMeta('meta[name="twitter:title"]', 'name', 'twitter:title', fullTitle);
     }
 
     // Update meta keywords
     if (keywords) {
-      let metaKeywords = document.querySelector('meta[name="keywords"]');
-      if (!metaKeywords) {
-        metaKeywords = document.createElement('meta');
-        metaKeywords.setAttribute('name', 'keywords');
-        document.head.appendChild(metaKeywords);
-      }
-      metaKeywords.setAttribute('content', keywords);
+      setMeta('meta[name="keywords"]', 'name', 'keywords', keywords);
     }
 
-    // Update canonical URL
+    // Update canonical URL + og:url
     if (canonical) {
-      let canonicalLink = document.querySelector('link[rel="canonical"]');
+      let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (!canonicalLink) {
         canonicalLink = document.createElement('link');
         canonicalLink.setAttribute('rel', 'canonical');
         document.head.appendChild(canonicalLink);
       }
       canonicalLink.setAttribute('href', canonical);
+      setMeta('meta[property="og:url"]', 'property', 'og:url', canonical);
+      setMeta('meta[name="twitter:url"]', 'name', 'twitter:url', canonical);
     }
 
     // Update Open Graph image
     if (ogImage) {
-      let ogImageMeta = document.querySelector('meta[property="og:image"]');
-      if (ogImageMeta) {
-        ogImageMeta.setAttribute('content', ogImage);
-      }
-      let twitterImageMeta = document.querySelector('meta[property="twitter:image"]');
-      if (twitterImageMeta) {
-        twitterImageMeta.setAttribute('content', ogImage);
-      }
+      setMeta('meta[property="og:image"]', 'property', 'og:image', ogImage);
+      setMeta('meta[name="twitter:image"]', 'name', 'twitter:image', ogImage);
     }
 
     // Add structured data
