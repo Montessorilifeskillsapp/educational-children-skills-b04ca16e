@@ -37,7 +37,9 @@ const Index: React.FC = () => {
         </div>
       }>
         <SEOOptimizer>
-          <AppLayout />
+          <main id="main-content">
+            <AppLayout />
+          </main>
         </SEOOptimizer>
       </ErrorBoundary>
     </>
