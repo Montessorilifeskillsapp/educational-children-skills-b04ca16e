@@ -18,7 +18,9 @@ export const useSEO = ({
   structuredData 
 }: SEOProps) => {
   useEffect(() => {
-    const fullTitle = title ? `${title} | Montessori Life Skills` : document.title;
+    const fullTitle = title
+      ? (/montessori life skills|\|/i.test(title) ? title : `${title} | Montessori Life Skills`)
+      : document.title;
 
     // Update title
     if (title) {
