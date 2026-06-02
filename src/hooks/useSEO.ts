@@ -91,8 +91,8 @@ export const useSEO = ({
 // Enhanced SEO configurations for different pages
 export const SEO_CONFIG = {
   home: {
-    title: 'Practical Life Skills for Children - Montessori Learning App',
-    description: 'Teach your child essential life skills with our Montessori-based app. Interactive activities, progress tracking, and premium materials for ages 2-6. Start free today!',
+    title: 'Montessori Activities Ages 2–6 | AMI-Aligned',
+    description: 'AMI-aligned Montessori activities for ages 2–6. Step-by-step photo guides, real Practical Life, Sensorial & Math lessons. Start free.',
     keywords: 'montessori, children education, life skills, practical life, toddler activities, preschool learning, child development, independence skills',
     canonical: 'https://montessorilifeskillsapp.com',
     structuredData: {
