@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -20,11 +20,11 @@ const AuthPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const getPostAuthRedirect = () => {
+  const getPostAuthRedirect = useCallback(() => {
     const params = new URLSearchParams(location.search);
     const redirect = params.get('redirect') || sessionStorage.getItem('post_auth_redirect');
     return redirect?.startsWith('/') && !redirect.startsWith('//') ? redirect : null;
-  };
+  }, [location.search]);
 
   // Redirect authenticated users. Brand-new accounts (created within the last
   // 5 minutes and not yet welcomed) go straight to the Pouring Water guide
