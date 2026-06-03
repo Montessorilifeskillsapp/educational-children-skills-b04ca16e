@@ -59,16 +59,22 @@ serve(async (req) => {
     if (!stripeKey) throw new CheckoutError("Stripe is not configured.", 500);
     logStep("Stripe key verified");
 
+    // Auth is OPTIONAL — guests can check out, then create an account afterwards.
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) throw new CheckoutError("Please sign in before starting checkout.", 401);
-    logStep("Authorization header found");
+    let user: { id: string; email: string } | null = null;
 
-    const token = authHeader.replace("Bearer ", "");
-    const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
-    if (userError) throw new CheckoutError("Your sign-in session expired. Please sign in again.", 401);
-    const user = userData.user;
-    if (!user?.email) throw new CheckoutError("Please sign in before starting checkout.", 401);
-    logStep("User authenticated", { userId: user.id, email: user.email });
+    if (authHeader) {
+      const token = authHeader.replace("Bearer ", "");
+      const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
+      if (!userError && userData.user?.email) {
+        user = { id: userData.user.id, email: userData.user.email };
+        logStep("User authenticated", { userId: user.id, email: user.email });
+      } else {
+        logStep("Auth header present but invalid — proceeding as guest");
+      }
+    } else {
+      logStep("No auth header — guest checkout");
+    }
 
     const { planId } = await req.json();
     const normalizedPlanId = typeof planId === "string" ? planId : "";
@@ -78,18 +84,17 @@ serve(async (req) => {
       throw new CheckoutError("Invalid plan selected.", 400);
     }
 
-    logStep("Request data parsed", { planId: normalizedPlanId });
+    logStep("Request data parsed", { planId: normalizedPlanId, guest: !user });
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
 
-    const customers = await stripe.customers.list({ email: user.email, limit: 1 });
     let customerId: string | undefined;
-
-    if (customers.data.length > 0) {
-      customerId = customers.data[0].id;
-      logStep("Existing customer found", { customerId });
-    } else {
-      logStep("No existing customer found");
+    if (user?.email) {
+      const customers = await stripe.customers.list({ email: user.email, limit: 1 });
+      if (customers.data.length > 0) {
+        customerId = customers.data[0].id;
+        logStep("Existing customer found", { customerId });
+      }
     }
 
     const ALLOWED_ORIGINS = [
@@ -104,7 +109,7 @@ serve(async (req) => {
       : (Deno.env.get("SITE_URL") ?? ALLOWED_ORIGINS[0]);
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
-      customer_email: customerId ? undefined : user.email,
+      customer_email: customerId || !user ? undefined : user.email,
       line_items: [
         {
           price_data: {
@@ -121,12 +126,12 @@ serve(async (req) => {
       cancel_url: `${origin}/payment-cancel?planId=${encodeURIComponent(normalizedPlanId)}`,
       metadata: {
         planId: normalizedPlanId,
-        userId: user.id,
+        ...(user ? { userId: user.id } : { guest: "true" }),
       },
       subscription_data: {
         metadata: {
           planId: normalizedPlanId,
-          userId: user.id,
+          ...(user ? { userId: user.id } : { guest: "true" }),
         },
       },
     });
