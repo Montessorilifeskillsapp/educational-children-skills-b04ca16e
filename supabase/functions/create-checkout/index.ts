@@ -109,7 +109,7 @@ serve(async (req) => {
       : (Deno.env.get("SITE_URL") ?? ALLOWED_ORIGINS[0]);
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
-      customer_email: customerId ? undefined : user.email,
+      customer_email: customerId || !user ? undefined : user.email,
       line_items: [
         {
           price_data: {
@@ -126,12 +126,12 @@ serve(async (req) => {
       cancel_url: `${origin}/payment-cancel?planId=${encodeURIComponent(normalizedPlanId)}`,
       metadata: {
         planId: normalizedPlanId,
-        userId: user.id,
+        ...(user ? { userId: user.id } : { guest: "true" }),
       },
       subscription_data: {
         metadata: {
           planId: normalizedPlanId,
-          userId: user.id,
+          ...(user ? { userId: user.id } : { guest: "true" }),
         },
       },
     });
