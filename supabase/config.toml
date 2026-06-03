@@ -50,7 +50,7 @@ external_sms_enabled = true
 send_sms_secrets = []
 
 [functions.create-checkout]
-verify_jwt = true
+verify_jwt = false
 
 [functions.check-subscription]
 verify_jwt = true
