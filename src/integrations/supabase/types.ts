@@ -225,14 +225,46 @@ export type Database = {
           },
         ]
       }
+      stripe_webhook_events: {
+        Row: {
+          event_type: string
+          id: number
+          livemode: boolean
+          payload: Json
+          processed_at: string
+          stripe_event_id: string
+        }
+        Insert: {
+          event_type: string
+          id?: number
+          livemode?: boolean
+          payload: Json
+          processed_at?: string
+          stripe_event_id: string
+        }
+        Update: {
+          event_type?: string
+          id?: number
+          livemode?: boolean
+          payload?: Json
+          processed_at?: string
+          stripe_event_id?: string
+        }
+        Relationships: []
+      }
       subscribers: {
         Row: {
           created_at: string
           email: string
           id: string
+          last_payment_error_at: string | null
+          last_payment_error_code: string | null
+          last_payment_error_message: string | null
           stripe_customer_id: string | null
+          stripe_subscription_id: string | null
           subscribed: boolean
           subscription_end: string | null
+          subscription_status: string | null
           subscription_tier: string | null
           updated_at: string
           user_id: string
@@ -241,9 +273,14 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          last_payment_error_at?: string | null
+          last_payment_error_code?: string | null
+          last_payment_error_message?: string | null
           stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           subscribed?: boolean
           subscription_end?: string | null
+          subscription_status?: string | null
           subscription_tier?: string | null
           updated_at?: string
           user_id: string
@@ -252,9 +289,14 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          last_payment_error_at?: string | null
+          last_payment_error_code?: string | null
+          last_payment_error_message?: string | null
           stripe_customer_id?: string | null
+          stripe_subscription_id?: string | null
           subscribed?: boolean
           subscription_end?: string | null
+          subscription_status?: string | null
           subscription_tier?: string | null
           updated_at?: string
           user_id?: string
