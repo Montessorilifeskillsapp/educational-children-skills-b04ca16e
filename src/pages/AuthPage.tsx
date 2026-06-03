@@ -41,7 +41,9 @@ const AuthPage = () => {
     if (postAuthRedirect) {
       try {
         sessionStorage.removeItem('post_auth_redirect');
-      } catch {}
+      } catch {
+        console.warn('Unable to clear auth redirect intent');
+      }
       navigate(postAuthRedirect, { replace: true });
     } else if (isFreshSignup) {
       localStorage.setItem(welcomedKey, '1');
@@ -49,7 +51,7 @@ const AuthPage = () => {
     } else {
       navigate('/', { replace: true });
     }
-  }, [user, loading, navigate, location.search]);
+  }, [user, loading, navigate, getPostAuthRedirect]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,7 +82,9 @@ const AuthPage = () => {
         if (postAuthRedirect) {
           try {
             sessionStorage.removeItem('post_auth_redirect');
-          } catch {}
+          } catch {
+            console.warn('Unable to clear auth redirect intent');
+          }
         }
         navigate(postAuthRedirect || '/');
       }
