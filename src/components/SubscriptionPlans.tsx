@@ -94,6 +94,24 @@ interface SubscriptionPlansProps {
   onBack?: () => void;
 }
 
+type CheckoutResponse = {
+  url?: string;
+  error?: string;
+};
+
+type FunctionErrorContext = {
+  error?: string;
+};
+
+const getCheckoutErrorDetail = (error: unknown) => {
+  if (error instanceof Error) {
+    const context = (error as Error & { context?: FunctionErrorContext }).context;
+    return context?.error || error.message;
+  }
+
+  return 'Please try again.';
+};
+
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
   const [loading, setLoading] = useState<string | null>(null);
@@ -113,16 +131,17 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         body: { planId: plan.id },
       });
       if (error) throw error;
-      if ((data as any)?.error) throw new Error((data as any).error);
+      const checkoutData = data as CheckoutResponse | null;
+      if (checkoutData?.error) throw new Error(checkoutData.error);
       if (!data?.url) throw new Error('Stripe checkout URL was not returned');
       toast({
         title: 'Redirecting to Checkout',
         description: 'Taking you to Stripe’s secure payment page…',
       });
       window.location.assign(data.url);
-    } catch (error: any) {
-      console.error('Checkout error:', error, 'context:', error?.context);
-      const detail = error?.context?.error || error?.message || 'Please try again.';
+    } catch (error: unknown) {
+      console.error('Checkout error:', error);
+      const detail = getCheckoutErrorDetail(error);
       toast({
         title: 'Checkout Error',
         description: String(detail).slice(0, 240),
@@ -188,7 +207,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         try {
           sessionStorage.setItem('post_auth_redirect', '/plans');
           sessionStorage.setItem('post_auth_plan', plan.id);
-        } catch {}
+        } catch {
+          console.warn('Unable to store checkout redirect intent');
+        }
         setTimeout(() => {
           window.location.assign(`/auth?redirect=${encodeURIComponent('/plans')}`);
         }, 600);
