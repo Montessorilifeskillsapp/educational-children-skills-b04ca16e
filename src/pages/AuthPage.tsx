@@ -41,7 +41,6 @@ const AuthPage = () => {
     if (postAuthRedirect) {
       try {
         sessionStorage.removeItem('post_auth_redirect');
-        sessionStorage.removeItem('post_auth_plan');
       } catch {}
       navigate(postAuthRedirect, { replace: true });
     } else if (isFreshSignup) {
@@ -81,7 +80,6 @@ const AuthPage = () => {
         if (postAuthRedirect) {
           try {
             sessionStorage.removeItem('post_auth_redirect');
-            sessionStorage.removeItem('post_auth_plan');
           } catch {}
         }
         navigate(postAuthRedirect || '/');
