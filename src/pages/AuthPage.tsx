@@ -39,6 +39,10 @@ const AuthPage = () => {
     const postAuthRedirect = getPostAuthRedirect();
 
     if (postAuthRedirect) {
+      try {
+        sessionStorage.removeItem('post_auth_redirect');
+        sessionStorage.removeItem('post_auth_plan');
+      } catch {}
       navigate(postAuthRedirect, { replace: true });
     } else if (isFreshSignup) {
       localStorage.setItem(welcomedKey, '1');
@@ -73,7 +77,14 @@ const AuthPage = () => {
           title: "Welcome back!",
           description: "You have successfully signed in.",
         });
-        navigate(getPostAuthRedirect() || '/');
+        const postAuthRedirect = getPostAuthRedirect();
+        if (postAuthRedirect) {
+          try {
+            sessionStorage.removeItem('post_auth_redirect');
+            sessionStorage.removeItem('post_auth_plan');
+          } catch {}
+        }
+        navigate(postAuthRedirect || '/');
       }
     } catch (error) {
       toast({
