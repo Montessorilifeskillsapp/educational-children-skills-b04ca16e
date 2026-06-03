@@ -161,17 +161,19 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           body: { planId: plan.id },
         });
         if (error) throw error;
+        if ((data as any)?.error) throw new Error((data as any).error);
         if (!data?.url) throw new Error('Stripe checkout URL was not returned');
         toast({
           title: 'Redirecting to Checkout',
           description: 'Taking you to Stripe’s secure payment page…',
         });
         window.location.assign(data.url);
-      } catch (error) {
-        console.error('Checkout error:', error);
+      } catch (error: any) {
+        console.error('Checkout error:', error, 'context:', error?.context);
+        const detail = error?.context?.error || error?.message || 'Please try again.';
         toast({
           title: 'Checkout Error',
-          description: 'Failed to start checkout. Please try again.',
+          description: String(detail).slice(0, 240),
           variant: 'destructive',
         });
       } finally {
