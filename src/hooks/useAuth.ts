@@ -4,6 +4,19 @@ import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
 import { analytics } from '@/lib/analytics'
 
+const getAuthCallbackUrl = () => {
+  const url = new URL('/auth/callback', window.location.origin)
+  try {
+    const redirect = sessionStorage.getItem('post_auth_redirect')
+    if (redirect?.startsWith('/') && !redirect.startsWith('//')) {
+      url.searchParams.set('redirect', redirect)
+    }
+  } catch {
+    // Keep the default callback URL if storage is unavailable.
+  }
+  return url.toString()
+}
+
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
@@ -45,7 +58,7 @@ export const useAuth = () => {
       email,
       password,
       options: {
-        emailRedirectTo: `${window.location.origin}/auth/callback`
+        emailRedirectTo: getAuthCallbackUrl()
       }
     })
     if (!error) analytics.track('signup', { method: 'password' })
@@ -62,7 +75,7 @@ export const useAuth = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
-        redirectTo: `${window.location.origin}/`,
+        redirectTo: getAuthCallbackUrl(),
       }
     })
     return { error }
@@ -73,7 +86,7 @@ export const useAuth = () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
-        redirectTo: `${window.location.origin}/`,
+        redirectTo: getAuthCallbackUrl(),
       }
     })
     return { error }
