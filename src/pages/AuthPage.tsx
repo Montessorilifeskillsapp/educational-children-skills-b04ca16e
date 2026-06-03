@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,6 +18,13 @@ const AuthPage = () => {
   const { user, signIn, signUp, signInWithGoogle, signInWithApple, loading } = useAuthContext();
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const getPostAuthRedirect = () => {
+    const params = new URLSearchParams(location.search);
+    const redirect = params.get('redirect') || sessionStorage.getItem('post_auth_redirect');
+    return redirect?.startsWith('/') && !redirect.startsWith('//') ? redirect : null;
+  };
 
   // Redirect authenticated users. Brand-new accounts (created within the last
   // 5 minutes and not yet welcomed) go straight to the Pouring Water guide
@@ -29,14 +36,17 @@ const AuthPage = () => {
     const alreadyWelcomed = localStorage.getItem(welcomedKey);
     const createdAt = user.created_at ? new Date(user.created_at).getTime() : 0;
     const isFreshSignup = !alreadyWelcomed && Date.now() - createdAt < 5 * 60 * 1000;
+    const postAuthRedirect = getPostAuthRedirect();
 
-    if (isFreshSignup) {
+    if (postAuthRedirect) {
+      navigate(postAuthRedirect, { replace: true });
+    } else if (isFreshSignup) {
       localStorage.setItem(welcomedKey, '1');
       navigate('/preview/pouring-water?firstrun=1', { replace: true });
     } else {
       navigate('/', { replace: true });
     }
-  }, [user, loading, navigate]);
+  }, [user, loading, navigate, location.search]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -63,7 +73,7 @@ const AuthPage = () => {
           title: "Welcome back!",
           description: "You have successfully signed in.",
         });
-        navigate('/');
+        navigate(getPostAuthRedirect() || '/');
       }
     } catch (error) {
       toast({
