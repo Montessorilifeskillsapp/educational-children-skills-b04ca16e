@@ -13,6 +13,15 @@ const logStep = (step: string, details?: unknown) => {
   console.log(`[CREATE-CHECKOUT] ${step}${detailsStr}`);
 };
 
+class CheckoutError extends Error {
+  status: number;
+
+  constructor(message: string, status: number) {
+    super(message);
+    this.status = status;
+  }
+}
+
 const PLAN_CONFIG = {
   premium: {
     productName: "Premium Monthly Plan",
@@ -47,18 +56,18 @@ serve(async (req) => {
     logStep("Function started");
 
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");
-    if (!stripeKey) throw new Error("STRIPE_SECRET_KEY is not set");
+    if (!stripeKey) throw new CheckoutError("Stripe is not configured.", 500);
     logStep("Stripe key verified");
 
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) throw new Error("No authorization header provided");
+    if (!authHeader) throw new CheckoutError("Please sign in before starting checkout.", 401);
     logStep("Authorization header found");
 
     const token = authHeader.replace("Bearer ", "");
     const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
-    if (userError) throw new Error(`Authentication error: ${userError.message}`);
+    if (userError) throw new CheckoutError("Your sign-in session expired. Please sign in again.", 401);
     const user = userData.user;
-    if (!user?.email) throw new Error("User not authenticated or email not available");
+    if (!user?.email) throw new CheckoutError("Please sign in before starting checkout.", 401);
     logStep("User authenticated", { userId: user.id, email: user.email });
 
     const { planId } = await req.json();
@@ -66,7 +75,7 @@ serve(async (req) => {
     const selectedPlan = PLAN_CONFIG[normalizedPlanId as keyof typeof PLAN_CONFIG];
 
     if (!selectedPlan) {
-      throw new Error("Invalid plan ID");
+      throw new CheckoutError("Invalid plan selected.", 400);
     }
 
     logStep("Request data parsed", { planId: normalizedPlanId });
@@ -131,9 +140,10 @@ serve(async (req) => {
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     logStep("ERROR in create-checkout", { message: errorMessage });
-    return new Response(JSON.stringify({ error: "Unable to create checkout session." }), {
+    const status = error instanceof CheckoutError ? error.status : 500;
+    return new Response(JSON.stringify({ error: errorMessage }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
-      status: 500,
+      status,
     });
   }
 });

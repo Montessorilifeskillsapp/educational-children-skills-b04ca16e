@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -94,15 +94,63 @@ interface SubscriptionPlansProps {
   onBack?: () => void;
 }
 
+type CheckoutResponse = {
+  url?: string;
+  error?: string;
+};
+
+type FunctionErrorContext = {
+  error?: string;
+};
+
+const getCheckoutErrorDetail = (error: unknown) => {
+  if (error instanceof Error) {
+    const context = (error as Error & { context?: FunctionErrorContext }).context;
+    return context?.error || error.message;
+  }
+
+  return 'Please try again.';
+};
+
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
   const [loading, setLoading] = useState<string | null>(null);
   const { toast } = useToast();
   const { currentPlan, subscribe } = useSubscription();
   const { user } = useAuthContext();
+  const pendingCheckoutStarted = useRef(false);
 
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
+
+  const startStripeCheckout = async (plan: Plan) => {
+    setLoading(plan.id);
+    try {
+      analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price, attribution: getStoredUtm() });
+      const { data, error } = await supabase.functions.invoke('create-checkout', {
+        body: { planId: plan.id },
+      });
+      if (error) throw error;
+      const checkoutData = data as CheckoutResponse | null;
+      if (checkoutData?.error) throw new Error(checkoutData.error);
+      if (!data?.url) throw new Error('Stripe checkout URL was not returned');
+      toast({
+        title: 'Redirecting to Checkout',
+        description: 'Taking you to Stripe’s secure payment page…',
+      });
+      window.location.assign(data.url);
+    } catch (error: unknown) {
+      console.error('Checkout error:', error);
+      const detail = getCheckoutErrorDetail(error);
+      toast({
+        title: 'Checkout Error',
+        description: String(detail).slice(0, 240),
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(null);
+    }
+  };
 
   useEffect(() => {
     analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id, attribution: getStoredUtm() });
@@ -111,6 +159,19 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     if (user && currentPlan?.id !== 'premium-monthly' && currentPlan?.id !== 'premium-yearly') {
       void supabase.functions.invoke('schedule-paywall-abandon').catch(() => {});
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [user]);
+
+  useEffect(() => {
+    if (!user || pendingCheckoutStarted.current) return;
+
+    const pendingPlanId = sessionStorage.getItem('post_auth_plan');
+    if (pendingPlanId !== 'premium-monthly' && pendingPlanId !== 'premium-yearly') return;
+
+    const pendingPlan = pendingPlanId === 'premium-yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
+    pendingCheckoutStarted.current = true;
+    sessionStorage.removeItem('post_auth_plan');
+    void startStripeCheckout(pendingPlan);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
 
@@ -146,39 +207,16 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         try {
           sessionStorage.setItem('post_auth_redirect', '/plans');
           sessionStorage.setItem('post_auth_plan', plan.id);
-        } catch {}
+        } catch {
+          console.warn('Unable to store checkout redirect intent');
+        }
         setTimeout(() => {
           window.location.assign(`/auth?redirect=${encodeURIComponent('/plans')}`);
         }, 600);
         return;
       }
 
-
-      setLoading(plan.id);
-      try {
-        analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price, attribution: getStoredUtm() });
-        const { data, error } = await supabase.functions.invoke('create-checkout', {
-          body: { planId: plan.id },
-        });
-        if (error) throw error;
-        if ((data as any)?.error) throw new Error((data as any).error);
-        if (!data?.url) throw new Error('Stripe checkout URL was not returned');
-        toast({
-          title: 'Redirecting to Checkout',
-          description: 'Taking you to Stripe’s secure payment page…',
-        });
-        window.location.assign(data.url);
-      } catch (error: any) {
-        console.error('Checkout error:', error, 'context:', error?.context);
-        const detail = error?.context?.error || error?.message || 'Please try again.';
-        toast({
-          title: 'Checkout Error',
-          description: String(detail).slice(0, 240),
-          variant: 'destructive',
-        });
-      } finally {
-        setLoading(null);
-      }
+      await startStripeCheckout(plan);
     } catch (error) {
       console.error('Error in handleSubscribe:', error);
       toast({
