@@ -140,12 +140,19 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       if (!user) {
         toast({
-          title: 'Sign In Required',
-          description: 'Please sign in to subscribe to a premium plan.',
-          variant: 'destructive',
+          title: 'Sign in to continue',
+          description: 'Redirecting you to sign in so we can start checkout…',
         });
+        try {
+          sessionStorage.setItem('post_auth_redirect', '/plans');
+          sessionStorage.setItem('post_auth_plan', plan.id);
+        } catch {}
+        setTimeout(() => {
+          window.location.assign(`/auth?redirect=${encodeURIComponent('/plans')}`);
+        }, 600);
         return;
       }
+
 
       setLoading(plan.id);
       try {
