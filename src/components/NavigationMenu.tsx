@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { SecurityStatusIndicator } from './SecurityStatusIndicator';
 import ThemeToggle from './ThemeToggle';
 import { useAuthContext } from '@/components/AuthProvider';
+import { supabase } from '@/integrations/supabase/client';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
