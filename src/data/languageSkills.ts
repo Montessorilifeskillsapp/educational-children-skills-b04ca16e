@@ -52,22 +52,6 @@ const baseLanguageSkills: Record<string, LanguageSkillData> = {
       { id: '5', instruction: 'I blend sounds together to read completed word, then construct a new word systematically', completed: false }
     ]
   },
-  'pink-series': {
-    title: 'Pink Series Reading',
-    icon: '🌸',
-    purpose: 'To provide first reading experience with simple three-letter phonetic words, building confidence in decoding skills.',
-    materials: ['Pink series word cards', 'Matching small objects', 'Reading mat', 'Pink series booklets'],
-    category: 'Language',
-    difficulty: 'Beginner',
-    isPremium: false,
-    steps: [
-      { id: '1', instruction: 'I place reading mat in position, select one pink series word card with clear printed text', completed: false },
-      { id: '2', instruction: 'I point under each letter individually, saying pure phonetic sound - not letter name', completed: false },
-      { id: '3', instruction: 'I blend phonetic sounds smoothly from left to right to decode complete word', completed: false },
-      { id: '4', instruction: 'I search among objects to find exact match for word I just read', completed: false },
-      { id: '5', instruction: 'I apply same systematic decoding process to additional pink series words', completed: false }
-    ]
-  },
   'metal-insets': {
     title: 'Metal Insets',
     icon: '✏️',
