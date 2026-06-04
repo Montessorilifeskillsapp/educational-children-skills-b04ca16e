@@ -198,6 +198,110 @@ export const amiLanguageSkills: Record<string, LanguageSkillData> = {
       { id: '5', instruction: 'I sort verb cards by tense on the sorting mat', completed: false }
     ]
   },
+  // ============ PINK SERIES (3-letter phonetic CVC words) ============
+  'pink-object-box': {
+    title: 'Pink Series – Object Box',
+    description: 'Stage 1: Match three-letter phonetic words to miniature objects',
+    icon: '🎁',
+    purpose: 'To give the child their first total reading experience: decoding a written word and recognising it represents a real, known object.',
+    materials: ['Pink box with 6–8 miniature objects (cat, pig, hat, jug, pen, bus)', 'Matching printed word cards in pink', 'Small mat'],
+    category: 'Language',
+    difficulty: 'Beginner',
+    isPremium: false,
+    steps: [
+      { id: '1', instruction: 'I unroll the mat and place all miniature objects in a column on the left', completed: false },
+      { id: '2', instruction: 'I take one word card, point under each letter and say its pure phonetic sound', completed: false },
+      { id: '3', instruction: 'I blend the sounds smoothly: /c/-/a/-/t/ → cat', completed: false },
+      { id: '4', instruction: 'I place the word card beside the matching object', completed: false },
+      { id: '5', instruction: 'I continue until every object has its word, then return the material to the shelf', completed: false }
+    ]
+  },
+  'pink-picture-cards': {
+    title: 'Pink Series – Picture & Word Cards',
+    description: 'Stage 2: Read CVC words and match to picture cards',
+    icon: '🖼️',
+    purpose: 'To progress from concrete objects to two-dimensional representation, strengthening decoding of three-letter phonetic words.',
+    materials: ['Set of pink picture cards (CVC words)', 'Matching word cards', 'Control cards', 'Mat'],
+    category: 'Language',
+    difficulty: 'Beginner',
+    isPremium: false,
+    steps: [
+      { id: '1', instruction: 'I lay out the picture cards in a column on the left of the mat', completed: false },
+      { id: '2', instruction: 'I take one word card and sound out each letter from left to right', completed: false },
+      { id: '3', instruction: 'I blend the sounds and place the word beside its matching picture', completed: false },
+      { id: '4', instruction: 'I complete all matches, then turn over the control card to check my work', completed: false },
+      { id: '5', instruction: 'I correct any errors quietly on my own before returning the material', completed: false }
+    ]
+  },
+  'pink-word-lists': {
+    title: 'Pink Series – Word Lists',
+    description: 'Stage 3: Read columns of three-letter phonetic words',
+    icon: '📋',
+    purpose: 'To build reading fluency by decoding lists of phonetic words without picture support, preparing the child for continuous text.',
+    materials: ['Pink word list cards (grouped by vowel: -at, -ig, -un, -et, -op)', 'Pointer or finger', 'Mat'],
+    category: 'Language',
+    difficulty: 'Beginner',
+    isPremium: false,
+    steps: [
+      { id: '1', instruction: 'I choose one word list grouped by a single vowel sound', completed: false },
+      { id: '2', instruction: 'I point under the first word and sound out each letter', completed: false },
+      { id: '3', instruction: 'I blend the sounds to read the word aloud', completed: false },
+      { id: '4', instruction: 'I move down the list, reading each word smoothly', completed: false },
+      { id: '5', instruction: 'I notice the vowel pattern repeating in every word on the list', completed: false }
+    ]
+  },
+  'pink-phrases': {
+    title: 'Pink Series – Phrases',
+    description: 'Stage 4: Read short phrases made of phonetic words',
+    icon: '🔗',
+    purpose: 'To extend reading from single words to meaningful groups of words, building the bridge to sentence-level comprehension.',
+    materials: ['Pink phrase strips (e.g., "a red hat", "the big pig")', 'Matching picture cards', 'Mat'],
+    category: 'Language',
+    difficulty: 'Beginner',
+    isPremium: false,
+    steps: [
+      { id: '1', instruction: 'I lay out the picture cards on the mat', completed: false },
+      { id: '2', instruction: 'I pick up one phrase strip and read each word in turn', completed: false },
+      { id: '3', instruction: 'I re-read the whole phrase smoothly to hear its meaning', completed: false },
+      { id: '4', instruction: 'I place the phrase beside the picture it describes', completed: false },
+      { id: '5', instruction: 'I continue until every phrase is matched to its picture', completed: false }
+    ]
+  },
+  'pink-sentences': {
+    title: 'Pink Series – Sentences',
+    description: 'Stage 5: Read complete sentences of phonetic words',
+    icon: '✏️',
+    purpose: 'To read full sentences composed entirely of three-letter phonetic words, demonstrating reading comprehension through action or matching.',
+    materials: ['Pink sentence strips', 'Small objects or picture cards for acting out', 'Mat'],
+    category: 'Language',
+    difficulty: 'Beginner',
+    isPremium: false,
+    steps: [
+      { id: '1', instruction: 'I take one sentence strip and read each word in order', completed: false },
+      { id: '2', instruction: 'I re-read the sentence smoothly from beginning to end', completed: false },
+      { id: '3', instruction: 'I act out the sentence or arrange objects to show what it means', completed: false },
+      { id: '4', instruction: 'I return the strip and choose another sentence', completed: false },
+      { id: '5', instruction: 'I notice that I am truly reading – understanding written language', completed: false }
+    ]
+  },
+  'pink-booklets': {
+    title: 'Pink Series – Booklets',
+    description: 'Stage 6: First little books with phonetic words',
+    icon: '📕',
+    purpose: 'To experience the joy of reading a complete little book, consolidating decoding of three-letter phonetic words in continuous text.',
+    materials: ['Small pink-covered phonetic booklets', 'Quiet reading mat or cushion', 'Bookmark'],
+    category: 'Language',
+    difficulty: 'Beginner',
+    isPremium: false,
+    steps: [
+      { id: '1', instruction: 'I choose one pink booklet and sit comfortably', completed: false },
+      { id: '2', instruction: 'I look at the cover and read the title aloud', completed: false },
+      { id: '3', instruction: 'I read each page slowly, sounding out any new word', completed: false },
+      { id: '4', instruction: 'I turn each page carefully from the top right corner', completed: false },
+      { id: '5', instruction: 'I close the booklet and tell what the little story was about', completed: false }
+    ]
+  },
+
   'function-of-words': {
     title: 'Function of Words',
     description: 'Articles, prepositions, conjunctions, and adverbs',
