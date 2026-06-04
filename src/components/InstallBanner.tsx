@@ -46,22 +46,21 @@ const InstallBanner = () => {
 
   useEffect(() => {
     // Dev/test override: ?forceInstallBanner=1 shows the banner for this URL only.
-    // Clear the older persisted test flag so previews do not keep showing it.
     const params = new URLSearchParams(window.location.search);
     localStorage.removeItem("pwa-install-banner-force");
     const forced = params.get("forceInstallBanner") === "1";
 
     if (!forced) {
       if (window.matchMedia("(display-mode: standalone)").matches) return;
-      if (localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY) === "true") return;
+      // Dismissal expires after 7 days so the banner returns for repeat visitors.
+      const dismissedAt = Number(localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY) || 0);
+      const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
+      if (dismissedAt && Date.now() - dismissedAt < SEVEN_DAYS) return;
     }
 
     const ua = navigator.userAgent;
     const ios = /iPad|iPhone|iPod/.test(ua);
-    const android = /Android/i.test(ua);
     setIsIOS(ios);
-
-    if (!forced && !ios && !android) return;
 
     const handler = (e: Event) => {
       e.preventDefault();
@@ -71,6 +70,9 @@ const InstallBanner = () => {
 
     window.addEventListener("beforeinstallprompt", handler);
 
+    // On iOS (no beforeinstallprompt support) show the manual instructions banner.
+    // On desktop/Android, show after a short delay if no native prompt fires —
+    // users can still click Install to open the /install instructions page.
     const timer = setTimeout(() => {
       setIsVisible(true);
     }, forced ? 0 : 1500);
@@ -84,7 +86,7 @@ const InstallBanner = () => {
   const handleDismiss = () => {
     setIsVisible(false);
     const forced = new URLSearchParams(window.location.search).get("forceInstallBanner") === "1";
-    if (!forced) localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, "true");
+    if (!forced) localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, String(Date.now()));
     // Restore focus to whatever was focused before the banner appeared
     previouslyFocusedRef.current?.focus?.();
   };
