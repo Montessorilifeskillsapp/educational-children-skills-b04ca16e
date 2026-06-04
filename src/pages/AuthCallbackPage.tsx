@@ -42,8 +42,8 @@ const AuthCallbackPage = () => {
 
         window.history.replaceState({}, document.title, '/auth/callback');
         setStatus('success');
-        setMessage('Your email is confirmed. Taking you to your first activity...');
-        window.setTimeout(() => navigate('/preview/pouring-water?firstrun=1', { replace: true }), 1200);
+        setMessage('Your email is confirmed. Taking you to your dashboard...');
+        window.setTimeout(() => navigate('/?view=dashboard', { replace: true }), 1200);
       } catch (error) {
         setStatus('error');
         setMessage(error instanceof Error ? error.message : 'This confirmation link could not be completed. Please try signing up again.');
