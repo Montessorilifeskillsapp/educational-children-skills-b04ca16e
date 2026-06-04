@@ -52,10 +52,10 @@ const InstallBanner = () => {
 
     if (!forced) {
       if (window.matchMedia("(display-mode: standalone)").matches) return;
-      // Dismissal expires after 7 days so the banner returns for repeat visitors.
+      // Dismissal expires after 48 hours so the banner returns for repeat visitors.
       const dismissedAt = Number(localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY) || 0);
-      const SEVEN_DAYS = 7 * 24 * 60 * 60 * 1000;
-      if (dismissedAt && Date.now() - dismissedAt < SEVEN_DAYS) return;
+      const FORTY_EIGHT_HOURS = 48 * 60 * 60 * 1000;
+      if (dismissedAt && Date.now() - dismissedAt < FORTY_EIGHT_HOURS) return;
     }
 
     const ua = navigator.userAgent;
