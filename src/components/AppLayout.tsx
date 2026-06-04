@@ -40,7 +40,8 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 
 const AppLayout: React.FC = () => {
   // State
-  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>('home');
+  const initialView = (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('view') === 'dashboard') ? 'dashboard' : 'home';
+  const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>(initialView);
   const [selectedSkill, setSelectedSkill] = useState<string>('');
 
   // Hooks - called in same order every time
