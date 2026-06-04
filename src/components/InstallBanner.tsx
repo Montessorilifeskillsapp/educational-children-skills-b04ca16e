@@ -86,7 +86,7 @@ const InstallBanner = () => {
   const handleDismiss = () => {
     setIsVisible(false);
     const forced = new URLSearchParams(window.location.search).get("forceInstallBanner") === "1";
-    if (!forced) localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, "true");
+    if (!forced) localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, String(Date.now()));
     // Restore focus to whatever was focused before the banner appeared
     previouslyFocusedRef.current?.focus?.();
   };
