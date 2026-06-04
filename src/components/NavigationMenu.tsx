@@ -35,8 +35,28 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onSubscriptionView, onParentView, onProfilesView
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthContext();
+
+  useEffect(() => {
+    if (!user) {
+      setIsAdmin(false);
+      return;
+    }
+
+    const checkAdmin = async () => {
+      const { data } = await supabase
+        .from('user_roles')
+        .select('role')
+        .eq('user_id', user.id)
+        .eq('role', 'admin')
+        .maybeSingle();
+      setIsAdmin(!!data);
+    };
+
+    checkAdmin();
+  }, [user]);
 
   const navigationItems = [
     ...(!user ? [{ label: 'Login', icon: LogIn, onClick: () => navigate('/auth'), color: 'border-primary/30' }] : []),
@@ -54,7 +74,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
-    { label: 'Admin Analytics', icon: BarChart3, onClick: () => navigate('/admin/analytics'), color: 'border-destructive/40' }
+    ...(isAdmin ? [{ label: 'Admin Analytics', icon: BarChart3, onClick: () => navigate('/admin/analytics'), color: 'border-destructive/40' }] : [])
   ];
 
   return (
