@@ -22,6 +22,7 @@ import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { canAccessSectionItem } from '@/lib/freeTierAccess';
+import { getMaterialImage } from '@/lib/materialImageRegistry';
 
 interface SkillActivityProps {
   skillId: string;
@@ -294,16 +295,31 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
 
         {skill.materials && skill.materials.length > 0 && (
           <div className="mb-6 p-4 bg-white/70 border border-amber-200 rounded-xl">
-            <div className="flex items-center gap-2 mb-2">
+            <div className="flex items-center gap-2 mb-3">
               <span className="text-base">📦</span>
               <p className="text-xs font-semibold uppercase tracking-wider text-amber-900/70">What you'll need</p>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {skill.materials.map((m, i) => (
-                <span key={i} className="inline-flex items-center px-3 py-1 rounded-full bg-amber-100 border border-amber-200 text-sm text-amber-900">
-                  {m}
-                </span>
-              ))}
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              {skill.materials.map((m, i) => {
+                const img = getMaterialImage(m);
+                return (
+                  <div key={i} className="flex flex-col items-center text-center bg-white rounded-lg border border-amber-200 overflow-hidden">
+                    {img ? (
+                      <img
+                        src={img}
+                        alt={`AMI Montessori material: ${m}`}
+                        loading="lazy"
+                        width={256}
+                        height={256}
+                        className="w-full aspect-square object-cover"
+                      />
+                    ) : (
+                      <div className="w-full aspect-square flex items-center justify-center bg-amber-50 text-3xl text-amber-300">📦</div>
+                    )}
+                    <span className="text-xs sm:text-sm text-amber-900 px-2 py-2 leading-tight">{m}</span>
+                  </div>
+                );
+              })}
             </div>
           </div>
         )}
