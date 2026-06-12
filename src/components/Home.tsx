@@ -916,7 +916,7 @@ const Home: React.FC<HomeProps> = ({
                   AMI-trained 3–6 Primary Guide
                 </div>
                 <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Every activity in this app is shaped by Kerry's training and years of guiding children in the prepared environment — so you can trust that what you're presenting at home is true to Maria Montessori's method, not a Pinterest approximation.
+                  Every activity in this app is shaped by Kerry's training and 40 years of guiding children in the prepared environment — so you can trust that what you're presenting at home is true to Maria Montessori's method, not a Pinterest approximation.
                 </p>
                 <p className="text-base text-muted-foreground leading-relaxed">
                   Her mission: make authentic Montessori accessible to every family, no classroom required.
