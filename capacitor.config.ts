@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'app.lovable.cad132a64b2841b093d9ba4b9938bbc8',
+  appId: 'com.montessorilifeskills.app',
   appName: 'educational-children-skills',
   webDir: 'dist',
   bundledWebRuntime: false,
