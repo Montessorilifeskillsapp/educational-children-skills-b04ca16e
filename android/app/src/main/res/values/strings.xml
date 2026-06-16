@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">educational-children-skills</string>
+    <string name="title_activity_main">educational-children-skills</string>
+    <string name="package_name">com.montessorilifeskills.app</string>
+    <string name="custom_url_scheme">com.montessorilifeskills.app</string>
+</resources>
