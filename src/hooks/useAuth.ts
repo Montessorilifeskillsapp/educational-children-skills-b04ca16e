@@ -1,5 +1,7 @@
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
+import { Capacitor } from '@capacitor/core'
+import { Browser } from '@capacitor/browser'
 import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
 import { analytics } from '@/lib/analytics'
@@ -72,6 +74,19 @@ export const useAuth = () => {
 
   const signInWithGoogle = async () => {
     analytics.track('signin_started', { method: 'google' })
+    if (Capacitor.isNativePlatform()) {
+      const { error, data } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: getAuthCallbackUrl(),
+          skipBrowserRedirect: true,
+        }
+      })
+      if (data?.url && !error) {
+        await Browser.open({ url: data.url })
+      }
+      return { error }
+    }
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
@@ -83,6 +98,19 @@ export const useAuth = () => {
 
   const signInWithApple = async () => {
     analytics.track('signin_started', { method: 'apple' })
+    if (Capacitor.isNativePlatform()) {
+      const { error, data } = await supabase.auth.signInWithOAuth({
+        provider: 'apple',
+        options: {
+          redirectTo: getAuthCallbackUrl(),
+          skipBrowserRedirect: true,
+        }
+      })
+      if (data?.url && !error) {
+        await Browser.open({ url: data.url })
+      }
+      return { error }
+    }
     const { error } = await supabase.auth.signInWithOAuth({
       provider: 'apple',
       options: {
