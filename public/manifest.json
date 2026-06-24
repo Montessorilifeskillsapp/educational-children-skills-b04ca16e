@@ -9,7 +9,18 @@
   "orientation": "portrait-primary",
   "categories": ["education", "kids", "lifestyle"],
   "lang": "en-US",
-  "prefer_related_applications": false,
+  "prefer_related_applications": true,
+  "related_applications": [
+    {
+      "platform": "play",
+      "url": "https://play.google.com/store/apps/details?id=com.montessorilifeskills.app",
+      "id": "com.montessorilifeskills.app"
+    },
+    {
+      "platform": "itunes",
+      "url": "https://apps.apple.com/app/montessori-life-skills/id6744107756"
+    }
+  ],
   "icons": [
     { "src": "/homescreen-icon-76.png",   "sizes": "76x76",   "type": "image/png", "purpose": "any" },
     { "src": "/homescreen-icon-120.png",  "sizes": "120x120", "type": "image/png", "purpose": "any" },
