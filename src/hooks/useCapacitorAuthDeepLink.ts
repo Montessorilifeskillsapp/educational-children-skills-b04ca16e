@@ -6,14 +6,9 @@ import { Capacitor } from "@capacitor/core";
 /**
  * Native OAuth deep-link bridge for Supabase.
  *
- * Required Supabase setup:
- * 1) In Supabase Auth providers, set redirect URL to:
- *    com.montessorilifeskills.app://auth-callback
- * 2) Add the same URL in Supabase "Auth > URL Configuration > Redirect URLs".
- *
- * On native (Capacitor) platforms, OAuth providers return to the app via appUrlOpen.
- * This listener forwards deep-link query/hash params to /auth/callback inside the web app
- * so the existing callback page can exchange authorization code/hash for a session.
+ * On native (Capacitor) platforms, OAuth providers redirect to the Supabase URL.
+ * We intercept that and redirect to our app's deep-link scheme so the auth callback
+ * can be handled inside the WebView.
  */
 export const useCapacitorAuthDeepLink = () => {
   useEffect(() => {
@@ -29,16 +24,31 @@ export const useCapacitorAuthDeepLink = () => {
         return;
       }
 
+      // Handle our app's custom deep-link scheme
       if (
-        parsedUrl.protocol !== "com.montessorilifeskills.app:" ||
-        parsedUrl.hostname !== "auth-callback"
+        parsedUrl.protocol === "com.montessorilifeskills.app:" &&
+        parsedUrl.hostname === "auth-callback"
       ) {
+        const callbackUrl = `/auth/callback${parsedUrl.search}${parsedUrl.hash}`;
+        await Browser.close().catch(() => undefined);
+        window.location.assign(callbackUrl);
         return;
       }
 
-      const callbackUrl = `/auth/callback${parsedUrl.search}${parsedUrl.hash}`;
-      await Browser.close().catch(() => undefined);
-      window.location.assign(callbackUrl);
+      // Handle redirect from Supabase OAuth callback
+      // When OAuth completes, Supabase redirects to its URL with auth params in hash
+      if (
+        parsedUrl.hostname === "lpdvohgfkjnjarrpsnqr.supabase.co" &&
+        (parsedUrl.pathname.includes("auth") || parsedUrl.hash)
+      ) {
+        // Extract the auth parameters from the hash or search
+        const params = parsedUrl.hash || parsedUrl.search;
+        const callbackUrl = `/auth/callback${params}`;
+        
+        // Close the browser and navigate to the callback inside the WebView
+        await Browser.close().catch(() => undefined);
+        window.location.assign(callbackUrl);
+      }
     });
 
     return () => {
