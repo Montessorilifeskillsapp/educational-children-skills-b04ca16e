@@ -47,6 +47,8 @@ import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
 import { useEffect } from "react";
+import { Capacitor } from "@capacitor/core";
+import { useCapacitorAuthDeepLink } from "@/hooks/useCapacitorAuthDeepLink";
 
 const RouteEffects = () => {
   useUtmTracking();
@@ -54,6 +56,8 @@ const RouteEffects = () => {
 };
 
 const App = () => {
+  useCapacitorAuthDeepLink();
+
   useEffect(() => {
     // Initialize analytics on app start
     analytics.init();
@@ -80,7 +84,7 @@ const App = () => {
                       }}
                     >
                         <RouteEffects />
-                        <InstallBanner />
+                        {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/index" element={<Index />} />
@@ -117,7 +121,7 @@ const App = () => {
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
-                        <PWAInstallPrompt />
+                        {!Capacitor.isNativePlatform() && <PWAInstallPrompt />}
                         <AdminAnalyticsLink />
                     </BrowserRouter>
                   </SubscriptionProvider>
