@@ -7,6 +7,12 @@ import { dbOperations } from '@/lib/supabase'
 import { analytics } from '@/lib/analytics'
 
 const getAuthCallbackUrl = () => {
+  // For native platforms (iOS/Android), use deep link URL
+  if (Capacitor.isNativePlatform()) {
+    return 'com.montessorilifeskills.app://auth-callback'
+  }
+  
+  // For web, use the full URL with optional redirect parameter
   const url = new URL('/auth/callback', window.location.origin)
   try {
     const redirect = sessionStorage.getItem('post_auth_redirect')
