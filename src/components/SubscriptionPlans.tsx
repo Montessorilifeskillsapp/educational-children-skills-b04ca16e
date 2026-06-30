@@ -459,6 +459,26 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           ))}
         </div>
       </section>
+
+      {isNative && (
+        <div className="text-center pt-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleRestore}
+            disabled={restoring}
+            className="text-muted-foreground"
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${restoring ? 'animate-spin' : ''}`} />
+            {restoring ? 'Restoring…' : 'Restore Purchases'}
+          </Button>
+          <p className="text-xs text-muted-foreground mt-2 max-w-md mx-auto">
+            Subscriptions are billed through your {' '}
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            App Store / Google Play account and can be managed there at any time.
+          </p>
+        </div>
+      )}
     </div>
   );
 };
