@@ -240,16 +240,6 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
   const handleSubscribe = async (plan: Plan) => {
     try {
-      if (plan.id === 'consultation') {
-        window.location.href =
-          'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
-        toast({
-          title: 'Consultation Request',
-          description: "Your email app should open shortly. We'll reply within 24 hours.",
-        });
-        return;
-      }
-
       if (plan.id === 'free') {
         if (currentPlan?.id === 'free') {
           toast({ title: "You're on the Explorer plan", description: 'Open the dashboard to start exploring.' });
@@ -259,6 +249,17 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           toast({ title: 'Welcome to Explorer!', description: 'Your free starter activities are ready.' });
           if (onBack) setTimeout(() => onBack(), 1500);
         }
+        return;
+      }
+
+      // Consultation on web → email; on native → in-app purchase (consumable)
+      if (plan.id === 'consultation' && !isNative) {
+        window.location.href =
+          'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
+        toast({
+          title: 'Consultation Request',
+          description: "Your email app should open shortly. We'll reply within 24 hours.",
+        });
         return;
       }
 
@@ -279,7 +280,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
-      await startStripeCheckout(plan);
+      if (isNative) {
+        await startNativePurchase(plan);
+      } else {
+        await startStripeCheckout(plan);
+      }
     } catch (error) {
       console.error('Error in handleSubscribe:', error);
       toast({
