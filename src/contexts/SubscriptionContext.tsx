@@ -148,6 +148,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       cancel,
       purchasedItems,
       purchaseItem,
+      refreshSubscription: verifySubscription,
       loading
     }}>
       {children}
