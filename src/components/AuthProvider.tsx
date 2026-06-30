@@ -30,6 +30,17 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const auth = useAuth()
 
+  // Initialize RevenueCat on native, identifying the user with their Supabase user id
+  // so web (Stripe) and mobile (RevenueCat) share the same entitlement record.
+  useEffect(() => {
+    if (!isNativePurchaseAvailable()) return
+    if (auth.loading) return
+    initRevenueCat(auth.user?.id ?? null).catch((err) => {
+      console.error('RevenueCat init failed', err)
+    })
+  }, [auth.loading, auth.user?.id])
+
+
   return (
     <AuthContext.Provider value={auth}>
       {children}
