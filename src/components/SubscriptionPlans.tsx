@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Crown, Star, ExternalLink, Shield, Zap, Sparkles } from 'lucide-react';
+import { Check, Crown, Star, ExternalLink, Shield, Zap, Sparkles, RefreshCw } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import BackButton from '@/components/ui/back-button';
 import { useToast } from '@/hooks/use-toast';
@@ -11,6 +11,14 @@ import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { analytics } from '@/lib/analytics';
 import { getStoredUtm } from '@/hooks/useUtmTracking';
+import {
+  isNativePurchaseAvailable,
+  purchaseProductId,
+  restorePurchases,
+  PRODUCT_MONTHLY,
+  PRODUCT_ANNUAL,
+  PRODUCT_CONSULTATION,
+} from '@/lib/revenuecat';
 
 interface Plan {
   id: string;
@@ -115,13 +123,68 @@ const getCheckoutErrorDetail = (error: unknown) => {
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
   const [loading, setLoading] = useState<string | null>(null);
+  const [restoring, setRestoring] = useState(false);
   const { toast } = useToast();
-  const { currentPlan, subscribe } = useSubscription();
+  const { currentPlan, subscribe, refreshSubscription } = useSubscription();
   const { user } = useAuthContext();
   const pendingCheckoutStarted = useRef(false);
+  const isNative = isNativePurchaseAvailable();
 
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
+
+  const productIdForPlan = (planId: string): string | null => {
+    if (planId === 'premium-monthly') return PRODUCT_MONTHLY;
+    if (planId === 'premium-yearly') return PRODUCT_ANNUAL;
+    if (planId === 'consultation') return PRODUCT_CONSULTATION;
+    return null;
+  };
+
+  const startNativePurchase = async (plan: Plan) => {
+    const productId = productIdForPlan(plan.id);
+    if (!productId) return;
+    setLoading(plan.id);
+    try {
+      analytics.track('subscribe_started', {
+        plan_id: plan.id,
+        billing_cycle: billingCycle,
+        price: plan.price,
+        platform: 'native',
+        attribution: getStoredUtm(),
+      });
+      await purchaseProductId(productId);
+      toast({ title: 'Purchase complete', description: 'Your subscription is now active.' });
+      try { await refreshSubscription?.(); } catch { /* noop */ }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      // RevenueCat throws { userCancelled: true } when user dismisses the sheet
+      const cancelled = /cancel/i.test(msg) || (err as { userCancelled?: boolean })?.userCancelled;
+      if (!cancelled) {
+        console.error('Native purchase failed', err);
+        toast({
+          title: 'Purchase failed',
+          description: msg.slice(0, 240),
+          variant: 'destructive',
+        });
+      }
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleRestore = async () => {
+    setRestoring(true);
+    try {
+      await restorePurchases();
+      try { await refreshSubscription?.(); } catch { /* noop */ }
+      toast({ title: 'Purchases restored', description: 'If you had an active subscription, it is now linked to this account.' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast({ title: 'Restore failed', description: msg.slice(0, 240), variant: 'destructive' });
+    } finally {
+      setRestoring(false);
+    }
+  };
 
   const startStripeCheckout = async (plan: Plan) => {
     setLoading(plan.id);
@@ -177,16 +240,6 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
   const handleSubscribe = async (plan: Plan) => {
     try {
-      if (plan.id === 'consultation') {
-        window.location.href =
-          'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
-        toast({
-          title: 'Consultation Request',
-          description: "Your email app should open shortly. We'll reply within 24 hours.",
-        });
-        return;
-      }
-
       if (plan.id === 'free') {
         if (currentPlan?.id === 'free') {
           toast({ title: "You're on the Explorer plan", description: 'Open the dashboard to start exploring.' });
@@ -196,6 +249,17 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           toast({ title: 'Welcome to Explorer!', description: 'Your free starter activities are ready.' });
           if (onBack) setTimeout(() => onBack(), 1500);
         }
+        return;
+      }
+
+      // Consultation on web → email; on native → in-app purchase (consumable)
+      if (plan.id === 'consultation' && !isNative) {
+        window.location.href =
+          'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
+        toast({
+          title: 'Consultation Request',
+          description: "Your email app should open shortly. We'll reply within 24 hours.",
+        });
         return;
       }
 
@@ -216,7 +280,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
-      await startStripeCheckout(plan);
+      if (isNative) {
+        await startNativePurchase(plan);
+      } else {
+        await startStripeCheckout(plan);
+      }
     } catch (error) {
       console.error('Error in handleSubscribe:', error);
       toast({
@@ -391,6 +459,26 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           ))}
         </div>
       </section>
+
+      {isNative && (
+        <div className="text-center pt-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={handleRestore}
+            disabled={restoring}
+            className="text-muted-foreground"
+          >
+            <RefreshCw className={`w-4 h-4 mr-2 ${restoring ? 'animate-spin' : ''}`} />
+            {restoring ? 'Restoring…' : 'Restore Purchases'}
+          </Button>
+          <p className="text-xs text-muted-foreground mt-2 max-w-md mx-auto">
+            Subscriptions are billed through your {' '}
+            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
+            App Store / Google Play account and can be managed there at any time.
+          </p>
+        </div>
+      )}
     </div>
   );
 };

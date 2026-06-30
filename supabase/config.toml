@@ -1,101 +1,19 @@
 project_id = "lpdvohgfkjnjarrpsnqr"
 
-[api]
-enabled = true
-port = 54321
-schemas = ["public", "storage", "graphql_public"]
-extra_search_path = ["public", "extensions"]
-max_rows = 1000
-
-[db]
-port = 54322
-
-[db.pooler]
-enabled = false
-port = 54329
-pool_mode = "transaction"
-default_pool_size = 20
-max_client_conn = 100
-
-[realtime]
-enabled = true
-ip_version = "ipv6"
-port = 54323
-
-[studio]
-enabled = true
-port = 54324
-api_url = "http://127.0.0.1"
-openai_api_key = "env(OPENAI_API_KEY)"
-
-[inbucket]
-enabled = true
-port = 54325
-smtp_port = 54326
-pop3_port = 54327
-
-[storage]
-enabled = true
-port = 54328
-file_size_limit = "50MiB"
-image_transformation = { enabled = true }
-
-[auth]
-enabled = true
-port = 54329
-site_url = "http://127.0.0.1:3000"
-external_email_enabled = true
-external_phone_enabled = true
-external_sms_enabled = true
-send_sms_secrets = []
-
 [functions.create-checkout]
 verify_jwt = false
 
 [functions.check-subscription]
-verify_jwt = true
+verify_jwt = false
 
 [functions.customer-portal]
-verify_jwt = true
-
-[edge_runtime]
-enabled = true
-port = 54330
-inspector_port = 54331
-
-[analytics]
-enabled = false
-port = 54327
-vector_port = 54328
-backend = "postgres"
-[functions.send-transactional-email]
-verify_jwt = true
-
-[functions.preview-transactional-email]
 verify_jwt = false
 
-[functions.handle-email-unsubscribe]
+[functions.revenuecat-config]
 verify_jwt = false
 
-[functions.handle-email-suppression]
+[functions.revenuecat-sync]
 verify_jwt = false
 
-[functions.process-onboarding-emails]
+[functions.revenuecat-webhook]
 verify_jwt = false
-
-[functions.schedule-paywall-abandon]
-verify_jwt = true
-
-[functions.admin-funnel-stats]
-verify_jwt = true
-
-[functions.admin-bootstrap]
-verify_jwt = true
-
-[functions.subscribe-lead-magnet]
-verify_jwt = false
-
-[functions.admin-lead-stats]
-verify_jwt = true
-
-
