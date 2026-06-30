@@ -9,7 +9,7 @@ let initialized = false;
 let initPromise: Promise<void> | null = null;
 let configCache: { ios?: string; android?: string } | null = null;
 
-export const ENTITLEMENT_ID = 'premium';
+export const ENTITLEMENT_ID = 'pro';
 export const PRODUCT_MONTHLY = 'premium_monthly';
 export const PRODUCT_ANNUAL = 'premium_annual';
 export const PRODUCT_CONSULTATION = 'consultation_session';
