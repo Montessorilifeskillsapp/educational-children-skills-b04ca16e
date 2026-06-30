@@ -1,56 +1,96 @@
 
-## Current launch-readiness status
+# RevenueCat In-App Purchases (Mobile)
 
-**Passing**
-- 34/34 frontend tests pass
-- TypeScript compiles with no errors
-- No high/critical dependency vulnerabilities
-- All routes render (verified `/` and `/math` in the live preview, no console or network errors)
-- RLS policies are tight: every user-data table denies anon, scopes to `auth.uid()`, and writes to sensitive tables (`leads`, `subscribers`, `email_schedule`, `stripe_webhook_events`) are fully denied to clients and handled by edge functions
+Web continues to use Stripe. iOS/Android apps will use RevenueCat → Apple/Google IAP. A user's premium entitlement is honored regardless of which system granted it.
 
-**Issues found**
+## 1. Database (migration)
 
-1. `internal_get_secret()` is a `SECURITY DEFINER` function in the `public` schema with `EXECUTE` granted to `anon` and `authenticated`. It reads from `vault.decrypted_secrets`, so any signed-in user (or anon, depending on exposure) could call it via PostgREST RPC and read decrypted secrets. This is the single real security risk before launch.
-2. 22 Supabase linter warnings about tables being visible in the auto-generated GraphQL schema. The app uses the REST client, not GraphQL, so this is informational — not a launch blocker.
-3. 48 ESLint errors and 31 warnings, all inside `supabase/functions/**` (mostly `no-explicit-any` in edge functions and `react-refresh/only-export-components` in email templates). Non-blocking at runtime.
-4. PWA "Add to Home Screen" banner overlays the hero on first load — a UX polish item, not a blocker.
+Add fields to `subscribers` to track provider:
 
-## Proposed plan
+```sql
+ALTER TABLE public.subscribers
+  ADD COLUMN IF NOT EXISTS provider TEXT DEFAULT 'stripe',
+  ADD COLUMN IF NOT EXISTS revenuecat_app_user_id TEXT,
+  ADD COLUMN IF NOT EXISTS revenuecat_entitlement TEXT,
+  ADD COLUMN IF NOT EXISTS revenuecat_product_id TEXT,
+  ADD COLUMN IF NOT EXISTS platform TEXT; -- 'web' | 'ios' | 'android'
 
-### Step 1 — Lock down `internal_get_secret` (required before launch)
+CREATE INDEX IF NOT EXISTS idx_subscribers_rc_app_user
+  ON public.subscribers(revenuecat_app_user_id);
+```
 
-Migration:
-- Revoke `EXECUTE` on `public.internal_get_secret(text)` from `PUBLIC`, `anon`, and `authenticated`
-- Keep `EXECUTE` for `service_role` only (edge functions use the service role internally)
+## 2. Secrets (Supabase)
 
-This closes the secret-disclosure path without affecting any edge function that calls it server-side.
+- `REVENUECAT_IOS_API_KEY` — public iOS key (`appl_…`), used in app
+- `REVENUECAT_ANDROID_API_KEY` — public Android key (`goog_…`), used in app
+- `REVENUECAT_WEBHOOK_AUTH` — random string you also paste in RC dashboard
+- `REVENUECAT_REST_API_KEY` — secret v2 key (`sk_…`) for server-side lookups
 
-### Step 2 — Clean up edge-function lint errors (optional, recommended)
+The two public app keys will be embedded as Vite env vars (`VITE_REVENUECAT_IOS_KEY`, `VITE_REVENUECAT_ANDROID_KEY`) since they're meant to ship in client binaries.
 
-Replace `any` types with proper types in:
-- `supabase/functions/_shared/transactional-email-templates/registry.ts`
-- `supabase/functions/admin-funnel-stats/index.ts`
-- `supabase/functions/admin-lead-stats/index.ts`
-- `supabase/functions/customer-portal/index.ts`
-- `supabase/functions/send-transactional-email/index.ts`
-- `supabase/functions/subscribe-lead-magnet/index.ts`
+## 3. Client SDK
 
-No behavior change, just type safety.
+Install `@revenuecat/purchases-capacitor`. Create `src/lib/revenuecat.ts`:
 
-### Step 3 — Delay PWA install banner (optional UX polish)
+- `initRevenueCat()` — called once at app start on native only; uses `supabase.auth` user id as `appUserID` so web and mobile share identity.
+- `getOfferings()` — returns the `default` offering's packages.
+- `purchasePackage(pkg)` — wraps `Purchases.purchasePackage`, on success calls our `revenuecat-sync` edge function so the DB updates immediately (don't wait for webhook).
+- `restorePurchases()` — required by Apple.
 
-Show the "Add to Home Screen" banner after the first scroll or after ~10 seconds, instead of immediately over the hero on landing.
+## 4. Plans page
 
-### Step 4 — Re-run diagnostics
+`src/pages/PlansPage.tsx` (or wherever current plans live) becomes platform-aware:
 
-After Step 1 lands: re-run the Supabase linter and security scan to confirm the SECURITY DEFINER finding is resolved.
+```ts
+import { Capacitor } from '@capacitor/core';
+const isNative = Capacitor.isNativePlatform();
+```
+
+- **Web** → existing Stripe checkout, unchanged.
+- **Native** → render packages from RevenueCat offering; Monthly + Annual buttons call `purchasePackage`. Add a "Restore Purchases" link (Apple requirement). Consultation card uses a **consumable** IAP product `consultation_session` (per your choice).
+
+## 5. Edge functions
+
+**`revenuecat-sync`** (called by client right after successful purchase):
+- Validates JWT, reads `customerInfo` payload, upserts `subscribers` row with `provider='revenuecat'`, platform, entitlement expiry.
+
+**`revenuecat-webhook`** (called by RevenueCat server):
+- Verifies `Authorization` header equals `REVENUECAT_WEBHOOK_AUTH`.
+- Handles `INITIAL_PURCHASE`, `RENEWAL`, `CANCELLATION`, `EXPIRATION`, `PRODUCT_CHANGE`, `BILLING_ISSUE`, `NON_RENEWING_PURCHASE` (consultation).
+- Looks up user by `app_user_id` (= Supabase user id) and updates `subscribers`.
+
+**`check-subscription`** (modify):
+- If `provider='stripe'` → existing Stripe path.
+- If `provider='revenuecat'` → trust DB `subscription_end` (kept current by webhook); optionally cross-check via RC REST API.
+- "Recognize Stripe entitlement on mobile" works automatically because the same user row is read regardless of platform.
+
+## 6. Capacitor config
+
+No code change needed beyond installing the plugin — `npx cap sync` after pulling.
+
+## 7. RevenueCat dashboard setup (you do this)
+
+1. Project → add iOS app (bundle `com.montessorilifeskills.app`) + Android app.
+2. Paste App Store Connect shared secret & Google Play service account JSON.
+3. Create products in App Store Connect / Play Console:
+   - `premium_monthly` — auto-renewing $29.99/mo
+   - `premium_annual` — auto-renewing $199.99/yr
+   - `consultation_session` — consumable $224.99 (Apple requires .99)
+4. In RevenueCat: create Entitlement `premium`, attach the two subs. Create Offering `default` with Monthly + Annual packages.
+5. Webhooks → URL = `https://lpdvohgfkjnjarrpsnqr.supabase.co/functions/v1/revenuecat-webhook`, Authorization header = the value you'll give me for `REVENUECAT_WEBHOOK_AUTH`.
+
+## 8. Local build steps (after I push)
+
+```bash
+git pull && npm install
+npm run build
+npx cap sync ios && npx cap sync android
+```
+
+Then run on a real device — IAP does **not** work in the iOS simulator.
 
 ## Out of scope
 
-- The 22 GraphQL-exposure warnings (not used by the app)
-- Repository-wide ESLint cleanup in non-edge-function code (already clean)
-- Any feature/UI changes
-
-## Recommendation
-
-Apply Step 1 before launch. Steps 2–3 can ship post-launch.
+- Promo codes / intro offers (configure in App Store Connect later; RC picks them up automatically).
+- Family Sharing (off by default; enable in App Store Connect when ready).
+- Receipt validation custom logic — RevenueCat handles it.
