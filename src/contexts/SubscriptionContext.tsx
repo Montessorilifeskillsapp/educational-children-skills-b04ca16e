@@ -21,6 +21,7 @@ interface SubscriptionContextType {
   cancel: () => void;
   purchasedItems: string[];
   purchaseItem: (itemId: string) => void;
+  refreshSubscription: () => Promise<void>;
   loading: boolean;
 }
 
