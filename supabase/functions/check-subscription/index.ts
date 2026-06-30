@@ -73,6 +73,32 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
+    // If this user's most recent subscription was granted via RevenueCat (mobile IAP),
+    // trust the cached row maintained by revenuecat-sync / revenuecat-webhook.
+    // Stripe has no record of these purchases.
+    const { data: existingRow } = await supabaseClient
+      .from("subscribers")
+      .select("provider, subscribed, subscription_tier, subscription_end")
+      .eq("user_id", user.id)
+      .maybeSingle();
+
+    if (existingRow?.provider === "revenuecat") {
+      const stillActive = existingRow.subscription_end
+        ? new Date(existingRow.subscription_end).getTime() > Date.now()
+        : Boolean(existingRow.subscribed);
+      logStep("Honoring RevenueCat entitlement", { stillActive });
+      return new Response(JSON.stringify({
+        subscribed: stillActive && Boolean(existingRow.subscribed),
+        subscription_tier: existingRow.subscription_tier ?? null,
+        subscription_end: existingRow.subscription_end ?? null,
+        provider: "revenuecat",
+      }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
+
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16", maxNetworkRetries: 2 });
 
     // Wrap Stripe calls so transient network failures fall back to last-known DB state
