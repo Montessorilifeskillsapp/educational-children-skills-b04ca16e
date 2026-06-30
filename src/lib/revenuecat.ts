@@ -66,7 +66,7 @@ export async function getOfferings() {
 
 export async function purchaseProductId(productId: string) {
   if (!isNativePurchaseAvailable()) throw new Error('Native purchases only');
-  const { Purchases, PURCHASE_TYPE } = await import('@revenuecat/purchases-capacitor');
+  const { Purchases, PRODUCT_CATEGORY } = await import('@revenuecat/purchases-capacitor');
   const offerings = await Purchases.getOfferings();
   const pkg = offerings.current?.availablePackages.find(
     (p) => p.product.identifier === productId
@@ -77,11 +77,14 @@ export async function purchaseProductId(productId: string) {
     const result = await Purchases.purchasePackage({ aPackage: pkg });
     customerInfo = result.customerInfo;
   } else {
-    // Consumable / non-subscription not in offering
-    const result = await Purchases.purchaseProduct({
-      productIdentifier: productId,
-      productType: PURCHASE_TYPE.CONSUMABLE,
+    // Consumable / non-subscription product (e.g. consultation_session)
+    const { products } = await Purchases.getProducts({
+      productIdentifiers: [productId],
+      type: PRODUCT_CATEGORY.NON_SUBSCRIPTION,
     });
+    const product = products[0];
+    if (!product) throw new Error(`Product ${productId} not found in store`);
+    const result = await Purchases.purchaseStoreProduct({ product });
     customerInfo = result.customerInfo;
   }
 
