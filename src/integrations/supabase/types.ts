@@ -260,6 +260,11 @@ export type Database = {
           last_payment_error_at: string | null
           last_payment_error_code: string | null
           last_payment_error_message: string | null
+          platform: string | null
+          provider: string | null
+          revenuecat_app_user_id: string | null
+          revenuecat_entitlement: string | null
+          revenuecat_product_id: string | null
           stripe_customer_id: string | null
           stripe_subscription_id: string | null
           subscribed: boolean
@@ -276,6 +281,11 @@ export type Database = {
           last_payment_error_at?: string | null
           last_payment_error_code?: string | null
           last_payment_error_message?: string | null
+          platform?: string | null
+          provider?: string | null
+          revenuecat_app_user_id?: string | null
+          revenuecat_entitlement?: string | null
+          revenuecat_product_id?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           subscribed?: boolean
@@ -292,6 +302,11 @@ export type Database = {
           last_payment_error_at?: string | null
           last_payment_error_code?: string | null
           last_payment_error_message?: string | null
+          platform?: string | null
+          provider?: string | null
+          revenuecat_app_user_id?: string | null
+          revenuecat_entitlement?: string | null
+          revenuecat_product_id?: string | null
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           subscribed?: boolean
