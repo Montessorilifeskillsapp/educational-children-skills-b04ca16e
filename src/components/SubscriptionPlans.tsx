@@ -123,13 +123,68 @@ const getCheckoutErrorDetail = (error: unknown) => {
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
   const [loading, setLoading] = useState<string | null>(null);
+  const [restoring, setRestoring] = useState(false);
   const { toast } = useToast();
-  const { currentPlan, subscribe } = useSubscription();
+  const { currentPlan, subscribe, refreshSubscription } = useSubscription();
   const { user } = useAuthContext();
   const pendingCheckoutStarted = useRef(false);
+  const isNative = isNativePurchaseAvailable();
 
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
+
+  const productIdForPlan = (planId: string): string | null => {
+    if (planId === 'premium-monthly') return PRODUCT_MONTHLY;
+    if (planId === 'premium-yearly') return PRODUCT_ANNUAL;
+    if (planId === 'consultation') return PRODUCT_CONSULTATION;
+    return null;
+  };
+
+  const startNativePurchase = async (plan: Plan) => {
+    const productId = productIdForPlan(plan.id);
+    if (!productId) return;
+    setLoading(plan.id);
+    try {
+      analytics.track('subscribe_started', {
+        plan_id: plan.id,
+        billing_cycle: billingCycle,
+        price: plan.price,
+        platform: 'native',
+        attribution: getStoredUtm(),
+      });
+      await purchaseProductId(productId);
+      toast({ title: 'Purchase complete', description: 'Your subscription is now active.' });
+      try { await refreshSubscription?.(); } catch { /* noop */ }
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      // RevenueCat throws { userCancelled: true } when user dismisses the sheet
+      const cancelled = /cancel/i.test(msg) || (err as { userCancelled?: boolean })?.userCancelled;
+      if (!cancelled) {
+        console.error('Native purchase failed', err);
+        toast({
+          title: 'Purchase failed',
+          description: msg.slice(0, 240),
+          variant: 'destructive',
+        });
+      }
+    } finally {
+      setLoading(null);
+    }
+  };
+
+  const handleRestore = async () => {
+    setRestoring(true);
+    try {
+      await restorePurchases();
+      try { await refreshSubscription?.(); } catch { /* noop */ }
+      toast({ title: 'Purchases restored', description: 'If you had an active subscription, it is now linked to this account.' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast({ title: 'Restore failed', description: msg.slice(0, 240), variant: 'destructive' });
+    } finally {
+      setRestoring(false);
+    }
+  };
 
   const startStripeCheckout = async (plan: Plan) => {
     setLoading(plan.id);
