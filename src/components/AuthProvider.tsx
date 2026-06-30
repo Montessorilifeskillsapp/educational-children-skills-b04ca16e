@@ -1,6 +1,7 @@
-import React, { createContext, useContext, ReactNode } from 'react'
+import React, { createContext, useContext, ReactNode, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
 import { useAuth } from '@/hooks/useAuth'
+import { initRevenueCat, isNativePurchaseAvailable } from '@/lib/revenuecat'
 
 interface AuthContextType {
   user: User | null
