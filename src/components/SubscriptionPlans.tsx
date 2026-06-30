@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Check, Crown, Star, ExternalLink, Shield, Zap, Sparkles } from 'lucide-react';
+import { Check, Crown, Star, ExternalLink, Shield, Zap, Sparkles, RefreshCw } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import BackButton from '@/components/ui/back-button';
 import { useToast } from '@/hooks/use-toast';
@@ -11,6 +11,14 @@ import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { analytics } from '@/lib/analytics';
 import { getStoredUtm } from '@/hooks/useUtmTracking';
+import {
+  isNativePurchaseAvailable,
+  purchaseProductId,
+  restorePurchases,
+  PRODUCT_MONTHLY,
+  PRODUCT_ANNUAL,
+  PRODUCT_CONSULTATION,
+} from '@/lib/revenuecat';
 
 interface Plan {
   id: string;
