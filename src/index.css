@@ -123,6 +123,13 @@
     padding-right: env(safe-area-inset-right);
   }
 
+  /* Ensure sticky/fixed headers and bottom bars clear the notch / home indicator */
+  .safe-top { padding-top: env(safe-area-inset-top); }
+  .safe-bottom { padding-bottom: env(safe-area-inset-bottom); }
+  header[data-sticky], .sticky-header {
+    top: env(safe-area-inset-top);
+  }
+
   img, video, svg, canvas, iframe {
     max-width: 100%;
     height: auto;
