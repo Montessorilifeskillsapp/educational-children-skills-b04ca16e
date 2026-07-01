@@ -55,20 +55,46 @@ const TermsOfServicePage: React.FC = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Subscription Terms</h2>
-                <h3 className="text-lg font-medium mb-2">Premium Plans</h3>
+                <h2 className="text-xl font-semibold mb-4">Subscription Terms (Auto-Renewable Subscriptions)</h2>
+                <p className="mb-3">
+                  Montessori Life Skills App offers auto-renewable subscriptions that give you access to the full
+                  Montessori curriculum, all premium activities, multiple child profiles, printable bundles, and priority support.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Available Plans, Length &amp; Price</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li>Monthly subscriptions renew automatically until cancelled</li>
-                  <li>Annual subscriptions provide access for 12 months from purchase date</li>
-                  <li>Lifetime purchases provide permanent access to premium features</li>
-                  <li>Refunds are available within 14 days of purchase for unused services</li>
+                  <li><strong>Premium Monthly</strong> — 1 month of full access for <strong>$29.00 USD</strong>, billed every month.</li>
+                  <li><strong>Premium Annual</strong> — 12 months of full access for <strong>$199.00 USD</strong>, billed once per year (approximately $16.58/month).</li>
+                  <li>Prices in other currencies are shown at the point of purchase and may vary by region and applicable taxes.</li>
                 </ul>
-                
-                <h3 className="text-lg font-medium mb-2">Cancellation</h3>
+
+                <h3 className="text-lg font-medium mb-2">Payment &amp; Auto-Renewal</h3>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                  <li>Payment will be charged to your Apple ID (iOS), Google Play account (Android), or the payment method on file with Stripe (web) at confirmation of purchase.</li>
+                  <li>Subscriptions <strong>automatically renew</strong> at the same price and duration unless auto-renew is turned off at least 24 hours before the end of the current period.</li>
+                  <li>Your account will be charged for renewal within 24 hours prior to the end of the current period.</li>
+                  <li>You can manage subscriptions and turn off auto-renewal in your account settings on the App Store, Google Play, or Stripe customer portal after purchase.</li>
+                </ul>
+
+                <h3 className="text-lg font-medium mb-2">Free Trial (if offered)</h3>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                  <li>Any unused portion of a free trial period, if offered, will be forfeited when you purchase a subscription.</li>
+                </ul>
+
+                <h3 className="text-lg font-medium mb-2">Cancellation &amp; Refunds</h3>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                  <li>You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period; access continues until then.</li>
+                  <li><strong>iOS:</strong> Manage or cancel in <em>Settings &gt; [your name] &gt; Subscriptions</em>.</li>
+                  <li><strong>Android:</strong> Manage or cancel in the Google Play Store under <em>Payments &amp; subscriptions &gt; Subscriptions</em>.</li>
+                  <li><strong>Web (Stripe):</strong> Manage or cancel via the customer portal link in your receipt email or by contacting support.</li>
+                  <li>Refund requests for App Store purchases are handled by Apple at <a className="underline" href="https://reportaproblem.apple.com" target="_blank" rel="noreferrer">reportaproblem.apple.com</a>. Web purchases are covered by our 30-day money-back guarantee — contact support@montessorilifeskills.com.</li>
+                </ul>
+
+                <h3 className="text-lg font-medium mb-2">Links</h3>
                 <ul className="list-disc list-inside space-y-1">
-                  <li>You may cancel your subscription at any time through your account settings</li>
-                  <li>Cancellation takes effect at the end of the current billing period</li>
-                  <li>No refunds for partial subscription periods</li>
+                  <li><a className="underline" href="/terms-of-service">Terms of Use (EULA)</a></li>
+                  <li><a className="underline" href="/privacy-policy">Privacy Policy</a></li>
+                  <li>Apple standard EULA: <a className="underline" href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/" target="_blank" rel="noreferrer">apple.com/legal/internet-services/itunes/dev/stdeula</a></li>
                 </ul>
               </section>
 
