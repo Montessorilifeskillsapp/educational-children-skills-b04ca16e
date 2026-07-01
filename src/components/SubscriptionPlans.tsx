@@ -252,8 +252,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
-      // Consultation on web → email; on native → in-app purchase (consumable)
-      if (plan.id === 'consultation' && !isNative) {
+      // Consultation is always an offline-arranged email booking (web + native).
+      // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
+      if (plan.id === 'consultation') {
         window.location.href =
           'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
         toast({
@@ -262,6 +263,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         });
         return;
       }
+
 
       if (!user) {
         toast({
@@ -392,29 +394,44 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 <CardHeader className="text-center pb-4">
                   <CardTitle className="text-2xl font-bold text-foreground">{plan.name}</CardTitle>
                   <div className="mt-4">
-                    <span className="text-5xl font-extrabold text-foreground">${plan.price}</span>
-                    <span className="text-muted-foreground">/{plan.period}</span>
-                    {plan.meta && (
-                      <div className="text-sm text-secondary font-semibold mt-2">{plan.meta}</div>
-                    )}
-                    {plan.id === 'premium-monthly' && (
-                      <div className="text-xs text-muted-foreground mt-2">
-                        Switch to annual to save $149
-                      </div>
+                    {isNative && plan.id === 'consultation' ? (
+                      <>
+                        <span className="text-3xl font-extrabold text-foreground">By request</span>
+                        <div className="text-xs text-muted-foreground mt-2">
+                          Arranged directly with our team — not sold in-app.
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-5xl font-extrabold text-foreground">${plan.price}</span>
+                        <span className="text-muted-foreground">/{plan.period}</span>
+                        {plan.meta && (
+                          <div className="text-sm text-secondary font-semibold mt-2">{plan.meta}</div>
+                        )}
+                        {plan.id === 'premium-monthly' && (
+                          <div className="text-xs text-muted-foreground mt-2">
+                            Switch to annual to save $149
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
+
                   <p className="text-sm text-muted-foreground mt-3 px-2">{plan.description}</p>
                 </CardHeader>
 
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-3 mb-6 flex-1">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
-                        <span className="text-sm text-foreground/90">{feature}</span>
-                      </li>
-                    ))}
+                    {plan.features
+                      .filter((f) => !(isNative && plan.id === 'consultation' && /\$/.test(f)))
+                      .map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
+                          <span className="text-sm text-foreground/90">{feature}</span>
+                        </li>
+                      ))}
                   </ul>
+
 
                   <div className="mt-auto">
                     <Button
