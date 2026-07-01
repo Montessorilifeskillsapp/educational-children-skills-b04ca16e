@@ -133,6 +133,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [loading, setLoading] = useState<string | null>(null);
   const [restoring, setRestoring] = useState(false);
   const [syncingStatus, setSyncingStatus] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const { toast } = useToast();
   const { currentPlan, subscribe, refreshSubscription, isPremium, loading: subscriptionLoading, subscriptionEnd, provider } = useSubscription();
   const { user } = useAuthContext();
@@ -285,6 +286,17 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         }
         return;
       }
+
+      // Require explicit acceptance of Terms & Privacy for any paid or subscription flow
+      if (!termsAccepted) {
+        toast({
+          title: 'Please accept the Terms',
+          description: 'You must agree to the Terms of Service and Privacy Policy before purchasing.',
+          variant: 'destructive',
+        });
+        return;
+      }
+
 
       // Consultation is always an offline-arranged email booking (web + native).
       // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
@@ -490,6 +502,35 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       <section aria-label="Montessori learning subscription plans">
         <h2 className="sr-only">Choose Your Plan</h2>
+
+        {/* Apple / Google Play required EULA & auto-renewal disclosure */}
+        <div className="max-w-3xl mx-auto mb-6 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm text-foreground/90">
+          <p className="font-semibold mb-2">Subscription details</p>
+          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+            <li><strong>Premium Monthly</strong> — $29.00 USD per month, auto-renews monthly.</li>
+            <li><strong>Premium Annual</strong> — $199.00 USD per year, auto-renews yearly (~$16.58/month).</li>
+            <li>Payment is charged to your Apple ID, Google Play, or web payment method at confirmation of purchase.</li>
+            <li>Subscription auto-renews unless auto-renew is turned off at least 24 hours before the end of the current period.</li>
+            <li>You can manage or cancel anytime in your App Store, Google Play, or Stripe account settings.</li>
+          </ul>
+          <label className="mt-4 flex items-start gap-2 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              className="mt-1 h-4 w-4 accent-primary"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+              aria-label="Accept Terms of Service and Privacy Policy"
+            />
+            <span className="text-sm text-foreground">
+              I have read and agree to the{' '}
+              <a href="/terms-of-service" target="_blank" rel="noreferrer" className="underline text-primary">Terms of Use (EULA)</a>
+              {' '}and{' '}
+              <a href="/privacy-policy" target="_blank" rel="noreferrer" className="underline text-primary">Privacy Policy</a>,
+              including the auto-renewal terms above.
+            </span>
+          </label>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
           {plans.map((plan) => (
             <article key={plan.id} className={plan.popular ? 'md:-my-2' : ''}>
@@ -566,7 +607,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       }`}
                       variant={plan.id === 'free' || (!plan.popular && !plan.premium) ? 'outline' : 'default'}
                       onClick={() => handleSubscribe(plan)}
-                      disabled={(currentPlan?.id === plan.id && plan.id !== 'free') || loading === plan.id}
+                      disabled={(currentPlan?.id === plan.id && plan.id !== 'free') || loading === plan.id || (plan.id !== 'free' && !termsAccepted)}
                       aria-label={`Choose ${plan.name} plan`}
                     >
                       {loading === plan.id ? (
