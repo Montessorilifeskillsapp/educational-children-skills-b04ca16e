@@ -105,7 +105,9 @@ const App = () => {
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />
                           <Route path="/payment-cancel" element={<PaymentCancelPage />} />
                           <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                          <Route path="/privacy" element={<PrivacyPolicyPage />} />
                           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+                          <Route path="/terms" element={<TermsOfServicePage />} />
                           <Route path="/contact" element={<ContactPage />} />
                           <Route path="/help" element={<HelpPage />} />
                           <Route path="/about" element={<AboutPage />} />
