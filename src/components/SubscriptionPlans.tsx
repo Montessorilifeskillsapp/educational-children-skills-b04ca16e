@@ -133,6 +133,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [loading, setLoading] = useState<string | null>(null);
   const [restoring, setRestoring] = useState(false);
   const [syncingStatus, setSyncingStatus] = useState(false);
+  const [termsAccepted, setTermsAccepted] = useState(false);
   const { toast } = useToast();
   const { currentPlan, subscribe, refreshSubscription, isPremium, loading: subscriptionLoading, subscriptionEnd, provider } = useSubscription();
   const { user } = useAuthContext();
