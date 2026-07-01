@@ -79,28 +79,29 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           <DialogTitle>{isSignUp ? 'Sign Up' : 'Sign In'}</DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-            className="w-full"
-          >
-            <Chrome className="mr-2 h-4 w-4" />
-            Continue with Google
-          </Button>
-          
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleAppleSignIn}
-            disabled={loading}
-            className="w-full"
-          >
-            <Apple className="mr-2 h-4 w-4" />
-            Continue with Apple
-          </Button>
+        {!Capacitor.isNativePlatform() && (
+          <div className="space-y-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              className="w-full"
+            >
+              <Chrome className="mr-2 h-4 w-4" />
+              Continue with Google
+            </Button>
+            
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleAppleSignIn}
+              disabled={loading}
+              className="w-full"
+            >
+              <Apple className="mr-2 h-4 w-4" />
+              Continue with Apple
+            </Button>
 
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
