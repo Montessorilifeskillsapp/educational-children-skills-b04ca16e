@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { Chrome, Apple } from 'lucide-react'
+import { Capacitor } from '@capacitor/core'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -78,40 +79,42 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
           <DialogTitle>{isSignUp ? 'Sign Up' : 'Sign In'}</DialogTitle>
         </DialogHeader>
         
-        <div className="space-y-4">
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleGoogleSignIn}
-            disabled={loading}
-            className="w-full"
-          >
-            <Chrome className="mr-2 h-4 w-4" />
-            Continue with Google
-          </Button>
-          
-          <Button
-            type="button"
-            variant="outline"
-            onClick={handleAppleSignIn}
-            disabled={loading}
-            className="w-full"
-          >
-            <Apple className="mr-2 h-4 w-4" />
-            Continue with Apple
-          </Button>
+        {!Capacitor.isNativePlatform() && (
+          <div className="space-y-4">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleGoogleSignIn}
+              disabled={loading}
+              className="w-full"
+            >
+              <Chrome className="mr-2 h-4 w-4" />
+              Continue with Google
+            </Button>
+            
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleAppleSignIn}
+              disabled={loading}
+              className="w-full"
+            >
+              <Apple className="mr-2 h-4 w-4" />
+              Continue with Apple
+            </Button>
 
-          <div className="relative">
-            <div className="absolute inset-0 flex items-center">
-              <Separator className="w-full" />
-            </div>
-            <div className="relative flex justify-center text-xs uppercase">
-              <span className="bg-background px-2 text-muted-foreground">
-                Or continue with email
-              </span>
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <Separator className="w-full" />
+              </div>
+              <div className="relative flex justify-center text-xs uppercase">
+                <span className="bg-background px-2 text-muted-foreground">
+                  Or continue with email
+                </span>
+              </div>
             </div>
           </div>
-        </div>
+        )}
 
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
