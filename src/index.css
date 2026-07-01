@@ -140,10 +140,20 @@
     @apply font-mono;
   }
 
-  /* Prevent iOS auto-zoom on input focus by ensuring 16px minimum font size */
+  /* Prevent iOS auto-zoom on input focus — must beat Tailwind utility text-sm (0.875rem) */
   input, textarea, select {
-    font-size: 16px;
+    font-size: 16px !important;
+    touch-action: manipulation;
   }
+  input[type="date"], input[type="time"], input[type="datetime-local"] {
+    font-size: 16px !important;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    touch-action: manipulation;
+  }
+
 }
 
 /* Accessibility Classes */
