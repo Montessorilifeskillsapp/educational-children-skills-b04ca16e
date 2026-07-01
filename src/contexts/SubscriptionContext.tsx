@@ -23,6 +23,8 @@ interface SubscriptionContextType {
   purchaseItem: (itemId: string) => void;
   refreshSubscription: () => Promise<void>;
   loading: boolean;
+  subscriptionEnd: string | null;
+  provider: string | null;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -47,6 +49,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [currentPlan, setCurrentPlan] = useState<SubscriptionPlan | null>(defaultFreePlan);
   const [serverVerifiedPremium, setServerVerifiedPremium] = useState(false);
   const [serverVerifiedFamily, setServerVerifiedFamily] = useState(false);
+  const [subscriptionEnd, setSubscriptionEnd] = useState<string | null>(null);
+  const [provider, setProvider] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
@@ -63,6 +67,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     if (!user) {
       setServerVerifiedPremium(false);
       setServerVerifiedFamily(false);
+      setSubscriptionEnd(null);
+      setProvider(null);
       setCurrentPlan(defaultFreePlan);
       setLoading(false);
       return;
@@ -75,6 +81,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
         console.error('Subscription verification failed:', error);
         setServerVerifiedPremium(false);
         setServerVerifiedFamily(false);
+        setSubscriptionEnd(null);
+        setProvider(null);
         setCurrentPlan(defaultFreePlan);
         setLoading(false);
         return;
@@ -82,16 +90,21 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
 
       const isSubscribed = Boolean(data?.subscribed);
       const tier = data?.subscription_tier ?? null;
+      const end = data?.subscription_end ?? null;
+      const verifiedProvider = data?.provider ?? null;
 
-      setServerVerifiedPremium(isSubscribed && tier !== null);
+      setServerVerifiedPremium(isSubscribed);
       setServerVerifiedFamily(tier === 'Family');
+      setSubscriptionEnd(end);
+      setProvider(verifiedProvider);
 
-      if (isSubscribed && tier) {
+      if (isSubscribed) {
+        const isAnnual = typeof tier === 'string' && tier.toLowerCase().includes('annual');
         const premiumPlan: SubscriptionPlan = {
-          id: tier === 'Family' ? 'family' : 'premium',
-          name: tier === 'Family' ? 'Family Plan' : 'Premium Plan',
-          price: tier === 'Family' ? 199 : 29,
-          period: tier === 'Family' ? 'year' : 'month',
+          id: tier === 'Family' ? 'family' : isAnnual ? 'premium-yearly' : 'premium-monthly',
+          name: tier === 'Family' ? 'Family Plan' : isAnnual ? 'Premium Annual Plan' : 'Premium Monthly Plan',
+          price: tier === 'Family' || isAnnual ? 199 : 29,
+          period: tier === 'Family' || isAnnual ? 'year' : 'month',
           features: [],
           premium: true,
         };
@@ -103,6 +116,8 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       console.error('Subscription verification error:', error);
       setServerVerifiedPremium(false);
       setServerVerifiedFamily(false);
+      setSubscriptionEnd(null);
+      setProvider(null);
       setCurrentPlan(defaultFreePlan);
     } finally {
       setLoading(false);
@@ -149,7 +164,9 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       purchasedItems,
       purchaseItem,
       refreshSubscription: verifySubscription,
-      loading
+      loading,
+      subscriptionEnd,
+      provider
     }}>
       {children}
     </SubscriptionContext.Provider>

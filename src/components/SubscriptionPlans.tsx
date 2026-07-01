@@ -18,6 +18,7 @@ import {
   PRODUCT_MONTHLY,
   PRODUCT_ANNUAL,
   PRODUCT_CONSULTATION,
+  syncCurrentRevenueCatStatus,
 } from '@/lib/revenuecat';
 
 interface Plan {
@@ -120,12 +121,20 @@ const getCheckoutErrorDetail = (error: unknown) => {
   return 'Please try again.';
 };
 
+const formatSubscriptionEnd = (value: string | null) => {
+  if (!value) return null;
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return null;
+  return new Intl.DateTimeFormat(undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+};
+
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const [billingCycle, setBillingCycle] = useState<'monthly' | 'yearly'>('yearly');
   const [loading, setLoading] = useState<string | null>(null);
   const [restoring, setRestoring] = useState(false);
+  const [syncingStatus, setSyncingStatus] = useState(false);
   const { toast } = useToast();
-  const { currentPlan, subscribe, refreshSubscription } = useSubscription();
+  const { currentPlan, subscribe, refreshSubscription, isPremium, loading: subscriptionLoading, subscriptionEnd, provider } = useSubscription();
   const { user } = useAuthContext();
   const pendingCheckoutStarted = useRef(false);
   const isNative = isNativePurchaseAvailable();
@@ -226,6 +235,31 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   }, [user]);
 
   useEffect(() => {
+    if (!user) return;
+
+    let cancelled = false;
+    const syncStatus = async () => {
+      setSyncingStatus(true);
+      try {
+        if (isNative) {
+          await syncCurrentRevenueCatStatus();
+        }
+        await refreshSubscription?.();
+      } catch (err) {
+        console.warn('Unable to sync subscription status', err);
+      } finally {
+        if (!cancelled) setSyncingStatus(false);
+      }
+    };
+
+    void syncStatus();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user, isNative, refreshSubscription]);
+
+  useEffect(() => {
     if (!user || pendingCheckoutStarted.current) return;
 
     const pendingPlanId = sessionStorage.getItem('post_auth_plan');
@@ -310,6 +344,80 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       });
     }
   };
+
+  const handleManualRefresh = async () => {
+    setSyncingStatus(true);
+    try {
+      if (isNative) {
+        await syncCurrentRevenueCatStatus();
+      }
+      await refreshSubscription?.();
+      toast({ title: 'Plan status synced', description: 'Your subscription status is up to date.' });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      toast({ title: 'Sync failed', description: msg.slice(0, 180), variant: 'destructive' });
+    } finally {
+      setSyncingStatus(false);
+    }
+  };
+
+  const activePlanLabel = currentPlan?.name ?? 'Premium Plan';
+  const renewalDate = formatSubscriptionEnd(subscriptionEnd);
+
+  if (subscriptionLoading) {
+    return (
+      <div className="space-y-8">
+        {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
+        <Card className={`${montessoriTheme.card.base} max-w-xl mx-auto text-center`}>
+          <CardContent className="py-10">
+            <RefreshCw className="w-6 h-6 mx-auto mb-4 animate-spin text-primary" aria-hidden="true" />
+            <p className="font-semibold text-foreground">Checking your plan…</p>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
+
+  if (isPremium) {
+    return (
+      <div className="space-y-8">
+        {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
+        <Card className={`${montessoriTheme.card.base} max-w-2xl mx-auto text-center ring-2 ring-primary/30`}>
+          <CardHeader>
+            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
+              <Check className="w-7 h-7 text-primary" aria-hidden="true" />
+            </div>
+            <CardTitle className="text-3xl font-bold text-foreground">Plan activated</CardTitle>
+            <p className="text-muted-foreground mt-2">{activePlanLabel} is active on this account.</p>
+          </CardHeader>
+          <CardContent className="space-y-5">
+            <div className="rounded-xl border border-border bg-muted/40 p-4 text-left max-w-md mx-auto">
+              <div className="flex items-center justify-between gap-4">
+                <span className="text-sm text-muted-foreground">Current plan</span>
+                <Badge className="bg-primary text-primary-foreground">Active</Badge>
+              </div>
+              <p className="text-xl font-bold text-foreground mt-2">{activePlanLabel}</p>
+              {renewalDate && (
+                <p className="text-sm text-muted-foreground mt-1">Renews or expires on {renewalDate}</p>
+              )}
+              {provider === 'revenuecat' && (
+                <p className="text-xs text-muted-foreground mt-3">Managed through your App Store account.</p>
+              )}
+            </div>
+            <div className="flex flex-col sm:flex-row justify-center gap-3">
+              <Button onClick={onBack} className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                Open dashboard
+              </Button>
+              <Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>
+                <RefreshCw className={`w-4 h-4 mr-2 ${syncingStatus ? 'animate-spin' : ''}`} />
+                {syncingStatus ? 'Syncing…' : 'Sync plan'}
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-8">
