@@ -607,7 +607,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       }`}
                       variant={plan.id === 'free' || (!plan.popular && !plan.premium) ? 'outline' : 'default'}
                       onClick={() => handleSubscribe(plan)}
-                      disabled={(currentPlan?.id === plan.id && plan.id !== 'free') || loading === plan.id}
+                      disabled={(currentPlan?.id === plan.id && plan.id !== 'free') || loading === plan.id || (plan.id !== 'free' && !termsAccepted)}
                       aria-label={`Choose ${plan.name} plan`}
                     >
                       {loading === plan.id ? (
