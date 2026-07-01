@@ -20,10 +20,17 @@ interface SyncBody {
         store?: string;
       }>;
     };
+    activeSubscriptions?: string[];
+    allExpirationDates?: Record<string, string | null>;
+    allExpirationDatesMillis?: Record<string, number | null>;
+    nonSubscriptionTransactions?: Array<{ productId?: string; productIdentifier?: string }>;
   };
   platform?: string;
   productId?: string;
 }
+
+const KNOWN_SUBSCRIPTION_PRODUCTS = new Set(["premium_monthly", "premium_annual"]);
+const KNOWN_ONE_TIME_PRODUCTS = new Set(["consultation_session"]);
 
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
@@ -43,16 +50,48 @@ serve(async (req) => {
     const user = userData.user;
 
     const body = (await req.json()) as SyncBody;
-    const entitlement = body.customerInfo?.entitlements?.active?.[ENTITLEMENT_ID];
-    const subscribed = Boolean(entitlement);
-    const subscriptionEnd = entitlement?.expirationDate ?? null;
-    const productId = entitlement?.productIdentifier ?? body.productId ?? null;
+    const ci = body.customerInfo ?? {};
+    const entitlement = ci.entitlements?.active?.[ENTITLEMENT_ID];
+    const activeSubs = ci.activeSubscriptions ?? [];
+    const purchasedProductId = body.productId ?? null;
+
+    // Determine subscribed state with fallbacks in case the RevenueCat
+    // dashboard doesn't have the "pro" entitlement wired to the product yet.
+    let subscribed = Boolean(entitlement);
+    let productId = entitlement?.productIdentifier ?? null;
+    let subscriptionEnd: string | null = entitlement?.expirationDate ?? null;
+
+    if (!subscribed && activeSubs.length > 0) {
+      subscribed = true;
+      productId = activeSubs.find((p) => KNOWN_SUBSCRIPTION_PRODUCTS.has(p)) ?? activeSubs[0];
+    }
+
+    if (
+      !subscribed &&
+      purchasedProductId &&
+      KNOWN_SUBSCRIPTION_PRODUCTS.has(purchasedProductId)
+    ) {
+      // Purchase call succeeded for a known subscription product; trust it.
+      subscribed = true;
+      productId = purchasedProductId;
+    }
+
+    if (!subscriptionEnd && productId) {
+      const raw =
+        ci.allExpirationDates?.[productId] ??
+        (ci.allExpirationDatesMillis?.[productId]
+          ? new Date(ci.allExpirationDatesMillis[productId] as number).toISOString()
+          : null);
+      subscriptionEnd = raw ?? null;
+    }
 
     const tier = productId?.includes("annual")
       ? "Premium Annual"
-      : productId
+      : productId && KNOWN_SUBSCRIPTION_PRODUCTS.has(productId)
         ? "Premium"
-        : null;
+        : productId
+          ? null
+          : null;
 
     await supabaseAdmin.from("subscribers").upsert(
       {
@@ -65,7 +104,7 @@ serve(async (req) => {
         subscription_end: subscriptionEnd,
         revenuecat_app_user_id: user.id,
         revenuecat_entitlement: subscribed ? ENTITLEMENT_ID : null,
-        revenuecat_product_id: productId,
+        revenuecat_product_id: productId ?? purchasedProductId ?? null,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "email" }
