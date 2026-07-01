@@ -9,6 +9,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useProfile } from '@/contexts/ProfileContext';
 import { toast } from '@/hooks/use-toast';
 import { Loader2, Sparkles } from 'lucide-react';
+import { Capacitor } from '@capacitor/core';
 
 const AuthPage = () => {
   const [email, setEmail] = useState('');
