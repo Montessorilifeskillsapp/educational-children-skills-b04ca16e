@@ -242,7 +242,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       setSyncingStatus(true);
       try {
         if (isNative) {
-          await syncCurrentRevenueCatStatus();
+          await syncCurrentRevenueCatStatus(user.id);
         }
         await refreshSubscription?.();
       } catch (err) {
@@ -349,7 +349,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     setSyncingStatus(true);
     try {
       if (isNative) {
-        await syncCurrentRevenueCatStatus();
+        await syncCurrentRevenueCatStatus(user?.id ?? null);
       }
       await refreshSubscription?.();
       toast({ title: 'Plan status synced', description: 'Your subscription status is up to date.' });

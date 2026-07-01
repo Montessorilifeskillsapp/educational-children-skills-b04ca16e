@@ -101,8 +101,9 @@ export async function restorePurchases() {
   return customerInfo;
 }
 
-export async function syncCurrentRevenueCatStatus() {
+export async function syncCurrentRevenueCatStatus(userId?: string | null) {
   if (!isNativePurchaseAvailable()) return null;
+  await initRevenueCat(userId ?? null);
   const { Purchases } = await import('@revenuecat/purchases-capacitor');
   const { customerInfo } = await Purchases.getCustomerInfo();
   await syncRevenueCatToBackend(customerInfo);
