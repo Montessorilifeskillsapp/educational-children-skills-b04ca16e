@@ -252,8 +252,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
-      // Consultation on web → email; on native → in-app purchase (consumable)
-      if (plan.id === 'consultation' && !isNative) {
+      // Consultation is always an offline-arranged email booking (web + native).
+      // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
+      if (plan.id === 'consultation') {
         window.location.href =
           'mailto:hello@montessorilearning.app?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20';
         toast({
@@ -262,6 +263,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         });
         return;
       }
+
 
       if (!user) {
         toast({
