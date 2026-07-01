@@ -7,6 +7,7 @@ import { Separator } from '@/components/ui/separator'
 import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { Chrome, Apple } from 'lucide-react'
+import { Capacitor } from '@capacitor/core'
 
 interface AuthModalProps {
   isOpen: boolean
