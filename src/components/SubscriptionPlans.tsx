@@ -287,6 +287,17 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
+      // Require explicit acceptance of Terms & Privacy for any paid or subscription flow
+      if (!termsAccepted) {
+        toast({
+          title: 'Please accept the Terms',
+          description: 'You must agree to the Terms of Service and Privacy Policy before purchasing.',
+          variant: 'destructive',
+        });
+        return;
+      }
+
+
       // Consultation is always an offline-arranged email booking (web + native).
       // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
       if (plan.id === 'consultation') {
