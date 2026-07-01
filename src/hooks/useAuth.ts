@@ -6,12 +6,16 @@ import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
 import { analytics } from '@/lib/analytics'
 
+const WEB_CALLBACK_ORIGIN = 'https://educational-children-skills.lovable.app'
+
 const getAuthCallbackUrl = () => {
-  // For native platforms (iOS/Android), use deep link URL
+  // For native platforms (iOS/Android), use the Lovable-hosted https callback so the
+  // in-app browser lands on a real web page. That page then bounces back into the app
+  // via the com.montessorilifeskills.app:// deep-link scheme.
   if (Capacitor.isNativePlatform()) {
-    return 'com.montessorilifeskills.app://auth-callback'
+    return `${WEB_CALLBACK_ORIGIN}/auth/callback?native=1`
   }
-  
+
   // For web, use the full URL with optional redirect parameter
   const url = new URL('/auth/callback', window.location.origin)
   try {
@@ -24,6 +28,7 @@ const getAuthCallbackUrl = () => {
   }
   return url.toString()
 }
+
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)

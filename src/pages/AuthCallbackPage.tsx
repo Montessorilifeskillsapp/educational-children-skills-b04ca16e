@@ -11,7 +11,23 @@ const AuthCallbackPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // If this callback was triggered from the native app (in-app browser),
+    // hand control back to the app via its custom URL scheme. The app's
+    // deep-link listener (useCapacitorAuthDeepLink) will close the browser
+    // and complete the session exchange inside the WebView.
+    const searchParams0 = new URLSearchParams(window.location.search);
+    if (searchParams0.get('native') === '1') {
+      const deepLink =
+        'com.montessorilifeskills.app://auth-callback' +
+        window.location.search +
+        window.location.hash;
+      setMessage('Returning you to the app...');
+      window.location.replace(deepLink);
+      return;
+    }
+
     const confirmEmail = async () => {
+
       const searchParams = new URLSearchParams(window.location.search);
       const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
       const authError = searchParams.get('error_description') || hashParams.get('error_description');
