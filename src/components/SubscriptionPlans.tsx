@@ -394,17 +394,29 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 <CardHeader className="text-center pb-4">
                   <CardTitle className="text-2xl font-bold text-foreground">{plan.name}</CardTitle>
                   <div className="mt-4">
-                    <span className="text-5xl font-extrabold text-foreground">${plan.price}</span>
-                    <span className="text-muted-foreground">/{plan.period}</span>
-                    {plan.meta && (
-                      <div className="text-sm text-secondary font-semibold mt-2">{plan.meta}</div>
-                    )}
-                    {plan.id === 'premium-monthly' && (
-                      <div className="text-xs text-muted-foreground mt-2">
-                        Switch to annual to save $149
-                      </div>
+                    {isNative && plan.id === 'consultation' ? (
+                      <>
+                        <span className="text-3xl font-extrabold text-foreground">By request</span>
+                        <div className="text-xs text-muted-foreground mt-2">
+                          Arranged directly with our team — not sold in-app.
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-5xl font-extrabold text-foreground">${plan.price}</span>
+                        <span className="text-muted-foreground">/{plan.period}</span>
+                        {plan.meta && (
+                          <div className="text-sm text-secondary font-semibold mt-2">{plan.meta}</div>
+                        )}
+                        {plan.id === 'premium-monthly' && (
+                          <div className="text-xs text-muted-foreground mt-2">
+                            Switch to annual to save $149
+                          </div>
+                        )}
+                      </>
                     )}
                   </div>
+
                   <p className="text-sm text-muted-foreground mt-3 px-2">{plan.description}</p>
                 </CardHeader>
 
