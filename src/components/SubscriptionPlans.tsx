@@ -422,13 +422,16 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-3 mb-6 flex-1">
-                    {plan.features.map((feature, index) => (
-                      <li key={index} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
-                        <span className="text-sm text-foreground/90">{feature}</span>
-                      </li>
-                    ))}
+                    {plan.features
+                      .filter((f) => !(isNative && plan.id === 'consultation' && /\$/.test(f)))
+                      .map((feature, index) => (
+                        <li key={index} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
+                          <span className="text-sm text-foreground/90">{feature}</span>
+                        </li>
+                      ))}
                   </ul>
+
 
                   <div className="mt-auto">
                     <Button
