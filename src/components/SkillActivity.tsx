@@ -272,7 +272,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-6">
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
       <div className="max-w-2xl mx-auto">
         <div className={`${category.color} border-4 border-current rounded-xl p-6 mb-6 text-center shadow-lg`}>
           <div className="text-6xl mb-3">{category.icon}</div>
