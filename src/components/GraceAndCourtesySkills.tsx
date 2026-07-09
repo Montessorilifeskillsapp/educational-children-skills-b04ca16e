@@ -6,6 +6,7 @@ import { Clock, Users, Star, Lock, HandHelping } from 'lucide-react';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import ShopSectionCTA from './ShopSectionCTA';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
+import { montessoriTheme } from './ThemeConfig';
 
 interface GraceAndCourtesySkillsProps {
   onBack: () => void;
