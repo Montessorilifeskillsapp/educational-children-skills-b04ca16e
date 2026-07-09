@@ -5,6 +5,7 @@ import { BookOpen } from 'lucide-react';
 import SkillCard from './SkillCard';
 import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
+import { montessoriTheme } from './ThemeConfig';
 import { languageSkillsData } from '@/data/languageSkills';
 import { languageImages } from '@/assets/language';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
