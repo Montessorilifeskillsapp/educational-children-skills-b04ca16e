@@ -5,6 +5,7 @@ import { BookOpen } from 'lucide-react';
 import SkillCard from './SkillCard';
 import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
+import { montessoriTheme } from './ThemeConfig';
 import { languageSkillsData } from '@/data/languageSkills';
 import { languageImages } from '@/assets/language';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
@@ -118,7 +119,7 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
   let stepCounter = 0;
 
   return (
-    <PageLayout title="Language Development" onBack={onBack}>
+    <PageLayout title="Language Development" onBack={onBack} className={montessoriTheme.backgrounds.language}>
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
         <div>
           <div className="flex items-center gap-3 mb-2">
