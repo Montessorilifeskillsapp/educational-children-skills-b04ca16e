@@ -241,7 +241,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
 
   if (!hasAccess) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50 p-6">
+      <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
         <div className="max-w-xl mx-auto pt-12">
           <Card>
             <CardHeader>
