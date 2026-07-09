@@ -18,6 +18,7 @@ import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
 import { enhancedMathSkills } from '@/data/enhancedMathSkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { useSEO } from '@/hooks/useSEO';
+import { montessoriTheme } from './ThemeConfig';
 import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { useSubscription } from '@/contexts/SubscriptionContext';
