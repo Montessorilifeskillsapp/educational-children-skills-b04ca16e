@@ -53,10 +53,12 @@ export const montessoriTheme = {
     sensorial: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
     math: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
     language: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
-    geography: 'bg-gradient-to-br from-primary/10 via-background to-secondary/10',
+    geography: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
     botany: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
-    art: 'bg-gradient-to-br from-accent/10 via-background to-secondary/10',
-    cultural: 'bg-gradient-to-br from-primary/10 via-background to-accent/10'
+    art: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
+    cultural: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
+    graceCourtesy: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10',
+    activity: 'bg-gradient-to-br from-secondary/10 via-background to-primary/10'
   },
 
   // Card styling for consistency
