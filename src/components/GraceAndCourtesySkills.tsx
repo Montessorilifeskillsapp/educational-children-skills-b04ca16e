@@ -24,7 +24,7 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
   const skills = applyFirstFreeItemLimit(Object.values(graceAndCourtesySkills));
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-accent/20 to-orange-50 p-4">
+    <div className={`min-h-screen ${montessoriTheme.backgrounds.graceCourtesy} p-4`}>
       <div className="max-w-6xl mx-auto">
         <div className="flex items-center mb-8">
           <BackButton onClick={onBack} label="Back to Skills" />
