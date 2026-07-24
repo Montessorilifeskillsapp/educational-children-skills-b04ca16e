@@ -50,7 +50,7 @@ const PrivacyPolicyPage: React.FC = () => {
                   <li><strong>Affiliate</strong> means an entity that controls, is controlled by, or is under common control with a party, where &quot;control&quot; means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
                   <li><strong>Application</strong> refers to Montessori Life Skills, the software program provided by the Company.</li>
                   <li><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Privacy Policy) refers to Montessori Life Skills.</li>
-                  <li><strong>Country</strong> refers to: New York, United States.</li>
+                  <li><strong>Country</strong> refers to: United States.</li>
                   <li><strong>Device</strong> means any device that can access the Service such as a computer, a cell phone or a digital tablet.</li>
                   <li><strong>Personal Data</strong> (or &quot;Personal Information&quot;) is any information that relates to an identified or identifiable individual. We use &quot;Personal Data&quot; and &quot;Personal Information&quot; interchangeably unless a law uses a specific term.</li>
                   <li><strong>Service</strong> refers to the Application.</li>
@@ -65,37 +65,33 @@ const PrivacyPolicyPage: React.FC = () => {
                 <h3 className="text-lg font-medium mb-2">Types of Data Collected</h3>
                 <h4 className="text-base font-medium mb-2">Personal Data</h4>
                 <p className="mb-2">
-                  While using Our Service, We may ask You to provide Us with certain personally identifiable information that can be used to contact or identify You. Personally identifiable information may include, but is not limited to:
+                  We collect only the minimum information needed to operate the Service. All personal information is provided by the Adult User (parent, guardian, teacher, or caregiver) who creates and manages the account — never directly by a child. Categories of personal information We may collect include:
                 </p>
                 <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li>Email address</li>
-                  <li>First name and last name</li>
-                  <li>Phone number</li>
-                  <li>Address, State, Province, ZIP/Postal code, City</li>
-                  <li>Usage Data</li>
+                  <li><strong>Account information:</strong> email address and password (password is hashed and never stored in plain text) used to create and secure Your account.</li>
+                  <li><strong>Optional profile information:</strong> a display name and, for child profiles created inside the Service, a first name or nickname and an age or age range used only to personalize the recommended activities.</li>
+                  <li><strong>Subscription and billing information:</strong> Your subscription tier and status. Payments are processed by <strong>Stripe</strong> (web), <strong>Apple App Store</strong> (iOS), and <strong>Google Play Billing</strong> (Android) via RevenueCat. We do not receive or store full payment card numbers, CVV codes, or bank account details — only a subscription identifier and status returned by the payment processor.</li>
+                  <li><strong>Learning activity data:</strong> which activities have been viewed, started, or marked complete, so We can maintain progress across sessions and improve the curriculum.</li>
+                  <li><strong>Support communications:</strong> messages and attachments You send to us at our support email, so we can respond to Your request.</li>
+                  <li><strong>Usage Data</strong> (described below).</li>
                 </ul>
+                <p className="mb-4">
+                  We do <strong>not</strong> ask for or collect phone numbers, postal addresses, government identifiers, precise geolocation, contacts, microphone, or camera data as part of the standard Service.
+                </p>
 
                 <h4 className="text-base font-medium mb-2">Usage Data</h4>
                 <p className="mb-2">
-                  Usage Data is collected automatically when using the Service. Usage Data may include information such as Your Device's Internet Protocol address (e.g. IP address), browser type, browser version, the pages of our Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers and other diagnostic data.
-                </p>
-                <p className="mb-2">
-                  When You access the Service by or through a mobile device, We may collect certain information automatically, including, but not limited to, the type of mobile device You use, Your mobile device's unique ID, the IP address of Your mobile device, Your mobile operating system, the type of mobile Internet browser You use, unique device identifiers and other diagnostic data.
+                  Usage Data is collected automatically when using the Service. Usage Data may include Your Device's Internet Protocol (IP) address (anonymized where technically feasible), browser type and version, the pages of the Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers, operating system, and other diagnostic data used for security, troubleshooting, and aggregate analytics.
                 </p>
                 <p className="mb-4">
-                  We may also collect information that Your browser sends whenever You visit Our Service or when You access the Service by or through a mobile device.
+                  When You access the Service through a mobile device, We may collect the type of mobile device You use, its operating system version, and non-advertising device identifiers used solely for delivering and securing the Service and for validating Your subscription. We do not use the Apple IDFA or Android Advertising ID for advertising purposes.
                 </p>
 
-                <h4 className="text-base font-medium mb-2">Information Collected while Using the Application</h4>
-                <p className="mb-2">
-                  While using Our Application, in order to provide features of Our Application, We may collect, with Your prior permission:
-                </p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li>Information regarding your location</li>
-                </ul>
+                <h4 className="text-base font-medium mb-2">Information Collected While Using the Application</h4>
                 <p className="mb-4">
-                  We use this information to provide features of Our Service, to improve and customize Our Service. The information may be uploaded to the Company's servers and/or a Service Provider's server or it may be simply stored on Your device. You can enable or disable access to this information at any time, through Your Device settings.
+                  The Application itself does not request access to Your camera, microphone, contacts, photos, or precise location. If a future feature requires any such permission, You will be asked to grant it through Your device's standard permission prompt and You may enable or disable it at any time through Your device settings.
                 </p>
+
 
                 <h3 className="text-lg font-medium mb-2">Use of Your Personal Data</h3>
                 <p className="mb-2">The Company may use Personal Data for the following purposes:</p>
