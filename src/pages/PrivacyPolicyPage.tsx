@@ -190,12 +190,49 @@ const PrivacyPolicyPage: React.FC = () => {
               </section>
 
               <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Children's Privacy</h2>
+                <h2 className="text-xl font-semibold mb-4">Children's Privacy and Families Policy Compliance</h2>
                 <p className="mb-4">
-                  Our Service does not address anyone under the age of 16. We do not knowingly collect personally identifiable information from anyone under the age of 16. If You are a parent or guardian and You are aware that Your child has provided Us with Personal Data, please contact Us. If We become aware that We have collected Personal Data from anyone under the age of 16 without verification of parental consent, We take steps to remove that information from Our servers.
+                  Montessori Life Skills is a family-oriented learning application designed to be used by parents, guardians, teachers, and caregivers ("Adult Users") together with children between the ages of approximately 2 and 12 as part of a guided Montessori learning experience. The Service is intended to be operated by an Adult User. Accounts, subscriptions, and payments are created and managed exclusively by Adult Users who are at least 18 years old.
                 </p>
                 <p className="mb-4">
-                  If We need to rely on consent as a legal basis for processing Your information and Your country requires consent from a parent, We may require Your parent's consent before We collect and use that information.
+                  We designed our Service to comply with the U.S. Children's Online Privacy Protection Act ("COPPA"), the EU General Data Protection Regulation ("GDPR" and "GDPR-K"), Google Play's Families Policy, and Apple's Kids Category requirements.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">What We Collect From Children</h3>
+                <p className="mb-4">
+                  <strong>We do not knowingly collect personal information directly from children.</strong> Children do not create accounts, do not enter personal information, and are not asked to provide names, email addresses, phone numbers, photos, precise location, contacts, or any other personally identifiable information in order to use the learning activities. Child profiles created by an Adult User inside the Service (for example a first name or age range used to personalize activities) are stored locally on the device or under the Adult User's account and are not used to contact the child, build a profile for advertising, or shared with third parties for their own purposes.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">No Behavioral Advertising or Third-Party Ad Networks</h3>
+                <p className="mb-4">
+                  The Service does not display third-party advertisements to children, does not participate in behavioral or interest-based advertising directed at children, and does not use advertising identifiers (such as IDFA or Android Advertising ID) for advertising purposes. We do not sell or "share" (as those terms are defined under applicable privacy laws) any personal information of children.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Third-Party Services Used in the Children's Experience</h3>
+                <p className="mb-2">
+                  The child-facing portions of our Service use only a limited set of service providers, each of which has been reviewed for compliance with Google Play's Families Policy and Apple's Kids Category requirements. These providers process data solely to provide the Service and are contractually prohibited from using it for their own purposes, including advertising:
+                </p>
+                <ul className="list-disc list-inside mb-4 space-y-1">
+                  <li><strong>Supabase</strong> — secure account authentication and storage of learning progress for Adult Users.</li>
+                  <li><strong>Stripe</strong> (web) and <strong>Apple App Store / Google Play Billing via RevenueCat</strong> (mobile) — payment and subscription management for Adult Users only. Children do not interact with these services.</li>
+                  <li><strong>Google Analytics for Firebase / Google Analytics</strong> — configured with IP anonymization and advertising features disabled; used only to understand aggregate, non-personal usage of the Service.</li>
+                </ul>
+                <p className="mb-4">
+                  A complete, current list of Software Development Kits ("SDKs") used in the Service and their purposes is available upon request at <a href="mailto:privacy@montessorilifeskills.com" className="text-primary hover:underline">privacy@montessorilifeskills.com</a>.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Parental Consent and Controls</h3>
+                <p className="mb-4">
+                  Because the Service is intended to be operated by an Adult User, the account creation flow constitutes verifiable parental involvement: an Adult User must register with a valid email address, agree to this Privacy Policy and our Terms of Service, and — for paid features — complete a payment through Stripe, Apple, or Google, all of which independently verify the adult account holder. Adult Users can at any time review, edit, or delete any child profile from within the Service, disable notifications, and cancel their subscription.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Parental Rights and How to Contact Us</h3>
+                <p className="mb-4">
+                  If You are a parent or guardian and believe that a child has provided us with personal information without Your consent, or if You would like to review, delete, or refuse further collection or use of any information associated with Your child or Your account, please contact us immediately at <a href="mailto:privacy@montessorilifeskills.com" className="text-primary hover:underline">privacy@montessorilifeskills.com</a>. We will verify Your identity as the parent or guardian and then honor Your request within 30 days, subject to any legal retention obligations. You may also delete Your account at any time from the Family Dashboard, which will remove associated child profiles and learning data.
+                </p>
+
+                <p className="mb-4">
+                  If We need to rely on consent as a legal basis for processing information and Your country or region requires consent from a parent or guardian (for example under GDPR-K in the European Economic Area or the United Kingdom), We will obtain that verifiable parental consent before collecting or using such information.
                 </p>
               </section>
 
