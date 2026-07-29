@@ -32,7 +32,7 @@ const ShopPage: React.FC = () => {
         (p.description && p.description.toLowerCase().includes(search.toLowerCase()));
       return matchesSearch;
     });
-  }, [search]);
+  }, [search, allShopItems]);
 
 
   return (
