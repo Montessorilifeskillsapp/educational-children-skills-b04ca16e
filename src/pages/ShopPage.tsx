@@ -14,6 +14,8 @@ import SEOOptimizer from '@/components/SEOOptimizer';
 const ShopPage: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
+  const { books: allShopItems } = useStoryBooks();
+
 
   useSEO({
     title: 'Shop Montessori Life Skills Story Books',
