@@ -31,9 +31,10 @@ function parseBooks(html: string): LiveBook[] {
   const blocks = html.split('<li class="group');
 
   for (const block of blocks.slice(1)) {
-    const detail = block.match(/href="(https:\/\/montessoristorybooks\.com\/books\/[a-z0-9-]+)"/i)?.[1];
-    if (!detail) continue;
-    const slug = detail.split('/').pop() as string;
+    const slugMatch = block.match(/href="(?:https:\/\/montessoristorybooks\.com)?\/books\/([a-z0-9-]+)"/i);
+    if (!slugMatch) continue;
+    const slug = slugMatch[1];
+    const detail = `https://montessoristorybooks.com/books/${slug}`;
     if (seen.has(slug)) continue;
 
     const image = block.match(/<img[^>]+src="([^"]+)"/i)?.[1] ?? '';
