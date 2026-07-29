@@ -54,6 +54,8 @@ export function useStoryBooks() {
               themes: [item.category],
             }),
             id: existing?.id ?? item.slug,
+            price: DEFAULT_PRICE,
+            originalPrice: DEFAULT_PRICE,
             name: item.name,
             description: item.description || existing?.description || '',
             image: item.image || existing?.image || '',
