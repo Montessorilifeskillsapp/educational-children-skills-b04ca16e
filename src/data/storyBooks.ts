@@ -19,6 +19,25 @@ export interface StoryBook {
 
 export const storyBooks: StoryBook[] = [
   {
+    id: 'red-velvet-fox-learns-to-read',
+    name: 'Red Velvet Fox Learns to Read',
+    price: 16.99,
+    originalPrice: 27.99,
+    image: 'https://image-hub-cloud.lightningsource.com/2011-04-01/Images/front_cover/x320/sku/1971840408.jpg?viewkey=8bcc86f072fd0e143c4a39a71f795102552322d1ff6a54e36fe4dbd8a8501092',
+    rating: 4.8,
+    category: 'Story Books',
+    description: 'A gentle path into literacy through sound games, sandpaper letters, the Moveable Alphabet, and Pink Series reading — showing that reading grows through concentration and repetition.',
+    inStock: true,
+    author: 'Kerry Howard',
+    pages: 54,
+    ageRange: '3-7 years',
+    skillLevel: 'Intermediate',
+    themes: ['Language', 'Reading', 'Sandpaper Letters', 'Moveable Alphabet', 'Concentration'],
+    website: 'shop.ingramspark.com',
+    amazonLink: 'https://shop.ingramspark.com/b/084?params=c8T2II2oU7Wx4AgesI3iG2bipbpaCgYYAsc61YDBDAF'
+  },
+  {
+
     id: 'macaroon-owl-planets',
     name: 'Macaroon Owl Learns the Planets',
     price: 16.99,
