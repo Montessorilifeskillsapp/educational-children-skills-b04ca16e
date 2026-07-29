@@ -6,14 +6,16 @@ import { Input } from '@/components/ui/input';
 import { ExternalLink, Search, Star } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { LazyImage } from '@/components/LazyImage';
-import { storyBooks } from '@/data/storyBooks';
-const allShopItems: any[] = [...storyBooks];
+import { useStoryBooks } from '@/hooks/useStoryBooks';
+
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
 
 const ShopPage: React.FC = () => {
   const navigate = useNavigate();
   const [search, setSearch] = useState('');
+  const { books: allShopItems } = useStoryBooks();
+
 
   useSEO({
     title: 'Shop Montessori Life Skills Story Books',
@@ -30,7 +32,7 @@ const ShopPage: React.FC = () => {
         (p.description && p.description.toLowerCase().includes(search.toLowerCase()));
       return matchesSearch;
     });
-  }, [search]);
+  }, [search, allShopItems]);
 
 
   return (
