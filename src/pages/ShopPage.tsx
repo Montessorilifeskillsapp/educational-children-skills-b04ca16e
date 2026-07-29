@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ExternalLink, Search, Star } from 'lucide-react';
+import { Search, ShoppingCart, Star } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { LazyImage } from '@/components/LazyImage';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
@@ -106,41 +106,24 @@ const ShopPage: React.FC = () => {
                         ${product.price?.toFixed(2)}
                       </span>
                     </div>
-                    {product.amazonLink ? (
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full"
-                        aria-label={`View ${product.name} on Amazon`}
+                    <Button
+                      asChild
+                      className="w-full"
+                      aria-label={`Buy ${product.name}`}
+                    >
+                      <a
+                        href={
+                          product.amazonLink ||
+                          'https://montessoristorybooks.com/books'
+                        }
+                        target="_blank"
+                        rel="noopener noreferrer sponsored"
                       >
-                        <a
-                          href={product.amazonLink}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" aria-hidden="true" />
-                          View on Amazon
-                        </a>
-                      </Button>
-                    ) : (
-                      <Button
-                        asChild
-                        variant="outline"
-                        className="w-full"
-                        aria-label={`Search ${product.name} on Amazon`}
-                      >
-                        <a
-                          href={`https://www.amazon.com/s?k=${encodeURIComponent(
-                            'montessori ' + product.name
-                          )}`}
-                          target="_blank"
-                          rel="noopener noreferrer sponsored"
-                        >
-                          <ExternalLink className="w-4 h-4 mr-2" aria-hidden="true" />
-                          Find on Amazon
-                        </a>
-                      </Button>
-                    )}
+                        <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
+                        Buy Now
+                      </a>
+                    </Button>
+
                   </CardContent>
                 </Card>
               </article>
