@@ -8,7 +8,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'child-toothbrush-set',
       name: 'Child Toothbrush & Cup Set',
-      price: 12.99,
+      price: 16.99,
       category: 'Practical Life',
       subcategory: 'Care of Self',
       description: 'Child-sized toothbrush, cup, and timer for independent tooth brushing',
@@ -24,7 +24,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'hand-washing-station',
       name: 'Portable Hand Washing Station',
-      price: 45.99,
+      price: 16.99,
       category: 'Practical Life',
       subcategory: 'Care of Self',
       description: 'Complete hand washing setup with soap dispenser and towel holder',
@@ -40,7 +40,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'pouring-set',
       name: 'Pouring Exercise Set',
-      price: 24.99,
+      price: 16.99,
       category: 'Practical Life',
       subcategory: 'Preliminary Exercises',
       description: 'Two matching ceramic pitchers with tray and sponge',
@@ -56,7 +56,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'spooning-set',
       name: 'Spooning Transfer Set',
-      price: 18.99,
+      price: 16.99,
       category: 'Practical Life',
       subcategory: 'Preliminary Exercises',
       description: 'Two wooden bowls with wooden spoon for transfer exercises',
@@ -72,7 +72,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'child-table-setting',
       name: 'Child Table Setting Kit',
-      price: 35.99,
+      price: 16.99,
       category: 'Practical Life',
       subcategory: 'Grace and Courtesy',
       description: 'Child-sized plates, utensils, and napkins for table setting practice',
@@ -88,7 +88,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'shoe-tying-frame',
       name: 'Shoe Tying Practice Frame',
-      price: 22.99,
+      price: 16.99,
       category: 'Practical Life',
       subcategory: 'Care of Self',
       description: 'Wooden frame with real shoe for practicing lace tying',
@@ -106,7 +106,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'pink-tower',
       name: 'Pink Tower',
-      price: 45.99,
+      price: 16.99,
       category: 'Sensorial',
       subcategory: 'Visual Discrimination',
       description: '10 wooden cubes from 1cm³ to 10cm³ in natural pink wood',
@@ -122,7 +122,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'brown-stair',
       name: 'Brown Stair (Broad Stair)',
-      price: 52.99,
+      price: 16.99,
       category: 'Sensorial',
       subcategory: 'Visual Discrimination',
       description: '10 wooden prisms varying in thickness from 1cm to 10cm',
@@ -138,7 +138,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'red-rods',
       name: 'Red Rods',
-      price: 48.99,
+      price: 16.99,
       category: 'Sensorial',
       subcategory: 'Visual Discrimination',
       description: '10 wooden rods from 10cm to 1 meter in length',
@@ -156,7 +156,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'number-rods',
       name: 'Number Rods',
-      price: 65.99,
+      price: 16.99,
       category: 'Mathematics',
       subcategory: 'Introduction to Quantity',
       description: '10 wooden rods in red and blue segments representing 1-10',
@@ -172,7 +172,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'golden-beads-set',
       name: 'Golden Bead Material Complete Set',
-      price: 125.99,
+      price: 16.99,
       category: 'Mathematics',
       subcategory: 'Decimal System',
       description: 'Units, tens, hundreds, thousands with wooden trays',
@@ -190,7 +190,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'sandpaper-letters',
       name: 'Sandpaper Letters',
-      price: 78.99,
+      price: 16.99,
       category: 'Language',
       subcategory: 'Writing Preparation',
       description: 'Complete set of lowercase sandpaper letters on wooden boards',
@@ -206,7 +206,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'moveable-alphabet',
       name: 'Moveable Alphabet',
-      price: 95.99,
+      price: 16.99,
       category: 'Language',
       subcategory: 'Writing and Reading',
       description: 'Large wooden letters in a compartmented box',
@@ -224,7 +224,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'land-water-forms',
       name: 'Land and Water Forms',
-      price: 89.99,
+      price: 16.99,
       category: 'Cultural Studies',
       subcategory: 'Geography',
       description: 'Wooden trays showing island, lake, peninsula, etc.',
@@ -240,7 +240,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'puzzle-maps',
       name: 'World Puzzle Map',
-      price: 68.99,
+      price: 16.99,
       category: 'Cultural Studies',
       subcategory: 'Geography',
       description: 'Wooden world map puzzle with removable continents',
@@ -258,7 +258,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'art-supplies-basic',
       name: 'Basic Drawing Materials',
-      price: 29.99,
+      price: 16.99,
       category: 'Art',
       subcategory: 'Drawing',
       description: 'Quality pencils, paper, and erasers for beginning artists',
@@ -274,7 +274,7 @@ export const skillBasedProducts: Record<string, MontessoriMaterial[]> = {
     {
       id: 'color-mixing-set',
       name: 'Color Mixing Paint Set',
-      price: 42.99,
+      price: 16.99,
       category: 'Art',
       subcategory: 'Painting',
       description: 'Primary colors and mixing tools for color exploration',

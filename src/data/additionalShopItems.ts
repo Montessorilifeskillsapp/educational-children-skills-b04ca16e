@@ -7,7 +7,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'child-table-setting',
     name: 'Child Table Setting Kit',
-    price: 35.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Grace and Courtesy',
     description: 'Complete table setting kit with child-sized plates, utensils, napkins, and placemat',
@@ -21,7 +21,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'child-toothbrush-set',
     name: 'Child Toothbrush & Care Set',
-    price: 12.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Self',
     description: 'Child-sized toothbrush, cup, timer, and mirror for independent tooth care',
@@ -35,7 +35,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'hair-care-set',
     name: 'Child Hair Care Set',
-    price: 18.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Self',
     description: 'Child-appropriate brush, comb, mirror, and hair accessories for independent hair care',
@@ -49,7 +49,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'dry-pouring-set',
     name: 'Dry Pouring Exercise Set',
-    price: 19.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Preliminary Exercises',
     description: 'Two small pitchers with dry materials (rice/beans) and cleanup brush on wooden tray',
@@ -63,7 +63,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'glass-pitcher-set',
     name: 'Glass Pitcher Pouring Set',
-    price: 32.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Preliminary Exercises',
     description: 'Real glass pitchers for advanced liquid pouring with sponge and tray',
@@ -77,7 +77,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'shoe-tying-frame',
     name: 'Shoe Tying Practice Frame',
-    price: 22.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Self',
     description: 'Wooden frame with real shoe for practicing lace tying and bow making',
@@ -91,7 +91,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'personal-hygiene-kit',
     name: 'Personal Hygiene Independence Kit',
-    price: 28.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Self',
     description: 'Complete hygiene kit with washcloth, soap, comb, and mirror for independent self-care',
@@ -105,7 +105,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'plant-care-set',
     name: 'Plant Care & Watering Set',
-    price: 26.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Everything needed for caring for plants including watering can, mister, and tools',
@@ -119,7 +119,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'window-cleaning-set',
     name: 'Window & Glass Cleaning Set',
-    price: 21.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Child-safe glass cleaner, squeegee, and cloths for window cleaning',
@@ -133,7 +133,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'child-mop-set',
     name: 'Child Floor Mopping Set',
-    price: 31.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Child-sized mop and bucket set for floor cleaning activities',
@@ -147,7 +147,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'dish-washing-set',
     name: 'Dish Washing Station',
-    price: 39.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Complete dish washing setup with basin, soap, brush, and drying rack',
@@ -161,7 +161,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'child-vacuum-set',
     name: 'Child Vacuum Cleaner',
-    price: 45.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Working child-sized vacuum cleaner for carpet and floor cleaning',
@@ -175,7 +175,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'sorting-baskets',
     name: 'Organization & Sorting Baskets',
-    price: 24.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Set of labeled baskets for organizing and sorting various household items',
@@ -189,7 +189,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'pet-care-set',
     name: 'Pet Care Responsibility Set',
-    price: 29.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Tools and supplies for caring for classroom or family pets',
@@ -203,7 +203,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'bed-making-set',
     name: 'Bed Making Practice Set',
-    price: 33.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Miniature bed setup for practicing bed making skills',
@@ -217,7 +217,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'laundry-care-set',
     name: 'Laundry & Folding Set',
-    price: 27.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Care of Environment',
     description: 'Practice folding and caring for clothing with child-sized items',
@@ -245,7 +245,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'balance-beam-set',
     name: 'Balance & Walking Line Set',
-    price: 48.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Low balance beam and walking line for gross motor development',
@@ -259,7 +259,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'carrying-trays',
     name: 'Object Carrying Trays',
-    price: 19.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Various sized trays for practicing careful carrying and transportation',
@@ -273,7 +273,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'locks-keys-set',
     name: 'Locks & Keys Practice Set',
-    price: 34.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Various locks and keys for developing fine motor skills and problem solving',
@@ -287,7 +287,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'cloth-folding-set',
     name: 'Cloth Folding Practice Set',
-    price: 23.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Various cloths and napkins for practicing precise folding techniques',
@@ -301,7 +301,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'transferring-set',
     name: 'Complete Transferring Set',
-    price: 29.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Multiple tools for transferring activities: spoons, tongs, droppers, funnels',
@@ -315,7 +315,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'threading-set',
     name: 'Threading & Lacing Set',
-    price: 21.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Beads, laces, and threading cards for fine motor development',
@@ -329,7 +329,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'child-scissors-set',
     name: 'Child Safety Scissors Set',
-    price: 15.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Safe scissors with cutting practice materials for developing cutting skills',
@@ -343,7 +343,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'pincer-grasp-set',
     name: 'Pincer Grasp Development Set',
-    price: 26.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Small objects and tools designed to strengthen pincer grasp',
@@ -357,7 +357,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'sorting-trays',
     name: 'Object Sorting Trays',
-    price: 18.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Control of Movement',
     description: 'Compartmented trays for sorting activities by color, size, shape, or category',
@@ -371,7 +371,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'measuring-tools-set',
     name: 'Child Measuring Tools',
-    price: 24.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Food Preparation',
     description: 'Child-sized measuring cups and spoons for cooking activities',
@@ -385,7 +385,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'mixing-bowls-set',
     name: 'Child Mixing Bowl Set',
-    price: 22.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Food Preparation',
     description: 'Various sized bowls with whisks and mixing spoons for food preparation',
@@ -399,7 +399,7 @@ export const additionalShopItems: MontessoriMaterial[] = [
   {
     id: 'child-baking-set',
     name: 'Child Baking Starter Set',
-    price: 42.99,
+    price: 16.99,
     category: 'Practical Life',
     subcategory: 'Food Preparation',
     description: 'Complete baking set with child-safe tools and simple recipe cards',
