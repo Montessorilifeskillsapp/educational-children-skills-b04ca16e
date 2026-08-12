@@ -73,30 +73,33 @@ serve(async (req) => {
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id, email: user.email });
 
-    // If this user's most recent subscription was granted via RevenueCat (mobile IAP),
-    // trust the cached row maintained by revenuecat-sync / revenuecat-webhook.
-    // Stripe has no record of these purchases.
+    // If this user's access came from a non-Stripe source (mobile IAP via RevenueCat,
+    // a redeemed access code, or a manual grant), trust the cached row.
+    // Stripe has no record of these entitlements.
+    const NON_STRIPE_PROVIDERS = ["revenuecat", "access_code", "manual"];
+
     const { data: existingRow } = await supabaseClient
       .from("subscribers")
       .select("provider, subscribed, subscription_tier, subscription_end")
       .eq("user_id", user.id)
       .maybeSingle();
 
-    if (existingRow?.provider === "revenuecat") {
+    if (existingRow?.provider && NON_STRIPE_PROVIDERS.includes(existingRow.provider)) {
       const stillActive = existingRow.subscription_end
         ? new Date(existingRow.subscription_end).getTime() > Date.now()
         : Boolean(existingRow.subscribed);
-      logStep("Honoring RevenueCat entitlement", { stillActive });
+      logStep("Honoring non-Stripe entitlement", { provider: existingRow.provider, stillActive });
       return new Response(JSON.stringify({
         subscribed: stillActive && Boolean(existingRow.subscribed),
         subscription_tier: existingRow.subscription_tier ?? null,
         subscription_end: existingRow.subscription_end ?? null,
-        provider: "revenuecat",
+        provider: existingRow.provider,
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
     }
+
 
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16", maxNetworkRetries: 2 });
