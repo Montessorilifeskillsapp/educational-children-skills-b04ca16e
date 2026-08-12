@@ -40,6 +40,7 @@ import LandingPage from "./pages/LandingPage";
 import FreePdfPage from "./pages/FreePdfPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
+import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
 
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
@@ -119,6 +120,7 @@ const App = () => {
                           <Route path="/free-pdf" element={<FreePdfPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />
+                          <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />

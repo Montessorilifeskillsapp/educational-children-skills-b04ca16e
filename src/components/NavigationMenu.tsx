@@ -8,7 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag
+  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag, KeyRound
 } from 'lucide-react';
 
 interface NavigationMenuProps {
@@ -74,7 +74,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
-    ...(isAdmin ? [{ label: 'Admin Analytics', icon: BarChart3, onClick: () => navigate('/admin/analytics'), color: 'border-destructive/40' }] : []),
+    ...(isAdmin ? [
+      { label: 'Admin Analytics', icon: BarChart3, onClick: () => navigate('/admin/analytics'), color: 'border-destructive/40' },
+      { label: 'Access Codes', icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
+    ] : []),
     { label: 'Terms of Service', icon: BookOpen, onClick: () => navigate('/terms-of-service'), color: 'border-border' },
     { label: 'Privacy Policy', icon: BookOpen, onClick: () => navigate('/privacy-policy'), color: 'border-border' },
   ];

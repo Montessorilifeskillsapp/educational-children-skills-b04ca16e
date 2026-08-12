@@ -11,6 +11,7 @@ import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { analytics } from '@/lib/analytics';
 import { getStoredUtm } from '@/hooks/useUtmTracking';
+import AccessCodeRedeem from './AccessCodeRedeem';
 import {
   isNativePurchaseAvailable,
   purchaseProductId,
@@ -454,6 +455,12 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             <Zap className="w-4 h-4 text-primary" /> Cancel anytime
           </span>
         </div>
+
+        <div className="mb-8">
+          <AccessCodeRedeem />
+        </div>
+
+
 
         {/* Comparison strip */}
         <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-8 text-left">
