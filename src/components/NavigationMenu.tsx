@@ -8,7 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag
+  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag, KeyRound
 } from 'lucide-react';
 
 interface NavigationMenuProps {
