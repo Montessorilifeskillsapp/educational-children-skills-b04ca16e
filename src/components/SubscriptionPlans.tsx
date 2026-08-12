@@ -11,6 +11,7 @@ import { useAuthContext } from './AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { analytics } from '@/lib/analytics';
 import { getStoredUtm } from '@/hooks/useUtmTracking';
+import AccessCodeRedeem from './AccessCodeRedeem';
 import {
   isNativePurchaseAvailable,
   purchaseProductId,
