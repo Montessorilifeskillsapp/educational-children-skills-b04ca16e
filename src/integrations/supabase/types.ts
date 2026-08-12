@@ -14,6 +14,83 @@ export type Database = {
   }
   public: {
     Tables: {
+      access_code_redemptions: {
+        Row: {
+          code_id: string
+          email: string
+          id: string
+          redeemed_at: string
+          revoked: boolean
+          user_id: string
+        }
+        Insert: {
+          code_id: string
+          email: string
+          id?: string
+          redeemed_at?: string
+          revoked?: boolean
+          user_id: string
+        }
+        Update: {
+          code_id?: string
+          email?: string
+          id?: string
+          redeemed_at?: string
+          revoked?: boolean
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "access_code_redemptions_code_id_fkey"
+            columns: ["code_id"]
+            isOneToOne: false
+            referencedRelation: "access_codes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      access_codes: {
+        Row: {
+          code: string
+          created_at: string
+          created_by: string | null
+          expires_at: string | null
+          grant_duration_days: number | null
+          id: string
+          label: string | null
+          max_redemptions: number
+          redemption_count: number
+          revoked: boolean
+          updated_at: string
+        }
+        Insert: {
+          code: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          grant_duration_days?: number | null
+          id?: string
+          label?: string | null
+          max_redemptions?: number
+          redemption_count?: number
+          revoked?: boolean
+          updated_at?: string
+        }
+        Update: {
+          code?: string
+          created_at?: string
+          created_by?: string | null
+          expires_at?: string | null
+          grant_duration_days?: number | null
+          id?: string
+          label?: string | null
+          max_redemptions?: number
+          redemption_count?: number
+          revoked?: boolean
+          updated_at?: string
+        }
+        Relationships: []
+      }
       activity_sessions: {
         Row: {
           child_id: string | null
