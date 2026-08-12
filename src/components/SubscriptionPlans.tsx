@@ -455,6 +455,12 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           </span>
         </div>
 
+        <div className="mb-8">
+          <AccessCodeRedeem />
+        </div>
+
+
+
         {/* Comparison strip */}
         <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-8 text-left">
           <div className="p-3 sm:p-4 rounded-xl border border-border/60 bg-muted/40">
