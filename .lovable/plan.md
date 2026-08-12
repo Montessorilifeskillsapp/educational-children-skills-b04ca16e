@@ -1,96 +1,36 @@
+# Access Codes for Free Premium Access
 
-# RevenueCat In-App Purchases (Mobile)
+Give selected people full access to the paid app with a code they redeem after signing up.
 
-Web continues to use Stripe. iOS/Android apps will use RevenueCat → Apple/Google IAP. A user's premium entitlement is honored regardless of which system granted it.
+## How it will work for you
 
-## 1. Database (migration)
+1. Open the admin area (visible only to your admin account) and click "Create access code".
+2. Choose how many people can use it (1 for a single person, or more for a group) and when it expires — options will be "Never", "12 months", or a custom date. You can decide per code, so nothing is locked in now.
+3. Copy the generated code (e.g. `MLS-7K4Q-2XPD`) and send it to the person.
+4. See who redeemed each code, and revoke a code or an individual's access at any time.
 
-Add fields to `subscribers` to track provider:
+## How it will work for them
 
-```sql
-ALTER TABLE public.subscribers
-  ADD COLUMN IF NOT EXISTS provider TEXT DEFAULT 'stripe',
-  ADD COLUMN IF NOT EXISTS revenuecat_app_user_id TEXT,
-  ADD COLUMN IF NOT EXISTS revenuecat_entitlement TEXT,
-  ADD COLUMN IF NOT EXISTS revenuecat_product_id TEXT,
-  ADD COLUMN IF NOT EXISTS platform TEXT; -- 'web' | 'ios' | 'android'
+1. They create a normal account (or sign in).
+2. On the plans screen there's a "Have an access code?" link that opens a small field.
+3. They enter the code; if valid it unlocks full premium access immediately, and the plans screen shows "Plan activated" like a paid subscriber.
+4. Invalid, expired, used-up, or revoked codes show a clear message and grant nothing.
 
-CREATE INDEX IF NOT EXISTS idx_subscribers_rc_app_user
-  ON public.subscribers(revenuecat_app_user_id);
-```
+## Technical details
 
-## 2. Secrets (Supabase)
+**Database (one migration)**
+- `access_codes`: code (unique, uppercase), label/note, max_redemptions, redemption_count, expires_at (nullable = lifetime), grant_duration_days (nullable = lifetime access), revoked, created_by, timestamps.
+- `access_code_redemptions`: code_id, user_id, email, redeemed_at; unique on (code_id, user_id).
+- RLS: no client reads or writes on either table (deny all for anon/authenticated); all access goes through edge functions with the service role, matching the existing hardened pattern. Grants to `service_role` only.
 
-- `REVENUECAT_IOS_API_KEY` — public iOS key (`appl_…`), used in app
-- `REVENUECAT_ANDROID_API_KEY` — public Android key (`goog_…`), used in app
-- `REVENUECAT_WEBHOOK_AUTH` — random string you also paste in RC dashboard
-- `REVENUECAT_REST_API_KEY` — secret v2 key (`sk_…`) for server-side lookups
+**Edge functions**
+- `redeem-access-code` — validates the caller's JWT, normalizes the code, checks it exists, is not revoked/expired/exhausted and not already redeemed by this user, then records the redemption and upserts `subscribers` with `subscribed = true`, `provider = 'access_code'`, `subscription_tier = 'Premium Annual'`, and `subscription_end` from the code's duration (null for lifetime).
+- `admin-access-codes` — admin-only (verified with `has_role(uid,'admin')`): list, create, and revoke codes, plus revoke an individual redemption. Codes are generated server-side.
 
-The two public app keys will be embedded as Vite env vars (`VITE_REVENUECAT_IOS_KEY`, `VITE_REVENUECAT_ANDROID_KEY`) since they're meant to ship in client binaries.
+**Subscription check fix (required)**
+`check-subscription` currently only honors `provider = 'revenuecat'` cached rows and otherwise falls through to Stripe, which would wipe a manually granted row back to unsubscribed. It will be extended to honor `provider` values of `access_code` and `manual` the same way RevenueCat is honored (respecting `subscription_end`), so granted access survives every refresh. This also fixes the existing Apple-review seeded account.
 
-## 3. Client SDK
-
-Install `@revenuecat/purchases-capacitor`. Create `src/lib/revenuecat.ts`:
-
-- `initRevenueCat()` — called once at app start on native only; uses `supabase.auth` user id as `appUserID` so web and mobile share identity.
-- `getOfferings()` — returns the `default` offering's packages.
-- `purchasePackage(pkg)` — wraps `Purchases.purchasePackage`, on success calls our `revenuecat-sync` edge function so the DB updates immediately (don't wait for webhook).
-- `restorePurchases()` — required by Apple.
-
-## 4. Plans page
-
-`src/pages/PlansPage.tsx` (or wherever current plans live) becomes platform-aware:
-
-```ts
-import { Capacitor } from '@capacitor/core';
-const isNative = Capacitor.isNativePlatform();
-```
-
-- **Web** → existing Stripe checkout, unchanged.
-- **Native** → render packages from RevenueCat offering; Monthly + Annual buttons call `purchasePackage`. Add a "Restore Purchases" link (Apple requirement). Consultation card uses a **consumable** IAP product `consultation_session` (per your choice).
-
-## 5. Edge functions
-
-**`revenuecat-sync`** (called by client right after successful purchase):
-- Validates JWT, reads `customerInfo` payload, upserts `subscribers` row with `provider='revenuecat'`, platform, entitlement expiry.
-
-**`revenuecat-webhook`** (called by RevenueCat server):
-- Verifies `Authorization` header equals `REVENUECAT_WEBHOOK_AUTH`.
-- Handles `INITIAL_PURCHASE`, `RENEWAL`, `CANCELLATION`, `EXPIRATION`, `PRODUCT_CHANGE`, `BILLING_ISSUE`, `NON_RENEWING_PURCHASE` (consultation).
-- Looks up user by `app_user_id` (= Supabase user id) and updates `subscribers`.
-
-**`check-subscription`** (modify):
-- If `provider='stripe'` → existing Stripe path.
-- If `provider='revenuecat'` → trust DB `subscription_end` (kept current by webhook); optionally cross-check via RC REST API.
-- "Recognize Stripe entitlement on mobile" works automatically because the same user row is read regardless of platform.
-
-## 6. Capacitor config
-
-No code change needed beyond installing the plugin — `npx cap sync` after pulling.
-
-## 7. RevenueCat dashboard setup (you do this)
-
-1. Project → add iOS app (bundle `com.montessorilifeskills.app`) + Android app.
-2. Paste App Store Connect shared secret & Google Play service account JSON.
-3. Create products in App Store Connect / Play Console:
-   - `premium_monthly` — auto-renewing $29.99/mo
-   - `premium_annual` — auto-renewing $199.99/yr
-   - `consultation_session` — consumable $224.99 (Apple requires .99)
-4. In RevenueCat: create Entitlement `premium`, attach the two subs. Create Offering `default` with Monthly + Annual packages.
-5. Webhooks → URL = `https://lpdvohgfkjnjarrpsnqr.supabase.co/functions/v1/revenuecat-webhook`, Authorization header = the value you'll give me for `REVENUECAT_WEBHOOK_AUTH`.
-
-## 8. Local build steps (after I push)
-
-```bash
-git pull && npm install
-npm run build
-npx cap sync ios && npx cap sync android
-```
-
-Then run on a real device — IAP does **not** work in the iOS simulator.
-
-## Out of scope
-
-- Promo codes / intro offers (configure in App Store Connect later; RC picks them up automatically).
-- Family Sharing (off by default; enable in App Store Connect when ready).
-- Receipt validation custom logic — RevenueCat handles it.
+**Frontend**
+- `src/components/SubscriptionPlans.tsx`: add a "Have an access code?" input + redeem action that calls the edge function and then `refreshSubscription()`.
+- New admin page `src/pages/AdminAccessCodesPage.tsx` at `/admin/access-codes`, routed in `App.tsx` and linked from the existing admin-only navigation entry — one screen with a create form and a table of codes with redemption counts and a revoke button.
+- No changes to Stripe or RevenueCat flows; mobile shows the same redeem field (no pricing shown), so it stays App Store safe.
