@@ -119,6 +119,7 @@ const App = () => {
                           <Route path="/free-pdf" element={<FreePdfPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />
+                          <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
