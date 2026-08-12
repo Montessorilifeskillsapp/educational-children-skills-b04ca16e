@@ -40,6 +40,7 @@ import LandingPage from "./pages/LandingPage";
 import FreePdfPage from "./pages/FreePdfPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
+import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
 
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
