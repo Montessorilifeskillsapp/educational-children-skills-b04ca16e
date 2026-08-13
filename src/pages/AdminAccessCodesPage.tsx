@@ -10,6 +10,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import AccessCodeTestRedeem from '@/components/AccessCodeTestRedeem';
 
 interface AccessCode {
   id: string;
@@ -197,6 +198,8 @@ const AdminAccessCodesPage = () => {
         <h1 className="text-3xl font-bold">Access Codes</h1>
         <p className="text-muted-foreground">Give selected people full access without payment.</p>
       </div>
+
+      <AccessCodeTestRedeem onFinished={() => void load()} />
 
       <Card>
         <CardHeader>
