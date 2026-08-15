@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
@@ -89,13 +89,17 @@ const AdminAnalyticsPage = () => {
           <h1 className="text-3xl font-bold">Conversion Funnel</h1>
           <p className="text-muted-foreground">Signup → activation → paywall → subscription</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
           {[7, 30, 90].map((d) => (
             <Button key={d} variant={days === d ? 'default' : 'outline'} size="sm" onClick={() => setDays(d)}>
               Last {d}d
             </Button>
           ))}
+          <Button asChild size="sm" variant="secondary">
+            <Link to="/admin/access-codes">Access Codes</Link>
+          </Button>
         </div>
+
       </div>
 
       {error && <Card><CardContent className="pt-6 text-destructive">{error}</CardContent></Card>}
