@@ -38,7 +38,7 @@ const AdminAnalyticsLink: React.FC = () => {
           Access Codes
         </Button>
       </Link>
-      <Link to="/admin/analytics" aria-label="Admin Analytics">
+      <Link to="/admin" aria-label="Admin">
         <Button size="sm" variant="outline" className="shadow-lg bg-background/90 backdrop-blur border-destructive/40">
           <BarChart3 className="w-4 h-4 mr-2" />
           Admin
