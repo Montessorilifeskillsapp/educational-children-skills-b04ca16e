@@ -75,7 +75,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
     ...(isAdmin ? [
-      { label: 'Admin Analytics', icon: BarChart3, onClick: () => navigate('/admin/analytics'), color: 'border-destructive/40' },
+      { label: 'Admin', icon: BarChart3, onClick: () => navigate('/admin'), color: 'border-destructive/40' },
       { label: 'Access Codes', icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
     ] : []),
     { label: 'Terms of Service', icon: BookOpen, onClick: () => navigate('/terms-of-service'), color: 'border-border' },
