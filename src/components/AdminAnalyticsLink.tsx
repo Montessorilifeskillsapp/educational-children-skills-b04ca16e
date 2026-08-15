@@ -31,17 +31,22 @@ const AdminAnalyticsLink: React.FC = () => {
   if (!isAdmin) return null;
 
   return (
-    <Link
-      to="/admin/analytics"
-      className="fixed bottom-4 right-4 z-50"
-      aria-label="Admin Analytics"
-    >
-      <Button size="sm" variant="outline" className="shadow-lg bg-background/90 backdrop-blur border-destructive/40">
-        <BarChart3 className="w-4 h-4 mr-2" />
-        Admin
-      </Button>
-    </Link>
+    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end">
+      <Link to="/admin/access-codes" aria-label="Access Codes">
+        <Button size="sm" variant="outline" className="shadow-lg bg-background/90 backdrop-blur border-destructive/40">
+          <KeyRound className="w-4 h-4 mr-2" />
+          Access Codes
+        </Button>
+      </Link>
+      <Link to="/admin/analytics" aria-label="Admin Analytics">
+        <Button size="sm" variant="outline" className="shadow-lg bg-background/90 backdrop-blur border-destructive/40">
+          <BarChart3 className="w-4 h-4 mr-2" />
+          Admin
+        </Button>
+      </Link>
+    </div>
   );
+
 };
 
 export default AdminAnalyticsLink;
