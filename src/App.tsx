@@ -42,6 +42,7 @@ import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
+import AdminHomePage from "./pages/AdminHomePage";
 
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
@@ -119,6 +120,7 @@ const App = () => {
                           <Route path="/welcome" element={<LandingPage />} />
                           <Route path="/free-pdf" element={<FreePdfPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
+                          <Route path="/admin" element={<AdminHomePage />} />
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />
                           <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
 
