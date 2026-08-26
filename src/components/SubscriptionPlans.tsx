@@ -198,8 +198,15 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   };
 
   const startStripeCheckout = async (plan: Plan) => {
+    // Native apps must never leave for a web payment page (App Store / Play rules,
+    // and a hard navigation inside the WebView shows a blank screen).
+    if (isNative) {
+      await startNativePurchase(plan);
+      return;
+    }
     setLoading(plan.id);
     try {
+
       analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price, attribution: getStoredUtm() });
       const { data, error } = await supabase.functions.invoke('create-checkout', {
         body: { planId: plan.id },
