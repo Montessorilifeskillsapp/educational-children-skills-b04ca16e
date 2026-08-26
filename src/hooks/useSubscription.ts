@@ -59,13 +59,21 @@ export const useSubscription = () => {
       if (error) throw error;
       if (!data?.url) throw new Error('Customer portal URL was not returned');
 
-      window.location.assign(data.url);
+      const { Capacitor } = await import('@capacitor/core');
+      if (Capacitor.isNativePlatform()) {
+        // Open outside the WebView — a hard navigation blanks the native app.
+        const { Browser } = await import('@capacitor/browser');
+        await Browser.open({ url: data.url });
+      } else {
+        window.location.assign(data.url);
+      }
       return true;
     } catch (error) {
       console.error('Customer portal error:', error);
       return false;
     }
   }, [user]);
+
 
   useEffect(() => {
     void checkSubscription();

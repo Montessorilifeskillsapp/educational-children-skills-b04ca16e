@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -140,6 +141,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const { user } = useAuthContext();
   const pendingCheckoutStarted = useRef(false);
   const isNative = isNativePurchaseAvailable();
+  const navigate = useNavigate();
 
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
@@ -198,8 +200,15 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   };
 
   const startStripeCheckout = async (plan: Plan) => {
+    // Native apps must never leave for a web payment page (App Store / Play rules,
+    // and a hard navigation inside the WebView shows a blank screen).
+    if (isNative) {
+      await startNativePurchase(plan);
+      return;
+    }
     setLoading(plan.id);
     try {
+
       analytics.track('subscribe_started', { plan_id: plan.id, billing_cycle: billingCycle, price: plan.price, attribution: getStoredUtm() });
       const { data, error } = await supabase.functions.invoke('create-checkout', {
         body: { planId: plan.id },
@@ -338,8 +347,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           console.warn('Unable to store checkout redirect intent');
         }
         setTimeout(() => {
-          window.location.assign(`/auth?redirect=${encodeURIComponent('/plans')}`);
+          // Client-side navigation: a hard location change inside the native
+          // WebView resolves to a missing file and renders a blank screen.
+          navigate(`/auth?redirect=${encodeURIComponent('/plans')}`);
         }, 600);
+
         return;
       }
 
