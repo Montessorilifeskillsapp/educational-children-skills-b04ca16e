@@ -8,6 +8,7 @@ import { skillsData, type Step } from '@/data/skillsData';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { additionalSensorialSkills } from '@/data/sensorialSkills2';
 import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
+import { completeSensorialSkills } from '@/data/completeSensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
 import { mathSkillsData } from '@/data/mathSkills';
 import { geographySkillsData } from '@/data/geographySkills';
@@ -34,7 +35,8 @@ interface SkillActivityProps {
 const allSensorialSkills = {
   ...sensorialSkills,
   ...additionalSensorialSkills,
-  ...tactileSensorialSkills
+  ...tactileSensorialSkills,
+  ...completeSensorialSkills
 };
 
 const allMathSkills = {
