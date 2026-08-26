@@ -345,8 +345,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           console.warn('Unable to store checkout redirect intent');
         }
         setTimeout(() => {
-          window.location.assign(`/auth?redirect=${encodeURIComponent('/plans')}`);
+          // Client-side navigation: a hard location change inside the native
+          // WebView resolves to a missing file and renders a blank screen.
+          navigate(`/auth?redirect=${encodeURIComponent('/plans')}`);
         }, 600);
+
         return;
       }
 
