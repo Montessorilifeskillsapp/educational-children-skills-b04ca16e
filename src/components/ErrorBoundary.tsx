@@ -31,7 +31,10 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
   };
 
   handleGoHome = () => {
-    window.location.href = '/';
+    // Use an origin-relative URL so this also works inside the Capacitor
+    // WebView (capacitor://localhost / file bundle), where a bare "/" can
+    // resolve to a non-existent path and leave a blank screen.
+    window.location.replace(`${window.location.origin}/`);
   };
 
   render() {
