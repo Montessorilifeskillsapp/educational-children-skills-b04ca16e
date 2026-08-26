@@ -46,6 +46,7 @@ import AdminHomePage from "./pages/AdminHomePage";
 
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
 import { useEffect } from "react";
@@ -87,6 +88,7 @@ const App = () => {
                     >
                         <RouteEffects />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
+                        <ErrorBoundary>
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/index" element={<Index />} />
@@ -127,6 +129,7 @@ const App = () => {
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
+                        </ErrorBoundary>
                         {!Capacitor.isNativePlatform() && <PWAInstallPrompt />}
                         <AdminAnalyticsLink />
                     </BrowserRouter>
