@@ -76,6 +76,14 @@ const AppLayout: React.FC = () => {
     }
   }, [location.key, location.pathname, location.search]);
 
+  // Always show newly opened views from the top of the page
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }, [currentView, selectedSkill]);
+
   // Callbacks - all defined at top level
   const handleSkillSelect = useCallback((skillId: string) => {
     setSelectedSkill(skillId);
