@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 const APP_VERSION = "1.0.0";
 import Dashboard from './Dashboard';
 import SkillActivity from './SkillActivity';
@@ -27,7 +27,7 @@ import { useActivityCompletions } from '@/hooks/useActivityCompletions';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { LogIn, Sparkles } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
@@ -61,11 +61,20 @@ const AppLayout: React.FC = () => {
 
   // Hooks - called in same order every time
   const navigate = useNavigate();
+  const location = useLocation();
   const { user, loading } = useAuthContext();
   const { isPremium } = useSubscription();
   const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
   const { completedSkillIds, logCompletion, streak } = useActivityCompletions(activeProfile?.id);
   const completedSkills = completedSkillIds;
+
+  // Reset to the landing/home view whenever the user taps the persistent Home button
+  useEffect(() => {
+    if (location.pathname === '/' && !location.search.includes('view=')) {
+      setCurrentView('home');
+      setSelectedSkill('');
+    }
+  }, [location.key, location.pathname, location.search]);
 
   // Callbacks - all defined at top level
   const handleSkillSelect = useCallback((skillId: string) => {
