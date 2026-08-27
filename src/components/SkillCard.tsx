@@ -28,6 +28,17 @@ const SkillCard: React.FC<SkillCardProps> = ({
   isPremium 
 }) => {
   const isLocked = skill.isPremium && !isPremium;
+
+  // Always open an activity from the very top of the page
+  const handleSelect = () => {
+    onSelect();
+    if (typeof window !== 'undefined') {
+      const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      toTop();
+      requestAnimationFrame(toTop);
+      window.setTimeout(toTop, 150);
+    }
+  };
   
   const getCategoryColor = (category: string, skillColor?: string) => {
     // If skill has specific color, use it with vibrant styling (no borders)
@@ -99,14 +110,14 @@ const SkillCard: React.FC<SkillCardProps> = ({
         } relative ${
           isLocked ? 'opacity-60' : ''
         }`}
-        onClick={isLocked ? undefined : onSelect}
+        onClick={isLocked ? undefined : handleSelect}
         role="button"
         tabIndex={isLocked ? -1 : 0}
         aria-label={`${skill.title} - ${skill.difficulty} level ${skill.category} activity. ${isCompleted ? 'Completed' : 'Not completed'}. ${isLocked ? 'Premium required' : 'Click to start'}`}
         onKeyDown={(e) => {
           if (!isLocked && (e.key === 'Enter' || e.key === ' ')) {
             e.preventDefault();
-            onSelect();
+            handleSelect();
           }
         }}
       >

@@ -211,6 +211,19 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
 
   useEffect(() => {
     setSteps(getSkillSteps());
+    if (typeof window === 'undefined') return;
+    const toTop = () => {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    };
+    toTop();
+    const raf = requestAnimationFrame(toTop);
+    const t = window.setTimeout(toTop, 120);
+    return () => {
+      cancelAnimationFrame(raf);
+      window.clearTimeout(t);
+    };
   }, [skillId]);
 
   if (!skill) {
