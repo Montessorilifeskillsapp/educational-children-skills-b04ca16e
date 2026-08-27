@@ -211,6 +211,11 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
 
   useEffect(() => {
     setSteps(getSkillSteps());
+    if (typeof window !== 'undefined') {
+      window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    }
   }, [skillId]);
 
   if (!skill) {
