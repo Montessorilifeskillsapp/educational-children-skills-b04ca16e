@@ -52,6 +52,7 @@ import { useUtmTracking } from "@/hooks/useUtmTracking";
 import { useEffect } from "react";
 import { Capacitor } from "@capacitor/core";
 import { useCapacitorAuthDeepLink } from "@/hooks/useCapacitorAuthDeepLink";
+import { useNativeWebViewRecovery } from "@/hooks/useNativeWebViewRecovery";
 
 const RouteEffects = () => {
   useUtmTracking();
