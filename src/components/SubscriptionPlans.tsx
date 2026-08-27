@@ -22,6 +22,7 @@ import {
   PRODUCT_CONSULTATION,
   syncCurrentRevenueCatStatus,
 } from '@/lib/revenuecat';
+import { forceWebViewRepaint } from '@/hooks/useNativeWebViewRecovery';
 
 interface Plan {
   id: string;
@@ -166,6 +167,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         attribution: getStoredUtm(),
       });
       await purchaseProductId(productId);
+      // The StoreKit sheet can leave the WKWebView with a stale (blank) layer.
+      forceWebViewRepaint();
       toast({ title: 'Purchase complete', description: 'Your subscription is now active.' });
       try { await refreshSubscription?.(); } catch { /* noop */ }
     } catch (err: unknown) {
@@ -189,6 +192,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     setRestoring(true);
     try {
       await restorePurchases();
+      forceWebViewRepaint();
       try { await refreshSubscription?.(); } catch { /* noop */ }
       toast({ title: 'Purchases restored', description: 'If you had an active subscription, it is now linked to this account.' });
     } catch (err) {
