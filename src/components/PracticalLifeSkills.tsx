@@ -10,6 +10,7 @@ import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills'
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { canAccessSectionItem } from '@/lib/freeTierAccess';
+import SkillActivity from './SkillActivity';
 
 interface Step {
   id: string;
@@ -74,8 +75,10 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
     setSteps(buildSteps());
   }, [skillId]);
 
+  // Some practical-life ids (e.g. 'pouring', 'spooning') only exist in the shared
+  // skill registry. Falling back keeps the screen from rendering blank.
   if (!skill) {
-    return null;
+    return <SkillActivity skillId={skillId} onBack={onBack} onComplete={onComplete} />;
   }
 
   const hasAccess = canAccessSectionItem(
