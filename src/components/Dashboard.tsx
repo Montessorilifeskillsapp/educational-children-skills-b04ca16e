@@ -35,7 +35,8 @@ const FOCUS_AREA_META: Record<string, { label: string; emoji: string; border: st
   'geography':       { label: 'Geography',          emoji: '🌍', border: 'border-blue-200',   text: 'text-blue-800',   pct: 'text-blue-700',   ids: () => Object.keys(geographySkillsData),  onView: 'onGeographyView' },
   'botany':          { label: 'Botany',             emoji: '🌱', border: 'border-green-200',  text: 'text-green-800',  pct: 'text-green-700',  ids: () => Object.keys(botanySkillsData),     onView: 'onBotanyView' },
   'art':             { label: 'Art',                emoji: '🎭', border: 'border-orange-200', text: 'text-orange-800', pct: 'text-orange-700', ids: () => Object.keys(artSkillsData),        onView: 'onArtView' },
-  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', border: 'border-primary/25', text: 'text-primary', pct: 'text-primary', ids: () => Object.keys(graceAndCourtesySkills) },
+  'cultural':        { label: 'Cultural Studies',    emoji: '🏛️', border: 'border-primary/25', text: 'text-primary', pct: 'text-primary', ids: () => Object.keys(culturalSkillsData), onView: 'onCulturalView' },
+  'grace-courtesy':  { label: 'Grace & Courtesy',   emoji: '🤝', border: 'border-primary/25', text: 'text-primary', pct: 'text-primary', ids: () => Object.keys(graceAndCourtesySkills), onView: 'onGraceCourtesyView' },
 };
 
 interface DashboardProps {
@@ -48,6 +49,7 @@ interface DashboardProps {
   onBotanyView?: () => void;
   onArtView?: () => void;
   onCulturalView?: () => void;
+  onGraceCourtesyView?: () => void;
   onSubscriptionView: () => void;
   onParentView: () => void;
   onProfilesView?: () => void;
@@ -69,6 +71,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   onBotanyView,
   onArtView,
   onCulturalView,
+  onGraceCourtesyView,
   onSubscriptionView,
   onParentView,
   onProfilesView,
@@ -278,7 +281,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 const pct = Math.round((done / total) * 100);
                 const handlers: Record<string, (() => void) | undefined> = {
                   onPracticalLifeView, onSensorialView, onLanguageView, onMathView,
-                  onGeographyView, onBotanyView, onArtView, onCulturalView,
+                  onGeographyView, onBotanyView, onArtView, onCulturalView, onGraceCourtesyView,
                 };
                 const onClick = meta.onView ? handlers[meta.onView] : undefined;
                 return (
@@ -325,7 +328,7 @@ const Dashboard: React.FC<DashboardProps> = ({
               const pct = Math.round((done / total) * 100);
               const handlers: Record<string, (() => void) | undefined> = {
                 onPracticalLifeView, onSensorialView, onLanguageView, onMathView,
-                onGeographyView, onBotanyView, onArtView, onCulturalView,
+                onGeographyView, onBotanyView, onArtView, onCulturalView, onGraceCourtesyView,
               };
               const onClick = meta.onView ? handlers[meta.onView] : undefined;
               return (

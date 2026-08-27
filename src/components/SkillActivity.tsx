@@ -214,7 +214,19 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   }, [skillId]);
 
   if (!skill) {
-    return <div>Skill not found</div>;
+    return (
+      <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
+        <div className="max-w-xl mx-auto">
+          <BackButton onClick={onBack} label="Back to activities" />
+          <Card className="mt-8">
+            <CardContent className="py-8 text-center">
+              <p className="font-semibold text-foreground">This activity could not be loaded.</p>
+              <Button className="mt-4" onClick={onBack}>Return to activities</Button>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    );
   }
 
   const completedSteps = steps.filter(step => step.completed).length;
