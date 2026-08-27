@@ -37,6 +37,21 @@ import { artSkillsData } from '@/data/artSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { botanySkillsData } from '@/data/botanySkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
+import { artSkillsEnhanced } from '@/data/artSkillsEnhanced';
+import { enhancedMathSkills } from '@/data/enhancedMathSkills';
+import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
+import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
+import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
+import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
+import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
+
+const allPracticalLifeSkills = {
+  ...comprehensivePracticalLifeSkills,
+  ...enhancedPracticalLifeSkills,
+  ...additionalPracticalLifeSkills,
+  ...amiPracticalLifeSkills,
+  ...concisePracticalLifeSkills,
+};
 
 const AppLayout: React.FC = () => {
   // State
@@ -69,6 +84,8 @@ const AppLayout: React.FC = () => {
   const handleBackToGeography = useCallback(() => setCurrentView('geography'), []);
   const handleBackToBotany = useCallback(() => setCurrentView('botany'), []);
   const handleBackToCultural = useCallback(() => setCurrentView('cultural'), []);
+  const handleBackToArt = useCallback(() => setCurrentView('art'), []);
+  const handleBackToGraceCourtesy = useCallback(() => setCurrentView('grace-courtesy'), []);
   const handleBackToDashboard = useCallback(() => setCurrentView('dashboard'), []);
   const handleBackToHome = useCallback(() => setCurrentView('home'), []);
 
@@ -86,12 +103,7 @@ const AppLayout: React.FC = () => {
   }, [currentView]);
 
   // Constants
-  const practicalSkills = [
-    'brushing-teeth', 'washing-hands', 'getting-dressed', 'making-bed', 
-    'setting-table', 'tying-shoes', 'pouring', 'spooning', 
-    'flower-arranging', 'polishing', 'sweeping', 'folding-clothes',
-    'watering-plants', 'cutting-with-scissors', 'preparing-snack'
-  ];
+  const practicalSkills = Object.keys(allPracticalLifeSkills);
 
   // Early returns after all hooks are called
   // Show marketing landing page regardless of auth state
@@ -300,7 +312,7 @@ const AppLayout: React.FC = () => {
       return (
         <PracticalLifeSkills
           skillId={selectedSkill}
-          onBack={handleBackToPractical}
+          onBack={handleBackToGraceCourtesy}
           onComplete={handleComplete}
         />
       );
@@ -345,6 +357,16 @@ const AppLayout: React.FC = () => {
       );
     }
 
+    if (enhancedMathSkills[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={handleBackToMath}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
     if (culturalSkillsData[selectedSkill]) {
       return (
         <SkillActivity
@@ -370,6 +392,16 @@ const AppLayout: React.FC = () => {
         <SkillActivity
           skillId={selectedSkill}
           onBack={handleBackToBotany}
+          onComplete={handleComplete}
+        />
+      );
+    }
+
+    if (artSkillsEnhanced[selectedSkill]) {
+      return (
+        <SkillActivity
+          skillId={selectedSkill}
+          onBack={handleBackToArt}
           onComplete={handleComplete}
         />
       );
@@ -406,6 +438,7 @@ const AppLayout: React.FC = () => {
       onBotanyView={() => navigate('/botany')}
       onArtView={() => navigate('/art')}
       onCulturalView={() => navigate('/cultural')}
+      onGraceCourtesyView={() => navigate('/grace-courtesy')}
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}

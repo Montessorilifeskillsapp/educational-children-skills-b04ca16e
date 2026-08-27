@@ -111,15 +111,20 @@ export async function syncCurrentRevenueCatStatus(userId?: string | null) {
 }
 
 async function syncRevenueCatToBackend(customerInfo: unknown, lastProductId?: string) {
-  try {
-    await supabase.functions.invoke('revenuecat-sync', {
-      body: {
-        customerInfo,
-        platform: Capacitor.getPlatform(),
-        productId: lastProductId,
-      },
-    });
-  } catch (err) {
-    console.error('revenuecat-sync failed', err);
+  const { data, error } = await supabase.functions.invoke('revenuecat-sync', {
+    body: {
+      customerInfo,
+      platform: Capacitor.getPlatform(),
+      productId: lastProductId,
+    },
+  });
+
+  if (error) {
+    console.error('revenuecat-sync failed', error);
+    throw new Error('Your App Store purchase succeeded, but access could not be activated. Tap Restore Purchases to retry.');
+  }
+
+  if (!data?.subscribed) {
+    throw new Error('The App Store has not returned an active subscription yet. Tap Restore Purchases to sync it.');
   }
 }

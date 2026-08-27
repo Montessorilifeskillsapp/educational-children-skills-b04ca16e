@@ -22,8 +22,6 @@ import { useSEO } from '@/hooks/useSEO';
 import { montessoriTheme } from './ThemeConfig';
 import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
-import { useSubscription } from '@/contexts/SubscriptionContext';
-import { canAccessSectionItem } from '@/lib/freeTierAccess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 
 interface SkillActivityProps {
@@ -45,8 +43,6 @@ const allMathSkills = {
 };
 
 const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComplete }) => {
-  const { isPremium } = useSubscription();
-
   const concisePracticalLifeSkill = concisePracticalLifeSkills[skillId];
   const enhancedMathSkill = enhancedMathSkills[skillId];
   const sensorialSkill = allSensorialSkills[skillId];
@@ -218,40 +214,14 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   }, [skillId]);
 
   if (!skill) {
-    return <div>Skill not found</div>;
-  }
-
-  const hasAccess = concisePracticalLifeSkill
-    ? true
-    : (mathSkill || enhancedMathSkill)
-      ? canAccessSectionItem(Object.entries(allMathSkills).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-      : botanySkill
-        ? canAccessSectionItem(Object.entries(botanySkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-        : graceCourtesySkill
-          ? canAccessSectionItem(Object.values(graceAndCourtesySkills).map((sectionSkill) => ({ id: sectionSkill.id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-          : artSkill
-            ? canAccessSectionItem(Object.entries(artSkillsEnhanced).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-            : geographySkill
-              ? canAccessSectionItem(Object.entries(geographySkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-              : culturalSkill
-                ? canAccessSectionItem(Object.entries(culturalSkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-                : languageSkill
-                  ? canAccessSectionItem(Object.entries(languageSkillsData).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-                  : sensorialSkill
-                    ? canAccessSectionItem(Object.entries(allSensorialSkills).map(([id, sectionSkill]) => ({ id, isPremium: sectionSkill.isPremium })), skillId, isPremium)
-                    : !skill.isPremium || isPremium;
-
-  if (!hasAccess) {
     return (
       <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
-        <div className="max-w-xl mx-auto pt-12">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-center">Premium activity</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-muted-foreground">Only the first existing free activity in this section is available on the free plan.</p>
-              <Button onClick={onBack}>Go back</Button>
+        <div className="max-w-xl mx-auto">
+          <BackButton onClick={onBack} label="Back to activities" />
+          <Card className="mt-8">
+            <CardContent className="py-8 text-center">
+              <p className="font-semibold text-foreground">This activity could not be loaded.</p>
+              <Button className="mt-4" onClick={onBack}>Return to activities</Button>
             </CardContent>
           </Card>
         </div>

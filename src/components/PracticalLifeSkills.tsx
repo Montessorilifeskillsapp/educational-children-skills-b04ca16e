@@ -8,8 +8,6 @@ import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSki
 import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
-import { useSubscription } from '@/contexts/SubscriptionContext';
-import { canAccessSectionItem } from '@/lib/freeTierAccess';
 import SkillActivity from './SkillActivity';
 
 interface Step {
@@ -33,8 +31,6 @@ const mergedPracticalLifeSkills = {
 };
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
-  const { isPremium } = useSubscription();
-
   const skill = mergedPracticalLifeSkills[skillId];
 
   const buildSteps = (): Step[] => {
@@ -79,33 +75,6 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
   // skill registry. Falling back keeps the screen from rendering blank.
   if (!skill) {
     return <SkillActivity skillId={skillId} onBack={onBack} onComplete={onComplete} />;
-  }
-
-  const hasAccess = canAccessSectionItem(
-    Object.values(mergedPracticalLifeSkills).map((sectionSkill) => ({
-      id: sectionSkill.id,
-      isPremium: sectionSkill.isPremium,
-    })),
-    skillId,
-    isPremium,
-  );
-
-  if (!hasAccess) {
-    return (
-      <div className={`min-h-screen ${montessoriTheme.backgrounds.practical} p-6`}>
-        <div className="max-w-xl mx-auto pt-12">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-center">Premium activity</CardTitle>
-            </CardHeader>
-            <CardContent className="text-center space-y-4">
-              <p className="text-muted-foreground">Only the first existing free Practical Life activity is available on the free plan.</p>
-              <Button onClick={onBack}>Back to Practical Life</Button>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-    );
   }
 
   const completedSteps = steps.filter(step => step.completed).length;
