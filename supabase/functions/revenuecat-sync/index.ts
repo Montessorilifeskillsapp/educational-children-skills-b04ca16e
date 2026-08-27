@@ -93,6 +93,31 @@ serve(async (req) => {
           ? null
           : null;
 
+    // A missing RevenueCat entitlement must not revoke access granted by an
+    // access code or an administrator. Those providers are independent of IAP.
+    if (!subscribed) {
+      const { data: existing } = await supabaseAdmin
+        .from("subscribers")
+        .select("provider, subscribed, subscription_tier, subscription_end")
+        .eq("user_id", user.id)
+        .maybeSingle();
+      const independentlyGranted = existing?.provider === "access_code" || existing?.provider === "manual";
+      const stillActive = existing?.subscription_end
+        ? new Date(existing.subscription_end).getTime() > Date.now()
+        : Boolean(existing?.subscribed);
+
+      if (independentlyGranted && stillActive) {
+        return new Response(JSON.stringify({
+          ok: true,
+          subscribed: true,
+          subscription_tier: existing.subscription_tier,
+          provider: existing.provider,
+        }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        });
+      }
+    }
+
     await supabaseAdmin.from("subscribers").upsert(
       {
         email: user.email,

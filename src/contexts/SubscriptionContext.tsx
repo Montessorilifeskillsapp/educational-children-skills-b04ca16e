@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
+import { isNativePurchaseAvailable, syncCurrentRevenueCatStatus } from '@/lib/revenuecat';
 
 interface SubscriptionPlan {
   id: string;
@@ -75,6 +76,17 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     }
 
     try {
+      // TestFlight/Play purchases are held by the store. Mirror that entitlement
+      // before reading our subscriber row so access is restored on every launch,
+      // not only when the user happens to revisit the plans screen.
+      if (isNativePurchaseAvailable()) {
+        try {
+          await syncCurrentRevenueCatStatus(user.id);
+        } catch (syncError) {
+          console.warn('Native subscription sync failed; checking last known access', syncError);
+        }
+      }
+
       const { data, error } = await supabase.functions.invoke('check-subscription');
 
       if (error) {
