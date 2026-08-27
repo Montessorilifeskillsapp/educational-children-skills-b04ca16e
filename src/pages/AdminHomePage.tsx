@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import AdminBackBar from '@/components/AdminBackBar';
 
 const links = [
   {
@@ -58,6 +59,7 @@ const AdminHomePage = () => {
 
   return (
     <div className="min-h-screen p-6 max-w-3xl mx-auto space-y-6">
+      <AdminBackBar />
       <header>
         <h1 className="text-3xl font-bold">Admin</h1>
         <p className="text-muted-foreground">Choose an admin area.</p>

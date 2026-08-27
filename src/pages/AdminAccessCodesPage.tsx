@@ -11,6 +11,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import AccessCodeTestRedeem from '@/components/AccessCodeTestRedeem';
+import AdminBackBar from '@/components/AdminBackBar';
 
 interface AccessCode {
   id: string;
@@ -194,6 +195,7 @@ const AdminAccessCodesPage = () => {
 
   return (
     <div className="container mx-auto p-6 space-y-6 max-w-5xl">
+      <AdminBackBar />
       <div>
         <h1 className="text-3xl font-bold">Access Codes</h1>
         <p className="text-muted-foreground">Give selected people full access without payment.</p>

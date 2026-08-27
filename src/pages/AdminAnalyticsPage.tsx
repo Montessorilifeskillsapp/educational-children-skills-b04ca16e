@@ -6,6 +6,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import AdminBackBar from '@/components/AdminBackBar';
 
 interface FunnelData {
   days: number;
@@ -84,6 +85,7 @@ const AdminAnalyticsPage = () => {
 
   return (
     <div className="container mx-auto p-6 space-y-6 max-w-6xl">
+      <AdminBackBar />
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold">Conversion Funnel</h1>
