@@ -28,6 +28,17 @@ const SkillCard: React.FC<SkillCardProps> = ({
   isPremium 
 }) => {
   const isLocked = skill.isPremium && !isPremium;
+
+  // Always open an activity from the very top of the page
+  const handleSelect = () => {
+    onSelect();
+    if (typeof window !== 'undefined') {
+      const toTop = () => window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+      toTop();
+      requestAnimationFrame(toTop);
+      window.setTimeout(toTop, 150);
+    }
+  };
   
   const getCategoryColor = (category: string, skillColor?: string) => {
     // If skill has specific color, use it with vibrant styling (no borders)
