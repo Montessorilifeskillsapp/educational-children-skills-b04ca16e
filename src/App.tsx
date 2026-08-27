@@ -61,6 +61,7 @@ const RouteEffects = () => {
 
 const App = () => {
   useCapacitorAuthDeepLink();
+  useNativeWebViewRecovery();
 
   useEffect(() => {
     // Initialize analytics on app start
