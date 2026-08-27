@@ -169,8 +169,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       await purchaseProductId(productId);
       // The StoreKit sheet can leave the WKWebView with a stale (blank) layer.
       forceWebViewRepaint();
+      await refreshSubscription();
       toast({ title: 'Purchase complete', description: 'Your subscription is now active.' });
-      try { await refreshSubscription?.(); } catch { /* noop */ }
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       // RevenueCat throws { userCancelled: true } when user dismisses the sheet
@@ -193,7 +193,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     try {
       await restorePurchases();
       forceWebViewRepaint();
-      try { await refreshSubscription?.(); } catch { /* noop */ }
+      await refreshSubscription();
       toast({ title: 'Purchases restored', description: 'If you had an active subscription, it is now linked to this account.' });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
