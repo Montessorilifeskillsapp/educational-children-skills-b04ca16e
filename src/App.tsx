@@ -45,6 +45,7 @@ import AdminVerifyPage from "./pages/AdminVerifyPage";
 import AdminHomePage from "./pages/AdminHomePage";
 
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
+import HomeFab from "@/components/HomeFab";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { analytics } from "@/lib/analytics";
@@ -133,6 +134,7 @@ const App = () => {
                         </Routes>
                         </ErrorBoundary>
                         {!Capacitor.isNativePlatform() && <PWAInstallPrompt />}
+                        <HomeFab />
                         <AdminAnalyticsLink />
                     </BrowserRouter>
                   </SubscriptionProvider>
