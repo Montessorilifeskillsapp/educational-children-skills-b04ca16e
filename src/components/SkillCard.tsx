@@ -110,14 +110,14 @@ const SkillCard: React.FC<SkillCardProps> = ({
         } relative ${
           isLocked ? 'opacity-60' : ''
         }`}
-        onClick={isLocked ? undefined : onSelect}
+        onClick={isLocked ? undefined : handleSelect}
         role="button"
         tabIndex={isLocked ? -1 : 0}
         aria-label={`${skill.title} - ${skill.difficulty} level ${skill.category} activity. ${isCompleted ? 'Completed' : 'Not completed'}. ${isLocked ? 'Premium required' : 'Click to start'}`}
         onKeyDown={(e) => {
           if (!isLocked && (e.key === 'Enter' || e.key === ' ')) {
             e.preventDefault();
-            onSelect();
+            handleSelect();
           }
         }}
       >
