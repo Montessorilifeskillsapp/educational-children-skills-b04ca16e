@@ -29,22 +29,17 @@ const AccessCodeRedeem: React.FC = () => {
 
     setSubmitting(true);
     try {
-      const { data: sess } = await supabase.auth.getSession();
-      const token = sess.session?.access_token;
-      const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/redeem-access-code`, {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ code }),
+      const { data, error } = await supabase.functions.invoke('redeem-access-code', {
+        body: { code },
       });
-      const data = await res.json().catch(() => ({}));
 
-      if (!res.ok) {
+      if (error || (data as { error?: string })?.error) {
+        const message =
+          (data as { error?: string })?.error ??
+          (error?.message ?? 'That access code could not be redeemed.');
         toast({
           title: 'Code not accepted',
-          description: data?.error ?? 'That access code could not be redeemed.',
+          description: message,
           variant: 'destructive',
         });
         return;
