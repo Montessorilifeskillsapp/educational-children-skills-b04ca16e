@@ -11,6 +11,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import AccessCodeTestRedeem from '@/components/AccessCodeTestRedeem';
+import AccessCodeRedeem from '@/components/AccessCodeRedeem';
 import AdminBackBar from '@/components/AdminBackBar';
 
 interface AccessCode {
@@ -200,6 +201,18 @@ const AdminAccessCodesPage = () => {
         <h1 className="text-3xl font-bold">Access Codes</h1>
         <p className="text-muted-foreground">Give selected people full access without payment.</p>
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Redeem a code on your account</CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Paste a code here to unlock full access on your own account — no payment needed.
+          </p>
+          <AccessCodeRedeem />
+        </CardContent>
+      </Card>
 
       <AccessCodeTestRedeem onFinished={() => void load()} />
 
