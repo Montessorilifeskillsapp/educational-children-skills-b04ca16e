@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, ShoppingCart, Star } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
-import { LazyImage } from '@/components/LazyImage';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
 
 import { useSEO } from '@/hooks/useSEO';
@@ -67,11 +66,23 @@ const ShopPage: React.FC = () => {
             {filtered.map((product) => (
               <article key={product.id}>
                 <Card className="h-full flex flex-col overflow-hidden hover:shadow-lg transition-shadow">
-                  <LazyImage
+                  <img
                     src={product.image || '/placeholder.svg'}
-                    alt={product.name}
-                    className="w-full h-48 object-cover"
+                    alt={`${product.name} book cover`}
+                    loading="lazy"
+                    decoding="async"
+                    className="w-full h-48 object-cover bg-muted"
+                    onError={(e) => {
+                      const img = e.currentTarget;
+                      if (img.dataset.retried !== 'true' && product.image) {
+                        img.dataset.retried = 'true';
+                        img.src = `${product.image}${product.image.includes('?') ? '&' : '?'}r=1`;
+                      } else if (img.src !== `${window.location.origin}/placeholder.svg`) {
+                        img.src = '/placeholder.svg';
+                      }
+                    }}
                   />
+
                   <CardContent className="flex-1 flex flex-col p-4">
                     <h2 className="text-base font-semibold text-foreground mb-1">
                       {product.name}
