@@ -442,6 +442,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 {syncingStatus ? 'Syncing…' : 'Sync plan'}
               </Button>
             </div>
+            <div className="border-t border-border pt-5">
+              <AccessCodeRedeem />
+            </div>
           </CardContent>
         </Card>
       </div>
