@@ -5,7 +5,6 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Search, ShoppingCart, Star } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
-import { LazyImage } from '@/components/LazyImage';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
 
 import { useSEO } from '@/hooks/useSEO';
