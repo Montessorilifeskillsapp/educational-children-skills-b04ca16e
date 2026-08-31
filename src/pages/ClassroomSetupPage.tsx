@@ -337,6 +337,11 @@ const ClassroomSetupPage: React.FC = () => {
                   Get the printable setup guide
                 </Button>
               </Link>
+              <Link to="/home-setup">
+                <Button size="lg" variant="outline" className="rounded-full px-6">
+                  Setting up at home?
+                </Button>
+              </Link>
             </div>
           </CardContent>
         </Card>
