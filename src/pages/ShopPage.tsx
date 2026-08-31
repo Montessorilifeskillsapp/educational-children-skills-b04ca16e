@@ -3,7 +3,7 @@ import { useNavigate, Link } from 'react-router-dom';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Search, ShoppingCart, Star } from 'lucide-react';
+import { Search, ShoppingCart, Star, School, ArrowRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
 
