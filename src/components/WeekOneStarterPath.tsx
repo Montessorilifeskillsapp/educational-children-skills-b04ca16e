@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle2, Circle, Sparkles, ArrowRight } from 'lucide-react';
 import { montessoriImages } from '@/assets/images';
-import { sensorialImages } from '@/assets/sensorial';
-import { languageImages } from '@/assets/language';
-import { mathImages } from '@/assets/math';
+import walkingLine from '@/assets/materials/walking-line.jpg';
+import spooningImg from '@/assets/materials/spooning.jpg';
+import careOfPerson from '@/assets/materials/care-of-person.jpg';
+import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 
 interface DayActivity {
   day: number;
@@ -17,48 +18,52 @@ interface DayActivity {
   image: string;
 }
 
+// AMI sequence: the child's first week is Practical Life only — control of
+// movement, then transferring, then care of self, then care of environment.
+// No other curriculum area is introduced until Practical Life work is settled.
 const WEEK_ONE: DayActivity[] = [
   {
     day: 1,
-    area: 'Practical Life',
-    title: 'Pouring Water',
-    why: 'Builds focus, coordination, and the confidence to work independently.',
-    skillId: 'pouring',
-    image: montessoriImages['pouring-set'],
+    area: 'Practical Life · Control of Movement',
+    title: 'Carrying a Tray',
+    why: 'The first lesson of all: how to carry work carefully to a table and back to the shelf.',
+    skillId: 'carrying-objects',
+    image: walkingLine,
   },
   {
     day: 2,
-    area: 'Practical Life',
-    title: 'Spooning & Sorting',
-    why: 'Refines hand control — the foundation for writing later on.',
-    skillId: 'spooning',
-    image: montessoriImages['pouring-set'],
+    area: 'Practical Life · Preliminary Exercises',
+    title: 'Spooning Beans',
+    why: 'A dry transfer before a wet one — refines the hand and builds the pincer grip.',
+    skillId: 'spooning-beans',
+    image: spooningImg,
   },
   {
     day: 3,
-    area: 'Sensorial',
-    title: 'The Pink Tower',
-    why: 'Trains the eye to discriminate dimension — a key visual sense.',
-    skillId: 'pink-tower',
-    image: sensorialImages['pink-tower'],
+    area: 'Practical Life · Preliminary Exercises',
+    title: 'Pouring Water',
+    why: 'The wet transfer. Concentration, control, and a self-correcting spill to clean up.',
+    skillId: 'pouring-water',
+    image: montessoriImages['pouring-set'],
   },
   {
     day: 4,
-    area: 'Language',
-    title: 'Sandpaper Letters',
-    why: 'Connects letter sounds with the muscular memory of writing.',
-    skillId: 'sandpaper-letters',
-    image: languageImages['sandpaper-letters'],
+    area: 'Practical Life · Care of Self',
+    title: 'Hand Washing',
+    why: 'A long, ordered sequence the child can complete entirely alone.',
+    skillId: 'hand-washing',
+    image: careOfPerson,
   },
   {
     day: 5,
-    area: 'Mathematics',
-    title: 'Number Rods',
-    why: 'Makes quantity concrete before it becomes a symbol.',
-    skillId: 'number-rods',
-    image: mathImages['number-rods'] ?? mathImages['golden-beads'],
+    area: 'Practical Life · Care of the Environment',
+    title: 'Dusting a Shelf',
+    why: 'Turns the child into a carer of the room — the root of belonging and responsibility.',
+    skillId: 'dusting',
+    image: cleaningTools,
   },
 ];
+
 
 interface WeekOneStarterPathProps {
   completedSkills: string[];
