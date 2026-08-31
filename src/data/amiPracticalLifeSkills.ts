@@ -1,5 +1,28 @@
 import { EnhancedMontessoriSkill } from '../types/montessoriSkill';
 
+import carryingTray from '@/assets/materials/carrying-tray.jpg';
+import carryingChair from '@/assets/materials/carrying-chair.jpg';
+import workMat from '@/assets/materials/work-mat.jpg';
+import puttingOnCoat from '@/assets/materials/putting-on-coat.jpg';
+import shoePolishing from '@/assets/materials/shoe-polishing.jpg';
+import spooning from '@/assets/materials/spooning.jpg';
+import pouringSet from '@/assets/materials/pouring-set.jpg';
+import transferTools from '@/assets/materials/transfer-tools.jpg';
+import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
+import dishwashing from '@/assets/materials/dishwashing.jpg';
+import foldingCloths from '@/assets/materials/folding-cloths.jpg';
+import foodPrep from '@/assets/materials/food-prep.jpg';
+import dressingFrame from '@/assets/materials/dressing-frame.jpg';
+import shoeTying from '@/assets/materials/shoe-tying.jpg';
+import bedMaking from '@/assets/materials/bed-making.jpg';
+import walkingLine from '@/assets/materials/walking-line.jpg';
+import graceCourtesyTable from '@/assets/materials/grace-courtesy-table-setting.jpg';
+import careOfPerson from '@/assets/materials/care-of-person.jpg';
+import botanyCare from '@/assets/materials/botany-care.jpg';
+import threading from '@/assets/materials/threading.jpg';
+import cuttingWork from '@/assets/materials/cutting-work.jpg';
+import sorting from '@/assets/materials/sorting.jpg';
+
 export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
   // CARE OF SELF ACTIVITIES
   'dressing-frame-buttons': {
@@ -12,6 +35,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '🧥',
+    image: dressingFrame,
     materials: ['Wooden dressing frame with large buttons', 'Two fabric panels'],
     directAims: ['Master buttoning technique', 'Develop pincer grasp', 'Improve bilateral coordination'],
     indirectAims: ['Prepare for independent dressing', 'Develop concentration', 'Build self-confidence'],
@@ -78,6 +102,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '🤐',
+    image: dressingFrame,
     materials: ['Wooden frame with separating zipper', 'Two fabric panels'],
     directAims: ['Master zipper operation', 'Develop bilateral coordination', 'Build finger strength'],
     indirectAims: ['Prepare for independent dressing', 'Develop problem-solving skills', 'Build confidence'],
@@ -103,8 +128,8 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
         title: 'Supported Zipper Practice',
         description: 'Child learns with teacher support',
         steps: [
-          'Guide child\'s hand placement',
-          'Help maintain proper tension',
+          "Guide child's hand placement",
+'Help maintain proper tension',
           'Support alignment of zipper parts',
           'Encourage multiple practice repetitions',
           'Celebrate successful zipping'
@@ -144,6 +169,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '📌',
+    image: dressingFrame,
     materials: ['Wooden frame with metal snaps', 'Two fabric panels'],
     directAims: ['Master snap fastening technique', 'Develop finger strength', 'Improve precision'],
     indirectAims: ['Build independence in dressing', 'Develop concentration', 'Prepare for complex fasteners'],
@@ -210,6 +236,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: true,
     icon: '👟',
+    image: dressingFrame,
     materials: ['Wooden frame with eyelets', 'Two shoe laces', 'Fabric panels shaped like shoe fronts'],
     directAims: ['Master lacing sequence', 'Develop bilateral coordination', 'Prepare for shoe tying'],
     indirectAims: ['Build persistence and concentration', 'Develop spatial awareness', 'Foster independence'],
@@ -276,6 +303,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '👞',
+    image: shoePolishing,
     materials: ['Leather shoes', 'Shoe polish', 'Soft cloths', 'Brush', 'Newspaper', 'Apron'],
     directAims: ['Learn shoe care technique', 'Develop circular polishing motion', 'Understand material care'],
     indirectAims: ['Develop responsibility for belongings', 'Build work ethic', 'Prepare for adult responsibilities'],
@@ -345,6 +373,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Environment',
     isPremium: false,
     icon: '🧹',
+    image: cleaningTools,
     materials: ['Feather duster or soft cloth', 'Spray bottle with water', 'Objects to dust', 'Tray'],
     directAims: ['Learn proper dusting technique', 'Develop systematic cleaning approach', 'Care for classroom materials'],
     indirectAims: ['Develop attention to detail', 'Build responsibility for environment', 'Prepare for home responsibilities'],
@@ -411,6 +440,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Environment',
     isPremium: false,
     icon: '🪑',
+    image: cleaningTools,
     materials: ['Basin with soapy water', 'Sponge', 'Dry cloths', 'Apron', 'Bucket for dirty water'],
     directAims: ['Learn table washing technique', 'Develop systematic cleaning approach', 'Maintain clean workspace'],
     indirectAims: ['Build responsibility for shared spaces', 'Develop work completion skills', 'Prepare for household tasks'],
@@ -478,6 +508,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Environment',
     isPremium: false,
     icon: '🧽',
+    image: cleaningTools,
     materials: ['Child-sized broom', 'Dustpan', 'Small brush for dustpan edge'],
     directAims: ['Master sweeping technique', 'Develop coordination with tools', 'Maintain floor cleanliness'],
     indirectAims: ['Build responsibility for environment', 'Develop gross motor skills', 'Prepare for household maintenance'],
@@ -543,9 +574,10 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     purpose: 'Develop responsibility for living things and connection to nature',
     ageRange: '3-6 years',
     difficulty: 'Intermediate',
-    category: 'Care of Environment',
+    category: 'Advanced Activities',
     isPremium: false,
     icon: '🪴',
+    image: botanyCare,
     materials: ['Watering can', 'Small scissors', 'Spray bottle', 'Soft cloth', 'Saucer for water'],
     directAims: ['Learn plant care routine', 'Develop gentle handling of living things', 'Understand plant needs'],
     indirectAims: ['Foster connection to nature', 'Develop empathy and responsibility', 'Build observation skills'],
@@ -611,9 +643,10 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     purpose: 'Develop balance, coordination, concentration, and body awareness',
     ageRange: '2.5-6 years',
     difficulty: 'Beginner',
-    category: 'Control of Movement',
+    category: 'Beginning Activities',
     isPremium: false,
     icon: '👣',
+    image: walkingLine,
     materials: ['Elliptical line marked on floor', 'Optional: objects to carry', 'Music (optional)'],
     directAims: ['Develop balance and coordination', 'Improve posture', 'Control body movement'],
     indirectAims: ['Develop concentration', 'Build self-confidence', 'Prepare body for other activities'],
@@ -677,9 +710,10 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     purpose: 'Develop coordination, spatial awareness, and care for materials',
     ageRange: '2.5-6 years',
     difficulty: 'Beginner',
-    category: 'Control of Movement',
+    category: 'Beginning Activities',
     isPremium: false,
     icon: '📦',
+    image: carryingTray,
     materials: ['Various objects of different sizes and weights', 'Trays', 'Baskets', 'Mats'],
     directAims: ['Master safe carrying techniques', 'Develop spatial awareness', 'Build confidence in movement'],
     indirectAims: ['Develop responsibility for materials', 'Build body awareness', 'Prepare for work transport'],
@@ -747,6 +781,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '👋',
+    image: graceCourtesyTable,
     materials: ['None required', 'Optional: cultural greeting examples'],
     directAims: ['Learn greeting protocols', 'Develop social confidence', 'Practice respectful interaction'],
     indirectAims: ['Build community connections', 'Develop cultural awareness', 'Prepare for social situations'],
@@ -784,7 +819,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
       independentPractice: {
         title: 'Independent Greeting',
         description: 'Child greets others independently',
-        indicators: ['Initiates greetings appropriately', 'Responds well to others\' greetings', 'Shows cultural sensitivity'],
+        indicators: ['Initiates greetings appropriately', "Responds well to others' greetings", 'Shows cultural sensitivity'],
         troubleshooting: ['If too shy: practice with familiar people first', 'If too bold: discuss appropriate boundaries'],
         duration: 'Ongoing throughout day'
       },
@@ -813,6 +848,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🙏',
+    image: graceCourtesyTable,
     materials: ['None required'],
     directAims: ['Learn polite interruption techniques', 'Develop social awareness', 'Practice respectful communication'],
     indirectAims: ['Build considerate behavior', 'Develop empathy', 'Prepare for social situations'],
@@ -831,8 +867,8 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
           'Thank person for their attention',
           'Step away appropriately'
         ],
-        keyPoints: ['Wait for appropriate moment', 'Use polite, clear voice', 'Respect others\' responses'],
-        duration: '8-12 minutes'
+        keyPoints: ['Wait for appropriate moment', 'Use polite, clear voice', "Respect others' responses"],
+duration: '8-12 minutes'
       },
       guidedPractice: {
         title: 'Supported "Excuse Me" Practice',
@@ -879,6 +915,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🤝',
+    image: graceCourtesyTable,
     materials: ['None required'],
     directAims: ['Learn to offer help appropriately', 'Develop observation skills', 'Practice helpful behavior'],
     indirectAims: ['Build empathy and community spirit', 'Develop social awareness', 'Foster cooperative behavior'],
@@ -933,5 +970,1780 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
         variations: ['Different types of assistance', 'Group helping projects', 'Helping in various environments']
       }
     }
-  }
+  },
+  'carrying-a-tray': {
+    id: 'carrying-a-tray',
+    title: 'Carrying a Tray',
+    description: 'Carry a tray with both hands, keeping it level while walking carefully',
+    purpose: 'Develop gross motor control, balance, and preparation for carrying materials',
+    ageRange: '2-3 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🍽️',
+    image: carryingTray,
+    materials: [
+      'Small wooden tray',
+      'Light object such as a small glass or folded cloth',
+      'Clear table space',
+    ],
+    directAims: ['Learn the correct technique for carrying a tray', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Carrying a Tray Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child and ask them to watch.',
+      'Stand behind the tray with feet slightly apart.',
+      'Place one hand on each side of the tray.',
+      'Lift the tray to waist height, keeping it level.',
+      'Walk slowly to the destination, eyes on the tray.',
+      'Lower the tray carefully onto the table.',
+      'Release hands and return the tray to the shelf.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'carrying-a-chair': {
+    id: 'carrying-a-chair',
+    title: 'Carrying a Chair',
+    description: 'Lift and carry a small chair safely using two hands',
+    purpose: 'Develop gross motor coordination, care for furniture, and body control',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🪑',
+    image: carryingChair,
+    materials: [
+      'Child-sized wooden chair',
+      'Clear walking path',
+    ],
+    directAims: ['Learn the correct technique for carrying a chair', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Carrying a Chair Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to watch.',
+      'Stand at the right side of the chair.',
+      'Grip the back and side of the chair firmly.',
+      'Lift the chair slightly off the ground.',
+      'Carry the chair without dragging or bumping.',
+      'Place it down gently where needed.',
+      'Return the chair to its place the same way.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'rolling-unrolling-mat': {
+    id: 'rolling-unrolling-mat',
+    title: 'Rolling and Unrolling a Mat',
+    description: 'Unroll a work mat to define a workspace and roll it up again when finished',
+    purpose: 'Develop bilateral coordination and understanding of personal workspace',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🧘',
+    image: workMat,
+    materials: [
+      'Small cotton or woven work mat',
+      'Floor space or table space',
+    ],
+    directAims: ['Learn the correct technique for rolling and unrolling a mat', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Rolling and Unrolling a Mat Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the mat area.',
+      'Kneel beside the rolled mat.',
+      'Hold both ends of the mat.',
+      'Unroll it slowly toward you, keeping edges straight.',
+      'Smooth the mat flat with both hands.',
+      'To roll: grasp the far edge and roll tightly toward you.',
+      'Place the rolled mat back in its basket or corner.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'opening-closing-containers': {
+    id: 'opening-closing-containers',
+    title: 'Opening and Closing Containers',
+    description: 'Practice opening and closing lids, boxes, and jars of varying types',
+    purpose: 'Develop wrist rotation, fine motor control, and problem-solving',
+    ageRange: '2-3.5 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🫙',
+    image: sorting,
+    materials: [
+      'Small basket with assorted containers',
+      'Lids that screw, snap or flip',
+      'Tray',
+    ],
+    directAims: ['Learn the correct technique for opening and closing containers', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Opening and Closing Containers Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to a table.',
+      'Place the basket of containers on the tray.',
+      'Select one container and show how to open it.',
+      'Close it slowly and deliberately.',
+      'Place the container back in the basket.',
+      'Repeat with each type of lid.',
+      'Return the tray to the shelf.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'folding-cloths': {
+    id: 'folding-cloths',
+    title: 'Folding Cloths',
+    description: 'Fold small cloths in half and quarters with careful, precise movements',
+    purpose: 'Develop hand-eye coordination, sense of order, and preparation for later folding tasks',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🧻',
+    image: foldingCloths,
+    materials: [
+      'Small cotton cloths',
+      'Folding board or table with clear space',
+      'Basket',
+    ],
+    directAims: ['Learn the correct technique for folding cloths', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Folding Cloths Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Lay the cloth flat, tag side down.',
+      'Find the two adjacent corners with both hands.',
+      'Fold the cloth in half lengthwise, edges together.',
+      'Smooth the fold with fingertips.',
+      'Fold in half again or into quarters.',
+      'Place the folded cloth in the basket.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'using-tongs': {
+    id: 'using-tongs',
+    title: 'Using Tongs',
+    description: 'Transfer small objects from one container to another using tongs',
+    purpose: 'Develop pincer grasp strength, hand-eye coordination, and concentration',
+    ageRange: '3-4.5 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🥢',
+    image: transferTools,
+    materials: [
+      'Small tongs',
+      'Two small bowls',
+      'Small objects to transfer',
+      'Tray',
+    ],
+    directAims: ['Learn the correct technique for using tongs', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Using Tongs Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Set one bowl of objects on the left and an empty bowl on the right.',
+      'Hold the tongs with thumb and fingers in the loops.',
+      'Squeeze to open, grasp one object, lift and transfer.',
+      'Release into the right bowl.',
+      'Continue until all objects are transferred.',
+      'Return objects to the left bowl and replace the tray.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'using-a-sponge': {
+    id: 'using-a-sponge',
+    title: 'Using a Sponge',
+    description: 'Squeeze and wipe with a sponge to absorb water and clean surfaces',
+    purpose: 'Develop hand strength, care of environment, and preparation for cleaning tasks',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Beginning Activities',
+    isPremium: false,
+    icon: '🧽',
+    image: cleaningTools,
+    materials: [
+      'Small natural sponge',
+      'Small bowl of water',
+      'Tray with low edges',
+      'Cloth for drying',
+    ],
+    directAims: ['Learn the correct technique for using a sponge', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Using a Sponge Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Squeeze the sponge dry over the bowl.',
+      'Place the sponge flat on the table.',
+      'Press it slowly with the whole hand.',
+      'Lift and squeeze water back into the bowl.',
+      'Repeat until most water is transferred.',
+      'Wipe the tray and return materials.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'washing-cloths': {
+    id: 'washing-cloths',
+    title: 'Washing Cloths',
+    description: 'Wash small cloths by hand using soap and water, then wring and hang to dry',
+    purpose: 'Develop sequential care of environment skills and understanding of laundering',
+    ageRange: '3.5-5 years',
+    difficulty: 'Intermediate',
+    category: 'Care of Environment',
+    isPremium: false,
+    icon: '🧺',
+    image: foldingCloths,
+    materials: [
+      'Small basin with warm water',
+      'Small bar of soap or soap flakes',
+      'Clothesline and pegs',
+      'Small cloths to wash',
+    ],
+    directAims: ['Learn the correct technique for washing cloths', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Washing Cloths Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the washing area.',
+      'Fill the basin with a little warm water.',
+      'Immerse the cloth and squeeze it gently.',
+      'Rub soap on the cloth and scrub lightly.',
+      'Rinse in clean water.',
+      'Squeeze out excess water.',
+      'Hang the cloth on the line with a peg.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'preparing-simple-food': {
+    id: 'preparing-simple-food',
+    title: 'Preparing Simple Food',
+    description: 'Prepare a simple food item such as spreading butter or slicing a banana',
+    purpose: 'Develop independence, sequencing, and contribution to community life',
+    ageRange: '3-6 years',
+    difficulty: 'Intermediate',
+    category: 'Care of Environment',
+    isPremium: false,
+    icon: '🥪',
+    image: foodPrep,
+    materials: [
+      'Child-sized cutting board',
+      'Small knife or spreader',
+      'Small bowl',
+      'Simple food such as banana slices or crackers',
+    ],
+    directAims: ['Learn the correct technique for preparing simple food', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Preparing Simple Food Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to wash hands.',
+      'Place food on the cutting board.',
+      'Demonstrate safe knife grip and cutting motion.',
+      'Cut food into pieces or spread with a small utensil.',
+      'Place prepared food into a small bowl.',
+      'Offer the food or place it on a serving plate.',
+      'Clean up spills and return materials.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'blowing-the-nose': {
+    id: 'blowing-the-nose',
+    title: 'Blowing the Nose',
+    description: 'Learn to blow the nose into a tissue and dispose of it hygienically',
+    purpose: 'Develop self-care independence and awareness of personal hygiene',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Care of Self',
+    isPremium: false,
+    icon: '🤧',
+    image: careOfPerson,
+    materials: [
+      'Box of tissues',
+      'Small mirror',
+      'Waste bin',
+    ],
+    directAims: ['Learn the correct technique for blowing the nose', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Blowing the Nose Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child when needed.',
+      'Take one tissue from the box.',
+      'Hold it to the nose with both hands.',
+      'Press one nostril gently and blow through the other.',
+      'Repeat with the other nostril.',
+      'Dispose of the tissue in the bin.',
+      'Wash hands.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'putting-on-apron': {
+    id: 'putting-on-apron',
+    title: 'Putting On and Removing an Apron',
+    description: 'Learn to put on and remove an apron independently before messy work',
+    purpose: 'Develop dressing independence and preparation for practical life activities',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Care of Self',
+    isPremium: false,
+    icon: '👕',
+    image: foodPrep,
+    materials: [
+      'Child-sized apron',
+      'Mirror',
+      'Hook or place to hang apron',
+    ],
+    directAims: ['Learn the correct technique for putting on and removing an apron', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Putting On and Removing an Apron Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to put on the apron.',
+      'Hold the apron by the neck strap.',
+      'Place the neck loop over the head.',
+      'Reach behind to find the waist ties.',
+      'Tie or fasten the waist ties.',
+      'Check in the mirror that the apron is straight.',
+      'To remove, untie and lift over the head.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'dressing-frame-buckles': {
+    id: 'dressing-frame-buckles',
+    title: 'Dressing Frame - Buckles',
+    description: 'Learn to fasten and unfasten buckles using a wooden dressing frame',
+    purpose: 'Develop finger strength, coordination, and independence in dressing',
+    ageRange: '3-5 years',
+    difficulty: 'Intermediate',
+    category: 'Care of Self',
+    isPremium: false,
+    icon: '🎒',
+    image: dressingFrame,
+    materials: [
+      'Wooden dressing frame with buckle strap',
+      'Table',
+    ],
+    directAims: ['Learn the correct technique for dressing frame - buckles', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Dressing Frame - Buckles Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Place the frame flat in front of the child.',
+      'Show how to unfasten the buckle by lifting the metal prong.',
+      'Pull the strap free from the buckle.',
+      'To fasten: thread the strap through the buckle.',
+      'Insert the prong through the correct hole.',
+      'Press the buckle closed and check it is secure.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'dressing-frame-bows': {
+    id: 'dressing-frame-bows',
+    title: 'Dressing Frame - Bows',
+    description: 'Master tying a bow using ribbons mounted on a wooden dressing frame',
+    purpose: 'Develop complex bilateral coordination and prepare for shoe tying',
+    ageRange: '4-6 years',
+    difficulty: 'Advanced',
+    category: 'Care of Self',
+    isPremium: false,
+    icon: '🎀',
+    image: dressingFrame,
+    materials: [
+      'Wooden dressing frame with bow ties',
+      'Table',
+    ],
+    directAims: ['Learn the correct technique for dressing frame - bows', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Dressing Frame - Bows Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Lay the frame flat and untie the bow.',
+      'Cross the two lace ends.',
+      'Make a loop with one end.',
+      'Wrap the other end around the loop.',
+      'Pull the second end through to form a second loop.',
+      'Tighten the bow and arrange the loops evenly.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'putting-on-a-coat': {
+    id: 'putting-on-a-coat',
+    title: 'Putting on a Coat',
+    description: "Learn the Montessori 'flip' technique to put on a coat independently",
+    purpose: 'Develop independence in dressing and problem-solving',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Care of Self',
+    isPremium: false,
+    icon: '🧥',
+    image: puttingOnCoat,
+    materials: [
+      'Child-sized coat',
+      'Low hook',
+      'Small bench or floor space',
+    ],
+    directAims: ['Learn the correct technique for putting on a coat', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Putting on a Coat Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the coat area.',
+      'Lay the coat on the floor, opening facing up.',
+      'Stand at the head of the coat and place toes against the collar.',
+      'Bend down and insert hands into the sleeve openings.',
+      'Lift the coat up and over the head in one movement.',
+      'Pull the coat down over the shoulders.',
+      'Fasten any buttons or zipper from bottom to top.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'preparing-serving-snack': {
+    id: 'preparing-serving-snack',
+    title: 'Preparing and Serving a Snack',
+    description: 'Prepare a simple snack and serve it to oneself or a friend',
+    purpose: 'Develop independence, sequencing, and grace in serving others',
+    ageRange: '3.5-6 years',
+    difficulty: 'Intermediate',
+    category: 'Care of Self',
+    isPremium: false,
+    icon: '🍎',
+    image: foodPrep,
+    materials: [
+      'Small tray',
+      'Child-sized pitcher',
+      'Small cups or plates',
+      'Simple snack',
+      'Napkins',
+    ],
+    directAims: ['Learn the correct technique for preparing and serving a snack', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Preparing and Serving a Snack Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the snack area.',
+      'Wash hands and put on an apron.',
+      'Place snack items on the tray.',
+      'Pour drinks carefully into cups.',
+      'Arrange plates, napkins and food on the tray.',
+      'Carry the tray to the table safely.',
+      'Serve each place setting politely.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'watching-without-interrupting': {
+    id: 'watching-without-interrupting',
+    title: 'Watching Without Interrupting',
+    description: "Learn to observe another person's work quietly without disturbing them",
+    purpose: "Develop respect for others' concentration and self-control",
+    ageRange: '2.5-5 years',
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '👀',
+    image: graceCourtesyTable,
+    materials: [
+      'Small group of children or two adults for modeling',
+      'Quiet observation spot',
+    ],
+    directAims: ['Learn the correct technique for watching without interrupting', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Watching Without Interrupting Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Gather a small group at circle time.',
+      'Explain that sometimes we watch quietly.',
+      'Demonstrate one child working while another watches.',
+      'Model standing or sitting still with hands to self.',
+      'Model returning to own work without speaking.',
+      'Invite children to practice in pairs.',
+      'Praise calm observation and respect for work.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'waiting-for-a-turn': {
+    id: 'waiting-for-a-turn',
+    title: 'Waiting for a Turn',
+    description: 'Learn to wait patiently until a material or turn becomes available',
+    purpose: 'Develop patience, self-regulation, and social awareness',
+    ageRange: '2.5-5 years',
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '⏳',
+    image: graceCourtesyTable,
+    materials: [
+      'Small object or activity that only one child can use',
+      'Visual waiting spot',
+    ],
+    directAims: ['Learn the correct technique for waiting for a turn', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Waiting for a Turn Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Introduce the activity at circle time.',
+      'Explain that only one child may use it at a time.',
+      'Demonstrate placing a hand on the waiting spot.',
+      'Model calm waiting and looking at the activity.',
+      'When the turn comes, use the activity carefully.',
+      'Return it and thank the child who was using it.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'saying-please-thank-you': {
+    id: 'saying-please-thank-you',
+    title: 'Saying "Please" and "Thank You"',
+    description: 'Practice using polite words when making requests and receiving help',
+    purpose: 'Develop courteous speech and social awareness',
+    ageRange: '2.5-4 years',
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '🙏',
+    image: graceCourtesyTable,
+    materials: [
+      'Small objects to pass',
+      'Model phrases',
+      'Calm environment',
+    ],
+    directAims: ['Learn the correct technique for saying "please" and "thank you"', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Saying "Please" and "Thank You" Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Gather the children in a circle.',
+      'Introduce the words \'please\' and \'thank you\'.',
+      'Model asking for an object using \'please\'.',
+      'Hand the object and model \'thank you\'.',
+      'Invite children to pass the object with the phrases.',
+      'Practice during natural moments throughout the day.',
+      'Acknowledge polite exchanges gently.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'walking-around-work': {
+    id: 'walking-around-work',
+    title: "Walking Around Another Child's Work",
+    description: 'Learn to walk around a mat or work rather than stepping over it',
+    purpose: "Develop respect for others' workspace and spatial awareness",
+    ageRange: '2.5-5 years',
+    difficulty: 'Beginner',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '🚶',
+    image: walkingLine,
+    materials: [
+      'Work mat or small rug on the floor',
+      'A child working at the mat',
+    ],
+    directAims: ["Learn the correct technique for walking around another child's work", 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: "Walking Around Another Child's Work Presentation",
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite children to watch.',
+      'Show a child working quietly on a mat.',
+      'Demonstrate walking slowly around the mat.',
+      'Model not stepping on or over the mat.',
+      'Explain that the mat protects the work and the worker.',
+      'Invite a child to practice walking around the mat.',
+      'Thank the child for respecting the workspace.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Walking Around Another Child\'s Work',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'solving-disagreements': {
+    id: 'solving-disagreements',
+    title: 'Solving Disagreements Respectfully',
+    description: 'Learn simple phrases and steps to resolve conflicts calmly with peers',
+    purpose: 'Develop emotional regulation, empathy, and communication skills',
+    ageRange: '4-6 years',
+    difficulty: 'Intermediate',
+    category: 'Grace and Courtesy',
+    isPremium: false,
+    icon: '🤝',
+    image: graceCourtesyTable,
+    materials: [
+      'Peace rose or talking object',
+      'Quiet peace table',
+      'Optional: picture cards of feelings',
+    ],
+    directAims: ['Learn the correct technique for solving disagreements respectfully', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Solving Disagreements Respectfully Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'When two children disagree, invite them to the peace table.',
+      'One child holds the rose and speaks.',
+      'The other listens without interrupting.',
+      'The second child takes the rose and responds.',
+      'Together they suggest a solution.',
+      'Adult guides only if needed.',
+      'Children shake hands or agree on next steps.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'cutting-with-scissors': {
+    id: 'cutting-with-scissors',
+    title: 'Cutting with Scissors',
+    description: 'Learn to cut paper along straight and curved lines using child-safe scissors',
+    purpose: 'Develop fine motor control, hand strength, and bilateral coordination',
+    ageRange: '3-5 years',
+    difficulty: 'Intermediate',
+    category: 'Advanced Activities',
+    isPremium: false,
+    icon: '✂️',
+    image: cuttingWork,
+    materials: [
+      'Child-sized scissors with blunt tip',
+      'Small paper strips',
+      'Tray or basket',
+    ],
+    directAims: ['Learn the correct technique for cutting with scissors', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Cutting with Scissors Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Hold scissors with thumb in small loop, fingers in large loop.',
+      'Open and close scissors several times.',
+      'Hold the paper strip in the non-dominant hand.',
+      'Cut the strip into pieces along pre-drawn lines.',
+      'Place cut pieces in a small container.',
+      'Return scissors and tray to the shelf.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'threading-and-sewing': {
+    id: 'threading-and-sewing',
+    title: 'Threading and Sewing',
+    description: 'Learn to thread a needle and sew a simple running stitch',
+    purpose: 'Develop fine motor precision, concentration, and hand-eye coordination',
+    ageRange: '4-6 years',
+    difficulty: 'Advanced',
+    category: 'Advanced Activities',
+    isPremium: false,
+    icon: '🧵',
+    image: threading,
+    materials: [
+      'Blunt tapestry needle',
+      'Yarn or embroidery thread',
+      'Cardboard with punched holes or burlap in an embroidery hoop',
+      'Small scissors',
+    ],
+    directAims: ['Learn the correct technique for threading and sewing', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Threading and Sewing Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the table.',
+      'Thread the needle and knot the end.',
+      'Hold the material with one hand.',
+      'Push the needle up through the first hole from underneath.',
+      'Pull the yarn through and down into the next hole.',
+      'Continue the in-and-out pattern evenly.',
+      'Tie off the thread and trim.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'peeling-slicing-food': {
+    id: 'peeling-slicing-food',
+    title: 'Peeling and Slicing Food',
+    description: 'Learn to peel and slice soft fruits and vegetables safely',
+    purpose: 'Develop knife skills, independence, and contribution to food preparation',
+    ageRange: '4-6 years',
+    difficulty: 'Advanced',
+    category: 'Advanced Activities',
+    isPremium: false,
+    icon: '🥕',
+    image: foodPrep,
+    materials: [
+      'Child-sized cutting board',
+      'Small blunt knife or vegetable peeler',
+      'Vegetable such as carrot or cucumber',
+      'Small bowl for sliced pieces',
+    ],
+    directAims: ['Learn the correct technique for peeling and slicing food', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Peeling and Slicing Food Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to wash hands and put on an apron.',
+      'Place the vegetable on the board.',
+      'Hold it firmly with one hand.',
+      'Show how to peel away from the body.',
+      'Place the peeled vegetable flat and slice downward.',
+      'Transfer slices to the bowl.',
+      'Clean board and tools, compost scraps.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'baking': {
+    id: 'baking',
+    title: 'Baking',
+    description: 'Follow a simple recipe to measure, mix, and bake a food item',
+    purpose: 'Develop sequencing, math concepts, and pride in creating food for others',
+    ageRange: '4.5-6 years',
+    difficulty: 'Advanced',
+    category: 'Advanced Activities',
+    isPremium: false,
+    icon: '🍞',
+    image: foodPrep,
+    materials: [
+      'Child-sized mixing bowls',
+      'Measuring cups and spoons',
+      'Wooden spoon',
+      'Recipe card with pictures',
+      'Simple ingredients',
+      'Baking tray',
+    ],
+    directAims: ['Learn the correct technique for baking', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Baking Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child and wash hands.',
+      'Read the recipe card together.',
+      'Measure each ingredient carefully.',
+      'Mix ingredients in order.',
+      'Pour or shape dough onto the tray.',
+      'Place in oven with adult help.',
+      'Clean up and wait for baking to finish.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'planning-serving-meal': {
+    id: 'planning-serving-meal',
+    title: 'Planning and Serving a Meal',
+    description: 'Plan a simple meal, prepare it, and serve it to others graciously',
+    purpose: 'Develop executive function, independence, and grace in hospitality',
+    ageRange: '5-6 years',
+    difficulty: 'Advanced',
+    category: 'Advanced Activities',
+    isPremium: false,
+    icon: '🍲',
+    image: graceCourtesyTable,
+    materials: [
+      'Child-sized pitcher and cups',
+      'Small plates and utensils',
+      'Napkins',
+      'Simple prepared foods',
+      'Tray',
+    ],
+    directAims: ['Learn the correct technique for planning and serving a meal', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Planning and Serving a Meal Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child to the serving area.',
+      'Discuss what will be served.',
+      'Count out the right number of plates, cups and utensils.',
+      'Place food neatly on plates.',
+      'Pour drinks carefully.',
+      'Carry items to the table safely.',
+      'Invite others to the table and serve politely.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
+  'full-cleaning-routine': {
+    id: 'full-cleaning-routine',
+    title: 'Completing a Full Cleaning Routine',
+    description: 'Complete a multi-step cleaning routine such as tidying and cleaning a full work area',
+    purpose: 'Develop sustained concentration, sequencing, and responsibility for environment',
+    ageRange: '5-6 years',
+    difficulty: 'Advanced',
+    category: 'Advanced Activities',
+    isPremium: false,
+    icon: '🧹',
+    image: cleaningTools,
+    materials: [
+      'Child-sized broom, dustpan and mop',
+      'Spray bottle',
+      'Cloths',
+      'Bucket',
+      'Tray for supplies',
+    ],
+    directAims: ['Learn the correct technique for completing a full cleaning routine', 'Develop fine and gross motor control', 'Build independence'],
+    indirectAims: ['Develop concentration', 'Build confidence and self-esteem', 'Prepare for more complex practical life work'],
+    controlOfError: ['Visual and physical feedback from the materials', 'Teacher observation and gentle guidance'],
+    learningProcess: {
+      presentation: {
+        title: 'Completing a Full Cleaning Routine Presentation',
+        description: 'Teacher demonstrates the activity slowly and precisely, isolating each movement',
+        steps: [
+      'Invite the child when a spill or mess occurs.',
+      'Identify what needs cleaning.',
+      'Gather the right tools on a tray.',
+      'Sweep or wipe the area methodically.',
+      'Put dirty cloths or water in the right place.',
+      'Return tools to their shelf.',
+      'Check that the area is clean and dry.',
+    ],
+        keyPoints: ['Move slowly and deliberately', 'Isolate the difficulty', 'Model care and respect for materials'],
+        duration: '5-10 minutes'
+      },
+      guidedPractice: {
+        title: 'Guided Practice',
+        description: 'Child practices with teacher support as needed',
+        steps: [
+          'Invite the child to try the activity',
+          'Offer gentle guidance only when necessary',
+          'Encourage slow, careful movements',
+          'Support the child in completing the sequence'
+        ],
+        supportStrategies: ['Hand-over-hand guidance if needed', 'Verbal cues rather than physical correction', 'Positive, specific encouragement'],
+        duration: '10-15 minutes'
+      },
+      independentPractice: {
+        title: 'Independent Practice',
+        description: 'Child repeats the activity independently for mastery',
+        indicators: ['Chooses the activity spontaneously', 'Completes the sequence without help', 'Shows concentration and care'],
+        troubleshooting: ['If struggling: return to guided practice', 'If rushing: encourage slower, more careful movement'],
+        duration: '10-20 minutes'
+      },
+      mastery: {
+        title: 'Mastery',
+        description: 'Child demonstrates full competence and confidence',
+        assessmentCriteria: ['Completes activity accurately and independently', 'Works with sustained concentration', 'Shows pride in the result'],
+        indicators: ['Repeats activity by choice', 'Helps or teaches other children', 'Transfers skill to daily life']
+      },
+      extensions: {
+        title: 'Extensions',
+        description: 'Related activities that build on this skill',
+        activities: ['Variations using different materials', 'Applying the skill in real-life contexts'],
+        variations: ['Increasing complexity gradually', 'Combining with other practical life skills']
+      }
+    }
+  },
 };

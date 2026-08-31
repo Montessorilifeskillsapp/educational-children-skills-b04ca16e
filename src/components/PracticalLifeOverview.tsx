@@ -11,12 +11,6 @@ import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 
-Object.values(concisePracticalLifeSkills).forEach(skill => {
-  if (!skill.shopItems) {
-    skill.shopItems = getShopItemsForSkill(skill.id);
-  }
-});
-
 const mergedPracticalLifeSkills = { 
   ...comprehensivePracticalLifeSkills,
   ...enhancedPracticalLifeSkills,
@@ -25,6 +19,12 @@ const mergedPracticalLifeSkills = {
   ...concisePracticalLifeSkills
 };
 
+// Ensure every skill has shop items mapped for the overview cards
+Object.values(mergedPracticalLifeSkills).forEach(skill => {
+  if (!skill.shopItems) {
+    skill.shopItems = getShopItemsForSkill(skill.id);
+  }
+});
 
 interface PracticalLifeOverviewProps {
   onBack: () => void;
@@ -47,25 +47,41 @@ const allSkillsFormatted = applyFirstFreeItemLimit(
   }))
 );
 
-const careOfPersonSkills = allSkillsFormatted.filter(skill => 
-  skill.category === 'Care of Self'
-);
+const categoryOrder = [
+  'Beginning Activities',
+  'Care of Environment',
+  'Care of Self',
+  'Grace and Courtesy',
+  'Advanced Activities'
+];
 
-const careOfEnvironmentSkills = allSkillsFormatted.filter(skill => 
-  skill.category === 'Care of Environment'
-);
+const categoryDetails: Record<string, { emoji: string; description: string }> = {
+  'Beginning Activities': {
+    emoji: '🌱',
+    description: 'The first activities introduced in a Montessori environment. These build the foundation of concentration, coordination, order and independence through simple, purposeful tasks.'
+  },
+  'Care of Environment': {
+    emoji: '🧹',
+    description: 'Activities that help children care for their surroundings, developing responsibility, respect for shared spaces and a sense of belonging to the community.'
+  },
+  'Care of Self': {
+    emoji: '🧼',
+    description: 'Self-care and personal hygiene activities that help children learn to manage their own bodies, clothing and daily needs with increasing independence.'
+  },
+  'Grace and Courtesy': {
+    emoji: '🤝',
+    description: 'Social skills and polite behaviours that help children interact respectfully, confidently and peacefully with others.'
+  },
+  'Advanced Activities': {
+    emoji: '✨',
+    description: 'More complex Practical Life work that integrates and refines the skills built through earlier activities, including food preparation, sewing and full care routines.'
+  }
+};
 
-const controlOfMovementSkills = allSkillsFormatted.filter(skill => 
-  skill.category === 'Control of Movement'
-);
-
-const graceAndCourtesySkills = allSkillsFormatted.filter(skill => 
-  skill.category === 'Grace and Courtesy'
-);
-
-const foodPreparationSkills = allSkillsFormatted.filter(skill => 
-  skill.category === 'Food Preparation'
-);
+const skillsByCategory = categoryOrder.map(category => ({
+  category,
+  skills: allSkillsFormatted.filter(skill => skill.category === category)
+}));
 
 export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   onBack,
@@ -74,127 +90,41 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   isPremium
 }) => {
   return (
-    <PageLayout title="🌱 Practical Life Skills" onBack={onBack} className={montessoriTheme.backgrounds.practical}>
+    <PageLayout title="🌱 Practical Life" onBack={onBack} className={montessoriTheme.backgrounds.practical}>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Develop independence and self-confidence through purposeful tasks related to daily life
+          Practical Life is the heart of the Montessori method and is always introduced first. Children develop independence, concentration and coordination through purposeful, real-life activities.
         </p>
         <p className="text-lg text-gray-500 mt-2">
-          Areas include: Care of Self • Care of Environment • Control of Movement • Grace and Courtesy • Food Preparation
+          Sequence: Beginning Activities → Care of Environment → Care of Self → Grace and Courtesy → Advanced Activities
         </p>
       </div>
 
-      {careOfPersonSkills.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🧼 Care of Self
-          </h2>
-          <p className="text-gray-600 mb-6 max-w-3xl">
-            Self-care and personal hygiene activities that help children learn to manage their own bodies and needs.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {careOfPersonSkills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                onSelect={() => onSkillSelect(skill.id)}
-                isCompleted={completedSkills.includes(skill.id)}
-                isPremium={isPremium}
-              />
-            ))}
+      {skillsByCategory.map(({ category, skills }) =>
+        skills.length > 0 ? (
+          <div className="mb-12" key={category}>
+            <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+              {categoryDetails[category].emoji} {category}
+            </h2>
+            <p className="text-gray-600 mb-6 max-w-3xl">
+              {categoryDetails[category].description}
+            </p>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {skills.map((skill) => (
+                <SkillCard
+                  key={skill.id}
+                  skill={skill}
+                  onSelect={() => onSkillSelect(skill.id)}
+                  isCompleted={completedSkills.includes(skill.id)}
+                  isPremium={isPremium}
+                />
+              ))}
+            </div>
           </div>
-        </div>
+        ) : null
       )}
 
-      {careOfEnvironmentSkills.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🌍 Care of the Environment
-          </h2>
-          <p className="text-gray-600 mb-6 max-w-3xl">
-            Activities that help children learn to care for their surroundings, promoting responsibility and a sense of order.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {careOfEnvironmentSkills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                onSelect={() => onSkillSelect(skill.id)}
-                isCompleted={completedSkills.includes(skill.id)}
-                isPremium={isPremium}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {controlOfMovementSkills.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🤸 Control of Movement
-          </h2>
-          <p className="text-gray-600 mb-6 max-w-3xl">
-            Activities that develop gross and fine motor skills, coordination, and body awareness through purposeful movement.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {controlOfMovementSkills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                onSelect={() => onSkillSelect(skill.id)}
-                isCompleted={completedSkills.includes(skill.id)}
-                isPremium={isPremium}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {graceAndCourtesySkills.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🤝 Grace and Courtesy
-          </h2>
-          <p className="text-gray-600 mb-6 max-w-3xl">
-            Social skills and polite behaviors that help children interact respectfully and confidently with others.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {graceAndCourtesySkills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                onSelect={() => onSkillSelect(skill.id)}
-                isCompleted={completedSkills.includes(skill.id)}
-                isPremium={isPremium}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {foodPreparationSkills.length > 0 && (
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🥗 Food Preparation
-          </h2>
-          <p className="text-gray-600 mb-6 max-w-3xl">
-            Activities that build independence in preparing simple foods safely and with care.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {foodPreparationSkills.map((skill) => (
-              <SkillCard
-                key={skill.id}
-                skill={skill}
-                onSelect={() => onSkillSelect(skill.id)}
-                isCompleted={completedSkills.includes(skill.id)}
-                isPremium={isPremium}
-              />
-            ))}
-          </div>
-        </div>
-      )}
-
-      {careOfPersonSkills.length === 0 && careOfEnvironmentSkills.length === 0 && controlOfMovementSkills.length === 0 && (
+      {skillsByCategory.every(({ skills }) => skills.length === 0) && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
             🌟 All Practical Life Skills

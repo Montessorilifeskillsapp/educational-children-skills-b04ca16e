@@ -16,6 +16,7 @@ import { artSkillsEnhanced } from '@/data/artSkillsEnhanced';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { botanySkillsData } from '@/data/botanySkills';
 import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
+import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { enhancedMathSkills } from '@/data/enhancedMathSkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { useSEO } from '@/hooks/useSEO';
@@ -43,6 +44,7 @@ const allMathSkills = {
 };
 
 const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComplete }) => {
+  const amiPracticalLifeSkill = amiPracticalLifeSkills[skillId];
   const concisePracticalLifeSkill = concisePracticalLifeSkills[skillId];
   const enhancedMathSkill = enhancedMathSkills[skillId];
   const sensorialSkill = allSensorialSkills[skillId];
@@ -55,8 +57,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const culturalSkill = culturalSkillsData[skillId];
   const regularSkill = skillsData[skillId];
 
-  const skill = concisePracticalLifeSkill || enhancedMathSkill || mathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || culturalSkill || sensorialSkill || regularSkill;
-  const isEnhancedSkill = Boolean(concisePracticalLifeSkill || enhancedMathSkill);
+  const skill = amiPracticalLifeSkill || concisePracticalLifeSkill || enhancedMathSkill || mathSkill || botanySkill || graceCourtesySkill || artSkill || geographySkill || languageSkill || culturalSkill || sensorialSkill || regularSkill;
+  const isEnhancedSkill = Boolean(amiPracticalLifeSkill || concisePracticalLifeSkill || enhancedMathSkill);
 
   const category = (mathSkill || enhancedMathSkill) ? 
     { 
@@ -65,7 +67,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       color: 'bg-blue-100 border-blue-300 text-blue-800', 
       description: 'Developing mathematical understanding through hands-on materials' 
     } :
-    concisePracticalLifeSkill ? 
+    (amiPracticalLifeSkill || concisePracticalLifeSkill) ? 
     { 
       name: 'Practical Life', 
       icon: '🏠', 
