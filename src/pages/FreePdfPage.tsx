@@ -4,12 +4,13 @@ import LeadMagnetForm from '@/components/LeadMagnetForm';
 import { useSEO } from '@/hooks/useSEO';
 
 const bullets = [
-  'Day 1 — Pouring Water (Practical Life)',
-  'Day 2 — Spooning & Sorting (Practical Life)',
-  'Day 3 — The Pink Tower (Sensorial)',
-  'Day 4 — Sandpaper Letters (Language)',
-  'Day 5 — Number Rods (Math)',
+  'Day 1 — Carrying a Tray (Control of Movement)',
+  'Day 2 — Spooning Beans (Preliminary Exercise)',
+  'Day 3 — Pouring Water (Preliminary Exercise)',
+  'Day 4 — Hand Washing (Care of Self)',
+  'Day 5 — Dusting a Shelf (Care of the Environment)',
 ];
+
 
 const FreePdfPage: React.FC = () => {
   useSEO({

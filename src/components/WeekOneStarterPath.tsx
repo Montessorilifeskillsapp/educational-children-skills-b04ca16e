@@ -4,9 +4,10 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { CheckCircle2, Circle, Sparkles, ArrowRight } from 'lucide-react';
 import { montessoriImages } from '@/assets/images';
-import { sensorialImages } from '@/assets/sensorial';
-import { languageImages } from '@/assets/language';
-import { mathImages } from '@/assets/math';
+import walkingLine from '@/assets/materials/walking-line.jpg';
+import spooningImg from '@/assets/materials/spooning.jpg';
+import careOfPerson from '@/assets/materials/care-of-person.jpg';
+import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 
 interface DayActivity {
   day: number;
@@ -17,48 +18,52 @@ interface DayActivity {
   image: string;
 }
 
+// AMI sequence: the child's first week is Practical Life only — control of
+// movement, then transferring, then care of self, then care of environment.
+// No other curriculum area is introduced until Practical Life work is settled.
 const WEEK_ONE: DayActivity[] = [
   {
     day: 1,
-    area: 'Practical Life',
-    title: 'Pouring Water',
-    why: 'Builds focus, coordination, and the confidence to work independently.',
-    skillId: 'pouring',
-    image: montessoriImages['pouring-set'],
+    area: 'Practical Life · Control of Movement',
+    title: 'Carrying a Tray',
+    why: 'The first lesson of all: how to carry work carefully to a table and back to the shelf.',
+    skillId: 'carrying-objects',
+    image: walkingLine,
   },
   {
     day: 2,
-    area: 'Practical Life',
-    title: 'Spooning & Sorting',
-    why: 'Refines hand control — the foundation for writing later on.',
-    skillId: 'spooning',
-    image: montessoriImages['pouring-set'],
+    area: 'Practical Life · Preliminary Exercises',
+    title: 'Spooning Beans',
+    why: 'A dry transfer before a wet one — refines the hand and builds the pincer grip.',
+    skillId: 'spooning-beans',
+    image: spooningImg,
   },
   {
     day: 3,
-    area: 'Sensorial',
-    title: 'The Pink Tower',
-    why: 'Trains the eye to discriminate dimension — a key visual sense.',
-    skillId: 'pink-tower',
-    image: sensorialImages['pink-tower'],
+    area: 'Practical Life · Preliminary Exercises',
+    title: 'Pouring Water',
+    why: 'The wet transfer. Concentration, control, and a self-correcting spill to clean up.',
+    skillId: 'pouring-water',
+    image: montessoriImages['pouring-set'],
   },
   {
     day: 4,
-    area: 'Language',
-    title: 'Sandpaper Letters',
-    why: 'Connects letter sounds with the muscular memory of writing.',
-    skillId: 'sandpaper-letters',
-    image: languageImages['sandpaper-letters'],
+    area: 'Practical Life · Care of Self',
+    title: 'Hand Washing',
+    why: 'A long, ordered sequence the child can complete entirely alone.',
+    skillId: 'hand-washing',
+    image: careOfPerson,
   },
   {
     day: 5,
-    area: 'Mathematics',
-    title: 'Number Rods',
-    why: 'Makes quantity concrete before it becomes a symbol.',
-    skillId: 'number-rods',
-    image: mathImages['number-rods'] ?? mathImages['golden-beads'],
+    area: 'Practical Life · Care of the Environment',
+    title: 'Dusting a Shelf',
+    why: 'Turns the child into a carer of the room — the root of belonging and responsibility.',
+    skillId: 'dusting',
+    image: cleaningTools,
   },
 ];
+
 
 interface WeekOneStarterPathProps {
   completedSkills: string[];
@@ -81,16 +86,17 @@ const WeekOneStarterPath: React.FC<WeekOneStarterPathProps> = ({ completedSkills
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/15 border border-primary/25 text-[11px] font-semibold text-primary uppercase tracking-wider mb-2">
             <Sparkles className="h-3 w-3" />
-            Start Here · Ages 3–6
+            Week 1 · Practical Life only · Ages 3–6
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-1">
-            Your Week 1 Journey
+            Your First Week: Practical Life
           </h2>
           <p className="text-sm text-muted-foreground max-w-xl">
             {isFirstTime
-              ? "Five carefully sequenced activities — one per day. Just open the app each morning and we'll tell you exactly what to do."
-              : 'Keep going — one activity a day builds focus, coordination, and confidence.'}
+              ? 'Montessori always begins with Practical Life — nothing else. Five days of Practical Life work: control of movement, transferring, care of self, then care of the environment. Sensorial, Language and Mathematics come only once this work is settled.'
+              : 'Keep going — this week stays in Practical Life. Other areas open once these five days are complete.'}
           </p>
+
         </div>
         <div className="text-right min-w-[140px]">
           <p className="text-xs font-medium text-muted-foreground mb-1">
