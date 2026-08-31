@@ -50,12 +50,34 @@ const ShopPage: React.FC = () => {
             />
           </div>
 
-          <p className="text-sm text-muted-foreground">
-            {filtered.length} {filtered.length === 1 ? 'book' : 'books'}
-          </p>
-        </div>
+        <p className="text-sm text-muted-foreground">
+          {filtered.length} {filtered.length === 1 ? 'book' : 'books'}
+        </p>
+      </div>
 
-        {filtered.length === 0 ? (
+      <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
+        <CardContent className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="p-2.5 rounded-full bg-primary/15 text-primary">
+              <School className="w-5 h-5" aria-hidden="true" />
+            </div>
+            <div>
+              <h3 className="font-semibold text-foreground">Setting up a Montessori Classroom?</h3>
+              <p className="text-sm text-muted-foreground">
+                Follow the AMI-exact prepared-environment guide: space, shelves, materials, and adult role.
+              </p>
+            </div>
+          </div>
+          <Button asChild variant="outline" className="shrink-0">
+            <Link to="/classroom-setup">
+              View Setup Guide
+              <ArrowRight className="w-4 h-4 ml-2" aria-hidden="true" />
+            </Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+      {filtered.length === 0 ? (
           <Card>
             <CardContent className="p-8 text-center text-muted-foreground">
               No books found. Try a different search term.
