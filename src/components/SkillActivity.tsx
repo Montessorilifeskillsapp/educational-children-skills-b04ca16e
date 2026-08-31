@@ -24,6 +24,7 @@ import { montessoriTheme } from './ThemeConfig';
 import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
+import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 
 interface SkillActivityProps {
   skillId: string;
