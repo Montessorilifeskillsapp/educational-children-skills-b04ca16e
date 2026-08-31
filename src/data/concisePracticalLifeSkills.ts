@@ -12,6 +12,13 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
     isPremium: false,
     icon: '💧',
     shopItems: ['pouring-set'],
+    materials: [
+      'Two identical small pitchers',
+      'Colored water',
+      'Wooden tray',
+      'Small sponge',
+      'Drying cloth',
+    ],
     materialsPurpose: [
       'Two identical pitchers: One source, one receiving',
       'Colored water: Visible spills and progress',
@@ -136,6 +143,14 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
     category: 'Care of Environment',
     isPremium: false,
     icon: '🍽️',
+    materials: [
+      'Child-sized placemat',
+      'Plate',
+      'Fork, knife and spoon',
+      'Cloth napkin',
+      'Drinking glass',
+      'Small tray for carrying',
+    ],
     shopItems: ['child-table-setting'],
     directAims: [
       'Learn table setting sequence',
@@ -255,6 +270,15 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
     difficulty: 'Beginner',
     category: 'Care of Self',
     isPremium: false,
+    materials: [
+      'Small basin or child-height sink',
+      'Pitcher of warm water',
+      'Bar of soap in a soap dish',
+      'Nail brush',
+      'Hand towel',
+      'Apron',
+      'Tray',
+    ],
     icon: '🧼',
     directAims: [
       'Learn proper washing sequence',
