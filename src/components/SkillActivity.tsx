@@ -258,6 +258,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onBack();
   };
 
+  const heroImage = getPracticalLifeImage(skillId, (skill as { image?: string }).image);
+
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
       <div className="max-w-2xl mx-auto">
