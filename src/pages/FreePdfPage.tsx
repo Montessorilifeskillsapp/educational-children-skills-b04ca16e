@@ -1,22 +1,22 @@
 import React from 'react';
-import { CheckCircle2, BookOpen, Clock, Sparkles } from 'lucide-react';
+import { CheckCircle2, BookOpen, Sparkles, LayoutGrid } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import LeadMagnetForm from '@/components/LeadMagnetForm';
 import { useSEO } from '@/hooks/useSEO';
 
 const bullets = [
-  'Day 1 — Carrying a Tray (Control of Movement)',
-  'Day 2 — Spooning Beans (Preliminary Exercise)',
-  'Day 3 — Pouring Water (Preliminary Exercise)',
-  'Day 4 — Hand Washing (Care of Self)',
-  'Day 5 — Dusting a Shelf (Care of the Environment)',
+  'The Prepared Environment — order, beauty, reality, freedom within limits',
+  'The five AMI curriculum areas and the order in which they are introduced',
+  'How to arrange materials: one of each, complete on a tray, simple to complex',
+  'The role of the adult — present, withdraw, observe',
+  'A room-by-room setup checklist to walk before the first child enters',
 ];
-
 
 const FreePdfPage: React.FC = () => {
   useSEO({
-    title: 'Free Montessori Week 1 Starter Path PDF',
+    title: 'Free Montessori Classroom Setup Guide',
     description:
-      'Download 5 AMI-aligned Montessori activities — one for each day of your child\'s first week. Free PDF, instantly to your inbox.',
+      'Download the AMI-exact guide to setting up an authentic Montessori classroom — the prepared environment, curriculum areas, and material arrangement. Free PDF.',
     canonical: 'https://montessorilifeskillsapp.com/free-pdf',
   });
 
@@ -28,15 +28,15 @@ const FreePdfPage: React.FC = () => {
           <div className="space-y-6">
             <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
               <Sparkles className="w-3.5 h-3.5" />
-              Free download · 6-page PDF
+              Free download · PDF guide
             </span>
             <h1 className="text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
-              The Week 1 Starter Path
+              The Montessori Classroom Setup Guide
             </h1>
             <p className="text-lg text-muted-foreground max-w-prose">
-              Five carefully sequenced AMI Montessori activities — one for each day of your
-              child's first week. Materials, presentation steps, and a quiet observation
-              prompt. Delivered straight to your inbox.
+              In Montessori, the environment is the teacher. This AMI-exact guide walks you
+              through preparing an authentic classroom — before a single lesson is given.
+              Delivered straight to your inbox.
             </p>
 
             <ul className="space-y-2 pt-2">
@@ -53,21 +53,23 @@ const FreePdfPage: React.FC = () => {
             </div>
 
             <div className="flex flex-wrap gap-4 text-xs text-muted-foreground pt-2">
-              <span className="inline-flex items-center gap-1.5"><Clock className="w-3.5 h-3.5" /> 10–20 min per day</span>
-              <span className="inline-flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Ages 3–6</span>
+              <span className="inline-flex items-center gap-1.5"><BookOpen className="w-3.5 h-3.5" /> Ages 3–6 classroom</span>
               <span className="inline-flex items-center gap-1.5"><Sparkles className="w-3.5 h-3.5" /> AMI-aligned</span>
+              <Link to="/classroom-setup" className="inline-flex items-center gap-1.5 underline underline-offset-2 hover:text-foreground">
+                <LayoutGrid className="w-3.5 h-3.5" /> Read the full guide online
+              </Link>
             </div>
           </div>
 
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/30 rounded-[2rem] blur-2xl" />
             <div className="relative aspect-[3/4] rounded-2xl bg-gradient-to-br from-background to-muted border border-border/60 shadow-2xl flex flex-col items-center justify-center p-10 text-center">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-secondary font-semibold mb-3">PDF · 6 pages</p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-secondary font-semibold mb-3">PDF · Printable guide</p>
               <p className="font-serif text-3xl md:text-4xl font-semibold text-foreground leading-tight mb-3">
-                Week 1<br />Starter Path
+                The Prepared<br />Environment
               </p>
-              <p className="text-xs text-muted-foreground italic max-w-[20ch] mx-auto">
-                Pouring · Spooning · Pink Tower · Sandpaper Letters · Number Rods
+              <p className="text-xs text-muted-foreground italic max-w-[24ch] mx-auto">
+                Setting up your Montessori classroom — the AMI guide
               </p>
             </div>
           </div>

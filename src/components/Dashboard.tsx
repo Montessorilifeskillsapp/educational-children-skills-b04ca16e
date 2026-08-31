@@ -18,7 +18,7 @@ import { botanySkillsData } from '@/data/botanySkills';
 import { artSkillsData } from '@/data/artSkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
-import WeekOneStarterPath from './WeekOneStarterPath';
+
 import FounderWeeklyNote from './FounderWeeklyNote';
 
 const PRACTICAL_LIFE_IDS = [
@@ -166,11 +166,24 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        {/* Week One Starter Path — guided 5-day onboarding sequence */}
-        <WeekOneStarterPath
-          completedSkills={completedSkills}
-          onSkillSelect={onSkillSelect}
-        />
+        {/* Classroom setup guide — the AMI prepared environment */}
+        <Link to="/classroom-setup" className="block mb-6 group">
+          <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-5 sm:p-6 flex items-center justify-between gap-4 transition-colors group-hover:border-primary/50">
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
+                Start here · AMI
+              </p>
+              <h2 className="text-xl font-bold text-foreground">
+                Set Up Your Montessori Classroom
+              </h2>
+              <p className="text-sm text-muted-foreground mt-1 max-w-xl">
+                Before any activity, the environment itself must be prepared. The AMI guide
+                to the prepared environment, the five curriculum areas, and the role of the adult.
+              </p>
+            </div>
+            <ArrowRight className="h-6 w-6 text-primary flex-shrink-0 transition-transform group-hover:translate-x-1" />
+          </div>
+        </Link>
 
         {/* Founder's weekly note */}
         <div className="mb-6">
