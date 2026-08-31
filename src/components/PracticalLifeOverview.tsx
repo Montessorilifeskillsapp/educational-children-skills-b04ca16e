@@ -15,8 +15,8 @@ const mergedPracticalLifeSkills = {
   ...comprehensivePracticalLifeSkills,
   ...enhancedPracticalLifeSkills,
   ...additionalPracticalLifeSkills, 
-  ...amiPracticalLifeSkills,
-  ...concisePracticalLifeSkills
+  ...concisePracticalLifeSkills,
+  ...amiPracticalLifeSkills
 };
 
 // Ensure every skill has shop items mapped for the overview cards
