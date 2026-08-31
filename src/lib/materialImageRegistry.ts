@@ -24,6 +24,14 @@ import shoeTying from '@/assets/materials/shoe-tying.jpg';
 import bedMaking from '@/assets/materials/bed-making.jpg';
 import walkingLine from '@/assets/materials/walking-line.jpg';
 import pictureCards from '@/assets/materials/picture-cards.jpg';
+import artSupplies from '@/assets/materials/art-supplies.jpg';
+import writingMaterials from '@/assets/materials/writing-materials.jpg';
+import storageContainers from '@/assets/materials/storage-containers.jpg';
+import waterBasin from '@/assets/materials/water-basin.jpg';
+import beadMaterial from '@/assets/materials/bead-material.jpg';
+import moveableAlphabet from '@/assets/materials/moveable-alphabet.jpg';
+import animalFigures from '@/assets/materials/animal-figures.jpg';
+import chartsDiagrams from '@/assets/materials/charts-diagrams.jpg';
 
 // Existing area-specific photos
 import pinkTower from '@/assets/sensorial/pink-tower.jpg';
@@ -150,6 +158,26 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
 
   // Generic dressing frames fallback
   { test: /frame/i, image: dressingFrames },
+
+  // Broad coverage — keep last so specific materials above win
+  { test: /moveable alphabet|movable alphabet|letter (board|tile)|wooden letter/i, image: moveableAlphabet },
+  { test: /bead (bar|chain|material|stair)|unit bead|ten bar|hundred square|bead/i, image: beadMaterial },
+  { test: /chart|diagram|timeline|graph|poster|model of|volcano model|solar system|earth layer|life cycle (chart|puzzle)/i, image: chartsDiagrams },
+  { test: /map|atlas|globe|compass|seismic|topograph/i, image: worldMap },
+  { test: /animal|figurine|figure(s)?\b|miniature object|animal cards?/i, image: animalFigures },
+  { test: /paint|brush(es)?|crayon|clay|play ?dough|modeling|collage|glue|craft|colored pencil|palette|sketch|watercolou?r|drawing/i, image: artSupplies },
+  { test: /paper|pencil|pen\b|chalk|eraser|chalkboard|notebook|writing|ruler|bookmark|reading log|booklet|book(s)?\b|word list|sentence strip|strip of paper/i, image: writingMaterials },
+  { test: /card(s)?\b|label(s)?\b|slide(s)?\b/i, image: pictureCards },
+  { test: /basin|water|sink|soap|towel|wipe|tissue|bucket|wringing|washboard|dispenser/i, image: waterBasin },
+  { test: /box|bin|container|jar|pouch|bag|rack|shelf|shelves|drawer|hook|stand|holder|storage|dish(es)?|bowl|vase|saucer|dresser/i, image: storageContainers },
+  { test: /seed|leaf|leaves|stem|root|plant|flower|tree|specimen|soil|nature/i, image: botanyCare },
+  { test: /mat\b|mats\b|rug|cushion|pillow|floor space|table|chair|stool|space|environment|area|path|line/i, image: workMat },
+  { test: /food|snack|fruit|banana|cracker|rice|bean|ingredient|meal|lunch/i, image: foodPrep },
+  { test: /mirror|comb|brush|tooth|cotton|nail|hair/i, image: careOfPerson },
+  { test: /thread|yarn|needle|lace|string|fabric|cloth|sheet|blanket|panel/i, image: threading },
+  { test: /timer|clock|bell|drum|music|rhythm|instrument|stick/i, image: walkingLine },
+  { test: /tool|guide|instruction|prop|supplies|set\b|object/i, image: sorting },
+
 ];
 
 /**
