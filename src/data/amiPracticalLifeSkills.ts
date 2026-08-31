@@ -23,6 +23,34 @@ import threading from '@/assets/materials/threading.jpg';
 import cuttingWork from '@/assets/materials/cutting-work.jpg';
 import sorting from '@/assets/materials/sorting.jpg';
 
+import plFrameButtons from '@/assets/materials/pl/frame-buttons.jpg';
+import plFrameZipper from '@/assets/materials/pl/frame-zipper.jpg';
+import plFrameSnaps from '@/assets/materials/pl/frame-snaps.jpg';
+import plFrameLacing from '@/assets/materials/pl/frame-lacing.jpg';
+import plFrameBuckles from '@/assets/materials/pl/frame-buckles.jpg';
+import plFrameBows from '@/assets/materials/pl/frame-bows.jpg';
+import plDusting from '@/assets/materials/pl/dusting.jpg';
+import plWashingTables from '@/assets/materials/pl/washing-tables.jpg';
+import plSweeping from '@/assets/materials/pl/sweeping.jpg';
+import plGreeting from '@/assets/materials/pl/greeting.jpg';
+import plExcuseMe from '@/assets/materials/pl/excuse-me.jpg';
+import plOfferingHelp from '@/assets/materials/pl/offering-help.jpg';
+import plObserving from '@/assets/materials/pl/observing.jpg';
+import plWaitingTurn from '@/assets/materials/pl/waiting-turn.jpg';
+import plPleaseThankYou from '@/assets/materials/pl/please-thank-you.jpg';
+import plPeaceTable from '@/assets/materials/pl/peace-table.jpg';
+import plServingMeal from '@/assets/materials/pl/serving-meal.jpg';
+import plOpeningContainers from '@/assets/materials/pl/opening-containers.jpg';
+import plSponge from '@/assets/materials/pl/sponge.jpg';
+import plWashingCloths from '@/assets/materials/pl/washing-cloths.jpg';
+import plCarryingObjects from '@/assets/materials/pl/carrying-objects.jpg';
+import plSimpleFood from '@/assets/materials/pl/simple-food.jpg';
+import plApron from '@/assets/materials/pl/apron.jpg';
+import plSnack from '@/assets/materials/pl/snack.jpg';
+import plPeelingSlicing from '@/assets/materials/pl/peeling-slicing.jpg';
+import plBaking from '@/assets/materials/pl/baking.jpg';
+import plCleaningRoutine from '@/assets/materials/pl/cleaning-routine.jpg';
+
 export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
   // CARE OF SELF ACTIVITIES
   'dressing-frame-buttons': {
@@ -35,7 +63,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '🧥',
-    image: dressingFrame,
+    image: plFrameButtons,
     materials: ['Wooden dressing frame with large buttons', 'Two fabric panels'],
     directAims: ['Master buttoning technique', 'Develop pincer grasp', 'Improve bilateral coordination'],
     indirectAims: ['Prepare for independent dressing', 'Develop concentration', 'Build self-confidence'],
@@ -102,7 +130,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '🤐',
-    image: dressingFrame,
+    image: plFrameZipper,
     materials: ['Wooden frame with separating zipper', 'Two fabric panels'],
     directAims: ['Master zipper operation', 'Develop bilateral coordination', 'Build finger strength'],
     indirectAims: ['Prepare for independent dressing', 'Develop problem-solving skills', 'Build confidence'],
@@ -169,7 +197,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: false,
     icon: '📌',
-    image: dressingFrame,
+    image: plFrameSnaps,
     materials: ['Wooden frame with metal snaps', 'Two fabric panels'],
     directAims: ['Master snap fastening technique', 'Develop finger strength', 'Improve precision'],
     indirectAims: ['Build independence in dressing', 'Develop concentration', 'Prepare for complex fasteners'],
@@ -236,7 +264,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Self',
     isPremium: true,
     icon: '👟',
-    image: dressingFrame,
+    image: plFrameLacing,
     materials: ['Wooden frame with eyelets', 'Two shoe laces', 'Fabric panels shaped like shoe fronts'],
     directAims: ['Master lacing sequence', 'Develop bilateral coordination', 'Prepare for shoe tying'],
     indirectAims: ['Build persistence and concentration', 'Develop spatial awareness', 'Foster independence'],
@@ -373,7 +401,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Environment',
     isPremium: false,
     icon: '🧹',
-    image: cleaningTools,
+    image: plDusting,
     materials: ['Feather duster or soft cloth', 'Spray bottle with water', 'Objects to dust', 'Tray'],
     directAims: ['Learn proper dusting technique', 'Develop systematic cleaning approach', 'Care for classroom materials'],
     indirectAims: ['Develop attention to detail', 'Build responsibility for environment', 'Prepare for home responsibilities'],
@@ -440,7 +468,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Environment',
     isPremium: false,
     icon: '🪑',
-    image: cleaningTools,
+    image: plWashingTables,
     materials: ['Basin with soapy water', 'Sponge', 'Dry cloths', 'Apron', 'Bucket for dirty water'],
     directAims: ['Learn table washing technique', 'Develop systematic cleaning approach', 'Maintain clean workspace'],
     indirectAims: ['Build responsibility for shared spaces', 'Develop work completion skills', 'Prepare for household tasks'],
@@ -508,7 +536,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Care of Environment',
     isPremium: false,
     icon: '🧽',
-    image: cleaningTools,
+    image: plSweeping,
     materials: ['Child-sized broom', 'Dustpan', 'Small brush for dustpan edge'],
     directAims: ['Master sweeping technique', 'Develop coordination with tools', 'Maintain floor cleanliness'],
     indirectAims: ['Build responsibility for environment', 'Develop gross motor skills', 'Prepare for household maintenance'],
@@ -713,7 +741,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Beginning Activities',
     isPremium: false,
     icon: '📦',
-    image: carryingTray,
+    image: plCarryingObjects,
     materials: ['Various objects of different sizes and weights', 'Trays', 'Baskets', 'Mats'],
     directAims: ['Master safe carrying techniques', 'Develop spatial awareness', 'Build confidence in movement'],
     indirectAims: ['Develop responsibility for materials', 'Build body awareness', 'Prepare for work transport'],
@@ -781,7 +809,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '👋',
-    image: graceCourtesyTable,
+    image: plGreeting,
     materials: ['None required', 'Optional: cultural greeting examples'],
     directAims: ['Learn greeting protocols', 'Develop social confidence', 'Practice respectful interaction'],
     indirectAims: ['Build community connections', 'Develop cultural awareness', 'Prepare for social situations'],
@@ -848,7 +876,7 @@ export const amiPracticalLifeSkills: Record<string, EnhancedMontessoriSkill> = {
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🙏',
-    image: graceCourtesyTable,
+    image: plExcuseMe,
     materials: ['None required'],
     directAims: ['Learn polite interruption techniques', 'Develop social awareness', 'Practice respectful communication'],
     indirectAims: ['Build considerate behavior', 'Develop empathy', 'Prepare for social situations'],
@@ -915,7 +943,7 @@ duration: '8-12 minutes'
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🤝',
-    image: graceCourtesyTable,
+    image: plOfferingHelp,
     materials: ['None required'],
     directAims: ['Learn to offer help appropriately', 'Develop observation skills', 'Practice helpful behavior'],
     indirectAims: ['Build empathy and community spirit', 'Develop social awareness', 'Foster cooperative behavior'],
@@ -1183,7 +1211,7 @@ duration: '8-12 minutes'
     category: 'Beginning Activities',
     isPremium: false,
     icon: '🫙',
-    image: sorting,
+    image: plOpeningContainers,
     materials: [
       'Small basket with assorted containers',
       'Lids that screw, snap or flip',
@@ -1388,7 +1416,7 @@ duration: '8-12 minutes'
     category: 'Beginning Activities',
     isPremium: false,
     icon: '🧽',
-    image: cleaningTools,
+    image: plSponge,
     materials: [
       'Small natural sponge',
       'Small bowl of water',
@@ -1457,7 +1485,7 @@ duration: '8-12 minutes'
     category: 'Care of Environment',
     isPremium: false,
     icon: '🧺',
-    image: foldingCloths,
+    image: plWashingCloths,
     materials: [
       'Small basin with warm water',
       'Small bar of soap or soap flakes',
@@ -1526,7 +1554,7 @@ duration: '8-12 minutes'
     category: 'Care of Environment',
     isPremium: false,
     icon: '🥪',
-    image: foodPrep,
+    image: plSimpleFood,
     materials: [
       'Child-sized cutting board',
       'Small knife or spreader',
@@ -1663,7 +1691,7 @@ duration: '8-12 minutes'
     category: 'Care of Self',
     isPremium: false,
     icon: '👕',
-    image: foodPrep,
+    image: plApron,
     materials: [
       'Child-sized apron',
       'Mirror',
@@ -1731,7 +1759,7 @@ duration: '8-12 minutes'
     category: 'Care of Self',
     isPremium: false,
     icon: '🎒',
-    image: dressingFrame,
+    image: plFrameBuckles,
     materials: [
       'Wooden dressing frame with buckle strap',
       'Table',
@@ -1798,7 +1826,7 @@ duration: '8-12 minutes'
     category: 'Care of Self',
     isPremium: false,
     icon: '🎀',
-    image: dressingFrame,
+    image: plFrameBows,
     materials: [
       'Wooden dressing frame with bow ties',
       'Table',
@@ -1933,7 +1961,7 @@ duration: '8-12 minutes'
     category: 'Care of Self',
     isPremium: false,
     icon: '🍎',
-    image: foodPrep,
+    image: plSnack,
     materials: [
       'Small tray',
       'Child-sized pitcher',
@@ -2003,7 +2031,7 @@ duration: '8-12 minutes'
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '👀',
-    image: graceCourtesyTable,
+    image: plObserving,
     materials: [
       'Small group of children or two adults for modeling',
       'Quiet observation spot',
@@ -2070,7 +2098,7 @@ duration: '8-12 minutes'
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '⏳',
-    image: graceCourtesyTable,
+    image: plWaitingTurn,
     materials: [
       'Small object or activity that only one child can use',
       'Visual waiting spot',
@@ -2136,7 +2164,7 @@ duration: '8-12 minutes'
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🙏',
-    image: graceCourtesyTable,
+    image: plPleaseThankYou,
     materials: [
       'Small objects to pass',
       'Model phrases',
@@ -2271,7 +2299,7 @@ duration: '8-12 minutes'
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🤝',
-    image: graceCourtesyTable,
+    image: plPeaceTable,
     materials: [
       'Peace rose or talking object',
       'Quiet peace table',
@@ -2476,7 +2504,7 @@ duration: '8-12 minutes'
     category: 'Advanced Activities',
     isPremium: false,
     icon: '🥕',
-    image: foodPrep,
+    image: plPeelingSlicing,
     materials: [
       'Child-sized cutting board',
       'Small blunt knife or vegetable peeler',
@@ -2545,7 +2573,7 @@ duration: '8-12 minutes'
     category: 'Advanced Activities',
     isPremium: false,
     icon: '🍞',
-    image: foodPrep,
+    image: plBaking,
     materials: [
       'Child-sized mixing bowls',
       'Measuring cups and spoons',
@@ -2616,7 +2644,7 @@ duration: '8-12 minutes'
     category: 'Advanced Activities',
     isPremium: false,
     icon: '🍲',
-    image: graceCourtesyTable,
+    image: plServingMeal,
     materials: [
       'Child-sized pitcher and cups',
       'Small plates and utensils',
@@ -2686,7 +2714,7 @@ duration: '8-12 minutes'
     category: 'Advanced Activities',
     isPremium: false,
     icon: '🧹',
-    image: cleaningTools,
+    image: plCleaningRoutine,
     materials: [
       'Child-sized broom, dustpan and mop',
       'Spray bottle',
