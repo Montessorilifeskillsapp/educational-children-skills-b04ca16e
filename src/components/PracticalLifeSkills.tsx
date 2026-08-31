@@ -92,12 +92,29 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
         <div className="flex items-center justify-between mb-6">
           <BackButton onClick={onBack} />
           <div className="text-center">
-            <div className="mb-2 flex justify-center">
-              <div className="text-4xl">{skill.icon}</div>
-            </div>
+            {!getPracticalLifeImage(skillId, skill.image) && (
+              <div className="mb-2 flex justify-center">
+                <div className="text-4xl">{skill.icon}</div>
+              </div>
+            )}
             <h1 className="text-2xl font-bold">{skill.title}</h1>
           </div>
         </div>
+
+        {(() => {
+          const headerImage = getPracticalLifeImage(skillId, skill.image);
+          return headerImage ? (
+            <div className="mb-6 rounded-xl overflow-hidden shadow-md">
+              <img
+                src={headerImage}
+                alt={`Authentic Montessori materials for ${skill.title}`}
+                className="w-full h-56 md:h-64 object-cover"
+                width={800}
+                height={256}
+              />
+            </div>
+          ) : null;
+        })()}
         
         <Card className="mb-6">
           <CardHeader>
