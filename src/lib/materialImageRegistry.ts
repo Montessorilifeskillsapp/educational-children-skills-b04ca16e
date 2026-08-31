@@ -178,7 +178,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /timer|clock|bell|drum|music|rhythm|instrument|stick/i, image: walkingLine },
   { test: /tool|guide|instruction|prop|supplies|set\b|object/i, image: sorting },
   { test: /pink .*cube|wooden cube/i, image: pinkTower },
-  { test: /prism|black and white stair/i, image: brownStair },
+  { test: /prism|stair/i, image: brownStair },
   { test: /wooden rod|segmented rod/i, image: redRods },
   { test: /grammar|symbol|triangle|circle|arrow/i, image: moveableAlphabet },
   { test: /board|tile|strip|counter|skittle|disc|puzzle|inset|spheres?|bottle|magnet|sand\b/i, image: stampGame },
