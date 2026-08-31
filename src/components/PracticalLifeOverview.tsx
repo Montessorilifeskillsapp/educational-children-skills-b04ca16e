@@ -10,33 +10,7 @@ import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills'
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
-import pouringSet from '@/assets/materials/pouring-set.jpg';
-import spooningImg from '@/assets/materials/spooning.jpg';
-import tableSettingImg from '@/assets/materials/grace-courtesy-table-setting.jpg';
-import waterBasinImg from '@/assets/materials/water-basin.jpg';
-import careOfPersonImg from '@/assets/materials/care-of-person.jpg';
-import botanyCareImg from '@/assets/materials/botany-care.jpg';
-import cleaningToolsImg from '@/assets/materials/cleaning-tools.jpg';
-import foodPrepImg from '@/assets/materials/food-prep.jpg';
-import dressingFrameImg from '@/assets/materials/dressing-frame.jpg';
-import dishwashingImg from '@/assets/materials/dishwashing.jpg';
-
-// Older activity sets predate the AMI rewrite and carry no photo of their own
-const legacyCardImages: Record<string, string> = {
-  'pouring-water': pouringSet,
-  'dry-pouring': pouringSet,
-  'wet-pouring': pouringSet,
-  'spooning-beans': spooningImg,
-  'table-setting': tableSettingImg,
-  'hand-washing': waterBasinImg,
-  'brushing-teeth': careOfPersonImg,
-  'brushing-hair': careOfPersonImg,
-  'flower-arranging': botanyCareImg,
-  'polishing-mirror': cleaningToolsImg,
-  'squeezing-orange-juice': foodPrepImg,
-  'getting-dressed': dressingFrameImg,
-  'dishwashing': dishwashingImg
-};
+import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 
 // Legacy duplicates of AMI activities (sweeping / washing-tables / plant-care)
 const duplicateLegacyIds = new Set(['sweeping-floor', 'table-wiping', 'watering-plants']);
@@ -71,7 +45,7 @@ const allSkillsFormatted = applyFirstFreeItemLimit(
       title: skill.title,
       description: skill.description,
       icon: skill.icon,
-      image: skill.image || legacyCardImages[skill.id],
+      image: getPracticalLifeImage(skill.id, skill.image),
       category: skill.category,
       difficulty: skill.isPremium ? 'Medium' : 'Easy',
       ageRange: skill.ageRange,

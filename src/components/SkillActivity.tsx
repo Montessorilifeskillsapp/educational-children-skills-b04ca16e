@@ -281,10 +281,10 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           <div className="w-20"></div>
         </header>
 
-        {skill.image && (
+        {heroImage && (
           <div className="mb-6 rounded-xl overflow-hidden border border-amber-200 shadow-sm">
             <img
-              src={skill.image}
+              src={heroImage}
               alt={`AMI Montessori activity: ${skill.title}`}
               loading="lazy"
               width={1024}
