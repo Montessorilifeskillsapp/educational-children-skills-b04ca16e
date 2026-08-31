@@ -10,6 +10,10 @@ import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills'
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
+import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+
+// Legacy duplicates of AMI activities (sweeping / washing-tables / plant-care)
+const duplicateLegacyIds = new Set(['sweeping-floor', 'table-wiping', 'watering-plants']);
 
 const mergedPracticalLifeSkills = { 
   ...comprehensivePracticalLifeSkills,
@@ -34,19 +38,22 @@ interface PracticalLifeOverviewProps {
 }
 
 const allSkillsFormatted = applyFirstFreeItemLimit(
-  Object.values(mergedPracticalLifeSkills).map(skill => ({
-    id: skill.id,
-    title: skill.title,
-    description: skill.description,
-    icon: skill.icon,
-    image: skill.image,
-    category: skill.category,
-    difficulty: skill.isPremium ? 'Medium' : 'Easy',
-    ageRange: skill.ageRange,
-    isPremium: skill.isPremium,
-    hasShopItems: skill.shopItems && skill.shopItems.length > 0
-  }))
+  Object.values(mergedPracticalLifeSkills)
+    .filter(skill => !duplicateLegacyIds.has(skill.id))
+    .map(skill => ({
+      id: skill.id,
+      title: skill.title,
+      description: skill.description,
+      icon: skill.icon,
+      image: getPracticalLifeImage(skill.id, skill.image),
+      category: skill.category,
+      difficulty: skill.isPremium ? 'Medium' : 'Easy',
+      ageRange: skill.ageRange,
+      isPremium: skill.isPremium,
+      hasShopItems: skill.shopItems && skill.shopItems.length > 0
+    }))
 );
+
 
 const categoryOrder = [
   'Beginning Activities',

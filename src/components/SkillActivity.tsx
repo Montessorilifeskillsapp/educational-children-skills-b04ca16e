@@ -24,6 +24,7 @@ import { montessoriTheme } from './ThemeConfig';
 import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
+import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 
 interface SkillActivityProps {
   skillId: string;
@@ -258,6 +259,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onBack();
   };
 
+  const heroImage = getPracticalLifeImage(skillId, (skill as { image?: string }).image);
+
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
       <div className="max-w-2xl mx-auto">
@@ -281,10 +284,10 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           <div className="w-20"></div>
         </header>
 
-        {skill.image && (
+        {heroImage && (
           <div className="mb-6 rounded-xl overflow-hidden border border-amber-200 shadow-sm">
             <img
-              src={skill.image}
+              src={heroImage}
               alt={`AMI Montessori activity: ${skill.title}`}
               loading="lazy"
               width={1024}
