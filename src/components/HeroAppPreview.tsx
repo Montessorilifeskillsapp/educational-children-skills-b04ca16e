@@ -10,7 +10,7 @@ const SCREENS = [
     render: () => (
       <div className="h-full flex flex-col bg-background">
         <div className="px-4 pt-4 pb-2">
-          <p className="text-[9px] uppercase tracking-wider font-semibold text-primary">Day 1 · Up next</p>
+          <p className="text-[9px] uppercase tracking-wider font-semibold text-primary">Day 3 · Up next</p>
           <h3 className="text-base font-bold text-foreground leading-tight mt-0.5">Pouring Water</h3>
         </div>
         <div className="flex-1 mx-4 rounded-xl overflow-hidden bg-muted">
@@ -65,7 +65,7 @@ const SCREENS = [
         </div>
         <h3 className="text-base font-bold text-foreground mb-1">Activity complete!</h3>
         <p className="text-[11px] text-muted-foreground leading-snug mb-4">
-          Mira just finished her first Practical Life activity.
+          Mira just finished today's Practical Life activity.
         </p>
         <div className="bg-card border border-accent/30 rounded-xl p-3 w-full">
           <div className="flex items-center gap-2 justify-center">
@@ -74,7 +74,7 @@ const SCREENS = [
           </div>
         </div>
         <p className="text-[10px] text-muted-foreground mt-4">
-          Tomorrow: Spooning &amp; Sorting →
+          Tomorrow: Hand Washing →
         </p>
       </div>
     ),
