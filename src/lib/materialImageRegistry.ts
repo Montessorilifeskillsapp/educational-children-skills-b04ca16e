@@ -117,6 +117,11 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /broom|dustpan|mop|bucket|squeegee|vacuum|spray bottle|glass cleaner|floor cleaner|sponge|cleaning/i, image: cleaningTools },
   { test: /dish (soap|towel|rack)|washing basin|scrub brush|dishwashing/i, image: dishwashing },
 
+  // Practical life — movement & workspace
+  { test: /carrying.*tray|small tray|wooden tray/i, image: carryingTray },
+  { test: /carrying.*chair|child-sized chair/i, image: carryingChair },
+  { test: /work mat|rolling mat|floor mat|small mat/i, image: workMat },
+
   // Practical life — transfer & control of movement
   { test: /tong|tweezer|dropper|eye dropper|transfer/i, image: transferTools },
   { test: /spoon|scoop|ladle/i, image: spooning },
