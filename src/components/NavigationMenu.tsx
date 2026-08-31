@@ -8,7 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
-  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag, KeyRound
+  ChevronDown, ChevronUp, LogIn, BarChart3, ShoppingBag, KeyRound, School
 } from 'lucide-react';
 
 interface NavigationMenuProps {
@@ -26,13 +26,14 @@ interface NavigationMenuProps {
   onSubscriptionView?: () => void;
   onParentView?: () => void;
   onProfilesView?: () => void;
+  onClassroomSetupView?: () => void;
 }
 
 const NavigationMenu: React.FC<NavigationMenuProps> = ({
   onDashboardView, onPracticalView, onSensorialView,
   onLanguageView, onMathView, onGeographyView, onBotanyView,
   onArtView, onCulturalView, onGraceCourtesyView,
-  onSubscriptionView, onParentView, onProfilesView
+  onSubscriptionView, onParentView, onProfilesView, onClassroomSetupView
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -71,6 +72,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-primary/40' },
     { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-primary/40' },
     { label: 'Shop', icon: ShoppingBag, onClick: () => navigate('/shop'), color: 'border-primary/30' },
+    { label: 'Classroom Setup', icon: School, onClick: () => { onClassroomSetupView?.(); navigate('/classroom-setup'); }, color: 'border-primary/30' },
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
