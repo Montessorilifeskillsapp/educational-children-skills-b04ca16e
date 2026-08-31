@@ -177,6 +177,13 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /thread|yarn|needle|lace|string|fabric|cloth|sheet|blanket|panel/i, image: threading },
   { test: /timer|clock|bell|drum|music|rhythm|instrument|stick/i, image: walkingLine },
   { test: /tool|guide|instruction|prop|supplies|set\b|object/i, image: sorting },
+  { test: /pink .*cube|wooden cube/i, image: pinkTower },
+  { test: /prism|black and white stair/i, image: brownStair },
+  { test: /wooden rod|segmented rod/i, image: redRods },
+  { test: /grammar|symbol|triangle|circle|arrow/i, image: moveableAlphabet },
+  { test: /board|tile|strip|counter|skittle|disc|puzzle|inset|spheres?|bottle|magnet|sand\b/i, image: stampGame },
+  { test: /knife|knives|polish|mallet|tape|marker|stylus|pointer|rubber band|foil|lid|solution|lamp|flashlight|recording|photo|picture|prompt|phrase|rope|replica|attachment|divider|damper|stump|measuring|room|surface|location|suggestion|research|material|activit|practice|shoe|pet|None required|Optional/i, image: sorting },
+
 
 ];
 
