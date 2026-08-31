@@ -3,6 +3,11 @@
 // material listed on an activity, across every curriculum area.
 
 // Practical-life material composites
+import carryingTray from '@/assets/materials/carrying-tray.jpg';
+import carryingChair from '@/assets/materials/carrying-chair.jpg';
+import workMat from '@/assets/materials/work-mat.jpg';
+import puttingOnCoat from '@/assets/materials/putting-on-coat.jpg';
+import shoePolishing from '@/assets/materials/shoe-polishing.jpg';
 import transferTools from '@/assets/materials/transfer-tools.jpg';
 import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 import careOfPerson from '@/assets/materials/care-of-person.jpg';
@@ -112,6 +117,11 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /broom|dustpan|mop|bucket|squeegee|vacuum|spray bottle|glass cleaner|floor cleaner|sponge|cleaning/i, image: cleaningTools },
   { test: /dish (soap|towel|rack)|washing basin|scrub brush|dishwashing/i, image: dishwashing },
 
+  // Practical life — movement & workspace
+  { test: /carrying.*tray|small tray|wooden tray/i, image: carryingTray },
+  { test: /carrying.*chair|child-sized chair/i, image: carryingChair },
+  { test: /work mat|rolling mat|floor mat|small mat/i, image: workMat },
+
   // Practical life — transfer & control of movement
   { test: /tong|tweezer|dropper|eye dropper|transfer/i, image: transferTools },
   { test: /spoon|scoop|ladle/i, image: spooning },
@@ -122,6 +132,8 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
 
   // Practical life — dressing & shoe
   { test: /dressing frame|button frame|buckle frame|zipper|snap frame|velcro|bow frame|hook.*eye/i, image: dressingFrame },
+  { test: /shoe polish|polishing.*shoe|cleaning.*shoe|leather shoe/i, image: shoePolishing },
+  { test: /putting on.*coat|child.*coat|coat hook|bench/i, image: puttingOnCoat },
   { test: /shoe.*lace|lace.*shoe|tying|shoelace/i, image: shoeTying },
   { test: /clothes|hanger|laundry|folding board/i, image: foldingCloths },
   { test: /cloth|napkin|fold/i, image: foldingCloths },

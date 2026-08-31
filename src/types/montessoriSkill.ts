@@ -45,6 +45,7 @@ export interface EnhancedMontessoriSkill {
   category: string;
   isPremium: boolean;
   icon: string;
+  image?: string;
   materials?: string[];
   materialsPurpose?: string[];
   shopItems?: string[]; // IDs of shop items needed for this skill

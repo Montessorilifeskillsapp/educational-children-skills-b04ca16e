@@ -8,7 +8,7 @@ export const enhancedPracticalLifeSkills: Record<string, EnhancedMontessoriSkill
     purpose: 'Develop hand-eye coordination, concentration, and practical life skills',
     ageRange: '2.5-4 years',
     difficulty: 'Beginner',
-    category: 'Practical Life',
+    category: 'Beginning Activities',
     isPremium: false,
     icon: '💧',
     shopItems: ['pouring-set'],
