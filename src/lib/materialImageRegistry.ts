@@ -132,6 +132,8 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
 
   // Practical life — dressing & shoe
   { test: /dressing frame|button frame|buckle frame|zipper|snap frame|velcro|bow frame|hook.*eye/i, image: dressingFrame },
+  { test: /shoe polish|polishing.*shoe|cleaning.*shoe|leather shoe/i, image: shoePolishing },
+  { test: /putting on.*coat|child.*coat|coat hook|bench/i, image: puttingOnCoat },
   { test: /shoe.*lace|lace.*shoe|tying|shoelace/i, image: shoeTying },
   { test: /clothes|hanger|laundry|folding board/i, image: foldingCloths },
   { test: /cloth|napkin|fold/i, image: foldingCloths },
