@@ -9,6 +9,7 @@ import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalL
 import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import SkillActivity from './SkillActivity';
+import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 
 interface Step {
   id: string;
