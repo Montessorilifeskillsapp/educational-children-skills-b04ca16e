@@ -281,6 +281,19 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           <div className="w-20"></div>
         </header>
 
+        {skill.image && (
+          <div className="mb-6 rounded-xl overflow-hidden border border-amber-200 shadow-sm">
+            <img
+              src={skill.image}
+              alt={`AMI Montessori activity: ${skill.title}`}
+              loading="lazy"
+              width={1024}
+              height={1024}
+              className="w-full aspect-video object-cover"
+            />
+          </div>
+        )}
+
         {skill.materials && skill.materials.length > 0 && (
           <div className="mb-6 p-4 bg-white/70 border border-amber-200 rounded-xl">
             <div className="flex items-center gap-2 mb-3">
