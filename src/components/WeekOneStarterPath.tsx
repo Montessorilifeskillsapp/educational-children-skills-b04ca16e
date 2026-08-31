@@ -86,16 +86,17 @@ const WeekOneStarterPath: React.FC<WeekOneStarterPathProps> = ({ completedSkills
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/15 border border-primary/25 text-[11px] font-semibold text-primary uppercase tracking-wider mb-2">
             <Sparkles className="h-3 w-3" />
-            Start Here · Ages 3–6
+            Week 1 · Practical Life only · Ages 3–6
           </div>
           <h2 className="text-2xl font-bold text-foreground mb-1">
-            Your Week 1 Journey
+            Your First Week: Practical Life
           </h2>
           <p className="text-sm text-muted-foreground max-w-xl">
             {isFirstTime
-              ? "Five carefully sequenced activities — one per day. Just open the app each morning and we'll tell you exactly what to do."
-              : 'Keep going — one activity a day builds focus, coordination, and confidence.'}
+              ? 'Montessori always begins with Practical Life — nothing else. Five days of Practical Life work: control of movement, transferring, care of self, then care of the environment. Sensorial, Language and Mathematics come only once this work is settled.'
+              : 'Keep going — this week stays in Practical Life. Other areas open once these five days are complete.'}
           </p>
+
         </div>
         <div className="text-right min-w-[140px]">
           <p className="text-xs font-medium text-muted-foreground mb-1">
