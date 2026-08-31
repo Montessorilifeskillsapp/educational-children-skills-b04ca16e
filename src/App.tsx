@@ -38,6 +38,7 @@ import InstallBanner from "@/components/InstallBanner";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import FreePdfPage from "./pages/FreePdfPage";
+import ClassroomSetupPage from "./pages/ClassroomSetupPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
@@ -124,6 +125,7 @@ const App = () => {
                           <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />
                           <Route path="/free-pdf" element={<FreePdfPage />} />
+                          <Route path="/classroom-setup" element={<ClassroomSetupPage />} />
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
                           <Route path="/admin" element={<AdminHomePage />} />
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />

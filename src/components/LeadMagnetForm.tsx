@@ -51,7 +51,7 @@ const LeadMagnetForm: React.FC<{ className?: string }> = ({ className }) => {
         <CheckCircle2 className="w-8 h-8 text-secondary mx-auto mb-3" />
         <h3 className="text-lg font-semibold text-foreground mb-1">Check your inbox</h3>
         <p className="text-sm text-muted-foreground">
-          Your Week 1 Starter Path PDF is on its way. If you don't see it in a few minutes,
+          Your Classroom Setup Guide PDF is on its way. If you don't see it in a few minutes,
           check your spam folder.
         </p>
       </div>
