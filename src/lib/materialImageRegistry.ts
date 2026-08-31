@@ -3,6 +3,11 @@
 // material listed on an activity, across every curriculum area.
 
 // Practical-life material composites
+import carryingTray from '@/assets/materials/carrying-tray.jpg';
+import carryingChair from '@/assets/materials/carrying-chair.jpg';
+import workMat from '@/assets/materials/work-mat.jpg';
+import puttingOnCoat from '@/assets/materials/putting-on-coat.jpg';
+import shoePolishing from '@/assets/materials/shoe-polishing.jpg';
 import transferTools from '@/assets/materials/transfer-tools.jpg';
 import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 import careOfPerson from '@/assets/materials/care-of-person.jpg';
