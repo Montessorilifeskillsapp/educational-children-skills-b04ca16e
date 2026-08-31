@@ -39,6 +39,7 @@ const allSkillsFormatted = applyFirstFreeItemLimit(
     title: skill.title,
     description: skill.description,
     icon: skill.icon,
+    image: skill.image,
     category: skill.category,
     difficulty: skill.isPremium ? 'Medium' : 'Easy',
     ageRange: skill.ageRange,
