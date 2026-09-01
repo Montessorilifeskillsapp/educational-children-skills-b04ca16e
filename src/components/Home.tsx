@@ -840,12 +840,8 @@ const Home: React.FC<HomeProps> = ({
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-t ${audience.bg} opacity-40`} />
-                    <div className={`absolute -bottom-7 left-6 w-14 h-14 rounded-2xl bg-gradient-to-br ${audience.color} flex items-center justify-center shadow-lg border-4 border-white`}>
-                      <audience.icon className="w-6 h-6 text-white" />
-                    </div>
                   </div>
-                  <CardContent className="p-6 pt-10">
+                  <CardContent className="p-6">
                     <h3 className="text-xl font-bold text-slate-900 mb-4">{audience.title}</h3>
                     <ul className="space-y-3">
                       {audience.items.map((item, j) => (
