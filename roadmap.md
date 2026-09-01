@@ -1,6 +1,6 @@
 ## Open tasks
-- Add back button to Classroom Setup and Home Setup pages (in progress)
-- Fix Fudge Bear book cover not showing correctly (recurring image issue)
+- [x] Add back button to Classroom Setup and Home Setup pages
+- [x] Fix Fudge Bear book cover not showing correctly (recurring image issue)
 - One-at-a-time Practical Life image review with user
 - Remove redundant wet-pouring activity (duplicate of pouring-water)
 - Regenerate pouring-water image: two identical child-sized pitchers facing one another on a tray
