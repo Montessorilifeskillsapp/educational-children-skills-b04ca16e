@@ -1,8 +1,5 @@
 import React from 'react';
-import { Leaf } from 'lucide-react';
-import BackButton from '@/components/ui/back-button';
-import SkillCard from './SkillCard';
-import ShopSectionCTA from './ShopSectionCTA';
+import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { botanySkillsData } from '@/data/botanySkills';
 import { montessoriTheme } from './ThemeConfig';
 import { botanyImages } from '@/assets/botany';
@@ -15,53 +12,70 @@ interface BotanySkillsProps {
   isPremium: boolean;
 }
 
+const AMI_BOTANY_GROUPS = [
+  {
+    key: 'parts',
+    emoji: '🌿',
+    title: 'Parts of the Plant',
+    description:
+      'The first botany work: naming the whole plant, then its parts, with real specimens before cards. Precise nomenclature comes from direct observation.',
+    skillIds: ['plant-parts', 'leaf-shapes', 'flower-parts'],
+  },
+  {
+    key: 'growth',
+    emoji: '🌱',
+    title: 'Growth and Life Cycle',
+    description:
+      'Once the parts are known, the child follows the plant through time — germination, growth and the full cycle from seed to seed.',
+    skillIds: ['seed-germination', 'plant-lifecycle'],
+  },
+  {
+    key: 'care',
+    emoji: '💧',
+    title: 'Caring for Living Things',
+    description:
+      'The most advanced botany work joins knowledge to responsibility: the child provides what a plant needs and cares for it over time.',
+    skillIds: ['plant-needs'],
+  },
+];
+
+const SEQUENCE_IDS = AMI_BOTANY_GROUPS.flatMap((group) => group.skillIds);
+
 const BotanySkills: React.FC<BotanySkillsProps> = ({
   onBack,
   onSkillSelect,
   completedSkills,
-  isPremium
+  isPremium,
 }) => {
   const skills = applyFirstFreeItemLimit(
-    Object.entries(botanySkillsData).map(([skillId, skill]) => ({
-      id: skillId,
-      ...skill,
-      image: botanyImages[skillId],
-    }))
+    orderBySequence(
+      Object.entries(botanySkillsData).map(([skillId, skill]) => ({
+        id: skillId,
+        ...skill,
+        image: botanyImages[skillId],
+      })),
+      SEQUENCE_IDS,
+    ),
+  );
+
+  const groups = buildOrderedGroups(
+    AMI_BOTANY_GROUPS,
+    new Map(skills.map((skill) => [skill.id, skill])),
   );
 
   return (
-    <div className={`min-h-screen ${montessoriTheme.backgrounds.botany} p-4`}>
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-8">
-          <BackButton onClick={onBack} label="Back to Dashboard" />
-        </div>
-
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg mb-4">
-            <Leaf className="h-7 w-7" />
-          </div>
-          <h1 className="text-4xl font-bold text-primary mb-4">
-            Botany Skills
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover the wonderful world of plants through hands-on Montessori activities
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill) => (
-            <SkillCard
-              key={skill.id}
-              skill={skill}
-              isCompleted={completedSkills.includes(skill.id)}
-              onSelect={() => onSkillSelect(skill.id)}
-              isPremium={isPremium}
-            />
-          ))}
-        </div>
-        <ShopSectionCTA category="Botany" />
-      </div>
-    </div>
+    <CurriculumSection
+      title="🌿 Botany"
+      intro="Botany begins with the living plant itself. The child observes, names and cares for real specimens, moving from the whole to its parts and then to the cycle of life."
+      sequence="Parts of the Plant → Growth and Life Cycle → Caring for Living Things"
+      groups={groups}
+      shopCategory="Botany"
+      className={montessoriTheme.backgrounds.botany}
+      onBack={onBack}
+      onSkillSelect={onSkillSelect}
+      completedSkills={completedSkills}
+      isPremium={isPremium}
+    />
   );
 };
 

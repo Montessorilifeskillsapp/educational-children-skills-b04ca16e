@@ -1,10 +1,5 @@
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Progress } from '@/components/ui/progress';
-import { Eye } from 'lucide-react';
-import SkillCard from './SkillCard';
-import ShopSectionCTA from './ShopSectionCTA';
-import PageLayout from './PageLayout';
+import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { montessoriTheme } from './ThemeConfig';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { additionalSensorialSkills } from '@/data/sensorialSkills2';
@@ -22,113 +17,119 @@ interface SensorialSkillsProps {
   activeProfile?: any;
 }
 
+// AMI Sensorial sequence — simplest discrimination first, most abstract last
+const AMI_SENSORIAL_GROUPS = [
+  {
+    key: 'dimension',
+    emoji: '📐',
+    title: 'Visual — Dimension',
+    description:
+      'The first sensorial work. The child isolates one quality at a time — thickness, height, length and breadth — through graded materials that carry their own control of error.',
+    skillIds: ['knobbed-cylinders', 'pink-tower', 'brown-stair', 'red-rods', 'knobless-cylinders'],
+  },
+  {
+    key: 'colour',
+    emoji: '🎨',
+    title: 'Visual — Colour',
+    description:
+      'Matching, then naming, then grading colour. Introduced once the child can already pair and grade by dimension.',
+    skillIds: ['color-tablets'],
+  },
+  {
+    key: 'form',
+    emoji: '🔺',
+    title: 'Visual — Form',
+    description:
+      'Plane and solid geometry explored with the hands before the eyes, preparing indirectly for geometry and for writing.',
+    skillIds: ['geometric-cabinet', 'constructive-triangles', 'geometric-solids'],
+  },
+  {
+    key: 'tactile',
+    emoji: '✋',
+    title: 'Tactile, Baric and Thermic',
+    description:
+      'Refining the sense of touch: rough and smooth, weight and temperature. Always presented with the eyes closed or blindfolded to isolate the sense.',
+    skillIds: ['touch-boards', 'fabric-box', 'baric-tablets', 'thermic-tablets'],
+  },
+  {
+    key: 'auditory',
+    emoji: '🔔',
+    title: 'Auditory',
+    description:
+      'Discriminating and grading sound, preparing the ear for the phonetic work of language and for music.',
+    skillIds: ['sound-cylinders'],
+  },
+  {
+    key: 'olfactory',
+    emoji: '👃',
+    title: 'Olfactory and Gustatory',
+    description:
+      'Smell and taste, isolated and paired. Presented later because they require the child to already work with care and precision.',
+    skillIds: ['smelling-bottles', 'tasting-bottles'],
+  },
+  {
+    key: 'stereognostic',
+    emoji: '✨',
+    title: 'Stereognostic and Advanced Work',
+    description:
+      'Recognising form by touch alone, then the algebraic cubes — the most advanced sensorial materials, a bridge to mathematics.',
+    skillIds: ['mystery-bag', 'binomial-cube', 'trinomial-cube'],
+  },
+];
+
+const SEQUENCE_IDS = AMI_SENSORIAL_GROUPS.flatMap((group) => group.skillIds);
+
 const SensorialSkills: React.FC<SensorialSkillsProps> = ({
   onBack,
   onSkillSelect,
   completedSkills,
   isPremium,
-  activeProfile
 }) => {
   useSEO({
     title: 'Montessori Sensorial Skills - Visual, Auditory & Tactile Learning',
-    description: 'Explore comprehensive Montessori sensorial activities including Pink Tower, Brown Stair, Color Tablets, Sound Cylinders, and tactile materials.',
-    keywords: 'montessori sensorial, pink tower, brown stair, color tablets, sound cylinders, touch boards, sensory development',
-    canonical: 'https://montessori-skills.com/sensorial'
+    description:
+      'Explore comprehensive Montessori sensorial activities including Pink Tower, Brown Stair, Color Tablets, Sound Cylinders, and tactile materials.',
+    keywords:
+      'montessori sensorial, pink tower, brown stair, color tablets, sound cylinders, touch boards, sensory development',
+    canonical: 'https://montessori-skills.com/sensorial',
   });
 
   const allSkills = {
     ...sensorialSkills,
     ...additionalSensorialSkills,
     ...tactileSensorialSkills,
-    ...completeSensorialSkills
+    ...completeSensorialSkills,
   };
 
   const skills = applyFirstFreeItemLimit(
-    Object.keys(allSkills).map(skillId => ({
-      id: skillId,
-      ...allSkills[skillId],
-      image: sensorialImages[skillId],
-    }))
+    orderBySequence(
+      Object.keys(allSkills).map((skillId) => ({
+        id: skillId,
+        ...allSkills[skillId],
+        image: sensorialImages[skillId],
+      })),
+      SEQUENCE_IDS,
+    ),
   );
 
-  const completionRate = (completedSkills.filter(skill => 
-    Object.keys(allSkills).includes(skill)
-  ).length / skills.length) * 100;
-  const completedCount = completedSkills.filter(skill => 
-    Object.keys(allSkills).includes(skill)
-  ).length;
+  const groups = buildOrderedGroups(
+    AMI_SENSORIAL_GROUPS,
+    new Map(skills.map((skill) => [skill.id, skill])),
+  );
 
   return (
-    <PageLayout title="Sensorial Development" onBack={onBack} className={montessoriTheme.backgrounds.sensorial}>
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
-        <div>
-          <div className="flex items-center gap-3 mb-2">
-            <span className="inline-flex items-center justify-center w-12 h-12 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg">
-              <Eye className="h-6 w-6" />
-            </span>
-            <span className="text-lg text-muted-foreground">Montessori Sensorial Skills</span>
-          </div>
-          {activeProfile && (
-            <p className="text-gray-600 flex items-center gap-2">
-              <span className="text-xl">{activeProfile.avatar}</span>
-              {activeProfile.name}'s Sensorial Journey
-            </p>
-          )}
-        </div>
-      </div>
-
-      <Card className="bg-white border border-gray-200 mb-6">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <span className="text-2xl">🎯</span>
-            Sensorial Progress Overview
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-            <div>
-              <div className="flex justify-between text-sm mb-2">
-                <span>Overall Progress</span>
-                <span>{completedCount}/{skills.length} skills mastered</span>
-              </div>
-              <Progress value={completionRate} className="h-2" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
-              <div className="bg-green-50 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-green-600">{skills.filter(s => s.difficulty === 'Beginner').length}</div>
-                <div className="text-sm text-green-700">Beginner Activities</div>
-              </div>
-              <div className="bg-orange-50 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-orange-600">{skills.filter(s => s.difficulty === 'Intermediate').length}</div>
-                <div className="text-sm text-orange-700">Intermediate Activities</div>
-              </div>
-              <div className="bg-red-50 p-3 rounded-lg">
-                <div className="text-2xl font-bold text-red-600">{skills.filter(s => s.difficulty === 'Advanced').length}</div>
-                <div className="text-sm text-red-700">Advanced Activities</div>
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      <section>
-        <h2 className="text-xl font-semibold text-gray-800 mb-4">
-          Montessori Sensorial Activities
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill) => (
-            <SkillCard
-              key={skill.id}
-              skill={skill}
-              isCompleted={completedSkills.includes(skill.id)}
-              onSelect={() => onSkillSelect(skill.id)}
-              isPremium={isPremium}
-            />
-          ))}
-        </div>
-      </section>
-      <ShopSectionCTA category="Sensorial" />
-    </PageLayout>
+    <CurriculumSection
+      title="👁️ Sensorial Development"
+      intro="Sensorial materials refine and classify what the child has already absorbed through the senses. Each material isolates one quality, moves from simple to complex, and carries its own control of error."
+      sequence="Dimension → Colour → Form → Tactile → Auditory → Olfactory & Gustatory → Stereognostic"
+      groups={groups}
+      shopCategory="Sensorial"
+      className={montessoriTheme.backgrounds.sensorial}
+      onBack={onBack}
+      onSkillSelect={onSkillSelect}
+      completedSkills={completedSkills}
+      isPremium={isPremium}
+    />
   );
 };
 

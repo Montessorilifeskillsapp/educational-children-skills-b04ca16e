@@ -1,8 +1,5 @@
 import React from 'react';
-import { Globe } from 'lucide-react';
-import BackButton from '@/components/ui/back-button';
-import SkillCard from './SkillCard';
-import ShopSectionCTA from './ShopSectionCTA';
+import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
@@ -17,19 +14,59 @@ interface GeographySkillsProps {
   selectedSkill?: string;
 }
 
+const AMI_GEOGRAPHY_GROUPS = [
+  {
+    key: 'land-water',
+    emoji: '🏝️',
+    title: 'Land and Water',
+    description:
+      'Geography always begins sensorially with the elements themselves — land, water and air — and the paired land and water forms the child can pour and shape.',
+    skillIds: ['land-water-forms', 'landforms', 'water-bodies'],
+  },
+  {
+    key: 'globe',
+    emoji: '🌍',
+    title: 'The Globes and Continents',
+    description:
+      'From the sandpaper globe to the coloured globe and puzzle maps, the child builds a first impression of the whole earth and its continents and oceans.',
+    skillIds: ['continents', 'oceans'],
+  },
+  {
+    key: 'maps',
+    emoji: '🧭',
+    title: 'Maps and Orientation',
+    description:
+      'Once continents are known, the child learns to read a map and to orient themselves with cardinal directions.',
+    skillIds: ['compass-directions', 'map-reading'],
+  },
+  {
+    key: 'world',
+    emoji: '🏳️',
+    title: 'Countries, Flags and Climate',
+    description:
+      'The most advanced geography work: naming countries and capitals, recognising flags, and understanding how climate shapes life on earth.',
+    skillIds: ['countries-capitals', 'world-flags', 'climate-zones'],
+  },
+];
+
+const SEQUENCE_IDS = AMI_GEOGRAPHY_GROUPS.flatMap((group) => group.skillIds);
+
 const GeographySkills: React.FC<GeographySkillsProps> = ({
   onBack,
   onSkillSelect,
   completedSkills,
   isPremium,
-  selectedSkill
+  selectedSkill,
 }) => {
   const skills = applyFirstFreeItemLimit(
-    Object.entries(geographySkillsData).map(([skillId, skill]) => ({
-      id: skillId,
-      ...skill,
-      image: geographyImages[skillId],
-    }))
+    orderBySequence(
+      Object.entries(geographySkillsData).map(([skillId, skill]) => ({
+        id: skillId,
+        ...skill,
+        image: geographyImages[skillId],
+      })),
+      SEQUENCE_IDS,
+    ),
   );
 
   if (selectedSkill && geographySkillsData[selectedSkill]) {
@@ -44,39 +81,24 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
     );
   }
 
+  const groups = buildOrderedGroups(
+    AMI_GEOGRAPHY_GROUPS,
+    new Map(skills.map((skill) => [skill.id, skill])),
+  );
+
   return (
-    <div className={`min-h-screen ${montessoriTheme.backgrounds.geography} p-4`}>
-      <div className="max-w-6xl mx-auto">
-        <div className="flex items-center mb-8">
-          <BackButton onClick={onBack} label="Back to Dashboard" />
-        </div>
-
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg mb-4">
-            <Globe className="h-7 w-7" />
-          </div>
-          <h1 className="text-4xl font-bold text-primary mb-4">
-            Geography Skills
-          </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Explore our world through Montessori geography activities
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills.map((skill) => (
-            <SkillCard
-              key={skill.id}
-              skill={skill}
-              isCompleted={completedSkills.includes(skill.id)}
-              onSelect={() => onSkillSelect(skill.id)}
-              isPremium={isPremium}
-            />
-          ))}
-        </div>
-        <ShopSectionCTA category="Geography" />
-      </div>
-    </div>
+    <CurriculumSection
+      title="🌍 Geography"
+      intro="Montessori geography moves from the concrete earth to the abstract map. The child first handles land and water, then the globes, and only later names countries and flags."
+      sequence="Land and Water → Globes and Continents → Maps and Orientation → Countries, Flags and Climate"
+      groups={groups}
+      shopCategory="Geography"
+      className={montessoriTheme.backgrounds.geography}
+      onBack={onBack}
+      onSkillSelect={onSkillSelect}
+      completedSkills={completedSkills}
+      isPremium={isPremium}
+    />
   );
 };
 

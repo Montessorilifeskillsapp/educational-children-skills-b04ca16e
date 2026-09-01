@@ -1,8 +1,5 @@
 import React from 'react';
-import { Palette } from 'lucide-react';
-import BackButton from '@/components/ui/back-button';
-import SkillCard from './SkillCard';
-import ShopSectionCTA from './ShopSectionCTA';
+import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { artSkillsEnhanced } from '../data/artSkillsEnhanced';
 import SkillActivity from './SkillActivity';
 import { montessoriTheme } from './ThemeConfig';
@@ -15,51 +12,63 @@ interface ArtSkillsProps {
   onBack?: () => void;
 }
 
+const ART_GROUPS = [
+  {
+    key: 'drawing',
+    emoji: '✏️',
+    title: 'First Marks and Drawing',
+    description:
+      'Art begins with control of the hand. Simple line work and mark making prepare the same movements the child will later use for writing.',
+    skillIds: ['basic-drawing', 'observational-drawing'],
+  },
+  {
+    key: 'colour',
+    emoji: '🎨',
+    title: 'Exploring Colour',
+    description:
+      'After the hand is prepared, the child isolates colour — first the three primaries, then discovering the secondaries by mixing them.',
+    skillIds: ['primary-colors', 'color-mixing'],
+  },
+  {
+    key: 'painting',
+    emoji: '🖌️',
+    title: 'Painting',
+    description:
+      'The most advanced art work: managing water, brush and pigment with care, from direct finger painting to controlled watercolour.',
+    skillIds: ['finger-painting', 'watercolor-basics'],
+  },
+];
+
+const SEQUENCE_IDS = ART_GROUPS.flatMap((group) => group.skillIds);
+
 export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSelect, onBack }) => {
   const { isPremium } = useSubscription();
-  const skills = applyFirstFreeItemLimit(Object.entries(artSkillsEnhanced).map(([key, skill]) => ({ id: key, ...skill })));
+
+  const skills = applyFirstFreeItemLimit(
+    orderBySequence(
+      Object.entries(artSkillsEnhanced).map(([key, skill]) => ({ id: key, ...skill })),
+      SEQUENCE_IDS,
+    ),
+  );
 
   if (selectedSkill && artSkillsEnhanced[selectedSkill]) {
-    return (
-      <SkillActivity
-        skillId={selectedSkill}
-        onBack={() => onSkillSelect('')}
-        onComplete={() => {}}
-      />
-    );
+    return <SkillActivity skillId={selectedSkill} onBack={() => onSkillSelect('')} onComplete={() => {}} />;
   }
 
-  return (
-    <div className={`min-h-screen ${montessoriTheme.backgrounds.art}`}><div className="container mx-auto px-4 py-8">
-      {onBack && (
-        <BackButton onClick={onBack} label="Back to Skills" />
-      )}
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground shadow-lg mb-4">
-          <Palette className="h-7 w-7" />
-        </div>
-        <h1 className="text-4xl font-bold text-primary mb-4">
-          Montessori Art Skills
-        </h1>
-        <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-          Explore creativity through drawing, painting, and color theory with hands-on Montessori art activities.
-        </p>
-      </div>
+  const groups = buildOrderedGroups(ART_GROUPS, new Map(skills.map((skill) => [skill.id, skill])));
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {skills.map((skill) => (
-          <SkillCard
-            key={skill.id}
-            skill={skill}
-            isCompleted={false}
-            isPremium={isPremium}
-            onSelect={() => onSkillSelect(skill.id)}
-          />
-        ))}
-      </div>
-      <ShopSectionCTA category="Art" />
-      </div>
-    </div>
+  return (
+    <CurriculumSection
+      title="🎨 Art"
+      intro="Montessori art gives the child real tools and real technique. Each activity isolates one skill — line, colour or brushwork — so creative expression rests on genuine ability."
+      sequence="First Marks and Drawing → Exploring Colour → Painting"
+      groups={groups}
+      shopCategory="Art"
+      className={montessoriTheme.backgrounds.art}
+      onBack={onBack ?? (() => {})}
+      onSkillSelect={onSkillSelect}
+      isPremium={isPremium}
+    />
   );
 };
 
