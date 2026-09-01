@@ -48,6 +48,7 @@ import AdminHomePage from "./pages/AdminHomePage";
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import HomeFab from "@/components/HomeFab";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
+import ScrollToTop from "@/components/ScrollToTop";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
@@ -90,6 +91,7 @@ const App = () => {
                         v7_relativeSplatPath: true
                       }}
                     >
+                        <ScrollToTop />
                         <RouteEffects />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <ErrorBoundary>
