@@ -1,4 +1,5 @@
 import pouringSet from '@/assets/materials/pouring-set.jpg';
+import dryPouringSet from '@/assets/materials/dry-pouring-set.jpg';
 import spooningImg from '@/assets/materials/spooning.jpg';
 import tableSettingImg from '@/assets/materials/grace-courtesy-table-setting.jpg';
 import waterBasinImg from '@/assets/materials/water-basin.jpg';
@@ -16,8 +17,7 @@ import dishwashingImg from '@/assets/materials/dishwashing.jpg';
  */
 export const legacyPracticalLifeImages: Record<string, string> = {
   'pouring-water': pouringSet,
-  'dry-pouring': pouringSet,
-  'wet-pouring': pouringSet,
+  'dry-pouring': dryPouringSet,
   'spooning-beans': spooningImg,
   'table-setting': tableSettingImg,
   'hand-washing': waterBasinImg,

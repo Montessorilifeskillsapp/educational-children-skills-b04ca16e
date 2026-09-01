@@ -52,7 +52,6 @@ export const practicalLifeShopMapping: Record<string, string[]> = {
   'pouring-exercises': ['pouring-set'],
   'pouring-water': ['pouring-set', 'glass-pitcher-set'],
   'dry-pouring': ['dry-pouring-set'],
-  'wet-pouring': ['glass-pitcher-set'],
   'opening-closing': ['dressing-frames-set', 'locks-keys-set'],
   'folding-cloth': ['dressing-frames-set', 'cloth-folding-set'],
   'transferring-activities': ['spooning-set', 'transferring-set'],
