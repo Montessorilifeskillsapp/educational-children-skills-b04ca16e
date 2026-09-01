@@ -91,6 +91,7 @@ const App = () => {
                         v7_relativeSplatPath: true
                       }}
                     >
+                        <ScrollToTop />
                         <RouteEffects />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <ErrorBoundary>
