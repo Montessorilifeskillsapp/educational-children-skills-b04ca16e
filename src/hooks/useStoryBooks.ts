@@ -67,7 +67,7 @@ export function useStoryBooks() {
             originalPrice: DEFAULT_PRICE,
             name: item.name,
             description: item.description || existing?.description || '',
-            image: item.image || existing?.image || '',
+            image,
             category: existing?.category ?? 'Story Books',
             website: 'montessoristorybooks.com',
             amazonLink: item.buyLink || existing?.amazonLink,
