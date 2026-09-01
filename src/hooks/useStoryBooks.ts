@@ -38,8 +38,17 @@ export function useStoryBooks() {
 
         const byName = new Map(storyBooks.map((b) => [normalize(b.name), b]));
 
-        const merged: StoryBook[] = live.map((item) => {
+      const merged: StoryBook[] = live.map((item) => {
           const existing = byName.get(normalize(item.name));
+          // Live covers are relative asset paths from montessoristorybooks.com,
+          // which 404 on this project's CDN. Known titles always keep their
+          // bundled cover; new titles get an absolute URL to the source site.
+          const liveImage = item.image
+            ? item.image.startsWith('http')
+              ? item.image
+              : `https://montessoristorybooks.com${item.image}`
+            : '';
+          const image = existing?.image || liveImage;
           return {
             ...(existing ?? {
               id: item.slug,
