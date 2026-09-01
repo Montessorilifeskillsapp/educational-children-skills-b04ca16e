@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { CheckCircle2, ChevronLeft, Play, Sparkles } from 'lucide-react';
 import { montessoriImages } from '@/assets/images';
-import { stepImages } from '@/assets/printables/steps';
+import childPouringStep from '@/assets/child-pouring-step.jpg';
 
 const SCREENS = [
   {
@@ -42,7 +42,7 @@ const SCREENS = [
         </div>
         <div className="flex-1 mx-4 rounded-xl overflow-hidden bg-muted">
           <img
-            src={stepImages['pouring-practice']?.[2] ?? montessoriImages['pouring-set']}
+            src={childPouringStep}
             alt=""
             className="w-full h-full object-cover"
           />
