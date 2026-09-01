@@ -5,4 +5,4 @@
 - Correct the unnatural Washing Clothes activity image with an authentic AMI setup
 - Restore the Sweeping activity image and keep it isolated from Washing Cloths
 
-- [ ] Replace the unnatural Putting on a Coat image with an authentic, natural Montessori coat-flip presentation
+- [x] Replace the unnatural Putting on a Coat image with an authentic, natural Montessori coat-flip presentation
