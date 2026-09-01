@@ -16,6 +16,7 @@ import dressingFrame from '@/assets/materials/dressing-frame.jpg';
 import shoeTying from '@/assets/materials/shoe-tying.jpg';
 import bedMaking from '@/assets/materials/bed-making.jpg';
 import walkingLine from '@/assets/materials/walking-line.jpg';
+import walkingAroundWork from '@/assets/materials/pl/walking-around-work.jpg';
 import graceCourtesyTable from '@/assets/materials/grace-courtesy-table-setting.jpg';
 import careOfPerson from '@/assets/materials/care-of-person.jpg';
 import botanyCare from '@/assets/materials/botany-care.jpg';
