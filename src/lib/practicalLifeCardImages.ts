@@ -1,4 +1,5 @@
 import pouringSet from '@/assets/materials/pouring-set.jpg';
+import dryPouringSet from '@/assets/materials/dry-pouring-set.jpg';
 import spooningImg from '@/assets/materials/spooning.jpg';
 import tableSettingImg from '@/assets/materials/grace-courtesy-table-setting.jpg';
 import waterBasinImg from '@/assets/materials/water-basin.jpg';
