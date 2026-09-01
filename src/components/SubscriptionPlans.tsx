@@ -44,7 +44,7 @@ const FREE_PLAN: Plan = {
   description: 'A real taste of the curriculum — no card required.',
   features: [
     '1 starter activity in each of the 8 curriculum areas',
-    'Week 1 guided starter path',
+    'Montessori Classroom Setup Guide (free PDF)',
     'Family Dashboard with progress tracking',
     'Ad-free, distraction-free experience',
   ],
@@ -61,7 +61,6 @@ const PREMIUM_MONTHLY: Plan = {
     'Step-by-step photo presentations for every activity',
     'New activities added every month',
     'Multiple child profiles & individual progress',
-    'Printable bundles & seasonal packs',
     'Priority support',
   ],
 };
@@ -77,7 +76,6 @@ const PREMIUM_YEARLY: Plan = {
     'Step-by-step photo presentations for every activity',
     'New activities added every month',
     'Multiple child profiles & individual progress',
-    'Printable bundles & seasonal packs',
     'Priority support',
   ],
   popular: true,

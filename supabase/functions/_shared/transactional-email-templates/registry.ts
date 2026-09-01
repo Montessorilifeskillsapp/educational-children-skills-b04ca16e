@@ -16,7 +16,7 @@ import { template as day3NextActivity } from './day-3-next-activity.tsx'
 import { template as day5Encouragement } from './day-5-encouragement.tsx'
 import { template as day7Wrap } from './day-7-wrap.tsx'
 import { template as paywallAbandon } from './paywall-abandon.tsx'
-import { template as leadMagnetWeek1 } from './lead-magnet-week-1.tsx'
+import { template as leadMagnetClassroomSetup } from './lead-magnet-classroom-setup.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'welcome-day-0': welcomeDay0,
@@ -26,5 +26,5 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'day-5-encouragement': day5Encouragement,
   'day-7-wrap': day7Wrap,
   'paywall-abandon': paywallAbandon,
-  'lead-magnet-week-1': leadMagnetWeek1,
+  'lead-magnet-classroom-setup': leadMagnetClassroomSetup,
 }

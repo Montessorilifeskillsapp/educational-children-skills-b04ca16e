@@ -31,7 +31,7 @@ const GuaranteePage: React.FC = () => {
           {[
             { icon: CheckCircle, title: 'Full refund within 30 days', body: 'Email us within 30 days of any paid purchase and we will refund 100% — no follow-up survey, no retention call.' },
             { icon: RefreshCw, title: 'Cancel anytime, no lock-in', body: 'Cancel from your account in two clicks. Your access continues until the end of your billing period.' },
-            { icon: XCircle, title: 'No credit card for the free tier', body: 'The free Explorer tier — one starter activity per learning area + the Week 1 path — never asks for a card.' },
+            { icon: XCircle, title: 'No credit card for the free tier', body: 'The free Explorer tier — one starter activity per learning area — never asks for a card.' },
             { icon: Mail, title: 'A real person reads every email', body: 'Refund requests go directly to the founder, an AMI-trained 3–6 Primary Guide. Most replies within 24 hours.' },
           ].map(({ icon: Icon, title, body }) => (
             <div key={title} className="flex gap-4 p-5 rounded-2xl border border-border bg-card">

@@ -145,7 +145,7 @@ const pricingPlans = [
     price: 0,
     period: 'Free forever',
     tagline: 'Start with the basics',
-    features: ['3 core activities (pouring, sweeping, rolling a mat)', '1 printable activity sheet', 'Daily Life Skill Prompt', 'Gentle, ad-free experience'],
+    features: ['3 core activities (pouring, sweeping, rolling a mat)', 'Daily Life Skill Prompt', 'Gentle, ad-free experience'],
     cta: 'Start Free',
     highlight: false,
   },
@@ -155,7 +155,7 @@ const pricingPlans = [
     price: 29,
     period: '/month',
     tagline: 'Unlock full potential',
-    features: ['100+ Montessori life skill activities', 'All new content every month', 'Beautifully illustrated printable bundles', 'Voice-guided instructions', 'Progress badges & certificates', 'Family dashboard with skill tracking', 'Bonus seasonal activity packs', 'Yearly plan: $199 (43% off)'],
+    features: ['100+ Montessori life skill activities', 'All new content every month', 'Progress badges & certificates', 'Family dashboard with skill tracking', 'Yearly plan: $199 (43% off)'],
     cta: 'Start Free Trial',
     highlight: true,
   },
@@ -706,12 +706,12 @@ const Home: React.FC<HomeProps> = ({
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
               <div className="md:max-w-sm">
-                <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-1">Free · PDF · 6 pages</p>
+                <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-1">Free · PDF</p>
                 <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
-                  The Week 1 Starter Path
+                  The Classroom Setup Guide
                 </h3>
                 <p className="text-sm text-slate-600 mt-1">
-                  Five AMI activities — one for each day. Sent to your inbox.
+                  How to prepare an AMI-aligned Montessori environment. Sent to your inbox.
                 </p>
               </div>
               <div className="flex-1 md:max-w-md">
