@@ -9,6 +9,7 @@ import cleaningToolsImg from '@/assets/materials/cleaning-tools.jpg';
 import foodPrepImg from '@/assets/materials/food-prep.jpg';
 import dressingFrameImg from '@/assets/materials/dressing-frame.jpg';
 import dishwashingImg from '@/assets/materials/dishwashing.jpg';
+import polishingMirrorImg from '@/assets/materials/pl/polishing-mirror.jpg';
 
 /**
  * Older Practical Life activity sets predate the AMI rewrite and carry no
@@ -24,7 +25,7 @@ export const legacyPracticalLifeImages: Record<string, string> = {
   'brushing-teeth': careOfPersonImg,
   'brushing-hair': careOfPersonImg,
   'flower-arranging': botanyCareImg,
-  'polishing-mirror': cleaningToolsImg,
+  'polishing-mirror': polishingMirrorImg,
   'squeezing-orange-juice': foodPrepImg,
   'getting-dressed': dressingFrameImg,
   dishwashing: dishwashingImg,
