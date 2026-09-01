@@ -17,7 +17,6 @@ import dishwashingImg from '@/assets/materials/dishwashing.jpg';
 export const legacyPracticalLifeImages: Record<string, string> = {
   'pouring-water': pouringSet,
   'dry-pouring': pouringSet,
-  'wet-pouring': pouringSet,
   'spooning-beans': spooningImg,
   'table-setting': tableSettingImg,
   'hand-washing': waterBasinImg,
