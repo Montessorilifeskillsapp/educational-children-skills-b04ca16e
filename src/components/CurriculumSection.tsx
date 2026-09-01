@@ -76,7 +76,12 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
             {group.skills.map((skill) => (
               <SkillCard
                 key={skill.id}
-                skill={skill}
+                skill={{
+                  ...skill,
+                  icon: skill.icon ?? '',
+                  category: skill.category ?? '',
+                  difficulty: skill.difficulty ?? '',
+                }}
                 onSelect={() => onSkillSelect(skill.id)}
                 isCompleted={completedSkills.includes(skill.id)}
                 isPremium={isPremium}
