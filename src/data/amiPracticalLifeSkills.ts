@@ -2233,7 +2233,7 @@ duration: '8-12 minutes'
     category: 'Grace and Courtesy',
     isPremium: false,
     icon: '🚶',
-    image: walkingLine,
+    image: walkingAroundWork,
     materials: [
       'Work mat or small rug on the floor',
       'A child working at the mat',
