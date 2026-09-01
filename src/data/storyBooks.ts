@@ -240,7 +240,7 @@ export const storyBooks: StoryBook[] = [
     name: 'Fudge Bear Learns the Continents',
     price: 16.99,
     originalPrice: 16.99,
-    image: '/__l5e/assets-v1/a16482d8-f89e-41d3-a6eb-9132d4f6daf6/fudge-bear-continents.jpg',
+    image: '/__l5e/assets-v1/13c8803d-b04d-4784-8747-3ba92e42c9af/fudge-bear-continents.jpg',
     rating: 4.8,
     category: 'Story Books',
     description: 'A gentle and curious teddy bear explores the world through authentic AMI Montessori puzzle maps and globes, discovering each continent through hands-on work.',
