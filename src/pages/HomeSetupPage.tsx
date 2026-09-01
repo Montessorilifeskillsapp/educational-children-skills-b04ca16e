@@ -79,6 +79,8 @@ const CHECKLIST = [
 ];
 
 const HomeSetupPage: React.FC = () => {
+  const navigate = useNavigate();
+
   useSEO({
     title: 'How to Set Up a Montessori Learning Space at Home',
     description:
@@ -92,6 +94,9 @@ const HomeSetupPage: React.FC = () => {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 pointer-events-none" />
         <div className="container relative mx-auto px-6 py-16 md:py-24 max-w-4xl text-center">
+          <div className="absolute left-4 top-4 md:left-6 md:top-6">
+            <BackButton onClick={() => navigate('/')} label="Back" />
+          </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
             <Home className="w-3.5 h-3.5" />
             Montessori at Home
