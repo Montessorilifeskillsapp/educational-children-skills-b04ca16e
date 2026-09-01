@@ -21,7 +21,7 @@ export const legacyPracticalLifeImages: Record<string, string> = {
   'dry-pouring': dryPouringSet,
   'spooning-beans': spooningImg,
   'table-setting': tableSettingImg,
-  'hand-washing': waterBasinImg,
+  'hand-washing': handWashingImg,
   'brushing-teeth': careOfPersonImg,
   'brushing-hair': careOfPersonImg,
   'flower-arranging': botanyCareImg,
