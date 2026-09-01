@@ -44,7 +44,7 @@ const FREE_PLAN: Plan = {
   description: 'A real taste of the curriculum — no card required.',
   features: [
     '1 starter activity in each of the 8 curriculum areas',
-    'Montessori Classroom Setup Guide (free PDF)',
+    'Montessori Classroom Setup Guide (online)',
     'Family Dashboard with progress tracking',
     'Ad-free, distraction-free experience',
   ],
