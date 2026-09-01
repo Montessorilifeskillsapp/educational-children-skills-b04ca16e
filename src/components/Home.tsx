@@ -733,12 +733,6 @@ const Home: React.FC<HomeProps> = ({
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       loading="lazy"
                     />
-                    <div className={`absolute inset-0 bg-gradient-to-t ${area.color} opacity-20 group-hover:opacity-30 transition-opacity`} />
-                    <div className="absolute top-3 left-3">
-                      <span className={`inline-flex items-center justify-center w-9 h-9 rounded-lg bg-gradient-to-br ${area.color} text-white shadow-lg`}>
-                        <area.icon className="w-4 h-4" />
-                      </span>
-                    </div>
                   </div>
                   <div className="p-4">
                     <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors">{area.name}</h3>
