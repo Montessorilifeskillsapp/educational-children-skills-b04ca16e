@@ -72,7 +72,7 @@ Deno.serve(async (req) => {
       byUtmCampaign[uc] = (byUtmCampaign[uc] ?? 0) + 1
     }
 
-    // Delivery: count distinct recipients who received lead-magnet-week-1 (status=sent)
+    // Delivery: count distinct recipients who received lead-magnet-classroom-setup (status=sent)
     // email_send_log may not exist yet — handle gracefully.
     let delivered = 0
     let deliveryAvailable = false
@@ -80,7 +80,7 @@ Deno.serve(async (req) => {
       const { data: sends, error: sendsErr } = await supabase
         .from('email_send_log')
         .select('recipient_email, status, message_id, created_at, template_name')
-        .eq('template_name', 'lead-magnet-week-1')
+        .eq('template_name', 'lead-magnet-classroom-setup')
         .gte('created_at', since)
         .limit(50000)
       if (!sendsErr && sends) {

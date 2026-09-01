@@ -13,6 +13,9 @@ import heroChildPouring from '@/assets/hero-child-pouring.jpg';
 import founderKerry from '@/assets/founder-kerry-howard.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
+import stepChooseActivity from '@/assets/materials/step-choose-activity.jpg';
+import stepFollowGuide from '@/assets/materials/step-follow-guide.jpg';
+import stepTrackProgress from '@/assets/materials/step-track-progress.jpg';
 import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
@@ -96,22 +99,22 @@ const howItWorks = [
     step: '01',
     title: 'Choose an Activity',
     desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
-    icon: BookOpen,
-    image: sensorialImages['knobbed-cylinders'],
+    image: stepChooseActivity,
+    alt: 'Low Montessori shelf with practical life activities on trays',
   },
   {
     step: '02',
     title: 'Follow the Guide',
     desc: 'Get step-by-step presentation instructions with photos, videos, and material lists — no Montessori training required.',
-    icon: Play,
-    image: mathImages['number-rods'],
+    image: stepFollowGuide,
+    alt: 'Guide presenting the pouring water activity to a child',
   },
   {
     step: '03',
-    title: 'Track Progress',
-    desc: 'Log completions, celebrate milestones, and watch your child build independence day by day.',
-    icon: BarChart3,
-    image: sensorialImages['brown-stair'],
+    title: 'Watch Independence Grow',
+    desc: 'Your child chooses work, repeats it, and builds concentration and independence day by day.',
+    image: stepTrackProgress,
+    alt: 'Child concentrating while building the pink tower',
   },
 ];
 
@@ -145,7 +148,7 @@ const pricingPlans = [
     price: 0,
     period: 'Free forever',
     tagline: 'Start with the basics',
-    features: ['3 core activities (pouring, sweeping, rolling a mat)', '1 printable activity sheet', 'Daily Life Skill Prompt', 'Gentle, ad-free experience'],
+    features: ['3 core activities (pouring, sweeping, rolling a mat)', 'Daily Life Skill Prompt', 'Gentle, ad-free experience'],
     cta: 'Start Free',
     highlight: false,
   },
@@ -155,7 +158,7 @@ const pricingPlans = [
     price: 29,
     period: '/month',
     tagline: 'Unlock full potential',
-    features: ['100+ Montessori life skill activities', 'All new content every month', 'Beautifully illustrated printable bundles', 'Voice-guided instructions', 'Progress badges & certificates', 'Family dashboard with skill tracking', 'Bonus seasonal activity packs', 'Yearly plan: $199 (43% off)'],
+    features: ['100+ Montessori life skill activities', 'All new content every month', 'Progress badges & certificates', 'Family dashboard with skill tracking', 'Yearly plan: $199 (43% off)'],
     cta: 'Start Free Trial',
     highlight: true,
   },
@@ -706,12 +709,12 @@ const Home: React.FC<HomeProps> = ({
           <Reveal>
             <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
               <div className="md:max-w-sm">
-                <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-1">Free · PDF · 6 pages</p>
+                <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-1">Free · PDF</p>
                 <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
-                  The Week 1 Starter Path
+                  The Classroom Setup Guide
                 </h3>
                 <p className="text-sm text-slate-600 mt-1">
-                  Five AMI activities — one for each day. Sent to your inbox.
+                  How to prepare an AMI-aligned Montessori environment. Sent to your inbox.
                 </p>
               </div>
               <div className="flex-1 md:max-w-md">
@@ -792,18 +795,17 @@ const Home: React.FC<HomeProps> = ({
             {howItWorks.map((step, i) => (
               <Reveal key={step.step} delay={i * 150}>
                 <div className="relative text-center bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg transition-all duration-300">
-                  <div className="relative mx-auto w-32 h-32 mb-5 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
+                  <div className="relative mx-auto w-full aspect-square mb-5 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
                     <img
                       src={step.image}
-                      alt={`Authentic Montessori material — ${step.title}`}
+                      alt={step.alt}
+                      width={768}
+                      height={768}
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <div className="absolute -bottom-3 left-1/2 -translate-x-1/2 z-10 w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-xl border-2 border-white">
-                      <step.icon className="w-5 h-5 text-white" />
-                    </div>
                   </div>
-                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/15 text-primary font-bold text-sm mb-3 mt-3">
+                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/15 text-primary font-bold text-sm mb-3">
                     {step.step}
                   </div>
                   <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>

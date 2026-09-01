@@ -52,7 +52,7 @@ Deno.serve(async (req) => {
   }
 
   const utm = (body?.utm && typeof body.utm === 'object') ? body.utm : null
-  const source = 'week-1-starter-pdf'
+  const source = 'classroom-setup-guide'
 
   const supabaseUrl = Deno.env.get('SUPABASE_URL')!
   const serviceKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!
@@ -75,7 +75,7 @@ Deno.serve(async (req) => {
   const idempotencyKey = `lead-magnet-${source}-${emailRaw}`
   const { error: emailError } = await supabase.functions.invoke('send-transactional-email', {
     body: {
-      templateName: 'lead-magnet-week-1',
+      templateName: 'lead-magnet-classroom-setup',
       recipientEmail: emailRaw,
       idempotencyKey,
     },

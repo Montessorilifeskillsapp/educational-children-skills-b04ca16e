@@ -124,7 +124,7 @@ const PreviewPouringWaterPage: React.FC = () => {
           </p>
           <Link to="/auth">
             <Button size="lg" className="bg-gradient-to-r from-primary to-accent text-primary-foreground px-8">
-              Start your free Week 1 <ArrowRight className="ml-2 w-5 h-5" />
+              Start exploring free <ArrowRight className="ml-2 w-5 h-5" />
             </Button>
           </Link>
           <p className="text-xs text-muted-foreground mt-3">No credit card · Cancel anytime · 30-day guarantee</p>
