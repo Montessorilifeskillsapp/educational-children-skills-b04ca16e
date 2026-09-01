@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Hand, Brain, Leaf, Sparkles, BookOpen, Users } from 'lucide-react';
 import heroImage from '@/assets/landing-hero.jpg';
-import LeadMagnetForm from '@/components/LeadMagnetForm';
+
 
 const features = [
   { icon: Hand, title: 'Hands-On Learning', desc: 'Authentic Montessori materials guide each activity, from the Pink Tower to the Golden Beads.' },
