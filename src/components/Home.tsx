@@ -28,7 +28,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
-import LeadMagnetForm from './LeadMagnetForm';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -703,27 +702,6 @@ const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
-      {/* ─── Slim Lead Capture Bar ─── */}
-      <section className="py-10 lg:py-12 bg-gradient-to-r from-primary/10 via-accent/10 to-secondary/10 border-t border-border/60">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5">
-              <div className="md:max-w-sm">
-                <p className="text-xs font-semibold text-secondary uppercase tracking-wider mb-1">Free · PDF</p>
-                <h3 className="text-xl md:text-2xl font-bold text-slate-900 leading-tight">
-                  The Classroom Setup Guide
-                </h3>
-                <p className="text-sm text-slate-600 mt-1">
-                  How to prepare an AMI-aligned Montessori environment. Sent to your inbox.
-                </p>
-              </div>
-              <div className="flex-1 md:max-w-md">
-                <LeadMagnetForm />
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
 
       {/* ─── Curriculum Grid ─── */}
 
