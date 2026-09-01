@@ -80,36 +80,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Lead magnet */}
-      <section className="container mx-auto px-6 pb-8">
-        <div className="relative overflow-hidden rounded-3xl border border-border/60 bg-card p-8 md:p-12 grid md:grid-cols-5 gap-8 items-center">
-          <div className="md:col-span-3 space-y-4">
-            <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
-              Free download
-            </span>
-            <h2 className="text-2xl md:text-3xl font-semibold tracking-tight">
-              The Classroom Setup Guide
-            </h2>
-            <p className="text-muted-foreground leading-relaxed">
-              How to prepare an authentic AMI Montessori environment — the six principles,
-              the five curriculum areas, and the essentials checklist. Delivered straight to your inbox.
-            </p>
-            <LeadMagnetForm />
-          </div>
-          <div className="md:col-span-2 relative">
-            <div className="absolute -inset-3 bg-gradient-to-tr from-primary/15 to-accent/20 rounded-2xl blur-xl" />
-            <div className="relative aspect-[3/4] rounded-2xl bg-gradient-to-br from-background to-muted border border-border/60 shadow-xl flex flex-col items-center justify-center p-8 text-center">
-              <p className="text-[11px] uppercase tracking-[0.2em] text-secondary font-semibold mb-3">Free PDF</p>
-              <p className="font-serif text-2xl md:text-3xl font-semibold text-foreground leading-tight mb-3">
-                Classroom<br/>Setup Guide
-              </p>
-              <p className="text-xs text-muted-foreground italic">
-                Principles · Curriculum areas · Shelf order · Essentials checklist
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="container mx-auto px-6 pb-24">
