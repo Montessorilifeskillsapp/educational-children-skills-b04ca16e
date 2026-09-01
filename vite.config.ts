@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
     proxy: {
       "/__l5e": {
-        target: "https://educational-children-skills.lovable.app",
+        target: "https://montessorilifeskillsapp.com",
         changeOrigin: true,
         secure: true,
       },
