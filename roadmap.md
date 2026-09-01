@@ -8,3 +8,5 @@
 - Restore the Sweeping activity image and keep it isolated from Washing Cloths
 - 
 - [x] Replace the unnatural Putting on a Coat image with an authentic, natural Montessori coat-flip presentation
+
+- [done] Correct Fudge Bear cover pulled from montessoristorybooks.com and uploaded as project asset
