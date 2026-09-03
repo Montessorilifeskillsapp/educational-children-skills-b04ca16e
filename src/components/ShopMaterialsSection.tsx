@@ -6,6 +6,7 @@ import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { extractAllMaterialsFromSkills } from '@/lib/materials';
 import { withAffiliateTag } from '@/lib/affiliate';
+import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { MaterialBundle, ResolvedMaterial } from './MaterialBundle';
 
 export function ShopMaterialsSection() {
