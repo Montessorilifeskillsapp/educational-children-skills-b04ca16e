@@ -231,6 +231,84 @@ export const culturalSkillsData: Record<string, {
     ]
   },
 
+  // === Planets ===
+  'planet-object-picture-matching': {
+    title: 'Object-to-Picture Matching: Planets',
+    description: 'Pair three-dimensional planet models with matching picture cards',
+    icon: '🪐',
+    category: 'Cultural - Planets',
+    isPremium: false,
+    difficulty: 'Beginner',
+    ageRange: '3-5',
+    purpose: 'Builds visual discrimination, concentration, and vocabulary by matching a concrete planet model to its two-dimensional representation.',
+    materials: ['Set of small planet models', 'Matching planet picture cards', 'Work mat', 'Control chart (optional)'],
+    steps: [
+      { id: '1', instruction: 'Lay out the work mat and place the planet models in a row', completed: false },
+      { id: '2', instruction: 'Present the picture cards face up beside the models', completed: false },
+      { id: '3', instruction: 'Pick up one planet model and name it clearly', completed: false },
+      { id: '4', instruction: 'Compare it to each picture card until a match is found', completed: false },
+      { id: '5', instruction: 'Place the matched pair together and continue with the remaining planets', completed: false },
+      { id: '6', instruction: 'Verify the work with a control chart or by naming each pair aloud', completed: false }
+    ]
+  },
+  'orbiting-movement': {
+    title: 'Orbiting Movement Activity',
+    description: 'Walk an ellipse to feel how a planet moves around the Sun',
+    icon: '🌞',
+    category: 'Cultural - Planets',
+    isPremium: true,
+    difficulty: 'Beginner',
+    ageRange: '3-6',
+    purpose: 'Gives a gross-motor, embodied experience of orbital motion and the relationship between a central sun and orbiting planets.',
+    materials: ['Large ellipse taped on the floor', 'Sun card or yellow ball', 'Small planet models or cards', 'Open floor space'],
+    steps: [
+      { id: '1', instruction: 'Place a yellow ball or card in the centre to represent the Sun', completed: false },
+      { id: '2', instruction: 'Identify the taped ellipse as a planet path', completed: false },
+      { id: '3', instruction: 'Invite the child to hold a planet and walk slowly around the Sun', completed: false },
+      { id: '4', instruction: 'Demonstrate steady, even pacing along the ellipse', completed: false },
+      { id: '5', instruction: 'Add a second child with a different planet on a smaller or larger ellipse', completed: false },
+      { id: '6', instruction: 'Discuss how planets stay in their paths and do not bump into each other', completed: false }
+    ]
+  },
+  'solar-system-puzzle': {
+    title: 'Solar System Puzzle and Control Chart',
+    description: 'Identify the planets and match puzzle pieces to a control chart',
+    icon: '🧩',
+    category: 'Cultural - Planets',
+    isPremium: true,
+    difficulty: 'Intermediate',
+    ageRange: '4-6',
+    purpose: 'Develops hand-eye coordination, problem-solving, and the sequential order of the planets from the Sun.',
+    materials: ['Solar system puzzle with frame', 'Control chart showing planet order', 'Planet name labels', 'Work mat'],
+    steps: [
+      { id: '1', instruction: 'Present the puzzle and control chart on the mat', completed: false },
+      { id: '2', instruction: 'Name each planet in order from the Sun using the control chart', completed: false },
+      { id: '3', instruction: 'Remove the puzzle pieces and arrange them above the frame', completed: false },
+      { id: '4', instruction: 'Replace each planet, comparing it to the control chart', completed: false },
+      { id: '5', instruction: 'Add planet name labels beside each piece', completed: false },
+      { id: '6', instruction: 'Self-check by placing the control chart over the completed puzzle', completed: false }
+    ]
+  },
+  'planet-nomenclature-cards': {
+    title: 'Planet Nomenclature Cards',
+    description: 'Match picture cards with labels to learn astronomy vocabulary',
+    icon: '🃏',
+    category: 'Cultural - Planets',
+    isPremium: true,
+    difficulty: 'Intermediate',
+    ageRange: '4-6',
+    purpose: 'Absorbs reading and vocabulary through the classic Montessori three-part card format: picture, label, and control card.',
+    materials: ['Three-part nomenclature cards (picture, label, control)', 'Work mat', 'Small reading rug (optional)'],
+    steps: [
+      { id: '1', instruction: 'Lay out the picture cards in a row, naming each planet', completed: false },
+      { id: '2', instruction: 'Read each label card and match it to the correct picture', completed: false },
+      { id: '3', instruction: 'Use the control card to check each match', completed: false },
+      { id: '4', instruction: 'When secure, mix the cards and repeat independently', completed: false },
+      { id: '5', instruction: 'Invite the child to write the planet names from memory', completed: false },
+      { id: '6', instruction: 'Connect to the solar system puzzle by placing cards near the corresponding puzzle piece', completed: false }
+    ]
+  },
+
   // === World Cultures ===
   'flags-of-the-world': {
     title: 'Flags of the World',
