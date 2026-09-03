@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { allCurriculumSkills } from '@/data/curriculumSections';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
-import { withAffiliateTag, isAmazonUrl } from '@/lib/affiliate';
+import { withAffiliateTag } from '@/lib/affiliate';
 
 interface LinkForm {
   material_key: string;
@@ -21,6 +21,8 @@ interface LinkForm {
   amazon_url: string;
   notes: string;
   active: boolean;
+  affiliate_tag: string;
+  vendor: string;
 }
 
 const AdminMaterialsPage: React.FC = () => {
@@ -54,7 +56,7 @@ const AdminMaterialsPage: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('material_links')
-        .select('material_key, display_name, amazon_url, notes, active');
+        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor');
       if (error) {
         toast({ title: 'Error loading links', description: error.message, variant: 'destructive' });
       } else {
@@ -66,6 +68,8 @@ const AdminMaterialsPage: React.FC = () => {
             amazon_url: row.amazon_url || '',
             notes: row.notes || '',
             active: row.active ?? true,
+            affiliate_tag: row.affiliate_tag || '',
+            vendor: row.vendor || '',
           };
         }
         setLinks(map);
@@ -79,7 +83,7 @@ const AdminMaterialsPage: React.FC = () => {
   const allMaterials = useMemo(() => extractAllMaterialsFromSkills(allCurriculumSkills()), []);
 
   const coveredCount = useMemo(
-    () => allMaterials.filter((m) => links[m.key]?.amazon_url && isAmazonUrl(links[m.key].amazon_url)).length,
+    () => allMaterials.filter((m) => !!links[m.key]?.amazon_url?.trim()).length,
     [allMaterials, links]
   );
 
@@ -98,6 +102,8 @@ const AdminMaterialsPage: React.FC = () => {
         amazon_url: prev[key]?.amazon_url || '',
         notes: prev[key]?.notes || '',
         active: prev[key]?.active ?? true,
+        affiliate_tag: prev[key]?.affiliate_tag || '',
+        vendor: prev[key]?.vendor || '',
         ...patch,
       },
     }));
@@ -128,6 +134,8 @@ const AdminMaterialsPage: React.FC = () => {
           amazon_url: link.amazon_url,
           notes: link.notes,
           active: link.active,
+          affiliate_tag: link.affiliate_tag,
+          vendor: link.vendor,
         }),
       });
 
@@ -208,7 +216,9 @@ const AdminMaterialsPage: React.FC = () => {
       current.display_name !== initial.display_name ||
       current.amazon_url !== initial.amazon_url ||
       current.notes !== initial.notes ||
-      current.active !== initial.active
+      current.active !== initial.active ||
+      current.affiliate_tag !== initial.affiliate_tag ||
+      current.vendor !== initial.vendor
     );
   }
 
@@ -229,11 +239,11 @@ const AdminMaterialsPage: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold">Materials Links</h1>
           <p className="text-muted-foreground">
-            Curate Amazon links for Montessori materials. {coveredCount} of {allMaterials.length} materials linked.
+            Curate supplier links for Montessori materials. {coveredCount} of {allMaterials.length} materials linked.
           </p>
         </div>
         <div className="text-sm text-muted-foreground">
-          Affiliate tag: <code className="bg-muted px-1 rounded">kerryhoward-20</code>
+          Default Amazon tag: <code className="bg-muted px-1 rounded">kerryhoward-20</code>
         </div>
       </header>
 
@@ -282,8 +292,10 @@ const AdminMaterialsPage: React.FC = () => {
               amazon_url: '',
               notes: '',
               active: true,
+              affiliate_tag: '',
+              vendor: '',
             };
-            const previewUrl = link.amazon_url ? withAffiliateTag(link.amazon_url) : '';
+            const previewUrl = link.amazon_url ? withAffiliateTag(link.amazon_url, link.affiliate_tag) : '';
 
             return (
               <Card key={key} className={hasChanges(key) ? 'border-primary' : undefined}>
@@ -298,13 +310,38 @@ const AdminMaterialsPage: React.FC = () => {
                       />
                     </div>
                     <div className="flex-[2] space-y-1.5">
-                      <Label htmlFor={`url-${key}`}>Amazon URL</Label>
+                      <Label htmlFor={`url-${key}`}>Product URL</Label>
                       <Input
                         id={`url-${key}`}
                         value={link.amazon_url}
                         onChange={(e) => updateLink(key, { amazon_url: e.target.value })}
                         placeholder="https://www.amazon.com/dp/..."
                       />
+                    </div>
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <div className="flex-1 space-y-1.5">
+                      <Label htmlFor={`vendor-${key}`}>Supplier (optional)</Label>
+                      <Input
+                        id={`vendor-${key}`}
+                        value={link.vendor}
+                        onChange={(e) => updateLink(key, { vendor: e.target.value })}
+                        placeholder="Amazon"
+                      />
+                    </div>
+                    <div className="flex-1 space-y-1.5">
+                      <Label htmlFor={`aff-${key}`}>Affiliate tag override (optional)</Label>
+                      <Input
+                        id={`aff-${key}`}
+                        value={link.affiliate_tag}
+                        onChange={(e) => updateLink(key, { affiliate_tag: e.target.value })}
+                        placeholder="mystore-21 or ref=kerry"
+                      />
+                      <p className="text-xs text-muted-foreground">
+                        Leave blank to use the default Amazon tag. Use a bare code (added as{' '}
+                        <code>tag=</code>) or an explicit <code>key=value</code> pair for other suppliers.
+                      </p>
                     </div>
                   </div>
 
@@ -330,7 +367,7 @@ const AdminMaterialsPage: React.FC = () => {
                       </Label>
                     </div>
                     <div className="flex items-center gap-2">
-                      {previewUrl && isAmazonUrl(previewUrl) && (
+                      {previewUrl && (
                         <a
                           href={previewUrl}
                           target="_blank"
@@ -372,7 +409,8 @@ const AdminMaterialsPage: React.FC = () => {
       )}
 
       <p className="text-xs text-muted-foreground text-center">
-        Affiliate disclosure: as an Amazon Associate we earn from qualifying purchases.
+        Affiliate disclosure: as an Amazon Associate we earn from qualifying purchases. Other supplier
+        links may carry their own affiliate codes.
       </p>
     </div>
   );

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
-import { withAffiliateTag, isAmazonUrl } from '@/lib/affiliate';
+import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 
 export interface ResolvedMaterial {
@@ -13,6 +13,7 @@ export interface ResolvedMaterial {
   essential: boolean;
   amazonUrl: string | null;
   imageUrl?: string;
+  vendor?: string;
 }
 
 interface MaterialBundleProps {
@@ -33,14 +34,15 @@ export function resolveMaterials(
       key: m.key,
       displayName: link?.display_name || m.displayName,
       essential: m.essential,
-      amazonUrl: url ? withAffiliateTag(url) : null,
+      amazonUrl: url ? withAffiliateTag(url, link?.affiliate_tag) : null,
       imageUrl: getMaterialImage(link?.display_name || m.displayName),
+      vendor: url ? vendorLabel(url, link?.vendor) : undefined,
     };
   });
 }
 
 export function MaterialBundle({ title, materials, disclosure, className }: MaterialBundleProps) {
-  const linked = materials.filter((m) => m.amazonUrl && isAmazonUrl(m.amazonUrl));
+  const linked = materials.filter((m) => !!m.amazonUrl);
   const allLinked = linked.length === materials.length && materials.length > 0;
 
   const buyAllUrl = (() => {
@@ -50,6 +52,12 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
     const first = materials.find((m) => m.essential && m.amazonUrl)?.amazonUrl
       || linked[0].amazonUrl;
     return first;
+  })();
+
+  const buyAllVendor = (() => {
+    if (!buyAllUrl) return 'supplier';
+    const match = materials.find((m) => m.amazonUrl === buyAllUrl);
+    return vendorLabel(buyAllUrl, match?.vendor);
   })();
 
   return (
@@ -107,7 +115,7 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                   target="_blank"
                   rel="sponsored noopener noreferrer"
                   className="shrink-0 inline-flex items-center text-xs font-medium text-primary hover:underline"
-                  aria-label={`Buy ${material.displayName} on Amazon`}
+                  aria-label={`Buy ${material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
                 >
                   Buy
                   <ExternalLink className="w-3 h-3 ml-1" aria-hidden="true" />
@@ -123,15 +131,15 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
               href={buyAllUrl}
               target="_blank"
               rel="sponsored noopener noreferrer"
-              aria-label="Buy materials on Amazon"
+              aria-label={`Buy materials on ${buyAllVendor}`}
             >
               <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
-              Buy all on Amazon
+              {`Buy all on ${buyAllVendor}`}
             </a>
           </Button>
         ) : (
           <p className="text-xs text-muted-foreground text-center">
-            Amazon links for these materials are not yet available. Source the items locally or check back soon.
+            Supplier links for these materials are not yet available. Source the items locally or check back soon.
           </p>
         )}
 

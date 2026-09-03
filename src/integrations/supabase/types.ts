@@ -258,6 +258,7 @@ export type Database = {
       material_links: {
         Row: {
           active: boolean
+          affiliate_tag: string | null
           amazon_url: string | null
           created_at: string
           display_name: string | null
@@ -265,9 +266,11 @@ export type Database = {
           material_key: string
           notes: string | null
           updated_at: string
+          vendor: string | null
         }
         Insert: {
           active?: boolean
+          affiliate_tag?: string | null
           amazon_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -275,9 +278,11 @@ export type Database = {
           material_key: string
           notes?: string | null
           updated_at?: string
+          vendor?: string | null
         }
         Update: {
           active?: boolean
+          affiliate_tag?: string | null
           amazon_url?: string | null
           created_at?: string
           display_name?: string | null
@@ -285,6 +290,7 @@ export type Database = {
           material_key?: string
           notes?: string | null
           updated_at?: string
+          vendor?: string | null
         }
         Relationships: []
       }

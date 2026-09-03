@@ -69,6 +69,8 @@ Deno.serve(async (req) => {
       const displayName = String(body.display_name ?? '').trim();
       const amazonUrl = String(body.amazon_url ?? '').trim();
       const notes = String(body.notes ?? '').trim();
+      const affiliateTag = String(body.affiliate_tag ?? '').trim();
+      const vendor = String(body.vendor ?? '').trim();
       const active = body.active === true || body.active === 'true';
 
       if (!rawKey) return json({ error: 'material_key is required' }, 400);
@@ -78,7 +80,16 @@ Deno.serve(async (req) => {
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '');
 
-      if (amazonUrl && amazonUrl.includes('amazon') && hasAffiliateTag(amazonUrl)) {
+      if (affiliateTag && affiliateTag.length > 120) {
+        return json({ error: 'affiliate_tag is too long' }, 400);
+      }
+      if (affiliateTag && /[?&#\s]/.test(affiliateTag)) {
+        return json({ error: 'affiliate_tag must be a value or a single key=value pair' }, 400);
+      }
+      if (vendor && vendor.length > 60) {
+        return json({ error: 'vendor is too long' }, 400);
+      }
+      if (!affiliateTag && amazonUrl && amazonUrl.includes('amazon') && hasAffiliateTag(amazonUrl)) {
         return json({ error: 'URL must not include an affiliate tag' }, 400);
       }
 
@@ -89,6 +100,8 @@ Deno.serve(async (req) => {
           amazon_url: amazonUrl,
           notes,
           active,
+          affiliate_tag: affiliateTag || null,
+          vendor: vendor || null,
         },
         { onConflict: 'material_key' }
       );
