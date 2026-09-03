@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Search, ShoppingCart, Star, School, ArrowRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
+import { ShopMaterialsSection } from '@/components/ShopMaterialsSection';
 
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
