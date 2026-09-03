@@ -514,6 +514,13 @@ export const additionalPracticalLifeSkills: Record<string, EnhancedMontessoriSki
     category: 'Beginning Activities',
     isPremium: false,
     icon: '🌾',
+    materials: [
+      'Wooden tray (essential)',
+      'Two identical small pitchers (essential)',
+      'Dry pouring material: rice, lentils, or small beans (essential)',
+      'Small brush and dustpan for spills',
+      'Child-sized apron'
+    ],
     shopItems: ['dry-pouring-set'],
     directAims: [
       'Develop precise pouring movement',
