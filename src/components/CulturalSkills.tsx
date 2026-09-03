@@ -90,7 +90,7 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
     <CurriculumSection
       title="🌏 Cultural Studies"
       intro="Cultural studies open the child to the wider world — time, sound, matter and people. Each area starts with something the child can handle directly before moving to the abstract."
-      sequence="History and Time → Music → Science → World Cultures"
+      sequence="History and Time → Music → Science → Planets → World Cultures"
       groups={groups}
       shopCategory="Cultural"
       className={montessoriTheme.backgrounds.cultural}
