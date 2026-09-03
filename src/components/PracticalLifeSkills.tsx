@@ -144,6 +144,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
             )}
           </CardContent>
         </Card>
+
+        <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
         
         <div className="space-y-3 mb-8">
           {steps.map((step, index) => (
