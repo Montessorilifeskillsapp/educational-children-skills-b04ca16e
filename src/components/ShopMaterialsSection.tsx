@@ -5,7 +5,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { extractAllMaterialsFromSkills } from '@/lib/materials';
-import { withAffiliateTag } from '@/lib/affiliate';
+import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { MaterialBundle, ResolvedMaterial } from './MaterialBundle';
 
@@ -38,7 +38,7 @@ export function ShopMaterialsSection() {
         <h2 className="text-xl font-semibold">Materials</h2>
       </div>
       <p className="text-sm text-muted-foreground">
-        Browse by curriculum area and find Amazon links for authentic Montessori materials.
+        Browse by curriculum area and find supplier links for authentic Montessori materials.
       </p>
 
       {sections.map((section) => {
@@ -50,8 +50,9 @@ export function ShopMaterialsSection() {
             key: m.key,
             displayName,
             essential: m.essential,
-            amazonUrl: link?.amazon_url ? withAffiliateTag(link.amazon_url) : null,
+            amazonUrl: link?.amazon_url ? withAffiliateTag(link.amazon_url, link.affiliate_tag) : null,
             imageUrl: getMaterialImage(displayName),
+            vendor: link?.amazon_url ? vendorLabel(link.amazon_url, link.vendor) : undefined,
           };
         });
         const hasLinks = resolved.some((m) => m.amazonUrl);
@@ -83,7 +84,7 @@ export function ShopMaterialsSection() {
                   />
                 ) : (
                   <p className="text-sm text-muted-foreground py-4 text-center">
-                    No Amazon links for {section.title} materials yet.{' '}
+                    No supplier links for {section.title} materials yet.{' '}
                     <Link to={section.route} className="underline text-primary">
                       Browse activities
                     </Link>{' '}
