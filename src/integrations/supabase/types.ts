@@ -255,6 +255,39 @@ export type Database = {
         }
         Relationships: []
       }
+      material_links: {
+        Row: {
+          active: boolean
+          amazon_url: string | null
+          created_at: string
+          display_name: string | null
+          id: string
+          material_key: string
+          notes: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          amazon_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          material_key: string
+          notes?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          amazon_url?: string | null
+          created_at?: string
+          display_name?: string | null
+          id?: string
+          material_key?: string
+          notes?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       skill_progress: {
         Row: {
           child_id: string | null
