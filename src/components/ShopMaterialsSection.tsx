@@ -48,7 +48,7 @@ export function ShopMaterialsSection() {
             key: m.key,
             displayName: link?.display_name || m.displayName,
             essential: m.essential,
-            amazonUrl: link?.amazon_url || null,
+            amazonUrl: link?.amazon_url ? withAffiliateTag(link.amazon_url) : null,
           };
         });
         const hasLinks = resolved.some((m) => m.amazonUrl);
