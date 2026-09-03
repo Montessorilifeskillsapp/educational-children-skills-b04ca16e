@@ -37,9 +37,30 @@ interface PracticalLifeOverviewProps {
   isPremium: boolean;
 }
 
+// Explicit beginner → advanced order for the first Practical Life presentations.
+const beginnerOrder = [
+  'carrying-a-tray',
+  'carrying-a-chair',
+  'rolling-unrolling-mat',
+  'spooning-beans',
+  'dry-pouring',
+  'pouring-water',
+  'carrying-objects',
+];
+
 const allSkillsFormatted = applyFirstFreeItemLimit(
   Object.values(mergedPracticalLifeSkills)
     .filter(skill => !duplicateLegacyIds.has(skill.id))
+    .sort((a, b) => {
+      const rankA = beginnerOrder.indexOf(a.id);
+      const rankB = beginnerOrder.indexOf(b.id);
+      const aInOrder = rankA !== -1;
+      const bInOrder = rankB !== -1;
+      if (aInOrder && bInOrder) return rankA - rankB;
+      if (aInOrder) return -1;
+      if (bInOrder) return 1;
+      return 0;
+    })
     .map(skill => ({
       id: skill.id,
       title: skill.title,
