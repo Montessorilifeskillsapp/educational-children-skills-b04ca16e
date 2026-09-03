@@ -17,3 +17,6 @@ verify_jwt = false
 
 [functions.revenuecat-webhook]
 verify_jwt = false
+
+[functions.admin-material-links]
+verify_jwt = false

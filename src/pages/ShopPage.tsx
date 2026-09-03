@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Search, ShoppingCart, Star, School, ArrowRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
+import { ShopMaterialsSection } from '@/components/ShopMaterialsSection';
 
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -164,8 +165,11 @@ const ShopPage: React.FC = () => {
           </div>
         )}
 
+        <hr className="border-border/40" />
+        <ShopMaterialsSection />
+
         <p className="text-xs text-muted-foreground text-center mt-8">
-          Some links may be affiliate links.{' '}
+          As an Amazon Associate we earn from qualifying purchases. Some links may be affiliate links.{' '}
           <Link to="/about" className="underline">
             Learn more
           </Link>

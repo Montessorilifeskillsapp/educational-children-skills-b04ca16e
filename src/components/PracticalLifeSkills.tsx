@@ -10,6 +10,7 @@ import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills'
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import SkillActivity from './SkillActivity';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+import GetTheMaterials from './GetTheMaterials';
 
 interface Step {
   id: string;
@@ -143,6 +144,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
             )}
           </CardContent>
         </Card>
+
+        <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
         
         <div className="space-y-3 mb-8">
           {steps.map((step, index) => (

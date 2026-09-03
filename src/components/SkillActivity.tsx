@@ -25,6 +25,7 @@ import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+import GetTheMaterials from './GetTheMaterials';
 
 interface SkillActivityProps {
   skillId: string;
@@ -327,6 +328,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
             </div>
           </div>
         )}
+        <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
         {skill.purpose && (
           <Card className="mb-6">
             <CardHeader>
