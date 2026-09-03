@@ -10,3 +10,4 @@
 - [x] Replace the unnatural Putting on a Coat image with an authentic, natural Montessori coat-flip presentation
 
 - [done] Correct Fudge Bear cover pulled from montessoristorybooks.com and uploaded as project asset
+- [ ] Reorder Practical Life activities: Carry tray, carry chair, roll mat, spoon beans, dry pour, water pour, carry objects, then the rest
