@@ -68,13 +68,24 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
               className="flex items-start justify-between gap-3 p-3 rounded-lg border bg-card"
             >
               <div className="flex items-start gap-3 min-w-0">
-                <div className="mt-0.5">
-                  {material.essential ? (
-                    <Check className="w-4 h-4 text-primary" aria-hidden="true" />
-                  ) : (
-                    <span className="block w-4 h-4 rounded-full border border-muted-foreground/30" aria-hidden="true" />
-                  )}
-                </div>
+                {material.imageUrl ? (
+                  <img
+                    src={material.imageUrl}
+                    alt=""
+                    loading="lazy"
+                    width={48}
+                    height={48}
+                    className="shrink-0 w-12 h-12 object-cover rounded-md border bg-muted"
+                  />
+                ) : (
+                  <div className="shrink-0 mt-0.5">
+                    {material.essential ? (
+                      <Check className="w-4 h-4 text-primary" aria-hidden="true" />
+                    ) : (
+                      <span className="block w-4 h-4 rounded-full border border-muted-foreground/30" aria-hidden="true" />
+                    )}
+                  </div>
+                )}
                 <div className="min-w-0">
                   <p className="text-sm font-medium leading-tight">
                     {material.displayName}
