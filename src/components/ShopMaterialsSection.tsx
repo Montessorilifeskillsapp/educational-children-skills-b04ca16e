@@ -45,11 +45,13 @@ export function ShopMaterialsSection() {
         const isOpen = expanded.has(section.key);
         const resolved: ResolvedMaterial[] = section.materials.map((m) => {
           const link = byKey.get(m.key);
+          const displayName = link?.display_name || m.displayName;
           return {
             key: m.key,
-            displayName: link?.display_name || m.displayName,
+            displayName,
             essential: m.essential,
             amazonUrl: link?.amazon_url ? withAffiliateTag(link.amazon_url) : null,
+            imageUrl: getMaterialImage(displayName),
           };
         });
         const hasLinks = resolved.some((m) => m.amazonUrl);
