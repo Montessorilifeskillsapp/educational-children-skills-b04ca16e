@@ -77,6 +77,8 @@ import graceCourtesyTable from '@/assets/grace-courtesy-table-setting.jpg';
 const PATTERNS: Array<{ test: RegExp; image: string }> = [
   // Disambiguation — these must win over the broader patterns below
   { test: /blindfold/i, image: mysteryBag },
+  { test: /nomenclature card|three.?part card/i, image: pictureCards },
+  { test: /utensil|fork,? (knife|and)|knife and spoon/i, image: graceCourtesyTable },
   { test: /magnif/i, image: sorting },
   { test: /collection of (small )?objects|mixed objects|assorted objects|collection of objects/i, image: sorting },
   { test: /bar magnet|magnet\b/i, image: sorting },
