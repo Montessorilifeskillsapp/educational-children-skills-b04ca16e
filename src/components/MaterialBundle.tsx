@@ -5,12 +5,14 @@ import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag, isAmazonUrl } from '@/lib/affiliate';
+import { getMaterialImage } from '@/lib/materialImageRegistry';
 
 export interface ResolvedMaterial {
   key: string;
   displayName: string;
   essential: boolean;
   amazonUrl: string | null;
+  imageUrl?: string;
 }
 
 interface MaterialBundleProps {
@@ -32,6 +34,7 @@ export function resolveMaterials(
       displayName: link?.display_name || m.displayName,
       essential: m.essential,
       amazonUrl: url ? withAffiliateTag(url) : null,
+      imageUrl: getMaterialImage(link?.display_name || m.displayName),
     };
   });
 }
