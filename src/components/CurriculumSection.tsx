@@ -58,7 +58,7 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
   const populated = groups.filter((group) => group.skills.length > 0);
 
   return (
-    <PageLayout title={title} onBack={onBack} className={className}>
+    <PageLayout title={title} onBack={onBack} className={className} showSectionNav>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">{intro}</p>
         {sequence && (

@@ -1,11 +1,14 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
+import SectionNav from './SectionNav';
 
 interface PageLayoutProps {
   title: string;
   onBack: () => void;
   children: React.ReactNode;
   showBackButton?: boolean;
+  /** Show the section switcher so users can jump between curriculum areas. */
+  showSectionNav?: boolean;
   className?: string;
 }
 
@@ -14,6 +17,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
   onBack,
   children,
   showBackButton = true,
+  showSectionNav = false,
   className = ''
 }) => {
   return (
@@ -29,6 +33,7 @@ const PageLayout: React.FC<PageLayoutProps> = ({
           </h1>
           <div className="w-16"></div> {/* Spacer for centering */}
         </div>
+        {showSectionNav && <SectionNav />}
         
         {/* Content */}
         <div className="space-y-6">

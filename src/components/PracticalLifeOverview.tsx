@@ -119,7 +119,7 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   isPremium
 }) => {
   return (
-    <PageLayout title="🌱 Practical Life" onBack={onBack} className={montessoriTheme.backgrounds.practical}>
+    <PageLayout title="🌱 Practical Life" onBack={onBack} className={montessoriTheme.backgrounds.practical} showSectionNav>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Practical Life is the heart of the Montessori method and is always introduced first. Children develop independence, concentration and coordination through purposeful, real-life activities.
