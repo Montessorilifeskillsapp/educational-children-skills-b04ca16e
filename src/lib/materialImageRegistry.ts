@@ -83,8 +83,8 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /sound cylinder|sound box/i, image: soundCylinders },
   { test: /fabric box|fabric swatch/i, image: fabricBox },
   { test: /touch board|rough.*smooth|tactile board/i, image: touchBoards },
-  { test: /knobbed cylinder/i, image: knobbedCylinders },
-  { test: /knobless cylinder/i, image: knoblessCylinders },
+  { test: /knobbed cylinder|cylinder block|block.*cylinder|wooden block.*cylinder/i, image: knobbedCylinders },
+  { test: /knobless cylinder|colou?red cylinders/i, image: knoblessCylinders },
   { test: /constructive triangle/i, image: constructiveTriangles },
   { test: /geometric solid/i, image: geometricSolids },
   { test: /geometric cabinet|geometric inset/i, image: geometricCabinet },
@@ -92,9 +92,11 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /trinomial cube/i, image: trinomialCube },
   { test: /mystery bag|stereognostic bag/i, image: mysteryBag },
   { test: /thermic|thermal tablet/i, image: thermicTablets },
-  { test: /baric tablet|weight tablet/i, image: baricTablets },
-  { test: /smelling bottle|scent bottle/i, image: smellingBottles },
-  { test: /tasting bottle|taste bottle/i, image: tastingBottles },
+  { test: /baric tablet|weight tablet|light.*medium.*heavy|basswood|wooden tablets/i, image: baricTablets },
+  { test: /smell|scent/i, image: smellingBottles },
+  { test: /tasting bottle|taste bottle|dropper bottle/i, image: tastingBottles },
+  { test: /mystery bag|stereognostic bag|cloth bag|opaque bag/i, image: mysteryBag },
+  { test: /colou?red triangles|box of triangles/i, image: constructiveTriangles },
 
   // Math
   { test: /number rod/i, image: numberRods },
@@ -126,7 +128,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /dish (soap|towel|rack)|washing basin|scrub brush|dishwashing/i, image: dishwashing },
 
   // Practical life — movement & workspace
-  { test: /carrying.*tray|small tray|wooden tray/i, image: carryingTray },
+  { test: /carrying.*tray|small tray|wooden tray|\btray\b/i, image: carryingTray },
   { test: /carrying.*chair|child-sized chair/i, image: carryingChair },
   { test: /work mat|rolling mat|floor mat|small mat/i, image: workMat },
 
@@ -152,7 +154,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /walking line|line.*tape|balance beam|bell|flag/i, image: walkingLine },
 
   // Sorting & manipulatives
-  { test: /sort|categor|classification|basket|tray|compartment/i, image: sorting },
+  { test: /sort|categor|classification|basket|compartment/i, image: sorting },
   { test: /scissor|cutting strip|paper strip/i, image: cuttingWork },
   { test: /padlock|key|lock/i, image: sorting },
 
