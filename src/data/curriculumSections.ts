@@ -10,9 +10,9 @@ import { completeSensorialSkills } from './completeSensorialSkills';
 import { mathSkillsData } from './mathSkills';
 import { languageSkillsData } from './languageSkills';
 import { geographySkillsData } from './geographySkills';
-import { botanySkills } from './botanySkills';
-import { artSkills } from './artSkills';
-import { culturalSkills } from './culturalSkills';
+import { botanySkillsData } from './botanySkills';
+import { artSkillsData } from './artSkills';
+import { culturalSkillsData } from './culturalSkills';
 import { graceAndCourtesySkills } from './graceAndCourtesySkills';
 
 export interface CurriculumSectionSkills {
