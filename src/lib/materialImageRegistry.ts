@@ -75,6 +75,28 @@ import graceCourtesyTable from '@/assets/grace-courtesy-table-setting.jpg';
 
 // Pattern → image. First match wins. Order matters: most specific first.
 const PATTERNS: Array<{ test: RegExp; image: string }> = [
+  // Disambiguation — these must win over the broader patterns below
+  { test: /blindfold/i, image: mysteryBag },
+  { test: /magnif/i, image: sorting },
+  { test: /collection of (small )?objects|mixed objects|assorted objects|collection of objects/i, image: sorting },
+  { test: /bar magnet|magnet\b/i, image: sorting },
+  { test: /tectonic|continental drift/i, image: worldMap },
+  { test: /land and water form|river formation|water tray|ocean puzzle/i, image: worldMap },
+  { test: /solar system|planet (size|model|order)|set of small planet models|orbit/i, image: chartsDiagrams },
+  { test: /flag/i, image: pictureCards },
+  { test: /grammar (box|boxes|symbol|material)/i, image: moveableAlphabet },
+  { test: /fraction inset/i, image: geometricCabinet },
+  { test: /bead frame|bead stair|black and white (verification )?stair/i, image: beadMaterial },
+  { test: /place setting/i, image: graceCourtesyTable },
+  { test: /flat sheet|fitted sheet|pillowcase/i, image: bedMaking },
+  { test: /textures? of fabric|fabric swatch|fabric box/i, image: fabricBox },
+  { test: /burlap|embroidery|hoop|punched holes/i, image: threading },
+  { test: /sand tray|salt tray|tray of sand/i, image: writingMaterials },
+  { test: /baking tray|baking sheet/i, image: foodPrep },
+  { test: /template|colou?r wheel/i, image: artSupplies },
+  { test: /marker|blending stump|charcoal/i, image: artSupplies },
+  { test: /knives|knife/i, image: foodPrep },
+
   // Sensorial
   { test: /pink tower/i, image: pinkTower },
   { test: /brown stair|broad stair/i, image: brownStair },
@@ -128,7 +150,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /dish (soap|towel|rack)|washing basin|scrub brush|dishwashing/i, image: dishwashing },
 
   // Practical life — movement & workspace
-  { test: /carrying.*tray|small tray|wooden tray|\btray\b/i, image: carryingTray },
+  { test: /carrying.*tray|small tray|wooden tray|\btrays?\b/i, image: carryingTray },
   { test: /carrying.*chair|child-sized chair/i, image: carryingChair },
   { test: /work mat|rolling mat|floor mat|small mat/i, image: workMat },
 
@@ -176,7 +198,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /mat\b|mats\b|rug|cushion|pillow|floor space|table|chair|stool|space|environment|area|path|line/i, image: workMat },
   { test: /food|snack|fruit|banana|cracker|rice|bean|ingredient|meal|lunch/i, image: foodPrep },
   { test: /mirror|comb|brush|tooth|cotton|nail|hair/i, image: careOfPerson },
-  { test: /thread|yarn|needle|lace|string|fabric|cloth|sheet|blanket|panel/i, image: threading },
+  { test: /thread|yarn|needle|\blaces?\b|string|fabric|cloth|sheet|blanket|panel/i, image: threading },
   { test: /timer|clock|bell|drum|music|rhythm|instrument|stick/i, image: walkingLine },
   { test: /tool|guide|instruction|prop|supplies|set\b|object/i, image: sorting },
   { test: /pink .*cube|wooden cube/i, image: pinkTower },
