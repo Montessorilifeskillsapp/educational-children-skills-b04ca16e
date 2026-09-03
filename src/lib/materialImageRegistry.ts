@@ -128,7 +128,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /dish (soap|towel|rack)|washing basin|scrub brush|dishwashing/i, image: dishwashing },
 
   // Practical life — movement & workspace
-  { test: /carrying.*tray|small tray|wooden tray/i, image: carryingTray },
+  { test: /carrying.*tray|small tray|wooden tray|\btray\b/i, image: carryingTray },
   { test: /carrying.*chair|child-sized chair/i, image: carryingChair },
   { test: /work mat|rolling mat|floor mat|small mat/i, image: workMat },
 
@@ -154,7 +154,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /walking line|line.*tape|balance beam|bell|flag/i, image: walkingLine },
 
   // Sorting & manipulatives
-  { test: /sort|categor|classification|basket|tray|compartment/i, image: sorting },
+  { test: /sort|categor|classification|basket|compartment/i, image: sorting },
   { test: /scissor|cutting strip|paper strip/i, image: cuttingWork },
   { test: /padlock|key|lock/i, image: sorting },
 
