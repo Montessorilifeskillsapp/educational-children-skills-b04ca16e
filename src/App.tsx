@@ -133,6 +133,7 @@ const App = () => {
                           <Route path="/admin" element={<AdminHomePage />} />
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />
                           <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
+                          <Route path="/admin/materials" element={<AdminMaterialsPage />} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
