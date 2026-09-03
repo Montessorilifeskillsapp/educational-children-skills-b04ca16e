@@ -26,6 +26,12 @@ const links = [
     description: 'Captured emails and consultation enquiries.',
     icon: Users,
   },
+  {
+    to: '/admin/materials',
+    title: 'Materials',
+    description: 'Curate Amazon links for Montessori materials.',
+    icon: Package,
+  },
 ];
 
 const AdminHomePage = () => {
