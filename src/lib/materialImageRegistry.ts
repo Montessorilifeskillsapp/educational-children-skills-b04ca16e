@@ -92,9 +92,11 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /trinomial cube/i, image: trinomialCube },
   { test: /mystery bag|stereognostic bag/i, image: mysteryBag },
   { test: /thermic|thermal tablet/i, image: thermicTablets },
-  { test: /baric tablet|weight tablet/i, image: baricTablets },
-  { test: /smelling bottle|scent bottle/i, image: smellingBottles },
-  { test: /tasting bottle|taste bottle/i, image: tastingBottles },
+  { test: /baric tablet|weight tablet|light.*medium.*heavy|basswood|wooden tablets/i, image: baricTablets },
+  { test: /smell|scent/i, image: smellingBottles },
+  { test: /tasting bottle|taste bottle|dropper bottle/i, image: tastingBottles },
+  { test: /mystery bag|stereognostic bag|cloth bag|opaque bag/i, image: mysteryBag },
+  { test: /colou?red triangles|box of triangles/i, image: constructiveTriangles },
 
   // Math
   { test: /number rod/i, image: numberRods },
