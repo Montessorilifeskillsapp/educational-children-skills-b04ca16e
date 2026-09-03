@@ -37,6 +37,19 @@ const CULTURAL_GROUPS = [
     skillIds: ['sink-or-float', 'magnet-exploration', 'life-cycle-butterfly'],
   },
   {
+    key: 'Cultural - Planets',
+    emoji: '🪐',
+    title: 'Planets',
+    description:
+      'Key Montessori astronomy activities: from matching the concrete planet to its picture, to naming, puzzling, and physically feeling orbital motion.',
+    skillIds: [
+      'planet-object-picture-matching',
+      'orbiting-movement',
+      'solar-system-puzzle',
+      'planet-nomenclature-cards',
+    ],
+  },
+  {
     key: 'Cultural - World Cultures',
     emoji: '🌏',
     title: 'World Cultures',
