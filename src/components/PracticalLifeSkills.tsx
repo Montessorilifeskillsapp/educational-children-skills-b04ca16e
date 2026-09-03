@@ -10,6 +10,7 @@ import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills'
 import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import SkillActivity from './SkillActivity';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+import GetTheMaterials from './GetTheMaterials';
 
 interface Step {
   id: string;
