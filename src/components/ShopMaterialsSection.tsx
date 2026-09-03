@@ -4,7 +4,8 @@ import { ChevronDown, ChevronRight, Package } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { useMaterialLinks } from '@/hooks/useMaterialLinks';
-import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
+import { extractAllMaterialsFromSkills } from '@/lib/materials';
+import { withAffiliateTag } from '@/lib/affiliate';
 import { MaterialBundle, ResolvedMaterial } from './MaterialBundle';
 
 export function ShopMaterialsSection() {
