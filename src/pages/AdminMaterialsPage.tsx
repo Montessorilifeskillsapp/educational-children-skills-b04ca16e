@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { allCurriculumSkills } from '@/data/curriculumSections';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
-import { withAffiliateTag, isAmazonUrl } from '@/lib/affiliate';
+import { withAffiliateTag } from '@/lib/affiliate';
 
 interface LinkForm {
   material_key: string;
@@ -83,7 +83,7 @@ const AdminMaterialsPage: React.FC = () => {
   const allMaterials = useMemo(() => extractAllMaterialsFromSkills(allCurriculumSkills()), []);
 
   const coveredCount = useMemo(
-    () => allMaterials.filter((m) => links[m.key]?.amazon_url && isAmazonUrl(links[m.key].amazon_url)).length,
+    () => allMaterials.filter((m) => !!links[m.key]?.amazon_url?.trim()).length,
     [allMaterials, links]
   );
 
