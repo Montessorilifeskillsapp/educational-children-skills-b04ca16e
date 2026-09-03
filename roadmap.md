@@ -11,3 +11,4 @@
 
 - [done] Correct Fudge Bear cover pulled from montessoristorybooks.com and uploaded as project asset
 - [ ] Reorder Practical Life activities: Carry tray, carry chair, roll mat, spoon beans, dry pour, water pour, carry objects, then the rest
+- [x] Restore cross-section navigation: section switcher on every curriculum area page
