@@ -37,6 +37,19 @@ const CULTURAL_GROUPS = [
     skillIds: ['sink-or-float', 'magnet-exploration', 'life-cycle-butterfly'],
   },
   {
+    key: 'Cultural - Planets',
+    emoji: '🪐',
+    title: 'Planets',
+    description:
+      'Key Montessori astronomy activities: from matching the concrete planet to its picture, to naming, puzzling, and physically feeling orbital motion.',
+    skillIds: [
+      'planet-object-picture-matching',
+      'orbiting-movement',
+      'solar-system-puzzle',
+      'planet-nomenclature-cards',
+    ],
+  },
+  {
     key: 'Cultural - World Cultures',
     emoji: '🌏',
     title: 'World Cultures',
@@ -77,7 +90,7 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
     <CurriculumSection
       title="🌏 Cultural Studies"
       intro="Cultural studies open the child to the wider world — time, sound, matter and people. Each area starts with something the child can handle directly before moving to the abstract."
-      sequence="History and Time → Music → Science → World Cultures"
+      sequence="History and Time → Music → Science → Planets → World Cultures"
       groups={groups}
       shopCategory="Cultural"
       className={montessoriTheme.backgrounds.cultural}
