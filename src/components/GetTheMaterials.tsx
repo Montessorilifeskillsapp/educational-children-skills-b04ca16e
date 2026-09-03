@@ -11,11 +11,11 @@ interface GetTheMaterialsProps {
 
 export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({ skillId, skillMaterials }) => {
   const materials = getMaterialsForSkill(skillId, skillMaterials);
-  const { byLink, loading } = useMaterialLinks();
+  const { byKey, loading } = useMaterialLinks();
 
   if (materials.length === 0) return null;
 
-  const resolved = resolveMaterials(materials, byLink);
+  const resolved = resolveMaterials(materials, byKey);
 
   return (
     <div className="mb-6">
