@@ -25,11 +25,11 @@ The `/admin` area gets a **Materials links** screen: every distinct material acr
 ## Technical notes
 
 - New table `material_links`: `material_key` (normalised material name, unique), `display_name`, `amazon_url`, `notes`, `active`, timestamps. Public read of active rows; writes only through an `admin-material-links` edge function (RLS denies direct client writes, per existing security policy).
-- Affiliate tag is appended centrally at render time by a `withAffiliateTag()` helper reading a single configured Associates tag, so the tag can change in one place and pasted URLs don't need it.
+- Affiliate tag `kerryhoward-20` is appended centrally at render time by a `withAffiliateTag()` helper. The tag is stored in one configurable location (Supabase edge-function env var / site config) so it can be changed without scattering it through URLs or components.
 - Bundles are derived, not hand-authored: activity material lists already exist in the curriculum data, so a `useMaterialLinks()` hook joins those material names to saved links; activities without a curated list fall back to the `materials` array on the activity data.
 - All outbound links use `target="_blank" rel="sponsored noopener noreferrer"`.
 - Existing shop products and story books are untouched; the Materials section is additive.
 
-## Needed from you
+## Provided
 
-Your Amazon Associates tracking ID (e.g. `yourstore-20`) — I'll store it as configuration. Without it the links still work, they just won't be attributed.
+- Amazon Associates tracking ID: `kerryhoward-20`.
