@@ -129,6 +129,45 @@ export type Database = {
           },
         ]
       }
+      activity_videos: {
+        Row: {
+          active: boolean
+          created_at: string
+          duration_seconds: number | null
+          id: string
+          section_key: string | null
+          skill_id: string
+          storage_path: string
+          thumbnail_path: string | null
+          title: string | null
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          section_key?: string | null
+          skill_id: string
+          storage_path: string
+          thumbnail_path?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          created_at?: string
+          duration_seconds?: number | null
+          id?: string
+          section_key?: string | null
+          skill_id?: string
+          storage_path?: string
+          thumbnail_path?: string | null
+          title?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       analytics_events: {
         Row: {
           anon_id: string | null
@@ -490,7 +529,30 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      activity_videos_public: {
+        Row: {
+          duration_seconds: number | null
+          section_key: string | null
+          skill_id: string | null
+          thumbnail_path: string | null
+          title: string | null
+        }
+        Insert: {
+          duration_seconds?: number | null
+          section_key?: string | null
+          skill_id?: string | null
+          thumbnail_path?: string | null
+          title?: string | null
+        }
+        Update: {
+          duration_seconds?: number | null
+          section_key?: string | null
+          skill_id?: string | null
+          thumbnail_path?: string | null
+          title?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
       has_role: {
