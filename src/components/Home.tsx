@@ -442,13 +442,13 @@ const Home: React.FC<HomeProps> = ({
       <section className="py-16 lg:py-20 bg-gradient-to-b from-background via-primary/5 to-background border-t border-border/60">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-[1.15]">
-              From constant reminders to{' '}
-              <span className="text-primary">confident routines.</span>
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
-              Montessori-based practical life lessons for ages 2–6.
-            </p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-[1.15]">
+                From guessing to{' '}
+                <span className="text-primary">confident guidance.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+                Everything you need to prepare and present authentic Montessori lessons for children ages 2–6.
+              </p>
             <Button
               onClick={onGetStarted}
               size="lg"
