@@ -228,10 +228,17 @@ const Home: React.FC<HomeProps> = ({
   useEffect(() => {
     const el = headerRef.current;
     if (!el) return;
+    let raf = 0;
     const setVar = () => {
-      // Store header's own height so hero can compose: banner + nav + gap.
-      const h = el.offsetHeight;
-      document.documentElement.style.setProperty('--nav-h', `${Math.ceil(h)}px`);
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        // Store header's own height so hero can compose: banner + nav + gap.
+        const h = el.offsetHeight;
+        const value = `${Math.ceil(h)}px`;
+        if (document.documentElement.style.getPropertyValue('--nav-h') !== value) {
+          document.documentElement.style.setProperty('--nav-h', value);
+        }
+      });
     };
     setVar();
     const ro = new ResizeObserver(setVar);
@@ -240,6 +247,7 @@ const Home: React.FC<HomeProps> = ({
     window.addEventListener('orientationchange', setVar);
     window.addEventListener('banner-resize', setVar);
     return () => {
+      cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener('resize', setVar);
       window.removeEventListener('orientationchange', setVar);
