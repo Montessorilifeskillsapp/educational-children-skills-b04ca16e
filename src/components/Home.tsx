@@ -388,7 +388,7 @@ const Home: React.FC<HomeProps> = ({
                 Authentic Montessori ages 3–6
               </div>
 
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-4 leading-[1.1] animate-reveal-delay-1">
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 leading-[1.15] animate-reveal-delay-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
                 Authentic Montessori, Clearly and beautifully presented.
               </h1>
 
