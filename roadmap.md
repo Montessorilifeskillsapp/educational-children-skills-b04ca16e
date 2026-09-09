@@ -12,4 +12,4 @@
 - [x] Restore cross-section navigation: section switcher on every curriculum area page
 - [ ] Follow-up: user flagged the section-switcher nav as an unapproved change; confirm keep or revert before further UI changes
 - [ ] Video archive: instructional video for every activity, private storage, paywall, admin page
-- [ ] Reposition homepage copy to adult-as-user and add AI image disclaimer
+- [x] Reposition homepage copy to adult-as-user and add AI image disclaimer
