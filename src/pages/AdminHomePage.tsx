@@ -32,6 +32,12 @@ const links = [
     description: 'Curate Amazon links for Montessori materials.',
     icon: Package,
   },
+  {
+    to: '/admin/videos',
+    title: 'Videos',
+    description: 'Upload a presentation video for every activity.',
+    icon: Video,
+  },
 ];
 
 const AdminHomePage = () => {
