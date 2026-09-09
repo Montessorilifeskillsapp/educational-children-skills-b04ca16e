@@ -26,6 +26,7 @@ import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import GetTheMaterials from './GetTheMaterials';
+import ActivityVideo from './ActivityVideo';
 
 interface SkillActivityProps {
   skillId: string;
