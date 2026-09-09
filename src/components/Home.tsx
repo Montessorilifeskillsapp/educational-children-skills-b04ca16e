@@ -111,7 +111,7 @@ const howItWorks = [
   {
     step: '03',
     title: 'Watch Independence Grow',
-    desc: 'Your child chooses work, repeats it, and builds concentration and independence day by day.',
+    desc: 'You present the lesson, then step back as your child repeats the work and builds concentration and independence.',
     image: stepTrackProgress,
     alt: 'Child concentrating while building the pink tower',
   },
@@ -180,6 +180,7 @@ const faqs = [
   { q: 'Does this work without internet?', a: 'Yes. Once you\'ve loaded an activity, it works offline. This is perfect for using the app in classrooms, while traveling, or in areas with limited connectivity.' },
   { q: 'How is this different from free Montessori resources online?', a: 'Unlike scattered blog posts and Pinterest ideas, our curriculum is a complete, sequenced program aligned with AMI standards. Every activity builds on the last, with proper presentation techniques and control of error.' },
   { q: 'What if I\'m not satisfied?', a: 'We offer a 30-day money-back guarantee on all premium plans. If you don\'t see your child growing in independence and confidence, we\'ll refund your subscription — no questions asked.' },
+  { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
 ];
 
 const stats = [
