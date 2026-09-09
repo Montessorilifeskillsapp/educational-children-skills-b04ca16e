@@ -1,42 +1,31 @@
-# Reposition the homepage: a tool for the adult, not an app for the child
+# Reposition the homepage with your exact wording
 
-## The problem
+Keep the current design, images, layout and sections. Only change the copy on the homepage so it clearly reads as a resource for the adult guide, and add the AI image disclaimer at the very bottom.
 
-Visitors assume the app is something you hand to a child to keep them busy or let them self-learn. The current copy feeds that: a "One app. Two experiences" section describes a "calm place to work — for the child" inside the app, implying the child is a user. Nothing states plainly that the adult is the user and the app is their teaching guide.
+## Exact headline and subline
 
-## The message shift
+Replace the hero `h1` and paragraph with:
 
-One idea, stated early and repeated: **this app is for you — the parent, teacher or caregiver. It gives you the exact presentation to guide your child, then the screen goes away.** The child never uses the app; they use real materials with you.
+- Headline: "Your guide to presenting Montessori with confidence."
+- Subline: "A complete Montessori curriculum for the adults teaching and guiding children ages 2–6. Montessori Life Skills brings lesson preparation, clear presentations, materials guidance, sequencing, and progress tracking into one structured resource—so parents, caregivers, homeschoolers, and educators can confidently create authentic, hands-on Montessori experiences. The technology supports the adult. The adult supports the child."
 
-## Proposed homepage changes (copy and layout, no new features)
+## Other copy changes
 
-1. **New hero statement.** Replace the current headline/subline with adult-facing wording, e.g.:
-   - Headline: "You guide. They grow."
-   - Subline: "Step-by-step AMI Montessori presentations for parents, teachers and caregivers — so you can confidently teach your child real skills with real materials. The child never uses the app."
-   - Keep the existing CTA buttons and trust marks.
-2. **A short "how it actually works" strip** directly under the hero, three steps in plain words: *You read the presentation → You set it up on a tray → You show your child — hands-on, off-screen.* This kills the screen-time assumption where it forms.
-3. **Rewrite the "Two experiences" section** into a single-adult message: "Built for the adult. Designed around the child." Explain briefly that everything in the app is prepared for the adult's eye, and the activities themselves happen away from the screen. Remove the "For the child" card that describes in-app use by children.
-4. **Explicit audience line** in the intro: "Made for parents, homeschoolers, teachers, assistants and caregivers — no Montessori training required."
-5. **Adjust supporting copy** where it currently implies child-facing app use (phrases like "your child chooses work" inside the app flow, "distraction-free activity pages for the child"). Any wording that suggests the child interacts with the app gets rephrased to adult-guided language.
-6. **FAQ addition**: "Does my child use this app?" — answered plainly: no; it is a guide for the adult, activities happen with real materials.
-7. **Testimonials/role labels** stay, since they already name the adult (parent, educator, teacher).
+- Anywhere the current copy says the child uses the app ("two experiences," "for the child," "a calm place to work," "your child chooses work," etc.), reword so the adult is the user and the child receives the hands-on lesson off-screen.
+- Keep the same headings where they still make sense; change only the explanatory lines under them.
+- Keep testimonials, pricing, FAQ questions, trust marks and CTAs unchanged unless they imply the child is the app user.
+- Update the page meta description in `useSEO`/SEO config to match the adult-guide positioning.
 
-## What does not change
+## AI image disclaimer
 
-- Colours, fonts, imagery, pricing, curriculum areas, navigation and page structure stay as they are.
-- No changes to activity pages, the dashboard, or anything behind sign-in.
-- The video archive work is unaffected.
+Add at the very bottom of the page, above the footer, in small muted text:
+
+- Text: "Certain images have been modified using AI."
 
 ## Build order
 
-1. Rewrite hero headline/subline and the three-step strip.
-2. Replace the "Two experiences" section with the single-adult section.
-3. Sweep the remaining homepage copy for child-as-user phrasing and fix each instance.
-4. Add the FAQ entry.
-5. Visual check of the page and a typecheck.
-
-## Technical notes
-
-- All edits confined to `src/components/Home.tsx` (and its `HeroAppPreview` only if its captions imply child use).
-- Alt text and SEO description updated to match the adult-tool positioning.
-- Before publishing, worth re-reading the home meta description in `index.html` / `useSEO` so search results carry the same message.
+1. Rewrite the hero headline/subline.
+2. Re-scan and adjust any child-as-user phrasing in the main body ("Two experiences" section, benefits, how-it-works descriptions, etc.) without removing the section itself.
+3. Add the AI disclaimer line above the footer.
+4. Update the SEO meta description.
+5. Typecheck and a visual check of the homepage.
