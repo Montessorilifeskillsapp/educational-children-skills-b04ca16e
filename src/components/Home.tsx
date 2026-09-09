@@ -464,12 +464,12 @@ const Home: React.FC<HomeProps> = ({
       <section className="py-16 lg:py-24 bg-background border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for two</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for the adult guide</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4 leading-[1.15]">
-              One app. <span className="text-primary">Two experiences.</span>
+              Everything you need to <span className="text-primary">teach with confidence.</span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              A calm, focused space for your child — and a clear, helpful view for you.
+              The app prepares you; the learning happens off-screen with real materials in your child's hands.
             </p>
           </Reveal>
 
@@ -478,17 +478,17 @@ const Home: React.FC<HomeProps> = ({
               <Card className="h-full border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
                 <CardContent className="p-7 lg:p-9">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-5">
-                    <Baby className="w-3.5 h-3.5" /> For the child
+                    <Baby className="w-3.5 h-3.5" /> Prepare the lesson
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">A calm place to work</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">Ready before you present</h3>
                   <p className="text-muted-foreground mb-5 leading-relaxed">
-                    Distraction-free activity pages — no scores, no streaks, no flashing badges. Just one clear presentation at a time, the Montessori way.
+                    Each activity gives you the exact sequence, materials list, and teaching points — so you know what to do before you invite your child to the work.
                   </p>
                   <ul className="space-y-2.5">
                     {[
-                      'Photo-guided presentations of real materials',
-                      'Self-paced — no timers or pressure',
-                      'Quiet visuals, soft palette, large touch targets',
+                      'Step-by-step photo and video presentations',
+                      'Materials sourcing with Amazon links',
+                      'AMI-aligned sequencing and control of error',
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
                         <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
@@ -504,15 +504,15 @@ const Home: React.FC<HomeProps> = ({
               <Card className="h-full border border-border/60 hover:border-accent/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
                 <CardContent className="p-7 lg:p-9">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-semibold text-accent uppercase tracking-wider mb-5">
-                    <Users2 className="w-3.5 h-3.5" /> For the adult
+                    <Users2 className="w-3.5 h-3.5" /> Guide with clarity
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">A guide you can trust</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">Track what matters</h3>
                   <p className="text-muted-foreground mb-5 leading-relaxed">
-                    The Family Dashboard gives parents, teachers, and assistants a clear weekly view — what's been worked on, what's next, and why it matters.
+                    The Family Dashboard gives parents, teachers, and assistants a clear weekly view — what has been presented, what comes next, and why it matters for the child's development.
                   </p>
                   <ul className="space-y-2.5">
                     {[
-                      'Weekly summary of activities & focus areas',
+                      'Weekly summary of presentations & focus areas',
                       'AMI-aligned "why this matters" for every area',
                       'Multiple child profiles in one account',
                     ].map((item) => (
