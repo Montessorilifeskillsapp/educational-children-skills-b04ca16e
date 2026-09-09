@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { BarChart3, KeyRound, Package, Users } from 'lucide-react';
+import { BarChart3, KeyRound, Package, Users, Video } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -31,6 +31,12 @@ const links = [
     title: 'Materials',
     description: 'Curate Amazon links for Montessori materials.',
     icon: Package,
+  },
+  {
+    to: '/admin/videos',
+    title: 'Videos',
+    description: 'Upload a presentation video for every activity.',
+    icon: Video,
   },
 ];
 

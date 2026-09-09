@@ -134,6 +134,7 @@ export type Database = {
           active: boolean
           created_at: string
           duration_seconds: number | null
+          free_preview: boolean
           id: string
           section_key: string | null
           skill_id: string
@@ -146,6 +147,7 @@ export type Database = {
           active?: boolean
           created_at?: string
           duration_seconds?: number | null
+          free_preview?: boolean
           id?: string
           section_key?: string | null
           skill_id: string
@@ -158,6 +160,7 @@ export type Database = {
           active?: boolean
           created_at?: string
           duration_seconds?: number | null
+          free_preview?: boolean
           id?: string
           section_key?: string | null
           skill_id?: string
@@ -532,6 +535,7 @@ export type Database = {
       activity_videos_public: {
         Row: {
           duration_seconds: number | null
+          free_preview: boolean | null
           section_key: string | null
           skill_id: string | null
           thumbnail_path: string | null
@@ -539,6 +543,7 @@ export type Database = {
         }
         Insert: {
           duration_seconds?: number | null
+          free_preview?: boolean | null
           section_key?: string | null
           skill_id?: string | null
           thumbnail_path?: string | null
@@ -546,6 +551,7 @@ export type Database = {
         }
         Update: {
           duration_seconds?: number | null
+          free_preview?: boolean | null
           section_key?: string | null
           skill_id?: string | null
           thumbnail_path?: string | null

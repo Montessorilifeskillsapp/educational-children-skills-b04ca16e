@@ -43,6 +43,7 @@ import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
 import AdminMaterialsPage from "./pages/AdminMaterialsPage";
+import AdminVideosPage from "./pages/AdminVideosPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
 import AdminHomePage from "./pages/AdminHomePage";
 
@@ -134,6 +135,7 @@ const App = () => {
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />
                           <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
                           <Route path="/admin/materials" element={<AdminMaterialsPage />} />
+                          <Route path="/admin/videos" element={<AdminVideosPage />} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />

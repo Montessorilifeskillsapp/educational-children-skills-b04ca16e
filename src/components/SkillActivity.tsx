@@ -26,6 +26,7 @@ import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import GetTheMaterials from './GetTheMaterials';
+import ActivityVideo from './ActivityVideo';
 
 interface SkillActivityProps {
   skillId: string;
@@ -329,6 +330,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </div>
         )}
         <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
+        <ActivityVideo skillId={skillId} activityTitle={skill.title} />
         {skill.purpose && (
           <Card className="mb-6">
             <CardHeader>
