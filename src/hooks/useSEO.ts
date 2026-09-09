@@ -93,23 +93,22 @@ export const useSEO = ({
 // Enhanced SEO configurations for different pages
 export const SEO_CONFIG = {
   home: {
-    title: 'Montessori Activities Ages 2–6 | AMI-Aligned',
-    description: 'AMI-aligned Montessori activities for ages 2–6. Step-by-step photo guides, real Practical Life, Sensorial & Math lessons. Start free.',
-    keywords: 'montessori, children education, life skills, practical life, toddler activities, preschool learning, child development, independence skills',
+    title: 'Montessori Curriculum for Parents & Educators | AMI-Aligned',
+    description: 'A complete AMI-aligned Montessori teaching resource for parents, caregivers, homeschoolers, and educators guiding children ages 2–6. Lesson preparation, presentations, materials, and progress tracking — the app supports the adult, the adult guides the child.',
+    keywords: 'montessori, montessori guide, montessori teaching resource, practical life, toddler activities, preschool learning, child development, independence skills, homeschool montessori, montessori teacher tools',
     canonical: 'https://montessorilifeskillsapp.com',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Montessori Life Skills",
-      "description": "Montessori-based learning app for children's practical life skills development",
+      "description": "A Montessori teaching resource for parents, teachers, and caregivers guiding children ages 2–6 with AMI-aligned lesson presentations and progress tracking.",
       "url": "https://montessorilifeskillsapp.com",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web",
       "audience": {
         "@type": "Audience",
-        "audienceType": "Parents, Teachers, and Educators",
-        "suggestedMinAge": 2,
-        "suggestedMaxAge": 6
+        "audienceType": "Parents, Caregivers, Homeschoolers, Teachers, and Educators",
+        "suggestedMinAge": 18
       },
       "offers": {
         "@type": "Offer",

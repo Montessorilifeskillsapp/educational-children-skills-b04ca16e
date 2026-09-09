@@ -111,7 +111,7 @@ const howItWorks = [
   {
     step: '03',
     title: 'Watch Independence Grow',
-    desc: 'Your child chooses work, repeats it, and builds concentration and independence day by day.',
+    desc: 'You present the lesson, then step back as your child repeats the work and builds concentration and independence.',
     image: stepTrackProgress,
     alt: 'Child concentrating while building the pink tower',
   },
@@ -180,6 +180,7 @@ const faqs = [
   { q: 'Does this work without internet?', a: 'Yes. Once you\'ve loaded an activity, it works offline. This is perfect for using the app in classrooms, while traveling, or in areas with limited connectivity.' },
   { q: 'How is this different from free Montessori resources online?', a: 'Unlike scattered blog posts and Pinterest ideas, our curriculum is a complete, sequenced program aligned with AMI standards. Every activity builds on the last, with proper presentation techniques and control of error.' },
   { q: 'What if I\'m not satisfied?', a: 'We offer a 30-day money-back guarantee on all premium plans. If you don\'t see your child growing in independence and confidence, we\'ll refund your subscription — no questions asked.' },
+  { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
 ];
 
 const stats = [
@@ -388,16 +389,11 @@ const Home: React.FC<HomeProps> = ({
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-4 leading-[1.1] animate-reveal-delay-1">
-                This isn't screen time.{' '}
-                <span className="text-primary">It's preparation for life.</span>
+                Your guide to presenting Montessori with confidence.
               </h1>
 
-              <p className="text-base sm:text-lg font-medium text-foreground/80 mb-3 max-w-xl mx-auto lg:mx-0 animate-reveal-delay-2">
-                Calm Montessori lessons that help children become more independent at home.
-              </p>
-
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                AMI-aligned activities for ages 2–6 — authentic materials, clear presentations, and progress tracking. No teaching experience required.
+                A complete Montessori curriculum for the adults teaching and guiding children ages 2–6. Montessori Life Skills brings lesson preparation, clear presentations, materials guidance, sequencing, and progress tracking into one structured resource—so parents, caregivers, homeschoolers, and educators can confidently create authentic, hands-on Montessori experiences. The technology supports the adult. The adult supports the child.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
@@ -446,13 +442,13 @@ const Home: React.FC<HomeProps> = ({
       <section className="py-16 lg:py-20 bg-gradient-to-b from-background via-primary/5 to-background border-t border-border/60">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-[1.15]">
-              From constant reminders to{' '}
-              <span className="text-primary">confident routines.</span>
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
-              Montessori-based practical life lessons for ages 2–6.
-            </p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-[1.15]">
+                From guessing to{' '}
+                <span className="text-primary">confident guidance.</span>
+              </h2>
+              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
+                Everything you need to prepare and present authentic Montessori lessons for children ages 2–6.
+              </p>
             <Button
               onClick={onGetStarted}
               size="lg"
@@ -468,12 +464,12 @@ const Home: React.FC<HomeProps> = ({
       <section className="py-16 lg:py-24 bg-background border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for two</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for the adult guide</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4 leading-[1.15]">
-              One app. <span className="text-primary">Two experiences.</span>
+              Everything you need to <span className="text-primary">teach with confidence.</span>
             </h2>
             <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              A calm, focused space for your child — and a clear, helpful view for you.
+              The app prepares you; the learning happens off-screen with real materials in your child's hands.
             </p>
           </Reveal>
 
@@ -482,17 +478,17 @@ const Home: React.FC<HomeProps> = ({
               <Card className="h-full border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
                 <CardContent className="p-7 lg:p-9">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-5">
-                    <Baby className="w-3.5 h-3.5" /> For the child
+                    <Baby className="w-3.5 h-3.5" /> Prepare the lesson
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">A calm place to work</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">Ready before you present</h3>
                   <p className="text-muted-foreground mb-5 leading-relaxed">
-                    Distraction-free activity pages — no scores, no streaks, no flashing badges. Just one clear presentation at a time, the Montessori way.
+                    Each activity gives you the exact sequence, materials list, and teaching points — so you know what to do before you invite your child to the work.
                   </p>
                   <ul className="space-y-2.5">
                     {[
-                      'Photo-guided presentations of real materials',
-                      'Self-paced — no timers or pressure',
-                      'Quiet visuals, soft palette, large touch targets',
+                      'Step-by-step photo and video presentations',
+                      'Materials sourcing with Amazon links',
+                      'AMI-aligned sequencing and control of error',
                     ].map((item) => (
                       <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
                         <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
@@ -508,15 +504,15 @@ const Home: React.FC<HomeProps> = ({
               <Card className="h-full border border-border/60 hover:border-accent/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
                 <CardContent className="p-7 lg:p-9">
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-semibold text-accent uppercase tracking-wider mb-5">
-                    <Users2 className="w-3.5 h-3.5" /> For the adult
+                    <Users2 className="w-3.5 h-3.5" /> Guide with clarity
                   </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">A guide you can trust</h3>
+                  <h3 className="text-2xl font-bold text-foreground mb-3">Track what matters</h3>
                   <p className="text-muted-foreground mb-5 leading-relaxed">
-                    The Family Dashboard gives parents, teachers, and assistants a clear weekly view — what's been worked on, what's next, and why it matters.
+                    The Family Dashboard gives parents, teachers, and assistants a clear weekly view — what has been presented, what comes next, and why it matters for the child's development.
                   </p>
                   <ul className="space-y-2.5">
                     {[
-                      'Weekly summary of activities & focus areas',
+                      'Weekly summary of presentations & focus areas',
                       'AMI-aligned "why this matters" for every area',
                       'Multiple child profiles in one account',
                     ].map((item) => (
@@ -1090,6 +1086,11 @@ const Home: React.FC<HomeProps> = ({
           </Reveal>
         </div>
       </section>
+
+      {/* ─── AI Image Disclaimer ─── */}
+      <div className="py-4 bg-slate-950 text-center border-t border-slate-800">
+        <p className="text-xs text-slate-500">Certain images have been modified using AI.</p>
+      </div>
 
       {/* ─── Footer ─── */}
       <footer className="py-12 bg-slate-900 text-slate-300">
