@@ -329,6 +329,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
           </div>
         )}
         <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
+        <ActivityVideo skillId={skillId} activityTitle={skill.title} />
         {skill.purpose && (
           <Card className="mb-6">
             <CardHeader>
