@@ -26,17 +26,26 @@ const InstallBanner = () => {
     const root = document.documentElement;
     if (!isVisible || !el) {
       root.style.setProperty('--banner-h', '0px');
+      window.dispatchEvent(new Event('banner-resize'));
       return;
     }
+    let raf = 0;
     const setVar = () => {
-      root.style.setProperty('--banner-h', `${Math.ceil(el.getBoundingClientRect().height)}px`);
-      window.dispatchEvent(new Event('banner-resize'));
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(() => {
+        const value = `${Math.ceil(el.getBoundingClientRect().height)}px`;
+        if (root.style.getPropertyValue('--banner-h') !== value) {
+          root.style.setProperty('--banner-h', value);
+          window.dispatchEvent(new Event('banner-resize'));
+        }
+      });
     };
     setVar();
     const ro = new ResizeObserver(setVar);
     ro.observe(el);
     window.addEventListener('resize', setVar);
     return () => {
+      cancelAnimationFrame(raf);
       ro.disconnect();
       window.removeEventListener('resize', setVar);
       root.style.setProperty('--banner-h', '0px');
