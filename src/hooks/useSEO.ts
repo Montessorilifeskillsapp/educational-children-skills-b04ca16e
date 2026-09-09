@@ -94,14 +94,14 @@ export const useSEO = ({
 export const SEO_CONFIG = {
   home: {
     title: 'Montessori Curriculum for Parents & Educators | AMI-Aligned',
-    description: 'A complete AMI-aligned Montessori teaching resource for parents, caregivers, homeschoolers, and educators guiding children ages 2–6. Lesson preparation, presentations, materials, and progress tracking — the app supports the adult, the adult guides the child.',
+    description: 'Everything you need to confidently guide a child through a complete Montessori 3–6 curriculum — precise presentations, sequenced activities, materials guidance, progress tracking, and recommended products. Created by an AMI-trained educator for parents, homeschoolers, caregivers, assistants, and teachers.',
     keywords: 'montessori, montessori guide, montessori teaching resource, practical life, toddler activities, preschool learning, child development, independence skills, homeschool montessori, montessori teacher tools',
     canonical: 'https://montessorilifeskillsapp.com',
     structuredData: {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Montessori Life Skills",
-      "description": "A Montessori teaching resource for parents, teachers, and caregivers guiding children ages 2–6 with AMI-aligned lesson presentations and progress tracking.",
+      "description": "Everything you need to confidently guide a child through a complete Montessori 3–6 curriculum with precise presentations, sequenced activities, materials guidance, and progress tracking.",
       "url": "https://montessorilifeskillsapp.com",
       "applicationCategory": "EducationalApplication",
       "operatingSystem": "Web",

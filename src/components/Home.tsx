@@ -385,15 +385,15 @@ const Home: React.FC<HomeProps> = ({
             <div className="text-center lg:text-left">
               <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
                 <Star className="w-3 h-3 text-accent fill-accent" />
-                AMI-aligned Montessori · ages 2–6
+                Authentic Montessori ages 3–6
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-4 leading-[1.1] animate-reveal-delay-1">
-                Your guide to presenting Montessori with confidence.
+                Authentic Montessori, Clearly and beautifully presented.
               </h1>
 
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                A complete Montessori curriculum for the adults teaching and guiding children ages 2–6. Montessori Life Skills brings lesson preparation, clear presentations, materials guidance, sequencing, and progress tracking into one structured resource—so parents, caregivers, homeschoolers, and educators can confidently create authentic, hands-on Montessori experiences. The technology supports the adult. The adult supports the child.
+                Everything you need to confidently guide a child through a complete Montessori 3–6 curriculum—precise presentations, carefully sequenced activities, clear materials guidance, progress tracking, and convenient links to recommended products. Created by an AMI-trained Montessori educator for parents, homeschoolers, caregivers, classroom assistants, and teachers. Prepared adults. Independent children.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
