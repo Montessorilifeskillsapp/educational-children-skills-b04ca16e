@@ -1087,6 +1087,11 @@ const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
+      {/* ─── AI Image Disclaimer ─── */}
+      <div className="py-4 bg-slate-950 text-center border-t border-slate-800">
+        <p className="text-xs text-slate-500">Certain images have been modified using AI.</p>
+      </div>
+
       {/* ─── Footer ─── */}
       <footer className="py-12 bg-slate-900 text-slate-300">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
