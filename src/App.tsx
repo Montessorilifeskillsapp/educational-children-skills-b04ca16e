@@ -43,6 +43,7 @@ import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
 import AdminMaterialsPage from "./pages/AdminMaterialsPage";
+import AdminVideosPage from "./pages/AdminVideosPage";
 import AdminVerifyPage from "./pages/AdminVerifyPage";
 import AdminHomePage from "./pages/AdminHomePage";
 
