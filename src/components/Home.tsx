@@ -389,16 +389,11 @@ const Home: React.FC<HomeProps> = ({
               </div>
 
               <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-foreground mb-4 leading-[1.1] animate-reveal-delay-1">
-                This isn't screen time.{' '}
-                <span className="text-primary">It's preparation for life.</span>
+                Your guide to presenting Montessori with confidence.
               </h1>
 
-              <p className="text-base sm:text-lg font-medium text-foreground/80 mb-3 max-w-xl mx-auto lg:mx-0 animate-reveal-delay-2">
-                Calm Montessori lessons that help children become more independent at home.
-              </p>
-
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                AMI-aligned activities for ages 2–6 — authentic materials, clear presentations, and progress tracking. No teaching experience required.
+                A complete Montessori curriculum for the adults teaching and guiding children ages 2–6. Montessori Life Skills brings lesson preparation, clear presentations, materials guidance, sequencing, and progress tracking into one structured resource—so parents, caregivers, homeschoolers, and educators can confidently create authentic, hands-on Montessori experiences. The technology supports the adult. The adult supports the child.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
