@@ -55,6 +55,12 @@ const DROP_EXACT = new Set(
     'water',
     'colored water',
     'table',
+    'elliptical line marked on floor',
+    'large ellipse taped on the floor',
+    'tape lines on floor',
+    'two mats or tables set apart',
+    'simple food such as banana slices',
+    'quiet peace table',
   ].map((s) => s.toLowerCase())
 );
 
