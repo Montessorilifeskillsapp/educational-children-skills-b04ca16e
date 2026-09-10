@@ -76,6 +76,8 @@ const ALIASES: Record<string, string> = {
   'large work mat': 'Work mat',
   'work mat or small rug on the floor': 'Work mat',
   'small cotton or woven work mat': 'Work mat',
+  'small cotton': 'Work mat',
+  music: 'Music samples',
   'floor mat': 'Work mat',
   trays: 'Tray',
   'tray for materials': 'Tray',
