@@ -1,5 +1,6 @@
 import { activityMaterials } from '@/data/activityMaterials';
 import type { Material } from '@/data/activityMaterials';
+import { cleanMaterialName } from '@/lib/materialCleanup';
 
 export interface ActivityMaterial {
   key: string;
