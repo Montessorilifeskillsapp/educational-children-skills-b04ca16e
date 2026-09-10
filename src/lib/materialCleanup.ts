@@ -153,6 +153,28 @@ const TAIL_PATTERNS: RegExp[] = [
   /\s*\bwhen possible\b\s*$/i,
 ];
 
+/** Index of the first match that is not inside parentheses, or -1. */
+function indexOutsideBrackets(text: string, pattern: RegExp): number {
+  let depth = 0;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (ch === '(') depth++;
+    else if (ch === ')') depth = Math.max(0, depth - 1);
+    else if (depth === 0 && pattern.test(text.slice(i, i + 4))) {
+      if (new RegExp(`^(?:${pattern.source})`, pattern.flags).test(text.slice(i))) return i;
+    }
+  }
+  return -1;
+}
+
+/** Drops a dangling "(" clause left behind by trimming. */
+function balanceBrackets(text: string): string {
+  const open = (text.match(/\(/g) || []).length;
+  const close = (text.match(/\)/g) || []).length;
+  if (open === close) return text;
+  return text.slice(0, text.indexOf('(')).replace(/[,\s]+$/, '').trim();
+}
+
 function titleFirst(name: string): string {
   if (!name) return name;
   return name.charAt(0).toUpperCase() + name.slice(1);
