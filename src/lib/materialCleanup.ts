@@ -81,7 +81,7 @@ const ALIASES: Record<string, string> = {
   'tray for materials': 'Tray',
   'tray for supplies': 'Tray',
   'tray with low edges': 'Tray',
-  'small tray for carrying': 'Small tray',
+  'small tray for carrying': 'Tray',
   'small wooden tray': 'Wooden tray',
   cloths: 'Cloth',
   'dry cloths': 'Cloth',
