@@ -1,5 +1,6 @@
 import { activityMaterials } from '@/data/activityMaterials';
 import type { Material } from '@/data/activityMaterials';
+import { cleanMaterialName } from '@/lib/materialCleanup';
 
 export interface ActivityMaterial {
   key: string;
@@ -26,25 +27,41 @@ export function parseMaterialName(raw: string): { name: string; essential: boole
   return { name: cleaned, essential };
 }
 
+function dedupeByKey(items: ActivityMaterial[]): ActivityMaterial[] {
+  const seen = new Set<string>();
+  const out: ActivityMaterial[] = [];
+  for (const item of items) {
+    if (seen.has(item.key)) continue;
+    seen.add(item.key);
+    out.push(item);
+  }
+  return out;
+}
+
 export function activityMaterialsForSkill(skillId: string): ActivityMaterial[] | null {
   const list = activityMaterials[skillId];
   if (!list || list.length === 0) return null;
-  return list.map((m) => ({
-    key: normalizeMaterialKey(m.name),
-    displayName: m.name,
-    essential: m.essential,
-  }));
+  const cleaned = list
+    .map((m) => {
+      const name = cleanMaterialName(m.name);
+      if (!name) return null;
+      return { key: normalizeMaterialKey(name), displayName: name, essential: m.essential };
+    })
+    .filter((m): m is ActivityMaterial => m !== null);
+  const result = dedupeByKey(cleaned);
+  return result.length > 0 ? result : null;
 }
 
 export function materialsFromSkillArray(materials: string[]): ActivityMaterial[] {
-  return materials.map((raw) => {
-    const { name, essential } = parseMaterialName(raw);
-    return {
-      key: normalizeMaterialKey(name),
-      displayName: name,
-      essential,
-    };
-  });
+  const cleaned = materials
+    .map((raw) => {
+      const { name, essential } = parseMaterialName(raw);
+      const clean = cleanMaterialName(name);
+      if (!clean) return null;
+      return { key: normalizeMaterialKey(clean), displayName: clean, essential };
+    })
+    .filter((m): m is ActivityMaterial => m !== null);
+  return dedupeByKey(cleaned);
 }
 
 export function mergeMaterials(
