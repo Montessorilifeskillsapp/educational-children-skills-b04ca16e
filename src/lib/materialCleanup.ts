@@ -178,18 +178,22 @@ export function cleanMaterialName(raw: string): string | null {
   // Drop "e.g." / example parentheticals but keep meaningful specs.
   name = name.replace(/\s*\((e\.g\.|such as)[^)]*\)\s*$/i, '').trim();
 
-  // Keep only the first option in "A or B" phrases, unless it reads as a spec.
-  if (/\bor\b/i.test(name) && name.length > 12 && !/^(rough and smooth|black and white)/i.test(name)) {
-    const first = name.split(/\s+or\s+/i)[0].trim();
-    if (first.length >= 3) name = first;
-  }
+  // Trim descriptive tails after a colon/semicolon that sits outside brackets.
+  const separator = indexOutsideBrackets(name, /[:;]/);
+  if (separator > 3) name = name.slice(0, separator).trim();
 
-  // Trim long descriptive tails after a comma or colon.
-  if (name.length > 40) {
-    name = name.split(/[:;]/)[0].trim();
+  // Keep only the first option in "A or B" phrases, unless it reads as a spec.
+  const orIndex = indexOutsideBrackets(name, /\sor\s/i);
+  if (
+    orIndex > 8 &&
+    name.length > 12 &&
+    !/^(rough and smooth|black and white)/i.test(name)
+  ) {
+    name = name.slice(0, orIndex).trim();
   }
 
   name = name.replace(/[,\s]+$/, '').trim();
+  name = balanceBrackets(name);
   if (!name) return null;
 
   const alias = ALIASES[name.toLowerCase()];
