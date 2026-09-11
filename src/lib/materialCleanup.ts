@@ -168,12 +168,68 @@ const ALIASES: Record<string, string> = {
   'small sponge': 'Sponge',
   'small tray': 'Tray',
   'soft cloths': 'Soft cloth',
-  'spray bottle with water': 'Water spray bottle',
+  'spray bottle with water': 'Spray bottle',
+  'water spray bottle': 'Spray bottle',
   'two small bowls': 'Two bowls',
   'real root specimens': 'Root specimens',
   'various plant stems': 'Plant stems',
   'various objects of different sizes and weights': 'Objects of different sizes',
   'small basket with assorted containers': 'Basket',
+
+  // Mats
+  mat: 'Work mat',
+  'quiet reading mat': 'Work mat',
+  'small reading rug': 'Work mat',
+  'story mat': 'Work mat',
+  'waiting mat': 'Work mat',
+  'two sorting mats': 'Sorting mat',
+  'sorting trays': 'Tray',
+
+  // Cleaning
+  'child-sized broom, dustpan and mop': 'Child-sized broom',
+  'small brush and dustpan': 'Brush',
+  'sponge or brush': 'Sponge',
+  'damp sponge': 'Sponge',
+  'small natural sponge': 'Sponge',
+  'sponge and towel': 'Sponge',
+  'soft cloth for cleaning': 'Soft cloth',
+  'cotton cloth': 'Cloth',
+  'small cloths to wash': 'Cloth',
+
+  // Kitchen / containers
+  'small bowl of water': 'Small bowl',
+  'small bowl for sliced pieces': 'Small bowl',
+  'small blunt knife': 'Small knife',
+  'small plates and utensils': 'Plate',
+  'cloth napkin': 'Napkin',
+
+  // Paper and writing
+  'pencil and paper': 'Pencils',
+  paper: 'Drawing paper',
+  'white paper': 'Drawing paper',
+  'long strip of paper': 'Drawing paper',
+  'small scissors': 'Child-safe scissors',
+
+  // Cards
+  'activity picture cards': 'Activity cards',
+  'matching picture cards': 'Picture cards',
+  'matching word cards': 'Word cards',
+  'word cards for sorting': 'Word cards',
+  'season picture cards': 'Season cards',
+  'habitat pictures': 'Habitat cards',
+  'flag cards with country labels': 'Flag cards',
+  'landform nomenclature cards': 'Land and water form nomenclature cards',
+
+  // Nature
+  'bean seeds': 'Seeds',
+  'seed collection': 'Seeds',
+
+  // Art / misc
+  'clay or plasticine': 'Clay',
+  'clay or play dough': 'Clay',
+  'play dough in four colors': 'Play dough',
+  'music from different cultures': 'Music samples',
+  'fabric panels shaped like shoe fronts': 'Two fabric panels',
 };
 
 /** Trailing purpose clauses that add nothing to a shopping list. */
