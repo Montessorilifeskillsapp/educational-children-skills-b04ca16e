@@ -133,6 +133,7 @@ const ALIASES: Record<string, string> = {
   'various objects to carry': 'Objects to carry',
   'optional: objects to carry': 'Objects to carry',
   'small objects to transfer': 'Transfer objects',
+  'small objects': 'Pink sentence objects',
   'small objects (6-10)': 'Sound game objects (6–10)',
   'collection of small objects': 'Counting objects',
   'collection of small objects (buttons, shells, beads)': 'Counting objects',
