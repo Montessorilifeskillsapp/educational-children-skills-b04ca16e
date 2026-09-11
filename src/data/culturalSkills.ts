@@ -241,7 +241,7 @@ export const culturalSkillsData: Record<string, {
     difficulty: 'Beginner',
     ageRange: '3-5',
     purpose: 'Builds visual discrimination, concentration, and vocabulary by matching a concrete planet model to its two-dimensional representation.',
-    materials: ['Set of small planet models', 'Matching planet picture cards', 'Work mat', 'Control chart (optional)'],
+    materials: ['Set of small planet models', 'Matching planet picture cards', 'Work mat', 'Planet object-to-picture control chart (optional)'],
     steps: [
       { id: '1', instruction: 'Lay out the work mat and place the planet models in a row', completed: false },
       { id: '2', instruction: 'Present the picture cards face up beside the models', completed: false },
