@@ -13,3 +13,4 @@
 - [ ] Follow-up: user flagged the section-switcher nav as an unapproved change; confirm keep or revert before further UI changes
 - [ ] Video archive: instructional video for every activity, private storage, paywall, admin page
 - [x] Reposition homepage copy to adult-as-user and add AI image disclaimer
+- [x] Standardize admin material display names with precise Montessori terminology
