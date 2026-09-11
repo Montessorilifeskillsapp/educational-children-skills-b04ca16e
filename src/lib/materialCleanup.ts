@@ -179,7 +179,6 @@ const ALIASES: Record<string, string> = {
   // Mats
   mat: 'Work mat',
   'quiet reading mat': 'Work mat',
-  'reading mat': 'Work mat',
   'small reading rug': 'Work mat',
   'story mat': 'Work mat',
   'waiting mat': 'Work mat',
