@@ -5,11 +5,11 @@ export const additionalMathSkills: Record<string, MathSkillData> = {
     title: 'Hundred Board',
     description: 'Introduction to numbers 1-100 and number patterns',
     purpose: 'To introduce the sequence of numbers 1-100, develop pattern recognition, and prepare for advanced mathematical operations.',
-    materials: ['Hundred board', 'Number tiles 1-100', 'Control chart'],
+    materials: ['Hundred board', 'Number tiles 1-100', 'Hundred Board control chart'],
     materialsPurpose: [
       'Hundred board: Grid layout showing number relationships',
       'Number tiles 1-100: Individual numbers for placement',
-      'Control chart: Reference for checking accuracy'
+      'Hundred Board control chart: Reference for checking accuracy'
     ],
     steps: [
       'Place numbers in sequence on board',

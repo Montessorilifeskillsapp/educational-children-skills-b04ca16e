@@ -150,7 +150,7 @@ export const amiLanguageSkills: Record<string, LanguageSkillData> = {
     description: 'Reading labels and sorting into categories',
     icon: '🏷️',
     purpose: 'To combine reading practice with logical thinking by reading words and classifying them into groups.',
-    materials: ['Category heading cards', 'Word cards for sorting', 'Sorting mat', 'Control chart'],
+    materials: ['Category heading cards', 'Word cards for sorting', 'Sorting mat', 'Reading Classification control chart'],
     category: 'Language',
     difficulty: 'Intermediate',
     isPremium: true,
