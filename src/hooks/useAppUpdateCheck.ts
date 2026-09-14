@@ -43,6 +43,7 @@ interface UpdateState {
   updateAvailable: boolean;
   latestVersion: string | null;
   storeUrl: string;
+  nativeStoreUrl: string;
   dismiss: () => void;
 }
 
@@ -88,6 +89,7 @@ export const useAppUpdateCheck = (): UpdateState => {
     updateAvailable,
     latestVersion,
     storeUrl: storeUrlForPlatform(platform),
+    nativeStoreUrl: nativeStoreUrlForPlatform(platform),
     dismiss,
   };
 };
