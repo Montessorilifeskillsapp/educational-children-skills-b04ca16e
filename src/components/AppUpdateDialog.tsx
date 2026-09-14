@@ -17,13 +17,20 @@ import { useAppUpdateCheck } from '@/hooks/useAppUpdateCheck';
  * Reappears on every app launch until the user updates.
  */
 const AppUpdateDialog: React.FC = () => {
-  const { updateAvailable, latestVersion, storeUrl, dismiss } = useAppUpdateCheck();
+  const { updateAvailable, latestVersion, storeUrl, nativeStoreUrl, dismiss } = useAppUpdateCheck();
 
   const openStore = async () => {
+    // Try the native store app deep link first (App Store / Play Store).
+    // If the OS or Capacitor cannot handle itms-apps:// / market://,
+    // fall back to the web store URL in the system browser.
     try {
-      await Browser.open({ url: storeUrl });
+      await Browser.open({ url: nativeStoreUrl });
     } catch {
-      window.open(storeUrl, '_blank');
+      try {
+        await Browser.open({ url: storeUrl });
+      } catch {
+        window.open(storeUrl, '_blank');
+      }
     }
     dismiss();
   };
