@@ -26,3 +26,6 @@ verify_jwt = false
 
 [functions.admin-activity-videos]
 verify_jwt = false
+
+[functions.app-version-check]
+verify_jwt = false
