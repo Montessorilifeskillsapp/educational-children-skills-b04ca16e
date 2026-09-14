@@ -34,6 +34,7 @@ import GuaranteePage from "./pages/GuaranteePage";
 import PreviewPouringWaterPage from "./pages/PreviewPouringWaterPage";
 import UnsubscribePage from "./pages/UnsubscribePage";
 import PWAInstallPrompt from "@/components/PWAInstallPrompt";
+import AppUpdateDialog from "@/components/AppUpdateDialog";
 import InstallBanner from "@/components/InstallBanner";
 import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
@@ -86,6 +87,7 @@ const App = () => {
                 <ProfileProvider>
                   <SubscriptionProvider>
                     <Toaster />
+                    {Capacitor.isNativePlatform() && <AppUpdateDialog />}
                     <SplashDebugOverlay />
                     <BrowserRouter
                       future={{
