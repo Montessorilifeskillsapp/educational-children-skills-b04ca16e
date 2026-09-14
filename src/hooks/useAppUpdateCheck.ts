@@ -10,8 +10,15 @@ export const IOS_STORE_URL = 'https://apps.apple.com/us/app/montessori-life-skil
 export const ANDROID_STORE_URL =
   'https://play.google.com/store/apps/details?id=com.montessorilifeskills.app';
 
+/** Web URLs for fallback / sharing. */
 export const storeUrlForPlatform = (platform: string) =>
   platform === 'ios' ? IOS_STORE_URL : ANDROID_STORE_URL;
+
+/** Native deep links that open the App Store / Play Store apps directly. */
+export const nativeStoreUrlForPlatform = (platform: string) =>
+  platform === 'ios'
+    ? `itms-apps://apps.apple.com/us/app/montessori-life-skills/id${IOS_APP_ID}`
+    : `market://details?id=${ANDROID_PACKAGE}`;
 
 /** Returns true when `latest` is a higher version than `current`. */
 export const isNewerVersion = (latest: string, current: string): boolean => {
@@ -36,6 +43,7 @@ interface UpdateState {
   updateAvailable: boolean;
   latestVersion: string | null;
   storeUrl: string;
+  nativeStoreUrl: string;
   dismiss: () => void;
 }
 
@@ -81,6 +89,7 @@ export const useAppUpdateCheck = (): UpdateState => {
     updateAvailable,
     latestVersion,
     storeUrl: storeUrlForPlatform(platform),
+    nativeStoreUrl: nativeStoreUrlForPlatform(platform),
     dismiss,
   };
 };
