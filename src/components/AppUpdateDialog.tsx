@@ -14,7 +14,7 @@ import { useAppUpdateCheck } from '@/hooks/useAppUpdateCheck';
 
 /**
  * Prompts native app users to update when Firebase reports a newer version.
- * Skippable — the chosen version is remembered so it isn't shown again.
+ * Reappears on every app launch until the user updates.
  */
 const AppUpdateDialog: React.FC = () => {
   const { updateAvailable, latestVersion, storeUrl, dismiss } = useAppUpdateCheck();
