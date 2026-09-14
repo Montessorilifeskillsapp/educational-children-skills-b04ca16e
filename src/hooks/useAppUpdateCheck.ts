@@ -6,10 +6,12 @@ import { supabase } from '@/integrations/supabase/client';
 export const IOS_APP_ID = '6761342547';
 export const ANDROID_PACKAGE = 'com.montessorilifeskills.app';
 
+export const IOS_STORE_URL = 'https://apps.apple.com/us/app/montessori-life-skills/id6761342547';
+export const ANDROID_STORE_URL =
+  'https://play.google.com/store/apps/details?id=com.montessorilifeskills.app';
+
 export const storeUrlForPlatform = (platform: string) =>
-  platform === 'ios'
-    ? `https://apps.apple.com/app/id${IOS_APP_ID}`
-    : `https://play.google.com/store/apps/details?id=${ANDROID_PACKAGE}`;
+  platform === 'ios' ? IOS_STORE_URL : ANDROID_STORE_URL;
 
 /** Returns true when `latest` is a higher version than `current`. */
 export const isNewerVersion = (latest: string, current: string): boolean => {
