@@ -5,8 +5,6 @@ import { App } from '@capacitor/app';
 const FIREBASE_PROJECT_ID = 'kerry-s-project';
 const VERSION_DOC_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/config/AppVersion`;
 
-const DISMISS_KEY = 'app-update-dismissed-version';
-
 export const IOS_APP_ID = '6761342547';
 export const ANDROID_PACKAGE = 'com.montessorilifeskills.app';
 
@@ -62,9 +60,6 @@ export const useAppUpdateCheck = (): UpdateState => {
 
         setLatestVersion(latest);
 
-        const dismissed = localStorage.getItem(DISMISS_KEY);
-        if (dismissed === latest) return;
-
         if (isNewerVersion(latest, info.version)) {
           setUpdateAvailable(true);
         }
@@ -80,7 +75,6 @@ export const useAppUpdateCheck = (): UpdateState => {
   }, [platform]);
 
   const dismiss = () => {
-    if (latestVersion) localStorage.setItem(DISMISS_KEY, latestVersion);
     setUpdateAvailable(false);
   };
 
