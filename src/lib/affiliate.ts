@@ -31,7 +31,7 @@ export function withAffiliateTag(url: string, overrideTag?: string | null): stri
   try {
     const parsed = new URL(url);
     const override = parseAffiliateTag(overrideTag);
-    const amazon = parsed.hostname.includes('amazon');
+    const amazon = isAmazonUrl(url);
 
     if (override) {
       parsed.searchParams.delete(override.key);
