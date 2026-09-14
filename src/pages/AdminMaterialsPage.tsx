@@ -570,6 +570,17 @@ const AdminMaterialsPage: React.FC = () => {
                               </div>
                               <div className="flex items-center gap-2">
                                 {previewUrl && (
+                                  isAffiliateTagged(link.amazon_url, link.affiliate_tag) ? (
+                                    <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                      Affiliate tag applied
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
+                                      No affiliate tag — earns nothing
+                                    </span>
+                                  )
+                                )}
+                                {previewUrl && (
                                   <a
                                     href={previewUrl}
                                     target="_blank"
