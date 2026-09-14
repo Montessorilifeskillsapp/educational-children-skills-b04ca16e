@@ -1,9 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
-
-const FIREBASE_PROJECT_ID = 'kerry-s-project';
-const VERSION_DOC_URL = `https://firestore.googleapis.com/v1/projects/${FIREBASE_PROJECT_ID}/databases/(default)/documents/config/AppVersion`;
+import { supabase } from '@/integrations/supabase/client';
 
 export const IOS_APP_ID = '6761342547';
 export const ANDROID_PACKAGE = 'com.montessorilifeskills.app';
@@ -51,20 +49,19 @@ export const useAppUpdateCheck = (): UpdateState => {
     const check = async () => {
       try {
         const info = await App.getInfo();
-        const res = await fetch(VERSION_DOC_URL);
-        if (!res.ok) return;
-        const doc = await res.json();
-        const latest: string | undefined =
-          doc?.fields?.[platform]?.stringValue ?? undefined;
-        if (!latest || cancelled) return;
+        const { data, error } = await supabase.functions.invoke('app-version-check', {
+          body: { platform },
+        });
+        if (cancelled || error || !data?.version) return;
 
+        const latest: string = data.version;
         setLatestVersion(latest);
 
         if (isNewerVersion(latest, info.version)) {
           setUpdateAvailable(true);
         }
       } catch {
-        // Offline or config unavailable — never block the app.
+        // Offline or function unavailable — never block the app.
       }
     };
 
