@@ -1,5 +1,5 @@
 import React from 'react';
-import { Browser } from '@capacitor/browser';
+import { AppLauncher } from '@capacitor/app-launcher';
 import {
   AlertDialog,
   AlertDialogAction,
@@ -20,16 +20,16 @@ const AppUpdateDialog: React.FC = () => {
   const { updateAvailable, latestVersion, storeUrl, nativeStoreUrl, dismiss } = useAppUpdateCheck();
 
   const openStore = async () => {
-    // Try the native store app deep link first (App Store / Play Store).
-    // If the OS or Capacitor cannot handle itms-apps:// / market://,
-    // fall back to the web store URL in the system browser.
+    // Leave the app entirely: open the native App Store / Play Store app,
+    // falling back to the external system browser with the web store URL.
     try {
-      await Browser.open({ url: nativeStoreUrl });
+      const { completed } = await AppLauncher.openUrl({ url: nativeStoreUrl });
+      if (!completed) throw new Error('not launched');
     } catch {
       try {
-        await Browser.open({ url: storeUrl });
+        await AppLauncher.openUrl({ url: storeUrl });
       } catch {
-        window.open(storeUrl, '_blank');
+        window.open(storeUrl, '_system');
       }
     }
     dismiss();
