@@ -49,10 +49,29 @@ export function withAffiliateTag(url: string, overrideTag?: string | null): stri
   }
 }
 
+/** Amazon storefronts plus their short-link domains (amzn.to, amzn.eu, a.co). */
+const AMAZON_HOST_PATTERN = /(^|\.)((amazon\.[a-z.]+)|(amzn\.(to|eu|asia))|(a\.co))$/i;
+
 export function isAmazonUrl(url: string): boolean {
   if (!url) return false;
   try {
-    return new URL(url).hostname.includes('amazon');
+    return AMAZON_HOST_PATTERN.test(new URL(url).hostname.replace(/^www\./, ''));
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * True when the final URL carries an affiliate parameter we will be paid on.
+ * Used by the admin screen to flag links that would earn nothing.
+ */
+export function isAffiliateTagged(url: string, overrideTag?: string | null): boolean {
+  if (!url) return false;
+  try {
+    const parsed = new URL(withAffiliateTag(url, overrideTag));
+    const override = parseAffiliateTag(overrideTag);
+    if (override) return parsed.searchParams.get(override.key) === override.value;
+    return parsed.searchParams.get('tag') === AMAZON_AFFILIATE_TAG;
   } catch {
     return false;
   }
