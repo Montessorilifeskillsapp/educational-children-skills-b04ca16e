@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
-import { withAffiliateTag } from '@/lib/affiliate';
+import { withAffiliateTag, isAffiliateTagged } from '@/lib/affiliate';
 import { cn } from '@/lib/utils';
 
 interface LinkForm {
