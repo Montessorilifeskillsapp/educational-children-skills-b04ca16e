@@ -61,9 +61,14 @@ const InstallBanner = () => {
 
     if (!forced) {
       if (window.matchMedia("(display-mode: standalone)").matches) return;
-      // Once dismissed with the X, the banner never returns.
-      if (localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY)) return;
+      // If dismissed with the X, the banner stays hidden for 72 hours then reappears.
+      const dismissedAt = localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY);
+      if (dismissedAt) {
+        const hoursSinceDismissal = (Date.now() - Number(dismissedAt)) / (1000 * 60 * 60);
+        if (hoursSinceDismissal < 72) return;
+      }
     }
+
 
     const ua = navigator.userAgent;
     const ios = /iPad|iPhone|iPod/.test(ua);
