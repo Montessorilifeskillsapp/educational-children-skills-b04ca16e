@@ -13,7 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
-import { withAffiliateTag } from '@/lib/affiliate';
+import { withAffiliateTag, isAffiliateTagged } from '@/lib/affiliate';
 import { cn } from '@/lib/utils';
 
 interface LinkForm {
@@ -569,6 +569,17 @@ const AdminMaterialsPage: React.FC = () => {
                                 </Label>
                               </div>
                               <div className="flex items-center gap-2">
+                                {previewUrl && (
+                                  isAffiliateTagged(link.amazon_url, link.affiliate_tag) ? (
+                                    <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                      Affiliate tag applied
+                                    </span>
+                                  ) : (
+                                    <span className="inline-flex items-center rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">
+                                      No affiliate tag — earns nothing
+                                    </span>
+                                  )
+                                )}
                                 {previewUrl && (
                                   <a
                                     href={previewUrl}
