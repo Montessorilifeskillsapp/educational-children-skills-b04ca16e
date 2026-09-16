@@ -66,14 +66,15 @@ export function resolveMaterials(
 }
 
 export function MaterialBundle({ title, materials, disclosure, className }: MaterialBundleProps) {
-  const linked = materials.filter((m) => !!m.amazonUrl);
-  const allLinked = linked.length === materials.length && materials.length > 0;
+  // Only links belonging to the material itself count towards "Buy all" — a
+  // borrowed parent link would otherwise send the button to a child row.
+  const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
 
   const buyAllUrl = (() => {
     if (!linked.length) return null;
     // Amazon does not support a true multi-item affiliate cart URL, so we link
     // to the first essential item (or first item) when "Buy all" is clicked.
-    const first = materials.find((m) => m.essential && m.amazonUrl)?.amazonUrl
+    const first = materials.find((m) => m.essential && m.amazonUrl && !m.inheritedFrom)?.amazonUrl
       || linked[0].amazonUrl;
     return first;
   })();
