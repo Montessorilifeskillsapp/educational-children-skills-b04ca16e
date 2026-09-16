@@ -25,6 +25,8 @@ import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+import { resolveIncludedWith } from '@/lib/materialBundles';
+import { cleanMaterialName } from '@/lib/materialCleanup';
 import GetTheMaterials from './GetTheMaterials';
 import ActivityVideo from './ActivityVideo';
 
@@ -308,6 +310,10 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {skill.materials.map((m, i) => {
                 const img = getMaterialImage(m);
+                const includedWith = resolveIncludedWith(
+                  cleanMaterialName(m),
+                  skill.materials ?? []
+                );
                 return (
                   <div key={i} className="flex flex-col items-center text-center bg-white rounded-lg border border-amber-200 overflow-hidden">
                     {img ? (
@@ -322,7 +328,14 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                     ) : (
                       <div className="w-full aspect-square flex items-center justify-center bg-amber-50 text-3xl text-amber-300">📦</div>
                     )}
-                    <span className="text-xs sm:text-sm text-amber-900 px-2 py-2 leading-tight">{m}</span>
+                    <div className="px-2 py-2">
+                      <span className="text-xs sm:text-sm text-amber-900 leading-tight block">{m}</span>
+                      {includedWith ? (
+                        <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
+                          Included with {includedWith}
+                        </span>
+                      ) : null}
+                    </div>
                   </div>
                 );
               })}

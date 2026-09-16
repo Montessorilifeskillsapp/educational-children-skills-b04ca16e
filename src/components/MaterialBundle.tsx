@@ -6,6 +6,7 @@ import type { ActivityMaterial } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
+import { resolveIncludedWith } from '@/lib/materialBundles';
 
 export interface ResolvedMaterial {
   key: string;
@@ -14,6 +15,8 @@ export interface ResolvedMaterial {
   amazonUrl: string | null;
   imageUrl?: string;
   vendor?: string;
+  /** Product this material arrives inside, when it is not sold on its own. */
+  includedWith?: string | null;
 }
 
 interface MaterialBundleProps {
@@ -27,16 +30,19 @@ export function resolveMaterials(
   materials: ActivityMaterial[],
   linkMap: Map<string, MaterialLink>
 ): ResolvedMaterial[] {
+  const siblings = materials.map((m) => m.displayName);
   return materials.map((m) => {
     const link = linkMap.get(m.key);
     const url = link?.amazon_url || null;
+    const displayName = link?.display_name || m.displayName;
     return {
       key: m.key,
-      displayName: link?.display_name || m.displayName,
+      displayName,
       essential: m.essential,
       amazonUrl: url ? withAffiliateTag(url, link?.affiliate_tag) : null,
-      imageUrl: getMaterialImage(link?.display_name || m.displayName),
+      imageUrl: getMaterialImage(displayName),
       vendor: url ? vendorLabel(url, link?.vendor) : undefined,
+      includedWith: resolveIncludedWith(m.key, siblings),
     };
   });
 }
@@ -104,9 +110,13 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                   {material.essential && (
                     <p className="text-xs text-muted-foreground mt-0.5">Essential</p>
                   )}
-                  {!material.amazonUrl && (
+                  {material.includedWith && !material.amazonUrl ? (
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Included with {material.includedWith}
+                    </p>
+                  ) : !material.amazonUrl ? (
                     <p className="text-xs text-muted-foreground mt-0.5">Source locally</p>
-                  )}
+                  ) : null}
                 </div>
               </div>
               {material.amazonUrl ? (

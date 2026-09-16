@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
+import { isBundledMaterial, resolveIncludedWith } from '@/lib/materialBundles';
 import { withAffiliateTag, isAffiliateTagged } from '@/lib/affiliate';
 import { cn } from '@/lib/utils';
 
@@ -40,6 +41,7 @@ const AdminMaterialsPage: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [search, setSearch] = useState('');
   const [essentialOnly, setEssentialOnly] = useState(false);
+  const [hideIncluded, setHideIncluded] = useState(false);
   const [saving, setSaving] = useState<Set<string>>(new Set());
   const [links, setLinks] = useState<Record<string, LinkForm>>({});
   const [initialLinks, setInitialLinks] = useState<Record<string, LinkForm>>({});
@@ -99,8 +101,24 @@ const AdminMaterialsPage: React.FC = () => {
     }));
   }, []);
 
+  const includedCount = useMemo(
+    () =>
+      sections.reduce(
+        (sum, section) =>
+          sum + section.materials.filter((m) => isBundledMaterial(m.key)).length,
+        0
+      ),
+    [sections]
+  );
+
+  // Materials that arrive inside another product need no supplier link of their
+  // own, so they stay out of the coverage count.
   const allMaterialsCount = useMemo(
-    () => sections.reduce((sum, s) => sum + s.materials.length, 0),
+    () =>
+      sections.reduce(
+        (sum, s) => sum + s.materials.filter((m) => !isBundledMaterial(m.key)).length,
+        0
+      ),
     [sections]
   );
 
@@ -109,7 +127,9 @@ const AdminMaterialsPage: React.FC = () => {
       sections.reduce(
         (sum, section) =>
           sum +
-          section.materials.filter((m) => !!links[m.key]?.amazon_url?.trim()).length,
+          section.materials.filter(
+            (m) => !isBundledMaterial(m.key) && !!links[m.key]?.amazon_url?.trim()
+          ).length,
         0
       ),
     [sections, links]
@@ -126,10 +146,13 @@ const AdminMaterialsPage: React.FC = () => {
         if (essentialOnly) {
           materials = materials.filter((m) => m.essential);
         }
+        if (hideIncluded) {
+          materials = materials.filter((m) => !isBundledMaterial(m.key));
+        }
         return { ...section, materials };
       })
       .filter((section) => section.materials.length > 0);
-  }, [sections, search, essentialOnly]);
+  }, [sections, search, essentialOnly, hideIncluded]);
 
   useEffect(() => {
     // Expand sections that match the current search so results are visible.
@@ -314,7 +337,8 @@ const AdminMaterialsPage: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold">Materials Links</h1>
           <p className="text-muted-foreground">
-            Curate supplier links for Montessori materials. {coveredCount} of {allMaterialsCount} linked.
+            Curate supplier links for Montessori materials. {coveredCount} of {allMaterialsCount}{' '}
+            linked · {includedCount} included with another product.
           </p>
         </div>
         <div className="text-sm text-muted-foreground">
@@ -340,7 +364,8 @@ const AdminMaterialsPage: React.FC = () => {
             />
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            {coveredCount} linked · {allMaterialsCount - coveredCount} pending
+            {coveredCount} linked · {allMaterialsCount - coveredCount} pending · {includedCount}{' '}
+            included with another product
           </p>
         </CardContent>
       </Card>
@@ -365,6 +390,16 @@ const AdminMaterialsPage: React.FC = () => {
               />
               <Label htmlFor="essential-only" className="text-sm font-normal">
                 Essential only
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="hide-included"
+                checked={hideIncluded}
+                onCheckedChange={(checked) => setHideIncluded(checked === true)}
+              />
+              <Label htmlFor="hide-included" className="text-sm font-normal">
+                Hide included items
               </Label>
             </div>
             <div className="flex items-center gap-1">
@@ -472,6 +507,10 @@ const AdminMaterialsPage: React.FC = () => {
                       const previewUrl = link.amazon_url
                         ? withAffiliateTag(link.amazon_url, link.affiliate_tag)
                         : '';
+                      const includedWith = resolveIncludedWith(
+                        material.key,
+                        section.materials.map((m) => m.key)
+                      );
 
                       return (
                         <Card
@@ -486,6 +525,11 @@ const AdminMaterialsPage: React.FC = () => {
                               {material.essential && (
                                 <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                                   Essential
+                                </span>
+                              )}
+                              {includedWith && (
+                                <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                                  Included with {includedWith}
                                 </span>
                               )}
                             </div>
