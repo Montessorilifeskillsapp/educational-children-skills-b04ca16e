@@ -49,10 +49,11 @@ export const additionalMathSkills: Record<string, MathSkillData> = {
     title: 'Addition Strip Board',
     description: 'Concrete introduction to addition facts',
     purpose: 'To provide concrete experience with addition combinations and help memorize basic addition facts through repeated practice.',
-    materials: ['Addition strip board', 'Red and blue strips', 'Number cards'],
+    materials: ['Addition strip board', 'Red strips (1–9)', 'Blue strips (1–9)', 'Number cards'],
     materialsPurpose: [
       'Addition strip board: Grid for organizing addition problems',
-      'Red and blue strips: Visual representation of addends',
+      'Red strips: Divided into squares, used as the first addend',
+      'Blue strips: Solid, used as the second addend',
       'Number cards: Abstract symbols for sums'
     ],
     steps: [

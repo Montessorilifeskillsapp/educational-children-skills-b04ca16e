@@ -137,11 +137,12 @@ export const amiMathSkills: Record<string, MathSkillData> = {
     title: 'Addition Snake Game',
     description: 'Build colorful bead snakes and exchange for golden ten bars',
     purpose: 'To provide concrete experience with addition, practice exchanging quantities for tens, and reinforce the bead bar color associations while developing mental arithmetic foundations.',
-    materials: ['Colored bead bars', 'Golden ten bars', 'Black and white verification stair', 'Notched number cards (optional)'],
+    materials: ['Colored bead stair (1–9)', 'Golden bead ten bars', 'Black and white bead stair', 'Notched card (bridge)'],
     materialsPurpose: [
-      'Colored bead bars: Form the "snake" — addends to be combined',
-      'Golden ten bars: Used for exchanging when groups of 10 are found',
-      'Black and white stair: Verification tool for counting remainders'
+      'Colored bead stair: Form the "snake" — addends to be combined',
+      'Golden bead ten bars: Used for exchanging when groups of 10 are found',
+      'Black and white bead stair: Verification tool for counting remainders',
+      'Notched card: The bridge that holds the black and white bar in place'
     ],
     steps: [
       'Lay colored bead bars end-to-end as a snake',
@@ -153,7 +154,7 @@ export const amiMathSkills: Record<string, MathSkillData> = {
       'Select 5-7 colored bead bars and lay them end-to-end in a "snake"',
       'Starting from the left, count beads: 1, 2, 3...',
       'When you reach 10, remove those bead bars and replace with one golden ten bar',
-      'Place any remaining beads (using the black/white stair for the partial bar) at the start of the next count',
+      'Place any remaining beads (using the black and white bead stair for the partial bar) at the start of the next count',
       'Continue counting and exchanging until the entire snake is golden',
       'Count the golden bars and any remainder to find the total sum',
       'Verify: lay original colored bars back out and recount'
@@ -179,26 +180,26 @@ export const amiMathSkills: Record<string, MathSkillData> = {
 
   'subtraction-snake-game': {
     title: 'Subtraction Snake Game',
-    description: 'Use gray bead bars to subtract from a golden snake',
+    description: 'Use the gray bead stair to subtract from a golden snake',
     purpose: 'To provide concrete experience with subtraction using the snake game format, reinforcing the concept of "taking away" and exchanging within the decimal system.',
-    materials: ['Golden ten bars', 'Gray bead bars (subtrahends)', 'Colored bead bars', 'Black and white stair'],
+    materials: ['Golden bead ten bars', 'Gray bead stair', 'Colored bead stair (1–9)', 'Black and white bead stair'],
     materialsPurpose: [
-      'Golden ten bars: Form the initial snake (minuend)',
-      'Gray bead bars: Represent quantities to subtract',
-      'Colored bead bars: Used for exchanges when breaking a ten',
-      'Black and white stair: Verification and remainder tool'
+      'Golden bead ten bars: Form the initial snake (minuend)',
+      'Gray bead stair: The quantities to subtract — bars 1–5 are light gray, 6–9 dark gray',
+      'Colored bead stair: Used for exchanges when breaking a ten',
+      'Black and white bead stair: Verification and remainder tool'
     ],
     steps: [
-      'Lay golden ten bars and gray bead bars alternately',
+      'Lay golden ten bars and gray bead stair bars alternately',
       'Count forward on golden, count back on gray',
       'Exchange when needed',
       'Find the difference'
     ],
     detailedSteps: [
-      'Lay golden ten bars in a snake, interspersed with gray bead bars',
+      'Lay golden ten bars in a snake, interspersed with gray bead stair bars',
       'Starting from the left, count forward on golden beads',
       'When reaching a gray bar, count those beads backward (subtract)',
-      'If gray bar is larger than remaining count, exchange a golden bar for colored bars',
+      'If the gray bar is larger than the remaining count, exchange a golden bar for colored bars',
       'Continue counting and subtracting through the entire snake',
       'The remaining golden bars and colored remainder are the answer'
     ],
@@ -407,25 +408,26 @@ export const amiMathSkills: Record<string, MathSkillData> = {
     title: 'Subtraction Strip Board',
     description: 'Concrete introduction to subtraction facts using colored strips',
     purpose: 'To provide concrete experience with subtraction combinations and help memorize basic subtraction facts through repeated practice with the strip board.',
-    materials: ['Subtraction strip board', 'Blue strips (minuend)', 'Red strips (subtrahend)', 'Number line'],
+    materials: ['Subtraction strip board', 'Natural wooden strips (1–18)', 'Blue strips (1–9)', 'Red strips (1–9)', 'Number line'],
     materialsPurpose: [
       'Subtraction strip board: Grid for organizing subtraction problems',
-      'Blue strips: Represent the starting number (minuend)',
-      'Red strips: Represent the amount to take away (subtrahend)',
+      'Natural wooden strips: Mark the starting number (minuend)',
+      'Blue strips: Take away the amount subtracted (subtrahend)',
+      'Red strips: Kept for further explorations',
       'Number line: Visual reference for counting back'
     ],
     steps: [
-      'Place blue strip for the minuend',
-      'Place red strip to subtract',
+      'Place a natural wooden strip for the minuend',
+      'Place a blue strip over its end to subtract',
       'Read the difference',
       'Record the equation'
     ],
     detailedSteps: [
-      'Choose minuend — place blue strip starting at 1 (e.g., blue 7 = seven spaces)',
-      'Choose subtrahend — place red strip at the end of the blue strip, pointing left',
-      'The red strip covers part of the number line',
-      'Read where the red strip begins — that is the difference',
-      'Example: 7 - 3 = 4 (blue 7, red 3, difference shows at 4)',
+      'Choose the minuend — place a natural wooden strip starting at 1 (the 7 strip covers seven squares)',
+      'Choose the subtrahend — place the blue strip at the right end of the wooden strip, pointing left',
+      'The blue strip covers part of the numbered row',
+      'Read the number where the blue strip begins — that is the difference',
+      'Example: 7 - 3 = 4 (wooden 7, blue 3, difference shows at 4)',
       'Record the equation on paper'
     ],
     ageRange: '5-7 years',
