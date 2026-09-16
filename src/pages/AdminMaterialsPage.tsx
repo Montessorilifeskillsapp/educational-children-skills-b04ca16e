@@ -13,6 +13,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
+import { isBundledMaterial, resolveIncludedWith } from '@/lib/materialBundles';
 import { withAffiliateTag, isAffiliateTagged } from '@/lib/affiliate';
 import { cn } from '@/lib/utils';
 
@@ -40,6 +41,7 @@ const AdminMaterialsPage: React.FC = () => {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [search, setSearch] = useState('');
   const [essentialOnly, setEssentialOnly] = useState(false);
+  const [hideIncluded, setHideIncluded] = useState(false);
   const [saving, setSaving] = useState<Set<string>>(new Set());
   const [links, setLinks] = useState<Record<string, LinkForm>>({});
   const [initialLinks, setInitialLinks] = useState<Record<string, LinkForm>>({});
@@ -99,8 +101,24 @@ const AdminMaterialsPage: React.FC = () => {
     }));
   }, []);
 
+  const includedCount = useMemo(
+    () =>
+      sections.reduce(
+        (sum, section) =>
+          sum + section.materials.filter((m) => isBundledMaterial(m.key)).length,
+        0
+      ),
+    [sections]
+  );
+
+  // Materials that arrive inside another product need no supplier link of their
+  // own, so they stay out of the coverage count.
   const allMaterialsCount = useMemo(
-    () => sections.reduce((sum, s) => sum + s.materials.length, 0),
+    () =>
+      sections.reduce(
+        (sum, s) => sum + s.materials.filter((m) => !isBundledMaterial(m.key)).length,
+        0
+      ),
     [sections]
   );
 
@@ -109,7 +127,9 @@ const AdminMaterialsPage: React.FC = () => {
       sections.reduce(
         (sum, section) =>
           sum +
-          section.materials.filter((m) => !!links[m.key]?.amazon_url?.trim()).length,
+          section.materials.filter(
+            (m) => !isBundledMaterial(m.key) && !!links[m.key]?.amazon_url?.trim()
+          ).length,
         0
       ),
     [sections, links]
@@ -126,10 +146,13 @@ const AdminMaterialsPage: React.FC = () => {
         if (essentialOnly) {
           materials = materials.filter((m) => m.essential);
         }
+        if (hideIncluded) {
+          materials = materials.filter((m) => !isBundledMaterial(m.key));
+        }
         return { ...section, materials };
       })
       .filter((section) => section.materials.length > 0);
-  }, [sections, search, essentialOnly]);
+  }, [sections, search, essentialOnly, hideIncluded]);
 
   useEffect(() => {
     // Expand sections that match the current search so results are visible.
