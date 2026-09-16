@@ -217,6 +217,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     canonical: `https://montessori-skills.com/skill/${skillId}`
   });
 
+  const { byKey: materialLinksByKey } = useMaterialLinks();
+
   const [steps, setSteps] = useState<Step[]>(getSkillSteps());
 
   useEffect(() => {
