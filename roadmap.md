@@ -14,3 +14,4 @@
 - [ ] Video archive: instructional video for every activity, private storage, paywall, admin page
 - [x] Reposition homepage copy to adult-as-user and add AI image disclaimer
 - [x] Standardize admin material display names with precise Montessori terminology
+- [ ] Correct snake-game and strip-board material names (gray bead stair, blue strips as subtrahend) and refresh the materials lists
