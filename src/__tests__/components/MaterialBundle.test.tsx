@@ -20,7 +20,8 @@ describe('MaterialBundle included-with notes', () => {
   it('shows the note in place of "Source locally" and adds no buy link', () => {
     render(<MaterialBundle title="Suggested materials" materials={resolveMaterials(materials, new Map())} />);
     expect(screen.getByText('Included with Subtraction strip board')).toBeInTheDocument();
-    expect(screen.getAllByText('Source locally')).toHaveLength(1);
+    // The board and the mat are bought separately, the strips arrive in the box.
+    expect(screen.getAllByText('Source locally')).toHaveLength(2);
     expect(screen.queryByRole('link', { name: /Buy Blue strips/i })).not.toBeInTheDocument();
   });
 });
