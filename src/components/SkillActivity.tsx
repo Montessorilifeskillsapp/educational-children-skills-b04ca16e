@@ -25,6 +25,8 @@ import ShareWinCard from '@/components/ShareWinCard';
 import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+import { resolveIncludedWith } from '@/lib/materialBundles';
+import { cleanMaterialName } from '@/lib/materialCleanup';
 import GetTheMaterials from './GetTheMaterials';
 import ActivityVideo from './ActivityVideo';
 
