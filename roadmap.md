@@ -11,6 +11,7 @@
 - [x] Reorder Practical Life activities: Carry tray, carry chair, roll mat, spoon beans, dry pour, water pour, carry objects, then the rest
 - [x] Restore cross-section navigation: section switcher on every curriculum area page
 - [ ] Follow-up: user flagged the section-switcher nav as an unapproved change; confirm keep or revert before further UI changes
-- [ ] Video archive: instructional video for every activity, private storage, paywall, admin page
+- [x] Video archive: instructional video for every activity, private storage, paywall, admin page
 - [x] Reposition homepage copy to adult-as-user and add AI image disclaimer
 - [x] Standardize admin material display names with precise Montessori terminology
+- [x] Correct snake-game and strip-board material names (gray bead stair, blue strips as subtrahend) and refresh the materials lists
