@@ -337,7 +337,8 @@ const AdminMaterialsPage: React.FC = () => {
         <div>
           <h1 className="text-3xl font-bold">Materials Links</h1>
           <p className="text-muted-foreground">
-            Curate supplier links for Montessori materials. {coveredCount} of {allMaterialsCount} linked.
+            Curate supplier links for Montessori materials. {coveredCount} of {allMaterialsCount}{' '}
+            linked · {includedCount} included with another product.
           </p>
         </div>
         <div className="text-sm text-muted-foreground">
@@ -363,7 +364,8 @@ const AdminMaterialsPage: React.FC = () => {
             />
           </div>
           <p className="text-sm text-muted-foreground mt-2">
-            {coveredCount} linked · {allMaterialsCount - coveredCount} pending
+            {coveredCount} linked · {allMaterialsCount - coveredCount} pending · {includedCount}{' '}
+            included with another product
           </p>
         </CardContent>
       </Card>
@@ -388,6 +390,16 @@ const AdminMaterialsPage: React.FC = () => {
               />
               <Label htmlFor="essential-only" className="text-sm font-normal">
                 Essential only
+              </Label>
+            </div>
+            <div className="flex items-center gap-2">
+              <Checkbox
+                id="hide-included"
+                checked={hideIncluded}
+                onCheckedChange={(checked) => setHideIncluded(checked === true)}
+              />
+              <Label htmlFor="hide-included" className="text-sm font-normal">
+                Hide included items
               </Label>
             </div>
             <div className="flex items-center gap-1">
@@ -495,6 +507,10 @@ const AdminMaterialsPage: React.FC = () => {
                       const previewUrl = link.amazon_url
                         ? withAffiliateTag(link.amazon_url, link.affiliate_tag)
                         : '';
+                      const includedWith = resolveIncludedWith(
+                        material.key,
+                        section.materials.map((m) => m.key)
+                      );
 
                       return (
                         <Card
@@ -509,6 +525,11 @@ const AdminMaterialsPage: React.FC = () => {
                               {material.essential && (
                                 <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
                                   Essential
+                                </span>
+                              )}
+                              {includedWith && (
+                                <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
+                                  Included with {includedWith}
                                 </span>
                               )}
                             </div>
