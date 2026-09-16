@@ -129,7 +129,7 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                   {material.essential && (
                     <p className="text-xs text-muted-foreground mt-0.5">Essential</p>
                   )}
-                  {material.includedWith && !material.amazonUrl ? (
+                  {material.includedWith ? (
                     <p className="text-xs text-muted-foreground mt-0.5">
                       Included with {material.includedWith}
                     </p>
@@ -144,9 +144,9 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                   target="_blank"
                   rel="sponsored noopener noreferrer"
                   className="shrink-0 inline-flex items-center text-xs font-medium text-primary hover:underline"
-                  aria-label={`Buy ${material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
+                  aria-label={`Buy ${material.inheritedFrom || material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
                 >
-                  Buy
+                  {material.inheritedFrom ? `Buy ${material.inheritedFrom}` : 'Buy'}
                   <ExternalLink className="w-3 h-3 ml-1" aria-hidden="true" />
                 </a>
               ) : null}
