@@ -342,9 +342,20 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                     <div className="px-2 py-2">
                       <span className="text-xs sm:text-sm text-amber-900 leading-tight block">{m}</span>
                       {includedWith ? (
-                        <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
-                          Included with {includedWith}
-                        </span>
+                        parentUrl ? (
+                          <a
+                            href={parentUrl}
+                            target="_blank"
+                            rel="sponsored noopener noreferrer"
+                            className="block text-[10px] sm:text-xs text-amber-900/80 underline leading-tight mt-0.5"
+                          >
+                            Included with {includedWith}
+                          </a>
+                        ) : (
+                          <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
+                            Included with {includedWith}
+                          </span>
+                        )
                       ) : null}
                     </div>
                   </div>
