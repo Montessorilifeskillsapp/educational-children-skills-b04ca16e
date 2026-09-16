@@ -319,6 +319,12 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                   cleanMaterialName(m),
                   skill.materials ?? []
                 );
+                const parentLink = includedWith
+                  ? materialLinksByKey.get(normalizeMaterialKey(includedWith))
+                  : undefined;
+                const parentUrl = parentLink?.amazon_url
+                  ? withAffiliateTag(parentLink.amazon_url, parentLink.affiliate_tag)
+                  : null;
                 return (
                   <div key={i} className="flex flex-col items-center text-center bg-white rounded-lg border border-amber-200 overflow-hidden">
                     {img ? (
