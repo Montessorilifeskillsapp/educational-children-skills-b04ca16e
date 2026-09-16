@@ -3,6 +3,7 @@ import { ShoppingCart, ExternalLink, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
+import { normalizeMaterialKey } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
@@ -17,6 +18,8 @@ export interface ResolvedMaterial {
   vendor?: string;
   /** Product this material arrives inside, when it is not sold on its own. */
   includedWith?: string | null;
+  /** Parent product whose link this material borrows, when it has none of its own. */
+  inheritedFrom?: string | null;
 }
 
 interface MaterialBundleProps {
