@@ -534,6 +534,19 @@ const AdminMaterialsPage: React.FC = () => {
                               )}
                             </div>
 
+                            {includedWith && (() => {
+                              const parentKey = normalizeMaterialKey(includedWith);
+                              const parentUrl = links[parentKey]?.amazon_url?.trim();
+                              return (
+                                <p className="text-xs text-muted-foreground break-all">
+                                  {parentUrl
+                                    ? `Uses the ${includedWith} link: ${withAffiliateTag(parentUrl, links[parentKey]?.affiliate_tag)}`
+                                    : `${includedWith} has no link saved yet — add it to cover this item.`}
+                                </p>
+                              );
+                            })()}
+
+
                             <div className="flex flex-col sm:flex-row gap-3">
                               <div className="flex-1 space-y-1.5">
                                 <Label htmlFor={`name-${key}`}>Display name</Label>

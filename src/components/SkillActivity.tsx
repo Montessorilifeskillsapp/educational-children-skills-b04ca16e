@@ -27,6 +27,9 @@ import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import { resolveIncludedWith } from '@/lib/materialBundles';
 import { cleanMaterialName } from '@/lib/materialCleanup';
+import { normalizeMaterialKey } from '@/lib/materials';
+import { useMaterialLinks } from '@/hooks/useMaterialLinks';
+import { withAffiliateTag } from '@/lib/affiliate';
 import GetTheMaterials from './GetTheMaterials';
 import ActivityVideo from './ActivityVideo';
 
@@ -214,6 +217,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     canonical: `https://montessori-skills.com/skill/${skillId}`
   });
 
+  const { byKey: materialLinksByKey } = useMaterialLinks();
+
   const [steps, setSteps] = useState<Step[]>(getSkillSteps());
 
   useEffect(() => {
@@ -314,6 +319,12 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                   cleanMaterialName(m),
                   skill.materials ?? []
                 );
+                const parentLink = includedWith
+                  ? materialLinksByKey.get(normalizeMaterialKey(includedWith))
+                  : undefined;
+                const parentUrl = parentLink?.amazon_url
+                  ? withAffiliateTag(parentLink.amazon_url, parentLink.affiliate_tag)
+                  : null;
                 return (
                   <div key={i} className="flex flex-col items-center text-center bg-white rounded-lg border border-amber-200 overflow-hidden">
                     {img ? (
@@ -331,9 +342,20 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                     <div className="px-2 py-2">
                       <span className="text-xs sm:text-sm text-amber-900 leading-tight block">{m}</span>
                       {includedWith ? (
-                        <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
-                          Included with {includedWith}
-                        </span>
+                        parentUrl ? (
+                          <a
+                            href={parentUrl}
+                            target="_blank"
+                            rel="sponsored noopener noreferrer"
+                            className="block text-[10px] sm:text-xs text-amber-900/80 underline leading-tight mt-0.5"
+                          >
+                            Included with {includedWith}
+                          </a>
+                        ) : (
+                          <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
+                            Included with {includedWith}
+                          </span>
+                        )
                       ) : null}
                     </div>
                   </div>

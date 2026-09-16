@@ -3,6 +3,7 @@ import { ShoppingCart, ExternalLink, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
+import { normalizeMaterialKey } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
@@ -17,6 +18,8 @@ export interface ResolvedMaterial {
   vendor?: string;
   /** Product this material arrives inside, when it is not sold on its own. */
   includedWith?: string | null;
+  /** Parent product whose link this material borrows, when it has none of its own. */
+  inheritedFrom?: string | null;
 }
 
 interface MaterialBundleProps {
@@ -32,9 +35,23 @@ export function resolveMaterials(
 ): ResolvedMaterial[] {
   const siblings = materials.map((m) => m.displayName);
   return materials.map((m) => {
-    const link = linkMap.get(m.key);
-    const url = link?.amazon_url || null;
-    const displayName = link?.display_name || m.displayName;
+    const ownLink = linkMap.get(m.key);
+    const displayName = ownLink?.display_name || m.displayName;
+    const includedWith = resolveIncludedWith(m.key, siblings);
+
+    let link = ownLink;
+    let url = ownLink?.amazon_url || null;
+    let inheritedFrom: string | null = null;
+
+    if (!url && includedWith) {
+      const parentLink = linkMap.get(normalizeMaterialKey(includedWith));
+      if (parentLink?.amazon_url) {
+        link = parentLink;
+        url = parentLink.amazon_url;
+        inheritedFrom = includedWith;
+      }
+    }
+
     return {
       key: m.key,
       displayName,
@@ -42,20 +59,22 @@ export function resolveMaterials(
       amazonUrl: url ? withAffiliateTag(url, link?.affiliate_tag) : null,
       imageUrl: getMaterialImage(displayName),
       vendor: url ? vendorLabel(url, link?.vendor) : undefined,
-      includedWith: resolveIncludedWith(m.key, siblings),
+      includedWith,
+      inheritedFrom,
     };
   });
 }
 
 export function MaterialBundle({ title, materials, disclosure, className }: MaterialBundleProps) {
-  const linked = materials.filter((m) => !!m.amazonUrl);
-  const allLinked = linked.length === materials.length && materials.length > 0;
+  // Only links belonging to the material itself count towards "Buy all" — a
+  // borrowed parent link would otherwise send the button to a child row.
+  const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
 
   const buyAllUrl = (() => {
     if (!linked.length) return null;
     // Amazon does not support a true multi-item affiliate cart URL, so we link
     // to the first essential item (or first item) when "Buy all" is clicked.
-    const first = materials.find((m) => m.essential && m.amazonUrl)?.amazonUrl
+    const first = materials.find((m) => m.essential && m.amazonUrl && !m.inheritedFrom)?.amazonUrl
       || linked[0].amazonUrl;
     return first;
   })();
@@ -110,7 +129,7 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                   {material.essential && (
                     <p className="text-xs text-muted-foreground mt-0.5">Essential</p>
                   )}
-                  {material.includedWith && !material.amazonUrl ? (
+                  {material.includedWith ? (
                     <p className="text-xs text-muted-foreground mt-0.5">
                       Included with {material.includedWith}
                     </p>
@@ -125,9 +144,9 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                   target="_blank"
                   rel="sponsored noopener noreferrer"
                   className="shrink-0 inline-flex items-center text-xs font-medium text-primary hover:underline"
-                  aria-label={`Buy ${material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
+                  aria-label={`Buy ${material.inheritedFrom || material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
                 >
-                  Buy
+                  {material.inheritedFrom ? `Buy ${material.inheritedFrom}` : 'Buy'}
                   <ExternalLink className="w-3 h-3 ml-1" aria-hidden="true" />
                 </a>
               ) : null}
