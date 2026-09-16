@@ -35,9 +35,23 @@ export function resolveMaterials(
 ): ResolvedMaterial[] {
   const siblings = materials.map((m) => m.displayName);
   return materials.map((m) => {
-    const link = linkMap.get(m.key);
-    const url = link?.amazon_url || null;
-    const displayName = link?.display_name || m.displayName;
+    const ownLink = linkMap.get(m.key);
+    const displayName = ownLink?.display_name || m.displayName;
+    const includedWith = resolveIncludedWith(m.key, siblings);
+
+    let link = ownLink;
+    let url = ownLink?.amazon_url || null;
+    let inheritedFrom: string | null = null;
+
+    if (!url && includedWith) {
+      const parentLink = linkMap.get(normalizeMaterialKey(includedWith));
+      if (parentLink?.amazon_url) {
+        link = parentLink;
+        url = parentLink.amazon_url;
+        inheritedFrom = includedWith;
+      }
+    }
+
     return {
       key: m.key,
       displayName,
@@ -45,7 +59,8 @@ export function resolveMaterials(
       amazonUrl: url ? withAffiliateTag(url, link?.affiliate_tag) : null,
       imageUrl: getMaterialImage(displayName),
       vendor: url ? vendorLabel(url, link?.vendor) : undefined,
-      includedWith: resolveIncludedWith(m.key, siblings),
+      includedWith,
+      inheritedFrom,
     };
   });
 }
