@@ -56,7 +56,7 @@ describe('MaterialBundle included-with notes', () => {
     expect(strips?.amazonUrl).toContain('kerryhoward-20');
 
     render(<MaterialBundle title="Suggested materials" materials={resolved} />);
-    const link = screen.getByRole('link', { name: /Buy Subtraction strip board on/i });
+    const link = screen.getByText('Buy Subtraction strip board').closest('a');
     expect(link).toHaveAttribute('href', strips?.amazonUrl);
     expect(screen.getByText('Included with Subtraction strip board')).toBeInTheDocument();
   });
