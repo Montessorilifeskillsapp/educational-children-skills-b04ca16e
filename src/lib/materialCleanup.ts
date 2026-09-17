@@ -241,6 +241,9 @@ const ALIASES: Record<string, string> = {
   'spindle box with compartments 0-9': 'Spindle Boxes (0–9)',
   'sandpaper number cards 0-9': 'Sandpaper Numerals (0–9)',
   'red and blue number rods': 'Number Rods',
+  'set of 10 red and blue number rods': 'Number Rods',
+  'number rods (1-10)': 'Number Rods',
+  'number rods 1-10': 'Number Rods',
 
   // Language, Geography, and Cultural materials
   'large moveable alphabet box': 'Large Moveable Alphabet',
