@@ -4,12 +4,10 @@ export const classroomSetupMaterials = [
   'Child-sized chair',
   'Child-sized table',
   'Low open shelving',
-  'Child-sized armchair or floor cushion',
   'Low coat hooks',
   'Child-height mirror',
   // Work surfaces and carriers
   'Work mat',
-  'Floor work rug',
   'Tray',
   'Basket',
   'Small jug or pitcher',
