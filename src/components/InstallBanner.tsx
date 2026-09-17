@@ -60,19 +60,32 @@ const InstallBanner = () => {
     localStorage.removeItem("pwa-install-banner-force");
     const forced = params.get("forceInstallBanner") === "1";
 
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const installedHandler = () => {
+      localStorage.setItem(PWA_INSTALLED_KEY, "1");
+      clearTimeout(timer);
+      setDeferredPrompt(null);
+      setIsVisible(false);
+    };
+    window.addEventListener("appinstalled", installedHandler);
+    const cleanupInstalled = () => window.removeEventListener("appinstalled", installedHandler);
+
     if (!forced) {
       const isStandalone =
         window.matchMedia("(display-mode: standalone)").matches ||
         // @ts-expect-error iOS Safari only
         window.navigator.standalone === true;
-      if (isStandalone) return;
+      if (isStandalone) {
+        installedHandler();
+        return cleanupInstalled;
+      }
       // Once the app has been installed, never show the banner again.
-      if (localStorage.getItem(PWA_INSTALLED_KEY)) return;
+      if (localStorage.getItem(PWA_INSTALLED_KEY)) return cleanupInstalled;
       // If dismissed with the X, the banner stays hidden for 72 hours then reappears.
       const dismissedAt = localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY);
       if (dismissedAt) {
         const hoursSinceDismissal = (Date.now() - Number(dismissedAt)) / (1000 * 60 * 60);
-        if (hoursSinceDismissal < 72) return;
+        if (hoursSinceDismissal < 72) return cleanupInstalled;
       }
     }
 
@@ -83,23 +96,18 @@ const InstallBanner = () => {
 
     const handler = (e: Event) => {
       e.preventDefault();
+      if (localStorage.getItem(PWA_INSTALLED_KEY)) return;
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setIsVisible(true);
     };
-
-    // Remember the install permanently, even if the user later browses in a regular tab.
-    const installedHandler = () => {
-      localStorage.setItem(PWA_INSTALLED_KEY, "1");
-      setIsVisible(false);
-    };
-    window.addEventListener("appinstalled", installedHandler);
 
     window.addEventListener("beforeinstallprompt", handler);
 
     // On iOS (no beforeinstallprompt support) show the manual instructions banner.
     // On desktop/Android, show after a short delay if no native prompt fires —
     // users can still click Install to open the /install instructions page.
-    const timer = setTimeout(() => {
+    timer = setTimeout(() => {
+      if (localStorage.getItem(PWA_INSTALLED_KEY)) return;
       setIsVisible(true);
     }, forced ? 0 : 1500);
 
