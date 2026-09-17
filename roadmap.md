@@ -23,3 +23,5 @@
 - [ ] Run native-device launch, sign-in, purchase/restore, video and store-link checks — blocked by missing device tools and iOS project
 - [x] Align Math activity layout/material links/videos — shared layout, material links, protected video area, original curriculum retained; 51 tests pass and browser flow verified (video response simulated)
 - [ ] Synchronize Android store-launcher plugin on native development machine and verify store opening
+
+- [ ] Standardize all active activity views on the Practical Life sequence; retain supplementary curriculum and verify all nine sections
