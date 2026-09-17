@@ -182,11 +182,17 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /paint|brush(es)?|crayon|clay|play ?dough|modeling|collage|glue|craft|colored pencil|palette|sketch|watercolou?r|drawing/i, image: artSupplies },
 ];
 
+import { classroomImages } from '@/assets/classroom';
+import { normalizeMaterialKey } from '@/lib/materials';
+
 /**
  * Resolve a material label to an AMI-accurate photo. Returns undefined when
  * no pattern matches (caller should render the label without a thumbnail).
  */
 export function getMaterialImage(material: string): string | undefined {
+  // Exact classroom-setup photos win over the keyword patterns below.
+  const exact = classroomImages[normalizeMaterialKey(material)];
+  if (exact) return exact;
   for (const { test, image } of PATTERNS) {
     if (test.test(material)) return image;
   }
