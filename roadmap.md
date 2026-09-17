@@ -27,3 +27,5 @@
 - [x] Standardize all active activity views on the Practical Life sequence; retain supplementary curriculum; nine free starters browser-verified, 51 tests passed (video display checked with simulated response)
 
 - [ ] Correct remaining visual uniformity: restore existing area-specific banner photos; identify activities with no dedicated photograph before claiming complete parity
+- [x] Generate and connect five introductory activity banners: vocabulary, plant parts, land/water forms, days of week, drawing
+- [ ] Remaining activity-specific banner generation; greeting image blocked by provider rejection, alternative requires user choice
