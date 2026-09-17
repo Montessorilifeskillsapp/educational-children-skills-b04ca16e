@@ -25,6 +25,7 @@ interface LinkForm {
   active: boolean;
   affiliate_tag: string;
   vendor: string;
+  home_alternatives: string;
 }
 
 interface SectionGroup {
@@ -70,7 +71,7 @@ const AdminMaterialsPage: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('material_links')
-        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor');
+        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor, home_alternatives');
       if (error) {
         toast({ title: 'Error loading links', description: error.message, variant: 'destructive' });
       } else {
@@ -84,6 +85,7 @@ const AdminMaterialsPage: React.FC = () => {
             active: row.active ?? true,
             affiliate_tag: row.affiliate_tag || '',
             vendor: row.vendor || '',
+            home_alternatives: (row as { home_alternatives?: string | null }).home_alternatives || '',
           };
         }
         setLinks(map);
