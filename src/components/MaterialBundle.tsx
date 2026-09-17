@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ShoppingCart, ExternalLink, Check } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -134,7 +135,12 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
                       Included with {material.includedWith}
                     </p>
                   ) : !material.amazonUrl ? (
-                    <p className="text-xs text-muted-foreground mt-0.5">Source locally</p>
+                    <Link
+                      to={`/materials/${material.key}`}
+                      className="inline-block text-xs text-primary underline mt-0.5"
+                    >
+                      Use what you have
+                    </Link>
                   ) : null}
                 </div>
               </div>

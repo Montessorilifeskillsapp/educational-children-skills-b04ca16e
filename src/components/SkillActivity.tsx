@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
@@ -325,6 +326,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                 const parentUrl = parentLink?.amazon_url
                   ? withAffiliateTag(parentLink.amazon_url, parentLink.affiliate_tag)
                   : null;
+                const materialKey = normalizeMaterialKey(cleanMaterialName(m) || m);
+                const ownUrl = materialLinksByKey.get(materialKey)?.amazon_url || null;
                 return (
                   <div key={i} className="flex flex-col items-center text-center bg-white rounded-lg border border-amber-200 overflow-hidden">
                     {img ? (
@@ -351,11 +354,18 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                           >
                             Included with {includedWith}
                           </a>
-                        ) : (
+                      ) : (
                           <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
                             Included with {includedWith}
                           </span>
                         )
+                      ) : !ownUrl ? (
+                        <Link
+                          to={`/materials/${materialKey}`}
+                          className="block text-[10px] sm:text-xs text-amber-900/80 underline leading-tight mt-0.5"
+                        >
+                          Use what you have
+                        </Link>
                       ) : null}
                     </div>
                   </div>

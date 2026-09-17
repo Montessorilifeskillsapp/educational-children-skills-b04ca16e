@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAuthContext } from '@/components/AuthProvider';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -25,6 +26,7 @@ interface LinkForm {
   active: boolean;
   affiliate_tag: string;
   vendor: string;
+  home_alternatives: string;
 }
 
 interface SectionGroup {
@@ -70,7 +72,7 @@ const AdminMaterialsPage: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('material_links')
-        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor');
+        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor, home_alternatives');
       if (error) {
         toast({ title: 'Error loading links', description: error.message, variant: 'destructive' });
       } else {
@@ -84,6 +86,7 @@ const AdminMaterialsPage: React.FC = () => {
             active: row.active ?? true,
             affiliate_tag: row.affiliate_tag || '',
             vendor: row.vendor || '',
+            home_alternatives: (row as { home_alternatives?: string | null }).home_alternatives || '',
           };
         }
         setLinks(map);
@@ -202,6 +205,7 @@ const AdminMaterialsPage: React.FC = () => {
         active: prev[key]?.active ?? true,
         affiliate_tag: prev[key]?.affiliate_tag || '',
         vendor: prev[key]?.vendor || '',
+        home_alternatives: prev[key]?.home_alternatives || '',
         ...patch,
       },
     }));
@@ -234,6 +238,7 @@ const AdminMaterialsPage: React.FC = () => {
           active: link.active,
           affiliate_tag: link.affiliate_tag,
           vendor: link.vendor,
+          home_alternatives: link.home_alternatives,
         }),
       });
 
@@ -309,14 +314,15 @@ const AdminMaterialsPage: React.FC = () => {
   function hasChanges(key: string) {
     const current = links[key];
     const initial = initialLinks[key];
-    if (!initial) return !!current?.amazon_url;
+    if (!initial) return !!current?.amazon_url || !!current?.home_alternatives;
     return (
       current.display_name !== initial.display_name ||
       current.amazon_url !== initial.amazon_url ||
       current.notes !== initial.notes ||
       current.active !== initial.active ||
       current.affiliate_tag !== initial.affiliate_tag ||
-      current.vendor !== initial.vendor
+      current.vendor !== initial.vendor ||
+      current.home_alternatives !== initial.home_alternatives
     );
   }
 
@@ -503,6 +509,7 @@ const AdminMaterialsPage: React.FC = () => {
                         active: true,
                         affiliate_tag: '',
                         vendor: '',
+                        home_alternatives: '',
                       };
                       const previewUrl = link.amazon_url
                         ? withAffiliateTag(link.amazon_url, link.affiliate_tag)
@@ -530,6 +537,11 @@ const AdminMaterialsPage: React.FC = () => {
                               {includedWith && (
                                 <span className="inline-flex items-center rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-muted-foreground">
                                   Included with {includedWith}
+                                </span>
+                              )}
+                              {link.home_alternatives.trim() && (
+                                <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                  Home ideas added
                                 </span>
                               )}
                             </div>
@@ -608,9 +620,27 @@ const AdminMaterialsPage: React.FC = () => {
                                 onChange={(e) =>
                                   updateLink(key, { notes: e.target.value }, material.displayName)
                                 }
-                                placeholder="e.g. best value set of 6"
+                                 placeholder="e.g. best value set of 6"
+                               />
+                             </div>
+
+                            <div className="space-y-1.5">
+                              <Label htmlFor={`home-${key}`}>Home alternatives</Label>
+                              <Textarea
+                                id={`home-${key}`}
+                                rows={3}
+                                value={link.home_alternatives}
+                                onChange={(e) =>
+                                  updateLink(key, { home_alternatives: e.target.value }, material.displayName)
+                                }
+                                placeholder="Everyday items a family or classroom can use instead, e.g. a small glass jug and a shallow bowl from the kitchen."
                               />
+                              <p className="text-xs text-muted-foreground">
+                                Shown on the material's “Use what you have” page when there is no supplier link.
+                                Leave blank to show the general guidance.
+                              </p>
                             </div>
+
 
                             <div className="flex items-center justify-between gap-3 pt-1">
                               <div className="flex items-center gap-2">

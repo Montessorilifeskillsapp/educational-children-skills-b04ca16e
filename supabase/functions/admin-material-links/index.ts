@@ -71,6 +71,7 @@ Deno.serve(async (req) => {
       const notes = String(body.notes ?? '').trim();
       const affiliateTag = String(body.affiliate_tag ?? '').trim();
       const vendor = String(body.vendor ?? '').trim();
+      const homeAlternatives = String(body.home_alternatives ?? '').trim().slice(0, 4000);
       const active = body.active === true || body.active === 'true';
 
       if (!rawKey) return json({ error: 'material_key is required' }, 400);
@@ -102,6 +103,7 @@ Deno.serve(async (req) => {
           active,
           affiliate_tag: affiliateTag || null,
           vendor: vendor || null,
+          home_alternatives: homeAlternatives || null,
         },
         { onConflict: 'material_key' }
       );
