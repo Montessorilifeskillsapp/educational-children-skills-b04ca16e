@@ -25,7 +25,7 @@ import { montessoriTheme } from './ThemeConfig';
 import ShareWinCard from '@/components/ShareWinCard';
 import ActivityTeachingNotes, { ActivityNoteList } from './activity/ActivityTeachingNotes';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
-import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
+import { getActivityImage } from '@/lib/activityImages';
 import { resolveIncludedWith } from '@/lib/materialBundles';
 import { cleanMaterialName } from '@/lib/materialCleanup';
 import { normalizeMaterialKey } from '@/lib/materials';
@@ -272,7 +272,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onBack();
   };
 
-  const heroImage = getPracticalLifeImage(skillId, (skill as { image?: string }).image);
+  const heroImage = getActivityImage(skillId, skill as { image?: string; imageUrl?: string });
 
   return (
     <ActivityLayout
