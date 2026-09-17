@@ -13,6 +13,7 @@ import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import GetTheMaterials from './GetTheMaterials';
 import ActivityLayout from './activity/ActivityLayout';
 import ActivitySteps from './activity/ActivityStepGroup';
+import ActivityVideo from './ActivityVideo';
 
 interface Step {
   id: string;
@@ -100,6 +101,8 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
       background={montessoriTheme.backgrounds.practical}
     >
       <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
+
+      <ActivityVideo skillId={skillId} activityTitle={skill.title} />
 
       <ActivitySteps steps={steps} onToggle={toggleStep} />
 
