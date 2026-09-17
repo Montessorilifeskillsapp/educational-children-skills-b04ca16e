@@ -7,7 +7,6 @@ import PracticalLifeSkills from './PracticalLifeSkills';
 import SensorialSkills from './SensorialSkills';
 import LanguageSkills from './LanguageSkills';
 import MathSkills from './MathSkills';
-import MathActivityContent from './MathActivityContent';
 import GeographySkills from './GeographySkills';
 import BotanySkills from './BotanySkills';
 import ArtSkills from './ArtSkills';
@@ -367,10 +366,10 @@ const AppLayout: React.FC = () => {
 
     if (mathSkillsData[selectedSkill]) {
       return (
-        <MathActivityContent
+        <SkillActivity
           skillId={selectedSkill}
-          skill={mathSkillsData[selectedSkill]}
           onBack={handleBackToMath}
+          onComplete={handleComplete}
         />
       );
     }
