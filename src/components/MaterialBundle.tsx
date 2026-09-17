@@ -66,14 +66,14 @@ export function resolveMaterials(
 }
 
 export function MaterialBundle({ title, materials, className }: MaterialBundleProps) {
-  // Only links belonging to the material itself count towards "Buy all" — a
-  // borrowed parent link would otherwise send the button to a child row.
+  // Only links belonging to the material itself count towards the Buy button —
+  // a borrowed parent link would otherwise send the button to a child row.
   const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
 
   const buyAllUrl = (() => {
     if (!linked.length) return null;
     // Amazon does not support a true multi-item affiliate cart URL, so we link
-    // to the first essential item (or first item) when "Buy all" is clicked.
+    // to the first essential item (or first item) when the Buy button is clicked.
     const first = materials.find((m) => m.essential && m.amazonUrl && !m.inheritedFrom)?.amazonUrl
       || linked[0].amazonUrl;
     return first;
@@ -168,7 +168,7 @@ export function MaterialBundle({ title, materials, className }: MaterialBundlePr
               aria-label={`Buy materials on ${buyAllVendor}`}
             >
               <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
-              {`Buy all on ${buyAllVendor}`}
+              {`Buy on ${buyAllVendor}`}
             </a>
           </Button>
         ) : (
