@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Checkbox } from '@/components/ui/checkbox';
 import { useAuthContext } from '@/components/AuthProvider';
 import LoadingSpinner from '@/components/LoadingSpinner';
@@ -538,6 +539,11 @@ const AdminMaterialsPage: React.FC = () => {
                                   Included with {includedWith}
                                 </span>
                               )}
+                              {link.home_alternatives.trim() && (
+                                <span className="inline-flex items-center rounded-full bg-primary/10 px-2 py-0.5 text-xs font-medium text-primary">
+                                  Home ideas added
+                                </span>
+                              )}
                             </div>
 
                             {includedWith && (() => {
@@ -614,9 +620,27 @@ const AdminMaterialsPage: React.FC = () => {
                                 onChange={(e) =>
                                   updateLink(key, { notes: e.target.value }, material.displayName)
                                 }
-                                placeholder="e.g. best value set of 6"
+                                 placeholder="e.g. best value set of 6"
+                               />
+                             </div>
+
+                            <div className="space-y-1.5">
+                              <Label htmlFor={`home-${key}`}>Home alternatives</Label>
+                              <Textarea
+                                id={`home-${key}`}
+                                rows={3}
+                                value={link.home_alternatives}
+                                onChange={(e) =>
+                                  updateLink(key, { home_alternatives: e.target.value }, material.displayName)
+                                }
+                                placeholder="Everyday items a family or classroom can use instead, e.g. a small glass jug and a shallow bowl from the kitchen."
                               />
+                              <p className="text-xs text-muted-foreground">
+                                Shown on the material's “Use what you have” page when there is no supplier link.
+                                Leave blank to show the general guidance.
+                              </p>
                             </div>
+
 
                             <div className="flex items-center justify-between gap-3 pt-1">
                               <div className="flex items-center gap-2">
