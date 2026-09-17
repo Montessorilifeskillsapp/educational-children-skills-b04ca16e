@@ -25,7 +25,7 @@ const MathPage: React.FC = () => {
   if (selectedSkill && mathSkillsData[selectedSkill]) {
     return (
       <SEOOptimizer>
-        <MathActivityContent skill={mathSkillsData[selectedSkill]} onBack={() => setSelectedSkill('')} />
+        <MathActivityContent key={selectedSkill} skillId={selectedSkill} skill={mathSkillsData[selectedSkill]} onBack={() => setSelectedSkill('')} />
       </SEOOptimizer>
     );
   }
