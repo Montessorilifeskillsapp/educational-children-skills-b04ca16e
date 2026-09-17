@@ -304,6 +304,7 @@ export type Database = {
           amazon_url: string | null
           created_at: string
           display_name: string | null
+          home_alternatives: string | null
           id: string
           material_key: string
           notes: string | null
@@ -316,6 +317,7 @@ export type Database = {
           amazon_url?: string | null
           created_at?: string
           display_name?: string | null
+          home_alternatives?: string | null
           id?: string
           material_key: string
           notes?: string | null
@@ -328,6 +330,7 @@ export type Database = {
           amazon_url?: string | null
           created_at?: string
           display_name?: string | null
+          home_alternatives?: string | null
           id?: string
           material_key?: string
           notes?: string | null
