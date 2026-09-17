@@ -9,6 +9,7 @@ interface BeforeInstallPromptEvent extends Event {
 }
 
 const INSTALL_BANNER_DISMISSED_KEY = "pwa-install-banner-dismissed";
+const PWA_INSTALLED_KEY = "pwa-installed";
 
 const InstallBanner = () => {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
@@ -65,6 +66,8 @@ const InstallBanner = () => {
         // @ts-expect-error iOS Safari only
         window.navigator.standalone === true;
       if (isStandalone) return;
+      // Once the app has been installed, never show the banner again.
+      if (localStorage.getItem(PWA_INSTALLED_KEY)) return;
       // If dismissed with the X, the banner stays hidden for 72 hours then reappears.
       const dismissedAt = localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY);
       if (dismissedAt) {
@@ -84,6 +87,13 @@ const InstallBanner = () => {
       setIsVisible(true);
     };
 
+    // Remember the install permanently, even if the user later browses in a regular tab.
+    const installedHandler = () => {
+      localStorage.setItem(PWA_INSTALLED_KEY, "1");
+      setIsVisible(false);
+    };
+    window.addEventListener("appinstalled", installedHandler);
+
     window.addEventListener("beforeinstallprompt", handler);
 
     // On iOS (no beforeinstallprompt support) show the manual instructions banner.
@@ -96,6 +106,7 @@ const InstallBanner = () => {
     return () => {
       clearTimeout(timer);
       window.removeEventListener("beforeinstallprompt", handler);
+      window.removeEventListener("appinstalled", installedHandler);
     };
   }, []);
 
@@ -112,6 +123,7 @@ const InstallBanner = () => {
       await deferredPrompt.prompt();
       const { outcome } = await deferredPrompt.userChoice;
       if (outcome === "accepted") {
+        localStorage.setItem(PWA_INSTALLED_KEY, "1");
         setIsVisible(false);
       }
       setDeferredPrompt(null);
