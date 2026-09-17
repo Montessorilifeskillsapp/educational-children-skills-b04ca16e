@@ -723,10 +723,6 @@ const AdminMaterialsPage: React.FC = () => {
         </div>
       )}
 
-      <p className="text-xs text-muted-foreground text-center">
-        Affiliate disclosure: as an Amazon Associate we earn from qualifying purchases. Other supplier
-        links may carry their own affiliate codes.
-      </p>
     </div>
   );
 };
