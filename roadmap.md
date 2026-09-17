@@ -26,5 +26,5 @@
 
 - [x] Standardize all active activity views on the Practical Life sequence; retain supplementary curriculum; nine free starters browser-verified, 51 tests passed (video display checked with simulated response)
 
-- [ ] Restore activity banners only after each photograph is individually verified as an exact, authentic match for its activity.
+- [x] Restore activity banners only after each photograph is individually verified as an exact, authentic match for its activity.
 - [x] Remove inaccurate or unverified activity banners across Sensorial, Math, Language, Botany, Geography, Science, Art, and Grace and Courtesy; Practical Life's curated photographs remain unchanged.
