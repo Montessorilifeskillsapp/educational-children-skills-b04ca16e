@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import type { MathSkillData } from '@/data/mathSkills';
-import { mathImages } from '@/assets/math';
 import ActivityLayout from './activity/ActivityLayout';
 import ActivitySteps from './activity/ActivityStepGroup';
 import GetTheMaterials from './GetTheMaterials';
@@ -26,7 +25,6 @@ const MathActivityContent: React.FC<MathActivityContentProps> = ({ skillId, skil
       sectionLabel="Mathematics"
       title={skill.title}
       purpose={skill.purpose}
-      image={mathImages[skillId] || skill.imageUrl}
       onBack={onBack}
       background={montessoriTheme.backgrounds.activity}
     >
