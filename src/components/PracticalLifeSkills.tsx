@@ -14,6 +14,7 @@ import GetTheMaterials from './GetTheMaterials';
 import ActivityLayout from './activity/ActivityLayout';
 import ActivitySteps from './activity/ActivityStepGroup';
 import ActivityVideo from './ActivityVideo';
+import ActivityPage from './activity/ActivityPage';
 
 interface Step {
   id: string;
@@ -92,35 +93,18 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
   };
 
   return (
-    <ActivityLayout
+    <ActivityPage
+      skillId={skillId}
       sectionLabel="Practical Life"
       title={skill.title}
       purpose={skill.purpose}
       image={getPracticalLifeImage(skillId, skill.image)}
+      materials={skill.materials}
+      steps={steps}
+      onToggle={toggleStep}
       onBack={onBack}
-      background={montessoriTheme.backgrounds.practical}
-    >
-      <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
-
-      <ActivityVideo skillId={skillId} activityTitle={skill.title} />
-
-      <ActivitySteps steps={steps} onToggle={toggleStep} />
-
-      {isComplete && (
-        <div className="mt-8 mb-8 text-center">
-          <Card className="bg-green-50 border-green-200">
-            <CardContent className="p-6">
-              <div className="text-5xl mb-4">🌟</div>
-              <h2 className="text-2xl font-bold text-green-800 mb-2">Excellent Work!</h2>
-              <p className="text-green-700 mb-4">You have mastered {skill.title.toLowerCase()}!</p>
-              <Button onClick={() => { onComplete(skillId); onBack(); }} className="bg-green-600 hover:bg-green-700">
-                Mark as Complete
-              </Button>
-            </CardContent>
-          </Card>
-        </div>
-      )}
-    </ActivityLayout>
+      onComplete={() => { onComplete(skillId); onBack(); }}
+    />
   );
 };
 
