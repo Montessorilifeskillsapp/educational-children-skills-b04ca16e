@@ -168,7 +168,7 @@ export function MaterialBundle({ title, materials, className }: MaterialBundlePr
               aria-label={`Buy materials on ${buyAllVendor}`}
             >
               <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
-              {`Buy all on ${buyAllVendor}`}
+              {`Buy on ${buyAllVendor}`}
             </a>
           </Button>
         ) : (
