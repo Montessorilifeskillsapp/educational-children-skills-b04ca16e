@@ -7,6 +7,7 @@ import { Search, ShoppingCart, Star, School, ArrowRight } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
 import { ShopMaterialsSection } from '@/components/ShopMaterialsSection';
+import { AffiliateDisclosure } from '@/components/AffiliateDisclosure';
 
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -77,6 +78,8 @@ const ShopPage: React.FC = () => {
           </Button>
         </CardContent>
       </Card>
+
+      <AffiliateDisclosure className="px-1" />
 
       {filtered.length === 0 ? (
           <Card>
