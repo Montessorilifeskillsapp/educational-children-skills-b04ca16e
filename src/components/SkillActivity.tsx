@@ -35,6 +35,7 @@ import GetTheMaterials from './GetTheMaterials';
 import ActivityVideo from './ActivityVideo';
 import ActivityLayout from './activity/ActivityLayout';
 import ActivitySteps from './activity/ActivityStepGroup';
+import ActivityPage from './activity/ActivityPage';
 
 interface SkillActivityProps {
   skillId: string;
@@ -273,6 +274,27 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   };
 
   const heroImage = getActivityImage(skillId, skill as { category?: string; image?: string; imageUrl?: string });
+
+  if (culturalSkill || artSkill || graceCourtesySkill) {
+    const process = 'learningProcess' in skill ? skill.learningProcess : undefined;
+    return <ActivityPage
+      skillId={skillId}
+      sectionLabel={culturalSkill ? 'Science & Cultural Studies' : artSkill ? 'Art' : 'Grace & Courtesy'}
+      title={skill.title}
+      purpose={skill.purpose}
+      image={heroImage}
+      materials={skill.materials}
+      steps={steps}
+      onToggle={toggleStep}
+      onBack={onBack}
+      onComplete={handleComplete}
+      notes={(process || graceCourtesySkill?.directAims?.length || artSkill?.activities?.length) ? <>
+        <ActivityTeachingNotes process={process} />
+        <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
+        <ActivityNoteList title="Extension activities" items={artSkill?.activities} />
+      </> : undefined}
+    />;
+  }
 
   return (
     <ActivityLayout
