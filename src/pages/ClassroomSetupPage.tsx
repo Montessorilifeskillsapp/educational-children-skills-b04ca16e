@@ -2,6 +2,8 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
+import GetTheMaterials from '@/components/GetTheMaterials';
+import { classroomSetupMaterials } from '@/data/classroomSetupMaterials';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   ArrowRight, CheckCircle2, Sparkles, Eye, Hand, BookOpen,
@@ -179,6 +181,17 @@ const ClassroomSetupPage: React.FC = () => {
             to the child. This is the AMI guide to getting it exactly right.
           </p>
         </div>
+      </section>
+
+      <section className="container mx-auto px-6 pb-16 max-w-5xl">
+        <h2 className="text-3xl font-semibold mb-4">Classroom basics</h2>
+        <p className="text-muted-foreground mb-6 leading-relaxed">
+          Choose stable chairs that let each child sit with feet flat on the floor, and tables
+          at a comfortable working height. Keep shelves low and accessible, with work mats,
+          trays, and baskets that children can carry independently. Use suitable furniture
+          you already have where possible.
+        </p>
+        <GetTheMaterials skillId="classroom-setup-basics" skillMaterials={classroomSetupMaterials} title="Furniture and essentials" />
       </section>
 
       {/* Principles */}
