@@ -11,10 +11,14 @@ interface AffiliateDisclosureProps {
   className?: string;
 }
 
+/**
+ * Quiet, unobtrusive footnote styling — present and honest, but never
+ * competing with the content around it.
+ */
 export function AffiliateDisclosure({ className = '' }: AffiliateDisclosureProps) {
   return (
     <p
-      className={`text-xs text-muted-foreground leading-relaxed ${className}`.trim()}
+      className={`mt-3 text-[11px] italic text-muted-foreground/70 leading-relaxed ${className}`.trim()}
     >
       {AFFILIATE_DISCLOSURE_TEXT}
     </p>
