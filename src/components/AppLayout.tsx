@@ -368,6 +368,7 @@ const AppLayout: React.FC = () => {
     if (mathSkillsData[selectedSkill]) {
       return (
         <MathActivityContent
+          skillId={selectedSkill}
           skill={mathSkillsData[selectedSkill]}
           onBack={handleBackToMath}
         />
