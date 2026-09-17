@@ -4,7 +4,6 @@ export const classroomSetupMaterials = [
   'Child-sized table',
   'Low open shelving',
   'Work mat',
-  'Work rug storage basket',
   'Tray',
   'Basket',
 ];
