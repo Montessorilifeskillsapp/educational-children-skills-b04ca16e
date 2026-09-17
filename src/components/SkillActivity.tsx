@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Badge } from '@/components/ui/badge';
@@ -351,11 +352,18 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
                           >
                             Included with {includedWith}
                           </a>
-                        ) : (
+                      ) : (
                           <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
                             Included with {includedWith}
                           </span>
                         )
+                      ) : !ownUrl ? (
+                        <Link
+                          to={`/materials/${materialKey}`}
+                          className="block text-[10px] sm:text-xs text-amber-900/80 underline leading-tight mt-0.5"
+                        >
+                          Use what you have
+                        </Link>
                       ) : null}
                     </div>
                   </div>
