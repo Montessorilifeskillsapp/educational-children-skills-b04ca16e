@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Match full Science, Art, and Grace and Courtesy activity pages to a single Practical Life template, preserving curriculum and banners.
 - [x] Connect Science, Art, and Grace and Courtesy section cards to their exact activity photos; verified all 31 card images load and 51 tests pass.
 - [x] Add back button to Classroom Setup and Home Setup pages
 - [x] Fix Fudge Bear book cover not showing correctly (recurring image issue)
