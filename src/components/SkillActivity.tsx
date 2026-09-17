@@ -364,8 +364,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
             </CardContent>
           </Card>
         )}
-      </div>
-    </div>
+    </ActivityLayout>
   );
 };
 
