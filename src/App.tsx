@@ -33,7 +33,6 @@ import InstallPage from "./pages/InstallPage";
 import GuaranteePage from "./pages/GuaranteePage";
 import PreviewPouringWaterPage from "./pages/PreviewPouringWaterPage";
 import UnsubscribePage from "./pages/UnsubscribePage";
-import PWAInstallPrompt from "@/components/PWAInstallPrompt";
 import AppUpdateDialog from "@/components/AppUpdateDialog";
 import InstallBanner from "@/components/InstallBanner";
 import NotFound from "./pages/NotFound";
@@ -143,7 +142,7 @@ const App = () => {
                           <Route path="*" element={<NotFound />} />
                         </Routes>
                         </ErrorBoundary>
-                        {!Capacitor.isNativePlatform() && <PWAInstallPrompt />}
+                        
                         <HomeFab />
                         <AdminAnalyticsLink />
                     </BrowserRouter>

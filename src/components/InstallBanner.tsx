@@ -60,7 +60,11 @@ const InstallBanner = () => {
     const forced = params.get("forceInstallBanner") === "1";
 
     if (!forced) {
-      if (window.matchMedia("(display-mode: standalone)").matches) return;
+      const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        // @ts-expect-error iOS Safari only
+        window.navigator.standalone === true;
+      if (isStandalone) return;
       // If dismissed with the X, the banner stays hidden for 72 hours then reappears.
       const dismissedAt = localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY);
       if (dismissedAt) {
