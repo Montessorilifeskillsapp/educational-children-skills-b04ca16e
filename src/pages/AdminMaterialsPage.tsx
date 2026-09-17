@@ -313,7 +313,7 @@ const AdminMaterialsPage: React.FC = () => {
   function hasChanges(key: string) {
     const current = links[key];
     const initial = initialLinks[key];
-    if (!initial) return !!current?.amazon_url;
+    if (!initial) return !!current?.amazon_url || !!current?.home_alternatives;
     return (
       current.display_name !== initial.display_name ||
       current.amazon_url !== initial.amazon_url ||
