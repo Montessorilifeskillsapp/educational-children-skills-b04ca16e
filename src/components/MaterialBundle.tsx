@@ -66,8 +66,8 @@ export function resolveMaterials(
 }
 
 export function MaterialBundle({ title, materials, className }: MaterialBundleProps) {
-  // Only links belonging to the material itself count towards "Buy all" — a
-  // borrowed parent link would otherwise send the button to a child row.
+  // Only links belonging to the material itself count towards the Buy button —
+  // a borrowed parent link would otherwise send the button to a child row.
   const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
 
   const buyAllUrl = (() => {
