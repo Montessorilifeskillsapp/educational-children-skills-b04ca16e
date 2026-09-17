@@ -33,6 +33,8 @@ import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag } from '@/lib/affiliate';
 import GetTheMaterials from './GetTheMaterials';
 import ActivityVideo from './ActivityVideo';
+import ActivityLayout from './activity/ActivityLayout';
+import ActivitySteps from './activity/ActivityStepGroup';
 
 interface SkillActivityProps {
   skillId: string;
@@ -272,161 +274,19 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
   const heroImage = getPracticalLifeImage(skillId, (skill as { image?: string }).image);
 
   return (
-    <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
-      <div className="max-w-2xl mx-auto">
-        <div className={`${category.color} border-4 border-current rounded-xl p-6 mb-6 text-center shadow-lg`}>
-          <div className="text-6xl mb-3">{category.icon}</div>
-          <h2 className="text-3xl font-bold mb-2">{category.name}</h2>
-          <p className="text-lg font-medium opacity-90">{category.description}</p>
-        </div>
-
-        <header className="flex items-center justify-between mb-6">
-          <BackButton onClick={onBack} />
-          <div className="text-center">
-            <div className="mb-2 flex justify-center">
-              <div className="text-4xl">{skill.icon}</div>
-            </div>
-            <h1 className="text-2xl font-bold text-amber-900">{skill.title}</h1>
-            <Badge className={`mt-2 ${category.color} border-2 text-lg px-4 py-2`}>
-              {category.name} Activity
-            </Badge>
-          </div>
-          <div className="w-20"></div>
-        </header>
-
-        {heroImage && (
-          <div className="mb-6 rounded-xl overflow-hidden border border-amber-200 shadow-sm">
-            <img
-              src={heroImage}
-              alt={`AMI Montessori activity: ${skill.title}`}
-              loading="lazy"
-              width={1024}
-              height={1024}
-              className="w-full aspect-video object-cover"
-            />
-          </div>
-        )}
-
-        {skill.materials && skill.materials.length > 0 && (
-          <div className="mb-6 p-4 bg-white/70 border border-amber-200 rounded-xl">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-base">📦</span>
-              <p className="text-xs font-semibold uppercase tracking-wider text-amber-900/70">What you'll need</p>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-              {skill.materials.map((m, i) => {
-                const img = getMaterialImage(m);
-                const includedWith = resolveIncludedWith(
-                  cleanMaterialName(m),
-                  skill.materials ?? []
-                );
-                const parentLink = includedWith
-                  ? materialLinksByKey.get(normalizeMaterialKey(includedWith))
-                  : undefined;
-                const parentUrl = parentLink?.amazon_url
-                  ? withAffiliateTag(parentLink.amazon_url, parentLink.affiliate_tag)
-                  : null;
-                const materialKey = normalizeMaterialKey(cleanMaterialName(m) || m);
-                const ownUrl = materialLinksByKey.get(materialKey)?.amazon_url || null;
-                return (
-                  <div key={i} className="flex flex-col items-center text-center bg-white rounded-lg border border-amber-200 overflow-hidden">
-                    {img ? (
-                      <img
-                        src={img}
-                        alt={`AMI Montessori material: ${m}`}
-                        loading="lazy"
-                        width={256}
-                        height={256}
-                        className="w-full aspect-square object-cover"
-                      />
-                    ) : (
-                      <div className="w-full aspect-square flex items-center justify-center bg-amber-50 text-3xl text-amber-300">📦</div>
-                    )}
-                    <div className="px-2 py-2">
-                      <span className="text-xs sm:text-sm text-amber-900 leading-tight block">{m}</span>
-                      {includedWith ? (
-                        parentUrl ? (
-                          <a
-                            href={parentUrl}
-                            target="_blank"
-                            rel="sponsored noopener noreferrer"
-                            className="block text-[10px] sm:text-xs text-amber-900/80 underline leading-tight mt-0.5"
-                          >
-                            Included with {includedWith}
-                          </a>
-                      ) : (
-                          <span className="block text-[10px] sm:text-xs text-amber-900/60 leading-tight mt-0.5">
-                            Included with {includedWith}
-                          </span>
-                        )
-                      ) : !ownUrl ? (
-                        <Link
-                          to={`/materials/${materialKey}`}
-                          className="block text-[10px] sm:text-xs text-amber-900/80 underline leading-tight mt-0.5"
-                        >
-                          Use what you have
-                        </Link>
-                      ) : null}
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        )}
+    <ActivityLayout
+      sectionLabel={category.name}
+      title={skill.title}
+      purpose={skill.purpose}
+      image={heroImage}
+      onBack={onBack}
+      background={montessoriTheme.backgrounds.activity}
+    >
         <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
         <ActivityVideo skillId={skillId} activityTitle={skill.title} />
-        {skill.purpose && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
-                Purpose
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-gray-700">{skill.purpose}</p>
-            </CardContent>
-          </Card>
-        )}
-
-
 
         {!sensorialSkill?.learningProcess && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">📋</span>
-                Activity Steps
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="space-y-4">
-              {steps.map((step, index) => (
-                <div key={step.id} className="flex items-start gap-3 p-3 rounded-lg bg-white border">
-                  <button
-                    onClick={() => toggleStep(step.id)}
-                    className="mt-1 flex-shrink-0"
-                  >
-                    {step.completed ? (
-                      <CheckCircle className="h-6 w-6 text-green-600" />
-                    ) : (
-                      <Circle className="h-6 w-6 text-gray-400" />
-                    )}
-                  </button>
-                  <div className="flex-1">
-                    <div className="flex items-center gap-2 mb-2">
-                      <span className={`px-2 py-1 rounded text-sm font-medium ${category.color}`}>
-                        Step {index + 1}
-                      </span>
-                    </div>
-                    <p className={`${step.completed ? 'line-through text-gray-500' : 'text-gray-800'}`}>
-                      {step.instruction}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </CardContent>
-          </Card>
+          <ActivitySteps steps={steps} onToggle={toggleStep} />
         )}
 
         {sensorialSkill?.learningProcess && (
@@ -506,8 +366,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
             </CardContent>
           </Card>
         )}
-      </div>
-    </div>
+    </ActivityLayout>
   );
 };
 
