@@ -33,6 +33,8 @@ import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag } from '@/lib/affiliate';
 import GetTheMaterials from './GetTheMaterials';
 import ActivityVideo from './ActivityVideo';
+import ActivityLayout from './activity/ActivityLayout';
+import ActivitySteps from './activity/ActivityStepGroup';
 
 interface SkillActivityProps {
   skillId: string;
