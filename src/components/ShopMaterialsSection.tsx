@@ -80,6 +80,7 @@ export function ShopMaterialsSection() {
                   <MaterialBundle
                     title={`${section.title} materials bundle`}
                     materials={resolved}
+                    showDisclosure={false}
                   />
                 ) : (
                   <p className="text-sm text-muted-foreground py-4 text-center">
