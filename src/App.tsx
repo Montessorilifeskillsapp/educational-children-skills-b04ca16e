@@ -19,6 +19,7 @@ import ArtPage from "./pages/ArtPage";
 import CulturalPage from "./pages/CulturalPage";
 import GraceCourtesyPage from "./pages/GraceCourtesyPage";
 import ShopPage from "./pages/ShopPage";
+import MaterialAlternativesPage from "./pages/MaterialAlternativesPage";
 import PlansPage from "./pages/PlansPage";
 import AuthPage from "./pages/AuthPage";
 import AuthCallbackPage from "./pages/AuthCallbackPage";
