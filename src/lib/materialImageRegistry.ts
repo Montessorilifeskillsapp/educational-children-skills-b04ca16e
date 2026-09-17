@@ -79,15 +79,8 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /blindfold/i, image: mysteryBag },
   { test: /nomenclature card|three.?part card/i, image: pictureCards },
   { test: /utensil|fork,? (knife|and)|knife and spoon/i, image: graceCourtesyTable },
-  { test: /magnif/i, image: sorting },
-  { test: /collection of (small )?objects|mixed objects|assorted objects|collection of objects/i, image: sorting },
-  { test: /bar magnet|magnet\b/i, image: sorting },
   { test: /tectonic|continental drift/i, image: worldMap },
-  { test: /land and water form|river formation|water tray|ocean puzzle/i, image: worldMap },
-  { test: /solar system|planet (size|model|order)|set of small planet models|orbit/i, image: chartsDiagrams },
-  { test: /flag/i, image: pictureCards },
   { test: /grammar (box|boxes|symbol|material)/i, image: moveableAlphabet },
-  { test: /fraction inset/i, image: geometricCabinet },
   { test: /bead frame|bead stair|black and white (verification )?stair/i, image: beadMaterial },
   { test: /place setting/i, image: graceCourtesyTable },
   { test: /flat sheet|fitted sheet|pillowcase/i, image: bedMaking },
@@ -95,8 +88,6 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /burlap|embroidery|hoop|punched holes/i, image: threading },
   { test: /sand tray|salt tray|tray of sand/i, image: writingMaterials },
   { test: /baking tray|baking sheet/i, image: foodPrep },
-  { test: /template|colou?r wheel/i, image: artSupplies },
-  { test: /marker|blending stump|charcoal/i, image: artSupplies },
   { test: /knives|knife/i, image: foodPrep },
 
   // Sensorial
@@ -128,7 +119,6 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /sandpaper number/i, image: sandpaperNumbers },
   { test: /spindle box|spindle/i, image: spindleBox },
   { test: /stamp game|stamps?$/i, image: stampGame },
-  { test: /hundred board|hundred chart/i, image: stampGame },
 
   // Language
   { test: /sandpaper letter/i, image: sandpaperLetters },
@@ -141,7 +131,7 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /flower|petal|pollin/i, image: flowerParts },
   { test: /continent|globe/i, image: continentsMap },
   { test: /world map|puzzle map/i, image: worldMap },
-  { test: /watering can|seedling|seeds?|plant mister|trowel|garden|soil|compost|pot(s|ted)?/i, image: botanyCare },
+  { test: /watering can|plant mister|trowel/i, image: botanyCare },
 
   // Practical life — care of person
   { test: /toothbrush|toothpaste|comb|hair tie|hairbrush|hand mirror|child mirror|nail/i, image: careOfPerson },
@@ -178,39 +168,18 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
   { test: /walking line|line.*tape|balance beam|bell|flag/i, image: walkingLine },
 
   // Sorting & manipulatives
-  { test: /sort|categor|classification|basket|compartment/i, image: sorting },
+  { test: /sorting tray/i, image: sorting },
   { test: /scissor|cutting strip|paper strip/i, image: cuttingWork },
-  { test: /padlock|key|lock/i, image: sorting },
 
   // Generic dressing frames fallback
   { test: /frame/i, image: dressingFrames },
 
-  // Broad coverage — keep last so specific materials above win
+  // Exact named materials only. Unmatched labels intentionally have no image;
+  // a missing photograph is preferable to an inaccurate visual reference.
   { test: /moveable alphabet|movable alphabet|letter (board|tile)|wooden letter/i, image: moveableAlphabet },
   { test: /bead (bar|chain|material|stair)|unit bead|ten bar|hundred square|bead/i, image: beadMaterial },
-  { test: /chart|diagram|timeline|graph|poster|model of|volcano model|solar system|earth layer|life cycle (chart|puzzle)/i, image: chartsDiagrams },
-  { test: /map|atlas|globe|compass|seismic|topograph/i, image: worldMap },
   { test: /animal|figurine|figure(s)?\b|miniature object|animal cards?/i, image: animalFigures },
   { test: /paint|brush(es)?|crayon|clay|play ?dough|modeling|collage|glue|craft|colored pencil|palette|sketch|watercolou?r|drawing/i, image: artSupplies },
-  { test: /paper|pencil|pen\b|chalk|eraser|chalkboard|notebook|writing|ruler|bookmark|reading log|booklet|book(s)?\b|word list|sentence strip|strip of paper/i, image: writingMaterials },
-  { test: /card(s)?\b|label(s)?\b|slide(s)?\b/i, image: pictureCards },
-  { test: /basin|water|sink|soap|towel|wipe|tissue|bucket|wringing|washboard|dispenser/i, image: waterBasin },
-  { test: /box|bin|container|jar|pouch|bag|rack|shelf|shelves|drawer|hook|stand|holder|storage|dish(es)?|bowl|vase|saucer|dresser/i, image: storageContainers },
-  { test: /seed|leaf|leaves|stem|root|plant|flower|tree|specimen|soil|nature/i, image: botanyCare },
-  { test: /mat\b|mats\b|rug|cushion|pillow|floor space|table|chair|stool|space|environment|area|path|line/i, image: workMat },
-  { test: /food|snack|fruit|banana|cracker|rice|bean|ingredient|meal|lunch/i, image: foodPrep },
-  { test: /mirror|comb|brush|tooth|cotton|nail|hair/i, image: careOfPerson },
-  { test: /thread|yarn|needle|\blaces?\b|string|fabric|cloth|sheet|blanket|panel/i, image: threading },
-  { test: /timer|clock|bell|drum|music|rhythm|instrument|stick/i, image: walkingLine },
-  { test: /tool|guide|instruction|prop|supplies|set\b|object/i, image: sorting },
-  { test: /pink .*cube|wooden cube/i, image: pinkTower },
-  { test: /prism|stair/i, image: brownStair },
-  { test: /wooden rod|segmented rod/i, image: redRods },
-  { test: /grammar|symbol|triangle|circle|arrow/i, image: moveableAlphabet },
-  { test: /board|tile|strip|counter|skittle|disc|puzzle|inset|spheres?|bottle|magnet|sand\b/i, image: stampGame },
-  { test: /knife|knives|polish|mallet|tape|marker|stylus|pointer|rubber band|foil|lid|solution|lamp|flashlight|recording|photo|picture|prompt|phrase|rope|replica|attachment|divider|damper|stump|measuring|room|surface|location|suggestion|research|material|activit|practice|shoe|pet|None required|Optional/i, image: sorting },
-
-
 ];
 
 /**
