@@ -14,6 +14,7 @@ import { montessoriImages } from '@/assets/images';
 import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 import spooningImg from '@/assets/materials/spooning.jpg';
 import walkingLine from '@/assets/materials/walking-line.jpg';
+import sandpaperGlobe from '@/assets/geography/sandpaper-globe.jpg';
 
 const PRINCIPLES = [
   {
