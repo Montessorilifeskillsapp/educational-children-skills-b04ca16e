@@ -113,6 +113,7 @@ const App = () => {
                           <Route path="/cultural" element={<CulturalPage />} />
                           <Route path="/grace-courtesy" element={<GraceCourtesyPage />} />
                           <Route path="/shop" element={<ShopPage />} />
+                          <Route path="/materials/:materialKey" element={<MaterialAlternativesPage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/auth/callback" element={<AuthCallbackPage />} />
