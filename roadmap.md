@@ -19,3 +19,4 @@
 - [ ] Add the felt snake-game mat (green binding for subtraction, red for addition) — waiting on the user's go-ahead
 
 - [ ] Approved app-wide QA: navigation, activities, materials, access, installation, browser and automated checks
+- [ ] Check activity inconsistencies and native configuration; device execution requires external iOS/Android tools
