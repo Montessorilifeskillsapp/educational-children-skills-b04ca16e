@@ -259,8 +259,6 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     );
   }
 
-  const completedSteps = steps.filter(step => step.completed).length;
-  const isComplete = steps.length > 0 && completedSteps === steps.length;
 
   const toggleStep = (stepId: string) => {
     setSteps(prev => prev.map(step => 
@@ -275,60 +273,27 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
 
   const heroImage = getActivityImage(skillId, skill as { category?: string; image?: string; imageUrl?: string });
 
-  if (culturalSkill || artSkill || graceCourtesySkill) {
-    const process = 'learningProcess' in skill ? skill.learningProcess : undefined;
-    return <ActivityPage
-      skillId={skillId}
-      sectionLabel={culturalSkill ? 'Science & Cultural Studies' : artSkill ? 'Art' : 'Grace & Courtesy'}
-      title={skill.title}
-      purpose={skill.purpose}
-      image={heroImage}
-      materials={skill.materials}
-      steps={steps}
-      onToggle={toggleStep}
-      onBack={onBack}
-      onComplete={handleComplete}
-      notes={(process || graceCourtesySkill?.directAims?.length || artSkill?.activities?.length) ? <>
-        <ActivityTeachingNotes process={process} />
-        <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
-        <ActivityNoteList title="Extension activities" items={artSkill?.activities} />
-      </> : undefined}
-    />;
-  }
-
-  return (
-    <ActivityLayout
-      sectionLabel={category.name}
-      title={skill.title}
-      purpose={skill.purpose}
-      image={heroImage}
-      onBack={onBack}
-      background={montessoriTheme.backgrounds.activity}
-    >
-        <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
-        <ActivityVideo skillId={skillId} activityTitle={skill.title} />
-
-        <ActivitySteps steps={steps} onToggle={toggleStep} />
-        <ActivityTeachingNotes process={'learningProcess' in skill ? skill.learningProcess : undefined} />
-        <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
-        <ActivityNoteList title="Materials & their purpose" items={mathSkill?.materialsPurpose} />
-        <ActivityNoteList title="Learning objectives" items={mathSkill?.objectives} />
-        <ActivityNoteList title="Extensions" items={mathSkill?.extensions} />
-
-        {isComplete && (
-          <div className="mt-8 mb-8 text-center">
-            <Card className="bg-secondary/10 border-secondary/40">
-              <CardContent className="p-6">
-                <div className="text-5xl mb-4">🌟</div>
-                <h2 className="text-2xl font-bold text-foreground mb-2">Excellent Work!</h2>
-                <p className="text-muted-foreground mb-4">You have mastered {skill.title.toLowerCase()}!</p>
-                <Button onClick={handleComplete}>Mark as Complete</Button>
-              </CardContent>
-            </Card>
-          </div>
-        )}
-    </ActivityLayout>
-  );
+  const process = 'learningProcess' in skill ? skill.learningProcess : undefined;
+  return <ActivityPage
+    skillId={skillId}
+    sectionLabel={culturalSkill ? 'Science & Cultural Studies' : artSkill ? 'Art' : sensorialSkill ? 'Sensorial' : category.name}
+    title={skill.title}
+    purpose={skill.purpose}
+    image={heroImage}
+    materials={skill.materials}
+    steps={steps}
+    onToggle={toggleStep}
+    onBack={onBack}
+    onComplete={handleComplete}
+    notes={(process || graceCourtesySkill?.directAims?.length || artSkill?.activities?.length || mathSkill) ? <>
+      <ActivityTeachingNotes process={process} />
+      <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
+      <ActivityNoteList title="Extension activities" items={artSkill?.activities} />
+      <ActivityNoteList title="Materials & their purpose" items={mathSkill?.materialsPurpose} />
+      <ActivityNoteList title="Learning objectives" items={mathSkill?.objectives} />
+      <ActivityNoteList title="Extensions" items={mathSkill?.extensions} />
+    </> : undefined}
+  />;
 };
 
 export default SkillActivity;
