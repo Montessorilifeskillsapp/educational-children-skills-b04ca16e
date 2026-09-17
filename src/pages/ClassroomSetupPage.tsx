@@ -14,6 +14,7 @@ import { montessoriImages } from '@/assets/images';
 import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 import spooningImg from '@/assets/materials/spooning.jpg';
 import walkingLine from '@/assets/materials/walking-line.jpg';
+import sandpaperGlobe from '@/assets/geography/sandpaper-globe.jpg';
 
 const PRINCIPLES = [
   {
@@ -105,7 +106,7 @@ const AREAS = [
     icon: Globe2,
     name: 'Culture',
     position: 'Woven through the environment from the start.',
-    image: montessoriImages['puzzle-maps'],
+    image: sandpaperGlobe,
     groups: [
       'Geography — land and water forms, sandpaper and coloured globes, puzzle maps',
       'Botany — leaf cabinet, parts of a plant, care of plants in the room',
@@ -303,7 +304,7 @@ const ClassroomSetupPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted order-2 lg:order-1">
             <img
               src={walkingLine}
-              alt="A child walking on the line, developing control of movement"
+              alt="The line taped in an ellipse on the classroom floor, prepared for walking on the line"
               className="w-full aspect-[4/3] object-cover"
               loading="lazy"
             />
