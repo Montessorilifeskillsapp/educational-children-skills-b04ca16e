@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import MathSkills from '@/components/MathSkills';
-import MathActivityContent from '@/components/MathActivityContent';
+import SkillActivity from '@/components/SkillActivity';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useActivityCompletions } from '@/hooks/useActivityCompletions';
@@ -14,7 +14,7 @@ const MathPage: React.FC = () => {
   const [selectedSkill, setSelectedSkill] = useState('');
   const { isPremium } = useSubscription();
   const { activeProfile } = useProfile();
-  const { completedSkillIds } = useActivityCompletions(activeProfile?.id);
+  const { completedSkillIds, logCompletion } = useActivityCompletions(activeProfile?.id);
 
   useSEO({
     title: 'Math Activities - Montessori Learning App',
@@ -25,7 +25,12 @@ const MathPage: React.FC = () => {
   if (selectedSkill && mathSkillsData[selectedSkill]) {
     return (
       <SEOOptimizer>
-        <MathActivityContent key={selectedSkill} skillId={selectedSkill} skill={mathSkillsData[selectedSkill]} onBack={() => setSelectedSkill('')} />
+        <SkillActivity
+          key={selectedSkill}
+          skillId={selectedSkill}
+          onBack={() => setSelectedSkill('')}
+          onComplete={logCompletion}
+        />
       </SEOOptimizer>
     );
   }

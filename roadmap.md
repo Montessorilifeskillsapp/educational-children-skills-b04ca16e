@@ -28,3 +28,5 @@
 
 - [x] Restore activity banners only after each photograph is individually verified as an exact, authentic match for its activity.
 - [x] Remove inaccurate or unverified activity banners across Sensorial, Math, Language, Botany, Geography, Science, Art, and Grace and Courtesy; Practical Life's curated photographs remain unchanged.
+- [ ] Add one exact, activity-specific banner to every live activity in Sensorial, Mathematics, Language, Botany, Geography, Cultural/Science, Art, and Grace and Courtesy (35 existing exact photographs wired; 69 new photographs required).
+- [x] Use the Practical Life activity structure for Mathematics and every other curriculum section while preserving each section's content.

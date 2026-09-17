@@ -272,7 +272,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onBack();
   };
 
-  const heroImage = getActivityImage(skillId, skill as { image?: string; imageUrl?: string });
+  const heroImage = getActivityImage(skillId, skill as { category?: string; image?: string; imageUrl?: string });
 
   return (
     <ActivityLayout
@@ -289,6 +289,9 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
         <ActivitySteps steps={steps} onToggle={toggleStep} />
         <ActivityTeachingNotes process={'learningProcess' in skill ? skill.learningProcess : undefined} />
         <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
+        <ActivityNoteList title="Materials & their purpose" items={mathSkill?.materialsPurpose} />
+        <ActivityNoteList title="Learning objectives" items={mathSkill?.objectives} />
+        <ActivityNoteList title="Extensions" items={mathSkill?.extensions} />
 
         {isComplete && (
           <div className="mt-8 mb-8 text-center">
