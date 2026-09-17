@@ -17,3 +17,5 @@
 - [x] Correct snake-game and strip-board material names (gray bead stair, blue strips as subtrahend) and refresh the materials lists
 - [x] Flag materials that arrive inside another product ("Included with …") on activity pages, Materials admin, and both downloaded lists
 - [ ] Add the felt snake-game mat (green binding for subtraction, red for addition) — waiting on the user's go-ahead
+
+- [ ] Approved app-wide QA: navigation, activities, materials, access, installation, browser and automated checks
