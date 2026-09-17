@@ -32,18 +32,19 @@ for (const [child, parents] of Object.entries(MATERIAL_BUNDLES)) {
   }
 }
 
-function toKey(nameOrKey: string): string {
-  return normalizeMaterialKey(nameOrKey);
+function toKey(nameOrKey: string | null | undefined): string {
+  return nameOrKey ? normalizeMaterialKey(nameOrKey) : '';
 }
 
 /** Parent products this material arrives inside, or null when it is bought on its own. */
-export function bundledParents(nameOrKey: string): string[] | null {
+export function bundledParents(nameOrKey: string | null | undefined): string[] | null {
+  if (!nameOrKey) return null;
   const parents = CHILD_KEYS.get(toKey(nameOrKey));
   return parents && parents.length > 0 ? parents : null;
 }
 
 /** True when the material ships inside another product and needs no link of its own. */
-export function isBundledMaterial(nameOrKey: string): boolean {
+export function isBundledMaterial(nameOrKey: string | null | undefined): boolean {
   return bundledParents(nameOrKey) !== null;
 }
 
@@ -53,8 +54,8 @@ export function isBundledMaterial(nameOrKey: string): boolean {
  * parent. Returns null for materials you buy separately.
  */
 export function resolveIncludedWith(
-  nameOrKey: string,
-  siblings: Iterable<string> = []
+  nameOrKey: string | null | undefined,
+  siblings: Iterable<string | null | undefined> = []
 ): string | null {
   const parents = bundledParents(nameOrKey);
   if (!parents) return null;
@@ -69,6 +70,6 @@ export function resolveIncludedWith(
 }
 
 /** Display name for a product that other materials arrive inside, or null. */
-export function bundledProductName(nameOrKey: string): string | null {
+export function bundledProductName(nameOrKey: string | null | undefined): string | null {
   return PARENT_KEYS.get(toKey(nameOrKey)) ?? null;
 }
