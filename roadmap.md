@@ -29,3 +29,4 @@
 - [ ] Correct remaining visual uniformity: restore existing area-specific banner photos; identify activities with no dedicated photograph before claiming complete parity
 - [x] Generate and connect five introductory activity banners: vocabulary, plant parts, land/water forms, days of week, drawing
 - [ ] Remaining activity-specific banner generation; greeting image blocked by provider rejection, alternative requires user choice
+- [ ] Remove inaccurate or unverified activity images across Sensorial, Math, Language, Botany, Geography, Science, Art, and Grace and Courtesy; retain only exact activity-matched authentic photographs.
