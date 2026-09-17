@@ -1,9 +1,9 @@
-# Classroom setup: images for the eight furniture and essential items
+# Classroom setup: images for eight items, links noted for seven
 
 ## Goal
-Give the eight listed classroom basics an accurate photograph each, shown on the Classroom Setup page next to the item, matching the style of the images already on that page.
+Give eight classroom basics an accurate photograph each on the Classroom Setup page, matching the style of the images already there. No other changes.
 
-## Items to photograph (8)
+## Images to create (8)
 1. Child-sized table
 2. Low open shelving
 3. Child-height mirror
@@ -14,11 +14,14 @@ Give the eight listed classroom basics an accurate photograph each, shown on the
 8. Potted plant
 
 ## How
-1. Generate one photorealistic image per item in the established style: natural wood or simple classroom setting, soft daylight, no people, no readable text, no brands.
-2. Review every image for accuracy before wiring it in — a missing image is better than a wrong one. Any image that fails review is regenerated or left out, and I'll tell you which.
-3. Wire each approved image to its item in the "Furniture and essentials" list on the Classroom Setup page only. Nothing else on the page changes: no text, order, links, or layout beyond adding the photos.
-4. Verify live: open `/classroom-setup`, confirm all eight photos load beside the correct items, and confirm existing Buy links are untouched.
+1. Generate one photorealistic image per item in the established style: natural materials, soft daylight, no people, no readable text, no brands.
+2. Review every image for accuracy before wiring it in — a missing image is better than a wrong one. Failures are regenerated or left out, and I'll tell you which.
+3. Wire each approved image to its item in "Furniture and essentials" on the Classroom Setup page only. No text, order, link, or layout changes beyond adding the photos.
+4. Verify live on `/classroom-setup`: all eight photos load beside the correct items, existing Buy links untouched.
 5. Run typecheck and the 51-test suite before reporting done.
+
+## Links — your action, no code change
+These seven items still show "Use what you have" until you paste Amazon links in **Materials admin → Classroom Setup**: jug/pitcher, bowls, tumbler/glass, broom and dustpan, mop, dusting cloths, sponges. No app work is needed for this — the link fields already exist.
 
 ## Working agreement (standing, from your feedback)
 - Smallest possible edit per request; no unrequested side changes.
