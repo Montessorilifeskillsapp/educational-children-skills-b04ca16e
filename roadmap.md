@@ -25,3 +25,5 @@
 - [ ] Synchronize Android store-launcher plugin on native development machine and verify store opening
 
 - [x] Standardize all active activity views on the Practical Life sequence; retain supplementary curriculum; nine free starters browser-verified, 51 tests passed (video display checked with simulated response)
+
+- [ ] Correct remaining visual uniformity: restore existing area-specific banner photos; identify activities with no dedicated photograph before claiming complete parity
