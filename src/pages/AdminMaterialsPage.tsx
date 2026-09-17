@@ -237,6 +237,7 @@ const AdminMaterialsPage: React.FC = () => {
           active: link.active,
           affiliate_tag: link.affiliate_tag,
           vendor: link.vendor,
+          home_alternatives: link.home_alternatives,
         }),
       });
 
@@ -319,7 +320,8 @@ const AdminMaterialsPage: React.FC = () => {
       current.notes !== initial.notes ||
       current.active !== initial.active ||
       current.affiliate_tag !== initial.affiliate_tag ||
-      current.vendor !== initial.vendor
+      current.vendor !== initial.vendor ||
+      current.home_alternatives !== initial.home_alternatives
     );
   }
 
