@@ -1,40 +1,31 @@
-# Rename "Analysis charts" to "Sentence analysis chart"
+# Home alternatives page for materials without a supplier link
 
-The materials list currently shows a jargon item, "Analysis charts", which comes from a single
-place in the curriculum data. Renaming it to **"Sentence analysis chart"** makes it read as one
-clear item: the chart a guide prints or draws showing how the parts of a sentence are laid out.
+Today, a material with no supplier link shows a dead-end note that just says "Source locally". This adds a real destination: a page that encourages the adult to use what they already have at home or in the classroom.
 
-## What changes
+## What changes for the reader
 
-1. **Curriculum data (the source of the name)**
-   - In the Sentence Analysis activity in Language, replace the material label
-     "Analysis charts" with "Sentence analysis chart".
-   - This is the only occurrence in the app, so the activity page, the "What you'll need" tiles,
-     the "Get the materials" block and the Materials admin page all pick the new name up
-     automatically — no other code needs touching.
+- On an activity page, any material without a supplier link becomes tappable and reads "Use what you have" instead of "Source locally".
+- Tapping opens a page for that material with:
+  - the material name,
+  - your own suggestions for that material, when you have written them,
+  - a general encouragement message about improvising with everyday household items when you haven't written anything yet,
+  - a link back to the activity they came from.
+- Materials that already have a supplier link keep their Buy link and are unchanged.
+- Items marked "Included with another product" keep their existing note and parent Buy link.
 
-2. **Safety net in the cleanup list**
-   - Add an alias so the old label "Analysis charts" still resolves to the new name. Any older
-     copy of the data (or a previously saved Amazon link filed under the old name) then points at
-     the same single item instead of appearing as a second, duplicate row.
-   - No database changes are needed: the materials table currently holds no saved links.
+## What changes for you (admin)
 
-3. **Refresh the two downloaded lists**
-   - Regenerate the spreadsheet (By Activity / By Material / Summary) and the alphabetized text
-     list so both show "Sentence analysis chart | Language".
-   - The export scripts were temporary and are gone, so they will be rebuilt and re-run against
-     the current curriculum data; the existing files are replaced with the refreshed versions.
+On the Materials page, each material gains a "Home alternatives" text box next to the link fields. Whatever you type there appears on that material's page. Leave it empty and the general message shows instead. Fully editable at any time, same Save behaviour as the link fields.
 
-## What does not change
+A small indicator on each material card shows whether home alternatives have been written.
 
-- The activity itself, its steps, its position in the Language section and its premium status.
-- Every other material name, the Practical Life ordering, the shop links and affiliate tagging.
-- "Sentence analysis chart" stays a locally-sourced item (printed or hand-made), so it gains no
-  "Buy" link.
+## Technical notes
 
-## How it is checked
-
-- Typecheck and the existing test suite run clean.
-- Search the codebase to confirm no remaining "Analysis charts" label.
-- Confirm the regenerated spreadsheet and text list each contain exactly one "Sentence analysis
-  chart" row and no "Analysis charts" row.
+- Migration: add a nullable `home_alternatives text` column to `material_links`. Existing public read policy (active rows) already covers it; no new table, no policy change.
+- `useMaterialLinks` selects the new column and `MaterialLink` gains `home_alternatives`.
+- New route `/materials/:materialKey` rendering `MaterialAlternativesPage`, using `normalizeMaterialKey` for lookup, reverse-resolving the display name from the curriculum materials pipeline (`extractAllMaterialsFromSkills` across `curriculumSectionsForMaterials`) so the page works even when no `material_links` row exists. Unknown keys render the general message with the prettified name. Uses `PageLayout` + back button, and `useSEO` with a noindex-safe title.
+- `MaterialBundle.tsx`: when `amazonUrl` is null and `includedWith` is null, render a `Link` to `/materials/:key` labelled "Use what you have" in place of the current static "Source locally" text.
+- `SkillActivity.tsx` "What you'll need" tiles: same treatment for unlinked, non-bundled items, passing the current activity route as a `?from=` param for the back link.
+- `admin-material-links` edge function: accept and persist `home_alternatives` on upsert (trimmed, nullable, length-capped).
+- `AdminMaterialsPage.tsx`: add the textarea to the per-material form, include it in the dirty-state comparison and save payload, and show a "Home ideas added" chip.
+- Tests: extend `MaterialBundle.test.tsx` for the new link, and add a render test for the alternatives page (with and without saved text).
