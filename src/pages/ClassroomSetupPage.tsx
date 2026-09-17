@@ -106,7 +106,7 @@ const AREAS = [
     icon: Globe2,
     name: 'Culture',
     position: 'Woven through the environment from the start.',
-    image: montessoriImages['puzzle-maps'],
+    image: sandpaperGlobe,
     groups: [
       'Geography — land and water forms, sandpaper and coloured globes, puzzle maps',
       'Botany — leaf cabinet, parts of a plant, care of plants in the room',
