@@ -204,6 +204,7 @@ const AdminMaterialsPage: React.FC = () => {
         active: prev[key]?.active ?? true,
         affiliate_tag: prev[key]?.affiliate_tag || '',
         vendor: prev[key]?.vendor || '',
+        home_alternatives: prev[key]?.home_alternatives || '',
         ...patch,
       },
     }));
