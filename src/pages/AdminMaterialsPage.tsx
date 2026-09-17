@@ -13,6 +13,7 @@ import AdminBackBar from '@/components/AdminBackBar';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
+import { classroomSetupMaterialSkills } from '@/data/classroomSetupMaterials';
 import { extractAllMaterialsFromSkills, normalizeMaterialKey } from '@/lib/materials';
 import { isBundledMaterial, resolveIncludedWith } from '@/lib/materialBundles';
 import { withAffiliateTag, isAffiliateTagged } from '@/lib/affiliate';
@@ -98,7 +99,13 @@ const AdminMaterialsPage: React.FC = () => {
   }, [isAdmin, toast]);
 
   const sections = useMemo<SectionGroup[]>(() => {
-    return curriculumSectionsForMaterials.map((section) => ({
+    return [...curriculumSectionsForMaterials, {
+      key: 'classroom-setup',
+      title: 'Classroom Setup',
+      emoji: '',
+      route: '/classroom-setup',
+      skills: classroomSetupMaterialSkills,
+    }].map((section) => ({
       ...section,
       materials: extractAllMaterialsFromSkills(section.skills),
     }));
