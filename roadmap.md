@@ -21,5 +21,5 @@
 - [x] Approved app-wide QA: public navigation, nine free activities, materials alternatives, signed-out admin redirects, installation regression and automated checks repeated September 17; authenticated/native checks remain blocked below
 - [x] Check activity inconsistencies and native configuration; findings saved in the consistency/native report
 - [ ] Run native-device launch, sign-in, purchase/restore, video and store-link checks — blocked by missing device tools and iOS project
-- [ ] Align Math activity layout/material links/videos — awaiting approval following consistency review
+- [x] Align Math activity layout/material links/videos — shared layout, material links, protected video area, original curriculum retained; 51 tests pass and browser flow verified (video response simulated)
 - [ ] Synchronize Android store-launcher plugin on native development machine and verify store opening
