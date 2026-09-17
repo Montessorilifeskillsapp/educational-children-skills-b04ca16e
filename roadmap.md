@@ -1,5 +1,5 @@
 ## Open tasks
-- [ ] Connect Science, Art, and Grace and Courtesy section cards to their exact activity photos and verify the visible result.
+- [x] Connect Science, Art, and Grace and Courtesy section cards to their exact activity photos; verified all 31 card images load and 51 tests pass.
 - [x] Add back button to Classroom Setup and Home Setup pages
 - [x] Fix Fudge Bear book cover not showing correctly (recurring image issue)
 - One-at-a-time Practical Life image review with user
