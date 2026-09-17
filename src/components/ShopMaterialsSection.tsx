@@ -80,7 +80,6 @@ export function ShopMaterialsSection() {
                   <MaterialBundle
                     title={`${section.title} materials bundle`}
                     materials={resolved}
-                    disclosure="As an Amazon Associate we earn from qualifying purchases."
                   />
                 ) : (
                   <p className="text-sm text-muted-foreground py-4 text-center">

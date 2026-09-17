@@ -27,7 +27,6 @@ export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({
       <MaterialBundle
         title={title}
         materials={resolved}
-        disclosure="As an Amazon Associate we earn from qualifying purchases."
       />
     </div>
   );

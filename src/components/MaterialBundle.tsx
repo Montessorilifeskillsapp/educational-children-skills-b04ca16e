@@ -26,7 +26,6 @@ export interface ResolvedMaterial {
 interface MaterialBundleProps {
   title: string;
   materials: ResolvedMaterial[];
-  disclosure?: string;
   className?: string;
 }
 
@@ -66,7 +65,7 @@ export function resolveMaterials(
   });
 }
 
-export function MaterialBundle({ title, materials, disclosure, className }: MaterialBundleProps) {
+export function MaterialBundle({ title, materials, className }: MaterialBundleProps) {
   // Only links belonging to the material itself count towards "Buy all" — a
   // borrowed parent link would otherwise send the button to a child row.
   const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
@@ -178,9 +177,6 @@ export function MaterialBundle({ title, materials, disclosure, className }: Mate
           </p>
         )}
 
-        {disclosure && (
-          <p className="text-xs text-muted-foreground text-center">{disclosure}</p>
-        )}
       </CardContent>
     </Card>
   );

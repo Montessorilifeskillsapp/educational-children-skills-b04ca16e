@@ -167,14 +167,6 @@ const ShopPage: React.FC = () => {
 
         <hr className="border-border/40" />
         <ShopMaterialsSection />
-
-        <p className="text-xs text-muted-foreground text-center mt-8">
-          As an Amazon Associate we earn from qualifying purchases. Some links may be affiliate links.{' '}
-          <Link to="/about" className="underline">
-            Learn more
-          </Link>
-          .
-        </p>
       </PageLayout>
     </SEOOptimizer>
   );
