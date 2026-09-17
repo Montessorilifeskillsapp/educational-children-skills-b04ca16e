@@ -11,6 +11,8 @@ import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import SkillActivity from './SkillActivity';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import GetTheMaterials from './GetTheMaterials';
+import ActivityLayout from './activity/ActivityLayout';
+import ActivitySteps from './activity/ActivityStepGroup';
 
 interface Step {
   id: string;
