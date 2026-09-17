@@ -73,7 +73,7 @@ export function MaterialBundle({ title, materials, className }: MaterialBundlePr
   const buyAllUrl = (() => {
     if (!linked.length) return null;
     // Amazon does not support a true multi-item affiliate cart URL, so we link
-    // to the first essential item (or first item) when "Buy all" is clicked.
+    // to the first essential item (or first item) when the Buy button is clicked.
     const first = materials.find((m) => m.essential && m.amazonUrl && !m.inheritedFrom)?.amazonUrl
       || linked[0].amazonUrl;
     return first;
