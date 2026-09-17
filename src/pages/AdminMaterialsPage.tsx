@@ -508,6 +508,7 @@ const AdminMaterialsPage: React.FC = () => {
                         active: true,
                         affiliate_tag: '',
                         vendor: '',
+                        home_alternatives: '',
                       };
                       const previewUrl = link.amazon_url
                         ? withAffiliateTag(link.amazon_url, link.affiliate_tag)
