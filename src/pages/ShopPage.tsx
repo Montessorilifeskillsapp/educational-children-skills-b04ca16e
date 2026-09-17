@@ -94,7 +94,7 @@ const ShopPage: React.FC = () => {
                     alt={`${product.name} book cover`}
                     loading="lazy"
                     decoding="async"
-                    className="w-full h-48 object-cover bg-muted"
+                    className="w-full h-48 object-contain bg-muted"
                     onError={(e) => {
                       const img = e.currentTarget;
                       if (img.dataset.retried !== 'true' && product.image) {
