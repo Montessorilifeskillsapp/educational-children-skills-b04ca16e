@@ -181,7 +181,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       ];
     }
     if (mathSkill?.steps) {
-      return mathSkill.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
+      const instructions = mathSkill.detailedSteps?.length ? mathSkill.detailedSteps : mathSkill.steps;
+      return instructions.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
     }
     if (botanySkill?.steps) {
       return botanySkill.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
