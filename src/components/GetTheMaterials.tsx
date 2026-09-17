@@ -1,5 +1,4 @@
 import React from 'react';
-import { Package } from 'lucide-react';
 import { getMaterialsForSkill } from '@/lib/materials';
 import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { MaterialBundle, resolveMaterials } from './MaterialBundle';
@@ -7,11 +6,17 @@ import { MaterialBundle, resolveMaterials } from './MaterialBundle';
 interface GetTheMaterialsProps {
   skillId: string;
   skillMaterials?: string[];
+  /** Heading shown above the list. Kept as one heading, not two stacked ones. */
+  title?: string;
 }
 
-export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({ skillId, skillMaterials }) => {
+export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({
+  skillId,
+  skillMaterials,
+  title = "What you'll need",
+}) => {
   const materials = getMaterialsForSkill(skillId, skillMaterials);
-  const { byKey, loading } = useMaterialLinks();
+  const { byKey } = useMaterialLinks();
 
   if (materials.length === 0) return null;
 
@@ -19,12 +24,8 @@ export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({ skillId, skill
 
   return (
     <div className="mb-6">
-      <div className="flex items-center gap-2 mb-3">
-        <Package className="w-5 h-5 text-primary" aria-hidden="true" />
-        <h2 className="text-lg font-semibold">Get the materials</h2>
-      </div>
       <MaterialBundle
-        title="Suggested materials"
+        title={title}
         materials={resolved}
         disclosure="As an Amazon Associate we earn from qualifying purchases."
       />
