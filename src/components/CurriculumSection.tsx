@@ -2,6 +2,7 @@ import React from 'react';
 import SkillCard from './SkillCard';
 import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
+import { getActivityImage } from '@/lib/activityImages';
 
 export interface CurriculumSkill {
   id: string;
@@ -78,6 +79,7 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
                 key={skill.id}
                 skill={{
                   ...skill,
+                  image: getActivityImage(skill.id, skill),
                   icon: skill.icon ?? '',
                   category: skill.category ?? '',
                   difficulty: skill.difficulty ?? '',
