@@ -304,7 +304,7 @@ const ClassroomSetupPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted order-2 lg:order-1">
             <img
               src={walkingLine}
-              alt="A child walking on the line, developing control of movement"
+              alt="The line taped in an ellipse on the classroom floor, prepared for walking on the line"
               className="w-full aspect-[4/3] object-cover"
               loading="lazy"
             />
