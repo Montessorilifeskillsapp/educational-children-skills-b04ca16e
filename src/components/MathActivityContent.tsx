@@ -30,25 +30,18 @@ const MathActivityContent: React.FC<MathActivityContentProps> = ({ skillId, skil
       onBack={onBack}
       background={montessoriTheme.backgrounds.activity}
     >
-      <p className="mb-5 text-sm text-muted-foreground">{skill.ageRange} • {skill.difficulty}</p>
       <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
-      {skill.materialsPurpose?.length > 0 && (
-        <details className="mb-6 text-sm text-muted-foreground">
-          <summary className="cursor-pointer font-medium text-foreground">Materials &amp; their purpose</summary>
-          <ul className="mt-3 list-disc pl-5 space-y-2">
-            {skill.materialsPurpose.map((purpose, index) => <li key={index}>{purpose}</li>)}
-          </ul>
-        </details>
-      )}
       <ActivityVideo skillId={skillId} activityTitle={skill.title} />
       <ActivitySteps
         steps={steps}
         onToggle={(id) => setCheckedSteps((current) => current.includes(id) ? current.filter((step) => step !== id) : [...current, id])}
       />
+      <p className="mb-5 text-sm text-muted-foreground">{skill.ageRange} • {skill.difficulty}</p>
       {[
+        { title: 'Materials & their purpose', items: skill.materialsPurpose },
         { title: 'Learning objectives', items: skill.objectives },
         { title: 'Extensions', items: skill.extensions },
-      ].map(({ title, items }) => items.length > 0 && (
+      ].map(({ title, items }) => items?.length > 0 && (
         <section key={title} className="mb-6">
           <h2 className="text-sm font-semibold uppercase tracking-wider text-muted-foreground">{title}</h2>
           <ul className="mt-3 list-disc pl-5 space-y-2 text-foreground">

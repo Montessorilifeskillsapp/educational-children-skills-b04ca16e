@@ -23,7 +23,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 import { useSEO } from '@/hooks/useSEO';
 import { montessoriTheme } from './ThemeConfig';
 import ShareWinCard from '@/components/ShareWinCard';
-import MontessoriLearningProcessComponent from './MontessoriLearningProcess';
+import ActivityTeachingNotes, { ActivityNoteList } from './activity/ActivityTeachingNotes';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import { resolveIncludedWith } from '@/lib/materialBundles';
@@ -171,27 +171,28 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       return [];
     }
 
-    if (isEnhancedSkill && skill.learningProcess?.presentation?.steps) {
-      return skill.learningProcess.presentation.steps.map((step: string, index: number) => ({ 
-        id: `step-${index}`, 
-        instruction: step, 
-        completed: false 
-      }));
+    const process = 'learningProcess' in skill ? skill.learningProcess : undefined;
+    if (process?.presentation?.steps) {
+      return [
+        ...process.presentation.steps.map((instruction: string, index: number) => ({ id: `presentation-${index}`, instruction, completed: false })),
+        ...(process.guidedPractice?.steps ?? []).map((instruction: string, index: number) => ({ id: `guided-${index}`, instruction, completed: false })),
+        ...(process.independentPractice?.indicators ?? []).map((instruction: string, index: number) => ({ id: `independent-${index}`, instruction, completed: false })),
+      ];
     }
     if (mathSkill?.steps) {
-      return mathSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+      return mathSkill.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
     }
     if (botanySkill?.steps) {
-      return botanySkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+      return botanySkill.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
     }
     if (graceCourtesySkill?.learningProcess?.presentation?.steps) {
-      return graceCourtesySkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+      return graceCourtesySkill.learningProcess.presentation.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
     }
     if (artSkill?.steps) {
-      return artSkill.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+      return artSkill.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
     }
     if (geographySkill?.activities) {
-      return geographySkill.activities.map((activity, index) => ({ id: `step-${index}`, instruction: activity, completed: false }));
+      return geographySkill.activities.map((activity, index) => ({ id: `presentation-${index}`, instruction: activity, completed: false }));
     }
     if (culturalSkill?.steps) {
       return culturalSkill.steps;
@@ -200,12 +201,12 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       return languageSkill.steps;
     }
     if (sensorialSkill?.learningProcess?.presentation?.steps) {
-      return sensorialSkill.learningProcess.presentation.steps.map((step, index) => ({ id: `step-${index}`, instruction: step, completed: false }));
+      return sensorialSkill.learningProcess.presentation.steps.map((step, index) => ({ id: `presentation-${index}`, instruction: step, completed: false }));
     }
     if (skill.steps) {
       return Array.isArray(skill.steps) ? skill.steps.map((step: any, index: number) => {
         if (typeof step === 'string') {
-          return { id: `step-${index}`, instruction: step, completed: false };
+          return { id: `presentation-${index}`, instruction: step, completed: false };
         }
         return step;
       }) : [];
@@ -285,86 +286,21 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
         <GetTheMaterials skillId={skillId} skillMaterials={skill.materials} />
         <ActivityVideo skillId={skillId} activityTitle={skill.title} />
 
-        {!sensorialSkill?.learningProcess && (
-          <ActivitySteps steps={steps} onToggle={toggleStep} />
-        )}
-
-        {sensorialSkill?.learningProcess && (
-          <div className="mb-6">
-            <MontessoriLearningProcessComponent 
-              learningProcess={sensorialSkill.learningProcess} 
-              skillTitle={sensorialSkill.title}
-            />
-          </div>
-        )}
-
-        {graceCourtesySkill?.learningProcess?.presentation?.keyPoints && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">💡</span>
-                Key Teaching Points
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc list-inside space-y-1">
-                {graceCourtesySkill.learningProcess.presentation.keyPoints.map((tip, index) => (
-                  <li key={index} className="text-gray-700">{tip}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-
-        {graceCourtesySkill?.directAims && (
-          <Card className="mb-6">
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <span className="text-2xl">🎯</span>
-                Direct Aims
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc list-inside space-y-1">
-                {graceCourtesySkill.directAims.map((objective, index) => (
-                  <li key={index} className="text-gray-700">{objective}</li>
-                ))}
-              </ul>
-            </CardContent>
-          </Card>
-        )}
-
-        {isEnhancedSkill && skill.learningProcess && (
-          <div className="mb-6">
-            <MontessoriLearningProcessComponent 
-              learningProcess={skill.learningProcess} 
-              skillTitle={skill.title}
-            />
-          </div>
-        )}
+        <ActivitySteps steps={steps} onToggle={toggleStep} />
+        <ActivityTeachingNotes process={'learningProcess' in skill ? skill.learningProcess : undefined} />
+        <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
 
         {isComplete && (
-          <Card className="mb-6 bg-green-50 border-green-200">
-            <CardContent className="text-center py-8">
-              <div className="text-6xl mb-4">🎉</div>
-              <h3 className="text-2xl font-bold text-green-800 mb-2">
-                Skill Mastered!
-              </h3>
-              <p className="text-green-700 mb-4">
-                Congratulations! You've completed all steps for {skill.title}.
-              </p>
-              <Badge className="bg-green-200 text-green-800 text-lg px-4 py-2">
-                <span className="mr-2">{category.icon}</span>
-                {category.name} Master
-              </Badge>
-              <div className="mt-6">
-                <Button onClick={handleComplete} className="bg-green-600 hover:bg-green-700">
-                  Continue Learning
-                </Button>
-              </div>
-              <ShareWinCard skillTitle={skill.title} categoryName={category.name} />
-            </CardContent>
-          </Card>
+          <div className="mt-8 mb-8 text-center">
+            <Card className="bg-secondary/10 border-secondary/40">
+              <CardContent className="p-6">
+                <div className="text-5xl mb-4">🌟</div>
+                <h2 className="text-2xl font-bold text-foreground mb-2">Excellent Work!</h2>
+                <p className="text-muted-foreground mb-4">You have mastered {skill.title.toLowerCase()}!</p>
+                <Button onClick={handleComplete}>Mark as Complete</Button>
+              </CardContent>
+            </Card>
+          </div>
         )}
     </ActivityLayout>
   );

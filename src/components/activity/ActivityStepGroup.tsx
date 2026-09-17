@@ -52,7 +52,7 @@ export function groupSteps(steps: ActivityStep[]): StepPhase[] {
   const claimed = new Set(groups.flatMap((g) => g.steps.map((s) => s.id)));
   const rest = steps.filter((s) => !claimed.has(s.id));
   if (rest.length > 0) {
-    groups.push({ key: 'steps', label: 'Presentation', hint: '', steps: rest });
+    groups.push({ key: 'steps', label: 'Show the child', hint: 'Present slowly and silently, one movement at a time.', steps: rest });
   }
 
   return groups;
