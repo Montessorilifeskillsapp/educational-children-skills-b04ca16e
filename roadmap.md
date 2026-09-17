@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] Move remaining Sensorial, Mathematics, Language, Botany, and Geography activities onto the full Practical Life template, retaining assigned banners, saved purchase links, and protected-video integration; eight section starters load without console errors, 51 tests pass. Paid playback remains unverified; missing URLs/videos still require admin entries.
 - [x] Match full Science, Art, and Grace and Courtesy activity pages to a single Practical Life template, preserving curriculum and banners; four free starters browser-tested, 51 tests pass. Paid video playback remains unverified.
 - [x] Connect Science, Art, and Grace and Courtesy section cards to their exact activity photos; verified all 31 card images load and 51 tests pass.
 - [x] Add back button to Classroom Setup and Home Setup pages
