@@ -9,6 +9,7 @@ import type { MaterialLink } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { resolveIncludedWith } from '@/lib/materialBundles';
+import { AffiliateDisclosure } from '@/components/AffiliateDisclosure';
 
 export interface ResolvedMaterial {
   key: string;
@@ -27,6 +28,8 @@ interface MaterialBundleProps {
   title: string;
   materials: ResolvedMaterial[];
   className?: string;
+  /** Hidden when the surrounding page already carries the disclosure. */
+  showDisclosure?: boolean;
 }
 
 export function resolveMaterials(
@@ -65,7 +68,7 @@ export function resolveMaterials(
   });
 }
 
-export function MaterialBundle({ title, materials, className }: MaterialBundleProps) {
+export function MaterialBundle({ title, materials, className, showDisclosure = true }: MaterialBundleProps) {
   // Only links belonging to the material itself count towards the Buy button —
   // a borrowed parent link would otherwise send the button to a child row.
   const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
@@ -177,6 +180,7 @@ export function MaterialBundle({ title, materials, className }: MaterialBundlePr
           </p>
         )}
 
+        {showDisclosure && <AffiliateDisclosure />}
       </CardContent>
     </Card>
   );
