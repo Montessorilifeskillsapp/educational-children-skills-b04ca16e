@@ -8,7 +8,6 @@ import {
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
-import heroChildPouring from '@/assets/hero-child-pouring.jpg';
 import founderKerry from '@/assets/founder-kerry-howard.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
@@ -465,11 +464,8 @@ const Home: React.FC<HomeProps> = ({
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Pouring Water</h2>
             <p className="text-lg text-muted-foreground mt-3">Purpose: coordination, concentration, and independence.</p>
           </Reveal>
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8 items-stretch">
+          <div className="max-w-4xl mx-auto">
             <Reveal>
-              <img src={heroChildPouring} alt="Child practicing the Montessori Pouring Water activity" className="w-full h-full min-h-[360px] object-cover rounded-2xl border border-border shadow-lg" />
-            </Reveal>
-            <Reveal delay={100}>
               <Card className="h-full border-border/60 bg-card">
                 <CardContent className="p-6 lg:p-8">
                   <div className="grid sm:grid-cols-2 gap-5">
