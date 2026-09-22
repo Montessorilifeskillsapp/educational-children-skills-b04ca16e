@@ -3,8 +3,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   ArrowRight, Star, CheckCircle, BookOpen, Target, Award,
-  Home as HomeIcon, GraduationCap, Users2, Lock, ChevronDown, ChevronUp,
-  Globe, Leaf, Palette, HandHelping, Utensils, Brain, Menu, Check
+  Lock, Globe, Leaf, Palette, HandHelping, Utensils, Brain, Menu, Check,
+  ClipboardCheck, Eye, RotateCcw, Share2, School
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
@@ -16,14 +16,12 @@ import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
-import HeroAppPreview from './HeroAppPreview';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -392,77 +390,13 @@ const Home: React.FC<HomeProps> = ({
         </div>
       </section>
 
-      {/* ─── Product Walkthrough ─── */}
-      <HeroAppPreview onGetStarted={onGetStarted} />
-
-      {/* ─── Three-Step Mechanism ─── */}
-      <section id="how-it-works" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-14">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">A simple rhythm</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Choose. Present. Progress.</h2>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { number: '01', title: 'Choose', text: 'Find the appropriate activity for the child’s readiness.' },
-              { number: '02', title: 'Present', text: 'Prepare the materials and follow the presentation step by step.' },
-              { number: '03', title: 'Progress', text: 'Record what you observe and see what comes next.' },
-            ].map((step, index) => (
-              <Reveal key={step.title} delay={index * 100}>
-                <Card className="h-full border-border/60 bg-card">
-                  <CardContent className="p-7">
-                    <span className="text-sm font-bold text-primary">{step.number}</span>
-                    <h3 className="text-2xl font-bold text-foreground mt-3 mb-3">{step.title}</h3>
-                    <p className="text-muted-foreground leading-relaxed">{step.text}</p>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-          <Reveal className="mt-12 text-center">
-            <p className="text-lg sm:text-xl text-muted-foreground">
-              From <span className="font-semibold text-foreground">“What am I supposed to do?”</span> to <span className="font-semibold text-primary">“I know exactly what to present today.”</span>
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Audience Paths ─── */}
-      <section id="audience" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-14">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for the adult guide</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Choose the guidance that fits your role.</h2>
-          </Reveal>
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { icon: HomeIcon, title: 'Parents', heading: 'Bring authentic Montessori into everyday home life.', body: 'Activities selected by readiness, with clear materials lists and presentations—without needing to become a Montessori expert.', cta: 'Montessori at Home', action: onGetStarted },
-              { icon: GraduationCap, title: 'Teachers', heading: 'A curriculum reference when you need it.', body: 'Quickly review activities, presentations, sequence, and developmental purpose.', cta: 'For Teachers', action: onGetStarted },
-              { icon: Users2, title: 'Assistants', heading: 'Know how the work is presented.', body: 'Step-by-step guidance that makes classroom preparation and support easier.', cta: 'For Assistants', action: onGetStarted },
-            ].map((audience, index) => (
-              <Reveal key={audience.title} delay={index * 100}>
-                <Card className="h-full border-border/60 bg-card hover:border-primary/30 hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-7 flex h-full flex-col">
-                    <audience.icon className="w-7 h-7 text-primary mb-5" />
-                    <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">{audience.title}</p>
-                    <h3 className="text-xl font-bold text-foreground mb-3">{audience.heading}</h3>
-                    <p className="text-muted-foreground leading-relaxed mb-6 flex-1">{audience.body}</p>
-                    <Button variant="outline" onClick={audience.action} className="w-full rounded-xl">{audience.cta}</Button>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* ─── Real Activity ─── */}
-      <section id="sample-activity" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
+      <section id="sample-activity" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Inside a real activity</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Pouring Water</h2>
-            <p className="text-lg text-muted-foreground mt-3">Purpose: coordination, concentration, and independence.</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">See a real activity</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">This is what you will use.</h2>
+            <p className="text-lg text-muted-foreground mt-3">Pouring Water · Purpose: coordination, concentration, and independence.</p>
           </Reveal>
           <div className="max-w-4xl mx-auto">
             <Reveal>
@@ -496,11 +430,44 @@ const Home: React.FC<HomeProps> = ({
                       <Lock className="w-5 h-5 shrink-0 text-muted-foreground" />
                     </div>
                   </div>
-                  <Button onClick={onSubscriptionView} size="lg" className="mt-6 w-full rounded-xl">Get All 100+ Activities</Button>
+                   <Button onClick={onGetStarted} size="lg" className="mt-6 w-full rounded-xl">Start with a Free Activity <ArrowRight className="ml-2 h-4 w-4" /></Button>
                 </CardContent>
               </Card>
             </Reveal>
           </div>
+        </div>
+      </section>
+
+      {/* ─── First Activity Experience ─── */}
+      <section id="how-it-works" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-14">
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Your first work cycle</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Start. Present. Observe.</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Use one free starter activity to experience the complete process before choosing Premium.</p>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-6">
+            {[
+              { icon: ClipboardCheck, number: '01', title: 'Prepare', text: 'Open the activity, gather the listed materials, and review the written presentation.' },
+              { icon: BookOpen, number: '02', title: 'Present', text: 'Work with the child off-screen, following the sequence slowly and clearly.' },
+              { icon: Eye, number: '03', title: 'Observe', text: 'Record the activity when complete and use the sequence to decide what comes next.' },
+            ].map((step, index) => (
+              <Reveal key={step.title} delay={index * 100}>
+                <div className="h-full border-t-2 border-primary/30 pt-6">
+                  <step.icon className="w-7 h-7 text-primary mb-5" aria-hidden="true" />
+                  <span className="text-sm font-bold text-primary">{step.number}</span>
+                  <h3 className="text-2xl font-bold text-foreground mt-2 mb-3">{step.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{step.text}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+          <Reveal className="mt-12 text-center">
+            <p className="text-lg sm:text-xl text-muted-foreground mb-7">
+              Move from <span className="font-semibold text-foreground">searching for an activity</span> to <span className="font-semibold text-primary">knowing what to prepare and present.</span>
+            </p>
+            <Button onClick={onGetStarted} size="lg" className="rounded-xl px-8">Complete Your First Activity <ArrowRight className="ml-2 h-4 w-4" /></Button>
+          </Reveal>
         </div>
       </section>
 
@@ -558,7 +525,8 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Premium access</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Choose annual value or monthly flexibility.</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Continue through the full curriculum.</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence.</p>
           </Reveal>
           <div className="grid md:grid-cols-2 gap-6 items-stretch">
             <Reveal>
@@ -587,6 +555,34 @@ const Home: React.FC<HomeProps> = ({
                 </CardContent>
               </Card>
             </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* ─── Continue and Share ─── */}
+      <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Reveal className="text-center mb-14">
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Beyond the first activity</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Return to the sequence. Share what works.</h2>
+          </Reveal>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { icon: RotateCcw, title: 'Continue the work', text: 'Return to each child’s profile, record progress, and choose the next appropriate activity.' },
+              { icon: Share2, title: 'Share with others', text: 'Share Montessori Life Skills with another parent, teacher, caregiver, or classroom assistant.' },
+              { icon: School, title: 'For schools', text: 'Schools interested in wider access can contact us to discuss their needs.' },
+            ].map((item, index) => (
+              <Reveal key={item.title} delay={index * 100}>
+                <div className="text-center px-4">
+                  <span className="mx-auto mb-5 flex h-12 w-12 items-center justify-center rounded-full bg-primary/10 text-primary">
+                    <item.icon className="h-6 w-6" aria-hidden="true" />
+                  </span>
+                  <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{item.text}</p>
+                  {item.title === 'For schools' && <Button variant="outline" onClick={() => navigate('/contact')} className="mt-5 rounded-xl">Contact Us</Button>}
+                </div>
+              </Reveal>
+            ))}
           </div>
         </div>
       </section>
