@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] Restructure the single homepage around the requested conversion journey: problem, real activity, free first activity, practical experience, $199 annual Premium, continued use, referrals, and school enquiries; preserve existing colours, typography, and navigation.
 - [x] Replace the invented homepage product mock-up with verified screenshots of the real curriculum and activity screens, using only claims visible in the app.
 - [x] Place the user-approved pouring photo only in the homepage Pouring Water sample; keep it out of the homepage opening and separate preview page.
 - [x] Replace the rejected Pouring Water image with the user-approved photograph, verified for AMI setup and anatomy.
