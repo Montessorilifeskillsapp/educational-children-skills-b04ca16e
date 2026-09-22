@@ -34,3 +34,4 @@
 - [x] Add one exact, activity-specific banner to every live activity in Sensorial, Mathematics, Language, Botany, Geography, Cultural/Science, Art, and Grace and Courtesy (all 145 live non-Practical-Life activities have one-to-one section photo mappings; the 69-image backlog is complete).
 - [x] Use the Practical Life activity structure for Mathematics and every other curriculum section while preserving each section's content.
 - [x] Remove fabricated homepage testimonials and false social proof; preserve verified founder credentials and clearly position the app for parents, teachers, caregivers, and assistants rather than children.
+- [x] Remove claims of photo-by-photo or photo-guided presentations; accurately describe written steps, one activity image, and available video.

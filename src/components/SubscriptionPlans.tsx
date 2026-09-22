@@ -58,7 +58,7 @@ const PREMIUM_MONTHLY: Plan = {
   description: 'Full curriculum, billed monthly. Cancel anytime.',
   features: [
     '100+ AMI-aligned activities across all 8 areas',
-    'Step-by-step photo presentations for every activity',
+    'Written presentation steps for every activity',
     'New activities added every month',
     'Multiple child profiles & individual progress',
     'Priority support',
@@ -73,7 +73,7 @@ const PREMIUM_YEARLY: Plan = {
   description: "Best value — save $149 vs monthly. Two months free.",
   features: [
     '100+ AMI-aligned activities across all 8 areas',
-    'Step-by-step photo presentations for every activity',
+    'Written presentation steps for every activity',
     'New activities added every month',
     'Multiple child profiles & individual progress',
     'Priority support',
