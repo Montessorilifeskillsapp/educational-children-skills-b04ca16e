@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] Replace the invented homepage product mock-up with verified screenshots of the real curriculum and activity screens, using only claims visible in the app.
 - [x] Place the user-approved pouring photo only in the homepage Pouring Water sample; keep it out of the homepage opening and separate preview page.
 - [x] Replace the rejected Pouring Water image with the user-approved photograph, verified for AMI setup and anatomy.
 - [x] Correct the Pouring Water photograph to an exact AMI Montessori setup before completing homepage verification.
