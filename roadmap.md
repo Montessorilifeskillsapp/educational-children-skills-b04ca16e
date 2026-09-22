@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Place the user-approved pouring hero photo (uploaded hero-child-pouring-candidate.jpg) after verifying grip, spout, and AMI setup.
 - [ ] Replace the rejected Pouring Water image only after its AMI setup and anatomy are individually verified.
 - [ ] Correct the Pouring Water photograph to an exact AMI Montessori setup before completing homepage verification.
 - [x] Restructure the homepage around the real product: problem, walkthrough, three-step method, audiences, sample activity, curriculum, authority, verified proof only, and accurate pricing.
