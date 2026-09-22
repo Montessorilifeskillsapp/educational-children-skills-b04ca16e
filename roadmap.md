@@ -1,7 +1,7 @@
 ## Open tasks
-- [ ] Place the user-approved pouring hero photo (uploaded hero-child-pouring-candidate.jpg) after verifying grip, spout, and AMI setup.
-- [ ] Replace the rejected Pouring Water image only after its AMI setup and anatomy are individually verified.
-- [ ] Correct the Pouring Water photograph to an exact AMI Montessori setup before completing homepage verification.
+- [x] Place the user-approved pouring hero photo (hero-child-pouring-approved.jpg) on the homepage opening and the pouring preview page; grip and spout verified, all photos load.
+- [x] Replace the rejected Pouring Water image with the user-approved photograph, verified for AMI setup and anatomy.
+- [x] Correct the Pouring Water photograph to an exact AMI Montessori setup before completing homepage verification.
 - [x] Restructure the homepage around the real product: problem, walkthrough, three-step method, audiences, sample activity, curriculum, authority, verified proof only, and accurate pricing.
 - [x] Move Sensorial, Mathematics, Language, Botany, Geography, Science, Art, and Grace and Courtesy onto the full Practical Life activity template. All 145 non-Practical-Life activities have exact photo mappings; live section checks confirm the photo, materials, presentation steps, and back control. Saved purchase links and protected-video integration are shared; missing URLs/videos still require admin entries.
 - [x] Match full Science, Art, and Grace and Courtesy activity pages to a single Practical Life template, preserving curriculum and banners; four free starters browser-tested, 51 tests pass. Paid video playback remains unverified.
