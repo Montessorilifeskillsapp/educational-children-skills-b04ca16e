@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { Mail, MessageSquare, Phone, MapPin } from 'lucide-react';
+import { Mail, MessageSquare } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
 const ContactPage: React.FC = () => {
@@ -77,21 +77,6 @@ const ContactPage: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="font-medium">Phone</p>
-                    <p className="text-sm text-muted-foreground">+1 (555) 123-4567</p>
-                  </div>
-                </div>
-                
-                <div className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-primary" />
-                  <div>
-                    <p className="font-medium">Address</p>
-                    <p className="text-sm text-muted-foreground">123 Learning Street<br />Education City, EC 12345</p>
-                  </div>
-                </div>
               </div>
               
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
