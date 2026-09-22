@@ -113,8 +113,8 @@ describe('Home Component', () => {
 
     it('identifies the app as an adult preparation guide', () => {
       renderHome();
-      expect(screen.getByRole('heading', { name: /Authentic Montessori, Clearly and beautifully presented/i })).toBeInTheDocument();
-      expect(screen.getByText(/A preparation and presentation guide for parents/i)).toBeInTheDocument();
+      expect(screen.getByRole('heading', { name: /Know exactly what to teach — and how to present it/i })).toBeInTheDocument();
+      expect(screen.getByText(/built for parents, teachers and classroom assistants/i)).toBeInTheDocument();
     });
 
     it('renders CTA section', () => {
