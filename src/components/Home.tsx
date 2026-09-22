@@ -96,7 +96,7 @@ const curriculumAreas = [
 const howItWorks = [
   {
     step: '01',
-    title: 'Choose an Activity',
+    title: 'Choose a Presentation',
     desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
     image: stepChooseActivity,
     alt: 'Low Montessori shelf with practical life activities on trays',
@@ -104,14 +104,14 @@ const howItWorks = [
   {
     step: '02',
     title: 'Follow the Guide',
-    desc: 'Get step-by-step presentation instructions with photos, videos, and material lists — no Montessori training required.',
+    desc: 'Prepare with step-by-step instructions, photographs, videos, and material lists before presenting the activity.',
     image: stepFollowGuide,
     alt: 'Guide presenting the pouring water activity to a child',
   },
   {
     step: '03',
-    title: 'Watch Independence Grow',
-    desc: 'You present the lesson, then step back as your child repeats the work and builds concentration and independence.',
+    title: 'Observe the Child',
+    desc: 'Present the lesson, then allow the child time to repeat the work and develop through purposeful activity.',
     image: stepTrackProgress,
     alt: 'Child concentrating while building the pink tower',
   },
@@ -128,16 +128,9 @@ const benefits = [
   { icon: CheckCircle, title: 'AMI-Aligned Curriculum', desc: 'Every activity follows authentic Montessori sequences and pedagogy.' },
   { icon: Target, title: 'Age-Appropriate Guidance', desc: 'Activities organized by developmental readiness, not just age.' },
   { icon: Award, title: 'No Teaching Experience Needed', desc: 'Clear, visual step-by-step instructions for every activity.' },
-  { icon: Clock, title: 'Works Offline', desc: 'Download activities and access them anywhere, anytime.' },
+  { icon: Clock, title: 'Prepare in Advance', desc: 'Review the activity, materials, and presentation before working with the child.' },
   { icon: BarChart3, title: 'Progress Tracking', desc: 'Visual reports show your child\'s growth across all skill areas.' },
   { icon: Users2, title: 'Multiple Profiles', desc: 'Track progress for each of your children individually.' },
-];
-
-const testimonials = [
-  { quote: 'My daughter loves the hands-on activities. She\'s gained so much independence in just 3 weeks!', author: 'Sarah M.', role: 'Parent of 4-year-old', stars: 5 },
-  { quote: 'Finally, authentic Montessori education at home. The step-by-step guidance is perfect for non-teachers.', author: 'Maria K.', role: 'Montessori Educator', stars: 5 },
-  { quote: 'The progress tracking helps me see exactly how my son is developing. Worth every penny.', author: 'David L.', role: 'Father of twins', stars: 5 },
-  { quote: 'I went from overwhelmed to confident. My classroom assistant uses this daily for activity prep.', author: 'Jessica T.', role: 'Preschool Teacher', stars: 5 },
 ];
 
 const pricingPlans = [
@@ -157,7 +150,7 @@ const pricingPlans = [
     price: 29,
     period: '/month',
     tagline: 'Unlock full potential',
-    features: ['100+ Montessori life skill activities', 'All new content every month', 'Progress badges & certificates', 'Family dashboard with skill tracking', 'Yearly plan: $199 (43% off)'],
+    features: ['100+ Montessori activities', 'Step-by-step adult presentation guides', 'Materials lists and instructional videos', 'Family dashboard with skill tracking', 'Yearly plan: $199 (43% off)'],
     cta: 'Start Free Trial',
     highlight: true,
   },
@@ -175,9 +168,9 @@ const pricingPlans = [
 
 const faqs = [
   { q: 'Do I need Montessori training to use this app?', a: 'Not at all. Every activity includes clear, visual step-by-step instructions written for parents and caregivers with no teaching background. We explain the "why" behind each activity so you feel confident guiding your child.' },
-  { q: 'What age range is this designed for?', a: 'The activities are designed for children ages 2–6, organized by developmental readiness rather than strict age. This follows true Montessori principles where children progress at their own pace.' },
+  { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
   { q: 'Can I use this for multiple children?', a: 'Yes. Premium plans include multiple child profiles so you can track each child\'s progress individually, with personalized recommendations based on their developmental stage.' },
-  { q: 'Does this work without internet?', a: 'Yes. Once you\'ve loaded an activity, it works offline. This is perfect for using the app in classrooms, while traveling, or in areas with limited connectivity.' },
+  { q: 'Does this work without internet?', a: 'An internet connection is needed for current activity content, purchase links, account features, and protected videos.' },
   { q: 'How is this different from free Montessori resources online?', a: 'Unlike scattered blog posts and Pinterest ideas, our curriculum is a complete, sequenced program aligned with AMI standards. Every activity builds on the last, with proper presentation techniques and control of error.' },
   { q: 'What if I\'m not satisfied?', a: 'We offer a 30-day money-back guarantee on all premium plans. If you don\'t see your child growing in independence and confidence, we\'ll refund your subscription — no questions asked.' },
   { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
@@ -187,7 +180,7 @@ const stats = [
   { value: '100+', label: 'Guided activities' },
   { value: '8', label: 'Curriculum areas' },
   { value: 'AMI', label: 'Aligned method' },
-  { value: '2–6', label: 'Years old' },
+  { value: '3–6', label: 'Years old' },
 ];
 
 // Curriculum area nav links are built inside the component to access handlers
@@ -401,7 +394,7 @@ const Home: React.FC<HomeProps> = ({
               </h1>
 
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                Everything you need to confidently guide a child through a complete Montessori 3–6 curriculum—precise presentations, carefully sequenced activities, clear materials guidance, progress tracking, and convenient links to recommended products. Created by an AMI-trained Montessori educator for parents, homeschoolers, caregivers, classroom assistants, and teachers. Prepared adults. Independent children.
+                A preparation and presentation guide for parents, homeschoolers, caregivers, classroom assistants, and teachers working with children ages 3–6. Review precise presentations, sequenced activities, materials guidance, progress records, and instructional videos before the child works off-screen with real materials. Created by an AMI-trained Montessori educator. Prepared adults. Independent children.
               </p>
 
               <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
@@ -410,7 +403,7 @@ const Home: React.FC<HomeProps> = ({
                   size="lg"
                   className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Start Free Journey <ArrowRight className="ml-2 h-5 w-5" />
+                  Explore Free Activities <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <button
                   type="button"
@@ -455,7 +448,7 @@ const Home: React.FC<HomeProps> = ({
                 <span className="text-primary">confident guidance.</span>
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
-                Everything you need to prepare and present authentic Montessori lessons for children ages 2–6.
+                Everything the adult guide needs to prepare and present Montessori lessons for children ages 3–6.
               </p>
             <Button
               onClick={onGetStarted}
@@ -700,7 +693,7 @@ const Home: React.FC<HomeProps> = ({
                 Everything You Need, All in One Place
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Authentic Montessori curriculum, expert guidance, and progress tracking — designed for real parents and educators.
+                Montessori curriculum, adult presentation guidance, and progress records in one organized resource.
               </p>
             </div>
           </Reveal>
@@ -732,7 +725,7 @@ const Home: React.FC<HomeProps> = ({
             <div className="text-center mb-14">
               <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Complete Curriculum</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                8 Montessori Areas. Endless Growth.
+                 Eight Montessori Curriculum Areas
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
                 Covering all primary curriculum areas aligned with AMI standards — from Practical Life to Grace & Courtesy.
@@ -776,7 +769,7 @@ const Home: React.FC<HomeProps> = ({
                 How It Works
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Get started in minutes, not months. No lesson planning, no prep work.
+                 Choose an activity, prepare the materials, review the presentation, and then invite the child to work.
               </p>
             </div>
           </Reveal>
@@ -820,7 +813,7 @@ const Home: React.FC<HomeProps> = ({
                 Parents, Teachers & Assistants
               </h2>
               <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Whether you're homeschooling one child or managing a classroom, we've got you covered.
+                 Designed for adults preparing Montessori activities at home, in homeschool settings, and in classrooms.
               </p>
             </div>
           </Reveal>
@@ -916,48 +909,6 @@ const Home: React.FC<HomeProps> = ({
               </div>
             </div>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Social Proof / Testimonials ─── */}
-      <section id="reviews" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Loved By Families</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Real Stories, Real Results
-              </h2>
-              <div className="flex items-center justify-center gap-2 mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
-                ))}
-                <span className="ml-2 text-lg font-bold text-slate-800">4.9/5</span>
-              </div>
-              <p className="text-slate-500">From 2,000+ reviews</p>
-            </div>
-          </Reveal>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
-            {testimonials.map((t, i) => (
-              <Reveal key={i} delay={i * 100}>
-                <Card className="h-full bg-white border border-slate-100 hover:border-primary/15 hover:shadow-lg transition-all duration-300">
-                  <CardContent className="p-5">
-                    <div className="flex gap-0.5 mb-3">
-                      {[...Array(t.stars)].map((_, s) => (
-                        <Star key={s} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                      ))}
-                    </div>
-                    <p className="text-slate-700 mb-4 leading-relaxed text-sm italic">"{t.quote}"</p>
-                    <div>
-                      <p className="font-semibold text-slate-900 text-sm">{t.author}</p>
-                      <p className="text-xs text-slate-500">{t.role}</p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
         </div>
       </section>
 
@@ -1058,10 +1009,10 @@ const Home: React.FC<HomeProps> = ({
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Ready to Transform Your Child's Learning?
+              Ready to Prepare Your Next Presentation?
             </h2>
             <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Join thousands of families building independence, confidence, and real-world skills through authentic Montessori education.
+              Use the adult guide to choose an activity, gather the materials, and present the lesson clearly while the child learns through hands-on work.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
               <Button
@@ -1069,7 +1020,7 @@ const Home: React.FC<HomeProps> = ({
                 size="lg"
                 className="bg-white text-primary hover:bg-gray-50 px-10 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 font-bold"
               >
-                Start Your Free Journey <ArrowRight className="ml-2 h-5 w-5" />
+                Explore Free Activities <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 onClick={onSubscriptionView}
@@ -1112,7 +1063,7 @@ const Home: React.FC<HomeProps> = ({
                 <span className="font-bold text-white text-lg">Montessori Life Skills</span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                Helping parents and educators teach essential life skills to children ages 2–6 using the proven Montessori method.
+                An adult preparation and presentation resource for parents, educators, caregivers, and classroom assistants guiding children ages 3–6.
               </p>
             </div>
             <div>

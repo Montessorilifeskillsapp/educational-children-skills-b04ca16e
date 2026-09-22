@@ -10,8 +10,8 @@ const features = [
   { icon: Hand, title: 'Hands-On Learning', desc: 'Authentic Montessori materials guide each activity, from the Pink Tower to the Golden Beads.' },
   { icon: Brain, title: 'AMI Curriculum', desc: 'Eight prepared areas — Practical Life, Sensorial, Language, Math, Geography, Botany, Art, and Grace & Courtesy.' },
   { icon: Leaf, title: 'Calm by Design', desc: 'A focused, distraction-free interface that respects the child and the prepared environment.' },
-  { icon: Sparkles, title: 'Photoreal Materials', desc: 'Every lesson uses true-to-life imagery of authentic Montessori apparatus.' },
-  { icon: BookOpen, title: 'Five-Phase Lessons', desc: 'Presentation, exploration, language, repetition, and extension — exactly as Maria Montessori designed.' },
+  { icon: Sparkles, title: 'Activity Photographs', desc: 'Each activity is paired with a photograph of its specific materials or presentation.' },
+  { icon: BookOpen, title: 'Structured Presentations', desc: 'Review the purpose, materials, presentation steps, and teaching notes before inviting the child.' },
   { icon: Users, title: 'Family Dashboard', desc: 'Built for parents, teachers, and assistants to guide the child together.' },
 ];
 
@@ -32,12 +32,11 @@ const LandingPage: React.FC = () => {
               <span className="text-primary">Prepare the environment.</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-prose">
-              A quiet, beautifully crafted Montessori companion for families and educators —
-              authentic materials, precise presentations, and the freedom to let the child lead.
+              An adult preparation guide for parents, homeschoolers, caregivers, classroom assistants, and teachers — with materials lists, precise presentations, and activities for children ages 3–6.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg" className="rounded-full px-7">
-                <Link to="/">Begin the Journey</Link>
+                <Link to="/">Open the Adult Guide</Link>
               </Button>
               <Button asChild size="lg" variant="outline" className="rounded-full px-7">
                 <Link to="/about">Our Approach</Link>
@@ -62,7 +61,7 @@ const LandingPage: React.FC = () => {
         <div className="max-w-2xl mb-14">
           <p className="text-sm uppercase tracking-[0.2em] text-secondary font-medium mb-3">What's inside</p>
           <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
-            A complete prepared environment, on every screen.
+            Prepare before you present.
           </h2>
         </div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -88,10 +87,10 @@ const LandingPage: React.FC = () => {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,hsl(var(--background)/0.25),transparent_60%)]" />
           <div className="relative max-w-2xl mx-auto space-y-5">
             <h2 className="text-3xl md:text-4xl font-semibold tracking-tight">
-              Bring the Montessori method home today.
+              Prepare a Montessori activity today.
             </h2>
             <p className="text-base md:text-lg opacity-90">
-              Start with a free activity from each curriculum area. No setup, no clutter — just the child and the work.
+              Start with a free activity from each curriculum area, review the materials and presentation, then guide the child off-screen.
             </p>
             <Button asChild size="lg" variant="secondary" className="rounded-full px-8 mt-2">
               <Link to="/">Explore Free Activities</Link>

@@ -111,10 +111,10 @@ describe('Home Component', () => {
       expect(screen.getAllByText('Math').length).toBeGreaterThan(0);
     });
 
-    it('renders testimonials section', () => {
+    it('identifies the app as an adult preparation guide', () => {
       renderHome();
-      expect(screen.getByText(/My daughter loves the hands-on activities/)).toBeInTheDocument();
-      expect(screen.getByText('Sarah M.')).toBeInTheDocument();
+      expect(screen.getByText(/A preparation and presentation guide for parents/)).toBeInTheDocument();
+      expect(screen.getByText(/the child works off-screen with real materials/)).toBeInTheDocument();
     });
 
     it('renders CTA section', () => {
@@ -151,11 +151,12 @@ describe('Home Component', () => {
       expect(sectionHeadings.length).toBeGreaterThan(0);
     });
 
-    it('has properly structured testimonials', () => {
+    it('does not render fabricated testimonials or social proof', () => {
       renderHome();
-      expect(screen.getByText('Sarah M.')).toBeInTheDocument();
-      expect(screen.getByText('Maria K.')).toBeInTheDocument();
-      expect(screen.getByText('David L.')).toBeInTheDocument();
+      expect(screen.queryByText('Sarah M.')).not.toBeInTheDocument();
+      expect(screen.queryByText('Maria K.')).not.toBeInTheDocument();
+      expect(screen.queryByText('David L.')).not.toBeInTheDocument();
+      expect(screen.queryByText(/2,000\+ reviews/i)).not.toBeInTheDocument();
     });
   });
 
