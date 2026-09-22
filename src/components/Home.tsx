@@ -487,7 +487,7 @@ const Home: React.FC<HomeProps> = ({
                   </p>
                   <ul className="space-y-2.5">
                     {[
-                      'Step-by-step photo and video presentations',
+                      'Written presentation steps and instructional videos',
                       'Materials sourcing with Amazon links',
                       'AMI-aligned sequencing and control of error',
                     ].map((item) => (
@@ -559,7 +559,7 @@ const Home: React.FC<HomeProps> = ({
                 A peek at real activities
               </h2>
               <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Every activity uses authentic materials with a clear, photo-guided presentation.
+                Every activity includes an exact activity image, a materials list, and written presentation steps.
               </p>
             </div>
           </Reveal>

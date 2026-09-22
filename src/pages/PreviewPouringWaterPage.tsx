@@ -22,7 +22,7 @@ const PreviewPouringWaterPage: React.FC = () => {
 
   useSEO({
     title: 'Pouring Water — A Free Montessori Activity for Ages 2½–4',
-    description: 'A complete AMI-aligned Montessori Practical Life activity. Step-by-step photo guide for teaching pouring water at home. No signup required.',
+    description: 'A complete AMI-aligned Montessori Practical Life activity with materials and written presentation steps for pouring water at home. No signup required.',
     canonical: 'https://montessorilifeskillsapp.com/preview/pouring-water',
   });
 

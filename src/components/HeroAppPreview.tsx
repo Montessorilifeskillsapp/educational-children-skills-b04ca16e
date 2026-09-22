@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { CheckCircle2, ChevronLeft, Play, Sparkles } from 'lucide-react';
 import { montessoriImages } from '@/assets/images';
-import childPouringStep from '@/assets/child-pouring-step.jpg';
 
 const SCREENS = [
   {
@@ -28,7 +27,7 @@ const SCREENS = [
     ),
   },
   {
-    label: '2. Follow the photo guide',
+    label: '2. Review the written steps',
     render: () => (
       <div className="h-full flex flex-col bg-background">
         <div className="px-4 pt-4 pb-2 flex items-center gap-1.5">
@@ -40,17 +39,18 @@ const SCREENS = [
             ))}
           </div>
         </div>
-        <div className="flex-1 mx-4 rounded-xl overflow-hidden bg-muted">
-          <img
-            src={childPouringStep}
-            alt=""
-            className="w-full h-full object-cover"
-          />
+        <div className="flex-1 mx-4 rounded-xl bg-muted p-4 text-left">
+          <p className="text-[9px] uppercase font-semibold text-primary mb-2">Show the child</p>
+          <ol className="space-y-2 text-[10px] text-muted-foreground leading-snug">
+            <li><span className="font-semibold text-foreground">1.</span> Grasp the pitcher handle slowly.</li>
+            <li><span className="font-semibold text-foreground">2.</span> Lift and position it above the empty pitcher.</li>
+            <li><span className="font-semibold text-foreground">3.</span> Tilt gently until the water begins to flow.</li>
+          </ol>
         </div>
         <div className="px-4 py-3">
           <p className="text-[11px] font-semibold text-foreground mb-1">Pour slowly and steadily</p>
           <p className="text-[10px] text-muted-foreground leading-snug">
-            Tilt the pitcher gently. Watch the water — stop when it reaches the line.
+            Read the complete presentation before inviting the child to the activity.
           </p>
         </div>
       </div>
@@ -104,7 +104,7 @@ const HeroAppPreview: React.FC = () => {
               From overwhelmed to confident, in three taps.
             </h2>
             <p className="text-lg text-muted-foreground leading-relaxed mb-8">
-              Open the app each morning, see exactly what to do today, and follow a clear photo-by-photo presentation. No lesson planning, no guesswork.
+              Choose an activity, review its materials and written presentation steps, then prepare to guide the child. Instructional videos are available where provided.
             </p>
             <ul className="space-y-3">
               {SCREENS.map((s, i) => (
