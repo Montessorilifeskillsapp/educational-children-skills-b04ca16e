@@ -1,5 +1,5 @@
 ## Open tasks
-- [x] Place the user-approved pouring hero photo (hero-child-pouring-approved.jpg) on the homepage opening and the pouring preview page; grip and spout verified, all photos load.
+- [x] Place the user-approved pouring photo only in the homepage Pouring Water sample; keep it out of the homepage opening and separate preview page.
 - [x] Replace the rejected Pouring Water image with the user-approved photograph, verified for AMI setup and anatomy.
 - [x] Correct the Pouring Water photograph to an exact AMI Montessori setup before completing homepage verification.
 - [x] Restructure the homepage around the real product: problem, walkthrough, three-step method, audiences, sample activity, curriculum, authority, verified proof only, and accurate pricing.
@@ -41,4 +41,4 @@
 - [x] Remove claims of photo-by-photo or photo-guided presentations; accurately describe written steps, one activity image, and available video.
 - [x] Rebuild the homepage around a truthful adult-guide journey, preserving colors and curriculum access.
 
-- [ ] Homepage Pouring Water photo: child pouring with correct two-hand grip (fingers under spout); hands rejected once, regenerate and verify before placing
+- [x] Homepage Pouring Water sample photo: use the user-approved image only in this sample section.
