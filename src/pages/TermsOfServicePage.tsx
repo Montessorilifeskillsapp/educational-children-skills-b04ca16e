@@ -141,8 +141,7 @@ const TermsOfServicePage: React.FC = () => {
                   For questions about these Terms of Service, please contact us at:
                 </p>
                 <p className="mt-2">
-                  Email: support@montessorilifeskills.com<br />
-                  Address: [Your Business Address]
+                  Email: support@montessorilifeskills.com
                 </p>
               </section>
             </CardContent>
