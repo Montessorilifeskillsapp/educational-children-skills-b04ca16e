@@ -99,7 +99,7 @@ export const skillsData: Record<string, SkillData> = {
     materials: ['Two matching pitchers', 'Water', 'Tray', 'Sponge', 'Towel'],
     steps: [
       { id: '1', instruction: 'Place both pitchers on tray with sponge', completed: false },
-      { id: '2', instruction: 'Hold pitcher handle with dominant hand', completed: false },
+      { id: '2', instruction: 'Hold the handle with one hand and support the spout with two fingers of the other hand', completed: false },
       { id: '3', instruction: 'Pour slowly from one pitcher to the other', completed: false },
       { id: '4', instruction: 'Pour water back to original pitcher', completed: false },
       { id: '5', instruction: 'Clean up any spills with sponge', completed: false }

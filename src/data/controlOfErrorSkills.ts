@@ -11,7 +11,7 @@ export const controlOfErrorSkills = {
     materials: ['Two identical pitchers', 'Water', 'Sponge', 'Tray'],
     steps: [
       'I position both pitchers on tray with spouts facing same direction, 2 inches apart',
-      'I hold filled pitcher with both hands: dominant hand on handle, other supporting base',
+      'I hold the filled pitcher with both hands: dominant hand on the handle, two fingers of the other hand under the spout',
       'I lift and tilt pitcher slowly until water stream is thin as pencil lead',
       'I observe water level rising - any spills create immediate visual feedback on tray',
       'I dab spilled water with sponge using gentle pressing motion, wringing into pitcher',

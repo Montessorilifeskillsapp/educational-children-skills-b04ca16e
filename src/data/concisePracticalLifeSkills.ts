@@ -47,7 +47,7 @@ export const concisePracticalLifeSkills: Record<string, EnhancedMontessoriSkill>
         description: 'Show complete pouring sequence',
         steps: [
           'Carry tray to table',
-          'Grip pitcher handles firmly',
+          'Hold the handle and place two fingers under the spout',
           'Pour steadily between pitchers',
           'Pour back to original',
           'Clean spills immediately',
