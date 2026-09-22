@@ -66,7 +66,7 @@ export const controlOfMovementSkills = {
     steps: [
       { id: '1', instruction: 'I place filled pitcher on left, empty pitcher on right, both centered on tray', completed: false },
       { id: '2', instruction: 'I grasp handle with dominant hand, thumb on top pointing toward spout', completed: false },
-      { id: '3', instruction: 'I support pitcher bottom with non-dominant hand for steady control', completed: false },
+      { id: '3', instruction: 'I place two fingers of my other hand under the spout and keep them there for steady control', completed: false },
       { id: '4', instruction: 'I tilt pitcher slowly until material begins flowing in thin, steady stream', completed: false },
       { id: '5', instruction: 'I stop when receiving pitcher is 3/4 full, avoiding overflow', completed: false },
       { id: '6', instruction: 'I return pitcher to left position with controlled, deliberate movement', completed: false },

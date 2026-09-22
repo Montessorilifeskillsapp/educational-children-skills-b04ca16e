@@ -10,8 +10,8 @@ import heroPouring from '@/assets/hero-child-pouring.jpg';
 const STEPS = [
   { title: 'Prepare the tray', body: 'Set out two small glass pitchers on a tray. Fill the left pitcher about one-third with water (add a drop of food colouring to make the level visible).' },
   { title: 'Invite the child', body: '"Would you like me to show you how to pour water?" Walk together to a small table with the child to your dominant-hand side.' },
-  { title: 'Show the grasp', body: 'Slowly grasp the handle with your dominant hand. Place your non-dominant hand on the table, calm and still. Pause so the child sees the grip clearly.' },
-  { title: 'Pour, slowly', body: 'Lift, move over the empty pitcher, and tilt until water flows in a steady stream. Stop before the first pitcher is empty. Replace it gently.' },
+  { title: 'Show the grasp', body: 'Slowly grasp the handle with your dominant hand and place two fingers of your other hand under the spout to support it. Pause so the child sees both hands clearly.' },
+  { title: 'Pour, slowly', body: 'Keeping two fingers under the spout throughout, lift, move over the empty pitcher, and tilt until water flows in a steady stream. Stop before the first pitcher is empty. Replace it gently.' },
   { title: 'Pour back', body: 'Repeat in the other direction so the exercise has a clear cycle. The child watches the full sequence in silence.' },
   { title: 'Hand over', body: '"Would you like a turn?" Step back. Let the child work uninterrupted, even if they spill. A small sponge nearby invites them to clean up themselves.' },
 ];

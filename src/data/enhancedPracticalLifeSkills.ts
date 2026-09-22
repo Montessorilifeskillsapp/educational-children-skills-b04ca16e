@@ -44,7 +44,7 @@ export const enhancedPracticalLifeSkills: Record<string, EnhancedMontessoriSkill
           'Invite child to observe: "Would you like to see how to pour water?"',
           'Carry tray to table using both hands',
           'Sit with child to your right (left-handed: child to left)',
-          'Place hands on pitcher handles, lift slowly',
+          'Hold the handle, place two fingers under the spout, lift slowly',
           'Pour steadily from pitcher to pitcher at moderate speed',
           'Set down first pitcher, lift second pitcher',
           'Pour water back to original pitcher',
