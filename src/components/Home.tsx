@@ -169,10 +169,10 @@ const pricingPlans = [
 const faqs = [
   { q: 'Do I need Montessori training to use this app?', a: 'No. Activities include written presentation steps and teaching notes for parents, caregivers, assistants, and teachers.' },
   { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
-  { q: 'Can I use this for multiple children?', a: 'Yes. Premium plans include multiple child profiles so you can track each child\'s progress individually, with personalized recommendations based on their developmental stage.' },
+  { q: 'Can I use this for multiple children?', a: 'Yes. Premium plans include multiple child profiles so you can record each child\'s progress individually.' },
   { q: 'Does this work without internet?', a: 'An internet connection is needed for current activity content, purchase links, account features, and protected videos.' },
   { q: 'How is the curriculum organized?', a: 'Activities are arranged from introductory to advanced work within each curriculum section, with materials and presentation guidance together in one place.' },
-  { q: 'What if I\'m not satisfied?', a: 'We offer a 30-day money-back guarantee on all premium plans. If you don\'t see your child growing in independence and confidence, we\'ll refund your subscription — no questions asked.' },
+  { q: 'What if I\'m not satisfied?', a: 'Premium plans include a 30-day money-back guarantee. See the guarantee page for details.' },
   { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
 ];
 
