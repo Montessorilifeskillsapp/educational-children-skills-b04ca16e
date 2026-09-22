@@ -16,6 +16,7 @@ import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
+import ExitIntentCapture from './ExitIntentCapture';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -655,6 +656,9 @@ const Home: React.FC<HomeProps> = ({
       <div className="py-4 bg-slate-950 text-center border-t border-slate-800">
         <p className="text-xs text-slate-500">Certain images have been modified using AI.</p>
       </div>
+
+      {/* ─── Exit-intent email capture ─── */}
+      <ExitIntentCapture />
 
       {/* ─── Footer ─── */}
       <footer className="py-12 bg-slate-900 text-slate-300">
