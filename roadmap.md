@@ -39,3 +39,5 @@
 - [x] Remove fabricated homepage testimonials and false social proof; preserve verified founder credentials and clearly position the app for parents, teachers, caregivers, and assistants rather than children.
 - [x] Remove claims of photo-by-photo or photo-guided presentations; accurately describe written steps, one activity image, and available video.
 - [x] Rebuild the homepage around a truthful adult-guide journey, preserving colors and curriculum access.
+
+- [ ] Homepage Pouring Water photo: child pouring with correct two-hand grip (fingers under spout); hands rejected once, regenerate and verify before placing
