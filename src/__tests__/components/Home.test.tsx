@@ -114,7 +114,7 @@ describe('Home Component', () => {
     it('identifies the app as an adult preparation guide', () => {
       renderHome();
       expect(screen.getByRole('heading', { name: /Montessori presentation guidance for adults/ })).toBeInTheDocument();
-      expect(screen.getByText(/the child’s work takes place with real materials, away from the screen/i)).toBeInTheDocument();
+      expect(screen.getByText(/the child’s activity remains hands-on and off-screen/i)).toBeInTheDocument();
     });
 
     it('renders CTA section', () => {
