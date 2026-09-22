@@ -9,6 +9,7 @@ import {
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
 import founderKerry from '@/assets/founder-kerry-howard.png';
+import heroChildPouring from '@/assets/hero-child-pouring-approved.jpg';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
 import { languageImages } from '@/assets/language';
@@ -349,7 +350,18 @@ const Home: React.FC<HomeProps> = ({
             </div>
 
             {/* Right: Hero Image — hidden on mobile */}
-            <div className="hidden lg:block" />
+            <div className="hidden lg:block">
+              <Reveal>
+                <img
+                  src={heroChildPouring}
+                  alt="A child pours water from one small glass pitcher into another on a wooden tray, one hand on the handle and the other supporting the pitcher"
+                  width={1024}
+                  height={1024}
+                  className="w-full max-w-lg mx-auto aspect-square object-cover rounded-3xl border-4 border-card shadow-2xl"
+                  loading="eager"
+                />
+              </Reveal>
+            </div>
           </div>
         </div>
       </section>
