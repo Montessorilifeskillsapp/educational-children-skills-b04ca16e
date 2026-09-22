@@ -387,47 +387,49 @@ const Home: React.FC<HomeProps> = ({
             <div className="text-center lg:text-left">
               <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
                 <Star className="w-3 h-3 text-accent fill-accent" />
-                Authentic Montessori ages 3–6
+                Montessori guidance for the adult
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 leading-[1.15] animate-reveal-delay-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Authentic Montessori, Clearly and beautifully presented.
+                Know exactly what to teach — and how to present it.
               </h1>
 
-              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                A preparation and presentation guide for parents, homeschoolers, caregivers, classroom assistants, and teachers working with children ages 3–6. Review precise presentations, sequenced activities, materials guidance, progress records, and instructional videos before the child works off-screen with real materials. Created by an AMI-trained Montessori educator. Prepared adults. Independent children.
-              </p>
+              <div className="max-w-xl mx-auto lg:mx-0 mb-8 space-y-3 animate-reveal-delay-2">
+                <p className="text-lg sm:text-xl font-medium text-foreground leading-relaxed">
+                  Step-by-step Montessori activities for ages 2–6, built for parents, teachers and classroom assistants.
+                </p>
+                <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
+                  See what to prepare, how to present each activity, what to observe, and what comes next.
+                </p>
+              </div>
 
-              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
+              <div className="flex flex-col sm:flex-row items-center gap-3 justify-center lg:justify-start mb-8 animate-reveal-delay-3">
                 <Button
                   onClick={onGetStarted}
                   size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
+                  className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-primary-foreground px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Explore Free Activities <ArrowRight className="ml-2 h-5 w-5" />
+                  Start Free <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
-                <button
+                <Button
                   type="button"
-                  onClick={onSubscriptionView}
-                  className="text-base font-medium text-foreground/80 hover:text-primary underline-offset-4 hover:underline transition-colors"
+                  variant="outline"
+                  size="lg"
+                  onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
+                  className="w-full sm:w-auto px-8 py-6 text-base rounded-2xl bg-background/70 backdrop-blur-sm"
                 >
-                  View plans →
-                </button>
+                  See How It Works
+                </Button>
               </div>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>No credit card required</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Cancel anytime</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>30-day guarantee</span>
-                </div>
+              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2 text-sm font-medium text-muted-foreground border-t border-border/60 pt-5 animate-reveal-delay-3">
+                <span>100+ activities</span>
+                <span aria-hidden="true" className="text-primary">·</span>
+                <span>Ages 2–6</span>
+                <span aria-hidden="true" className="text-primary">·</span>
+                <span>8 curriculum areas</span>
+                <span aria-hidden="true" className="text-primary">·</span>
+                <span>Step-by-step guidance</span>
               </div>
             </div>
 
