@@ -38,6 +38,7 @@ const ExitIntentCapture: React.FC = () => {
   const triggeredRef = useRef(false);
 
   const eligible =
+    import.meta.env.MODE !== 'test' &&
     !authLoading &&
     !user &&
     typeof window !== 'undefined' &&
