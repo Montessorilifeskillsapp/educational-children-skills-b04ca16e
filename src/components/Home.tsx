@@ -657,6 +657,9 @@ const Home: React.FC<HomeProps> = ({
         <p className="text-xs text-slate-500">Certain images have been modified using AI.</p>
       </div>
 
+      {/* ─── Exit-intent email capture ─── */}
+      <ExitIntentCapture />
+
       {/* ─── Footer ─── */}
       <footer className="py-12 bg-slate-900 text-slate-300">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
