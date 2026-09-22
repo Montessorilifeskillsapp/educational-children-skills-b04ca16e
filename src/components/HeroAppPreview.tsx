@@ -128,7 +128,11 @@ const SCREENS = [
   },
 ];
 
-const HeroAppPreview: React.FC = () => {
+interface HeroAppPreviewProps {
+  onGetStarted: () => void;
+}
+
+const HeroAppPreview: React.FC<HeroAppPreviewProps> = ({ onGetStarted }) => {
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -212,7 +216,7 @@ const HeroAppPreview: React.FC = () => {
             </div>
         <div className="mt-12 text-center">
           <p className="text-xl font-semibold text-foreground mb-5">See it. Present it. Observe. Move forward when the child is ready.</p>
-          <Button size="lg" onClick={() => window.location.assign('/auth')} className="rounded-2xl px-8">Try Your First Activity Free</Button>
+          <Button size="lg" onClick={onGetStarted} className="rounded-2xl px-8">Try Your First Activity Free</Button>
         </div>
           </div>
         </div>

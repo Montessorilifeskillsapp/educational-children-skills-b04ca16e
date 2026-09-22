@@ -2,10 +2,9 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import {
-  ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
-  Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
-  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain, Menu,
-  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
+  ArrowRight, Star, CheckCircle, BookOpen, Target, Award,
+  Home as HomeIcon, GraduationCap, Users2, Lock, ChevronDown, ChevronUp,
+  Globe, Leaf, Palette, HandHelping, Utensils, Brain, Menu, Check
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
@@ -13,9 +12,6 @@ import heroChildPouring from '@/assets/hero-child-pouring.jpg';
 import founderKerry from '@/assets/founder-kerry-howard.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
-import stepChooseActivity from '@/assets/materials/step-choose-activity.jpg';
-import stepFollowGuide from '@/assets/materials/step-follow-guide.jpg';
-import stepTrackProgress from '@/assets/materials/step-track-progress.jpg';
 import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
@@ -93,79 +89,6 @@ const curriculumAreas = [
   { name: 'Grace & Courtesy', icon: HandHelping, color: AREA_BADGE, image: montessoriImages['grace-courtesy-table-setting'] },
 ];
 
-const howItWorks = [
-  {
-    step: '01',
-    title: 'Choose a Presentation',
-    desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
-    image: stepChooseActivity,
-    alt: 'Low Montessori shelf with practical life activities on trays',
-  },
-  {
-    step: '02',
-    title: 'Follow the Guide',
-    desc: 'Prepare with written presentation steps, one activity image, material guidance, and video where available.',
-    image: stepFollowGuide,
-    alt: 'Guide presenting the pouring water activity to a child',
-  },
-  {
-    step: '03',
-    title: 'Observe the Child',
-    desc: 'Present the lesson, then allow the child time to repeat the work and develop through purposeful activity.',
-    image: stepTrackProgress,
-    alt: 'Child concentrating while building the pink tower',
-  },
-];
-
-const painPoints = [
-  'You want to teach independence but don\'t know where to start',
-  'You want an organized sequence instead of scattered activity ideas',
-  'You\'re unsure which activities are age-appropriate for your child',
-  'You spend more time planning than actually doing activities together',
-];
-
-const benefits = [
-  { icon: CheckCircle, title: 'AMI-Aligned Curriculum', desc: 'Every activity follows authentic Montessori sequences and pedagogy.' },
-  { icon: Target, title: 'Age-Appropriate Guidance', desc: 'Activities organized by developmental readiness, not just age.' },
-  { icon: Award, title: 'Adult Presentation Guidance', desc: 'Clear written steps help the adult prepare each presentation.' },
-  { icon: Clock, title: 'Prepare in Advance', desc: 'Review the activity, materials, and presentation before working with the child.' },
-  { icon: BarChart3, title: 'Progress Tracking', desc: 'Visual reports show your child\'s growth across all skill areas.' },
-  { icon: Users2, title: 'Multiple Profiles', desc: 'Track progress for each of your children individually.' },
-];
-
-const pricingPlans = [
-  {
-    id: 'free',
-    name: 'Explorer',
-    price: 0,
-    period: 'Free forever',
-    tagline: 'Start with the basics',
-    features: ['One starter activity in each curriculum section', 'Materials guidance and written presentation steps', 'Gentle, ad-free experience'],
-    cta: 'Start Free',
-    highlight: false,
-  },
-  {
-    id: 'premium',
-    name: 'Premium',
-    price: 29,
-    period: '/month',
-    tagline: 'Unlock full potential',
-    features: ['100+ Montessori activities', 'Step-by-step adult presentation guides', 'Materials lists and instructional videos', 'Family dashboard with skill tracking', 'Yearly plan: $199 (43% off)'],
-    cta: 'Start Free Trial',
-    highlight: true,
-  },
-  {
-    id: 'consultation',
-    name: 'Private Consultation',
-    price: 225,
-    period: '/session',
-    tagline: 'Personalized guidance',
-    features: ['1-on-1 with a Montessori guide', 'Customized curriculum for your child', 'Family lifestyle integration', 'Personalized materials recommendations', 'Written homeschool action plan', 'Follow-up email support (2 weeks)', '3-session package: $600 (save $75)'],
-    cta: 'Inquire via Email',
-    highlight: false,
-  },
-];
-
 const faqs = [
   { q: 'Do I need Montessori training to use this app?', a: 'No. Activities include written presentation steps and teaching notes for parents, caregivers, assistants, and teachers.' },
   { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
@@ -174,13 +97,6 @@ const faqs = [
   { q: 'How is the curriculum organized?', a: 'Activities are arranged from introductory to advanced work within each curriculum section, with materials and presentation guidance together in one place.' },
   { q: 'What if I\'m not satisfied?', a: 'Premium plans include a 30-day money-back guarantee. See the guarantee page for details.' },
   { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
-];
-
-const stats = [
-  { value: '100+', label: 'Guided activities' },
-  { value: '8', label: 'Curriculum areas' },
-  { value: 'AMI', label: 'Aligned method' },
-  { value: '3–6', label: 'Years old' },
 ];
 
 // Curriculum area nav links are built inside the component to access handlers
@@ -478,7 +394,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Product Walkthrough ─── */}
-      <HeroAppPreview />
+      <HeroAppPreview onGetStarted={onGetStarted} />
 
       {/* ─── Three-Step Mechanism ─── */}
       <section id="how-it-works" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
