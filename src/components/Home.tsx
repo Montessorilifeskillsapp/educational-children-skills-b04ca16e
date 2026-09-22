@@ -16,6 +16,7 @@ import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
+import ExitIntentCapture from './ExitIntentCapture';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
