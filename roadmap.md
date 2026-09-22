@@ -33,3 +33,4 @@
 - [x] Remove inaccurate or unverified activity banners across Sensorial, Math, Language, Botany, Geography, Science, Art, and Grace and Courtesy; Practical Life's curated photographs remain unchanged.
 - [x] Add one exact, activity-specific banner to every live activity in Sensorial, Mathematics, Language, Botany, Geography, Cultural/Science, Art, and Grace and Courtesy (all 145 live non-Practical-Life activities have one-to-one section photo mappings; the 69-image backlog is complete).
 - [x] Use the Practical Life activity structure for Mathematics and every other curriculum section while preserving each section's content.
+- [ ] Remove fabricated testimonials and unsupported claims from the homepage and `/welcome`; retain only verifiable product descriptions.
