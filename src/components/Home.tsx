@@ -1,33 +1,24 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, Award, BookOpen, CheckCircle2, Leaf, Menu, PlayCircle, ShoppingBag, Users2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
-import {
-  ArrowRight, Star, CheckCircle, Sparkles, BookOpen, Target, Award, Heart,
-  Home as HomeIcon, GraduationCap, Users2, Play, Lock, ChevronDown, ChevronUp,
-  Baby, Globe, Leaf, Palette, Music, HandHelping, Utensils, Brain, Menu,
-  Check, Crown, Zap, Shield, Clock, BarChart3, Printer, Headphones
-} from 'lucide-react';
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
+import { useAuthContext } from '@/components/AuthProvider';
 import { montessoriImages } from '@/assets/images';
 import heroChildPouring from '@/assets/hero-child-pouring.jpg';
 import founderKerry from '@/assets/founder-kerry-howard.png';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
-import stepChooseActivity from '@/assets/materials/step-choose-activity.jpg';
-import stepFollowGuide from '@/assets/materials/step-follow-guide.jpg';
-import stepTrackProgress from '@/assets/materials/step-track-progress.jpg';
 import { languageImages } from '@/assets/language';
 import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
-import InstallBanner from './InstallBanner';
-import HeroAppPreview from './HeroAppPreview';
+import { culturalImages } from '@/assets/cultural';
+import { artImages } from '@/assets/art';
+import { graceCourtesyImages } from '@/assets/grace-courtesy';
 import SocialLinks from './SocialLinks';
-import ShareThisPage from './ShareThisPage';
-import { useAuthContext } from '@/components/AuthProvider';
-import { Link, useNavigate } from 'react-router-dom';
-import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel';
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -46,19 +37,20 @@ interface HomeProps {
   onProfilesView?: () => void;
 }
 
-// ─── Scroll-reveal hook ───
-function useReveal(threshold = 0.12) {
+function useReveal(threshold = 0.1) {
   const ref = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
   useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setRevealed(true); obs.disconnect(); } },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
+    const node = ref.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setRevealed(true);
+        observer.disconnect();
+      }
+    }, { threshold });
+    observer.observe(node);
+    return () => observer.disconnect();
   }, [threshold]);
   return { ref, revealed };
 }
@@ -68,1037 +60,258 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: 
   return (
     <div
       ref={ref}
-      className={`transition-all duration-700 ${className}`}
-      style={{
-        opacity: revealed ? 1 : 0,
-        transform: revealed ? 'translateY(0)' : 'translateY(28px)',
-        transitionDelay: `${delay}ms`
-      }}
+      className={`transition-all duration-700 motion-reduce:transition-none ${className}`}
+      style={{ opacity: revealed ? 1 : 0, transform: revealed ? 'translateY(0)' : 'translateY(20px)', transitionDelay: `${delay}ms` }}
     >
       {children}
     </div>
   );
 };
 
-// Uniform badge styling across all curriculum areas for visual consistency
-const AREA_BADGE = 'from-primary to-accent';
-const curriculumAreas = [
-  { name: 'Practical Life', icon: Utensils, color: AREA_BADGE, image: montessoriImages['pouring-set'] },
-  { name: 'Sensorial', icon: Brain, color: AREA_BADGE, image: sensorialImages['pink-tower'] },
-  { name: 'Mathematics', icon: Target, color: AREA_BADGE, image: mathImages['golden-beads'] },
-  { name: 'Language', icon: BookOpen, color: AREA_BADGE, image: languageImages['sandpaper-letters'] },
-  { name: 'Geography', icon: Globe, color: AREA_BADGE, image: geographyImages['continents'] },
-  { name: 'Botany', icon: Leaf, color: AREA_BADGE, image: botanyImages['flower-parts'] },
-  { name: 'Art', icon: Palette, color: AREA_BADGE, image: sensorialImages['color-tablets'] },
-  { name: 'Grace & Courtesy', icon: HandHelping, color: AREA_BADGE, image: montessoriImages['grace-courtesy-table-setting'] },
-];
-
-const howItWorks = [
-  {
-    step: '01',
-    title: 'Choose a Presentation',
-    desc: 'Browse 100+ authentic Montessori activities organized by skill area and developmental readiness.',
-    image: stepChooseActivity,
-    alt: 'Low Montessori shelf with practical life activities on trays',
-  },
-  {
-    step: '02',
-    title: 'Follow the Guide',
-    desc: 'Prepare with step-by-step instructions, photographs, videos, and material lists before presenting the activity.',
-    image: stepFollowGuide,
-    alt: 'Guide presenting the pouring water activity to a child',
-  },
-  {
-    step: '03',
-    title: 'Observe the Child',
-    desc: 'Present the lesson, then allow the child time to repeat the work and develop through purposeful activity.',
-    image: stepTrackProgress,
-    alt: 'Child concentrating while building the pink tower',
-  },
-];
-
-const painPoints = [
-  'You want to teach independence but don\'t know where to start',
-  'Pinterest has ideas but no real Montessori sequence or methodology',
-  'You\'re unsure which activities are age-appropriate for your child',
-  'You spend more time planning than actually doing activities together',
-];
-
-const benefits = [
-  { icon: CheckCircle, title: 'AMI-Aligned Curriculum', desc: 'Every activity follows authentic Montessori sequences and pedagogy.' },
-  { icon: Target, title: 'Age-Appropriate Guidance', desc: 'Activities organized by developmental readiness, not just age.' },
-  { icon: Award, title: 'No Teaching Experience Needed', desc: 'Clear, visual step-by-step instructions for every activity.' },
-  { icon: Clock, title: 'Prepare in Advance', desc: 'Review the activity, materials, and presentation before working with the child.' },
-  { icon: BarChart3, title: 'Progress Tracking', desc: 'Visual reports show your child\'s growth across all skill areas.' },
-  { icon: Users2, title: 'Multiple Profiles', desc: 'Track progress for each of your children individually.' },
-];
-
-const pricingPlans = [
-  {
-    id: 'free',
-    name: 'Explorer',
-    price: 0,
-    period: 'Free forever',
-    tagline: 'Start with the basics',
-    features: ['3 core activities (pouring, sweeping, rolling a mat)', 'Daily Life Skill Prompt', 'Gentle, ad-free experience'],
-    cta: 'Start Free',
-    highlight: false,
-  },
-  {
-    id: 'premium',
-    name: 'Premium',
-    price: 29,
-    period: '/month',
-    tagline: 'Unlock full potential',
-    features: ['100+ Montessori activities', 'Step-by-step adult presentation guides', 'Materials lists and instructional videos', 'Family dashboard with skill tracking', 'Yearly plan: $199 (43% off)'],
-    cta: 'Start Free Trial',
-    highlight: true,
-  },
-  {
-    id: 'consultation',
-    name: 'Private Consultation',
-    price: 225,
-    period: '/session',
-    tagline: 'Personalized guidance',
-    features: ['1-on-1 with a Montessori guide', 'Customized curriculum for your child', 'Family lifestyle integration', 'Personalized materials recommendations', 'Written homeschool action plan', 'Follow-up email support (2 weeks)', '3-session package: $600 (save $75)'],
-    cta: 'Book Consultation',
-    highlight: false,
-  },
+const activityContents = [
+  { icon: BookOpen, title: 'Written presentation', text: 'A sequenced set of steps for the adult to review before presenting.' },
+  { icon: ShoppingBag, title: 'Materials guidance', text: 'A materials list, home alternatives, and purchase links where they have been added.' },
+  { icon: PlayCircle, title: 'Video where available', text: 'Protected instructional playback appears within the activity when a video has been added.' },
+  { icon: CheckCircle2, title: 'Teaching notes', text: 'Purpose, points of interest, control of error, and signs of readiness where relevant.' },
 ];
 
 const faqs = [
-  { q: 'Do I need Montessori training to use this app?', a: 'Not at all. Every activity includes clear, visual step-by-step instructions written for parents and caregivers with no teaching background. We explain the "why" behind each activity so you feel confident guiding your child.' },
-  { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
-  { q: 'Can I use this for multiple children?', a: 'Yes. Premium plans include multiple child profiles so you can track each child\'s progress individually, with personalized recommendations based on their developmental stage.' },
-  { q: 'Does this work without internet?', a: 'An internet connection is needed for current activity content, purchase links, account features, and protected videos.' },
-  { q: 'How is this different from free Montessori resources online?', a: 'Unlike scattered blog posts and Pinterest ideas, our curriculum is a complete, sequenced program aligned with AMI standards. Every activity builds on the last, with proper presentation techniques and control of error.' },
-  { q: 'What if I\'m not satisfied?', a: 'We offer a 30-day money-back guarantee on all premium plans. If you don\'t see your child growing in independence and confidence, we\'ll refund your subscription — no questions asked.' },
-  { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
+  { q: 'Who uses the app?', a: 'The app is for parents, homeschoolers, caregivers, classroom assistants, and teachers. The adult prepares with the guide; the child works off-screen with real materials.' },
+  { q: 'What does an activity page include?', a: 'Each page includes an activity photograph, materials guidance, written presentation steps, and teaching notes. Purchase links and protected instructional videos appear where they have been added.' },
+  { q: 'What can I explore for free?', a: 'You can open one starter activity in each section before choosing a paid plan.' },
+  { q: 'Do I need Montessori training?', a: 'No. The resource is written to help adults prepare carefully. It does not replace formal Montessori training or observation of the child.' },
+  { q: 'Does the child use the app?', a: 'No. Montessori Life Skills is an adult preparation resource. The child’s work takes place with real materials, away from the screen.' },
 ];
-
-const stats = [
-  { value: '100+', label: 'Guided activities' },
-  { value: '8', label: 'Curriculum areas' },
-  { value: 'AMI', label: 'Aligned method' },
-  { value: '3–6', label: 'Years old' },
-];
-
-// Curriculum area nav links are built inside the component to access handlers
 
 const Home: React.FC<HomeProps> = ({
-  onGetStarted, onSubscriptionView,
-  onDashboardView, onPracticalView, onSensorialView,
-  onLanguageView, onMathView, onGeographyView, onBotanyView,
-  onArtView, onCulturalView, onGraceCourtesyView, onParentView, onProfilesView
+  onGetStarted, onSubscriptionView, onDashboardView, onPracticalView, onSensorialView,
+  onLanguageView, onMathView, onGeographyView, onBotanyView, onArtView,
+  onCulturalView, onGraceCourtesyView,
 }) => {
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
-  const navigate = useNavigate();
 
-  const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
-    { label: 'Practical Life', onClick: onPracticalView },
-    { label: 'Sensorial', onClick: onSensorialView },
-    { label: 'Math', onClick: onMathView },
-    { label: 'Language', onClick: onLanguageView },
-    { label: 'Botany', onClick: onBotanyView },
-    { label: 'Geography', onClick: onGeographyView },
-    { label: 'Science', onClick: onCulturalView },
-    { label: 'Art', onClick: onArtView },
+  const sections = [
+    { name: 'Practical Life', short: 'Practical Life', image: montessoriImages['pouring-set'], onClick: onPracticalView },
+    { name: 'Sensorial', short: 'Sensorial', image: sensorialImages['pink-tower'], onClick: onSensorialView },
+    { name: 'Mathematics', short: 'Math', image: mathImages['golden-beads'], onClick: onMathView },
+    { name: 'Language', short: 'Language', image: languageImages['sandpaper-letters'], onClick: onLanguageView },
+    { name: 'Botany', short: 'Botany', image: botanyImages['flower-parts'], onClick: onBotanyView },
+    { name: 'Geography', short: 'Geography', image: geographyImages['continents'], onClick: onGeographyView },
+    { name: 'Science & Culture', short: 'Science', image: culturalImages['sink-or-float'], onClick: onCulturalView },
+    { name: 'Art', short: 'Art', image: artImages['color-mixing'], onClick: onArtView },
+    { name: 'Grace & Courtesy', short: 'Grace & Courtesy', image: graceCourtesyImages['greeting-others'], onClick: onGraceCourtesyView },
+  ];
+
+  const navLinks = [
+    ...sections.map(({ short, onClick }) => ({ label: short, onClick })),
     { label: 'Shop', onClick: () => navigate('/shop') },
     { label: 'Classroom Setup', onClick: () => navigate('/classroom-setup') },
   ];
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
+    const onScroll = () => setScrolled(window.scrollY > 32);
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Safeguard: measure fixed nav height and expose as --nav-h so the hero
-  // can guarantee enough top padding to never be overlapped at any breakpoint.
   useEffect(() => {
-    const el = headerRef.current;
-    if (!el) return;
-    let raf = 0;
-    const setVar = () => {
-      cancelAnimationFrame(raf);
-      raf = requestAnimationFrame(() => {
-        // Store header's own height so hero can compose: banner + nav + gap.
-        const h = el.offsetHeight;
-        const value = `${Math.ceil(h)}px`;
-        if (document.documentElement.style.getPropertyValue('--nav-h') !== value) {
-          document.documentElement.style.setProperty('--nav-h', value);
-        }
-      });
-    };
-    setVar();
-    const ro = new ResizeObserver(setVar);
-    ro.observe(el);
-    window.addEventListener('resize', setVar);
-    window.addEventListener('orientationchange', setVar);
-    window.addEventListener('banner-resize', setVar);
+    const node = headerRef.current;
+    if (!node) return;
+    const setHeight = () => document.documentElement.style.setProperty('--nav-h', `${Math.ceil(node.offsetHeight)}px`);
+    setHeight();
+    const observer = new ResizeObserver(setHeight);
+    observer.observe(node);
+    window.addEventListener('resize', setHeight);
+    window.addEventListener('banner-resize', setHeight);
     return () => {
-      cancelAnimationFrame(raf);
-      ro.disconnect();
-      window.removeEventListener('resize', setVar);
-      window.removeEventListener('orientationchange', setVar);
-      window.removeEventListener('banner-resize', setVar);
+      observer.disconnect();
+      window.removeEventListener('resize', setHeight);
+      window.removeEventListener('banner-resize', setHeight);
     };
   }, []);
 
-  const handleCurriculumClick = (name: string) => {
-    const map: Record<string, (() => void) | undefined> = {
-      'Practical Life': onPracticalView,
-      Sensorial: onSensorialView,
-      Mathematics: onMathView,
-      Language: onLanguageView,
-      Geography: onGeographyView,
-      Botany: onBotanyView,
-      Art: onArtView,
-      'Grace & Courtesy': onGraceCourtesyView,
-    };
-    map[name]?.();
-  };
-
   return (
-    <div className="min-h-screen bg-background relative overflow-hidden">
-
-      {/* ─── Sticky Nav ─── */}
+    <div className="min-h-screen bg-background text-foreground">
       <header
         ref={headerRef}
         style={{ top: 'var(--banner-h, 0px)' }}
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-sm' : 'bg-transparent'}`}
+        className={`fixed inset-x-0 z-50 border-b transition-colors duration-300 ${scrolled ? 'bg-background/95 border-border shadow-sm backdrop-blur-md' : 'bg-background/90 border-border/60 backdrop-blur-md'}`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
-            <div className="flex items-center gap-2">
-              <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm" aria-hidden="true">
-                <Leaf className="w-5 h-5 text-primary-foreground" />
-              </span>
-              <span className={`font-bold text-lg transition-colors ${scrolled ? 'text-slate-800' : 'text-slate-800'}`}>
-                Montessori Life Skills
-              </span>
-            </div>
-            <nav className="hidden lg:flex items-center gap-1 text-sm font-medium text-muted-foreground">
-              {homeNavLinks.map((link) => (
-                <button
-                  key={link.label}
-                  onClick={link.onClick}
-                  className="px-2.5 py-1.5 rounded-md hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
-                >
-                  {link.label}
-                </button>
-              ))}
-            </nav>
-            <div className="flex items-center gap-3">
-              {!user && (
-                <Link to="/auth">
-                  <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign In</Button>
-                </Link>
-              )}
-              <Button
-                onClick={onGetStarted}
-                size="sm"
-                className="hidden sm:inline-flex bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full px-5"
-              >
-                Start Free
-              </Button>
-              {/* Mobile menu */}
-              <Sheet>
-                <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
-                    <Menu className="w-5 h-5" />
-                    <span className="sr-only">Open menu</span>
-                  </Button>
-                </SheetTrigger>
-                <SheetContent side="right" className="z-[70] w-72 sm:w-80 overflow-y-auto">
-                  <div className="flex flex-col gap-6 mt-8">
-                    <nav className="flex flex-col gap-2 text-base font-medium">
-                      {homeNavLinks.map((link) => (
-                        <SheetClose key={link.label} asChild>
-                          <button
-                            onClick={link.onClick}
-                            className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground hover:bg-accent hover:text-primary transition-colors text-left"
-                          >
-                            <Leaf className="w-4 h-4 text-primary" />
-                            {link.label}
-                          </button>
-                        </SheetClose>
-                      ))}
-                    </nav>
-                    <div className="flex flex-col gap-3 pt-4 border-t border-border">
-                      {!user && (
-                        <SheetClose asChild>
-                          <Link to="/auth">
-                            <Button variant="outline" className="w-full">Sign In</Button>
-                          </Link>
-                        </SheetClose>
-                      )}
-                      <SheetClose asChild>
-                        <Button
-                          onClick={onGetStarted}
-                          className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full"
-                        >
-                          Start Free
-                        </Button>
-                      </SheetClose>
-                    </div>
-                  </div>
-                </SheetContent>
-              </Sheet>
-            </div>
+        <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          <button type="button" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex items-center gap-2 text-left" aria-label="Montessori Life Skills home">
+            <span className="flex h-9 w-9 items-center justify-center rounded-md bg-primary"><Leaf className="h-5 w-5 text-primary-foreground" /></span>
+            <span className="max-w-32 text-sm font-bold leading-tight sm:max-w-none sm:text-base">Montessori Life Skills</span>
+          </button>
+          <nav className="hidden items-center gap-1 text-xs font-medium text-muted-foreground xl:flex">
+            {navLinks.map((link) => (
+              <Button key={link.label} variant="ghost" size="sm" onClick={link.onClick} className="h-8 px-2 text-xs">{link.label}</Button>
+            ))}
+          </nav>
+          <div className="flex items-center gap-2">
+            {!user && <Button asChild variant="ghost" size="sm" className="hidden sm:inline-flex"><Link to="/auth">Sign In</Link></Button>}
+            <Button onClick={onGetStarted} size="sm" className="hidden sm:inline-flex">Start Free</Button>
+            <Sheet>
+              <SheetTrigger asChild><Button variant="ghost" size="icon" className="xl:hidden" aria-label="Open section menu"><Menu className="h-5 w-5" /></Button></SheetTrigger>
+              <SheetContent side="right" className="z-[70] w-80 overflow-y-auto">
+                <nav className="mt-8 flex flex-col gap-1">
+                  {navLinks.map((link) => <SheetClose key={link.label} asChild><Button variant="ghost" onClick={link.onClick} className="justify-start">{link.label}</Button></SheetClose>)}
+                  {!user && <SheetClose asChild><Button asChild variant="outline" className="mt-4"><Link to="/auth">Sign In</Link></Button></SheetClose>}
+                  <SheetClose asChild><Button onClick={onGetStarted}>Start Free</Button></SheetClose>
+                </nav>
+              </SheetContent>
+            </Sheet>
           </div>
         </div>
-        {/* Section bar — visible at every width; scrolls horizontally on narrow screens */}
-        <nav
-          aria-label="Curriculum sections"
-          className="lg:hidden border-t border-border/40 overflow-x-auto"
-        >
-          <div className="flex items-center gap-1 px-3 py-1.5 w-max text-sm font-medium text-muted-foreground">
-            {homeNavLinks.map((link) => (
-              <button
-                key={link.label}
-                onClick={link.onClick}
-                className="px-2.5 py-1 rounded-md hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
-              >
-                {link.label}
-              </button>
-            ))}
+        <nav aria-label="Curriculum sections" className="overflow-x-auto border-t border-border/50 xl:hidden">
+          <div className="flex w-max items-center gap-1 px-3 py-1.5">
+            {navLinks.map((link) => <Button key={link.label} variant="ghost" size="sm" onClick={link.onClick} className="h-8 whitespace-nowrap px-2.5 text-xs">{link.label}</Button>)}
           </div>
         </nav>
       </header>
 
-      {/* ─── Hero Section ─── */}
-      <section
-        className="relative pt-28 pb-20 lg:pt-36 lg:pb-28 overflow-hidden"
-        style={{ paddingTop: 'calc(var(--banner-h, 0px) + var(--nav-h, 64px) + 2rem)' }}
-      >
-        {/* Soft gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-b from-primary/15 via-background to-background pointer-events-none" />
-        <div className="absolute top-20 right-0 w-[500px] h-[500px] bg-primary/20 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-accent/20 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-            {/* Left: Copy */}
-            <div className="text-center lg:text-left">
-              <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
-                <Star className="w-3 h-3 text-accent fill-accent" />
-                Authentic Montessori ages 3–6
-              </div>
-
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 leading-[1.15] animate-reveal-delay-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Authentic Montessori, Clearly and beautifully presented.
+      <main>
+        <section className="relative flex min-h-[78vh] items-end overflow-hidden" style={{ paddingTop: 'calc(var(--banner-h, 0px) + var(--nav-h, 64px))' }}>
+          <img src={heroChildPouring} alt="Montessori pouring activity prepared with real materials" className="absolute inset-0 h-full w-full object-cover object-center" />
+          <div className="absolute inset-0 bg-foreground/65" />
+          <div className="relative mx-auto w-full max-w-7xl px-4 pb-14 pt-24 sm:px-6 lg:px-8 lg:pb-20">
+            <div className="max-w-3xl">
+              <p className="mb-4 text-sm font-semibold uppercase text-accent">For the adult who prepares the environment</p>
+              <h1 className="max-w-3xl text-4xl font-bold leading-tight text-background sm:text-5xl lg:text-6xl">
+                Montessori presentation guidance for adults working with children ages 3–6.
               </h1>
-
-              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto lg:mx-0 leading-relaxed animate-reveal-delay-2">
-                A preparation and presentation guide for parents, homeschoolers, caregivers, classroom assistants, and teachers working with children ages 3–6. Review precise presentations, sequenced activities, materials guidance, progress records, and instructional videos before the child works off-screen with real materials. Created by an AMI-trained Montessori educator. Prepared adults. Independent children.
+              <p className="mt-6 max-w-2xl text-base leading-relaxed text-background/90 sm:text-lg">
+                Review the materials, written sequence, and teaching notes before inviting the child to work independently with real materials.
               </p>
-
-              <div className="flex flex-col sm:flex-row items-center sm:items-center gap-3 sm:gap-5 justify-center lg:justify-start mb-10 animate-reveal-delay-3">
-                <Button
-                  onClick={onGetStarted}
-                  size="lg"
-                  className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
-                >
-                  Explore Free Activities <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
-                <button
-                  type="button"
-                  onClick={onSubscriptionView}
-                  className="text-base font-medium text-foreground/80 hover:text-primary underline-offset-4 hover:underline transition-colors"
-                >
-                  View plans →
-                </button>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+                <Button onClick={onGetStarted} size="lg">Explore Free Activities <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                <Button onClick={onSubscriptionView} size="lg" variant="secondary">View Access Options</Button>
               </div>
+              <p className="mt-5 text-sm text-background/80">One free starter activity in each section. No credit card required.</p>
+            </div>
+          </div>
+        </section>
 
-              <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-slate-500">
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>No credit card required</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>Cancel anytime</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle className="w-4 h-4 text-emerald-500" />
-                  <span>30-day guarantee</span>
-                </div>
+        <section className="border-b border-border bg-card">
+          <div className="mx-auto grid max-w-7xl gap-px bg-border md:grid-cols-4">
+            {activityContents.map((item) => (
+              <div key={item.title} className="bg-card px-6 py-7">
+                <item.icon className="mb-4 h-5 w-5 text-primary" />
+                <h2 className="text-base font-bold">{item.title}</h2>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{item.text}</p>
               </div>
-            </div>
-
-            {/* Right: Hero Image — hidden on mobile */}
-            <div className="hidden lg:block" />
+            ))}
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── 30-Second App Preview (animated phone mockup) ─── */}
-      <HeroAppPreview />
-
-      {/* ─── From Reminders to Routines ─── */}
-      <section className="py-16 lg:py-20 bg-gradient-to-b from-background via-primary/5 to-background border-t border-border/60">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Reveal>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-5 leading-[1.15]">
-                From guessing to{' '}
-                <span className="text-primary">confident guidance.</span>
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground mb-8 max-w-xl mx-auto leading-relaxed">
-                Everything the adult guide needs to prepare and present Montessori lessons for children ages 3–6.
-              </p>
-            <Button
-              onClick={onGetStarted}
-              size="lg"
-              className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
-            >
-              Start Free <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Two Sides: Child & Adult ─── */}
-      <section className="py-16 lg:py-24 bg-background border-t border-border/60">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal className="text-center mb-12">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built for the adult guide</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-foreground mb-4 leading-[1.15]">
-              Everything you need to <span className="text-primary">teach with confidence.</span>
-            </h2>
-            <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-              The app prepares you; the learning happens off-screen with real materials in your child's hands.
-            </p>
-          </Reveal>
-
-          <div className="grid md:grid-cols-2 gap-6 lg:gap-8">
-            <Reveal>
-              <Card className="h-full border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <CardContent className="p-7 lg:p-9">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-xs font-semibold text-primary uppercase tracking-wider mb-5">
-                    <Baby className="w-3.5 h-3.5" /> Prepare the lesson
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">Ready before you present</h3>
-                  <p className="text-muted-foreground mb-5 leading-relaxed">
-                    Each activity gives you the exact sequence, materials list, and teaching points — so you know what to do before you invite your child to the work.
-                  </p>
-                  <ul className="space-y-2.5">
-                    {[
-                      'Written presentation steps and instructional videos',
-                      'Materials sourcing with Amazon links',
-                      'AMI-aligned sequencing and control of error',
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
-                        <CheckCircle className="w-4 h-4 text-primary flex-shrink-0 mt-0.5" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </Reveal>
-
-            <Reveal delay={100}>
-              <Card className="h-full border border-border/60 hover:border-accent/30 hover:shadow-xl transition-all duration-300 overflow-hidden">
-                <CardContent className="p-7 lg:p-9">
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 text-xs font-semibold text-accent uppercase tracking-wider mb-5">
-                    <Users2 className="w-3.5 h-3.5" /> Guide with clarity
-                  </div>
-                  <h3 className="text-2xl font-bold text-foreground mb-3">Track what matters</h3>
-                  <p className="text-muted-foreground mb-5 leading-relaxed">
-                    The Family Dashboard gives parents, teachers, and assistants a clear weekly view — what has been presented, what comes next, and why it matters for the child's development.
-                  </p>
-                  <ul className="space-y-2.5">
-                    {[
-                      'Weekly summary of presentations & focus areas',
-                      'AMI-aligned "why this matters" for every area',
-                      'Multiple child profiles in one account',
-                    ].map((item) => (
-                      <li key={item} className="flex items-start gap-2.5 text-sm text-foreground/80">
-                        <CheckCircle className="w-4 h-4 text-accent flex-shrink-0 mt-0.5" />
-                        {item}
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </Reveal>
-          </div>
-        </div>
-      </section>
-
-
-      {/* ─── Stats Bar ─── */}
-      <section className="py-10 bg-muted/40 border-t border-border/60">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-              {stats.map((s, i) => (
-                <div key={i} className="text-center">
-                  <p className="text-3xl sm:text-4xl font-extrabold bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                    {s.value}
-                  </p>
-                  <p className="text-sm text-slate-500 mt-1 font-medium">{s.label}</p>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── What's Inside (sample activities) ─── */}
-      <section id="activities" className="py-16 lg:py-20 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-10">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">What's Inside</p>
-              <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-3">
-                A peek at real activities
-              </h2>
-              <p className="text-base sm:text-lg text-muted-foreground max-w-2xl mx-auto">
-                Every activity includes an exact activity image, a materials list, and written presentation steps.
-              </p>
-            </div>
-          </Reveal>
-
-          {(() => {
-            const sampleActivities = [
-              { area: 'Practical Life', name: 'Pouring Water', age: 'Ages 2½–3½', image: montessoriImages['pouring-set'] },
-              { area: 'Language', name: 'Sandpaper Letters', age: 'Ages 3½–5', image: languageImages['sandpaper-letters'] },
-              { area: 'Mathematics', name: 'Golden Beads', age: 'Ages 4½–6', image: mathImages['golden-beads'] },
-            ];
-            const renderCard = (a: typeof sampleActivities[number]) => (
-              <Card className="overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 h-full">
-                <div className="aspect-[4/3] overflow-hidden bg-muted">
-                  <img
-                    src={a.image}
-                    alt={`${a.name} — authentic Montessori material`}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                </div>
-                <CardContent className="p-5">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">{a.area}</p>
-                  <h3 className="text-lg font-bold text-foreground mb-1">{a.name}</h3>
-                  <p className="text-sm text-muted-foreground">{a.age} · Step-by-step presentation</p>
-                </CardContent>
-              </Card>
-            );
-            return (
-              <>
-                {/* Mobile carousel */}
-                <div className="sm:hidden -mx-4">
-                  <Carousel opts={{ align: 'start', loop: false }} className="w-full">
-                    <CarouselContent className="px-4">
-                      {sampleActivities.map((a) => (
-                        <CarouselItem key={a.name} className="basis-[85%]">
-                          {renderCard(a)}
-                        </CarouselItem>
-                      ))}
-                    </CarouselContent>
-                  </Carousel>
-                  <p className="text-center text-xs text-muted-foreground mt-3">Swipe to see more →</p>
-                </div>
-
-                {/* Desktop grid */}
-                <div className="hidden sm:grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {sampleActivities.map((a, i) => (
-                    <Reveal key={a.name} delay={i * 100}>
-                      {renderCard(a)}
-                    </Reveal>
-                  ))}
-                </div>
-              </>
-            );
-          })()}
-
-          <div className="text-center mt-10">
-            <Button
-              onClick={onGetStarted}
-              variant="outline"
-              size="lg"
-              className="rounded-full px-8 border-primary/30 text-primary hover:bg-primary/10"
-            >
-              Explore all 100+ activities <ArrowRight className="ml-2 h-4 w-4" />
-            </Button>
-          </div>
-        </div>
-      </section>
-
-      {/* ─── The Problem ─── */}
-      <section id="struggle" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">The Struggle Is Real</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Does This Sound Familiar?
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                You know Montessori could help your child, but getting started feels overwhelming.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid lg:grid-cols-5 gap-10 items-center">
-            {/* Material image collage */}
-            <Reveal className="lg:col-span-2">
-              <div className="relative">
-                <div className="absolute inset-0 bg-gradient-to-br from-accent/40 to-orange-200/40 rounded-3xl blur-2xl" />
-                <div className="relative grid grid-cols-2 gap-3">
-                  <img src={sensorialImages['pink-tower']} alt="Pink Tower Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
-                  <img src={mathImages['golden-beads']} alt="Golden Beads Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
-                  <img src={languageImages['sandpaper-letters']} alt="Sandpaper Letters Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover" loading="lazy" />
-                  <img src={sensorialImages['knobbed-cylinders']} alt="Knobbed Cylinders Montessori material" className="rounded-2xl shadow-lg w-full h-32 object-cover mt-6" loading="lazy" />
-                </div>
+        <section id="curriculum" className="scroll-mt-28 py-16 lg:py-24">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <Reveal className="mb-10 flex flex-col justify-between gap-4 md:flex-row md:items-end">
+              <div className="max-w-2xl">
+                <p className="text-sm font-semibold uppercase text-primary">Curriculum sections</p>
+                <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Choose the work you are preparing to present.</h2>
               </div>
+              <p className="max-w-md text-sm leading-relaxed text-muted-foreground">Activities are ordered from introductory work toward more advanced presentations within each section.</p>
             </Reveal>
-
-            {/* Pain points */}
-            <div className="lg:col-span-3 grid sm:grid-cols-2 gap-4">
-              {painPoints.map((point, i) => (
-                <Reveal key={i} delay={i * 100}>
-                  <div className="flex items-start gap-4 bg-gradient-to-br from-accent/20 to-orange-50 border border-accent/15 rounded-2xl p-5 h-full">
-                    <div className="w-10 h-10 rounded-full bg-accent/15 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-accent0 font-bold text-sm">{i + 1}</span>
-                    </div>
-                    <p className="text-slate-700 font-medium leading-relaxed">{point}</p>
-                  </div>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {sections.map((section, index) => (
+                <Reveal key={section.name} delay={(index % 3) * 70}>
+                  <button type="button" onClick={section.onClick} className="group relative block aspect-[4/3] w-full overflow-hidden rounded-md text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+                    <img src={section.image} alt={`${section.name} Montessori activity materials`} className="h-full w-full object-cover transition-transform duration-700 motion-reduce:transition-none group-hover:scale-[1.03]" loading="lazy" />
+                    <span className="absolute inset-0 bg-foreground/35 transition-colors group-hover:bg-foreground/50" />
+                    <span className="absolute inset-x-0 bottom-0 flex items-center justify-between p-5 text-background">
+                      <span className="text-xl font-bold">{section.name}</span><ArrowRight className="h-5 w-5" />
+                    </span>
+                  </button>
                 </Reveal>
               ))}
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* ─── The Solution ─── */}
-      <section id="solution" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <div className="relative inline-block mb-6">
-                <div className="absolute inset-0 bg-gradient-to-br from-emerald-200/50 to-primary/50 rounded-3xl blur-2xl" />
-                <img
-                  src={sensorialImages['brown-stair']}
-                  alt="Brown Stair — authentic Montessori sensorial material"
-                  className="relative w-64 h-40 object-cover rounded-2xl shadow-xl border-4 border-white mx-auto"
-                  loading="lazy"
-                />
-              </div>
-              <p className="text-sm font-semibold text-emerald-600 uppercase tracking-wider mb-3">The Better Way</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Everything You Need, All in One Place
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Montessori curriculum, adult presentation guidance, and progress records in one organized resource.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((b, i) => (
-              <Reveal key={i} delay={i * 80}>
-                <Card className="h-full bg-white border border-slate-100 hover:border-primary/25 hover:shadow-lg transition-all duration-300 group">
-                  <CardContent className="p-6">
-                    <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-primary/200 to-accent/200 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-                      <b.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <h3 className="text-lg font-bold text-slate-900 mb-2">{b.title}</h3>
-                    <p className="text-slate-600 leading-relaxed">{b.desc}</p>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-
-      {/* ─── Curriculum Grid ─── */}
-
-      <section id="curriculum" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Complete Curriculum</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                 Eight Montessori Curriculum Areas
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Covering all primary curriculum areas aligned with AMI standards — from Practical Life to Grace & Courtesy.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-            {curriculumAreas.map((area, i) => (
-              <Reveal key={area.name} delay={i * 80}>
-                <button
-                  onClick={() => handleCurriculumClick(area.name)}
-                  className="group w-full text-left rounded-2xl overflow-hidden border border-slate-100 hover:border-primary/25 hover:shadow-xl transition-all duration-300 bg-white"
-                >
-                  <div className="relative h-40 overflow-hidden">
-                    <img
-                      src={area.image}
-                      alt={`${area.name} Montessori materials`}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h3 className="font-bold text-slate-900 group-hover:text-primary transition-colors">{area.name}</h3>
-                    <p className="text-sm text-slate-500 mt-1">Explore activities →</p>
-                  </div>
-                </button>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── How It Works ─── */}
-      <section id="how-it-works" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Simple as 1-2-3</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                How It Works
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                 Choose an activity, prepare the materials, review the presentation, and then invite the child to work.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {/* Connector line (desktop) */}
-            <div className="hidden md:block absolute top-16 left-1/6 right-1/6 h-0.5 bg-gradient-to-r from-primary via-blue-200 to-accent" />
-
-            {howItWorks.map((step, i) => (
-              <Reveal key={step.step} delay={i * 150}>
-                <div className="relative text-center bg-white rounded-2xl border border-slate-100 p-6 shadow-sm hover:shadow-lg transition-all duration-300">
-                  <div className="relative mx-auto w-full aspect-square mb-5 rounded-2xl overflow-hidden border-4 border-white shadow-lg">
-                    <img
-                      src={step.image}
-                      alt={step.alt}
-                      width={768}
-                      height={768}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <div className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-primary/15 text-primary font-bold text-sm mb-3">
-                    {step.step}
-                  </div>
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">{step.title}</h3>
-                  <p className="text-slate-600 leading-relaxed">{step.desc}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Audience Section ─── */}
-      <section id="audience" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Built For You</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Parents, Teachers & Assistants
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                 Designed for adults preparing Montessori activities at home, in homeschool settings, and in classrooms.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              {
-                icon: HomeIcon,
-                title: 'For Parents',
-                color: 'from-accent/200 to-accent/200',
-                bg: 'from-accent/20 to-accent/20',
-                image: montessoriImages['dressing-frames-set'],
-                items: ['Easy-to-follow activities for homeschooling', 'Track progress & milestones', 'Build independence at home', 'No teaching experience needed'],
-              },
-              {
-                icon: GraduationCap,
-                title: 'For Teachers',
-                color: 'from-blue-500 to-primary/200',
-                bg: 'from-blue-50 to-primary/20',
-                image: sensorialImages['geometric-cabinet'],
-                items: ['Complete AMI-aligned curriculum', 'Multi-student progress tracking', 'Ready-to-use lesson plans', 'Detailed reports for parents'],
-              },
-              {
-                icon: Users2,
-                title: 'For Assistants',
-                color: 'from-primary/200 to-primary/200',
-                bg: 'from-primary/20 to-primary/20',
-                image: mathImages['spindle-box'],
-                items: ['Step-by-step presentation guides', 'Learn Montessori on the job', 'Support teachers with resources', 'Build confidence in the classroom'],
-              },
-            ].map((audience, i) => (
-              <Reveal key={audience.title} delay={i * 120}>
-                <Card className={`h-full bg-gradient-to-b ${audience.bg} border-0 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1`}>
-                  <div className="relative h-36 overflow-hidden">
-                    <img
-                      src={audience.image}
-                      alt={`Authentic Montessori material — ${audience.title}`}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                  </div>
-                  <CardContent className="p-6">
-                    <h3 className="text-xl font-bold text-slate-900 mb-4">{audience.title}</h3>
-                    <ul className="space-y-3">
-                      {audience.items.map((item, j) => (
-                        <li key={j} className="flex items-start gap-2.5 text-slate-700">
-                          <CheckCircle className={`w-5 h-5 flex-shrink-0 mt-0.5 ${i === 0 ? 'text-accent0' : i === 1 ? 'text-blue-500' : 'text-primary0'}`} />
-                          <span className="text-sm leading-relaxed">{item}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── Meet the Founder ─── */}
-      <section id="founder" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
-              <div className="md:col-span-2">
-                <div className="relative">
-                  <div className="absolute -inset-4 bg-gradient-to-br from-primary/25 to-accent/25 rounded-[2rem] blur-2xl" />
-                  <img
-                    src={founderKerry}
-                    alt="Kerry Howard, AMI-trained Montessori guide and founder"
-                    width={512}
-                    height={512}
-                    className="relative rounded-[1.5rem] shadow-xl object-cover w-full aspect-square border-4 border-card"
-                    loading="lazy"
-                  />
-                </div>
-              </div>
-              <div className="md:col-span-3">
-                <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Meet the Founder</p>
-                <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5 leading-tight">
-                  Kerry Howard
-                </h2>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/15 border border-accent/30 rounded-full text-sm font-medium text-foreground mb-6">
-                  <Award className="w-4 h-4 text-accent" />
-                  AMI-trained 3–6 Primary Guide
-                </div>
-                <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-                  Every activity in this app is shaped by Kerry's training and 40 years of guiding children in the prepared environment — so you can trust that what you're presenting at home is true to Maria Montessori's method, not a Pinterest approximation.
-                </p>
-                <p className="text-base text-muted-foreground leading-relaxed">
-                  Her mission: make authentic Montessori accessible to every family, no classroom required.
-                </p>
-              </div>
-            </div>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Pricing ─── */}
-      <section className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24" id="pricing">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-14">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Simple Pricing</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Start Free. Scale When Ready.
-              </h2>
-              <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-                Choose the plan that fits your family. All premium plans include a 30-day money-back guarantee.
-              </p>
-            </div>
-          </Reveal>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {pricingPlans.map((plan, i) => (
-              <Reveal key={plan.id} delay={i * 120}>
-                <Card className={`h-full relative overflow-hidden transition-all duration-300 hover:-translate-y-1 ${
-                  plan.highlight
-                    ? 'border-2 border-primary/40 shadow-xl shadow-primary'
-                    : 'border border-slate-100 hover:shadow-lg'
-                }`}>
-                  {plan.highlight && (
-                    <div className="absolute top-0 left-0 right-0 bg-gradient-to-r from-primary to-accent text-white text-xs font-bold text-center py-1.5 uppercase tracking-wide">
-                      Most Popular
-                    </div>
-                  )}
-                  <CardContent className={`p-6 ${plan.highlight ? 'pt-10' : ''}`}>
-                    <p className="text-sm font-medium text-slate-500 mb-1">{plan.tagline}</p>
-                    <h3 className="text-xl font-bold text-slate-900 mb-2">{plan.name}</h3>
-                    <div className="flex items-baseline gap-1 mb-4">
-                      <span className="text-4xl font-extrabold text-slate-900">${plan.price}</span>
-                      <span className="text-slate-500 font-medium">{plan.period}</span>
-                    </div>
-                    <ul className="space-y-2.5 mb-6">
-                      {plan.features.map((f, j) => (
-                        <li key={j} className="flex items-start gap-2 text-sm text-slate-600">
-                          <Check className={`w-4 h-4 flex-shrink-0 mt-0.5 ${plan.highlight ? 'text-primary0' : 'text-emerald-500'}`} />
-                          <span>{f}</span>
-                        </li>
-                      ))}
-                    </ul>
-                    <Button
-                      onClick={plan.id === 'consultation' ? onSubscriptionView : onGetStarted}
-                      className={`w-full rounded-xl py-5 font-semibold transition-all duration-300 ${
-                        plan.highlight
-                          ? 'bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white'
-                          : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
-                      }`}
-                    >
-                      {plan.cta}
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Reveal>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── FAQ ─── */}
-      <section id="faq" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Reveal>
-            <div className="text-center mb-12">
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Got Questions?</p>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-slate-900 mb-4">
-                Frequently Asked
-              </h2>
-            </div>
-          </Reveal>
-
-          <Reveal>
-            <Accordion type="single" collapsible className="space-y-3">
-              {faqs.map((faq, i) => (
-                <AccordionItem key={i} value={`faq-${i}`} className="bg-white border border-slate-100 rounded-xl px-5 data-[state=open]:border-primary/25 transition-colors">
-                  <AccordionTrigger className="text-left font-semibold text-slate-800 hover:no-underline py-4 text-base">
-                    {faq.q}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 leading-relaxed pb-4">
-                    {faq.a}
-                  </AccordionContent>
-                </AccordionItem>
+        <section className="border-y border-border bg-muted/40 py-16 lg:py-24">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 sm:px-6 lg:grid-cols-12 lg:px-8">
+            <Reveal className="lg:col-span-5">
+              <p className="text-sm font-semibold uppercase text-primary">The adult workflow</p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Prepare first. Present with care. Then observe.</h2>
+              <p className="mt-5 leading-relaxed text-muted-foreground">This is not a child-facing learning app. It is a reference for the adult before and during preparation; the child’s activity remains hands-on and off-screen.</p>
+              <Button onClick={onGetStarted} variant="outline" className="mt-7">Open the activity guide <ArrowRight className="ml-2 h-4 w-4" /></Button>
+            </Reveal>
+            <div className="grid gap-6 sm:grid-cols-3 lg:col-span-7">
+              {[
+                ['01', 'Choose', 'Select a presentation appropriate to the child’s readiness and prior experience.'],
+                ['02', 'Prepare', 'Gather the listed materials and review the complete written sequence.'],
+                ['03', 'Present', 'Invite the child, demonstrate precisely, then step back and observe.'],
+              ].map(([number, title, text], index) => (
+                <Reveal key={number} delay={index * 90} className="border-t-2 border-primary pt-5">
+                  <p className="text-sm font-bold text-primary">{number}</p>
+                  <h3 className="mt-8 text-2xl font-bold">{title}</h3>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{text}</p>
+                </Reveal>
               ))}
-            </Accordion>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* ─── Final CTA ─── */}
-      <section className="py-20 lg:py-28 relative overflow-hidden border-t border-border/60">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary via-blue-600 to-accent" />
-        <div className="absolute inset-0 bg-shimmer" />
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <Reveal>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Ready to Prepare Your Next Presentation?
-            </h2>
-            <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Use the adult guide to choose an activity, gather the materials, and present the lesson clearly while the child learns through hands-on work.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
-              <Button
-                onClick={onGetStarted}
-                size="lg"
-                className="bg-white text-primary hover:bg-gray-50 px-10 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 font-bold"
-              >
-                Explore Free Activities <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                onClick={onSubscriptionView}
-                size="lg"
-                variant="outline"
-                className="bg-white/10 text-white border-white/30 hover:bg-white/20 px-10 py-6 text-lg rounded-2xl transition-all duration-300 backdrop-blur-sm font-semibold"
-              >
-                View Plans & Pricing
-              </Button>
             </div>
-            <div className="flex flex-wrap items-center justify-center gap-6 text-white/80 text-sm mb-10">
-              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> No credit card</span>
-              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> Cancel anytime</span>
-              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> 30-day guarantee</span>
-            </div>
-          </Reveal>
-          <Reveal delay={200}>
-            <div className="pt-8 border-t border-white/20">
-              <p className="text-white/80 text-sm font-medium mb-4">Connect with our community</p>
-              <SocialLinks variant="light" />
-            </div>
-          </Reveal>
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* ─── AI Image Disclaimer ─── */}
-      <div className="py-4 bg-slate-950 text-center border-t border-slate-800">
-        <p className="text-xs text-slate-500">Certain images have been modified using AI.</p>
-      </div>
+        <section id="founder" className="py-16 lg:py-24">
+          <div className="mx-auto grid max-w-6xl items-center gap-10 px-4 sm:px-6 md:grid-cols-2 lg:px-8">
+            <Reveal><img src={founderKerry} alt="Kerry Howard, AMI-trained Montessori guide" className="aspect-[4/5] w-full rounded-md object-cover" loading="lazy" /></Reveal>
+            <Reveal delay={100}>
+              <p className="text-sm font-semibold uppercase text-primary">Experience behind the guidance</p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Created by Kerry Howard</h2>
+              <div className="mt-5 inline-flex items-center gap-2 border-y border-border py-3 text-sm font-semibold"><Award className="h-5 w-5 text-primary" /> AMI-trained 3–6 Primary Guide</div>
+              <p className="mt-6 text-lg leading-relaxed text-muted-foreground">The curriculum draws on Kerry’s AMI training and 40 years of experience guiding children in prepared environments.</p>
+              <p className="mt-4 leading-relaxed text-muted-foreground">It is written for adults who want an organized reference for materials, sequence, presentation, and observation.</p>
+              <Button asChild variant="outline" className="mt-7"><Link to="/about">Read about Kerry’s approach</Link></Button>
+            </Reveal>
+          </div>
+        </section>
 
-      {/* ─── Footer ─── */}
-      <footer className="py-12 bg-slate-900 text-slate-300">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8 mb-10">
-            <div className="md:col-span-2">
-              <div className="flex items-center gap-2 mb-4">
-                <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center" aria-hidden="true">
-                  <Leaf className="w-5 h-5 text-primary-foreground" />
-                </span>
-                <span className="font-bold text-white text-lg">Montessori Life Skills</span>
+        <section className="border-y border-border bg-card py-16 lg:py-20">
+          <div className="mx-auto max-w-5xl px-4 text-center sm:px-6 lg:px-8">
+            <Reveal>
+              <p className="text-sm font-semibold uppercase text-primary">Begin with the curriculum</p>
+              <h2 className="mt-3 text-3xl font-bold sm:text-4xl">Explore before choosing an access plan.</h2>
+              <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-muted-foreground">Open one starter activity in each section, see the actual activity-page structure, and decide whether the complete curriculum suits your setting.</p>
+              <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
+                <Button onClick={onGetStarted} size="lg">Explore Free Activities</Button>
+                <Button onClick={onSubscriptionView} size="lg" variant="outline">Compare Access Options</Button>
               </div>
-              <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                An adult preparation and presentation resource for parents, educators, caregivers, and classroom assistants guiding children ages 3–6.
-              </p>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Product</h4>
-              <ul className="space-y-2 text-sm">
-                <li><button onClick={onGetStarted} className="hover:text-white transition-colors">Activities</button></li>
-                <li><button onClick={onDashboardView} className="hover:text-white transition-colors">Progress Tracking</button></li>
-                <li><button onClick={onSubscriptionView} className="hover:text-white transition-colors">Pricing</button></li>
-                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Support</h4>
-              <ul className="space-y-2 text-sm">
-                <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
-                <li><Link to="/guarantee" className="hover:text-white transition-colors">30-Day Guarantee</Link></li>
-                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
-              </ul>
-            </div>
+            </Reveal>
           </div>
+        </section>
 
-          {/* Trust strip */}
-          <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400 border-y border-slate-800 py-4">
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> 30-day refund</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Cancel anytime</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> No card for free tier</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Built by an AMI guide</span>
+        <section id="faq" className="py-16 lg:py-24">
+          <div className="mx-auto grid max-w-6xl gap-10 px-4 sm:px-6 lg:grid-cols-3 lg:px-8">
+            <Reveal>
+              <p className="text-sm font-semibold uppercase text-primary">Clear answers</p>
+              <h2 className="mt-3 text-3xl font-bold">What the app is—and is not.</h2>
+            </Reveal>
+            <Reveal className="lg:col-span-2">
+              <Accordion type="single" collapsible>
+                {faqs.map((faq, index) => (
+                  <AccordionItem key={faq.q} value={`faq-${index}`}>
+                    <AccordionTrigger className="text-left">{faq.q}</AccordionTrigger>
+                    <AccordionContent className="leading-relaxed text-muted-foreground">{faq.a}</AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </Reveal>
           </div>
+        </section>
+      </main>
 
-          <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-sm text-slate-500">© {new Date().getFullYear()} Montessori Life Skills. All rights reserved.</p>
-            <SocialLinks variant="light" />
+      <footer className="border-t border-border bg-foreground py-12 text-background">
+        <div className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-8 md:grid-cols-3">
+            <div><p className="font-bold">Montessori Life Skills</p><p className="mt-3 max-w-sm text-sm leading-relaxed text-background/70">An adult preparation resource for guiding children ages 3–6 with real Montessori materials.</p></div>
+            <div><p className="text-sm font-bold">Explore</p><div className="mt-3 flex flex-col items-start gap-2 text-sm text-background/70"><button onClick={onGetStarted}>Activities</button><button onClick={onDashboardView}>Family Dashboard</button><button onClick={onSubscriptionView}>Access options</button><Link to="/shop">Shop</Link></div></div>
+            <div><p className="text-sm font-bold">Information</p><div className="mt-3 flex flex-col items-start gap-2 text-sm text-background/70"><Link to="/about">About</Link><Link to="/contact">Contact</Link><Link to="/privacy-policy">Privacy</Link><Link to="/terms-of-service">Terms</Link></div></div>
           </div>
+          <div className="mt-10 flex flex-col gap-4 border-t border-background/20 pt-6 sm:flex-row sm:items-center sm:justify-between"><p className="text-xs text-background/60">© {new Date().getFullYear()} Montessori Life Skills. Certain images have been modified using AI.</p><SocialLinks variant="light" /></div>
         </div>
       </footer>
     </div>
