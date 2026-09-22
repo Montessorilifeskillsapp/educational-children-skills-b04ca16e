@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Correct the Pouring Water photograph to an exact AMI Montessori setup before completing homepage verification.
 - [ ] Restructure the homepage around the real product: problem, walkthrough, three-step method, audiences, sample activity, curriculum, authority, verified proof only, and accurate pricing.
 - [x] Move Sensorial, Mathematics, Language, Botany, Geography, Science, Art, and Grace and Courtesy onto the full Practical Life activity template. All 145 non-Practical-Life activities have exact photo mappings; live section checks confirm the photo, materials, presentation steps, and back control. Saved purchase links and protected-video integration are shared; missing URLs/videos still require admin entries.
 - [x] Match full Science, Art, and Grace and Courtesy activity pages to a single Practical Life template, preserving curriculum and banners; four free starters browser-tested, 51 tests pass. Paid video playback remains unverified.
