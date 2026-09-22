@@ -349,19 +349,7 @@ const Home: React.FC<HomeProps> = ({
               </div>
             </div>
 
-            {/* Right: Hero Image — hidden on mobile */}
-            <div className="hidden lg:block">
-              <Reveal>
-                <img
-                  src={heroChildPouring}
-                  alt="A child pours water from one small glass pitcher into another on a wooden tray, one hand on the handle and the other supporting the pitcher"
-                  width={1024}
-                  height={1024}
-                  className="w-full max-w-lg mx-auto aspect-square object-cover rounded-3xl border-4 border-card shadow-2xl"
-                  loading="eager"
-                />
-              </Reveal>
-            </div>
+            <div className="hidden lg:block" />
           </div>
         </div>
       </section>
@@ -480,6 +468,14 @@ const Home: React.FC<HomeProps> = ({
             <Reveal>
               <Card className="h-full border-border/60 bg-card">
                 <CardContent className="p-6 lg:p-8">
+                  <img
+                    src={heroChildPouring}
+                    alt="A child pours water from one small glass pitcher into another on a wooden tray, one hand on the handle and the other supporting the pitcher"
+                    width={1024}
+                    height={1024}
+                    className="w-full aspect-video object-cover rounded-xl mb-6"
+                    loading="lazy"
+                  />
                   <div className="grid sm:grid-cols-2 gap-5">
                     {[
                       { title: 'Materials', text: 'Two matching child-sized pitchers, water, a tray, sponge, and drying cloth.' },

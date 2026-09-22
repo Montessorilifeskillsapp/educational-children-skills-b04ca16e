@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle, Sparkles, Star } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
 import pouringSet from '@/assets/pouring-set.jpg';
-import heroPouring from '@/assets/hero-child-pouring-approved.jpg';
+import heroPouring from '@/assets/child-pouring-step.jpg';
 
 const STEPS = [
   { title: 'Prepare the tray', body: 'Set out two small glass pitchers on a tray. Fill the left pitcher about one-third with water (add a drop of food colouring to make the level visible).' },
