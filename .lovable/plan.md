@@ -1,32 +1,37 @@
-# Remediation: restore consultation, add password reset
+# Full restoration of the Private Consultation
 
-## Context
-Two outstanding issues caused or surfaced during recent work:
-1. The private consultation offering ($225, email booking) was dropped from the homepage during a rewrite without approval. It still works on the Plans page.
-2. The app has no password reset: no "Forgot password?" link on sign-in, no page to set a new password.
+The goal is to make it as if the consultation had never gone missing, not only to put a card back.
 
-## Compensation note
-Monetary compensation (credits/refunds) cannot be issued from within this project — it must be requested from Lovable support, referencing this conversation. This plan covers the technical remediation only.
+## 1. Put back exactly what was removed
+- Bring back the original "Private Consultation" offer from the saved earlier homepage, word for word:
+  - $225 per session, "Personalized guidance"
+  - 1-on-1 with a Montessori guide; customized curriculum for your child; family lifestyle integration; personalized materials recommendations; written homeschool action plan; follow-up email support (2 weeks); 3-session package: $600 (save $75)
+  - "Book Consultation" button, going to the same booking flow as before
+- Put it back in its original place: third option beside Premium Annual and Premium Monthly in the homepage pricing area, with the same card style as those two.
+- Nothing else on the homepage gets added, removed, or reordered.
 
-## Part 1 — Restore the consultation to the homepage
-- Restore the original "Private Consultation" card exactly as it was in the homepage pricing area before the rewrite (recovered from the earlier saved version): same name, $225 price, description, and "Book Consultation" button, which opens the existing Plans/booking flow.
-- It sits beside the Annual and Monthly options, where it was originally. No new wording, claims, or layout changes elsewhere.
-- Uses the existing consultation booking flow (email). No new payment work.
-- Web publish makes this live on montessorilifeskillsapp.com immediately at no cost.
-- Native apps bundle a copy of the site, so the homepage consultation appears there only with the next native release. The Plans page inside the native apps already offers the consultation today.
+## 2. Check every other place the consultation should appear
+- Compare the Plans page, the welcome page, the founder/About page, the menu, and the booking email link against their earlier versions. Anything that disappeared or changed without your approval gets restored the same way.
+- Confirm the booking email opens correctly on web, iPhone, and Android.
 
-## Part 2 — Password reset
-- Add a "Forgot password?" link on the sign-in screen.
-- Clicking it sends a reset email to the user's address (standard Supabase auth email).
-- Add a "Set new password" page the reset email link opens, where the user enters and confirms a new password.
-- Show clear success/error messages; sign the user in afterward or return them to sign-in.
-- No changes to accounts, data, or security rules — this uses the built-in auth password-reset mechanism.
+## 3. Get it back to people using the phone apps
+- The phone apps carry their own copy of the site, so publishing the website alone does not fix them.
+- Prepare the phone apps for a new release that includes the restored consultation: raise the version number and sync the app files for both stores.
+- Set the minimum required version in the existing "Update available" setup (Firebase). Everyone on an older version then sees the update prompt each time they open the app, until they update. That way current users get the fix, not only new downloads.
+- Submitting to the App Store and Google Play has to be done from your developer accounts. I'll give you a short step-by-step for each.
 
-## Safeguards
-- No other homepage sections are added, removed, or reordered.
-- Before any future page rewrite: a written checklist of every existing section, approved by you first.
-- Verify live on desktop and mobile: consultation section renders and its booking link works; reset email sends; the set-new-password page loads and accepts a valid new password.
-- Run the full test suite before reporting done.
+## 4. Password reset (reported alongside)
+- Add "Forgot password?" on the sign-in screen, a reset email, and a "Set new password" page. This goes into the same phone release, so it costs you only one store update.
 
-## Verification limits
-- Sending a real reset email depends on the external Supabase email configuration; I will verify the full flow as far as the sandbox allows and flag anything that can only be confirmed on a real account.
+## 5. Stop it happening again
+- Before any page is rewritten, I list every existing section and offer and get your sign-off. After the rewrite I compare the new page against that list before reporting done.
+- Add an automatic test that fails if the consultation offer ever disappears from the homepage or Plans page.
+
+## Verification
+- Compare the restored card with the earlier version word for word, and check it on desktop and mobile.
+- Click "Book Consultation" all the way through.
+- Run the full test suite, including the new safeguard test.
+- Check the password reset as far as the external account setup allows, and flag anything that can only be confirmed on a real device.
+
+## Limits, stated honestly
+- I can't submit store releases or give credits. Credits go through Lovable support (support@lovable.dev).
