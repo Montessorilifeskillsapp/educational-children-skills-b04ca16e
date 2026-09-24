@@ -9,8 +9,8 @@ Two outstanding issues caused or surfaced during recent work:
 Monetary compensation (credits/refunds) cannot be issued from within this project — it must be requested from Lovable support, referencing this conversation. This plan covers the technical remediation only.
 
 ## Part 1 — Restore the consultation to the homepage
-- Add a concise consultation section to the homepage, placed directly after the founder (Kerry Howard) section, since the consultation is with Kerry.
-- Content: one private consultation with Kerry Howard, $225, booked by email — matching exactly what the Plans page already offers. No new claims.
+- Restore the original "Private Consultation" card exactly as it was in the homepage pricing area before the rewrite (recovered from the earlier saved version): same name, $225 price, description, and "Book Consultation" button, which opens the existing Plans/booking flow.
+- It sits beside the Annual and Monthly options, where it was originally. No new wording, claims, or layout changes elsewhere.
 - Uses the existing consultation booking flow (email). No new payment work.
 - Web publish makes this live on montessorilifeskillsapp.com immediately at no cost.
 - Native apps bundle a copy of the site, so the homepage consultation appears there only with the next native release. The Plans page inside the native apps already offers the consultation today.
