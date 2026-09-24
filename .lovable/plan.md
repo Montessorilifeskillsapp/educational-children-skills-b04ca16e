@@ -1,25 +1,32 @@
-# Add password reset
+# Remediation: restore consultation, add password reset
 
-## What's wrong now
-There's no way to reset a password anywhere in the app. The sign-in screens have no "Forgot password?" link, and there's no page for choosing a new password. A user who forgets their password is locked out.
+## Context
+Two outstanding issues caused or surfaced during recent work:
+1. The private consultation offering ($225, email booking) was dropped from the homepage during a rewrite without approval. It still works on the Plans page.
+2. The app has no password reset: no "Forgot password?" link on sign-in, no page to set a new password.
 
-## What will change (only these things)
-1. **"Forgot password?" link** under the password box on the sign-in page and in the pop-up sign-in window. Clicking it shows one email box and a "Send reset link" button. After it's sent, the user sees: "If an account exists for that email, a reset link is on its way." This message doesn't reveal whether an account exists.
-2. **New "Set a new password" page** that opens from the email link. It has a new-password box and a confirm box (at least 6 characters, both must match). When it's saved, the user is signed in and taken to the homepage with a confirmation message. If the link has expired or is invalid, the page says so and offers to send a new one.
-3. **Nothing else changes.** No changes to the homepage, navigation, sign-up, Google/Apple sign-in, or styling. The new pieces use the existing card and button styles.
+## Compensation note
+Monetary compensation (credits/refunds) cannot be issued from within this project — it must be requested from Lovable support, referencing this conversation. This plan covers the technical remediation only.
 
-## One thing you need to do
-Your login system is hosted on your own external account, so I can't change its settings from here. In your Supabase dashboard, go to Authentication and then URL Configuration. Make sure these addresses are in the allowed redirect list:
-- https://montessorilifeskillsapp.com/reset-password
-- https://educational-children-skills.lovable.app/reset-password
+## Part 1 — Restore the consultation to the homepage
+- Add a concise consultation section to the homepage, placed directly after the founder (Kerry Howard) section, since the consultation is with Kerry.
+- Content: one private consultation with Kerry Howard, $225, booked by email — matching exactly what the Plans page already offers. No new claims.
+- Uses the existing consultation booking flow (email). No new payment work.
+- Web publish makes this live on montessorilifeskillsapp.com immediately at no cost.
+- Native apps bundle a copy of the site, so the homepage consultation appears there only with the next native release. The Plans page inside the native apps already offers the consultation today.
 
-Otherwise the email link will send people to the wrong place.
+## Part 2 — Password reset
+- Add a "Forgot password?" link on the sign-in screen.
+- Clicking it sends a reset email to the user's address (standard Supabase auth email).
+- Add a "Set new password" page the reset email link opens, where the user enters and confirms a new password.
+- Show clear success/error messages; sign the user in afterward or return them to sign-in.
+- No changes to accounts, data, or security rules — this uses the built-in auth password-reset mechanism.
 
-## Native apps
-The Android and iPhone apps carry their own copy of the site, so they only get the new link in their next store release. In the meantime, the reset email link opens the reset page on the website. That works for any account, so users of the apps can reset their password there right away.
+## Safeguards
+- No other homepage sections are added, removed, or reordered.
+- Before any future page rewrite: a written checklist of every existing section, approved by you first.
+- Verify live on desktop and mobile: consultation section renders and its booking link works; reset email sends; the set-new-password page loads and accepts a valid new password.
+- Run the full test suite before reporting done.
 
-## Technical details
-- `useAuth.ts`: add `resetPassword(email)` → `supabase.auth.resetPasswordForEmail(email, { redirectTo: 'https://montessorilifeskillsapp.com/reset-password' })` on native and `${window.location.origin}/reset-password` on the web. Expose it through AuthProvider.
-- `AuthPage.tsx` and `AuthModal.tsx`: add a forgot-password mode to each form.
-- New `src/pages/ResetPasswordPage.tsx`, added as a public `/reset-password` route in `App.tsx`. It listens for the `PASSWORD_RECOVERY` event (or `type=recovery` in the link) and then calls `supabase.auth.updateUser({ password })` with no current password.
-- Verify by sending a real reset email in the preview, setting a new password, and signing in with it. Then run the typecheck and all tests.
+## Verification limits
+- Sending a real reset email depends on the external Supabase email configuration; I will verify the full flow as far as the sandbox allows and flag anything that can only be confirmed on a real account.
