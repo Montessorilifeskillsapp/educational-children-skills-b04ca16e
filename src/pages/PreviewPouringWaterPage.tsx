@@ -5,7 +5,7 @@ import { ArrowRight, CheckCircle, Sparkles, Star } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
 import pouringSet from '@/assets/pouring-set.jpg';
-import heroPouring from '@/assets/child-pouring-step.jpg';
+import heroPouring from '@/assets/hero-child-pouring-approved.jpg';
 
 const STEPS = [
   { title: 'Prepare the tray', body: 'Set out two small glass pitchers on a tray. Fill the left pitcher about one-third with water (add a drop of food colouring to make the level visible).' },
@@ -72,9 +72,9 @@ const PreviewPouringWaterPage: React.FC = () => {
 
         <img
           src={heroPouring}
-          alt="Young child pouring water between two small glass pitchers in a Montessori prepared environment"
-          width={1280} height={720}
-          className="w-full rounded-2xl shadow-xl border-4 border-card mb-10 aspect-video object-cover"
+          alt="Child supporting the spout while pouring water from one small glass pitcher into another on a tray"
+          width={1024} height={1024}
+          className="w-full h-auto rounded-2xl shadow-xl border-4 border-card mb-10"
           loading="eager"
           // @ts-expect-error fetchpriority
           fetchpriority="high"
