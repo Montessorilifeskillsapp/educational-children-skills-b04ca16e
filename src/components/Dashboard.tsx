@@ -429,7 +429,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <div className="bg-accent/15/50 rounded-lg p-3 border border-accent/25">
                     <p className="text-xs font-semibold text-accent mb-1">Montessori Principle:</p>
                     <p className="text-xs text-accent leading-relaxed">
-                      <strong>Why:</strong> Dr. Montessori believed the senses are the gateway to intelligence. Sensorial materials isolate specific qualities (size, color, texture, sound, weight) to sharpen perception and develop powers of observation. This refined sensory awareness forms the foundation for mathematical thinking, scientific exploration, and artistic expression.
+                      <strong>Why:</strong> Dr. Maria Montessori believed the senses are the gateway to intelligence. Sensorial materials isolate specific qualities (size, color, texture, sound, weight) to sharpen perception and develop powers of observation. This refined sensory awareness forms the foundation for mathematical thinking, scientific exploration, and artistic expression.
                     </p>
                   </div>
                 </CardContent>
