@@ -166,30 +166,14 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        {/* Keep account destinations visible before the long progress and curriculum sections. */}
-        <section className="mb-6 border-y border-border py-5" aria-labelledby="dashboard-more-heading">
-          <h2 id="dashboard-more-heading" className="mb-3 text-lg font-semibold text-foreground">Additional Pages &amp; Features</h2>
-          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
-            <Button variant="outline" onClick={onSubscriptionView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
-              <Crown className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-              <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing</span></span>
-            </Button>
-            <Button variant="outline" onClick={onParentView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
-              <User className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-              <span className="min-w-0"><span className="block font-semibold">Family Dashboard</span><span className="block text-xs font-normal text-muted-foreground">Track progress</span></span>
-            </Button>
-            {onProfilesView && (
-              <Button variant="outline" onClick={onProfilesView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
-                <Users className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-                <span className="min-w-0"><span className="block font-semibold">Child Profiles</span><span className="block text-xs font-normal text-muted-foreground">Manage profiles</span></span>
-              </Button>
-            )}
-            <Button variant="outline" onClick={onParentView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
-              <User className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
-              <span className="min-w-0"><span className="block font-semibold">Child Page</span><span className="block text-xs font-normal text-muted-foreground">Activities &amp; progress</span></span>
-            </Button>
-          </div>
-        </section>
+        <nav className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-4" aria-label="Account pages">
+          <Button variant="link" onClick={onParentView} className="h-auto p-0 text-foreground">
+            <User className="mr-2 h-4 w-4 text-primary" aria-hidden="true" />Family Dashboard
+          </Button>
+          <Button variant="link" onClick={onSubscriptionView} className="h-auto p-0 text-foreground">
+            <Crown className="mr-2 h-4 w-4 text-primary" aria-hidden="true" />Premium Plans
+          </Button>
+        </nav>
 
         {/* Classroom setup guide — the AMI prepared environment */}
         <Link to="/classroom-setup" className="block mb-6 group">
