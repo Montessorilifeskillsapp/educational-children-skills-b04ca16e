@@ -1,5 +1,7 @@
 ## Open tasks
 - [x] Make email signup easier to use: one visible form at a time, persistent understandable errors, password visibility, and a clear email-confirmation state; verify desktop/mobile states.
+- [ ] Fix "Manage Child Profiles" back control: returns to homepage instead of dashboard (reported Sept 28)
+- [ ] Rebalance the Private Consultation card in the homepage pricing row so its button doesn't dangle below a large empty gap
 - [ ] Review child-profile creation and editing usability separately before changing shared profile data or flows; user reports they feel clunky, but specific pain points remain unconfirmed.
 - [x] Make Child Profiles a prominent, unmistakable top action alongside distinct Family Dashboard and Premium Plans destinations; remove the duplicate Child Page shortcut and avoid tiny text links.
 - [x] Consultation restored and shown alongside the pay options: a third card in the homepage pricing section next to Premium Annual/Monthly; removed from Kerry's profile section. Plans page unchanged.
