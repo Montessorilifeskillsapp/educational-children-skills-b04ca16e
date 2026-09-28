@@ -166,6 +166,31 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
+        {/* Keep account destinations visible before the long progress and curriculum sections. */}
+        <section className="mb-6 border-y border-border py-5" aria-labelledby="dashboard-more-heading">
+          <h2 id="dashboard-more-heading" className="mb-3 text-lg font-semibold text-foreground">Additional Pages &amp; Features</h2>
+          <div className="grid gap-2 sm:grid-cols-2 lg:grid-cols-4">
+            <Button variant="outline" onClick={onSubscriptionView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
+              <Crown className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+              <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing</span></span>
+            </Button>
+            <Button variant="outline" onClick={onParentView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
+              <User className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+              <span className="min-w-0"><span className="block font-semibold">Family Dashboard</span><span className="block text-xs font-normal text-muted-foreground">Track progress</span></span>
+            </Button>
+            {onProfilesView && (
+              <Button variant="outline" onClick={onProfilesView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
+                <Users className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+                <span className="min-w-0"><span className="block font-semibold">Child Profiles</span><span className="block text-xs font-normal text-muted-foreground">Manage profiles</span></span>
+              </Button>
+            )}
+            <Button variant="outline" onClick={onParentView} className="h-auto min-h-16 justify-start gap-3 px-4 py-3 text-left">
+              <User className="h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
+              <span className="min-w-0"><span className="block font-semibold">Child Page</span><span className="block text-xs font-normal text-muted-foreground">Activities &amp; progress</span></span>
+            </Button>
+          </div>
+        </section>
+
         {/* Classroom setup guide — the AMI prepared environment */}
         <Link to="/classroom-setup" className="block mb-6 group">
           <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-5 sm:p-6 flex items-center justify-between gap-4 transition-colors group-hover:border-primary/50">
@@ -574,81 +599,6 @@ const Dashboard: React.FC<DashboardProps> = ({
             )}
           </div>
         </div>
-        {/* Additional Pages Navigation */}
-        <section className="mb-8">
-          <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary} mb-4`}>
-            Additional Pages & Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card 
-              className="cursor-pointer hover:shadow-xl transition-all border-2 border-primary/40 bg-gradient-to-br from-primary/20 to-accent/20 transform hover:scale-105"
-              onClick={onSubscriptionView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-r from-primary/200 to-accent/200 rounded-full">
-                    <Crown className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-primary font-bold">Premium Plans</h3>
-                    <p className="text-sm text-primary">Unlock all features & content</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-teal-200 bg-teal-50`}
-              onClick={onParentView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <User className="h-6 w-6 text-teal-600" />
-                  <div>
-                    <h3 className="text-teal-700">Family Dashboard</h3>
-                    <p className="text-sm text-gray-600">Track progress</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
-            {onProfilesView && (
-              <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-primary/25 bg-primary/10`}
-                onClick={onProfilesView}
-              >
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-3">
-                    <Users className="h-6 w-6 text-primary" />
-                    <div>
-                      <h3 className="text-primary">Child Profiles</h3>
-                      <p className="text-sm text-gray-600">Manage profiles</p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-              </Card>
-            )}
-
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-cyan-200 bg-cyan-50`}
-              onClick={onParentView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <User className="h-6 w-6 text-cyan-600" />
-                  <div>
-                    <h3 className="text-cyan-700">Child Page</h3>
-                    <p className="text-sm text-gray-600">Child activities & progress</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
-
-
-          </div>
-        </section>
-
       </div>
     </div>
   );
