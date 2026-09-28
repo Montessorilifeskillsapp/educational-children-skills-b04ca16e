@@ -23,6 +23,7 @@ import {
   syncCurrentRevenueCatStatus,
 } from '@/lib/revenuecat';
 import { forceWebViewRepaint } from '@/hooks/useNativeWebViewRecovery';
+import founderKerry from '@/assets/founder-kerry-howard.png';
 
 interface Plan {
   id: string;
@@ -435,6 +436,32 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 <p className="text-xs text-muted-foreground mt-3">Managed through your App Store account.</p>
               )}
             </div>
+            <div className="border-y border-border py-5 text-left">
+              <div className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row sm:items-center">
+                <img
+                  src={founderKerry}
+                  alt="Kerry Howard, AMI-trained Montessori guide"
+                  className="h-20 w-20 shrink-0 rounded-full border border-border object-cover"
+                />
+                <div className="min-w-0 flex-1">
+                  <p className="text-lg font-bold text-foreground">Private consultation with Kerry</p>
+                  <p className="mt-1 text-sm text-muted-foreground">
+                    Personalized Montessori guidance for your child, family routine, and next steps.
+                  </p>
+                  <p className="mt-2 text-sm font-semibold text-foreground">
+                    {isNative ? 'Available by request' : '$225 per session · Three sessions $600'}
+                  </p>
+                </div>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="shrink-0"
+                  onClick={() => handleSubscribe(CONSULTATION)}
+                >
+                  Book consultation
+                </Button>
+              </div>
+            </div>
             <div className="flex flex-col sm:flex-row justify-center gap-3">
               <Button onClick={onBack} className="bg-primary hover:bg-primary/90 text-primary-foreground">
                 Open dashboard
@@ -444,7 +471,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 {syncingStatus ? 'Syncing…' : 'Sync plan'}
               </Button>
             </div>
-            <div className="border-t border-border pt-5">
+            <div>
               <AccessCodeRedeem />
             </div>
           </CardContent>
