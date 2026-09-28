@@ -202,7 +202,7 @@ const ClassroomSetupPage: React.FC = () => {
         </div>
         <p className="text-muted-foreground max-w-3xl mb-8 leading-relaxed">
           Dr. Maria Montessori called the classroom the <em>prepared environment</em>. It is not
-          decorated; it is prepared — deliberately, for the child\u2019s developmental needs.
+          decorated; it is prepared — deliberately, for the child’s developmental needs.
           Six principles govern every decision.
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
