@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
-import { Plus, Pencil, Check } from 'lucide-react';
+import { Plus, Settings, User, Star, BookOpen, Trophy, Target, Calendar, TrendingUp } from 'lucide-react';
 import ChildProfileModal from './ChildProfileModal';
+import { montessoriTheme } from './ThemeConfig';
+import BackButton from '@/components/ui/back-button';
 
 interface ChildProfile {
   id: string;
@@ -21,7 +24,6 @@ interface ProfileSelectorProps {
   completedSkills?: string[];
   totalSkills?: number;
   onBack?: () => void;
-  onContinue?: () => void;
 }
 
 
@@ -32,11 +34,11 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   onProfileUpdate,
   completedSkills = [],
   totalSkills = 15,
-  onBack,
-  onContinue
+  onBack
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [editingProfile, setEditingProfile] = useState<ChildProfile | undefined>();
+  const [hoveredProfile, setHoveredProfile] = useState<string | null>(null);
 
   const handleProfileSave = (profile: ChildProfile) => {
     if (editingProfile) {
@@ -61,67 +63,170 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
     setShowModal(true);
   };
 
-  const completionRate = totalSkills > 0 ? Math.min(100, (completedSkills.length / totalSkills) * 100) : 0;
+  const completionRate = (completedSkills.length / totalSkills) * 100;
+
+  // Mock achievements data
+  const achievements = [
+    { icon: "🌟", title: "First Steps", description: "Completed first activity", unlocked: true },
+    { icon: "🏆", title: "Week Warrior", description: "7 days in a row", unlocked: completedSkills.length >= 5 },
+    { icon: "🎯", title: "Skill Master", description: "Master 10 skills", unlocked: completedSkills.length >= 10 },
+    { icon: "📚", title: "Learning Champion", description: "Complete all activities", unlocked: completedSkills.length >= totalSkills }
+  ];
 
   return (
-    <div className="space-y-7">
-      <div className="flex flex-col gap-4 border-b border-border pb-5 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <p className="text-sm font-medium text-primary">Family Dashboard</p>
-          <h1 className="mt-1 text-3xl font-semibold text-foreground">Child profiles</h1>
-          <p className="mt-2 text-sm text-muted-foreground">Select a child to continue their Montessori work.</p>
-        </div>
-        <div className="flex flex-wrap gap-2">
-          {onBack && <Button variant="outline" onClick={onBack}>Back to home</Button>}
-          {onContinue && <Button onClick={onContinue}>Continue to learning</Button>}
-        </div>
-      </div>
+    <div className="space-y-6">
+      {onBack && (
+        <BackButton 
+          onClick={onBack}
+          label="Back to Dashboard"
+        />
 
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-lg font-semibold text-foreground">Select a child</h2>
-        <Button onClick={handleAddProfile} variant="outline" size="sm" className="gap-2">
-          <Plus className="h-4 w-4" aria-hidden="true" />Add child
+      )}
+
+      {/* Interactive Progress Dashboard for Active Child */}
+      {activeProfile && (
+        <div className="space-y-4">
+          <Card className={`${montessoriTheme.card.base} ${montessoriTheme.card.secondary} hover:shadow-lg transition-all duration-300`}>
+            <CardHeader className="pb-3">
+              <CardTitle className={`flex items-center gap-2 ${montessoriTheme.text.secondary}`}>
+                <div className="animate-pulse">
+                  <Star className="h-5 w-5 text-blue-500" />
+                </div>
+                {activeProfile.name}'s Learning Journey
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between text-sm mb-2">
+                <span className="font-medium">Practical Life Skills Progress</span>
+                <span className="text-primary font-semibold">{completedSkills.length} of {totalSkills} completed</span>
+              </div>
+              <div className="relative">
+                <Progress value={completionRate} className="h-4 mb-4 bg-gray-200" />
+                <div className="absolute inset-0 flex items-center justify-center text-xs font-bold text-white">
+                  {Math.round(completionRate)}%
+                </div>
+              </div>
+              
+              {/* Interactive Stats Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {[
+                  { value: completedSkills.length, label: "Skills Mastered", color: "text-blue-600", icon: "🎯", bg: "bg-blue-50" },
+                  { value: `${Math.round(completionRate)}%`, label: "Progress", color: "text-green-600", icon: "📈", bg: "bg-green-50" },
+                  { value: "7", label: "Day Streak", color: "text-primary", icon: "📅", bg: "bg-primary/10" },
+                  { value: "45m", label: "Today", color: "text-orange-600", icon: "📚", bg: "bg-orange-50" }
+                ].map((stat, index) => (
+                  <div key={index} className={`${stat.bg} p-4 rounded-lg text-center hover:scale-105 transition-transform duration-200 cursor-pointer`}>
+                    <div className={`text-2xl mb-2 ${stat.color}`}>{stat.icon}</div>
+                    <div className={`text-2xl font-bold ${stat.color}`}>{stat.value}</div>
+                    <div className={`text-sm ${montessoriTheme.text.muted}`}>{stat.label}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Interactive Achievements Section */}
+          <Card className={`${montessoriTheme.card.base} hover:shadow-lg transition-all duration-300`}>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Trophy className="h-5 w-5 text-blue-500" />
+                Achievements
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {achievements.map((achievement, index) => (
+                  <div
+                    key={index}
+                    className={`p-3 rounded-lg border-2 text-center transition-all duration-300 cursor-pointer ${
+                      achievement.unlocked 
+                        ? 'border-blue-300 bg-blue-50 hover:bg-blue-100 hover:scale-105'
+                        : 'border-gray-200 bg-gray-50 opacity-60'
+                    }`}
+                  >
+                    <div className={`text-2xl mb-1 ${achievement.unlocked ? 'animate-bounce' : ''}`}>
+                      {achievement.unlocked ? achievement.icon : '🔒'}
+                    </div>
+                    <div className="text-xs font-semibold">{achievement.title}</div>
+                    <div className="text-xs text-gray-600 mt-1">{achievement.description}</div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      )}
+
+      <div className="flex items-center justify-between">
+        <h2 className="text-lg font-semibold flex items-center gap-2">
+          <User className="h-5 w-5" />
+          Select Child Profile
+        </h2>
+        <Button
+          onClick={handleAddProfile}
+          variant="outline"
+          size="sm"
+          className="flex items-center gap-2 hover:scale-105 transition-transform duration-200"
+        >
+          <Plus className="h-4 w-4" />
+          Add Child
         </Button>
       </div>
 
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {profiles.map((profile) => (
           <Card
             key={profile.id}
-            className={`border transition-colors ${activeProfile?.id === profile.id ? 'border-primary bg-primary/5' : 'border-border bg-card'}`}
+            className={`cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1 group ${
+              activeProfile?.id === profile.id
+                ? 'ring-2 ring-primary0 bg-primary/10 shadow-lg'
+                : 'hover:bg-gray-50'
+            }`}
+            onClick={() => onProfileSelect(profile)}
+            onMouseEnter={() => setHoveredProfile(profile.id)}
+            onMouseLeave={() => setHoveredProfile(null)}
           >
-            <CardContent className="flex items-center gap-3 p-4">
-              <Button
-                variant="ghost"
-                className="min-w-0 flex-1 justify-start gap-3 px-1 text-left h-auto py-1 hover:bg-transparent"
-                onClick={() => onProfileSelect(profile)}
-                aria-label={`Select ${profile.name}`}
-                aria-pressed={activeProfile?.id === profile.id}
-              >
-                <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-muted text-2xl" aria-hidden="true">{profile.avatar}</span>
-                <span className="min-w-0">
-                  <span className="block truncate font-semibold text-foreground">{profile.name}</span>
-                  <span className="block text-sm font-normal text-muted-foreground">Age {profile.age}</span>
-                </span>
-              </Button>
-              {activeProfile?.id === profile.id && <Check className="h-5 w-5 shrink-0 text-primary" aria-label="Selected" />}
-              <Button variant="ghost" size="icon" onClick={() => handleEditProfile(profile)} aria-label={`Edit ${profile.name}`} title={`Edit ${profile.name}`}>
-                <Pencil className="h-4 w-4" aria-hidden="true" />
-              </Button>
+            <CardContent className="p-4">
+              <div className="flex items-center gap-3">
+                <div className={`text-4xl transition-transform duration-300 ${
+                  hoveredProfile === profile.id ? 'scale-110 animate-pulse' : ''
+                }`}>
+                  {profile.avatar}
+                </div>
+                <div className="flex-1">
+                  <h3 className="font-semibold text-lg">{profile.name}</h3>
+                  <p className="text-sm text-gray-600">{profile.age} years old</p>
+                  <div className="flex flex-wrap gap-1 mt-2">
+                    {profile.interests.slice(0, 2).map(interest => (
+                      <Badge key={interest} variant="secondary" className="text-xs hover:bg-primary/25 transition-colors">
+                        {interest}
+                      </Badge>
+                    ))}
+                    {profile.interests.length > 2 && (
+                      <Badge variant="secondary" className="text-xs">
+                        +{profile.interests.length - 2}
+                      </Badge>
+                    )}
+                  </div>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleEditProfile(profile);
+                  }}
+                  className={`transition-all duration-200 ${
+                    hoveredProfile === profile.id ? 'opacity-100 scale-110' : 'opacity-0'
+                  }`}
+                >
+                  <Settings className="h-4 w-4" />
+                </Button>
+              </div>
             </CardContent>
           </Card>
         ))}
       </div>
-
-      {activeProfile && (
-        <section className="border-t border-border pt-6" aria-label={`${activeProfile.name}'s Practical Life progress`}>
-          <div className="mb-2 flex flex-wrap items-baseline justify-between gap-2 text-sm">
-            <h2 className="font-semibold text-foreground">{activeProfile.name}'s Practical Life progress</h2>
-            <span className="text-muted-foreground">{completedSkills.length} of {totalSkills} activities completed</span>
-          </div>
-          <Progress value={completionRate} className="h-2" aria-label={`${Math.round(completionRate)}% complete`} />
-        </section>
-      )}
 
       <ChildProfileModal
         isOpen={showModal}

@@ -314,8 +314,10 @@ const AppLayout: React.FC = () => {
             completedSkills={completedSkills}
             totalSkills={practicalSkills.length}
             onBack={() => setCurrentView('home')}
-            onContinue={handleBackToDashboard}
           />
+          <div className="mt-6">
+            <BackButton onClick={handleBack} label="Continue to Learning" variant="default" />
+          </div>
         </div>
       </div>
     );
