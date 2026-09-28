@@ -16,6 +16,11 @@ interface ResolvedGroupItem {
   imageUrl?: string;
 }
 
+/** Classroom items that reuse an existing activity material's saved link. */
+const LINK_ALIASES: Record<string, string> = {
+  'small-jug-or-pitcher': 'child-sized-pitcher',
+};
+
 /**
  * The classroom page's material list, presented as a room checklist rather
  * than a shopping list: grouped, quiet rows, and the purchase links folded
@@ -31,8 +36,10 @@ export const ClassroomMaterials: React.FC = () => {
         title: group.title,
         items: group.materials.map<ResolvedGroupItem>((name) => {
           const key = normalizeMaterialKey(name);
-          const link = byKey.get(key);
-          const displayName = link?.display_name || name;
+          const ownLink = byKey.get(key);
+          const aliasKey = LINK_ALIASES[key];
+          const link = ownLink?.amazon_url ? ownLink : (aliasKey && byKey.get(aliasKey)) || ownLink;
+          const displayName = ownLink?.display_name || name;
           return {
             key,
             displayName,
