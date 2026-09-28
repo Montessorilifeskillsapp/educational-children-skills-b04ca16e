@@ -459,6 +459,7 @@ const AppLayout: React.FC = () => {
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}
+      onProfilesView={() => handleViewChange('profiles')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
       streak={streak}

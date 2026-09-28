@@ -145,12 +145,6 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </SelectContent>
               </Select>
             )}
-            {onProfilesView && (
-              <Button variant="outline" size="sm" onClick={onProfilesView}>
-                <Users className="mr-2 h-4 w-4" />
-                Manage
-              </Button>
-            )}
             {!user ? (
               <Link to="/auth">
                 <Button variant="outline">
@@ -165,6 +159,23 @@ const Dashboard: React.FC<DashboardProps> = ({
             )}
           </div>
         </div>
+
+        <nav className="mb-6 grid gap-3 sm:grid-cols-3" aria-label="Account pages">
+          {onProfilesView && (
+            <Button variant="default" onClick={onProfilesView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
+              <Users className="h-6 w-6 shrink-0" aria-hidden="true" />
+              <span className="min-w-0"><span className="block font-semibold">Manage Child Profiles</span><span className="block text-xs font-normal opacity-90">Choose or edit a child</span></span>
+            </Button>
+          )}
+          <Button variant="outline" onClick={onParentView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
+            <User className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+            <span className="min-w-0"><span className="block font-semibold">Family Dashboard</span><span className="block text-xs font-normal text-muted-foreground">View learning progress</span></span>
+          </Button>
+          <Button variant="outline" onClick={onSubscriptionView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
+            <Crown className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+            <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing</span></span>
+          </Button>
+        </nav>
 
         {/* Classroom setup guide — the AMI prepared environment */}
         <Link to="/classroom-setup" className="block mb-6 group">
@@ -574,81 +585,6 @@ const Dashboard: React.FC<DashboardProps> = ({
             )}
           </div>
         </div>
-        {/* Additional Pages Navigation */}
-        <section className="mb-8">
-          <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary} mb-4`}>
-            Additional Pages & Features
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <Card 
-              className="cursor-pointer hover:shadow-xl transition-all border-2 border-primary/40 bg-gradient-to-br from-primary/20 to-accent/20 transform hover:scale-105"
-              onClick={onSubscriptionView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <div className="p-2 bg-gradient-to-r from-primary/200 to-accent/200 rounded-full">
-                    <Crown className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <h3 className="text-primary font-bold">Premium Plans</h3>
-                    <p className="text-sm text-primary">Unlock all features & content</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-teal-200 bg-teal-50`}
-              onClick={onParentView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <User className="h-6 w-6 text-teal-600" />
-                  <div>
-                    <h3 className="text-teal-700">Family Dashboard</h3>
-                    <p className="text-sm text-gray-600">Track progress</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
-            {onProfilesView && (
-              <Card 
-                className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-primary/25 bg-primary/10`}
-                onClick={onProfilesView}
-              >
-                <CardHeader className="pb-3">
-                  <CardTitle className="flex items-center gap-3">
-                    <Users className="h-6 w-6 text-primary" />
-                    <div>
-                      <h3 className="text-primary">Child Profiles</h3>
-                      <p className="text-sm text-gray-600">Manage profiles</p>
-                    </div>
-                  </CardTitle>
-                </CardHeader>
-              </Card>
-            )}
-
-            <Card 
-              className={`${montessoriTheme.card.base} cursor-pointer hover:shadow-lg transition-all border-cyan-200 bg-cyan-50`}
-              onClick={onParentView}
-            >
-              <CardHeader className="pb-3">
-                <CardTitle className="flex items-center gap-3">
-                  <User className="h-6 w-6 text-cyan-600" />
-                  <div>
-                    <h3 className="text-cyan-700">Child Page</h3>
-                    <p className="text-sm text-gray-600">Child activities & progress</p>
-                  </div>
-                </CardTitle>
-              </CardHeader>
-            </Card>
-
-
-
-          </div>
-        </section>
-
       </div>
     </div>
   );
