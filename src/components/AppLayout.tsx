@@ -15,7 +15,7 @@ import GraceAndCourtesySkills from './GraceAndCourtesySkills';
 
 import Home from './Home';
 import SubscriptionPlans from './SubscriptionPlans';
-import ParentDashboard from './ParentDashboard';
+import FamilyDashboard from './family/FamilyDashboard';
 import OnboardingFlow from './OnboardingFlow';
 import ProfileSelector from './ProfileSelector';
 
@@ -296,7 +296,7 @@ const AppLayout: React.FC = () => {
   }
 
   if (currentView === 'parent') {
-    return <ParentDashboard onBack={handleBackToDashboard} />;
+    return <FamilyDashboard onBack={handleBackToDashboard} onManageProfiles={() => setCurrentView('profiles')} />;
   }
 
 
