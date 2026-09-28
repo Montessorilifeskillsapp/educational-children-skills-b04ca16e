@@ -299,6 +299,36 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
+      // Consultation is an email booking request, not a purchase — no Terms gate.
+      // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
+      if (plan.id === 'consultation') {
+        const email = 'hello@montessorilearning.app';
+        const mailto =
+          `mailto:${email}?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20`;
+        try {
+          if (isNative) {
+            window.open(mailto, '_system');
+          } else {
+            // Anchor with target _top escapes embedded frames that block mailto.
+            const a = document.createElement('a');
+            a.href = mailto;
+            a.target = '_top';
+            a.rel = 'noopener';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+          }
+        } catch {
+          /* fall through to toast */
+        }
+        try { await navigator.clipboard?.writeText(email); } catch { /* noop */ }
+        toast({
+          title: 'Consultation Request',
+          description: `If your mail app didn't open, email us at ${email} (copied to clipboard). We reply within 24 hours.`,
+        });
+        return;
+      }
+
       // Require explicit acceptance of Terms & Privacy for any paid or subscription flow
       if (!termsAccepted) {
         toast({
@@ -309,32 +339,6 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         return;
       }
 
-
-      // Consultation is always an offline-arranged email booking (web + native).
-      // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
-      if (plan.id === 'consultation') {
-        const email = 'hello@montessorilearning.app';
-        const mailto =
-          `mailto:${email}?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20`;
-        try {
-          if (isNative) {
-            // On iOS/Android WebView, mailto: through window.location can be blocked.
-            // window.open lets the OS hand it off to the default mail client.
-            window.open(mailto, '_system');
-          } else {
-            window.location.href = mailto;
-          }
-        } catch {
-          /* fall through to toast */
-        }
-        // Copy email so users without a configured mail app can still reach us.
-        try { await navigator.clipboard?.writeText(email); } catch { /* noop */ }
-        toast({
-          title: 'Consultation Request',
-          description: `If your mail app didn't open, email us at ${email} (copied to clipboard). We reply within 24 hours.`,
-        });
-        return;
-      }
 
 
       if (!user) {
