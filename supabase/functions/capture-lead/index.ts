@@ -87,6 +87,10 @@ Deno.serve(async (req) => {
     .insert({ email, source, utm })
 
   if (insertError) {
+    // Already on the list (unique email+source) — confirm, don't error.
+    if (insertError.code === '23505') {
+      return jsonResponse({ ok: true, alreadySubscribed: true })
+    }
     console.error('leads insert failed', insertError)
     return jsonResponse({ error: 'internal_error' }, 500)
   }
