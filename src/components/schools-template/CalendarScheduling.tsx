@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Label } from './ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { Label } from '../ui/label';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../ui/select';
 import { Calendar, Clock, Plus, Video, MessageCircle, BookOpen } from 'lucide-react';
-import { Badge } from './ui/badge';
+import { Badge } from '../ui/badge';
 
 export const CalendarScheduling = () => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);

@@ -1,6 +1,7 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from './useAuth';
+import { areaOfSkill } from '@/lib/skillArea';
 
 export interface CompletionEntry {
   skillId: string;
@@ -72,7 +73,7 @@ export const useActivityCompletions = (profileId: string | undefined) => {
           const rows = toMigrate.map(e => ({
             child_id: profileId,
             skill_id: e.skillId,
-            skill_category: 'general',
+            skill_category: areaOfSkill(e.skillId),
             completed: true,
             completed_at: e.completedAt,
           }));
@@ -117,7 +118,7 @@ export const useActivityCompletions = (profileId: string | undefined) => {
             {
               child_id: profileId,
               skill_id: skillId,
-              skill_category: 'general',
+              skill_category: areaOfSkill(skillId),
               completed: true,
               completed_at: entry.completedAt,
             },

@@ -6,7 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { MessageCircle, Send, Phone, Video, Calendar, User, Clock, Star } from 'lucide-react';
-import { montessoriTheme } from './ThemeConfig';
+import { montessoriTheme } from '../ThemeConfig';
 
 interface Message {
   id: string;
