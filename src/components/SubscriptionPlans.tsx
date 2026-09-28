@@ -619,6 +619,22 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       ))}
                   </ul>
 
+                  {(plan.id === 'premium-monthly' || plan.id === 'premium-yearly') && (
+                    <div className="mb-6 rounded-lg border border-border bg-muted/40 p-3 text-sm">
+                      <p className="font-medium text-foreground">
+                        Add a private consultation with Kerry{isNative ? '' : ' – $225'}
+                      </p>
+                      <button
+                        type="button"
+                        onClick={() => handleSubscribe(CONSULTATION)}
+                        className="mt-1 text-primary underline underline-offset-2 hover:text-primary/80"
+                      >
+                        Book a consultation
+                      </button>
+                    </div>
+                  )}
+
+
 
                   <div className="mt-auto">
                     <Button
