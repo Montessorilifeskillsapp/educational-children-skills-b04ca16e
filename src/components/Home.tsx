@@ -547,12 +547,12 @@ const Home: React.FC<HomeProps> = ({
             </Reveal>
             <Reveal delay={100}>
               <Card className="h-full border-border/60 bg-card">
-                <CardContent className="p-7">
+                <CardContent className="p-7 flex flex-col h-full">
                   <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Flexible</p>
                   <h3 className="text-2xl font-bold text-foreground">Premium Monthly</h3>
                   <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$29</span><span className="text-muted-foreground">/month</span></div>
                   <p className="text-muted-foreground mb-6">The same premium access, billed monthly. Cancel anytime.</p>
-                  <Button onClick={onSubscriptionView} variant="outline" size="lg" className="w-full rounded-xl">View Monthly Option</Button>
+                  <Button onClick={onSubscriptionView} variant="outline" size="lg" className="w-full rounded-xl mt-auto">View Monthly Option</Button>
                 </CardContent>
               </Card>
             </Reveal>
@@ -562,7 +562,11 @@ const Home: React.FC<HomeProps> = ({
                   <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">One-to-one</p>
                   <h3 className="text-2xl font-bold text-foreground">Private Consultation</h3>
                   <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$225</span><span className="text-muted-foreground">/session</span></div>
-                  <p className="text-muted-foreground mb-6">A 60-minute video session with an AMI-trained guide, tailored to your child and your goals. 3-session package $600.</p>
+                  <p className="text-muted-foreground mb-5">A 60-minute video session with an AMI-trained guide, tailored to your child and your goals.</p>
+                  <ul className="space-y-3 mb-7">
+                    {['Customized curriculum guidance', 'Family routine integration', 'Written action plan to follow', 'Two weeks of follow-up email'].map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />{item}</li>)}
+                    <li className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />3-session package: $600</li>
+                  </ul>
                   <Button onClick={() => navigate('/plans')} variant="outline" size="lg" className="w-full rounded-xl mt-auto">Book a Consultation</Button>
                 </CardContent>
               </Card>
