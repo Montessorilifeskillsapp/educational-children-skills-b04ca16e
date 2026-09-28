@@ -1,0 +1,1 @@
+REVOKE ALL ON public.child_goals, public.calendar_events, public.notification_preferences, public.push_tokens, public.weekly_reports FROM anon;
