@@ -29,3 +29,9 @@ verify_jwt = false
 
 [functions.app-version-check]
 verify_jwt = false
+
+[functions.dashboard-data]
+verify_jwt = false
+
+[functions.family-notifications]
+verify_jwt = false
