@@ -4,22 +4,35 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useAuthContext } from '@/components/AuthProvider';
 import { useProfile } from '@/contexts/ProfileContext';
 import { toast } from '@/hooks/use-toast';
-import { Loader2, Sparkles } from 'lucide-react';
+import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 
 const AuthPage = () => {
+  const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+  const [formError, setFormError] = useState('');
+  const [confirmationEmail, setConfirmationEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { user, signIn, signUp, signInWithGoogle, signInWithApple, loading } = useAuthContext();
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const describeAuthError = (message: string) => {
+    if (/already registered|already exists|user already/i.test(message)) return 'This email already has an account. Try signing in instead.';
+    if (/rate limit|too many requests|email rate/i.test(message)) return 'Too many attempts right now. Please wait a little while and try again.';
+    if (/password.*weak|password.*short/i.test(message)) return 'Please choose a stronger password with at least 6 characters.';
+    if (/invalid.*email/i.test(message)) return 'Please enter a valid email address.';
+    if (/network|fetch failed|failed to fetch/i.test(message)) return 'We could not connect right now. Check your connection and try again.';
+    return message;
+  };
 
   const getPostAuthRedirect = useCallback(() => {
     const params = new URLSearchParams(location.search);
@@ -56,12 +69,9 @@ const AuthPage = () => {
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError('');
     if (!email || !password) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      });
+      setFormError('Enter your email and password.');
       return;
     }
 
@@ -69,11 +79,7 @@ const AuthPage = () => {
     try {
       const { error } = await signIn(email, password);
       if (error) {
-        toast({
-          title: "Sign In Failed",
-          description: error.message,
-          variant: "destructive",
-        });
+        setFormError(describeAuthError(error.message));
       } else {
         toast({
           title: "Welcome back!",
@@ -90,11 +96,7 @@ const AuthPage = () => {
         navigate(postAuthRedirect || '/');
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
+      setFormError('We could not sign you in. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -102,54 +104,34 @@ const AuthPage = () => {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError('');
     if (!email || !password || !confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Please fill in all fields",
-        variant: "destructive",
-      });
+      setFormError('Complete all three fields to create your account.');
       return;
     }
 
     if (password !== confirmPassword) {
-      toast({
-        title: "Error",
-        description: "Passwords do not match",
-        variant: "destructive",
-      });
+      setFormError('The passwords do not match. Please try again.');
       return;
     }
 
     if (password.length < 6) {
-      toast({
-        title: "Error",
-        description: "Password must be at least 6 characters long",
-        variant: "destructive",
-      });
+      setFormError('Your password needs at least 6 characters.');
       return;
     }
 
     setIsSubmitting(true);
     try {
-      const { error } = await signUp(email, password);
+      const { error } = await signUp(email.trim(), password);
       if (error) {
-        toast({
-          title: "Sign Up Failed",
-          description: error.message,
-          variant: "destructive",
-        });
+        setFormError(describeAuthError(error.message));
       } else {
-        toast({
-          title: "Account Created!",
-          description: "Please check your email to verify your account.",
-        });
+        setConfirmationEmail(email.trim());
+        setPassword('');
+        setConfirmPassword('');
       }
     } catch (error) {
-      toast({
-        title: "Error",
-        description: "An unexpected error occurred",
-        variant: "destructive",
-      });
+      setFormError('We could not create your account. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -171,23 +153,31 @@ const AuthPage = () => {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background to-secondary/20 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">Welcome to Montessori Learning</CardTitle>
-          <CardDescription>Sign in to your account or create a new one</CardDescription>
+          <CardTitle className="text-2xl">Montessori Life Skills</CardTitle>
+          <CardDescription>{confirmationEmail ? 'One more step to get started' : 'Your guide to Montessori activities'}</CardDescription>
         </CardHeader>
         <CardContent>
-          <Tabs defaultValue="signin" className="w-full">
+          {confirmationEmail ? (
+            <div role="status" className="space-y-4 py-5 text-center">
+              <h2 className="text-xl font-semibold">Check your email</h2>
+              <p className="text-sm text-muted-foreground">We sent a confirmation link to <strong className="text-foreground break-all">{confirmationEmail}</strong>. Open it to finish creating your account. Check your spam folder if you don't see it.</p>
+              <Button variant="outline" className="w-full" onClick={() => { setConfirmationEmail(''); setMode('signin'); }}>Back to sign in</Button>
+            </div>
+          ) : <Tabs value={mode} onValueChange={(value) => { setMode(value as 'signin' | 'signup'); setFormError(''); setShowPassword(false); }} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
               <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Sign Up</TabsTrigger>
+              <TabsTrigger value="signup">Create Account</TabsTrigger>
             </TabsList>
-            
-            <TabsContent value="signin">
-              <form onSubmit={handleSignIn} className="space-y-4">
+
+            {formError && <p role="alert" className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
+            {mode === 'signin' ? (
+              <form onSubmit={handleSignIn} className="space-y-4 pt-4">
                 <div className="space-y-2">
                   <Label htmlFor="signin-email">Email</Label>
                   <Input
                     id="signin-email"
                     type="email"
+                     autoComplete="email"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -197,15 +187,10 @@ const AuthPage = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signin-password">Password</Label>
-                  <Input
-                    id="signin-password"
-                    type="password"
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={isSubmitting}
-                    required
-                  />
+                   <div className="relative">
+                     <Input id="signin-password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} disabled={isSubmitting} required className="pr-12" />
+                     <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0" >{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
+                   </div>
                 </div>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (
@@ -218,15 +203,14 @@ const AuthPage = () => {
                   )}
                 </Button>
               </form>
-            </TabsContent>
-            
-            <TabsContent value="signup">
-              <form onSubmit={handleSignUp} className="space-y-4">
+            ) : (
+              <form onSubmit={handleSignUp} className="space-y-4 pt-4">
                 <div className="space-y-2">
                   <Label htmlFor="signup-email">Email</Label>
                   <Input
                     id="signup-email"
                     type="email"
+                     autoComplete="email"
                     placeholder="Enter your email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -236,21 +220,17 @@ const AuthPage = () => {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="signup-password">Password</Label>
-                  <Input
-                    id="signup-password"
-                    type="password"
-                    placeholder="Create a password (min 6 characters)"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    disabled={isSubmitting}
-                    required
-                  />
+                   <div className="relative">
+                     <Input id="signup-password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" minLength={6} placeholder="At least 6 characters" value={password} onChange={(e) => setPassword(e.target.value)} disabled={isSubmitting} required className="pr-12" />
+                     <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0">{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
+                   </div>
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="confirm-password">Confirm Password</Label>
                   <Input
                     id="confirm-password"
                     type="password"
+                    autoComplete="new-password"
                     placeholder="Confirm your password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
@@ -265,12 +245,12 @@ const AuthPage = () => {
                       Creating Account...
                     </>
                   ) : (
-                    'Sign Up'
+                    'Create Account'
                   )}
                 </Button>
               </form>
-            </TabsContent>
-          </Tabs>
+            )}
+          </Tabs>}
           
           <div className="mt-6 pt-4 border-t space-y-3">
             {!Capacitor.isNativePlatform() && (
