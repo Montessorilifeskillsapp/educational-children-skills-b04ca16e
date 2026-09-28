@@ -1,4 +1,7 @@
 ## Open tasks
+- [x] Family Dashboard redesign: per-child overview, goals, calendar, weekly reports, working settings, email + push notifications
+- [ ] Browser push: needs Firebase web app key, app ID, VAPID key (VITE_FIREBASE_*)
+- [ ] Phone-app push: needs new App Store/Play release + Apple push key in Firebase
 - [x] Make email signup easier to use: one visible form at a time, persistent understandable errors, password visibility, and a clear email-confirmation state; verify desktop/mobile states.
 - [x] Fix "Manage Child Profiles" back control: it was wired to the homepage; now returns to the dashboard (verified in browser Sept 28)
 - [x] Rebalance the Private Consultation card in the homepage pricing row: all three buttons align on one baseline and the consultation card lists its real session inclusions; verified desktop Sept 28
