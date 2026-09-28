@@ -7,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress } from '@/components/ui/progress';
 import { Target, Plus, Edit, Trash2, Calendar, Star } from 'lucide-react';
-import { montessoriTheme } from './ThemeConfig';
+import { montessoriTheme } from '../ThemeConfig';
 
 interface Goal {
   id: string;

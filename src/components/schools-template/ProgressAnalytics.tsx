@@ -3,7 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { BarChart3, TrendingUp, Calendar, Target, Award, Clock } from 'lucide-react';
-import { montessoriTheme } from './ThemeConfig';
+import { montessoriTheme } from '../ThemeConfig';
 
 const ProgressAnalytics: React.FC = () => {
   const weeklyData = [
