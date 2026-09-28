@@ -183,16 +183,6 @@ const ClassroomSetupPage: React.FC = () => {
         </div>
       </section>
 
-      <section className="container mx-auto px-6 pb-16 max-w-5xl">
-        <h2 className="text-3xl font-semibold mb-4">Classroom basics</h2>
-        <p className="text-muted-foreground mb-6 leading-relaxed">
-          Choose stable chairs that let each child sit with feet flat on the floor, and tables
-          at a comfortable working height. Keep shelves low and accessible, with work mats,
-          trays, and baskets that children can carry independently. Use suitable furniture
-          you already have where possible.
-        </p>
-        <ClassroomMaterials />
-      </section>
 
       {/* Principles */}
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
