@@ -173,7 +173,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           </Button>
           <Button variant="outline" onClick={onSubscriptionView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
             <Crown className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
-            <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing</span></span>
+            <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing, plus a private consultation with Kerry</span></span>
           </Button>
         </nav>
 
