@@ -1,7 +1,7 @@
 ## Open tasks
 - [x] Make email signup easier to use: one visible form at a time, persistent understandable errors, password visibility, and a clear email-confirmation state; verify desktop/mobile states.
 - [ ] Review child-profile creation and editing usability separately before changing shared profile data or flows; user reports they feel clunky, but specific pain points remain unconfirmed.
-- [ ] Replace the bulky “Additional Pages & Features” cards with compact, distinct destinations near the top; remove duplicate Child Page and Child Profiles shortcuts (profile management already has a Manage button).
+- [ ] Make Child Profiles a prominent, unmistakable top action alongside distinct Family Dashboard and Premium Plans destinations; remove the duplicate Child Page shortcut and avoid tiny text links.
 - [x] Restructure the single homepage around the requested conversion journey: problem, real activity, free first activity, practical experience, $199 annual Premium, continued use, referrals, and school enquiries; preserve existing colours, typography, and navigation.
 - [x] Replace the invented homepage product mock-up with verified screenshots of the real curriculum and activity screens, using only claims visible in the app.
 - [x] Place the user-approved pouring photo only in the homepage Pouring Water sample; keep it out of the homepage opening and separate preview page.
