@@ -514,11 +514,6 @@ const Home: React.FC<HomeProps> = ({
                 </div>
                 <p className="text-xl font-semibold text-foreground leading-relaxed mb-4">40+ years of Montessori classroom knowledge, organized so you can actually use it.</p>
                 <p className="text-muted-foreground leading-relaxed mb-6">The curriculum draws on Kerry's verified AMI training and experience guiding children in prepared environments.</p>
-                <div className="border-t border-border pt-5 mb-5">
-                  <h3 className="text-xl font-semibold text-foreground mb-2">Private consultation with Kerry</h3>
-                  <p className="text-muted-foreground leading-relaxed mb-4">Discuss your child's needs and your Montessori goals in a one-to-one, 60-minute video session. Explore the consultation details and request a time on the Plans page.</p>
-                  <Button onClick={() => navigate('/plans')} className="rounded-xl">Explore a consultation <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Button>
-                </div>
                 <Button variant="outline" onClick={() => navigate('/about')} className="rounded-xl">Read Kerry's biography</Button>
               </div>
             </div>
@@ -534,7 +529,7 @@ const Home: React.FC<HomeProps> = ({
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Continue through the full curriculum.</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence.</p>
           </Reveal>
-          <div className="grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="grid md:grid-cols-3 gap-6 items-stretch">
             <Reveal>
               <Card className="relative h-full border-2 border-primary/40 shadow-xl overflow-hidden bg-card">
                 <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold text-center py-2 uppercase tracking-wider">Best value</div>
@@ -558,6 +553,17 @@ const Home: React.FC<HomeProps> = ({
                   <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$29</span><span className="text-muted-foreground">/month</span></div>
                   <p className="text-muted-foreground mb-6">The same premium access, billed monthly. Cancel anytime.</p>
                   <Button onClick={onSubscriptionView} variant="outline" size="lg" className="w-full rounded-xl">View Monthly Option</Button>
+                </CardContent>
+              </Card>
+            </Reveal>
+            <Reveal delay={200}>
+              <Card className="h-full border-accent/40 bg-card">
+                <CardContent className="p-7 flex flex-col h-full">
+                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">One-to-one</p>
+                  <h3 className="text-2xl font-bold text-foreground">Private Consultation</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$225</span><span className="text-muted-foreground">/session</span></div>
+                  <p className="text-muted-foreground mb-6">A 60-minute video session with an AMI-trained guide, tailored to your child and your goals. 3-session package $600.</p>
+                  <Button onClick={() => navigate('/plans')} variant="outline" size="lg" className="w-full rounded-xl mt-auto">Book a Consultation</Button>
                 </CardContent>
               </Card>
             </Reveal>
