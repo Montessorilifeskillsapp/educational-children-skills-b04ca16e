@@ -42,6 +42,7 @@ import ClassroomSetupPage from "./pages/ClassroomSetupPage";
 import HomeSetupPage from "./pages/HomeSetupPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
+import AdminMembersPage from "./pages/AdminMembersPage";
 import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
 import AdminMaterialsPage from "./pages/AdminMaterialsPage";
 import AdminVideosPage from "./pages/AdminVideosPage";
@@ -136,6 +137,7 @@ const App = () => {
                           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
                           <Route path="/admin" element={<AdminHomePage />} />
                           <Route path="/admin/leads" element={<AdminLeadsPage />} />
+                          <Route path="/admin/members" element={<AdminMembersPage />} />
                           <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
                           <Route path="/admin/materials" element={<AdminMaterialsPage />} />
                           <Route path="/admin/videos" element={<AdminVideosPage />} />
