@@ -1,7 +1,6 @@
 // ============= Full file contents =============
 
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
 import { ExternalLink, Check } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { normalizeMaterialKey } from '@/lib/materials';
@@ -21,6 +20,8 @@ interface ResolvedGroupItem {
 /** Classroom items that reuse an existing activity material's saved link. */
 const LINK_ALIASES: Record<string, string> = {
   'small-jug-or-pitcher': 'child-sized-pitcher',
+  'child-sized-apron': 'apron',
+  'small-watering-can': 'watering-can',
 };
 
 /**
@@ -29,7 +30,7 @@ const LINK_ALIASES: Record<string, string> = {
  * is itself the buy button — tapping the item opens its Amazon product.
  */
 export const ClassroomMaterials: React.FC = () => {
-  const { byKey } = useMaterialLinks();
+  const { byKey, loading, error } = useMaterialLinks();
 
   const groups = useMemo(
     () =>
@@ -39,7 +40,7 @@ export const ClassroomMaterials: React.FC = () => {
           const key = normalizeMaterialKey(name);
           const ownLink = byKey.get(key);
           const aliasKey = LINK_ALIASES[key];
-          const link = ownLink?.amazon_url ? ownLink : (aliasKey && byKey.get(aliasKey)) || ownLink;
+          const link = ownLink?.amazon_url ? ownLink : (aliasKey ? byKey.get(aliasKey) : undefined) || ownLink;
           const displayName = ownLink?.display_name || name;
           return {
             key,
@@ -51,7 +52,6 @@ export const ClassroomMaterials: React.FC = () => {
       })),
     [byKey]
   );
-
 
   return (
     <Card>
@@ -85,8 +85,11 @@ export const ClassroomMaterials: React.FC = () => {
                           <Check className="w-4 h-4 text-secondary" aria-hidden="true" />
                         </span>
                       )}
-                      <span className="text-sm leading-snug min-w-0 flex-1 text-foreground/90">
-                        {item.displayName}
+                       <span className="min-w-0 flex-1 flex flex-col gap-0.5">
+                         <span className="text-sm leading-snug text-foreground/90">{item.displayName}</span>
+                         {!item.amazonUrl && !loading && !error && (
+                           <span className="text-xs text-muted-foreground">Use what you have available at home or in the classroom</span>
+                         )}
                       </span>
                       {item.amazonUrl && (
                         <ExternalLink
@@ -123,6 +126,8 @@ export const ClassroomMaterials: React.FC = () => {
             </div>
           ))}
         </div>
+
+         {error && <p className="mt-4 text-sm text-destructive" role="alert">Product links could not be loaded. Please try again later.</p>}
 
         <AffiliateDisclosure />
       </CardContent>
