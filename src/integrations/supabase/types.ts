@@ -207,6 +207,118 @@ export type Database = {
         }
         Relationships: []
       }
+      calendar_events: {
+        Row: {
+          child_id: string
+          completed: boolean
+          created_at: string
+          duration_minutes: number
+          id: string
+          notes: string | null
+          reminder_sent: boolean
+          skill_id: string
+          starts_at: string
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          child_id: string
+          completed?: boolean
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          reminder_sent?: boolean
+          skill_id: string
+          starts_at: string
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          child_id?: string
+          completed?: boolean
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          notes?: string | null
+          reminder_sent?: boolean
+          skill_id?: string
+          starts_at?: string
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "calendar_events_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "child_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      child_goals: {
+        Row: {
+          area: string | null
+          child_id: string
+          created_at: string
+          due_notified: boolean
+          id: string
+          priority: number
+          reached_notified: boolean
+          skill_ids: string[]
+          sort_order: number
+          status: string
+          target_date: string | null
+          title: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          area?: string | null
+          child_id: string
+          created_at?: string
+          due_notified?: boolean
+          id?: string
+          priority?: number
+          reached_notified?: boolean
+          skill_ids?: string[]
+          sort_order?: number
+          status?: string
+          target_date?: string | null
+          title: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          area?: string | null
+          child_id?: string
+          created_at?: string
+          due_notified?: boolean
+          id?: string
+          priority?: number
+          reached_notified?: boolean
+          skill_ids?: string[]
+          sort_order?: number
+          status?: string
+          target_date?: string | null
+          title?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "child_goals_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "child_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       child_profiles: {
         Row: {
           avatar_url: string | null
@@ -336,6 +448,84 @@ export type Database = {
           notes?: string | null
           updated_at?: string
           vendor?: string | null
+        }
+        Relationships: []
+      }
+      notification_preferences: {
+        Row: {
+          activity_reminder_minutes: number
+          activity_reminders: boolean
+          created_at: string
+          daily_reminder: boolean
+          daily_reminder_time: string
+          email_enabled: boolean
+          goal_alerts: boolean
+          last_daily_sent: string | null
+          last_weekly_sent: string | null
+          push_enabled: boolean
+          timezone: string
+          updated_at: string
+          user_id: string
+          weekly_report: boolean
+          weekly_report_day: number
+        }
+        Insert: {
+          activity_reminder_minutes?: number
+          activity_reminders?: boolean
+          created_at?: string
+          daily_reminder?: boolean
+          daily_reminder_time?: string
+          email_enabled?: boolean
+          goal_alerts?: boolean
+          last_daily_sent?: string | null
+          last_weekly_sent?: string | null
+          push_enabled?: boolean
+          timezone?: string
+          updated_at?: string
+          user_id: string
+          weekly_report?: boolean
+          weekly_report_day?: number
+        }
+        Update: {
+          activity_reminder_minutes?: number
+          activity_reminders?: boolean
+          created_at?: string
+          daily_reminder?: boolean
+          daily_reminder_time?: string
+          email_enabled?: boolean
+          goal_alerts?: boolean
+          last_daily_sent?: string | null
+          last_weekly_sent?: string | null
+          push_enabled?: boolean
+          timezone?: string
+          updated_at?: string
+          user_id?: string
+          weekly_report?: boolean
+          weekly_report_day?: number
+        }
+        Relationships: []
+      }
+      push_tokens: {
+        Row: {
+          created_at: string
+          id: string
+          platform: string
+          token: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          platform: string
+          token: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          platform?: string
+          token?: string
+          user_id?: string
         }
         Relationships: []
       }
@@ -532,6 +722,44 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      weekly_reports: {
+        Row: {
+          child_id: string
+          created_at: string
+          emailed_at: string | null
+          id: string
+          summary: Json
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          child_id: string
+          created_at?: string
+          emailed_at?: string | null
+          id?: string
+          summary?: Json
+          user_id: string
+          week_start: string
+        }
+        Update: {
+          child_id?: string
+          created_at?: string
+          emailed_at?: string | null
+          id?: string
+          summary?: Json
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "weekly_reports_child_id_fkey"
+            columns: ["child_id"]
+            isOneToOne: false
+            referencedRelation: "child_profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {
