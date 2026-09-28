@@ -57,9 +57,8 @@ export const ClassroomMaterials: React.FC = () => {
     <Card>
       <CardContent className="p-5 md:p-6">
         <p className="text-sm text-muted-foreground leading-relaxed">
-          A room inventory, not a shopping list. Gather gradually, and use what you already
-          have wherever it suits the child. Where a specific source is helpful, tapping the
-          item opens an authentic example.
+          Gather these gradually — begin with what you already have at home or in the
+          classroom. Where a specific item is helpful, tapping it opens an authentic example.
         </p>
 
 
