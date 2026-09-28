@@ -164,7 +164,7 @@ const ClassroomSetupPage: React.FC = () => {
       {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 pointer-events-none" />
-        <div className="container relative mx-auto px-6 py-16 md:py-24 max-w-4xl text-center">
+        <div className="container relative mx-auto px-6 py-16 md:py-24 max-w-5xl text-center">
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
             <BackButton onClick={() => navigate('/')} label="Back" />
           </div>
@@ -290,18 +290,7 @@ const ClassroomSetupPage: React.FC = () => {
       {/* The adult */}
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
         <div className="grid lg:grid-cols-2 gap-10 items-start">
-          <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted order-2 lg:order-1">
-            <img
-              src={walkingLine}
-              alt="The line taped in an ellipse on the classroom floor, prepared for walking on the line"
-              className="w-full aspect-[4/3] object-cover"
-              loading="lazy"
-            />
-            <p className="text-xs text-muted-foreground p-4 italic">
-              The adult presents slowly and precisely, then steps back and observes.
-            </p>
-          </div>
-          <div className="order-1 lg:order-2">
+          <div>
             <div className="flex items-center gap-3 mb-6">
               <User className="w-6 h-6 text-primary" />
               <h2 className="text-3xl font-semibold tracking-tight">The Prepared Adult</h2>
@@ -314,6 +303,17 @@ const ClassroomSetupPage: React.FC = () => {
                 </li>
               ))}
             </ul>
+          </div>
+          <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
+            <img
+              src={walkingLine}
+              alt="The line taped in an ellipse on the classroom floor, prepared for walking on the line"
+              className="w-full aspect-[4/3] object-cover"
+              loading="lazy"
+            />
+            <p className="text-xs text-muted-foreground p-4 italic">
+              The adult presents slowly and precisely, then steps back and observes.
+            </p>
           </div>
         </div>
       </section>
@@ -336,7 +336,7 @@ const ClassroomSetupPage: React.FC = () => {
 
 
       {/* Checklist */}
-      <section className="container mx-auto px-6 pb-24 max-w-4xl">
+      <section className="container mx-auto px-6 pb-24 max-w-5xl">
         <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
           <CardContent className="p-8">
             <h2 className="text-2xl font-semibold mb-2">The Setup Checklist</h2>
