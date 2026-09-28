@@ -204,6 +204,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const setProfiles = (newProfiles: ChildProfile[]) => {
+    const previous = profiles;
     setProfilesState(newProfiles);
     let nextActive = activeProfile;
     if (activeProfile && !newProfiles.find(p => p.id === activeProfile.id)) {
@@ -211,6 +212,32 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
       setActiveProfileState(nextActive);
     }
     persistLocalSnapshot(newProfiles, nextActive);
+
+    // Signed in: save added children and remove deleted ones, then refresh so
+    // every screen (including the Family Dashboard) picks up the real records.
+    if (user) {
+      (async () => {
+        let changed = false;
+        for (const p of newProfiles) {
+          if (isUuid(p.id)) continue;
+          const { data, error } = await supabase
+            .from('child_profiles')
+            .insert({ user_id: user.id, name: p.name, date_of_birth: dobFromAge(p.age) })
+            .select('id')
+            .single();
+          if (error || !data) { console.error('Create child failed:', error); continue; }
+          writeExtras(data.id, { avatar: p.avatar, interests: p.interests, learningStyle: p.learningStyle });
+          changed = true;
+        }
+        const removed = previous.filter(p => isUuid(p.id) && !newProfiles.find(n => n.id === p.id));
+        for (const p of removed) {
+          const { error } = await supabase.from('child_profiles').delete().eq('id', p.id);
+          if (error) console.error('Delete child failed:', error);
+          else changed = true;
+        }
+        if (changed) await loadFromSupabase();
+      })();
+    }
   };
 
   const setActiveProfile = (profile: ChildProfile) => {
