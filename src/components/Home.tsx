@@ -529,7 +529,7 @@ const Home: React.FC<HomeProps> = ({
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Continue through the full curriculum.</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence.</p>
           </Reveal>
-          <div className="grid md:grid-cols-2 gap-6 items-stretch">
+          <div className="grid md:grid-cols-3 gap-6 items-stretch">
             <Reveal>
               <Card className="relative h-full border-2 border-primary/40 shadow-xl overflow-hidden bg-card">
                 <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold text-center py-2 uppercase tracking-wider">Best value</div>
