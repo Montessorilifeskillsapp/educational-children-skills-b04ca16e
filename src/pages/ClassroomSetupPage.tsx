@@ -2,8 +2,7 @@ import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
-import GetTheMaterials from '@/components/GetTheMaterials';
-import { classroomSetupMaterials } from '@/data/classroomSetupMaterials';
+import ClassroomMaterials from '@/components/ClassroomMaterials';
 import { Card, CardContent } from '@/components/ui/card';
 import {
   ArrowRight, CheckCircle2, Sparkles, Eye, Hand, BookOpen,
@@ -192,7 +191,7 @@ const ClassroomSetupPage: React.FC = () => {
           trays, and baskets that children can carry independently. Use suitable furniture
           you already have where possible.
         </p>
-        <GetTheMaterials skillId="classroom-setup-basics" skillMaterials={classroomSetupMaterials} title="Furniture and essentials" />
+        <ClassroomMaterials />
       </section>
 
       {/* Principles */}
