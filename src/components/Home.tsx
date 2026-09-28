@@ -556,6 +556,17 @@ const Home: React.FC<HomeProps> = ({
                 </CardContent>
               </Card>
             </Reveal>
+            <Reveal delay={200}>
+              <Card className="h-full border-accent/40 bg-card">
+                <CardContent className="p-7 flex flex-col h-full">
+                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">One-to-one</p>
+                  <h3 className="text-2xl font-bold text-foreground">Private Consultation</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$225</span><span className="text-muted-foreground">/session</span></div>
+                  <p className="text-muted-foreground mb-6">A 60-minute video session with an AMI-trained guide, tailored to your child and your goals. 3-session package $600.</p>
+                  <Button onClick={() => navigate('/plans')} variant="outline" size="lg" className="w-full rounded-xl mt-auto">Book a Consultation</Button>
+                </CardContent>
+              </Card>
+            </Reveal>
           </div>
         </div>
       </section>
