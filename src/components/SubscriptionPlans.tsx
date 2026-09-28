@@ -303,7 +303,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       // Consultation is an email booking request, not a purchase — no Terms gate.
       // Apple IAP rules: we do not charge for it in-app, so no price is shown on native.
       if (plan.id === 'consultation') {
-        const email = 'hello@montessorilearning.app';
+        const email = 'montessorilifeskills@gmail.com';
         const mailto =
           `mailto:${email}?subject=Private%20Homeschool%20Consultation%20Request&body=Hi!%20I%27m%20interested%20in%20booking%20a%20private%20consultation.%0A%0AChild%27s%20Age%3A%20%0ATopics%20of%20Interest%3A%20%0APreferred%20Date%2FTime%3A%20`;
         try {

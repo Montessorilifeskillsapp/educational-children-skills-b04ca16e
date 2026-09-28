@@ -73,7 +73,7 @@ const ContactPage: React.FC = () => {
                   <Mail className="w-5 h-5 text-primary" />
                   <div>
                     <p className="font-medium">Email</p>
-                    <p className="text-sm text-muted-foreground">support@montessorilifeskills.com</p>
+                    <p className="text-sm text-muted-foreground">montessorilifeskills@gmail.com</p>
                   </div>
                 </div>
                 

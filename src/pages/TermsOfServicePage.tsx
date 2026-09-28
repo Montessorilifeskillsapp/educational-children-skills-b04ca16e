@@ -87,7 +87,7 @@ const TermsOfServicePage: React.FC = () => {
                   <li><strong>iOS:</strong> Manage or cancel in <em>Settings &gt; [your name] &gt; Subscriptions</em>.</li>
                   <li><strong>Android:</strong> Manage or cancel in the Google Play Store under <em>Payments &amp; subscriptions &gt; Subscriptions</em>.</li>
                   <li><strong>Web (Stripe):</strong> Manage or cancel via the customer portal link in your receipt email or by contacting support.</li>
-                  <li>Refund requests for App Store purchases are handled by Apple at <a className="underline" href="https://reportaproblem.apple.com" target="_blank" rel="noreferrer">reportaproblem.apple.com</a>. Web purchases are covered by our 30-day money-back guarantee — contact support@montessorilifeskills.com.</li>
+                  <li>Refund requests for App Store purchases are handled by Apple at <a className="underline" href="https://reportaproblem.apple.com" target="_blank" rel="noreferrer">reportaproblem.apple.com</a>. Web purchases are covered by our 30-day money-back guarantee — contact montessorilifeskills@gmail.com.</li>
                 </ul>
 
                 <h3 className="text-lg font-medium mb-2">Links</h3>
@@ -141,7 +141,7 @@ const TermsOfServicePage: React.FC = () => {
                   For questions about these Terms of Service, please contact us at:
                 </p>
                 <p className="mt-2">
-                  Email: support@montessorilifeskills.com
+                  Email: montessorilifeskills@gmail.com
                 </p>
               </section>
             </CardContent>
