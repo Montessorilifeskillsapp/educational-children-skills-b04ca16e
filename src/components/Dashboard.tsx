@@ -145,12 +145,6 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </SelectContent>
               </Select>
             )}
-            {onProfilesView && (
-              <Button variant="outline" size="sm" onClick={onProfilesView}>
-                <Users className="mr-2 h-4 w-4" />
-                Manage
-              </Button>
-            )}
             {!user ? (
               <Link to="/auth">
                 <Button variant="outline">
@@ -166,12 +160,20 @@ const Dashboard: React.FC<DashboardProps> = ({
           </div>
         </div>
 
-        <nav className="mb-6 flex flex-wrap items-center gap-x-4 gap-y-2 border-b border-border pb-4" aria-label="Account pages">
-          <Button variant="link" onClick={onParentView} className="h-auto p-0 text-foreground">
-            <User className="mr-2 h-4 w-4 text-primary" aria-hidden="true" />Family Dashboard
+        <nav className="mb-6 grid gap-3 sm:grid-cols-3" aria-label="Account pages">
+          {onProfilesView && (
+            <Button variant="default" onClick={onProfilesView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
+              <Users className="h-6 w-6 shrink-0" aria-hidden="true" />
+              <span className="min-w-0"><span className="block font-semibold">Manage Child Profiles</span><span className="block text-xs font-normal opacity-90">Choose or edit a child</span></span>
+            </Button>
+          )}
+          <Button variant="outline" onClick={onParentView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
+            <User className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+            <span className="min-w-0"><span className="block font-semibold">Family Dashboard</span><span className="block text-xs font-normal text-muted-foreground">View learning progress</span></span>
           </Button>
-          <Button variant="link" onClick={onSubscriptionView} className="h-auto p-0 text-foreground">
-            <Crown className="mr-2 h-4 w-4 text-primary" aria-hidden="true" />Premium Plans
+          <Button variant="outline" onClick={onSubscriptionView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
+            <Crown className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
+            <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing</span></span>
           </Button>
         </nav>
 
