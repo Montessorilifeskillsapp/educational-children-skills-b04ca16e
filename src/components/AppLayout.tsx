@@ -314,10 +314,8 @@ const AppLayout: React.FC = () => {
             completedSkills={completedSkills}
             totalSkills={practicalSkills.length}
             onBack={() => setCurrentView('home')}
+            onContinue={handleBackToDashboard}
           />
-          <div className="mt-6">
-            <BackButton onClick={handleBack} label="Continue to Learning" variant="default" />
-          </div>
         </div>
       </div>
     );
@@ -459,6 +457,7 @@ const AppLayout: React.FC = () => {
       
       onSubscriptionView={() => handleViewChange('subscription')}
       onParentView={() => handleViewChange('parent')}
+      onProfilesView={() => handleViewChange('profiles')}
       onBack={handleBackToHome}
       completedSkills={completedSkills}
       streak={streak}

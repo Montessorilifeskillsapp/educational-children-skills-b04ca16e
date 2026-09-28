@@ -1,6 +1,7 @@
 ## Open tasks
 - [x] Make email signup easier to use: one visible form at a time, persistent understandable errors, password visibility, and a clear email-confirmation state; verify desktop/mobile states.
 - [ ] Review child-profile creation and editing usability separately before changing shared profile data or flows; user reports they feel clunky, but specific pain points remain unconfirmed.
+- [ ] Bring child-profile selection, edit and navigation actions to the top; simplify the page without changing stored profiles or other pages.
 - [x] Restructure the single homepage around the requested conversion journey: problem, real activity, free first activity, practical experience, $199 annual Premium, continued use, referrals, and school enquiries; preserve existing colours, typography, and navigation.
 - [x] Replace the invented homepage product mock-up with verified screenshots of the real curriculum and activity screens, using only claims visible in the app.
 - [x] Place the user-approved pouring photo only in the homepage Pouring Water sample; keep it out of the homepage opening and separate preview page.
