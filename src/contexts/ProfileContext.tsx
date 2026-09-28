@@ -195,6 +195,14 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
     }
   }, [user, authLoading, loadFromSupabase, loadLocal]);
 
+  // Pick up children added on another device when the app regains focus
+  useEffect(() => {
+    if (!user) return;
+    const onFocus = () => { if (document.visibilityState === 'visible') loadFromSupabase(); };
+    document.addEventListener('visibilitychange', onFocus);
+    return () => document.removeEventListener('visibilitychange', onFocus);
+  }, [user, loadFromSupabase]);
+
   // ---- Public mutators ----
 
   const persistLocalSnapshot = (next: ChildProfile[], active: ChildProfile | null) => {
