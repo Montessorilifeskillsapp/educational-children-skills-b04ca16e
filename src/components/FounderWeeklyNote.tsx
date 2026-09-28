@@ -1,20 +1,11 @@
 import React from 'react';
 import founderKerry from '@/assets/founder-kerry-howard.png';
 import { Calendar } from 'lucide-react';
+import { getCurrentWeeklyNote } from '@/data/weeklyNotes';
 
-/**
- * Weekly note from the founder.
- * To update: change `currentNote` each Sunday — that's the entire workflow.
- * (Later, this can be wired to a Supabase table so non-devs can edit.)
- */
-const currentNote = {
-  weekOf: 'Week of May 11, 2026',
-  focus: 'Concentration',
-  body: `This week's focus is concentration — the single most under-appreciated Montessori outcome. If your child finishes Pouring Water and immediately wants to do it again, do not interrupt. Repetition is the work. Quietly refill the pitcher and step back. The third or fourth round is when the magic happens.`,
-  signoff: 'Kerry',
-};
-
+/** Weekly note from the founder — rotates automatically through 52 focuses each Monday. */
 const FounderWeeklyNote: React.FC = () => {
+  const currentNote = { ...getCurrentWeeklyNote(), signoff: 'Kerry' };
   return (
     <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-card via-background to-primary/5 p-5 sm:p-6">
       <div className="flex items-center gap-3 mb-4">
