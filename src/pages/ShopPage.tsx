@@ -79,7 +79,6 @@ const ShopPage: React.FC = () => {
         </CardContent>
       </Card>
 
-      <AffiliateDisclosure className="px-1" />
 
       {filtered.length === 0 ? (
           <Card>
@@ -154,7 +153,7 @@ const ShopPage: React.FC = () => {
                           'https://montessoristorybooks.com/books'
                         }
                         target="_blank"
-                        rel="noopener noreferrer sponsored"
+                        rel="noopener noreferrer"
                       >
                         <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
                         Buy Now
@@ -169,6 +168,7 @@ const ShopPage: React.FC = () => {
         )}
 
         <hr className="border-border/40" />
+        <AffiliateDisclosure className="px-1" />
         <ShopMaterialsSection />
       </PageLayout>
     </SEOOptimizer>
