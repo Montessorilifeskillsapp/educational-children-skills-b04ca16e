@@ -49,7 +49,7 @@ const GuaranteePage: React.FC = () => {
         <section className="rounded-2xl bg-muted/40 border border-border p-6">
           <h2 className="font-semibold text-foreground mb-2">How to request a refund</h2>
           <p className="text-foreground/80 text-sm leading-relaxed">
-            Email <a href="mailto:hello@montessorilifeskillsapp.com" className="text-primary underline">hello@montessorilifeskillsapp.com</a> with
+            Email <a href="mailto:montessorilifeskills@gmail.com" className="text-primary underline">montessorilifeskills@gmail.com</a> with
             the email address on your account and the word "refund" in the subject line. We process requests within two business days.
           </p>
         </section>

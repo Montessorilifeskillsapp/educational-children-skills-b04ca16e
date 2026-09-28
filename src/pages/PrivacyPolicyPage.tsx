@@ -214,7 +214,7 @@ const PrivacyPolicyPage: React.FC = () => {
                   <li><strong>Google Analytics for Firebase / Google Analytics</strong> — configured with IP anonymization and advertising features disabled; used only to understand aggregate, non-personal usage of the Service.</li>
                 </ul>
                 <p className="mb-4">
-                  A complete, current list of Software Development Kits ("SDKs") used in the Service and their purposes is available upon request at <a href="mailto:privacy@montessorilifeskills.com" className="text-primary hover:underline">privacy@montessorilifeskills.com</a>.
+                  A complete, current list of Software Development Kits ("SDKs") used in the Service and their purposes is available upon request at <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>.
                 </p>
 
                 <h3 className="text-lg font-medium mb-2">Parental Consent and Controls</h3>
@@ -224,7 +224,7 @@ const PrivacyPolicyPage: React.FC = () => {
 
                 <h3 className="text-lg font-medium mb-2">Parental Rights and How to Contact Us</h3>
                 <p className="mb-4">
-                  If You are a parent or guardian and believe that a child has provided us with personal information without Your consent, or if You would like to review, delete, or refuse further collection or use of any information associated with Your child or Your account, please contact us immediately at <a href="mailto:privacy@montessorilifeskills.com" className="text-primary hover:underline">privacy@montessorilifeskills.com</a>. We will verify Your identity as the parent or guardian and then honor Your request within 30 days, subject to any legal retention obligations. You may also delete Your account at any time from the Family Dashboard, which will remove associated child profiles and learning data.
+                  If You are a parent or guardian and believe that a child has provided us with personal information without Your consent, or if You would like to review, delete, or refuse further collection or use of any information associated with Your child or Your account, please contact us immediately at <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>. We will verify Your identity as the parent or guardian and then honor Your request within 30 days, subject to any legal retention obligations. You may also delete Your account at any time from the Family Dashboard, which will remove associated child profiles and learning data.
                 </p>
 
                 <p className="mb-4">
@@ -258,7 +258,7 @@ const PrivacyPolicyPage: React.FC = () => {
                   If you have any questions about this Privacy Policy, You can contact us:
                 </p>
                 <p className="mt-2">
-                  By email: <a href="mailto:privacy@montessorilifeskills.com" className="text-primary hover:underline">privacy@montessorilifeskills.com</a>
+                  By email: <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>
                 </p>
               </section>
             </CardContent>
