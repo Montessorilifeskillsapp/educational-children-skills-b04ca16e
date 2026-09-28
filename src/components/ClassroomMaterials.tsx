@@ -2,7 +2,6 @@ import React, { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, ExternalLink, Check } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import { normalizeMaterialKey } from '@/lib/materials';
 import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
@@ -45,12 +44,6 @@ export const ClassroomMaterials: React.FC = () => {
     [byKey]
   );
 
-  const linkedUrls = groups
-    .flatMap((g) => g.items)
-    .filter((i) => !!i.amazonUrl)
-    .map((i) => i.amazonUrl as string);
-
-  const buyAllUrl = linkedUrls[0] ?? null;
 
   return (
     <Card>
