@@ -517,7 +517,7 @@ const Home: React.FC<HomeProps> = ({
                 <div className="border-t border-border pt-5 mb-5">
                   <h3 className="text-xl font-semibold text-foreground mb-2">Private consultation with Kerry</h3>
                   <p className="text-muted-foreground leading-relaxed mb-4">Discuss your child's needs and your Montessori goals in a one-to-one, 60-minute video session. Explore the consultation details and request a time on the Plans page.</p>
-                  <Button onClick={onSubscriptionView} className="rounded-xl">Explore a consultation <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Button>
+                  <Button onClick={() => navigate('/plans')} className="rounded-xl">Explore a consultation <ArrowRight className="ml-2 h-4 w-4" aria-hidden="true" /></Button>
                 </div>
                 <Button variant="outline" onClick={() => navigate('/about')} className="rounded-xl">Read Kerry's biography</Button>
               </div>
