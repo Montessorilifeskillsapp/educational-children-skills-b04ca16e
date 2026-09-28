@@ -57,9 +57,11 @@ export const ClassroomMaterials: React.FC = () => {
     <Card>
       <CardContent className="p-5 md:p-6">
         <p className="text-sm text-muted-foreground leading-relaxed">
-          What to have in the room — much of it you may already own. Nothing here needs to be
-          bought all at once. Items with a saved product open it when tapped.
+          A room inventory, not a shopping list. Gather gradually, and use what you already
+          have wherever it suits the child. Where a specific source is helpful, tapping the
+          item opens an authentic example.
         </p>
+
 
         <div className="mt-5 grid md:grid-cols-2 gap-x-8 gap-y-6">
           {groups.map((group) => (
