@@ -318,6 +318,23 @@ const ClassroomSetupPage: React.FC = () => {
         </div>
       </section>
 
+      {/* Room essentials */}
+      <section className="container mx-auto px-6 pb-20 max-w-5xl">
+        <h2 className="text-3xl font-semibold tracking-tight mb-4">
+          The Physical Room: Essentials to Gather
+        </h2>
+        <p className="text-muted-foreground max-w-3xl mb-6 leading-relaxed">
+          Montessori spaces are built with intention, not excess. Before buying anything, look
+          at what you already own at home or in your school — stable chairs that let the child
+          sit with feet flat on the floor, tables at a comfortable working height, low open
+          shelving, and trays and baskets the child can carry alone. For items designed
+          specifically for small hands, authentic examples are noted below.
+        </p>
+        <ClassroomMaterials />
+      </section>
+
+
+
       {/* Checklist */}
       <section className="container mx-auto px-6 pb-24 max-w-4xl">
         <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
