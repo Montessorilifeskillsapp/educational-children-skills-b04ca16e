@@ -325,6 +325,7 @@ export type Database = {
           created_at: string
           date_of_birth: string
           id: string
+          is_covered: boolean
           name: string
           updated_at: string
           user_id: string | null
@@ -334,6 +335,7 @@ export type Database = {
           created_at?: string
           date_of_birth: string
           id?: string
+          is_covered?: boolean
           name: string
           updated_at?: string
           user_id?: string | null
@@ -343,6 +345,7 @@ export type Database = {
           created_at?: string
           date_of_birth?: string
           id?: string
+          is_covered?: boolean
           name?: string
           updated_at?: string
           user_id?: string | null
@@ -605,6 +608,7 @@ export type Database = {
       }
       subscribers: {
         Row: {
+          child_addons: number
           created_at: string
           email: string
           id: string
@@ -626,6 +630,7 @@ export type Database = {
           user_id: string
         }
         Insert: {
+          child_addons?: number
           created_at?: string
           email: string
           id?: string
@@ -647,6 +652,7 @@ export type Database = {
           user_id: string
         }
         Update: {
+          child_addons?: number
           created_at?: string
           email?: string
           id?: string
@@ -792,6 +798,7 @@ export type Database = {
       }
     }
     Functions: {
+      child_allowance: { Args: { _user_id: string }; Returns: number }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -800,6 +807,11 @@ export type Database = {
         Returns: boolean
       }
       internal_get_secret: { Args: { p_name: string }; Returns: string }
+      is_client_request: { Args: never; Returns: boolean }
+      reconcile_child_coverage: {
+        Args: { _user_id: string }
+        Returns: undefined
+      }
     }
     Enums: {
       app_role: "admin" | "user"
