@@ -29,6 +29,7 @@ interface ProfileContextType {
   setActiveProfile: (profile: ChildProfile) => void;
   completeOnboarding: (profiles: ChildProfile[]) => void;
   updateProfile: (profile: ChildProfile) => void;
+  refreshProfiles: () => Promise<void>;
 }
 
 const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
@@ -361,6 +362,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
         setActiveProfile,
         completeOnboarding,
         updateProfile,
+        refreshProfiles: async () => { if (user) await loadFromSupabase(); },
       }}
     >
       {children}
