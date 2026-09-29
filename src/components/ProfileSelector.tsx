@@ -7,6 +7,9 @@ import { Plus, Settings, User, Star, BookOpen, Trophy, Target, Calendar, Trendin
 import ChildProfileModal from './ChildProfileModal';
 import { montessoriTheme } from './ThemeConfig';
 import BackButton from '@/components/ui/back-button';
+import ChildCoveragePanel from './ChildCoveragePanel';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { useAuthContext } from './AuthProvider';
 
 interface ChildProfile {
   id: string;
@@ -15,6 +18,7 @@ interface ChildProfile {
   avatar: string;
   interests: string[];
   learningStyle: string;
+  covered?: boolean;
 }
 interface ProfileSelectorProps {
   profiles: ChildProfile[];
@@ -39,6 +43,10 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   const [showModal, setShowModal] = useState(false);
   const [editingProfile, setEditingProfile] = useState<ChildProfile | undefined>();
   const [hoveredProfile, setHoveredProfile] = useState<string | null>(null);
+  const [limitHit, setLimitHit] = useState(false);
+  const { childAllowance } = useSubscription();
+  const { user } = useAuthContext();
+  const coveredCount = profiles.filter(p => p.covered !== false).length;
 
   const handleProfileSave = (profile: ChildProfile) => {
     if (editingProfile) {
@@ -59,6 +67,11 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   };
 
   const handleAddProfile = () => {
+    const allowance = user ? childAllowance : 1;
+    if (coveredCount >= allowance) {
+      setLimitHit(true);
+      return;
+    }
     setEditingProfile(undefined);
     setShowModal(true);
   };
@@ -82,6 +95,8 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
         />
 
       )}
+
+      <ChildCoveragePanel highlight={limitHit} />
 
       {/* Interactive Progress Dashboard for Active Child */}
       {activeProfile && (
@@ -196,6 +211,9 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                 <div className="flex-1">
                   <h3 className="font-semibold text-lg">{profile.name}</h3>
                   <p className="text-sm text-gray-600">{profile.age} years old</p>
+                  {profile.covered === false && (
+                    <Badge variant="outline" className="mt-1 text-xs">Needs a child add-on</Badge>
+                  )}
                   <div className="flex flex-wrap gap-1 mt-2">
                     {profile.interests.slice(0, 2).map(interest => (
                       <Badge key={interest} variant="secondary" className="text-xs hover:bg-primary/25 transition-colors">
