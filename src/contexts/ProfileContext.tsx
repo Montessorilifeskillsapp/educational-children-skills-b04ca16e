@@ -1,6 +1,13 @@
 import React, { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
+import { toast } from '@/hooks/use-toast';
+
+const isLimitError = (e: unknown) => /CHILD_LIMIT_REACHED/.test(String((e as { message?: string })?.message ?? e));
+const showLimitToast = () => toast({
+  title: 'Your plan covers this many children',
+  description: 'Add another child to your Premium plan for $24.99/month from Plans or Manage Child Profiles.',
+});
 
 interface ChildProfile {
   id: string;
@@ -9,6 +16,8 @@ interface ChildProfile {
   avatar: string;
   interests: string[];
   learningStyle: string;
+  /** False when this child needs an extra-child add-on before it can be used. */
+  covered?: boolean;
 }
 
 interface ProfileContextType {
@@ -150,7 +159,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // 2. Fetch DB profiles
       const { data, error } = await supabase
         .from('child_profiles')
-        .select('id, name, date_of_birth, avatar_url')
+        .select('id, name, date_of_birth, avatar_url, is_covered')
         .eq('user_id', user.id)
         .order('created_at', { ascending: true });
       if (error) {
@@ -167,6 +176,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
           avatar: extras?.avatar ?? '👶',
           interests: extras?.interests ?? [],
           learningStyle: extras?.learningStyle ?? 'visual',
+          covered: (row as { is_covered?: boolean }).is_covered !== false,
         };
       });
 
@@ -175,8 +185,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
       // Restore previously-active id from localStorage
       const savedActiveId = localStorage.getItem('montessori_active_profile_id');
       const next =
-        (savedActiveId && hydrated.find(p => p.id === savedActiveId)) ||
-        hydrated[0] ||
+        (savedActiveId && hydrated.find(p => p.id === savedActiveId && p.covered !== false)) ||
+        hydrated.find(p => p.covered !== false) ||
         null;
       setActiveProfileState(next);
       setIsOnboarded(hydrated.length > 0);
@@ -233,7 +243,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
             .insert({ user_id: user.id, name: p.name, date_of_birth: dobFromAge(p.age) })
             .select('id')
             .single();
-          if (error || !data) { console.error('Create child failed:', error); continue; }
+          if (error || !data) { if (isLimitError(error)) showLimitToast(); else console.error('Create child failed:', error); changed = true; continue; }
           writeExtras(data.id, { avatar: p.avatar, interests: p.interests, learningStyle: p.learningStyle });
           changed = true;
         }
@@ -249,6 +259,10 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
   };
 
   const setActiveProfile = (profile: ChildProfile) => {
+    if (profile.covered === false) {
+      toast({ title: `${profile.name} needs a child add-on`, description: 'Their saved progress is safe. Add them to your plan in Manage Child Profiles.' });
+      return;
+    }
     setActiveProfileState(profile);
     if (user) {
       localStorage.setItem('montessori_active_profile_id', profile.id);
@@ -291,7 +305,8 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
           .select('id')
           .single();
         if (error || !data) {
-          console.error('Create child failed:', error);
+          if (isLimitError(error)) showLimitToast();
+          else console.error('Create child failed:', error);
           continue;
         }
         writeExtras(data.id, {
