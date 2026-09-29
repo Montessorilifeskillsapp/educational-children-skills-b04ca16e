@@ -21,7 +21,7 @@ const Email = ({ name }: Props) => (
           That's the hardest part — starting.
         </Text>
         <Text style={text}>
-          The full curriculum has 8 areas, hundreds of activities, and a clear sequence
+          The full curriculum has 9 areas, hundreds of activities, and a clear sequence
           rooted in AMI standards. Members get the entire library, plus the adult guides
           that explain <em>why</em> each material matters.
         </Text>

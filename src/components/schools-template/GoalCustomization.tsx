@@ -56,7 +56,11 @@ const GoalCustomization: React.FC = () => {
     { value: 'sensorial', label: 'Sensorial Activities' },
     { value: 'language', label: 'Language Development' },
     { value: 'mathematics', label: 'Mathematics' },
-    { value: 'cultural', label: 'Cultural Studies' }
+    { value: 'geography', label: 'Geography' },
+    { value: 'botany', label: 'Botany' },
+    { value: 'art', label: 'Art' },
+    { value: 'cultural', label: 'Cultural Studies' },
+    { value: 'grace-courtesy', label: 'Grace & Courtesy' }
   ];
 
   const priorityColors = {

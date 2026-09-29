@@ -8,7 +8,7 @@ import heroImage from '@/assets/landing-hero.jpg';
 
 const features = [
   { icon: Hand, title: 'Hands-On Learning', desc: 'Authentic Montessori materials guide each activity, from the Pink Tower to the Golden Beads.' },
-  { icon: Brain, title: 'AMI Curriculum', desc: 'Eight prepared areas — Practical Life, Sensorial, Language, Math, Geography, Botany, Art, and Grace & Courtesy.' },
+  { icon: Brain, title: 'AMI Curriculum', desc: 'Nine prepared areas — Practical Life, Sensorial, Language, Math, Geography, Botany, Art, Cultural Studies, and Grace & Courtesy.' },
   { icon: Leaf, title: 'Calm by Design', desc: 'A focused, distraction-free interface that respects the child and the prepared environment.' },
   { icon: Sparkles, title: 'Activity Photographs', desc: 'Each activity is paired with a photograph of its specific materials or presentation.' },
   { icon: BookOpen, title: 'Structured Presentations', desc: 'Review the purpose, materials, presentation steps, and teaching notes before inviting the child.' },

@@ -44,7 +44,7 @@ const FREE_PLAN: Plan = {
   period: 'forever',
   description: 'A real taste of the curriculum — no card required.',
   features: [
-    '1 starter activity in each of the 8 curriculum areas',
+    '1 starter activity in each of the 9 curriculum areas',
     'Montessori Classroom Setup Guide (online)',
     'Family Dashboard with progress tracking',
     'Ad-free, distraction-free experience',
@@ -58,7 +58,7 @@ const PREMIUM_MONTHLY: Plan = {
   period: 'month',
   description: 'Full curriculum, billed monthly. Cancel anytime.',
   features: [
-    '100+ AMI-aligned activities across all 8 areas',
+    '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
     'New activities added every month',
     'Multiple child profiles & individual progress',
@@ -73,7 +73,7 @@ const PREMIUM_YEARLY: Plan = {
   period: 'year',
   description: "Best value — save $149 vs monthly. Two months free.",
   features: [
-    '100+ AMI-aligned activities across all 8 areas',
+    '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
     'New activities added every month',
     'Multiple child profiles & individual progress',

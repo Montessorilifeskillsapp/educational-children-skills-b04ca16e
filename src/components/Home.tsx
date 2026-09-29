@@ -342,7 +342,7 @@ const Home: React.FC<HomeProps> = ({
                 <span aria-hidden="true" className="text-primary">·</span>
                 <span>Ages 2–6</span>
                 <span aria-hidden="true" className="text-primary">·</span>
-                <span>8 curriculum areas</span>
+                <span>9 curriculum areas</span>
                 <span aria-hidden="true" className="text-primary">·</span>
                 <span>Step-by-step guidance</span>
               </div>

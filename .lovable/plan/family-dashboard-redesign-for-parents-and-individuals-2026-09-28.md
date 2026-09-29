@@ -7,7 +7,7 @@ The current dashboard is kept aside (unused) as a starting template for the futu
 Layout: a child switcher at the top (one tab per child profile), then five sections: **Overview, Goals, Calendar, Weekly Reports, Settings**. The Educator and old Reports sections are removed.
 
 ### Overview (per child)
-- Real numbers only, from activities actually completed: this week's activities, minutes, streak, progress in each of the 8 curriculum areas, recent completions, and top-priority goals.
+- Real numbers only, from activities actually completed: this week's activities, minutes, streak, progress in each of the 9 curriculum areas, recent completions, and top-priority goals.
 - Empty state for a new child ("Complete a first activity to see progress here").
 
 ### Goals (tied to the Montessori sequence)

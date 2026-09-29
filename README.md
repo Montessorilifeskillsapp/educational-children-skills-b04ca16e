@@ -4,7 +4,7 @@ A comprehensive React-based Montessori learning platform with skill tracking, pr
 
 ## Features
 
-- **Skill Categories**: Math, Language, Practical Life, Sensorial, Art, Geography, Botany, Grace & Courtesy
+- **Skill Categories**: Practical Life, Sensorial, Math, Language, Geography, Botany, Art, Cultural Studies, Grace & Courtesy
 - **Progress Tracking**: Child profiles with detailed progress analytics
 - **Premium Features**: Advanced materials, reports, and educator communication
 - **E-commerce**: Shop for Montessori materials and bundles
