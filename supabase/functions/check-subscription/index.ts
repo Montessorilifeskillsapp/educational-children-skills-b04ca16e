@@ -155,19 +155,20 @@ serve(async (req) => {
     const hasActiveSub = subscriptions.data.length > 0;
     let subscriptionTier = null;
     let subscriptionEnd = null;
+    let childAddons = 0;
 
     if (hasActiveSub) {
       const subscription = subscriptions.data[0];
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
 
-      const priceId = subscription.items.data[0]?.price.id;
-      const price = priceId ? await stripe.prices.retrieve(priceId) : null;
-      const amount = price?.unit_amount || 0;
-      const interval = price?.recurring?.interval;
-
-      subscriptionTier = getSubscriptionTier(amount, interval);
-      logStep("Determined subscription tier", { priceId, amount, interval, subscriptionTier });
+      // Premium item decides the tier; extra-child add-on items set the child allowance.
+      const addonItem = subscription.items.data.find(isAddonItem);
+      childAddons = addonItem?.quantity ?? 0;
+      const baseItem = subscription.items.data.find((i) => !isAddonItem(i));
+      const interval = baseItem?.price?.recurring?.interval;
+      subscriptionTier = interval === "year" ? "Premium Annual" : interval === "month" ? "Premium" : getSubscriptionTier(baseItem?.price?.unit_amount || 0, interval);
+      logStep("Determined subscription tier", { interval, subscriptionTier, childAddons });
     } else {
       logStep("No active subscription found");
     }
@@ -179,14 +180,20 @@ serve(async (req) => {
       subscribed: hasActiveSub,
       subscription_tier: subscriptionTier,
       subscription_end: subscriptionEnd,
+      child_addons: childAddons,
+      provider: "stripe",
       updated_at: new Date().toISOString(),
     }, { onConflict: "email" });
+    await supabaseClient.rpc("reconcile_child_coverage", { _user_id: user.id });
 
     logStep("Updated database with subscription info", { subscribed: hasActiveSub, subscriptionTier });
     return new Response(JSON.stringify({
       subscribed: hasActiveSub,
       subscription_tier: subscriptionTier,
       subscription_end: subscriptionEnd,
+      child_addons: childAddons,
+      child_allowance: 1 + (hasActiveSub ? childAddons : 0),
+      provider: "stripe",
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
       status: 200,
