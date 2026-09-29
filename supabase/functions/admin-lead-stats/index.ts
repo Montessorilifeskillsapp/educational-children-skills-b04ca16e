@@ -72,47 +72,10 @@ Deno.serve(async (req) => {
       byUtmCampaign[uc] = (byUtmCampaign[uc] ?? 0) + 1
     }
 
-    // Delivery: count distinct recipients who received lead-magnet-classroom-setup (status=sent)
-    // email_send_log may not exist yet — handle gracefully.
-    let delivered = 0
-    let deliveryAvailable = false
-    try {
-      const { data: sends, error: sendsErr } = await supabase
-        .from('email_send_log')
-        .select('recipient_email, status, message_id, created_at, template_name')
-        .eq('template_name', 'lead-magnet-classroom-setup')
-        .gte('created_at', since)
-        .limit(50000)
-      if (!sendsErr && sends) {
-        deliveryAvailable = true
-        // Dedup latest status per message_id
-        const latest = new Map<string, { status: string; recipient_email: string; created_at: string }>()
-        for (const s of sends) {
-          const key = s.message_id ?? `${s.recipient_email}-${s.created_at}`
-          const cur = latest.get(key)
-          if (!cur || cur.created_at < s.created_at) {
-            latest.set(key, s as any)
-          }
-        }
-        const deliveredEmails = new Set<string>()
-        for (const s of latest.values()) {
-          if (s.status === 'sent') deliveredEmails.add((s.recipient_email || '').toLowerCase())
-        }
-        // Intersect with leads in window
-        const leadEmails = new Set((leads ?? []).map((l) => (l.email as string).toLowerCase()))
-        for (const e of deliveredEmails) if (leadEmails.has(e)) delivered++
-      }
-    } catch (_e) {
-      // table missing — leave deliveryAvailable = false
-    }
-
     return new Response(
       JSON.stringify({
         days,
         total,
-        delivered,
-        deliveryAvailable,
-        conversionRate: total > 0 && deliveryAvailable ? delivered / total : null,
         byDay: Object.entries(byDay)
           .sort(([a], [b]) => (a < b ? 1 : -1))
           .map(([day, count]) => ({ day, count })),
