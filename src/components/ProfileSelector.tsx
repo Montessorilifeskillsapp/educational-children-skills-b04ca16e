@@ -97,6 +97,9 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
       )}
 
       <ChildCoveragePanel highlight={limitHit} />
+      {limitHit && !user && (
+        <p className="text-sm rounded-md border p-3">The free plan includes one child. Sign in and choose Premium to add more children.</p>
+      )}
 
       {/* Interactive Progress Dashboard for Active Child */}
       {activeProfile && (
