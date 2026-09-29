@@ -11,9 +11,6 @@ import AdminBackBar from '@/components/AdminBackBar';
 interface LeadStats {
   days: number;
   total: number;
-  delivered: number;
-  deliveryAvailable: boolean;
-  conversionRate: number | null;
   byDay: { day: string; count: number }[];
   bySource: { source: string; count: number }[];
   byUtmSource: { name: string; count: number }[];
@@ -89,7 +86,7 @@ const AdminLeadsPage = () => {
       <AdminBackBar />
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
-          <h1 className="text-3xl font-bold">Lead Magnet Analytics</h1>
+          <h1 className="text-3xl font-bold">Email Signups</h1>
           <p className="text-muted-foreground">Email signups and where they came from</p>
         </div>
         <div className="flex gap-2">
