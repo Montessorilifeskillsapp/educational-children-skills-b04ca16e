@@ -11,9 +11,6 @@ import AdminBackBar from '@/components/AdminBackBar';
 interface LeadStats {
   days: number;
   total: number;
-  delivered: number;
-  deliveryAvailable: boolean;
-  conversionRate: number | null;
   byDay: { day: string; count: number }[];
   bySource: { source: string; count: number }[];
   byUtmSource: { name: string; count: number }[];
