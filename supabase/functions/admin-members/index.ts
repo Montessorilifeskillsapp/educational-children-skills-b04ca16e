@@ -17,7 +17,7 @@ Deno.serve(async (req) => {
 
     const [profiles, subs, redemptions, children] = await Promise.all([
       supabase.from('user_profiles').select('user_id, email, full_name, created_at').order('created_at', { ascending: false }).limit(10000),
-      supabase.from('subscribers').select('user_id, email, subscribed, subscription_tier, subscription_end, subscription_status, provider, platform, created_at').limit(10000),
+      supabase.from('subscribers').select('user_id, email, subscribed, subscription_tier, subscription_end, subscription_status, provider, platform, created_at, child_addons').limit(10000),
       supabase.from('access_code_redemptions').select('user_id, revoked, redeemed_at, access_codes(label, code, grant_duration_days, revoked)').limit(10000),
       supabase.from('child_profiles').select('user_id').limit(20000),
     ])
@@ -50,6 +50,7 @@ Deno.serve(async (req) => {
         name: p.full_name,
         joined: p.created_at,
         children: childCount.get(p.user_id!) ?? 0,
+        child_addons: paid ? s?.child_addons ?? 0 : 0,
         premium: paid || !!code,
         via: paid ? 'paid' : code ? 'access_code' : null,
         plan: paid ? s?.subscription_tier ?? 'Premium' : code ? code.label : null,
