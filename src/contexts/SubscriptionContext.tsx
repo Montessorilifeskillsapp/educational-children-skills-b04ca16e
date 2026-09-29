@@ -26,6 +26,9 @@ interface SubscriptionContextType {
   loading: boolean;
   subscriptionEnd: string | null;
   provider: string | null;
+  /** Children covered by the membership: 1 + paid extra-child add-ons. */
+  childAllowance: number;
+  childAddons: number;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -52,6 +55,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [subscriptionEnd, setSubscriptionEnd] = useState<string | null>(null);
   const [provider, setProvider] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [childAddons, setChildAddons] = useState(0);
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
     try {
@@ -66,6 +70,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const verifySubscription = useCallback(async () => {
     if (!user) {
       setServerVerifiedPremium(false);
+      setChildAddons(0);
       setServerVerifiedFamily(false);
       setSubscriptionEnd(null);
       setProvider(null);
@@ -91,6 +96,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       if (error) {
         console.error('Subscription verification failed:', error);
         setServerVerifiedPremium(false);
+        setChildAddons(0);
         setServerVerifiedFamily(false);
         setSubscriptionEnd(null);
         setProvider(null);
@@ -105,6 +111,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       const verifiedProvider = data?.provider ?? null;
 
       setServerVerifiedPremium(isSubscribed);
+      setChildAddons(isSubscribed ? Math.max(0, Number(data?.child_addons) || 0) : 0);
       setServerVerifiedFamily(tier === 'Family');
       setSubscriptionEnd(end);
       setProvider(verifiedProvider);
@@ -126,6 +133,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     } catch (error) {
       console.error('Subscription verification error:', error);
       setServerVerifiedPremium(false);
+      setChildAddons(0);
       setServerVerifiedFamily(false);
       setSubscriptionEnd(null);
       setProvider(null);
@@ -177,7 +185,9 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       refreshSubscription: verifySubscription,
       loading,
       subscriptionEnd,
-      provider
+      provider,
+      childAllowance: 1 + childAddons,
+      childAddons,
     }}>
       {children}
     </SubscriptionContext.Provider>

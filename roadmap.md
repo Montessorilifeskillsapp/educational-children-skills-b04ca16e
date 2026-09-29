@@ -53,3 +53,5 @@
 - [x] Rebuild the homepage around a truthful adult-guide journey, preserving colors and curriculum access.
 
 - [x] Homepage Pouring Water sample photo: use the user-approved image only in this sample section.
+- [x] Premium covers one child; extra-child add-on $24.99/month (annual: $299.88/yr per child); free plan one child; existing extra profiles need an add-on
+- [ ] Native extra-child add-on: create child_addon_monthly / child_addon_annual in App Store Connect and Google Play, then map in revenuecat-sync — needs store setup + app release

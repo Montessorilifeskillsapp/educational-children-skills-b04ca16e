@@ -46,7 +46,7 @@ const FREE_PLAN: Plan = {
   features: [
     '1 starter activity in each of the 9 curriculum areas',
     'Montessori Classroom Setup Guide (online)',
-    'Family Dashboard with progress tracking',
+    'Family Dashboard for one child',
     'Ad-free, distraction-free experience',
   ],
 };
@@ -61,7 +61,7 @@ const PREMIUM_MONTHLY: Plan = {
     '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
     'New activities added every month',
-    'Multiple child profiles & individual progress',
+    'Covers one child · add another child for $24.99/month',
     'Priority support',
   ],
 };
@@ -76,7 +76,7 @@ const PREMIUM_YEARLY: Plan = {
     '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
     'New activities added every month',
-    'Multiple child profiles & individual progress',
+    'Covers one child · add another child for $24.99/month',
     'Priority support',
   ],
   popular: true,
@@ -642,6 +642,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                   <ul className="space-y-3 mb-6 flex-1">
                     {plan.features
                       .filter((f) => !(isNative && plan.id === 'consultation' && /\$/.test(f)))
+                      // Store rules: no web add-on prices inside the native apps.
+                      .map((f) => (isNative && f.startsWith('Covers one child') ? 'Covers one child' : f))
                       .map((feature, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />

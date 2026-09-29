@@ -16,6 +16,7 @@ interface Member {
   name: string | null;
   joined: string;
   children: number;
+  child_addons?: number;
   premium: boolean;
   via: 'paid' | 'access_code' | null;
   plan: string | null;
@@ -57,8 +58,8 @@ const AdminMembersPage = () => {
   }, [data, filter, q]);
 
   const downloadCsv = () => {
-    const head = ['Name', 'Email', 'Joined', 'Children', 'Premium', 'How', 'Plan', 'Where', 'Renews/ends'];
-    const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.premium ? 'Yes' : 'No',
+    const head = ['Name', 'Email', 'Joined', 'Children', 'Extra-child add-ons', 'Premium', 'How', 'Plan', 'Where', 'Renews/ends'];
+    const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.child_addons ?? 0, m.premium ? 'Yes' : 'No',
       m.via === 'paid' ? 'Paid' : m.via === 'access_code' ? 'Access code' : '', m.plan ?? '', m.where ?? '', fmt(m.renews)]
       .map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
@@ -115,6 +116,7 @@ const AdminMembersPage = () => {
                     <TableHead>Email</TableHead>
                     <TableHead>Joined</TableHead>
                     <TableHead className="text-right">Children</TableHead>
+                    <TableHead className="text-right">Add-ons</TableHead>
                     <TableHead>Plan</TableHead>
                     <TableHead>Where</TableHead>
                     <TableHead>Renews / ends</TableHead>
@@ -127,6 +129,7 @@ const AdminMembersPage = () => {
                       <TableCell>{m.email}</TableCell>
                       <TableCell>{fmt(m.joined)}</TableCell>
                       <TableCell className="text-right">{m.children}</TableCell>
+                      <TableCell className="text-right">{m.child_addons ?? 0}</TableCell>
                       <TableCell>
                         {m.premium
                           ? <Badge variant={m.via === 'paid' ? 'default' : 'secondary'}>{m.via === 'access_code' ? `Code: ${m.plan}` : m.plan}</Badge>
