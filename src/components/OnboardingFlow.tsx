@@ -28,6 +28,7 @@ const FOCUS_AREAS: { id: string; label: string; emoji: string; desc: string }[] 
   { id: 'geography', label: 'Geography', emoji: '🌍', desc: 'World & culture' },
   { id: 'botany', label: 'Botany', emoji: '🌱', desc: 'Plants & nature' },
   { id: 'art', label: 'Art', emoji: '🎭', desc: 'Creative expression' },
+  { id: 'cultural', label: 'Cultural Studies', emoji: '🌎', desc: 'Science & human culture' },
   { id: 'grace-courtesy', label: 'Grace & Courtesy', emoji: '🤝', desc: 'Social skills' },
 ];
 

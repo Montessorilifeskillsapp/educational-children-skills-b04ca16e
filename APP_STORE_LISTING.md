@@ -25,7 +25,7 @@ Montessori Skills Guide helps parents teach essential life skills to children ag
 
 🌱 **Practical Life Activities** — Step-by-step guides for pouring, buttoning, folding, food preparation, and dozens more real-world skills that build independence.
 
-📚 **Complete Montessori Curriculum** — Covering Practical Life, Sensorial, Math, Language, Geography, Botany, Art, and Grace & Courtesy — aligned with AMI standards.
+📚 **Complete Montessori Curriculum** — Covering Practical Life, Sensorial, Math, Language, Geography, Botany, Art, Cultural Studies, and Grace & Courtesy — aligned with AMI standards.
 
 📊 **Progress Tracking** — Monitor your child's development across all skill areas with visual progress reports and milestone tracking.
 
