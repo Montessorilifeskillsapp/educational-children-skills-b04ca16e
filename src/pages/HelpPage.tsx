@@ -88,7 +88,7 @@ const HelpPage: React.FC = () => {
       questions: [
         {
           question: "Can I create profiles for multiple children?",
-          answer: "Yes! Premium subscribers can create multiple child profiles to track individual progress and customize activities for each child's developmental stage and interests."
+          answer: "Yes. The free plan and Premium each include one child profile. Premium members can add another child for $24.99/month per child (on the Annual plan this is billed yearly, $299.88 per extra child). Add or remove children any time in Manage Child Profiles."
         },
         {
           question: "Is the app safe for children?",
@@ -96,7 +96,7 @@ const HelpPage: React.FC = () => {
         },
         {
           question: "Can other family members access the account?",
-          answer: "Your subscription covers your family's use. We recommend sharing account credentials securely within your household. Each child can have their own profile for personalized tracking."
+          answer: "Your subscription covers your family's use. We recommend sharing account credentials securely within your household. Premium includes one child profile; each additional child can be added for $24.99/month."
         }
       ]
     }
