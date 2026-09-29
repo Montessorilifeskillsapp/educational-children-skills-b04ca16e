@@ -90,7 +90,7 @@ const AdminLeadsPage = () => {
       <div className="flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-3xl font-bold">Lead Magnet Analytics</h1>
-          <p className="text-muted-foreground">Email captures, sources, and PDF delivery rate</p>
+          <p className="text-muted-foreground">Email signups and where they came from</p>
         </div>
         <div className="flex gap-2">
           {[7, 30, 90, 180].map((d) => (
@@ -106,26 +106,11 @@ const AdminLeadsPage = () => {
 
       {data && (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 gap-3">
             <Card>
               <CardContent className="pt-6">
                 <div className="text-sm text-muted-foreground">Total leads</div>
                 <div className="text-2xl font-bold">{data.total}</div>
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <div className="text-sm text-muted-foreground">PDF delivered</div>
-                <div className="text-2xl font-bold">{data.deliveryAvailable ? data.delivered : '—'}</div>
-                {!data.deliveryAvailable && (
-                  <div className="text-xs text-muted-foreground mt-1">Email log unavailable</div>
-                )}
-              </CardContent>
-            </Card>
-            <Card>
-              <CardContent className="pt-6">
-                <div className="text-sm text-muted-foreground">Delivery rate</div>
-                <div className="text-2xl font-bold">{pct(data.conversionRate)}</div>
               </CardContent>
             </Card>
             <Card>

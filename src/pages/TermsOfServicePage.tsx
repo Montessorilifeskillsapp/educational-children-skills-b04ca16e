@@ -58,7 +58,7 @@ const TermsOfServicePage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-4">Subscription Terms (Auto-Renewable Subscriptions)</h2>
                 <p className="mb-3">
                   Montessori Life Skills App offers auto-renewable subscriptions that give you access to the full
-                  Montessori curriculum, all premium activities, multiple child profiles, printable bundles, and priority support.
+                  Montessori curriculum, all premium activities, multiple child profiles, and priority support.
                 </p>
 
                 <h3 className="text-lg font-medium mb-2">Available Plans, Length &amp; Price</h3>
