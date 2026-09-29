@@ -84,10 +84,6 @@ const ImprovedOnboarding: React.FC<ImprovedOnboardingProps> = ({ onComplete }) =
                 <span className="text-sm">Pouring, sweeping, and rolling a mat</span>
               </div>
               <div className="flex items-center gap-3">
-                <Badge variant="secondary">Printable Guides</Badge>
-                <span className="text-sm">1 beautifully illustrated activity sheet</span>
-              </div>
-              <div className="flex items-center gap-3">
                 <Badge variant="secondary">Daily Prompts</Badge>
                 <span className="text-sm">Fresh life skill ideas every day</span>
               </div>

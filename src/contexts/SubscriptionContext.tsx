@@ -40,7 +40,6 @@ const defaultFreePlan: SubscriptionPlan = {
     '5 basic practical life activities',
     'Basic progress tracking dashboard',
     'Community support forum access',
-    'Essential materials guide PDF',
     'Email learning tips newsletter'
   ]
 };

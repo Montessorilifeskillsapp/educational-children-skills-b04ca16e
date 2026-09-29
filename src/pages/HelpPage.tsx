@@ -42,7 +42,7 @@ const HelpPage: React.FC = () => {
         },
         {
           question: "Do I need any special materials?",
-          answer: "Many activities can be done with common household items. Our app includes detailed material lists and suggests alternatives when special items are needed. Premium subscribers get access to printable guides and material recommendations."
+          answer: "Many activities can be done with common household items. Our app includes detailed material lists and suggests alternatives when special items are needed. Premium subscribers get the full curriculum with material recommendations for every activity."
         }
       ]
     },
@@ -52,7 +52,7 @@ const HelpPage: React.FC = () => {
       questions: [
         {
           question: "What's included in the free plan?",
-          answer: "The free plan includes 3 core activities (pouring, sweeping, rolling a mat), 1 printable activity sheet, and daily life skill prompts. It's perfect for getting started with Montessori learning at home."
+          answer: "The free plan includes one starter activity in each curriculum area, the Classroom Setup Guide, and the Family Dashboard. It's a simple way to begin Montessori learning at home or in the classroom."
         },
         {
           question: "Can I cancel my subscription anytime?",
