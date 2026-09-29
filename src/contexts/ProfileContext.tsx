@@ -238,7 +238,28 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
       (async () => {
         let changed = false;
         for (const p of newProfiles) {
-          if (isUuid(p.id)) continue;
+          if (isUuid(p.id)) {
+            // Existing child: save edits (name / age / avatar / interests)
+            const before = previous.find(o => o.id === p.id);
+            if (!before) continue;
+            const extrasChanged =
+              before.avatar !== p.avatar ||
+              before.learningStyle !== p.learningStyle ||
+              JSON.stringify(before.interests) !== JSON.stringify(p.interests);
+            if (extrasChanged) {
+              writeExtras(p.id, { avatar: p.avatar, interests: p.interests, learningStyle: p.learningStyle });
+              changed = true;
+            }
+            if (before.name !== p.name || before.age !== p.age) {
+              const { error } = await supabase
+                .from('child_profiles')
+                .update({ name: p.name, date_of_birth: dobFromAge(p.age) })
+                .eq('id', p.id);
+              if (error) console.error('Update child failed:', error);
+              else changed = true;
+            }
+            continue;
+          }
           const { data, error } = await supabase
             .from('child_profiles')
             .insert({ user_id: user.id, name: p.name, date_of_birth: dobFromAge(p.age) })
