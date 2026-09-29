@@ -642,6 +642,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                   <ul className="space-y-3 mb-6 flex-1">
                     {plan.features
                       .filter((f) => !(isNative && plan.id === 'consultation' && /\$/.test(f)))
+                      // Store rules: no web add-on prices inside the native apps.
+                      .map((f) => (isNative && f.startsWith('Covers one child') ? 'Covers one child' : f))
                       .map((feature, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
