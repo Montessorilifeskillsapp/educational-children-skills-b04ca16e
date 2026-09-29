@@ -20,7 +20,7 @@ const FamilyDashboard = ({ onBack, onManageProfiles }: { onBack: () => void; onM
   useSEO(SEO_CONFIG.parentDashboard);
   const { user } = useAuthContext();
   const { profiles, activeProfile } = useProfile();
-  const children = profiles.filter((p) => UUID_RE.test(p.id));
+  const children = profiles.filter((p) => UUID_RE.test(p.id) && p.covered !== false);
   const [childId, setChildId] = useState<string | undefined>(undefined);
 
   useEffect(() => {
