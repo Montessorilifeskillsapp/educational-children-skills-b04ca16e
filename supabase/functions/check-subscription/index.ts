@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
+import { isAddonItem } from "../_shared/childAddons.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -80,7 +81,7 @@ serve(async (req) => {
 
     const { data: existingRow } = await supabaseClient
       .from("subscribers")
-      .select("provider, subscribed, subscription_tier, subscription_end")
+      .select("provider, subscribed, subscription_tier, subscription_end, child_addons")
       .eq("user_id", user.id)
       .maybeSingle();
 
@@ -89,11 +90,15 @@ serve(async (req) => {
         ? new Date(existingRow.subscription_end).getTime() > Date.now()
         : Boolean(existingRow.subscribed);
       logStep("Honoring non-Stripe entitlement", { provider: existingRow.provider, stillActive });
+      await supabaseClient.rpc("reconcile_child_coverage", { _user_id: user.id });
+      const active = stillActive && Boolean(existingRow.subscribed);
       return new Response(JSON.stringify({
-        subscribed: stillActive && Boolean(existingRow.subscribed),
+        subscribed: active,
         subscription_tier: existingRow.subscription_tier ?? null,
         subscription_end: existingRow.subscription_end ?? null,
         provider: existingRow.provider,
+        child_addons: existingRow.child_addons ?? 0,
+        child_allowance: 1 + (active ? existingRow.child_addons ?? 0 : 0),
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
@@ -138,7 +143,8 @@ serve(async (req) => {
         subscription_end: null,
         updated_at: new Date().toISOString(),
       }, { onConflict: "email" });
-      return new Response(JSON.stringify({ subscribed: false, subscription_tier: null, subscription_end: null }), {
+      await supabaseClient.rpc("reconcile_child_coverage", { _user_id: user.id });
+      return new Response(JSON.stringify({ subscribed: false, subscription_tier: null, subscription_end: null, child_addons: 0, child_allowance: 1 }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
       });
