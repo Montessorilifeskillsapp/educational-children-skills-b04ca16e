@@ -38,3 +38,9 @@ verify_jwt = false
 
 [functions.admin-members]
 verify_jwt = false
+
+[functions.update-child-addons]
+verify_jwt = false
+
+[functions.set-covered-children]
+verify_jwt = false
