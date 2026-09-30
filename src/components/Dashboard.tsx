@@ -20,6 +20,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 
 import FounderWeeklyNote from './FounderWeeklyNote';
+import SongsTeaser from '@/components/songs/SongsTeaser';
 
 const PRACTICAL_LIFE_IDS = [
   'brushing-teeth','washing-hands','getting-dressed','making-bed','setting-table',
