@@ -1,5 +1,5 @@
 ## Open tasks
-- [ ] Clarify whether the new licensing section covers school use of the songs, licensing Kerry's trademark, or both; do not imply trademark rights are included without confirmation.
+- [x] Clarified scope: add copyright and permitted-use terms for Kerry's songs and instructional videos; keep school licensing separate and do not imply family access grants trademark rights.
 - [x] Family Dashboard redesign: per-child overview, goals, calendar, weekly reports, working settings, email + push notifications
 - [ ] Browser push: needs Firebase web app key, app ID, VAPID key (VITE_FIREBASE_*)
 - [ ] Phone-app push: needs new App Store/Play release + Apple push key in Firebase
