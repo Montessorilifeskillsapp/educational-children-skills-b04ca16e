@@ -12,10 +12,9 @@
 - The Members admin page shows who owns the song collection.
 - Until you upload songs, the Songs page stays hidden from users.
 
-## Price (needs your decision)
-The examples you shared are **school/classroom licenses** ($125–$2,450 per year). Those fit the future Schools Portal, not a parent buying for home. For this build I propose:
-- **Families: one-time purchase, lifetime access** — suggested $24.99 (you choose the final number; it's one setting).
-- **Schools: annual classroom license** — left for the Schools Portal later, priced against the examples you gave.
+## Price
+- **Families: $99.99 one-time purchase, lifetime access** — all 10 songs, full-length, forever. Not included with Premium.
+- **Schools: annual classroom license** — left for the Schools Portal later, priced against the school-license examples you gave ($125–$2,450/year).
 
 ## Phone apps
 The website purchase works right away. Buying inside the iPhone/Android apps needs a one-time product registered with Apple and Google plus the native release you already have planned. Until then, the apps show the previews and a note to buy on the website — anyone who buys there gets full access in the app too, because it's the same account.
