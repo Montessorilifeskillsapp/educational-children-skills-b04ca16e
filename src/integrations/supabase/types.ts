@@ -579,6 +579,78 @@ export type Database = {
           },
         ]
       }
+      song_purchases: {
+        Row: {
+          email: string
+          id: string
+          product: string
+          purchased_at: string
+          stripe_session_id: string | null
+          user_id: string
+        }
+        Insert: {
+          email: string
+          id?: string
+          product?: string
+          purchased_at?: string
+          stripe_session_id?: string | null
+          user_id: string
+        }
+        Update: {
+          email?: string
+          id?: string
+          product?: string
+          purchased_at?: string
+          stripe_session_id?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
+      songs: {
+        Row: {
+          active: boolean
+          cover_path: string | null
+          created_at: string
+          description: string | null
+          duration_seconds: number | null
+          id: string
+          preview_path: string | null
+          preview_start_seconds: number
+          sort_order: number
+          storage_path: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          active?: boolean
+          cover_path?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          preview_path?: string | null
+          preview_start_seconds?: number
+          sort_order?: number
+          storage_path: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          active?: boolean
+          cover_path?: string | null
+          created_at?: string
+          description?: string | null
+          duration_seconds?: number | null
+          id?: string
+          preview_path?: string | null
+          preview_start_seconds?: number
+          sort_order?: number
+          storage_path?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
       stripe_webhook_events: {
         Row: {
           event_type: string
