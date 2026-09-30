@@ -113,10 +113,30 @@ const TermsOfServicePage: React.FC = () => {
 
               <section className="mb-8">
                 <h2 className="text-xl font-semibold mb-4">Intellectual Property</h2>
+                <p className="mb-4">
+                  The original content in Montessori Life Skills App is protected by intellectual property law.
+                  Access to the app or purchase of the song collection gives you permission to use the content
+                  as described below; it does not transfer copyright or ownership of the recordings, videos,
+                  or other original materials. Montessori principles and methods themselves are not claimed
+                  as our exclusive property.
+                </p>
+                <h3 className="text-lg font-medium mb-2">Kerry’s Montessori Songs</h3>
+                <p className="mb-4">
+                  Kerry Howard retains rights in her original songs and recordings. The family song-collection
+                  purchase provides access to stream the full songs through the app for your family. Free previews
+                  are available without a purchase. Neither access option permits downloading, copying,
+                  recording, redistributing, reselling, or using the songs in another product or publication.
+                  Classroom or other institutional use requires a separate licence arranged with Kerry;
+                  purchasing family access does not grant a school licence or rights to use any name or mark.
+                </p>
+                <h3 className="text-lg font-medium mb-2">Instructional videos and app content</h3>
                 <p>
-                  All content, features, and functionality of the app are owned by us and are protected by copyright, 
-                  trademark, and other intellectual property laws. You may not reproduce, distribute, or create 
-                  derivative works without our written permission.
+                  Original instructional videos and other original app materials belong to Montessori Life
+                  Skills or their respective rights holders. Access is for viewing within the app under your
+                  account, subject to the access level shown for each activity. You may not download, record,
+                  copy, share, republish, sell, or create derivative works from these videos or materials
+                  without written permission from the relevant rights holder. For permission or licensing
+                  enquiries, contact montessorilifeskills@gmail.com.
                 </p>
               </section>
 

@@ -121,7 +121,7 @@ const SongsPage: React.FC = () => {
                 <div className="flex items-center gap-2 p-3 rounded-lg bg-primary/10 border border-primary/25">
                   <CheckCircle2 className="w-5 h-5 text-primary shrink-0" aria-hidden="true" />
                   <p className="text-sm font-medium text-primary">
-                    You own the full collection — every song plays in full below.
+                     You have full access to the collection — every song plays in full below.
                   </p>
                 </div>
               ) : isNative ? (
@@ -215,7 +215,7 @@ const SongsPage: React.FC = () => {
                         {fullAvailable ? (
                           <span className="inline-flex items-center gap-1 text-primary font-medium">
                             <CheckCircle2 className="w-3.5 h-3.5" aria-hidden="true" />
-                            Yours
+                             Full access
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1">
@@ -255,8 +255,9 @@ const SongsPage: React.FC = () => {
             </CardContent>
           </Card>
 
-          <p className="text-xs text-muted-foreground text-center">
-            © Kerry Howard. All rights reserved. Songs stream inside the app and cannot be downloaded.
+           <p className="text-xs text-muted-foreground text-center">
+             © Kerry Howard. All rights reserved. Songs stream inside the app; family access does not transfer copyright.
+             {' '}<a href="/terms-of-service" className="underline hover:text-foreground">Copyright and use terms</a>
           </p>
         </div>
       </PageLayout>
