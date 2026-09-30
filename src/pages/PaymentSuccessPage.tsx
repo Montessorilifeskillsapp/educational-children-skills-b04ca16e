@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { CheckCircle, Crown, ArrowRight, Loader2 } from 'lucide-react';
 import { useSubscription } from '@/hooks/useSubscription';
+import { supabase } from '@/integrations/supabase/client';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
@@ -14,9 +15,11 @@ const PaymentSuccessPage: React.FC = () => {
   const [searchParams] = useSearchParams();
   const { subscription_tier, subscribed, checkSubscription } = useSubscription();
   const [isRefreshing, setIsRefreshing] = useState(true);
+  const [songsUnlocked, setSongsUnlocked] = useState(false);
 
   const planId = searchParams.get('planId');
   const sessionId = searchParams.get('session_id');
+  const isSongsPurchase = planId === 'songs-bundle';
 
   const planLabel = useMemo(() => {
     if (planId === 'premium' || planId === 'premium-monthly') {
@@ -36,18 +39,33 @@ const PaymentSuccessPage: React.FC = () => {
   useEffect(() => {
     let isMounted = true;
 
-    const refreshSubscription = async () => {
+    const refreshEntitlement = async () => {
       setIsRefreshing(true);
 
-      for (let attempt = 0; attempt < 3; attempt += 1) {
-        const result = await checkSubscription();
-
-        if (result.subscribed) {
-          break;
+      if (isSongsPurchase) {
+        // One-time purchase: confirm with Stripe and record ownership.
+        for (let attempt = 0; attempt < 3; attempt += 1) {
+          const { data } = await supabase.functions.invoke('verify-song-purchase', {
+            body: { session_id: sessionId },
+          });
+          const purchased = Boolean((data as { purchased?: boolean } | null)?.purchased);
+          if (purchased || !isMounted) {
+            if (isMounted) setSongsUnlocked(purchased);
+            break;
+          }
+          if (attempt < 2) await new Promise((resolve) => setTimeout(resolve, 1500));
         }
+      } else {
+        for (let attempt = 0; attempt < 3; attempt += 1) {
+          const result = await checkSubscription();
 
-        if (attempt < 2) {
-          await new Promise((resolve) => setTimeout(resolve, 1500));
+          if (result.subscribed) {
+            break;
+          }
+
+          if (attempt < 2) {
+            await new Promise((resolve) => setTimeout(resolve, 1500));
+          }
         }
       }
 
@@ -56,7 +74,7 @@ const PaymentSuccessPage: React.FC = () => {
       }
     };
 
-    void refreshSubscription();
+    void refreshEntitlement();
 
     analytics.track('subscribe_completed', {
       plan_id: planId,
@@ -67,7 +85,7 @@ const PaymentSuccessPage: React.FC = () => {
     return () => {
       isMounted = false;
     };
-  }, [checkSubscription, planId, sessionId]);
+  }, [checkSubscription, planId, sessionId, isSongsPurchase]);
 
   const handleContinue = () => {
     navigate('/');
@@ -93,16 +111,18 @@ const PaymentSuccessPage: React.FC = () => {
                 : `Thanks for subscribing${sessionId ? ` with checkout ${sessionId.slice(0, 8)}…` : ''}. Your access is ready.`}
             </p>
             
-            {subscribed ? (
+            {subscribed || songsUnlocked ? (
               <div className="bg-gradient-to-r from-primary/20 to-accent/20 p-4 rounded-lg border border-primary/25">
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Crown className="w-5 h-5 text-primary" />
                   <span className="font-semibold text-primary">
-                    Welcome to {subscription_tier ?? planLabel}!
+                    {isSongsPurchase ? 'Songs collection unlocked!' : `Welcome to ${subscription_tier ?? planLabel}!`}
                   </span>
                 </div>
                 <p className="text-sm text-primary">
-                  You now have access to all premium Montessori activities and content.
+                  {isSongsPurchase
+                    ? 'Every song now plays in full. Find the collection on your dashboard or in the Shop.'
+                    : 'You now have access to all premium Montessori activities and content.'}
                 </p>
               </div>
             ) : (

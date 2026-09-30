@@ -23,8 +23,9 @@ interface Member {
   where: string | null;
   status: string | null;
   renews: string | null;
+  songs?: boolean;
 }
-interface Resp { total: number; premium: number; paid: number; viaCode: number; members: Member[] }
+interface Resp { total: number; premium: number; paid: number; viaCode: number; songsOwned?: number; members: Member[] }
 
 const fmt = (d: string | null) => (d ? new Date(d).toLocaleDateString() : '—');
 
@@ -58,9 +59,9 @@ const AdminMembersPage = () => {
   }, [data, filter, q]);
 
   const downloadCsv = () => {
-    const head = ['Name', 'Email', 'Joined', 'Children', 'Extra-child add-ons', 'Premium', 'How', 'Plan', 'Where', 'Renews/ends'];
+    const head = ['Name', 'Email', 'Joined', 'Children', 'Extra-child add-ons', 'Premium', 'How', 'Plan', 'Where', 'Songs collection', 'Renews/ends'];
     const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.child_addons ?? 0, m.premium ? 'Yes' : 'No',
-      m.via === 'paid' ? 'Paid' : m.via === 'access_code' ? 'Access code' : '', m.plan ?? '', m.where ?? '', fmt(m.renews)]
+      m.via === 'paid' ? 'Paid' : m.via === 'access_code' ? 'Access code' : '', m.plan ?? '', m.where ?? '', m.songs ? 'Yes' : 'No', fmt(m.renews)]
       .map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
     const a = document.createElement('a');
@@ -86,8 +87,8 @@ const AdminMembersPage = () => {
 
       {data && (
         <>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {[['Signed up', data.total], ['Premium (total)', data.premium], ['Paying', data.paid], ['Via access code', data.viaCode]].map(([l, v]) => (
+          <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+            {[['Signed up', data.total], ['Premium (total)', data.premium], ['Paying', data.paid], ['Via access code', data.viaCode], ['Songs collection', data.songsOwned ?? 0]].map(([l, v]) => (
               <Card key={l as string}><CardContent className="pt-6">
                 <div className="text-sm text-muted-foreground">{l}</div>
                 <div className="text-2xl font-bold">{v}</div>
@@ -119,6 +120,7 @@ const AdminMembersPage = () => {
                     <TableHead className="text-right">Add-ons</TableHead>
                     <TableHead>Plan</TableHead>
                     <TableHead>Where</TableHead>
+                    <TableHead>Songs</TableHead>
                     <TableHead>Renews / ends</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -136,11 +138,12 @@ const AdminMembersPage = () => {
                           : <span className="text-muted-foreground">Free</span>}
                       </TableCell>
                       <TableCell className="capitalize">{m.where ?? '—'}</TableCell>
+                      <TableCell>{m.songs ? <Badge>Songs owner</Badge> : <span className="text-muted-foreground">—</span>}</TableCell>
                       <TableCell>{fmt(m.renews)}</TableCell>
                     </TableRow>
                   ))}
                   {rows.length === 0 && (
-                    <TableRow><TableCell colSpan={7} className="text-center text-muted-foreground">No one matches.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={9} className="text-center text-muted-foreground">No one matches.</TableCell></TableRow>
                   )}
                 </TableBody>
               </Table>

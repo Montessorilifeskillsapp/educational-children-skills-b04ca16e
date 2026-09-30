@@ -20,6 +20,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 
 import FounderWeeklyNote from './FounderWeeklyNote';
+import SongsTeaser from '@/components/songs/SongsTeaser';
 
 const PRACTICAL_LIFE_IDS = [
   'brushing-teeth','washing-hands','getting-dressed','making-bed','setting-table',
@@ -200,6 +201,9 @@ const Dashboard: React.FC<DashboardProps> = ({
         <div className="mb-6">
           <FounderWeeklyNote />
         </div>
+
+        {/* Kerry's Montessori Songs — hidden until songs are published */}
+        <SongsTeaser />
 
         {/* Skill Categories Navigation */}
         {/* Streak + Badges */}

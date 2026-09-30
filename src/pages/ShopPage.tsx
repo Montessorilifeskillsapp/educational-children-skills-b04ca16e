@@ -8,6 +8,7 @@ import PageLayout from '@/components/PageLayout';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
 import { ShopMaterialsSection } from '@/components/ShopMaterialsSection';
 import { AffiliateDisclosure } from '@/components/AffiliateDisclosure';
+import SongsShopCard from '@/components/songs/SongsShopCard';
 
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -56,6 +57,8 @@ const ShopPage: React.FC = () => {
           {filtered.length} {filtered.length === 1 ? 'book' : 'books'}
         </p>
       </div>
+
+      <SongsShopCard />
 
       <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
         <CardContent className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
