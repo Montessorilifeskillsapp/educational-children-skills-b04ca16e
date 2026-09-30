@@ -26,12 +26,12 @@ class CheckoutError extends Error {
 const PLAN_CONFIG = {
   premium: {
     productName: "Premium Monthly Plan",
-    unitAmount: 2900,
+    unitAmount: 2999,
     interval: "month" as const,
   },
   "premium-monthly": {
     productName: "Premium Monthly Plan",
-    unitAmount: 2900,
+    unitAmount: 2999,
     interval: "month" as const,
   },
   "premium-yearly": {
