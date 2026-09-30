@@ -14,7 +14,7 @@
 
 ## Price
 - **Families: $99.99 one-time purchase, lifetime access** — all 10 songs, full-length, forever. Not included with Premium.
-- **Schools: annual classroom license** — left for the Schools Portal later, priced against the school-license examples you gave ($125–$2,450/year).
+- **Schools: annual classroom license, priced by Kerry** — a "Schools: license the collection" button on the Songs page opens an email to montessorilifeskills@gmail.com with the subject pre-filled, so schools discuss licensing directly with Kerry (the same contact email used everywhere in the app).
 
 ## Phone apps
 The website purchase works right away. Buying inside the iPhone/Android apps needs a one-time product registered with Apple and Google plus the native release you already have planned. Until then, the apps show the previews and a note to buy on the website — anyone who buys there gets full access in the app too, because it's the same account.
