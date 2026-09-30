@@ -21,6 +21,36 @@ Deno.serve(async (req) => {
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
     const songId = typeof body.song_id === 'string' ? body.song_id : null;
 
+    // Lightweight availability/ownership check (used by dashboard + shop teasers).
+    if (body.summary === true) {
+      const authHeader = req.headers.get('Authorization');
+      let purchased = false;
+      if (authHeader) {
+        const { data: userData } = await admin.auth.getUser(authHeader.replace(/^Bearer\s+/i, ''));
+        const user = userData?.user;
+        if (user) {
+          const { data: role } = await admin.rpc('has_role', { _user_id: user.id, _role: 'admin' });
+          if (role) {
+            purchased = true;
+          } else {
+            const { data: purchase } = await admin
+              .from('song_purchases')
+              .select('id')
+              .eq('user_id', user.id)
+              .eq('product', 'songs_bundle')
+              .maybeSingle();
+            purchased = Boolean(purchase);
+          }
+        }
+      }
+      const { count } = await admin
+        .from('songs')
+        .select('id', { count: 'exact', head: true })
+        .eq('active', true);
+      return json({ purchased, count: count ?? 0 });
+    }
+
+
     let query = admin
       .from('songs')
       .select('id, title, description, sort_order, storage_path, preview_path, preview_start_seconds, cover_path, duration_seconds, active')
