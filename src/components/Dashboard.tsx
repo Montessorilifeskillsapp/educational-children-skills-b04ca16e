@@ -201,6 +201,9 @@ const Dashboard: React.FC<DashboardProps> = ({
           <FounderWeeklyNote />
         </div>
 
+        {/* Kerry's Montessori Songs — hidden until songs are published */}
+        <SongsTeaser />
+
         {/* Skill Categories Navigation */}
         {/* Streak + Badges */}
         {activeProfile && (() => {

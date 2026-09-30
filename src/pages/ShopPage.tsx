@@ -8,6 +8,7 @@ import PageLayout from '@/components/PageLayout';
 import { useStoryBooks } from '@/hooks/useStoryBooks';
 import { ShopMaterialsSection } from '@/components/ShopMaterialsSection';
 import { AffiliateDisclosure } from '@/components/AffiliateDisclosure';
+import SongsShopCard from '@/components/songs/SongsShopCard';
 
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
