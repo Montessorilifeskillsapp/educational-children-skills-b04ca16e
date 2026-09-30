@@ -82,7 +82,7 @@ serve(async (req) => {
     const normalizedPlanId = typeof planId === "string" ? planId : "";
     const selectedPlan = PLAN_CONFIG[normalizedPlanId as keyof typeof PLAN_CONFIG];
 
-    if (!selectedPlan) {
+    if (!selectedPlan && normalizedPlanId !== "songs-bundle") {
       throw new CheckoutError("Invalid plan selected.", 400);
     }
 
@@ -109,6 +109,37 @@ serve(async (req) => {
     const origin = ALLOWED_ORIGINS.includes(requestOrigin)
       ? requestOrigin
       : (Deno.env.get("SITE_URL") ?? ALLOWED_ORIGINS[0]);
+    // One-time purchase: Kerry's Montessori Songs collection ($99.99, lifetime access).
+    // Ownership is recorded by verify-song-purchase after the buyer returns.
+    if (normalizedPlanId === "songs-bundle") {
+      if (!user) throw new CheckoutError("Sign in to purchase the song collection.", 401);
+      logStep("Songs bundle checkout", { userId: user.id });
+
+      const songsSession = await stripe.checkout.sessions.create({
+        customer: customerId,
+        customer_email: customerId ? undefined : user.email,
+        line_items: [
+          {
+            price_data: {
+              currency: "usd",
+              product_data: { name: "Kerry's Montessori Songs Collection" },
+              unit_amount: 9999,
+            },
+            quantity: 1,
+          },
+        ],
+        mode: "payment",
+        success_url: `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}&planId=songs-bundle`,
+        cancel_url: `${origin}/payment-cancel?planId=songs-bundle`,
+        metadata: { planId: "songs-bundle", userId: user.id },
+      });
+      logStep("Songs checkout session created", { sessionId: songsSession.id });
+      return new Response(JSON.stringify({ url: songsSession.url }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
+
     const session = await stripe.checkout.sessions.create({
       customer: customerId,
       customer_email: customerId || !user ? undefined : user.email,
