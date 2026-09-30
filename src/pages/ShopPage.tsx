@@ -57,6 +57,8 @@ const ShopPage: React.FC = () => {
         </p>
       </div>
 
+      <SongsShopCard />
+
       <Card className="bg-gradient-to-br from-primary/5 to-primary/10 border border-primary/20">
         <CardContent className="p-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">

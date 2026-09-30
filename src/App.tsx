@@ -40,6 +40,8 @@ import NotFound from "./pages/NotFound";
 import LandingPage from "./pages/LandingPage";
 import ClassroomSetupPage from "./pages/ClassroomSetupPage";
 import HomeSetupPage from "./pages/HomeSetupPage";
+import SongsPage from "./pages/SongsPage";
+import AdminSongsPage from "./pages/AdminSongsPage";
 import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
 import AdminLeadsPage from "./pages/AdminLeadsPage";
 import AdminMembersPage from "./pages/AdminMembersPage";
@@ -141,6 +143,8 @@ const App = () => {
                           <Route path="/admin/access-codes" element={<AdminAccessCodesPage />} />
                           <Route path="/admin/materials" element={<AdminMaterialsPage />} />
                           <Route path="/admin/videos" element={<AdminVideosPage />} />
+                          <Route path="/admin/songs" element={<AdminSongsPage />} />
+                          <Route path="/songs" element={<SongsPage />} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
