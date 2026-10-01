@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, ExternalLink, Check } from 'lucide-react';
+import { ShoppingCart, ExternalLink, Package } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
@@ -114,12 +114,11 @@ export function MaterialBundle({ title, materials, className, showDisclosure = t
                     className="shrink-0 w-12 h-12 object-cover rounded-md border bg-muted"
                   />
                 ) : (
-                  <div className="shrink-0 mt-0.5">
-                    {material.essential ? (
-                      <Check className="w-4 h-4 text-primary" aria-hidden="true" />
-                    ) : (
-                      <span className="block w-4 h-4 rounded-full border border-muted-foreground/30" aria-hidden="true" />
-                    )}
+                  <div
+                    className="shrink-0 w-12 h-12 rounded-md border bg-muted flex items-center justify-center"
+                    aria-hidden="true"
+                  >
+                    <Package className="w-5 h-5 text-muted-foreground/60" />
                   </div>
                 )}
                 <div className="min-w-0">
