@@ -1,33 +1,32 @@
-# In-app purchase of extra children (iPhone and Android)
+# Add a child inside the app — one tap, no detours
 
-## Goal
-A parent who subscribes inside the iPhone or Android app can add (and remove) an extra child without leaving the app. The website flow stays as it is.
+## The parent's experience (the priority)
+1. Parent taps **Add a child** (same button they already use).
+2. They enter the name and age as usual.
+3. If their plan already covers another child, it's saved. Done.
+4. If not, the save button simply reads **Add [name] — $24.99/month** (or the yearly price for Annual members). One tap opens the familiar Apple/Google confirm sheet (Face ID / fingerprint).
+5. The child appears immediately, unlocked. No website, no separate add-on screen, no "slots", no extra steps.
 
-## What the parent will see (in the app)
-- On Manage Child Profiles: "Add a child" button showing the store price (set to match $24.99/month, or $299.88/year for Annual members).
-- Tapping it opens the normal Apple/Google payment sheet. After paying, the locked child unlocks right away.
-- "Manage add-ons" opens the phone's own subscription settings (stores require cancellation to happen there).
-- "Restore purchases" also restores add-ons.
+Also:
+- An existing locked child shows one button: **Unlock [name]** — same one-tap payment.
+- Removing a child shows a clear note with one button that opens the phone's subscription settings (Apple/Google require cancellation there).
+- If payment is cancelled, the details they typed are kept so they don't retype anything.
+- Clear, friendly messages for every outcome (paid, cancelled, card declined, no connection).
 
-## What you need to do in the stores (I can't do these for you)
-1. App Store Connect and Google Play Console: create the add-on subscriptions. Because a store subscription can't be "bought twice", each extra child is its own product, in its own subscription group:
-   - `child_addon_monthly_1` ... `child_addon_monthly_4` at $24.99/month
-   - `child_addon_annual_1` ... `child_addon_annual_4` at $299.88/year
-   This allows up to 4 extra children in-app (5 total). Tell me if you want a different maximum.
-2. RevenueCat: add those products and attach them to a new entitlement `child_addon` (not to `pro`).
-3. Submit a new app version to Apple and Google, bundled with all the other pending changes, as agreed.
+The website works exactly the same way (Stripe instead of Apple/Google), so both feel identical.
 
-Note: Apple and Google keep about 15–30% of in-app add-on sales.
+## What you need to do once in the stores
+I'll give you a short, exact click-by-click checklist (names, prices, IDs to copy-paste) for App Store Connect, Google Play Console and RevenueCat. Behind the scenes each extra child is a separate store subscription (Apple/Google don't allow buying the same one twice); parents never see this. Up to 4 extra children in the app. Then the next store release ships it, together with your other pending changes.
+
+Note: Apple and Google keep about 15–30% of in-app sales.
 
 ## Technical details
-- `src/lib/revenuecat.ts`: add the add-on product ids; `purchaseChildAddon(plan)` picks the next unowned slot for the member's billing period (monthly members see monthly slots, annual see annual) and buys it; `openManageSubscriptions()` via RevenueCat's management URL.
-- `src/components/ChildCoveragePanel.tsx`: on native, replace "Extra children can be added on our website" with the in-app Add/Manage buttons, showing the store's localized price (store rules forbid showing a web price in-app).
-- `revenuecat-sync` and `revenuecat-webhook`: count active `child_addon_*` subscriptions and store as the store add-on count; `childAddons.ts` totals store + website add-ons into `subscribers.child_addons`, then runs existing `reconcile_child_coverage`. Add-on events must never change the Premium tier/entitlement fields.
-- Website add-ons for app members keep working; both sources add together, so nothing double-counts or gets lost.
-- Admin Members page: show add-on source (Store / Website).
-- Until the new app version ships, current behavior (buy on website) remains.
+- `src/lib/revenuecat.ts`: add-on product ids (`child_addon_monthly_1..4`, `child_addon_annual_1..4`), `purchaseChildAddon()` auto-picks the next unowned product matching the member's billing period; `openManageSubscriptions()`.
+- Child add/edit form and `ChildCoveragePanel.tsx`: merge purchase into the save step; on native use the store's localized price; on web the existing Stripe add-on checkout returns straight to the saved child.
+- `revenuecat-sync` / `revenuecat-webhook` + `_shared/childAddons.ts`: count active store add-ons, add to website add-ons into `subscribers.child_addons`, run `reconcile_child_coverage`; add-on events never alter Premium tier fields.
+- Admin Members: show add-on source (Store / Website).
+- Until the new app version ships, current behavior remains.
 
 ## Verification
-- Typecheck, build, tests.
-- Unit test for add-on counting (store + website totals; expiry lowers the count and re-locks the newest child).
-- Real purchase test must be done by you on a test device with a store sandbox account.
+- Typecheck, build, tests, plus unit tests for add-on counting and expiry re-locking.
+- Real purchase test on your device with a store test account (I can't sign in as an app subscriber).
