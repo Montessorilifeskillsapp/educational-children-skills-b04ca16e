@@ -46,7 +46,7 @@ export const ClassroomMaterials: React.FC = () => {
             key,
             displayName,
             amazonUrl: link?.amazon_url ? withAffiliateTag(link.amazon_url, link.affiliate_tag) : null,
-            imageUrl: getMaterialImage(displayName),
+            imageUrl: (link?.amazon_url ? link.image_url : null) || getMaterialImage(displayName),
           };
         }),
       })),

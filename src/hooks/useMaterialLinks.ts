@@ -12,6 +12,7 @@ export interface MaterialLink {
   affiliate_tag: string | null;
   vendor: string | null;
   home_alternatives: string | null;
+  image_url: string | null;
 }
 
 export function useMaterialLinks() {
@@ -27,7 +28,7 @@ export function useMaterialLinks() {
       setError(null);
       const { data, error: supaError } = await supabase
         .from('material_links')
-        .select('id, material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor, home_alternatives')
+        .select('id, material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor, home_alternatives, image_url')
         .eq('active', true);
 
       if (cancelled) return;
