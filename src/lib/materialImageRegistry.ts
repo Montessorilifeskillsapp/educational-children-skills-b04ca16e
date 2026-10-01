@@ -187,8 +187,8 @@ import { normalizeMaterialKey } from '@/lib/materials';
 import { materialPhotos, materialPhotoAliases } from '@/data/materialPhotos';
 
 /**
- * Resolve a material label to an exact, approved photo of that item.
- * Returns undefined when none is approved yet — callers show a neutral marker.
+ * Resolve a material label to a plain photo of that item.
+ * Returns undefined when there is no matching item photo — callers show a neutral marker.
  * Keyword/scene-photo guessing is intentionally not used.
  */
 export function getMaterialImage(material: string): string | undefined {
