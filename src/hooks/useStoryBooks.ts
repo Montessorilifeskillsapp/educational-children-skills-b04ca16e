@@ -10,6 +10,7 @@ type LiveBook = {
   category: string;
   buyLink: string;
   detailLink: string;
+  price?: number;
 };
 
 const DEFAULT_PRICE = 16.99;
@@ -49,6 +50,10 @@ export function useStoryBooks() {
               : `https://montessoristorybooks.com${item.image}`
             : '';
           const image = existing?.image || liveImage;
+          // Live prices come from each book's detail page; fall back to the
+          // bundled price when the source page doesn't expose one.
+          const livePrice =
+            typeof item.price === 'number' && item.price > 0 ? item.price : null;
           return {
             ...(existing ?? {
               id: item.slug,
@@ -63,8 +68,8 @@ export function useStoryBooks() {
               themes: [item.category],
             }),
             id: existing?.id ?? item.slug,
-            price: DEFAULT_PRICE,
-            originalPrice: DEFAULT_PRICE,
+            price: livePrice ?? existing?.price ?? DEFAULT_PRICE,
+            originalPrice: livePrice ?? existing?.originalPrice ?? DEFAULT_PRICE,
             name: item.name,
             description: item.description || existing?.description || '',
             image,
