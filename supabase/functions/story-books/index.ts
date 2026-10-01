@@ -126,6 +126,13 @@ Deno.serve(async (req) => {
     );
 
     return new Response(JSON.stringify({ books, fetchedAt: new Date().toISOString() }), {
+      status: 200,
+      headers: {
+        ...corsHeaders,
+        'Content-Type': 'application/json',
+        'Cache-Control': 'public, max-age=1800, s-maxage=1800',
+      },
+    });
   } catch (error) {
     console.error('story-books error:', error);
     return new Response(JSON.stringify({ error: (error as Error).message }), {
