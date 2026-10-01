@@ -51,40 +51,6 @@ const AdminMaterialsPage: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
   const sectionRefs = useRef<Record<string, HTMLDivElement | null>>({});
-  const [images, setImages] = useState<Record<string, string>>({});
-  const [fetching, setFetching] = useState<Set<string>>(new Set());
-  const [photoMissing, setPhotoMissing] = useState<Set<string>>(new Set());
-
-  /** Reads the main photo from each saved Amazon link. Empty list = every linked item missing a photo. */
-  const fetchPhotos = async (keys: string[]) => {
-    const tag = keys.length ? keys[0] : '*';
-    setFetching((s) => new Set(s).add(tag));
-    const { data, error } = await supabase.functions.invoke('admin-material-links', {
-      body: { action: 'fetch_images', material_keys: keys },
-    });
-    setFetching((s) => { const n = new Set(s); n.delete(tag); return n; });
-    if (error) {
-      toast({ title: 'Could not fetch photos', description: error.message, variant: 'destructive' });
-      return;
-    }
-    const results = (data?.results ?? {}) as Record<string, string | null>;
-    const found = Object.entries(results).filter(([, v]) => !!v) as [string, string][];
-    setImages((p) => ({ ...p, ...Object.fromEntries(found) }));
-    setPhotoMissing((s) => {
-      const n = new Set(s);
-      for (const [k, v] of Object.entries(results)) v ? n.delete(k) : n.add(k);
-      return n;
-    });
-    const missed = Object.keys(results).length - found.length;
-    toast({ title: `${found.length} photo${found.length === 1 ? '' : 's'} added`, description: missed ? `${missed} not found — paste those by hand.` : undefined });
-  };
-
-  const savePhoto = async (key: string, url: string) => {
-    const { error } = await supabase.functions.invoke('admin-material-links', {
-      body: { action: 'set_image', material_key: key, image_url: url.trim() },
-    });
-    if (error) toast({ title: 'Photo not saved', description: error.message, variant: 'destructive' });
-  };
 
   useEffect(() => {
     if (authLoading) return;
@@ -107,14 +73,12 @@ const AdminMaterialsPage: React.FC = () => {
       setLoading(true);
       const { data, error } = await supabase
         .from('material_links')
-        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor, home_alternatives, image_url');
+        .select('material_key, display_name, amazon_url, notes, active, affiliate_tag, vendor, home_alternatives');
       if (error) {
         toast({ title: 'Error loading links', description: error.message, variant: 'destructive' });
       } else {
         const map: Record<string, LinkForm> = {};
-        const imgs: Record<string, string> = {};
         for (const row of data ?? []) {
-          if (row.image_url) imgs[row.material_key] = row.image_url;
           map[row.material_key] = {
             material_key: row.material_key,
             display_name: row.display_name || '',
@@ -128,7 +92,6 @@ const AdminMaterialsPage: React.FC = () => {
         }
         setLinks(map);
         setInitialLinks(map);
-        setImages(imgs);
       }
       setLoading(false);
     }
@@ -452,9 +415,6 @@ const AdminMaterialsPage: React.FC = () => {
                 Hide included items
               </Label>
             </div>
-            <Button variant="outline" size="sm" disabled={fetching.has('*')} onClick={() => fetchPhotos([])}>
-              {fetching.has('*') ? 'Fetching photos…' : 'Fetch all missing photos'}
-            </Button>
             <div className="flex items-center gap-1">
               <Button variant="ghost" size="sm" onClick={expandAll}>
                 Expand all
@@ -629,36 +589,6 @@ const AdminMaterialsPage: React.FC = () => {
                                 />
                               </div>
                             </div>
-
-                            {initialLinks[key]?.amazon_url?.trim() && (
-                              <div className="flex items-start gap-3">
-                                {images[key] ? (
-                                  <img src={images[key]} alt="" className="w-14 h-14 shrink-0 rounded-md border bg-background object-contain" />
-                                ) : (
-                                  <span className="w-14 h-14 shrink-0 rounded-md border bg-muted flex items-center justify-center">
-                                    <Package className="w-5 h-5 text-muted-foreground" aria-hidden="true" />
-                                  </span>
-                                )}
-                                <div className="flex-1 space-y-1.5">
-                                  <Label htmlFor={`img-${key}`}>Product photo</Label>
-                                  <div className="flex flex-col sm:flex-row gap-2">
-                                    <Input
-                                      id={`img-${key}`}
-                                      value={images[key] ?? ''}
-                                      onChange={(e) => setImages((p) => ({ ...p, [key]: e.target.value }))}
-                                      onBlur={(e) => savePhoto(key, e.target.value)}
-                                      placeholder="Fetched from Amazon, or paste a photo address"
-                                    />
-                                    <Button type="button" variant="outline" size="sm" disabled={fetching.has(key)} onClick={() => fetchPhotos([key])}>
-                                      {fetching.has(key) ? 'Fetching…' : 'Fetch from Amazon'}
-                                    </Button>
-                                  </div>
-                                  {photoMissing.has(key) && (
-                                    <p className="text-xs text-destructive">Photo not found. Paste a photo address instead.</p>
-                                  )}
-                                </div>
-                              </div>
-                            )}
 
                             <div className="flex flex-col sm:flex-row gap-3">
                               <div className="flex-1 space-y-1.5">
