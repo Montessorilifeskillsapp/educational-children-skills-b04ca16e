@@ -3,3 +3,4 @@
 - Dashboard writes (goals, calendar, prefs, push tokens, reports) go through the `dashboard-data` edge function; tables are read-only to clients via owner RLS. Why: project rule of no direct client writes.
 - Notifications run from one hourly `family-notifications` cron job (email via send-transactional-email `family-notice`, push via FCM using FIREBASE_SERVICE_ACCOUNT_JSON). Why: single bounded job, per-timezone hour granularity.
 - Child allowance (1 + subscribers.child_addons) is enforced by a child_profiles insert trigger; coverage (is_covered) changes only via service-role functions (update-child-addons, set-covered-children, reconcile_child_coverage). Why: client inserts child profiles directly, so the limit must live in the database.
+- Materials-list thumbnails resolve from a local exact-name item-photo registry, not from affiliate product pages or activity scenes. Why: purchase listings change and a wrong object photo misleads families.
