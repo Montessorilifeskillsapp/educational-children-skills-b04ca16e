@@ -1,0 +1,1 @@
+ALTER TABLE public.material_links ADD COLUMN IF NOT EXISTS image_url text;
