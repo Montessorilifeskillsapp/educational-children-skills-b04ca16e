@@ -184,17 +184,23 @@ const PATTERNS: Array<{ test: RegExp; image: string }> = [
 
 import { classroomImages } from '@/assets/classroom';
 import { normalizeMaterialKey } from '@/lib/materials';
+import { materialPhotos, materialPhotoAliases } from '@/data/materialPhotos';
 
 /**
- * Resolve a material label to an AMI-accurate photo. Returns undefined when
- * no pattern matches (caller should render the label without a thumbnail).
+ * Resolve a material label to an exact, approved photo of that item.
+ * Returns undefined when none is approved yet — callers show a neutral marker.
+ * Keyword/scene-photo guessing is intentionally not used.
  */
 export function getMaterialImage(material: string): string | undefined {
-  // Exact classroom-setup photos win over the keyword patterns below.
-  const exact = classroomImages[normalizeMaterialKey(material)];
-  if (exact) return exact;
-  for (const { test, image } of PATTERNS) {
-    if (test.test(material)) return image;
-  }
-  return undefined;
+  const key = normalizeMaterialKey(material);
+  const canonical = materialPhotoAliases[key] ?? key;
+  return (
+    materialPhotos[key] ??
+    materialPhotos[canonical] ??
+    classroomImages[key] ??
+    classroomImages[canonical]
+  );
 }
+
+// Retained for reference only; no longer used for item thumbnails.
+void PATTERNS;
