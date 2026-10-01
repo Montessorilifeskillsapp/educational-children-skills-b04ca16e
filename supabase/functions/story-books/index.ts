@@ -5,6 +5,7 @@ const corsHeaders = {
 };
 
 const SOURCE_URL = 'https://montessoristorybooks.com/books';
+const USER_AGENT = 'MontessoriLifeSkillsApp/1.0 (+https://montessorilifeskillsapp.com)';
 
 type LiveBook = {
   slug: string;
@@ -14,7 +15,36 @@ type LiveBook = {
   category: string;
   buyLink: string;
   detailLink: string;
+  price?: number;
 };
+
+const PRICE_RE = /\$([0-9]+\.[0-9]{2})/;
+
+function parseDetailPrice(html: string): number | undefined {
+  const raw =
+    html.match(/Buy\s*(?:<!--\s*-->)?\s*\$([0-9]+\.[0-9]{2})/i)?.[1] ??
+    html.match(/font-display[^"]*"[^>]*>\s*\$([0-9]+\.[0-9]{2})/i)?.[1] ??
+    html.match(PRICE_RE)?.[1];
+  const price = raw ? parseFloat(raw) : NaN;
+  return Number.isFinite(price) && price > 0 ? price : undefined;
+}
+
+async function fetchDetailPrice(slug: string): Promise<number | undefined> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), 8000);
+  try {
+    const res = await fetch(`https://montessoristorybooks.com/books/${slug}`, {
+      headers: { 'User-Agent': USER_AGENT },
+      signal: controller.signal,
+    });
+    if (!res.ok) return undefined;
+    return parseDetailPrice(await res.text());
+  } catch {
+    return undefined;
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 function decode(text: string): string {
   return text
@@ -88,14 +118,14 @@ Deno.serve(async (req) => {
       );
     }
 
+    await Promise.all(
+      books.map(async (book) => {
+        const price = await fetchDetailPrice(book.slug);
+        if (price !== undefined) book.price = price;
+      }),
+    );
+
     return new Response(JSON.stringify({ books, fetchedAt: new Date().toISOString() }), {
-      status: 200,
-      headers: {
-        ...corsHeaders,
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=1800, s-maxage=1800',
-      },
-    });
   } catch (error) {
     console.error('story-books error:', error);
     return new Response(JSON.stringify({ error: (error as Error).message }), {
