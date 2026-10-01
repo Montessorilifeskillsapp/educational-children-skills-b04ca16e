@@ -28,7 +28,7 @@ async function fetchAmazonImage(pageUrl: string): Promise<string | null> {
   try {
     const u = new URL(pageUrl);
     if (!/amazon\./i.test(u.hostname)) return null;
-    const asin = u.pathname.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i)?.[1];
+    const asin = u.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i)?.[1];
     const target = asin ? `${u.origin}/dp/${asin}` : pageUrl;
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 12000);
