@@ -54,7 +54,7 @@ const FREE_PLAN: Plan = {
 const PREMIUM_MONTHLY: Plan = {
   id: 'premium-monthly',
   name: 'Premium',
-  price: 29,
+  price: 29.99,
   period: 'month',
   description: 'Full curriculum, billed monthly. Cancel anytime.',
   features: [
@@ -562,7 +562,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         <div className="max-w-3xl mx-auto mb-6 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm text-foreground/90">
           <p className="font-semibold mb-2">Subscription details</p>
           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-            <li><strong>Premium Monthly</strong> — $29.00 USD per month, auto-renews monthly.</li>
+            <li><strong>Premium Monthly</strong> — $29.99 USD per month, auto-renews monthly.</li>
             <li><strong>Premium Annual</strong> — $199.00 USD per year, auto-renews yearly (~$16.58/month).</li>
             <li>Payment is charged to your Apple ID, Google Play, or web payment method at confirmation of purchase.</li>
             <li>Subscription auto-renews unless auto-renew is turned off at least 24 hours before the end of the current period.</li>

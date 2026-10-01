@@ -63,7 +63,7 @@ const TermsOfServicePage: React.FC = () => {
 
                 <h3 className="text-lg font-medium mb-2">Available Plans, Length &amp; Price</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li><strong>Premium Monthly</strong> — 1 month of full access for <strong>$29.00 USD</strong>, billed every month.</li>
+                  <li><strong>Premium Monthly</strong> — 1 month of full access for <strong>$29.99 USD</strong>, billed every month.</li>
                   <li><strong>Premium Annual</strong> — 12 months of full access for <strong>$199.00 USD</strong>, billed once per year (approximately $16.58/month).</li>
                   <li><strong>Extra child add-on</strong> — each additional child profile beyond the first costs <strong>$24.99 USD per month</strong>, added to your Premium bill (billed monthly for Premium Monthly, or $299.88 USD per year for Premium Annual). Add-ons renew with your plan and can be removed at any time; changes are prorated.</li>
                   <li>Prices in other currencies are shown at the point of purchase and may vary by region and applicable taxes.</li>

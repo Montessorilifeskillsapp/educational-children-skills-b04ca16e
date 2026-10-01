@@ -550,7 +550,7 @@ const Home: React.FC<HomeProps> = ({
                 <CardContent className="p-7 flex flex-col h-full">
                   <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Flexible</p>
                   <h3 className="text-2xl font-bold text-foreground">Premium Monthly</h3>
-                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$29</span><span className="text-muted-foreground">/month</span></div>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$29.99</span><span className="text-muted-foreground">/month</span></div>
                   <p className="text-muted-foreground mb-6">The same premium access, billed monthly. Cancel anytime.</p>
                   <Button onClick={onSubscriptionView} variant="outline" size="lg" className="w-full rounded-xl mt-auto">View Monthly Option</Button>
                 </CardContent>
