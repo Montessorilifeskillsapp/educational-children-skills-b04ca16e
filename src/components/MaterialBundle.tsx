@@ -60,7 +60,7 @@ export function resolveMaterials(
       displayName,
       essential: m.essential,
       amazonUrl: url ? withAffiliateTag(url, link?.affiliate_tag) : null,
-      imageUrl: getMaterialImage(displayName),
+      imageUrl: (url ? link?.image_url : null) || getMaterialImage(displayName),
       vendor: url ? vendorLabel(url, link?.vendor) : undefined,
       includedWith,
       inheritedFrom,
