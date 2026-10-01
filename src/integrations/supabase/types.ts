@@ -421,6 +421,7 @@ export type Database = {
           display_name: string | null
           home_alternatives: string | null
           id: string
+          image_url: string | null
           material_key: string
           notes: string | null
           updated_at: string
@@ -434,6 +435,7 @@ export type Database = {
           display_name?: string | null
           home_alternatives?: string | null
           id?: string
+          image_url?: string | null
           material_key: string
           notes?: string | null
           updated_at?: string
@@ -447,6 +449,7 @@ export type Database = {
           display_name?: string | null
           home_alternatives?: string | null
           id?: string
+          image_url?: string | null
           material_key?: string
           notes?: string | null
           updated_at?: string
