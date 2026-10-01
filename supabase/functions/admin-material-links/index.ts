@@ -28,7 +28,7 @@ async function fetchAmazonImage(pageUrl: string): Promise<string | null> {
   try {
     const u = new URL(pageUrl);
     if (!/amazon\./i.test(u.hostname)) return null;
-    const asin = u.pathname.match(/\/(?:dp|gp\/product)\/([A-Z0-9]{10})/i)?.[1];
+    const asin = u.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i)?.[1];
     const target = asin ? `${u.origin}/dp/${asin}` : pageUrl;
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 12000);
@@ -46,6 +46,7 @@ async function fetchAmazonImage(pageUrl: string): Promise<string | null> {
     const fromTag = tag?.match(/data-old-hires="(https:[^"]+)"/i)?.[1] || tag?.match(/\ssrc="(https:[^"]+)"/i)?.[1];
     const found = fromTag
       || html.match(/"hiRes":"(https:[^"]+)"/)?.[1]
+      || html.match(/id="landingImage"[^>]*?data-a-dynamic-image="\{&quot;(https:[^&]+)&quot;/i)?.[1]
       || html.match(/property="og:image"\s+content="(https:[^"]+)"/i)?.[1];
     return found && /media-amazon\.com|ssl-images-amazon\.com/.test(found) ? found : null;
   } catch {
