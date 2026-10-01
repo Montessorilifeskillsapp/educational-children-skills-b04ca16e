@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { isAddonItem } from "../_shared/childAddons.ts";
+import { isAddonItem, findAddonOnlySubscription } from "../_shared/childAddons.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -90,6 +90,20 @@ serve(async (req) => {
         ? new Date(existingRow.subscription_end).getTime() > Date.now()
         : Boolean(existingRow.subscribed);
       logStep("Honoring non-Stripe entitlement", { provider: existingRow.provider, stillActive });
+      // Extra-child add-ons bought on the website live in a separate add-on-only Stripe subscription.
+      let addons = existingRow.child_addons ?? 0;
+      try {
+        const stripeNs = new Stripe(stripeKey, { apiVersion: "2023-10-16", maxNetworkRetries: 1 });
+        const { sub } = await findAddonOnlySubscription(stripeNs, user.email);
+        const qty = sub?.items.data.find(isAddonItem)?.quantity ?? 0;
+        if (qty !== addons) {
+          addons = qty;
+          await supabaseClient.from("subscribers").update({ child_addons: qty, updated_at: new Date().toISOString() }).eq("user_id", user.id);
+        }
+      } catch (e) {
+        logStep("Add-on lookup failed, keeping cached add-ons", { message: e instanceof Error ? e.message : String(e) });
+      }
+      existingRow.child_addons = addons;
       await supabaseClient.rpc("reconcile_child_coverage", { _user_id: user.id });
       const active = stillActive && Boolean(existingRow.subscribed);
       return new Response(JSON.stringify({
