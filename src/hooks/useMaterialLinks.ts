@@ -12,7 +12,7 @@ export interface MaterialLink {
   affiliate_tag: string | null;
   vendor: string | null;
   home_alternatives: string | null;
-  image_url: string | null;
+  image_url?: string | null;
 }
 
 export function useMaterialLinks() {
