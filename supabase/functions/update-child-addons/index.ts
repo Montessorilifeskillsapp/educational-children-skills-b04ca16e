@@ -46,8 +46,8 @@ Deno.serve(async (req) => {
             price_data: { currency: "usd", product_data: { name: ADDON_PRODUCT_NAME }, unit_amount: addonCentsFor("month"), recurring: { interval: "month" } },
             quantity,
           }],
-          success_url: `${origin}/profiles?addons=success`,
-          cancel_url: `${origin}/profiles`,
+          success_url: `${origin}/?addons=success`,
+          cancel_url: `${origin}/`,
           metadata: { kind: "child_addons", userId: user.id },
           subscription_data: { metadata: { kind: "child_addons", userId: user.id } },
         });

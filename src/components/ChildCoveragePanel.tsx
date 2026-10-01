@@ -26,18 +26,21 @@ const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) =>
   const [chosen, setChosen] = useState<string[]>([]);
   const isAnnual = currentPlan?.id === 'premium-yearly';
   const isNative = isNativePurchaseAvailable();
-  const canManageOnWeb = isPremium && !isNative && (!provider || provider === 'stripe');
+  // App-store members buy add-ons here too, as a separate website subscription.
+  const canManageOnWeb = isPremium && !isNative;
+  const isAppStoreMember = Boolean(provider && provider !== 'stripe');
   const uncovered = useMemo(() => profiles.filter((p) => p.covered === false), [profiles]);
 
   if (!user) return null;
 
-  const priceLine = isAnnual ? `${ADDON_PRICE_TEXT} per extra child, billed yearly ($299.88)` : `${ADDON_PRICE_TEXT} per extra child`;
+  const priceLine = isAnnual && !isAppStoreMember ? `${ADDON_PRICE_TEXT} per extra child, billed yearly ($299.88)` : `${ADDON_PRICE_TEXT} per extra child`;
 
   const changeAddons = async (quantity: number) => {
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke('update-child-addons', { body: { quantity } });
       if (error || data?.error) throw new Error(data?.error || 'Could not update your plan.');
+      if (data?.url) { window.location.assign(data.url); return; }
       await refreshSubscription();
       await refreshProfiles();
       toast({ title: 'Plan updated', description: `Your plan now covers ${1 + quantity} ${quantity === 0 ? 'child' : 'children'}.` });
