@@ -1,35 +1,27 @@
-# Make saved Amazon links appear on every activity that uses that item
+# An exact photo for every item in "What you'll need"
 
-## What I found
+## Current state
+- 99 activities list about 380 distinct items.
+- 42 activities show a picture for every item, 50 are mixed, and 10 show none.
+- Items without a picture get a small tick or an empty circle instead.
+- Most pictures that do appear are general scene photos chosen by keywords, not the item itself. For example, "Funnel" shows a pouring set, "Cutting lines template" shows a table setting, and all five dressing frames share one photo.
 
-**Carrying a Chair:** the saved link for "Child-sized wooden chair" uses the exact name that the Carrying a Chair activity lists. In the current version of the app, the Buy link should already show on that page. I couldn't open the page to check, because it's a Premium activity and I can't sign in from here. So I haven't confirmed why it's missing. Two likely causes:
-- you were looking at the published site or the phone app, which may be running an older version, or
-- something on the page drops the link after the list loads.
+## What I'll build
+1. **One photo per item, matched by exact name.** I'll remove the keyword guessing so no item borrows a scene photo again.
+2. **Consistent style.** Each photo shows the single item, photorealistic, on a plain light background, square, with no logos or brands. Montessori materials follow AMI specifications: correct colours, quantities and numerals.
+3. **Batches you review before anything goes in.** I'll work section by section, starting with Practical Life, then Sensorial, Math, Language, Botany, Geography, Science, Art and Grace and Courtesy, about 25–40 items per batch. Each batch arrives as a contact sheet showing the item name under each photo. You approve or reject each one. Only approved photos are placed. Rejected ones are redone or left out, never placed.
+4. **Until an item has an approved photo**, every activity shows the same neutral marker in that spot. No blank gaps, no mixed icons, and rows line up.
+5. **Same item, same photo everywhere.** Items that are the same but worded differently share one photo. For example, "Placemat" and "Placemats", or "Button frame" and "Button dressing frame". I'll list each pairing in the first batch so you can confirm it.
+6. **Saved Amazon product photos are not used.** Earlier you found that product pictures didn't match the linked item.
 
-**Other activities: yes, the same thing happens.** A link is only attached when the activity's wording matches the saved item's name exactly. Of 378 activity materials, 96 currently pick up a link. About 15 more are worded slightly differently from an item that already has a saved link, so no Buy link appears for them:
+## What stays the same
+Activity wording, order, steps, layout and Buy links all stay as they are. This is a website change. The phone apps pick it up in your next store release.
 
-| Activity | Activity says | Saved link exists as |
-|---|---|---|
-| Dressing Frames Practice | Button frame / Zipper frame / Snap frame / Buckle frame / Lacing frame | Button / Zipper / Snap / Buckle / Lacing dressing frame |
-| Table setting | Placemats | Placemat |
-| Transferring Activities | Tongs | Small tongs |
-| Cloth Washing | Basin | Small basin |
-| Basic Drawing Skills | Rulers | Ruler |
-| Transferring Activities | Small cloth | Cloth / Soft cloth (needs your choice) |
-| Sorting Objects | Control chart | none that fits (several are subject-specific, so leave unlinked) |
-
-Some matches are unclear, and I won't guess at those: Small knife vs. Fork, knife and spoon; Plants vs. Plant mister; Cotton pad vs. Cotton balls. They stay unlinked unless you say otherwise.
-
-## What I'll change
-
-1. **Confirm the chair problem first.** I'll load the Carrying a Chair materials list with the live saved links and check whether the Buy link appears. If it does, the cause is an older published or phone version, and publishing fixes it. If it doesn't, I'll fix the cause I find.
-2. **Add a short "same item" list** so each confident match above uses the existing saved link. Activity wording, activity order, and saved links stay exactly as they are. Only the Buy link appears.
-3. **Leave unclear items alone**, and list them in Admin → Materials so you can link them yourself if you want.
-4. **Re-run the audit** afterwards and report the new count of linked materials.
-
-This is a website-only change. No app store release is needed.
+## Scope note
+About 380 photos means roughly 10–14 review rounds. I'll start with the first Practical Life batch and wait for your approval before continuing.
 
 ## Technical details
-- Links are matched by exact normalized key (`normalizeMaterialKey`) in `resolveMaterials`. Add an explicit alias map (activity key → saved `material_key`) in `src/lib/materialCleanup.ts` or a new `materialAliases.ts`, and apply it in `resolveMaterials` only when the material's own key has no link.
-- Verification for step 1: a component test that renders `GetTheMaterials` for `carrying-a-chair` with a mocked `child-sized-wooden-chair` link.
-- No database or edge function changes.
+- New `src/data/materialPhotos.ts`: a map from normalized material key to an imported image in `src/assets/material-items/`, plus an alias map for wording variants. Exact match first, then alias, otherwise `undefined`.
+- `getMaterialImage` uses this map only. Remove `PATTERNS`, and keep the exact entries in `classroomImages` only if you approve them.
+- `MaterialBundle` renders one shared neutral placeholder tile (same 48px size, theme tokens) when there's no image, replacing the tick and circle.
+- Contact sheets are generated to `/mnt/documents/material-photos/batch-N.jpg` for review. Approved files are copied into the project.
