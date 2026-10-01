@@ -15,3 +15,16 @@ export const isAddonItem = (item: any) => {
   return (amount === ADDON_MONTHLY_CENTS && interval === "month") ||
     (amount === ADDON_YEARLY_CENTS && interval === "year");
 };
+
+// App-store (RevenueCat) members buy extra children on the website as a separate
+// Stripe subscription that contains only add-on items. Returns it, if any.
+// deno-lint-ignore no-explicit-any
+export const findAddonOnlySubscription = async (stripe: any, email: string) => {
+  const customers = await stripe.customers.list({ email, limit: 1 });
+  const customer = customers.data[0];
+  if (!customer) return { customer: null, sub: null };
+  const subs = await stripe.subscriptions.list({ customer: customer.id, status: "active", limit: 10 });
+  // deno-lint-ignore no-explicit-any
+  const sub = subs.data.find((s: any) => s.items.data.length > 0 && s.items.data.every(isAddonItem)) ?? null;
+  return { customer, sub };
+};
