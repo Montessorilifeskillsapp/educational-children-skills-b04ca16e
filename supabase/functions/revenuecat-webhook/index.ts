@@ -84,6 +84,19 @@ serve(async (req) => {
     return new Response("ok", { status: 200 });
   }
 
+  // Extra-child add-on events adjust only the store add-on count, never Premium.
+  // Purchases are counted by revenuecat-sync (exact list from the device); here we
+  // only lower the count when an add-on actually expires.
+  if (event.product_id && /^child_addon_(monthly|annual)_\d+$/.test(event.product_id)) {
+    if (event.type === "EXPIRATION") {
+      const { data: row } = await supabase.from("subscribers").select("store_child_addons").eq("user_id", userId).maybeSingle();
+      const next = Math.max(0, (row?.store_child_addons ?? 0) - 1);
+      await supabase.from("subscribers").update({ store_child_addons: next, updated_at: new Date().toISOString() }).eq("user_id", userId);
+      await supabase.rpc("reconcile_child_coverage", { _user_id: userId });
+    }
+    return new Response("ok", { status: 200 });
+  }
+
   await supabase.from("subscribers").upsert(
     {
       email: existing.email,

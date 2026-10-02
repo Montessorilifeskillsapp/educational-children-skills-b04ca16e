@@ -52,8 +52,13 @@ serve(async (req) => {
     const body = (await req.json()) as SyncBody;
     const ci = body.customerInfo ?? {};
     const entitlement = ci.entitlements?.active?.[ENTITLEMENT_ID];
-    const activeSubs = ci.activeSubscriptions ?? [];
-    const purchasedProductId = body.productId ?? null;
+    const allActive = ci.activeSubscriptions ?? [];
+    const isAddon = (id?: string | null) => Boolean(id && /^child_addon_(monthly|annual)_\d+$/.test(id));
+    // Extra-child add-ons never count as Premium; they only raise the child allowance.
+    const activeSubs = allActive.filter((p) => !isAddon(p));
+    const storeAddons = new Set(allActive.filter(isAddon));
+    if (isAddon(body.productId)) storeAddons.add(body.productId as string);
+    const purchasedProductId = isAddon(body.productId) ? null : body.productId ?? null;
 
     // Determine subscribed state with fallbacks in case the RevenueCat
     // dashboard doesn't have the "pro" entitlement wired to the product yet.
@@ -107,6 +112,8 @@ serve(async (req) => {
         : Boolean(existing?.subscribed);
 
       if (independentlyGranted && stillActive) {
+        await supabaseAdmin.from("subscribers").update({ store_child_addons: storeAddons.size, updated_at: new Date().toISOString() }).eq("user_id", user.id);
+        await supabaseAdmin.rpc("reconcile_child_coverage", { _user_id: user.id });
         return new Response(JSON.stringify({
           ok: true,
           subscribed: true,
@@ -130,12 +137,15 @@ serve(async (req) => {
         revenuecat_app_user_id: user.id,
         revenuecat_entitlement: subscribed ? ENTITLEMENT_ID : null,
         revenuecat_product_id: productId ?? purchasedProductId ?? null,
+        store_child_addons: storeAddons.size,
         updated_at: new Date().toISOString(),
       },
       { onConflict: "email" }
     );
 
-    return new Response(JSON.stringify({ ok: true, subscribed, subscription_tier: tier }), {
+    await supabaseAdmin.rpc("reconcile_child_coverage", { _user_id: user.id });
+
+    return new Response(JSON.stringify({ ok: true, subscribed, subscription_tier: tier, store_child_addons: storeAddons.size }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },
     });
   } catch (err) {
