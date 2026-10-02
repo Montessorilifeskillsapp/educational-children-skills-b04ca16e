@@ -10,6 +10,7 @@ import { useProfile } from '@/contexts/ProfileContext';
 import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
+import { supabase } from '@/integrations/supabase/client';
 
 const AuthPage = () => {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -24,6 +25,32 @@ const AuthPage = () => {
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
   const location = useLocation();
+  const isResetLink = new URLSearchParams(location.search).get('reset') === '1';
+  const [forgotOpen, setForgotOpen] = useState(false);
+  const [resetSent, setResetSent] = useState('');
+  const [newPassword, setNewPassword] = useState('');
+
+  const sendResetEmail = async () => {
+    setFormError('');
+    if (!email.trim()) { setFormError('Enter your email above, then tap "Forgot password?" again.'); return; }
+    setIsSubmitting(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${window.location.origin}/auth?reset=1` });
+    setIsSubmitting(false);
+    if (error) setFormError(describeAuthError(error.message));
+    else setResetSent(email.trim());
+  };
+
+  const saveNewPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError('');
+    if (newPassword.length < 6) { setFormError('Your password needs at least 6 characters.'); return; }
+    setIsSubmitting(true);
+    const { error } = await supabase.auth.updateUser({ password: newPassword });
+    setIsSubmitting(false);
+    if (error) { setFormError(describeAuthError(error.message)); return; }
+    toast({ title: 'Password updated', description: 'You are signed in with your new password.' });
+    navigate('/', { replace: true });
+  };
 
   const describeAuthError = (message: string) => {
     if (/already registered|already exists|user already/i.test(message)) return 'This email already has an account. Try signing in instead.';
@@ -44,7 +71,7 @@ const AuthPage = () => {
   // 5 minutes and not yet welcomed) go straight to the Pouring Water guide
   // for a Day-1 activation moment.
   useEffect(() => {
-    if (!user || loading) return;
+    if (!user || loading || isResetLink) return;
 
     const welcomedKey = `welcomed:${user.id}`;
     const alreadyWelcomed = localStorage.getItem(welcomedKey);
@@ -157,7 +184,28 @@ const AuthPage = () => {
           <CardDescription>{confirmationEmail ? 'One more step to get started' : 'Your guide to Montessori activities'}</CardDescription>
         </CardHeader>
         <CardContent>
-          {confirmationEmail ? (
+          {isResetLink ? (
+            user ? (
+              <form onSubmit={saveNewPassword} className="space-y-4 py-2">
+                <h2 className="text-xl font-semibold text-center">Choose a new password</h2>
+                {formError && <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
+                <Label htmlFor="new-password">New password</Label>
+                <Input id="new-password" type="password" autoComplete="new-password" minLength={6} placeholder="At least 6 characters" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+                <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? 'Saving…' : 'Save new password'}</Button>
+              </form>
+            ) : (
+              <div className="space-y-4 py-5 text-center">
+                <p className="text-sm text-muted-foreground">{loading ? 'Checking your reset link…' : 'This reset link has expired or was already used. Request a new one from Sign In.'}</p>
+                {!loading && <Button variant="outline" className="w-full" onClick={() => navigate('/auth', { replace: true })}>Back to sign in</Button>}
+              </div>
+            )
+          ) : resetSent ? (
+            <div role="status" className="space-y-4 py-5 text-center">
+              <h2 className="text-xl font-semibold">Check your email</h2>
+              <p className="text-sm text-muted-foreground">If an account exists for <strong className="text-foreground break-all">{resetSent}</strong>, we sent a link to reset your password. Check your spam folder if you don't see it.</p>
+              <Button variant="outline" className="w-full" onClick={() => { setResetSent(''); setForgotOpen(false); }}>Back to sign in</Button>
+            </div>
+          ) : confirmationEmail ? (
             <div role="status" className="space-y-4 py-5 text-center">
               <h2 className="text-xl font-semibold">Check your email</h2>
               <p className="text-sm text-muted-foreground">We sent a confirmation link to <strong className="text-foreground break-all">{confirmationEmail}</strong>. Open it to finish creating your account. Check your spam folder if you don't see it.</p>
@@ -192,6 +240,7 @@ const AuthPage = () => {
                      <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0" >{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
                    </div>
                 </div>
+                <button type="button" onClick={sendResetEmail} disabled={isSubmitting} className="text-sm text-primary underline">Forgot password?</button>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>

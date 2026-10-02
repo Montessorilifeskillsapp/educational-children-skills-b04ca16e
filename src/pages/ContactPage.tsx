@@ -35,12 +35,15 @@ const ContactPage: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // In a real app, this would send the form data to your backend
+    // Opens the visitor's email app with the message addressed to the support inbox.
+    const subject = formData.subject || 'Question from the website';
+    const body = `${formData.message}\n\n— ${formData.name} (${formData.email})`;
+    const url = `mailto:montessorilifeskills@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    try { (window.top ?? window).location.href = url; } catch { window.location.href = url; }
     toast({
-      title: "Message Sent!",
-      description: "Thank you for contacting us. We'll get back to you within 24 hours.",
+      title: "Your email app is opening",
+      description: "Press send there to deliver your message to montessorilifeskills@gmail.com.",
     });
-    setFormData({ name: '', email: '', subject: '', message: '' });
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
