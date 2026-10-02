@@ -29,6 +29,8 @@ interface SubscriptionContextType {
   /** Children covered by the membership: 1 + paid extra-child add-ons. */
   childAllowance: number;
   childAddons: number;
+  /** Add-ons bought on the website (Stripe) only. */
+  websiteChildAddons: number;
 }
 
 const SubscriptionContext = createContext<SubscriptionContextType | undefined>(undefined);
@@ -56,6 +58,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [provider, setProvider] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [childAddons, setChildAddons] = useState(0);
+  const [websiteChildAddons, setWebsiteChildAddons] = useState(0);
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
     try {
@@ -112,6 +115,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
 
       setServerVerifiedPremium(isSubscribed);
       setChildAddons(isSubscribed ? Math.max(0, Number(data?.child_addons) || 0) : 0);
+      setWebsiteChildAddons(isSubscribed ? Math.max(0, Number(data?.website_child_addons ?? data?.child_addons) || 0) : 0);
       setServerVerifiedFamily(tier === 'Family');
       setSubscriptionEnd(end);
       setProvider(verifiedProvider);
@@ -188,6 +192,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       provider,
       childAllowance: 1 + childAddons,
       childAddons,
+      websiteChildAddons,
     }}>
       {children}
     </SubscriptionContext.Provider>
