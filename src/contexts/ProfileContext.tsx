@@ -37,6 +37,8 @@ const ProfileContext = createContext<ProfileContextType | undefined>(undefined);
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 const isUuid = (s: string) => UUID_RE.test(s);
 
+export const PENDING_CHILD_KEY = 'montessori_pending_child';
+
 const extrasKey = (id: string) => `montessori_child_extras_${id}`;
 
 interface ChildExtras {
@@ -156,6 +158,26 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
           console.error('Local profile parse failed:', e);
         }
       }
+
+      // 1b. A child typed in before a website add-on checkout: save it now that the plan covers it.
+      try {
+        const raw = sessionStorage.getItem(PENDING_CHILD_KEY);
+        const pending = raw ? (JSON.parse(raw) as ChildProfile & { savedAt: number }) : null;
+        if (pending && Date.now() - pending.savedAt > 60 * 60 * 1000) sessionStorage.removeItem(PENDING_CHILD_KEY);
+        else if (pending) {
+          const { data: inserted, error: insErr } = await supabase
+            .from('child_profiles')
+            .insert({ user_id: user.id, name: pending.name, date_of_birth: dobFromAge(pending.age) })
+            .select('id').single();
+          if (!insErr && inserted) {
+            writeExtras(inserted.id, { avatar: pending.avatar, interests: pending.interests, learningStyle: pending.learningStyle });
+            localStorage.setItem('montessori_active_profile_id', inserted.id);
+            sessionStorage.removeItem(PENDING_CHILD_KEY);
+            toast({ title: `${pending.name} has been added`, description: 'Their profile is ready to use.' });
+          }
+          // If the payment hasn't registered yet, keep it and try again on the next refresh.
+        }
+      } catch { /* ignore */ }
 
       // 2. Fetch DB profiles
       const { data, error } = await supabase
