@@ -10,6 +10,8 @@ import BackButton from '@/components/ui/back-button';
 import ChildCoveragePanel from './ChildCoveragePanel';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuthContext } from './AuthProvider';
+import { useChildAddonPurchase, addonErrorMessage } from '@/hooks/useChildAddonPurchase';
+import { useToast } from '@/hooks/use-toast';
 
 interface ChildProfile {
   id: string;
@@ -44,7 +46,10 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   const [editingProfile, setEditingProfile] = useState<ChildProfile | undefined>();
   const [hoveredProfile, setHoveredProfile] = useState<string | null>(null);
   const [limitHit, setLimitHit] = useState(false);
-  const { childAllowance } = useSubscription();
+  const { childAllowance, isPremium } = useSubscription();
+  const addon = useChildAddonPurchase();
+  const { toast } = useToast();
+  const [needsAddon, setNeedsAddon] = useState(false);
   const { user } = useAuthContext();
   const coveredCount = profiles.filter(p => p.covered !== false).length;
 
@@ -68,10 +73,13 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
 
   const handleAddProfile = () => {
     const allowance = user ? childAllowance : 1;
-    if (coveredCount >= allowance) {
+    const full = coveredCount >= allowance;
+    if (full && !(user && isPremium)) {
       setLimitHit(true);
       return;
     }
+    // Premium members: the form's save button takes payment for the extra child in one step.
+    setNeedsAddon(full);
     setEditingProfile(undefined);
     setShowModal(true);
   };
@@ -257,6 +265,24 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
         }}
         onSave={handleProfileSave}
         profile={editingProfile}
+        purchase={needsAddon && !editingProfile ? {
+          label: addon.priceLabel,
+          run: async (draft) => {
+            try {
+              const outcome = await addon.buy(draft);
+              if (outcome === 'cancelled') {
+                toast({ title: 'Payment cancelled', description: 'Nothing was charged. Your details are still here.' });
+                return false;
+              }
+              if (outcome === 'redirected') return false;
+              toast({ title: `${draft.name} is on your plan`, description: 'Their profile is ready to use.' });
+              return true;
+            } catch (e) {
+              toast({ title: 'Could not add child', description: addonErrorMessage(e), variant: 'destructive' });
+              return false;
+            }
+          },
+        } : undefined}
       />
     </div>
   );

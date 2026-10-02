@@ -21,14 +21,18 @@ interface ChildProfileModalProps {
   onClose: () => void;
   onSave: (profile: ChildProfile) => void;
   profile?: ChildProfile;
+  /** When set, saving first pays for an extra child. Resolve true to continue saving. */
+  purchase?: { label: string; run: (draft: ChildProfile) => Promise<boolean> };
 }
 
 const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
   isOpen,
   onClose,
   onSave,
-  profile
+  profile,
+  purchase
 }) => {
+  const [paying, setPaying] = useState(false);
   const [formData, setFormData] = useState({
     name: profile?.name || '',
     age: profile?.age || 3,
@@ -40,7 +44,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
   const avatarOptions = ['👶', '👧', '👦', '🧒', '👨', '👩', '🌟', '🎨', '📚', '🌈'];
   const interestOptions = ['Art', 'Music', 'Nature', 'Building', 'Reading', 'Movement', 'Cooking', 'Animals'];
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const newProfile: ChildProfile = {
       id: profile?.id || Date.now().toString(),
       name: formData.name,
@@ -49,6 +53,15 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
       interests: formData.interests,
       learningStyle: formData.learningStyle
     };
+    if (purchase && !profile) {
+      setPaying(true);
+      try {
+        // Keeps the form open (and what was typed) if payment is cancelled or fails.
+        if (!(await purchase.run(newProfile))) return;
+      } finally {
+        setPaying(false);
+      }
+    }
     onSave(newProfile);
     onClose();
   };
@@ -166,9 +179,15 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
             <Button 
               onClick={handleSave} 
               className="flex-1"
-              disabled={!formData.name.trim()}
+              disabled={!formData.name.trim() || paying}
             >
-              {profile ? 'Update' : 'Create'} Profile
+              {paying
+                ? 'Waiting for payment…'
+                : profile
+                  ? 'Update Profile'
+                  : purchase
+                    ? `Add ${formData.name.trim() || 'child'}${purchase.label ? ` — ${purchase.label}` : ''}`
+                    : 'Create Profile'}
             </Button>
           </div>
         </div>

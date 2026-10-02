@@ -695,6 +695,7 @@ export type Database = {
           revenuecat_app_user_id: string | null
           revenuecat_entitlement: string | null
           revenuecat_product_id: string | null
+          store_child_addons: number
           stripe_customer_id: string | null
           stripe_subscription_id: string | null
           subscribed: boolean
@@ -717,6 +718,7 @@ export type Database = {
           revenuecat_app_user_id?: string | null
           revenuecat_entitlement?: string | null
           revenuecat_product_id?: string | null
+          store_child_addons?: number
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           subscribed?: boolean
@@ -739,6 +741,7 @@ export type Database = {
           revenuecat_app_user_id?: string | null
           revenuecat_entitlement?: string | null
           revenuecat_product_id?: string | null
+          store_child_addons?: number
           stripe_customer_id?: string | null
           stripe_subscription_id?: string | null
           subscribed?: boolean

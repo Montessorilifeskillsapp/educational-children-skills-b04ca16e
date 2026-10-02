@@ -17,7 +17,7 @@ Deno.serve(async (req) => {
 
     const [profiles, subs, redemptions, children, songPurchases] = await Promise.all([
       supabase.from('user_profiles').select('user_id, email, full_name, created_at').order('created_at', { ascending: false }).limit(10000),
-      supabase.from('subscribers').select('user_id, email, subscribed, subscription_tier, subscription_end, subscription_status, provider, platform, created_at, child_addons').limit(10000),
+      supabase.from('subscribers').select('user_id, email, subscribed, subscription_tier, subscription_end, subscription_status, provider, platform, created_at, child_addons, store_child_addons').limit(10000),
       supabase.from('access_code_redemptions').select('user_id, revoked, redeemed_at, access_codes(label, code, grant_duration_days, revoked)').limit(10000),
       supabase.from('child_profiles').select('user_id').limit(20000),
       supabase.from('song_purchases').select('user_id, purchased_at').limit(10000),
@@ -52,7 +52,9 @@ Deno.serve(async (req) => {
         name: p.full_name,
         joined: p.created_at,
         children: childCount.get(p.user_id!) ?? 0,
-        child_addons: paid ? s?.child_addons ?? 0 : 0,
+        child_addons: paid ? (s?.child_addons ?? 0) + (s?.store_child_addons ?? 0) : 0,
+        website_child_addons: paid ? s?.child_addons ?? 0 : 0,
+        store_child_addons: paid ? s?.store_child_addons ?? 0 : 0,
         premium: paid || !!code,
         via: paid ? 'paid' : code ? 'access_code' : null,
         plan: paid ? s?.subscription_tier ?? 'Premium' : code ? code.label : null,

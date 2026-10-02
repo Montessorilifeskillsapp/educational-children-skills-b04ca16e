@@ -81,7 +81,7 @@ serve(async (req) => {
 
     const { data: existingRow } = await supabaseClient
       .from("subscribers")
-      .select("provider, subscribed, subscription_tier, subscription_end, child_addons")
+      .select("provider, subscribed, subscription_tier, subscription_end, child_addons, store_child_addons")
       .eq("user_id", user.id)
       .maybeSingle();
 
@@ -111,8 +111,10 @@ serve(async (req) => {
         subscription_tier: existingRow.subscription_tier ?? null,
         subscription_end: existingRow.subscription_end ?? null,
         provider: existingRow.provider,
-        child_addons: existingRow.child_addons ?? 0,
-        child_allowance: 1 + (active ? existingRow.child_addons ?? 0 : 0),
+        child_addons: (existingRow.child_addons ?? 0) + (existingRow.store_child_addons ?? 0),
+        website_child_addons: existingRow.child_addons ?? 0,
+        store_child_addons: existingRow.store_child_addons ?? 0,
+        child_allowance: 1 + (active ? (existingRow.child_addons ?? 0) + (existingRow.store_child_addons ?? 0) : 0),
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
