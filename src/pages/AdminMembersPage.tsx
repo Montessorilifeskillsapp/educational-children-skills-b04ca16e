@@ -17,6 +17,8 @@ interface Member {
   joined: string;
   children: number;
   child_addons?: number;
+  website_child_addons?: number;
+  store_child_addons?: number;
   premium: boolean;
   via: 'paid' | 'access_code' | null;
   plan: string | null;
@@ -131,7 +133,14 @@ const AdminMembersPage = () => {
                       <TableCell>{m.email}</TableCell>
                       <TableCell>{fmt(m.joined)}</TableCell>
                       <TableCell className="text-right">{m.children}</TableCell>
-                      <TableCell className="text-right">{m.child_addons ?? 0}</TableCell>
+                      <TableCell className="text-right">
+                        {m.child_addons ?? 0}
+                        {(m.child_addons ?? 0) > 0 && (
+                          <span className="block text-xs text-muted-foreground">
+                            {[m.website_child_addons ? `Website ${m.website_child_addons}` : '', m.store_child_addons ? `App ${m.store_child_addons}` : ''].filter(Boolean).join(' · ')}
+                          </span>
+                        )}
+                      </TableCell>
                       <TableCell>
                         {m.premium
                           ? <Badge variant={m.via === 'paid' ? 'default' : 'secondary'}>{m.via === 'access_code' ? `Code: ${m.plan}` : m.plan}</Badge>
