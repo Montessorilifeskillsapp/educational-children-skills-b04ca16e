@@ -9,14 +9,16 @@ import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useAuthContext } from './AuthProvider';
 import { useToast } from '@/hooks/use-toast';
-import { isNativePurchaseAvailable } from '@/lib/revenuecat';
+import { isNativePurchaseAvailable, openStoreSubscriptions } from '@/lib/revenuecat';
+import { useChildAddonPurchase, addonErrorMessage } from '@/hooks/useChildAddonPurchase';
 
 export const ADDON_PRICE_TEXT = '$24.99/month';
 
 /** Shows how many children the plan covers and lets the parent add or remove extra-child add-ons. */
 const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) => {
   const { user } = useAuthContext();
-  const { isPremium, childAllowance, childAddons, currentPlan, provider, refreshSubscription } = useSubscription();
+  const { isPremium, childAllowance, childAddons, websiteChildAddons, currentPlan, provider, refreshSubscription } = useSubscription();
+  const addon = useChildAddonPurchase();
   const { profiles, refreshProfiles } = useProfile();
   const { toast } = useToast();
   const navigate = useNavigate();
@@ -28,6 +30,7 @@ const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) =>
   const isNative = isNativePurchaseAvailable();
   // App-store members buy add-ons here too, as a separate website subscription.
   const canManageOnWeb = isPremium && !isNative;
+  const storeAddons = Math.max(0, childAddons - websiteChildAddons);
   const isAppStoreMember = Boolean(provider && provider !== 'stripe');
   const uncovered = useMemo(() => profiles.filter((p) => p.covered === false), [profiles]);
 
@@ -48,6 +51,16 @@ const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) =>
       toast({ title: 'Could not update', description: e instanceof Error ? e.message : String(e), variant: 'destructive' });
     } finally {
       setBusy(false);
+    }
+  };
+
+  const unlock = async (name: string) => {
+    try {
+      const outcome = await addon.buy();
+      if (outcome === 'cancelled') toast({ title: 'Payment cancelled', description: 'Nothing was charged.' });
+      if (outcome === 'purchased') toast({ title: `${name} is unlocked`, description: 'Their profile is ready to use.' });
+    } catch (e) {
+      toast({ title: 'Could not unlock', description: addonErrorMessage(e), variant: 'destructive' });
     }
   };
 
@@ -74,26 +87,38 @@ const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) =>
             <p className="font-semibold">Children covered: {Math.min(covered.length, childAllowance)} of {childAllowance}</p>
             <p className="text-sm text-muted-foreground">
               {isPremium
-                ? `Premium includes one child. ${isNative ? 'Extra children can be added on our website.' : priceLine + '.'}`
+                ? `Premium includes one child. ${isNative ? `Each extra child${addon.priceLabel ? ` is ${addon.priceLabel}` : ' can be added here'}.` : priceLine + '.'}`
                 : 'The free plan includes one child. Premium includes one child, and more can be added.'}
             </p>
             {highlight && (
-              <p className="text-sm mt-1 font-medium">To add another child, add them to your plan first.</p>
+              <p className="text-sm mt-1 font-medium">{isPremium ? 'Tap "Add Child" — you can pay for the extra child as you save their profile.' : 'To add another child, add them to your plan first.'}</p>
             )}
           </div>
         </div>
 
         <div className="flex flex-wrap gap-2">
           {canManageOnWeb && (
-            <Button size="sm" disabled={busy} onClick={() => changeAddons(childAddons + 1)}>
+            <Button size="sm" disabled={busy} onClick={() => changeAddons(websiteChildAddons + 1)}>
               Add a child — {ADDON_PRICE_TEXT}
             </Button>
           )}
-          {canManageOnWeb && childAddons > 0 && (
+          {canManageOnWeb && websiteChildAddons > 0 && (
             <Button size="sm" variant="outline" disabled={busy} onClick={() => {
-              if (window.confirm('Remove one extra child from your plan? One child will need an add-on again.')) void changeAddons(childAddons - 1);
+              if (window.confirm('Remove one extra child from your plan? One child will need an add-on again.')) void changeAddons(websiteChildAddons - 1);
             }}>
               Remove an add-on
+            </Button>
+          )}
+          {isPremium && uncovered.length > 0 && !choosing && (
+            <Button size="sm" disabled={busy || addon.busy} onClick={() => unlock(uncovered[0].name)}>
+              Unlock {uncovered[0].name}{addon.priceLabel ? ` — ${addon.priceLabel}` : ''}
+            </Button>
+          )}
+          {isNative && storeAddons > 0 && (
+            <Button size="sm" variant="outline" onClick={() => {
+              if (window.confirm('To remove an extra child, cancel that add-on in your phone\'s subscription settings. Open them now?')) void openStoreSubscriptions();
+            }}>
+              Remove an extra child
             </Button>
           )}
           {!isPremium && (
