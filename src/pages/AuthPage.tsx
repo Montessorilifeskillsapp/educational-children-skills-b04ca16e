@@ -10,6 +10,7 @@ import { useProfile } from '@/contexts/ProfileContext';
 import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
+import { supabase } from '@/integrations/supabase/client';
 
 const AuthPage = () => {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
@@ -239,6 +240,7 @@ const AuthPage = () => {
                      <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0" >{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
                    </div>
                 </div>
+                <button type="button" onClick={sendResetEmail} disabled={isSubmitting} className="text-sm text-primary underline">Forgot password?</button>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
