@@ -13,6 +13,11 @@ export const ENTITLEMENT_ID = 'pro';
 export const PRODUCT_MONTHLY = 'premium_monthly';
 export const PRODUCT_ANNUAL = 'premium_annual';
 export const PRODUCT_CONSULTATION = 'consultation_session';
+/** Extra-child add-ons: one store subscription per extra child (stores can't sell the same subscription twice). */
+export const MAX_STORE_CHILD_ADDONS = 4;
+export const childAddonProductIds = (period: 'monthly' | 'annual') =>
+  Array.from({ length: MAX_STORE_CHILD_ADDONS }, (_, i) => `child_addon_${period}_${i + 1}`);
+export const isChildAddonProduct = (id?: string | null) => Boolean(id && /^child_addon_(monthly|annual)_\d+$/.test(id));
 
 export const isNativePurchaseAvailable = () =>
   Capacitor.isNativePlatform() &&
@@ -127,4 +132,46 @@ async function syncRevenueCatToBackend(customerInfo: unknown, lastProductId?: st
   if (!data?.subscribed) {
     throw new Error('The App Store has not returned an active subscription yet. Tap Restore Purchases to sync it.');
   }
+}
+
+/** Next unowned add-on product for this billing period, with its store price. Null if none left. */
+export async function getNextChildAddon(period: 'monthly' | 'annual') {
+  if (!isNativePurchaseAvailable()) return null;
+  const { Purchases, PRODUCT_CATEGORY } = await import('@revenuecat/purchases-capacitor');
+  const { customerInfo } = await Purchases.getCustomerInfo();
+  const owned = new Set(customerInfo.activeSubscriptions ?? []);
+  const ids = childAddonProductIds(period).filter((id) => !owned.has(id));
+  if (ids.length === 0) return null;
+  const { products } = await Purchases.getProducts({ productIdentifiers: ids, type: PRODUCT_CATEGORY.SUBSCRIPTION });
+  const product = ids.map((id) => products.find((p) => p.identifier === id)).find(Boolean);
+  return product ? { product, priceString: product.priceString } : null;
+}
+
+export type AddonPurchaseResult = 'purchased' | 'cancelled';
+
+/** Buys one extra child inside the app and activates it on the account. */
+export async function purchaseChildAddon(period: 'monthly' | 'annual'): Promise<AddonPurchaseResult> {
+  const next = await getNextChildAddon(period);
+  if (!next) throw new Error('The store could not offer another child add-on right now. Please try again shortly.');
+  const { Purchases } = await import('@revenuecat/purchases-capacitor');
+  try {
+    const { customerInfo } = await Purchases.purchaseStoreProduct({ product: next.product });
+    const { error } = await supabase.functions.invoke('revenuecat-sync', {
+      body: { customerInfo, platform: Capacitor.getPlatform(), productId: next.product.identifier },
+    });
+    if (error) throw new Error('Payment went through, but the child could not be unlocked yet. Tap Restore Purchases to finish.');
+    return 'purchased';
+  } catch (e) {
+    const err = e as { userCancelled?: boolean; code?: string | number };
+    if (err?.userCancelled || err?.code === '1' || err?.code === 1) return 'cancelled';
+    throw e;
+  }
+}
+
+/** Opens the phone's own subscription settings (cancellation must happen there). */
+export async function openStoreSubscriptions() {
+  const url = Capacitor.getPlatform() === 'ios'
+    ? 'https://apps.apple.com/account/subscriptions'
+    : 'https://play.google.com/store/account/subscriptions';
+  window.open(url, '_system');
 }
