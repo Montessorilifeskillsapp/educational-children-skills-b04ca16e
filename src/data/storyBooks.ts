@@ -21,8 +21,8 @@ export const storyBooks: StoryBook[] = [
   {
     id: 'red-velvet-fox-learns-to-read',
     name: 'Red Velvet Fox Learns to Read',
-    price: 16.99,
-    originalPrice: 16.99,
+    price: 24.99,
+    originalPrice: 24.99,
     image: '/__l5e/assets-v1/7c373cf1-78c9-4090-9698-d85a88cb4725/red-velvet-fox-learns-to-read.jpg',
     rating: 4.8,
     category: 'Story Books',
