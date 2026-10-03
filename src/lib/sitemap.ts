@@ -33,12 +33,6 @@ export const getSitemapUrls = (): SitemapUrl[] => {
       priority: 1.0
     },
     {
-      loc: `${baseUrl}/dashboard`,
-      lastmod: currentDate,
-      changefreq: 'daily',
-      priority: 0.9
-    },
-    {
       loc: `${baseUrl}/shop`,
       lastmod: currentDate,
       changefreq: 'weekly',

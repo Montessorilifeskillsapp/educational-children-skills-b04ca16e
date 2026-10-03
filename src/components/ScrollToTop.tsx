@@ -13,7 +13,19 @@ const ScrollToTop: React.FC = () => {
     if (typeof window === 'undefined') return;
 
     // Respect hash/anchor links so in-page jumps still work.
-    if (hash) return;
+    if (hash) {
+      // Wait for the target section to render, then jump to it.
+      let tries = 0;
+      const id = decodeURIComponent(hash.slice(1));
+      const timer = window.setInterval(() => {
+        const el = document.getElementById(id);
+        if (el || ++tries > 20) {
+          window.clearInterval(timer);
+          el?.scrollIntoView({ behavior: 'auto', block: 'start' });
+        }
+      }, 100);
+      return () => window.clearInterval(timer);
+    }
 
     // Force scroll to top across browsers and mobile webviews.
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
