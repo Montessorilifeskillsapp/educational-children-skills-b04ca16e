@@ -198,9 +198,41 @@ export function getMaterialImage(material: string): string | undefined {
     materialPhotos[key] ??
     materialPhotos[canonical] ??
     classroomImages[key] ??
-    classroomImages[canonical]
+    classroomImages[canonical] ??
+    NAMED_MATERIALS.find((m) => m.test.test(material))?.image
   );
 }
+
+/** Photos of one specific, named Montessori material — never a scene or category guess. */
+const NAMED_MATERIALS: Array<{ test: RegExp; image: string }> = [
+  { test: /^pink tower/i, image: pinkTower },
+  { test: /^brown stair/i, image: brownStair },
+  { test: /^red rods/i, image: redRods },
+  { test: /^colou?r tablets/i, image: colorTablets },
+  { test: /^sound cylinders/i, image: soundCylinders },
+  { test: /^fabric box/i, image: fabricBox },
+  { test: /^rough and smooth boards|^touch boards/i, image: touchBoards },
+  { test: /^cylinder blocks|^knobbed cylinders/i, image: knobbedCylinders },
+  { test: /^knobless cylinders/i, image: knoblessCylinders },
+  { test: /^constructive triangles/i, image: constructiveTriangles },
+  { test: /^geometric solids/i, image: geometricSolids },
+  { test: /^geometric cabinet( \(|$)/i, image: geometricCabinet },
+  { test: /^binomial cube/i, image: binomialCube },
+  { test: /^trinomial cube/i, image: trinomialCube },
+  { test: /^mystery bag/i, image: mysteryBag },
+  { test: /^thermic tablets/i, image: thermicTablets },
+  { test: /^baric tablets/i, image: baricTablets },
+  { test: /^smelling bottles/i, image: smellingBottles },
+  { test: /^tasting bottles/i, image: tastingBottles },
+  { test: /^number rods/i, image: numberRods },
+  { test: /^golden bead material/i, image: goldenBeads },
+  { test: /^sandpaper numerals|^sandpaper numbers/i, image: sandpaperNumbers },
+  { test: /^spindle box/i, image: spindleBox },
+  { test: /^stamp game/i, image: stampGame },
+  { test: /^sandpaper letters/i, image: sandpaperLetters },
+  { test: /^metal insets/i, image: metalInsets },
+  { test: /^(large )?moveable alphabet/i, image: moveableAlphabet },
+];
 
 // Retained for reference only; no longer used for item thumbnails.
 void PATTERNS;
