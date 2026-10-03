@@ -1,7 +1,7 @@
 // Extra-child add-on pricing. Premium covers one child; each add-on covers one more.
 // Monthly members pay $24.99/month; annual members pay the same monthly rate billed yearly.
 export const ADDON_MONTHLY_CENTS = 2499;
-export const ADDON_YEARLY_CENTS = 29988; // 24.99 x 12
+export const ADDON_YEARLY_CENTS = 19900; // matches Premium Annual
 export const ADDON_PRODUCT_NAME = "Extra child add-on";
 export const MAX_ADDONS = 20;
 

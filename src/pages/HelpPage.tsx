@@ -88,7 +88,7 @@ const HelpPage: React.FC = () => {
       questions: [
         {
           question: "Can I create profiles for multiple children?",
-          answer: "Yes. The free plan and Premium each include one child profile. Premium members can add another child for $24.99/month per child (on the Annual plan this is billed yearly, $299.88 per extra child). Add or remove children any time in Manage Child Profiles."
+          answer: "Yes. The free plan and Premium each include one child profile. Premium members can add another child for $24.99/month per child (on the Annual plan this is billed yearly, $199 per extra child). Add or remove children any time in Manage Child Profiles."
         },
         {
           question: "Is the app safe for children?",

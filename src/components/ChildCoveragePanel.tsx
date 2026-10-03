@@ -36,7 +36,7 @@ const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) =>
 
   if (!user) return null;
 
-  const priceLine = isAnnual && !isAppStoreMember ? `${ADDON_PRICE_TEXT} per extra child, billed yearly ($299.88)` : `${ADDON_PRICE_TEXT} per extra child`;
+  const priceLine = isAnnual && !isAppStoreMember ? `${ADDON_PRICE_TEXT} per extra child, billed yearly ($199)` : `${ADDON_PRICE_TEXT} per extra child`;
 
   const changeAddons = async (quantity: number) => {
     setBusy(true);
