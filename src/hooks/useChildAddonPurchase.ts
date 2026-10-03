@@ -29,7 +29,7 @@ export function useChildAddonPurchase() {
 
   const priceLabel = isNative
     ? storePrice ? `${storePrice}/${isAnnual ? 'year' : 'month'}` : ''
-    : isAnnual ? '$299.88/year' : '$24.99/month';
+    : isAnnual ? '$199/year' : '$24.99/month';
 
   const buy = useCallback(async (pendingChild?: PendingChild): Promise<AddonOutcome> => {
     setBusy(true);
