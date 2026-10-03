@@ -18,13 +18,13 @@ type LiveBook = {
   price?: number;
 };
 
-const PRICE_RE = /\$([0-9]+\.[0-9]{2})/;
-
+// Only the book's own price: main button, main price line, then sticky purchase bar.
+// Never a generic "first $" — related-book cards on the page carry other prices.
 function parseDetailPrice(html: string): number | undefined {
   const raw =
-    html.match(/Buy\s*(?:<!--\s*-->)?\s*\$([0-9]+\.[0-9]{2})/i)?.[1] ??
-    html.match(/font-display[^"]*"[^>]*>\s*\$([0-9]+\.[0-9]{2})/i)?.[1] ??
-    html.match(PRICE_RE)?.[1];
+    html.match(/Buy this book\s*(?:—|·|-|&mdash;|&middot;)\s*(?:<!--\s*-->)?\s*\$([0-9]+\.[0-9]{2})/i)?.[1] ??
+    html.match(/mt-8 font-display text-3xl[^"]*"[^>]*>\s*\$([0-9]+\.[0-9]{2})/i)?.[1] ??
+    html.match(/text-sm font-semibold">[^<]+<\/p><p class="text-sm text-muted-foreground">\s*\$([0-9]+\.[0-9]{2})/i)?.[1];
   const price = raw ? parseFloat(raw) : NaN;
   return Number.isFinite(price) && price > 0 ? price : undefined;
 }
