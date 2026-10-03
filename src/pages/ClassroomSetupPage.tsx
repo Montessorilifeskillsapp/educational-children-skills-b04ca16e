@@ -352,7 +352,7 @@ const ClassroomSetupPage: React.FC = () => {
               ))}
             </ul>
             <div className="mt-8 flex flex-wrap gap-3">
-              <Link to="/dashboard">
+              <Link to="/#curriculum">
                 <Button size="lg" className="rounded-full px-6">
                   Explore the full AMI curriculum
                   <ArrowRight className="ml-2 h-4 w-4" />
