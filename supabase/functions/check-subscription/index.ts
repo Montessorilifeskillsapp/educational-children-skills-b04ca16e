@@ -1,7 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { isAddonItem, findAddonOnlySubscription } from "../_shared/childAddons.ts";
+import { ADDON_EXPAND, isAddonItem, findAddonOnlySubscription } from "../_shared/childAddons.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -172,15 +172,18 @@ serve(async (req) => {
     const subscriptions = await stripe.subscriptions.list({
       customer: customerId,
       status: "active",
-      limit: 1,
+      limit: 10,
+      expand: ADDON_EXPAND,
     });
-    const hasActiveSub = subscriptions.data.length > 0;
+    // The Premium subscription is the one with a base (non-add-on) item.
+    const premiumSub = subscriptions.data.find((s) => s.items.data.some((i) => !isAddonItem(i)));
+    const hasActiveSub = Boolean(premiumSub);
     let subscriptionTier = null;
     let subscriptionEnd = null;
     let childAddons = 0;
 
-    if (hasActiveSub) {
-      const subscription = subscriptions.data[0];
+    if (premiumSub) {
+      const subscription = premiumSub;
       subscriptionEnd = new Date(subscription.current_period_end * 1000).toISOString();
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
 
@@ -208,13 +211,17 @@ serve(async (req) => {
     }, { onConflict: "email" });
     await supabaseClient.rpc("reconcile_child_coverage", { _user_id: user.id });
 
+    // Extra children bought inside the phone app are counted too.
+    const storeAddons = existingRow?.store_child_addons ?? 0;
     logStep("Updated database with subscription info", { subscribed: hasActiveSub, subscriptionTier });
     return new Response(JSON.stringify({
       subscribed: hasActiveSub,
       subscription_tier: subscriptionTier,
       subscription_end: subscriptionEnd,
-      child_addons: childAddons,
-      child_allowance: 1 + (hasActiveSub ? childAddons : 0),
+      child_addons: childAddons + storeAddons,
+      website_child_addons: childAddons,
+      store_child_addons: storeAddons,
+      child_allowance: 1 + (hasActiveSub ? childAddons + storeAddons : 0),
       provider: "stripe",
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

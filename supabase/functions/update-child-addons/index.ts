@@ -1,7 +1,7 @@
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "npm:@supabase/supabase-js@2";
 import { corsHeaders } from "npm:@supabase/supabase-js@2/cors";
-import { ADDON_PRODUCT_NAME, MAX_ADDONS, addonCentsFor, isAddonItem, findAddonOnlySubscription } from "../_shared/childAddons.ts";
+import { ADDON_PRODUCT_NAME, ADDON_EXPAND, MAX_ADDONS, addonCentsFor, isAddonItem, findAddonOnlySubscription } from "../_shared/childAddons.ts";
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, "Content-Type": "application/json" } });
@@ -60,13 +60,15 @@ Deno.serve(async (req) => {
 
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });
     const customer = customers.data[0];
-    const subs = customer ? await stripe.subscriptions.list({ customer: customer.id, status: "active", limit: 1 }) : null;
-    const sub = subs?.data[0];
+    const subs = customer ? await stripe.subscriptions.list({ customer: customer.id, status: "active", limit: 10, expand: ADDON_EXPAND }) : null;
+    // The Premium subscription is the one with a non-add-on (base) item.
+    const sub = subs?.data.find((s) => s.items.data.some((i) => !isAddonItem(i)));
     if (!sub) return json({ error: "An active Premium plan is needed before adding extra children." }, 400);
 
     const addon = sub.items.data.find(isAddonItem);
     const base = sub.items.data.find((i) => !isAddonItem(i));
-    const interval = base?.price?.recurring?.interval ?? "month";
+    if (!base) return json({ error: "Could not find your Premium plan. Please contact support." }, 400);
+    const interval = base.price?.recurring?.interval ?? "month";
 
     if (quantity === 0 && addon) {
       await stripe.subscriptionItems.del(addon.id, { proration_behavior: "create_prorations" });
