@@ -106,7 +106,8 @@ serve(async (req) => {
         .select("provider, subscribed, subscription_tier, subscription_end")
         .eq("user_id", user.id)
         .maybeSingle();
-      const independentlyGranted = existing?.provider === "access_code" || existing?.provider === "manual";
+      // Website (Stripe) Premium is independent of the store too: only record store add-ons.
+      const independentlyGranted = existing?.provider === "access_code" || existing?.provider === "manual" || existing?.provider === "stripe";
       const stillActive = existing?.subscription_end
         ? new Date(existing.subscription_end).getTime() > Date.now()
         : Boolean(existing?.subscribed);
