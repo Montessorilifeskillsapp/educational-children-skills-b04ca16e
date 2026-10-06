@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Replace per-child add-ons with two plans: Premium (1 child, $29.99/month or $199/year) and Family (up to 4 children, $49/month or $349/year); migrate existing add-on subscribers at renewal and direct families over four to support.
 - [x] October 6 prepublication diagnostic: 72 public page views, nine free starter navigation flows, hosted auth settings, service guards, 53 regression tests, lint and dependency/security scans. Evidence: PREPUBLICATION_DIAGNOSTIC.md.
 - [ ] October 6 release blockers: authenticated password-reset render, stale plan savings/one-child copy, install-banner Back obstruction, purchase offered for empty songs catalog, security advisory review. Diagnostic-only request; awaiting approval for changes.
 - [ ] October 6 signed-in Premium/admin/dashboard/child editing checks: unavailable for external unmanaged authentication; real payments, email delivery and native device checks still need validation.
