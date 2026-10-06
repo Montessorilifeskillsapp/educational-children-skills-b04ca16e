@@ -23,7 +23,8 @@
 3. **Subscription authority and migration**
    - Update Stripe, RevenueCat, webhooks, subscription checks, and database allowance enforcement to recognize Premium and Family by product identity—not price alone.
    - Preserve legacy add-on recognition during transition so existing access is not lost.
-   - Mark existing add-on subscribers for Family migration at renewal; do not silently change or cancel their current billing mid-cycle.
+   - Move website add-on subscribers to Family at renewal without changing or cancelling their current billing mid-cycle.
+   - For Apple/Google subscribers, preserve current access and present the required in-app Family switch; app stores do not permit a silent server-side plan change.
    - Keep website and app-store entitlements independent so syncing one provider cannot overwrite valid access from another.
 
 4. **Admin, legal, and store text**
