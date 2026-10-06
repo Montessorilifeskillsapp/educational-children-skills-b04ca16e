@@ -19,34 +19,36 @@ Free (with In-App Purchases)
 
 ## Description
 
-Montessori Skills Guide helps parents teach essential life skills to children ages 2-6 using the proven Montessori method.
+Montessori Skills Guide is for parents, teachers, caregivers and classroom assistants guiding children ages 2–6. Know what to prepare, how to present an activity, what to observe and what comes next.
 
-**What You'll Get:**
+STEP-BY-STEP MONTESSORI GUIDANCE
+Follow written activity presentations aligned with AMI Montessori principles. Each activity includes materials, preparation, presentation steps and observation guidance, with an activity image and instructional video where available. Activities support independence through purposeful, hands-on work with real materials.
 
-🌱 **Practical Life Activities** — Step-by-step guides for pouring, buttoning, folding, food preparation, and dozens more real-world skills that build independence.
+NINE CURRICULUM AREAS
+Explore Practical Life, Sensorial, Mathematics, Language, Botany, Geography, Science, Art, and Grace and Courtesy. Follow a learning sequence and choose activities according to the child's readiness, rather than age alone.
 
-📚 **Complete Montessori Curriculum** — Covering Practical Life, Sensorial, Math, Language, Geography, Botany, Art, Cultural Studies, and Grace & Courtesy — aligned with AMI standards.
+YOUR FAMILY DASHBOARD
+Keep observations and progress separate for each child. Prioritize goals, plan activities in the calendar and review progress in weekly reports. Classroom Setup and Home Setup guidance helps you prepare an environment using what you already have.
 
-📊 **Progress Tracking** — Monitor your child's development across all skill areas with visual progress reports and milestone tracking.
+START FREE
+The free plan includes one child profile and one starter activity in each of the nine curriculum areas.
 
-👶 **Multiple Child Profiles** — Track progress for each of your children individually.
+PREMIUM FOR ONE CHILD
+Premium Monthly: US$29.99 per month.
+Premium Annual: US$199 per year.
+Premium unlocks the full activity curriculum for one child.
 
-🎯 **Age-Appropriate Guidance** — Activities are organized by developmental readiness, not just age, following true Montessori principles.
+EXTRA CHILD PROFILES
+Each additional child needs a separate paid add-on. The monthly add-on is US$24.99 per extra child; the annual add-on is US$199 per extra child per year. Each child has their own profile, goals and progress.
 
-📱 **Works Offline** — Access activities anywhere, anytime — no internet required after initial download.
+PRIVATE CONSULTATION WITH KERRY HOWARD
+Book personalized Montessori guidance separately from Premium: US$225 for one session or US$600 for three sessions. Contact montessorilifeskills@gmail.com for booking enquiries.
 
-**Premium Features ($29/month):**
-- Full access to all 100+ guided activities
-- Detailed progress analytics and reports
-- Printable activity materials
-- Priority support
+SUBSCRIPTION INFORMATION
+Premium and extra-child add-ons are recurring subscriptions. Store purchases are charged to your Apple or Google account and renew automatically unless cancelled before renewal. Manage or cancel them in your store account's subscription settings. Prices above are in US dollars; your store displays the applicable local price before purchase. An internet connection is required for account synchronization and streaming content.
 
-**Private Consultation ($225/session):**
-- 1-on-1 personalized Montessori guidance
-- Customized activity plans for your child
-- Expert advice on fostering independence
-
-Start your child's journey to independence today!
+Privacy Policy: https://montessorilifeskillsapp.com/privacy-policy
+Terms of Service: https://montessorilifeskillsapp.com/terms-of-service
 
 ---
 
@@ -65,25 +67,41 @@ https://montessorilifeskillsapp.com/terms-of-service
 ---
 
 ## What's New (for updates)
-- Fresh new app icon
-- Performance improvements
-- Bug fixes and stability enhancements
+- A Family Dashboard with separate progress, goals, calendar entries and weekly reports for each child.
+- Updated one-child Premium plans and extra-child add-on options.
+- Clearer activity materials, classroom setup guidance and consultation options.
+
+---
+
+## Submission checks (not public listing copy)
+
+- This document updates listing copy only; it does not submit or update either store listing.
+- Confirm the submitted native version supports every feature named above, including in-app extra-child purchases, and test purchase, cancellation and restore flows on both platforms.
+- Confirm the configured Apple and Google US prices before submitting. The approved annual extra-child price is US$199; if a store uses a different price point, adapt that store's listing to its actual price rather than advertising an unverified amount.
+- Do not advertise offline access, printable materials, guaranteed outcomes or videos for every activity.
+- Use current screenshots of the actual submitted app; do not use invented screens or sample progress presented as a real user's data.
+
+## Songs collection copy — use only when available in the submitted app
+
+Kerry's Montessori Songs is a separate collection of ten songs by Kerry Howard. Listen to a free 30-second preview of each available song. The family collection costs US$99.99 as a one-time purchase for lifetime access and is not included with Premium. Purchased songs stream in the app; downloads are not provided. Schools can contact montessorilifeskills@gmail.com for licensing enquiries. Purchasing access does not transfer copyright or grant trademark rights.
+
+Before including this paragraph in a store listing, confirm all ten tracks and previews are uploaded and playable, and the store-approved purchase flow is available. Native song-bundle purchasing still requires store-product setup and integration; do not imply it is already supported.
 
 ---
 
 ## Screenshot Recommendations
 
 ### iPhone 6.7" (1290 x 2796)
-1. Home screen showing skill categories
+1. Home screen showing the nine curriculum areas
 2. Practical Life skills list
 3. Step-by-step activity guide
-4. Progress tracking dashboard
-5. Subscription plans page
+4. Family Dashboard showing a child's goals and calendar
+5. Subscription plans page with accurate prices and one-child coverage
 
 ### iPad 12.9" (2048 x 2732)
 1. Home screen (landscape)
 2. Activity detail view
-3. Progress analytics
+3. Family Dashboard with per-child progress
 
 ---
 
