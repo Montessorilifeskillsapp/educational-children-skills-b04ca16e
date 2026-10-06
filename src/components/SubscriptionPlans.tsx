@@ -19,6 +19,8 @@ import {
   restorePurchases,
   PRODUCT_MONTHLY,
   PRODUCT_ANNUAL,
+  PRODUCT_FAMILY_MONTHLY,
+  PRODUCT_FAMILY_ANNUAL,
   PRODUCT_CONSULTATION,
   syncCurrentRevenueCatStatus,
 } from '@/lib/revenuecat';
@@ -61,7 +63,7 @@ const PREMIUM_MONTHLY: Plan = {
     '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
     'New activities added every month',
-    'Covers one child · add another child for $24.99/month',
+    'Covers one child',
     'Priority support',
   ],
 };
@@ -76,11 +78,42 @@ const PREMIUM_YEARLY: Plan = {
     '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
     'New activities added every month',
-    'Covers one child · add another child for $24.99/month',
+    'Covers one child',
     'Priority support',
   ],
   popular: true,
   meta: 'Just $16.58/month, billed annually',
+};
+
+const FAMILY_MONTHLY: Plan = {
+  id: 'family-monthly',
+  name: 'Family',
+  price: 49,
+  period: 'month',
+  description: 'Full curriculum for up to four children, billed monthly.',
+  features: [
+    'Everything in Premium',
+    'Up to four child profiles',
+    'Separate goals, progress, and calendar for each child',
+    'Priority support',
+  ],
+  premium: true,
+};
+
+const FAMILY_YEARLY: Plan = {
+  id: 'family-yearly',
+  name: 'Family',
+  price: 349,
+  period: 'year',
+  description: 'Full curriculum for up to four children, billed annually.',
+  features: [
+    'Everything in Premium',
+    'Up to four child profiles',
+    'Separate goals, progress, and calendar for each child',
+    'Priority support',
+  ],
+  premium: true,
+  meta: 'Just $29.08/month, billed annually',
 };
 
 const CONSULTATION: Plan = {
@@ -144,11 +177,14 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const navigate = useNavigate();
 
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
-  const plans: Plan[] = [FREE_PLAN, premiumPlan, CONSULTATION];
+  const familyPlan = billingCycle === 'yearly' ? FAMILY_YEARLY : FAMILY_MONTHLY;
+  const plans: Plan[] = [FREE_PLAN, premiumPlan, familyPlan, CONSULTATION];
 
   const productIdForPlan = (planId: string): string | null => {
     if (planId === 'premium-monthly') return PRODUCT_MONTHLY;
     if (planId === 'premium-yearly') return PRODUCT_ANNUAL;
+    if (planId === 'family-monthly') return PRODUCT_FAMILY_MONTHLY;
+    if (planId === 'family-yearly') return PRODUCT_FAMILY_ANNUAL;
     if (planId === 'consultation') return PRODUCT_CONSULTATION;
     return null;
   };
@@ -242,7 +278,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     analytics.track('paywall_view', { authenticated: !!user, current_plan: currentPlan?.id, attribution: getStoredUtm() });
     // Enroll logged-in non-subscribers in the 24h paywall-abandon recovery email.
     // The edge function is idempotent (ON CONFLICT DO NOTHING) and self-checks subscription status.
-    if (user && currentPlan?.id !== 'premium-monthly' && currentPlan?.id !== 'premium-yearly') {
+    if (user && currentPlan?.id === 'free') {
       void supabase.functions.invoke('schedule-paywall-abandon').catch(() => {});
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -277,9 +313,12 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     if (!user || pendingCheckoutStarted.current) return;
 
     const pendingPlanId = sessionStorage.getItem('post_auth_plan');
-    if (pendingPlanId !== 'premium-monthly' && pendingPlanId !== 'premium-yearly') return;
+    if (!['premium-monthly', 'premium-yearly', 'family-monthly', 'family-yearly'].includes(pendingPlanId ?? '')) return;
 
-    const pendingPlan = pendingPlanId === 'premium-yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
+    const pendingPlan = pendingPlanId === 'premium-yearly' ? PREMIUM_YEARLY
+      : pendingPlanId === 'family-yearly' ? FAMILY_YEARLY
+      : pendingPlanId === 'family-monthly' ? FAMILY_MONTHLY
+      : PREMIUM_MONTHLY;
     pendingCheckoutStarted.current = true;
     sessionStorage.removeItem('post_auth_plan');
     void startStripeCheckout(pendingPlan);
@@ -410,7 +449,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     );
   }
 
-  if (isPremium) {
+  if (isPremium && currentPlan?.id !== 'premium-monthly' && currentPlan?.id !== 'premium-yearly') {
     return (
       <div className="space-y-8">
         {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
@@ -486,7 +525,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       <div className="text-center max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-foreground mb-3">
-          One subscription. The whole Montessori curriculum.
+          Choose the plan that fits your family.
         </h1>
         <p className="text-lg text-muted-foreground mb-5">
           Most Montessori material kits cost $400+ per year and arrive in boxes you have to store.
@@ -564,6 +603,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
             <li><strong>Premium Monthly</strong> — $29.99 USD per month, auto-renews monthly.</li>
             <li><strong>Premium Annual</strong> — $199.00 USD per year, auto-renews yearly (~$16.58/month).</li>
+            <li><strong>Family Monthly</strong> — $49.00 USD per month for up to four children, auto-renews monthly.</li>
+            <li><strong>Family Annual</strong> — $349.00 USD per year for up to four children, auto-renews yearly (~$29.08/month).</li>
             <li>Payment is charged to your Apple ID, Google Play, or web payment method at confirmation of purchase.</li>
             <li>Subscription auto-renews unless auto-renew is turned off at least 24 hours before the end of the current period.</li>
             <li>You can manage or cancel anytime in your App Store, Google Play, or Stripe account settings.</li>
@@ -586,7 +627,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           </label>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 max-w-6xl mx-auto items-stretch">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto items-stretch">
           {plans.map((plan) => (
             <article key={plan.id} className={plan.popular ? 'md:-my-2' : ''}>
               <Card
@@ -652,7 +693,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       ))}
                   </ul>
 
-                  {(plan.id === 'premium-monthly' || plan.id === 'premium-yearly') && (
+                  {plan.id !== 'free' && plan.id !== 'consultation' && (
                     <div className="mb-6 rounded-lg border border-border bg-muted/40 p-3 text-sm">
                       <p className="font-medium text-foreground">
                         Add a private consultation with Kerry{isNative ? '' : ' – $225'}
@@ -695,6 +736,10 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                         'Book a consultation'
                       ) : plan.id === 'premium-yearly' ? (
                         'Start annual — save $160.88'
+                      ) : plan.id === 'family-yearly' ? (
+                        'Start Family Annual'
+                      ) : plan.id === 'family-monthly' ? (
+                        'Start Family Monthly'
                       ) : (
                         'Start monthly plan'
                       )}

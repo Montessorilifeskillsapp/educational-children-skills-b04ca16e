@@ -58,14 +58,15 @@ const TermsOfServicePage: React.FC = () => {
                 <h2 className="text-xl font-semibold mb-4">Subscription Terms (Auto-Renewable Subscriptions)</h2>
                 <p className="mb-3">
                   Montessori Life Skills App offers auto-renewable subscriptions that give you access to the full
-                  Montessori curriculum, all premium activities, one child profile, and priority support. Additional children may be added as an extra-child add-on.
+                  Montessori curriculum, all premium activities, and priority support. Premium includes one child profile; Family includes up to four child profiles.
                 </p>
 
                 <h3 className="text-lg font-medium mb-2">Available Plans, Length &amp; Price</h3>
                 <ul className="list-disc list-inside mb-4 space-y-1">
                   <li><strong>Premium Monthly</strong> — 1 month of full access for <strong>$29.99 USD</strong>, billed every month.</li>
                   <li><strong>Premium Annual</strong> — 12 months of full access for <strong>$199.00 USD</strong>, billed once per year (approximately $16.58/month).</li>
-                  <li><strong>Extra child add-on</strong> — each additional child profile beyond the first costs <strong>$24.99 USD per month</strong>, added to your Premium bill (billed monthly for Premium Monthly, or $199 USD per year for Premium Annual). Add-ons renew with your plan and can be removed at any time; changes are prorated.</li>
+                  <li><strong>Family Monthly</strong> — up to four child profiles for <strong>$49.00 USD</strong>, billed every month.</li>
+                  <li><strong>Family Annual</strong> — up to four child profiles for <strong>$349.00 USD</strong>, billed once per year (approximately $29.08/month).</li>
                   <li>Prices in other currencies are shown at the point of purchase and may vary by region and applicable taxes.</li>
                 </ul>
 

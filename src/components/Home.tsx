@@ -91,7 +91,7 @@ const curriculumAreas = [
 const faqs = [
   { q: 'Do I need Montessori training to use this app?', a: 'No. Activities include written presentation steps and teaching notes for parents, caregivers, assistants, and teachers.' },
   { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
-  { q: 'Can I use this for multiple children?', a: 'Yes. Premium plans include multiple child profiles so you can record each child\'s progress individually.' },
+  { q: 'Can I use this for multiple children?', a: 'Yes. Premium covers one child, while Family covers up to four children with separate progress for each.' },
   { q: 'Does this work without internet?', a: 'An internet connection is needed for current activity content, purchase links, account features, and protected videos.' },
   { q: 'How is the curriculum organized?', a: 'Activities are arranged from introductory to advanced work within each curriculum section, with materials and presentation guidance together in one place.' },
   { q: 'What if I\'m not satisfied?', a: 'Premium plans include a 30-day money-back guarantee. See the guarantee page for details.' },
@@ -529,7 +529,7 @@ const Home: React.FC<HomeProps> = ({
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Continue through the full curriculum.</h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence.</p>
           </Reveal>
-          <div className="grid md:grid-cols-3 gap-6 items-stretch">
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             <Reveal>
               <Card className="relative h-full border-2 border-primary/40 shadow-xl overflow-hidden bg-card">
                 <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold text-center py-2 uppercase tracking-wider">Best value</div>
@@ -537,7 +537,7 @@ const Home: React.FC<HomeProps> = ({
                   <h3 className="text-2xl font-bold text-foreground">Premium Annual</h3>
                   <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$199</span><span className="text-muted-foreground">/year</span></div>
                   <p className="font-semibold text-primary mb-1">Equivalent to $16.58/month</p>
-                  <p className="text-sm text-muted-foreground mb-6">Save $149 compared with 12 months at the current monthly price.</p>
+                  <p className="text-sm text-muted-foreground mb-6">One child. Save $160.88 compared with 12 monthly payments.</p>
                   <ul className="space-y-3 mb-7">
                     {['Full curriculum', '100+ activities', 'All curriculum areas', 'Progress tracking', 'Written presentations', 'Materials information', 'Instructional videos where available'].map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />{item}</li>)}
                   </ul>
@@ -557,6 +557,17 @@ const Home: React.FC<HomeProps> = ({
               </Card>
             </Reveal>
             <Reveal delay={200}>
+              <Card className="h-full border-primary/40 bg-card">
+                <CardContent className="p-7 flex flex-col h-full">
+                  <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Up to four children</p>
+                  <h3 className="text-2xl font-bold text-foreground">Family Plan</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$349</span><span className="text-muted-foreground">/year</span></div>
+                  <p className="text-muted-foreground mb-6">Or $49/month. Separate profiles, goals, and progress for each child.</p>
+                  <Button onClick={onSubscriptionView} size="lg" className="w-full rounded-xl mt-auto">View Family Options</Button>
+                </CardContent>
+              </Card>
+            </Reveal>
+            <Reveal delay={300}>
               <Card className="h-full border-accent/40 bg-card">
                 <CardContent className="p-7 flex flex-col h-full">
                   <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">One-to-one</p>
