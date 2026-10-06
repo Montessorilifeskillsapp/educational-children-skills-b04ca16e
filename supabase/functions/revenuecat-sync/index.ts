@@ -128,15 +128,24 @@ serve(async (req) => {
       }
     }
 
+    const { data: current } = await supabaseAdmin.from("subscribers")
+      .select("provider, subscribed, subscription_tier, subscription_end")
+      .eq("user_id", user.id).maybeSingle();
+    const currentStripeActive = current?.provider === "stripe" && Boolean(current.subscribed) &&
+      (!current.subscription_end || new Date(current.subscription_end).getTime() > Date.now());
+    const currentIsFamily = String(current?.subscription_tier ?? "").toLowerCase().startsWith("family");
+    const incomingIsFamily = String(tier ?? "").toLowerCase().startsWith("family");
+    const preserveStripe = currentStripeActive && (currentIsFamily || !incomingIsFamily);
+
     await supabaseAdmin.from("subscribers").upsert(
       {
         email: user.email,
         user_id: user.id,
-        provider: subscribed ? "revenuecat" : "stripe",
+        provider: preserveStripe ? "stripe" : subscribed ? "revenuecat" : (current?.provider ?? "revenuecat"),
         platform: body.platform ?? "mobile",
-        subscribed,
-        subscription_tier: tier,
-        subscription_end: subscriptionEnd,
+        subscribed: currentStripeActive || subscribed,
+        subscription_tier: preserveStripe ? current?.subscription_tier : tier,
+        subscription_end: preserveStripe ? current?.subscription_end : subscriptionEnd,
         revenuecat_app_user_id: user.id,
         revenuecat_entitlement: subscribed ? ENTITLEMENT_ID : null,
         revenuecat_product_id: productId ?? purchasedProductId ?? null,

@@ -59,6 +59,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [loading, setLoading] = useState(true);
   const [childAddons, setChildAddons] = useState(0);
   const [websiteChildAddons, setWebsiteChildAddons] = useState(0);
+  const [childAllowance, setChildAllowance] = useState(1);
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
     try {
@@ -74,6 +75,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     if (!user) {
       setServerVerifiedPremium(false);
       setChildAddons(0);
+      setChildAllowance(1);
       setServerVerifiedFamily(false);
       setSubscriptionEnd(null);
       setProvider(null);
@@ -116,6 +118,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       setServerVerifiedPremium(isSubscribed);
       setChildAddons(isSubscribed ? Math.max(0, Number(data?.child_addons) || 0) : 0);
       setWebsiteChildAddons(isSubscribed ? Math.max(0, Number(data?.website_child_addons ?? data?.child_addons) || 0) : 0);
+      setChildAllowance(isSubscribed ? Math.max(1, Number(data?.child_allowance) || (family ? 4 : 1)) : 1);
       const family = typeof tier === 'string' && tier.toLowerCase().startsWith('family');
       setServerVerifiedFamily(family);
       setSubscriptionEnd(end);
@@ -139,6 +142,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       console.error('Subscription verification error:', error);
       setServerVerifiedPremium(false);
       setChildAddons(0);
+      setChildAllowance(1);
       setServerVerifiedFamily(false);
       setSubscriptionEnd(null);
       setProvider(null);
@@ -191,7 +195,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       loading,
       subscriptionEnd,
       provider,
-      childAllowance: serverVerifiedFamily ? 4 : 1 + childAddons,
+      childAllowance,
       childAddons,
       websiteChildAddons,
     }}>

@@ -76,6 +76,7 @@ https://montessorilifeskillsapp.com/terms-of-service
 ## Submission checks (not public listing copy)
 
 - This document updates listing copy only; it does not submit or update either store listing.
+- Configure `premium_monthly` (US$29.99/month), `premium_annual` (US$199/year), `family_monthly` (US$49/month), and `family_annual` (US$349/year) in App Store Connect, Google Play, and RevenueCat.
 - Confirm the submitted native version supports Premium and Family purchases, and test purchase, plan change, cancellation and restore flows on both platforms.
 - Confirm the configured Apple and Google US prices before submitting. If a store uses a different price point, adapt that store's listing to its actual price rather than advertising an unverified amount.
 - Do not advertise offline access, printable materials, guaranteed outcomes or videos for every activity.

@@ -113,6 +113,14 @@ serve(async (req) => {
       const active = await stripe.subscriptions.list({ customer: customerId, status: "active", limit: 10 });
       const current = active.data.find((sub) => sub.metadata?.kind !== "child_addons");
       if (current) {
+        const existingSchedule = current.schedule
+          ? await stripe.subscriptionSchedules.retrieve(String(current.schedule))
+          : null;
+        if (existingSchedule?.metadata?.planId === normalizedPlanId) {
+          return new Response(JSON.stringify({ scheduled: true, effectiveAt: new Date(current.current_period_end * 1000).toISOString() }), {
+            headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200,
+          });
+        }
         const product = await stripe.products.create({
           name: selectedPlan.productName,
           metadata: { plan_id: normalizedPlanId },
@@ -124,9 +132,7 @@ serve(async (req) => {
           product: product.id,
           metadata: { plan_id: normalizedPlanId },
         });
-        const schedule = current.schedule
-          ? await stripe.subscriptionSchedules.retrieve(String(current.schedule))
-          : await stripe.subscriptionSchedules.create({ from_subscription: current.id });
+        const schedule = existingSchedule ?? await stripe.subscriptionSchedules.create({ from_subscription: current.id });
         const currentItems = current.items.data.map((item) => ({ price: item.price.id, quantity: item.quantity ?? 1 }));
         await stripe.subscriptionSchedules.update(schedule.id, {
           end_behavior: "release",
@@ -136,6 +142,9 @@ serve(async (req) => {
           ],
           metadata: { planId: normalizedPlanId, userId: user.id },
         });
+        for (const legacyAddon of active.data.filter((sub) => sub.metadata?.kind === "child_addons")) {
+          await stripe.subscriptions.update(legacyAddon.id, { cancel_at_period_end: true });
+        }
         logStep("Family migration scheduled", { subscriptionId: current.id, effectiveAt: current.current_period_end });
         return new Response(JSON.stringify({ scheduled: true, effectiveAt: new Date(current.current_period_end * 1000).toISOString() }), {
           headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200,
