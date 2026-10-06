@@ -67,6 +67,7 @@ const SongsPage: React.FC = () => {
   };
 
   const handleBuy = async () => {
+    if (songs.length === 0) return;
     if (!user) {
       navigate('/auth?redirect=/songs');
       return;
@@ -124,6 +125,8 @@ const SongsPage: React.FC = () => {
                      You have full access to the collection — every song plays in full below.
                   </p>
                 </div>
+              ) : loading || songs.length === 0 ? (
+                <p className="text-sm text-muted-foreground">The collection will be available to purchase once the songs are released.</p>
               ) : isNative ? (
                 <div className="space-y-3">
                   <p className="text-sm text-muted-foreground">

@@ -11,15 +11,6 @@ const SEOOptimizer: React.FC<SEOOptimizerProps> = ({ children }) => {
     injectStructuredData(generateOrganizationSchema());
     injectStructuredData(generateWebsiteSchema());
 
-    // Preload critical resources
-    const preloadLink = document.createElement('link');
-    preloadLink.rel = 'preload';
-    preloadLink.href = '/fonts/inter.woff2';
-    preloadLink.as = 'font';
-    preloadLink.type = 'font/woff2';
-    preloadLink.crossOrigin = 'anonymous';
-    document.head.appendChild(preloadLink);
-
     // Add performance hints
     const dnsPreconnect = document.createElement('link');
     dnsPreconnect.rel = 'preconnect';

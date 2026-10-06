@@ -170,10 +170,10 @@ const InstallBanner = () => {
       role="region"
       aria-label="Install app banner"
       aria-live="polite"
-      className="fixed top-0 left-0 right-0 z-[60] p-3 animate-fade-in"
+      className="fixed top-0 left-0 right-0 z-[60] p-3 animate-fade-in pointer-events-none"
       style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
     >
-      <div className="max-w-md mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-primary/15 p-4 flex items-center gap-3">
+      <div className="pointer-events-auto max-w-md mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-primary/15 p-4 flex items-center gap-3">
         <div
           aria-hidden="true"
           className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
