@@ -179,8 +179,17 @@ serve(async (req) => {
       limit: 10,
       expand: ADDON_EXPAND,
     });
-    // The Premium subscription is the one with a base (non-add-on) item.
-    const premiumSub = subscriptions.data.find((s) => s.items.data.some((i) => !isAddonItem(i)));
+    // Prefer a Family base subscription when overlapping legacy subscriptions
+    // temporarily coexist; otherwise use the newest active base subscription.
+    const baseSubscriptions = subscriptions.data
+      .filter((s) => s.items.data.some((i) => !isAddonItem(i)))
+      .sort((a, b) => b.created - a.created);
+    const productIdentity = (s: typeof baseSubscriptions[number]) => {
+      const item = s.items.data.find((i) => !isAddonItem(i));
+      const product = item?.price?.product;
+      return `${s.metadata?.planId ?? ""} ${product && typeof product === "object" ? `${product.name ?? ""} ${product.metadata?.plan_id ?? ""}` : ""}`.toLowerCase();
+    };
+    const premiumSub = baseSubscriptions.find((s) => productIdentity(s).includes("family")) ?? baseSubscriptions[0];
     const hasActiveSub = Boolean(premiumSub);
     let subscriptionTier = null;
     let subscriptionEnd = null;

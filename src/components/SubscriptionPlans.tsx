@@ -542,7 +542,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             }`}
           >
             Annual
-            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0">Save 45%</Badge>
+            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0">Annual value</Badge>
           </button>
         </div>
       </div>
