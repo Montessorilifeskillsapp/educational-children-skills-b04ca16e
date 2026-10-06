@@ -114,12 +114,12 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       const tier = data?.subscription_tier ?? null;
       const end = data?.subscription_end ?? null;
       const verifiedProvider = data?.provider ?? null;
+      const family = typeof tier === 'string' && tier.toLowerCase().startsWith('family');
 
       setServerVerifiedPremium(isSubscribed);
       setChildAddons(isSubscribed ? Math.max(0, Number(data?.child_addons) || 0) : 0);
       setWebsiteChildAddons(isSubscribed ? Math.max(0, Number(data?.website_child_addons ?? data?.child_addons) || 0) : 0);
       setChildAllowance(isSubscribed ? Math.max(1, Number(data?.child_allowance) || (family ? 4 : 1)) : 1);
-      const family = typeof tier === 'string' && tier.toLowerCase().startsWith('family');
       setServerVerifiedFamily(family);
       setSubscriptionEnd(end);
       setProvider(verifiedProvider);
