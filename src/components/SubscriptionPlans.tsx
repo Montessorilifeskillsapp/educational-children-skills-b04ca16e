@@ -71,7 +71,7 @@ const PREMIUM_YEARLY: Plan = {
   name: 'Premium',
   price: 199,
   period: 'year',
-  description: "Best value — save $149 vs monthly. Two months free.",
+  description: "Best value — save $160.88 vs monthly.",
   features: [
     '100+ AMI-aligned activities across all 9 areas',
     'Written presentation steps for every activity',
@@ -525,7 +525,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           <div className="p-3 sm:p-4 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10">
             <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-primary mb-1">This app</p>
             <p className="text-lg sm:text-2xl font-bold text-foreground">$199<span className="text-sm font-medium text-muted-foreground">/yr</span></p>
-            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">Whole family</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">One child</p>
           </div>
         </div>
 
@@ -550,7 +550,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             }`}
           >
             Annual
-            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0">Save 43%</Badge>
+            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0">Save 45%</Badge>
           </button>
         </div>
       </div>
@@ -628,7 +628,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                         )}
                         {plan.id === 'premium-monthly' && (
                           <div className="text-xs text-muted-foreground mt-2">
-                            Switch to annual to save $149
+                            Switch to annual to save $160.88
                           </div>
                         )}
                       </>
@@ -694,7 +694,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       ) : plan.id === 'consultation' ? (
                         'Book a consultation'
                       ) : plan.id === 'premium-yearly' ? (
-                        'Start annual — save $149'
+                        'Start annual — save $160.88'
                       ) : (
                         'Start monthly plan'
                       )}

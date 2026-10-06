@@ -172,7 +172,7 @@ const AuthPage = () => {
     );
   }
 
-  if (user) {
+  if (user && !isResetLink) {
     return null; // Will be redirected by useEffect
   }
 
