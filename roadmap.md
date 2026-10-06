@@ -1,4 +1,7 @@
 ## Open tasks
+- [x] October 6 prepublication diagnostic: 72 public page views, nine free starter navigation flows, hosted auth settings, service guards, 53 regression tests, lint and dependency/security scans. Evidence: PREPUBLICATION_DIAGNOSTIC.md.
+- [ ] October 6 release blockers: authenticated password-reset render, stale plan savings/one-child copy, install-banner Back obstruction, purchase offered for empty songs catalog, security advisory review. Diagnostic-only request; awaiting approval for changes.
+- [ ] October 6 signed-in Premium/admin/dashboard/child editing checks: unavailable for external unmanaged authentication; real payments, email delivery and native device checks still need validation.
 - [x] Clarified scope: add copyright and permitted-use terms for Kerry's songs and instructional videos; keep school licensing separate and do not imply family access grants trademark rights.
 - [x] Family Dashboard redesign: per-child overview, goals, calendar, weekly reports, working settings, email + push notifications
 - [ ] Browser push: needs Firebase web app key, app ID, VAPID key (VITE_FIREBASE_*)
