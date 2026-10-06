@@ -460,79 +460,22 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     );
   }
 
-  if (isPremium && currentPlan?.id !== 'premium-monthly' && currentPlan?.id !== 'premium-yearly') {
-    return (
-      <div className="space-y-8">
-        {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
-        <Card className={`${montessoriTheme.card.base} max-w-2xl mx-auto text-center ring-2 ring-primary/30`}>
-          <CardHeader>
-            <div className="w-14 h-14 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-3">
-              <Check className="w-7 h-7 text-primary" aria-hidden="true" />
-            </div>
-            <CardTitle className="text-3xl font-bold text-foreground">Plan activated</CardTitle>
-            <p className="text-muted-foreground mt-2">{activePlanLabel} is active on this account.</p>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            <div className="rounded-xl border border-border bg-muted/40 p-4 text-left max-w-md mx-auto">
-              <div className="flex items-center justify-between gap-4">
-                <span className="text-sm text-muted-foreground">Current plan</span>
-                <Badge className="bg-primary text-primary-foreground">Active</Badge>
-              </div>
-              <p className="text-xl font-bold text-foreground mt-2">{activePlanLabel}</p>
-              {renewalDate && (
-                <p className="text-sm text-muted-foreground mt-1">Renews or expires on {renewalDate}</p>
-              )}
-              {provider === 'revenuecat' && (
-                <p className="text-xs text-muted-foreground mt-3">Managed through your App Store account.</p>
-              )}
-            </div>
-            <div className="border-y border-border py-5 text-left">
-              <div className="mx-auto flex max-w-md flex-col gap-4 sm:flex-row sm:items-center">
-                <img
-                  src={founderKerry}
-                  alt="Kerry Howard, AMI-trained Montessori guide"
-                  className="h-20 w-20 shrink-0 rounded-full border border-border object-cover"
-                />
-                <div className="min-w-0 flex-1">
-                  <p className="text-lg font-bold text-foreground">Private consultation with Kerry</p>
-                  <p className="mt-1 text-sm text-muted-foreground">
-                    Personalized Montessori guidance for your child, family routine, and next steps.
-                  </p>
-                  <p className="mt-2 text-sm font-semibold text-foreground">
-                    {isNative ? 'Available by request' : '$225 per session · Three sessions $600'}
-                  </p>
-                </div>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="shrink-0"
-                  onClick={() => handleSubscribe(CONSULTATION)}
-                >
-                  Book consultation
-                </Button>
-              </div>
-            </div>
-            <div className="flex flex-col sm:flex-row justify-center gap-3">
-              <Button onClick={onBack} className="bg-primary hover:bg-primary/90 text-primary-foreground">
-                Open dashboard
-              </Button>
-              <Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>
-                <RefreshCw className={`w-4 h-4 mr-2 ${syncingStatus ? 'animate-spin' : ''}`} />
-                {syncingStatus ? 'Syncing…' : 'Sync plan'}
-              </Button>
-            </div>
-            <div>
-              <AccessCodeRedeem />
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-    );
-  }
-
   return (
     <div className="space-y-8">
       {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
+
+      {isPremium && (
+        <Card className={`${montessoriTheme.card.base} max-w-3xl mx-auto ring-2 ring-primary/30`}>
+          <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-2"><Badge>Active</Badge><strong>{activePlanLabel}</strong></div>
+              {renewalDate && <p className="text-sm text-muted-foreground mt-2">Renews or expires on {renewalDate}</p>}
+              {provider === 'revenuecat' && <p className="text-xs text-muted-foreground mt-1">Managed through your App Store account.</p>}
+            </div>
+            <div className="flex gap-2"><Button onClick={onBack}>Open dashboard</Button><Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>Sync plan</Button></div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="text-center max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-foreground mb-3">
