@@ -25,7 +25,6 @@ import {
   syncCurrentRevenueCatStatus,
 } from '@/lib/revenuecat';
 import { forceWebViewRepaint } from '@/hooks/useNativeWebViewRecovery';
-import founderKerry from '@/assets/founder-kerry-howard.png';
 
 interface Plan {
   id: string;

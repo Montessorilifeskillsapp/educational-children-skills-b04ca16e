@@ -43,7 +43,7 @@ const ChildCoveragePanel: React.FC<{ highlight?: boolean }> = ({ highlight }) =>
           )}
         </div>
 
-        {uncovered.length > 0 && !choosing && (
+        {uncovered.length > 0 && (
           <p className="text-sm text-muted-foreground">
             Not included in the current plan: {uncovered.map((p) => p.name).join(', ')}. Their saved progress is kept safe.
           </p>
