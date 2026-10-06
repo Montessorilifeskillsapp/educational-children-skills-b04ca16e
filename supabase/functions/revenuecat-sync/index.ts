@@ -29,7 +29,7 @@ interface SyncBody {
   productId?: string;
 }
 
-const KNOWN_SUBSCRIPTION_PRODUCTS = new Set(["premium_monthly", "premium_annual"]);
+const KNOWN_SUBSCRIPTION_PRODUCTS = new Set(["premium_monthly", "premium_annual", "family_monthly", "family_annual"]);
 const KNOWN_ONE_TIME_PRODUCTS = new Set(["consultation_session"]);
 
 serve(async (req) => {
@@ -90,10 +90,12 @@ serve(async (req) => {
       subscriptionEnd = raw ?? null;
     }
 
-    const tier = productId?.includes("annual")
+    const tier = productId?.startsWith("family_")
+      ? (productId.includes("annual") ? "Family Annual" : "Family Monthly")
+      : productId?.includes("annual")
       ? "Premium Annual"
       : productId && KNOWN_SUBSCRIPTION_PRODUCTS.has(productId)
-        ? "Premium"
+        ? "Premium Monthly"
         : productId
           ? null
           : null;

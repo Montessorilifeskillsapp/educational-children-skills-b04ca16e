@@ -1,7 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { ADDON_PRODUCT_NAME, MAX_ADDONS, addonCentsFor } from "../_shared/childAddons.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -37,6 +36,16 @@ const PLAN_CONFIG = {
   "premium-yearly": {
     productName: "Premium Annual Plan",
     unitAmount: 19900,
+    interval: "year" as const,
+  },
+  "family-monthly": {
+    productName: "Family Monthly Plan",
+    unitAmount: 4900,
+    interval: "month" as const,
+  },
+  "family-yearly": {
+    productName: "Family Annual Plan",
+    unitAmount: 34900,
     interval: "year" as const,
   },
 };
@@ -77,8 +86,7 @@ serve(async (req) => {
       logStep("No auth header — guest checkout");
     }
 
-    const { planId, childAddons } = await req.json();
-    const addonQty = Number.isInteger(childAddons) ? Math.min(Math.max(childAddons, 0), MAX_ADDONS) : 0;
+    const { planId } = await req.json();
     const normalizedPlanId = typeof planId === "string" ? planId : "";
     const selectedPlan = PLAN_CONFIG[normalizedPlanId as keyof typeof PLAN_CONFIG];
 
@@ -147,23 +155,12 @@ serve(async (req) => {
         {
           price_data: {
             currency: "usd",
-            product_data: { name: selectedPlan.productName },
+            product_data: { name: selectedPlan.productName, metadata: { plan_id: normalizedPlanId } },
             unit_amount: selectedPlan.unitAmount,
             recurring: { interval: selectedPlan.interval },
           },
           quantity: 1,
         },
-        ...(addonQty > 0
-          ? [{
-              price_data: {
-                currency: "usd",
-                product_data: { name: ADDON_PRODUCT_NAME },
-                unit_amount: addonCentsFor(selectedPlan.interval),
-                recurring: { interval: selectedPlan.interval },
-              },
-              quantity: addonQty,
-            }]
-          : []),
       ],
       mode: "subscription",
       success_url: `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}&planId=${encodeURIComponent(normalizedPlanId)}`,

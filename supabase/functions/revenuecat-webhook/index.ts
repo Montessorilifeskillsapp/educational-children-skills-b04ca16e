@@ -23,9 +23,10 @@ interface RcPayload {
 }
 
 const tierFromProduct = (productId?: string | null) =>
-  productId?.includes("annual") ? "Premium Annual"
+  productId?.startsWith("family_") ? (productId.includes("annual") ? "Family Annual" : "Family Monthly")
+    : productId?.includes("annual") ? "Premium Annual"
     : productId?.includes("consultation") ? "Consultation"
-    : productId ? "Premium" : null;
+    : productId ? "Premium Monthly" : null;
 
 serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
