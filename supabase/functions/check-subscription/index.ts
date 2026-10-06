@@ -65,7 +65,12 @@ serve(async (req) => {
     logStep("Stripe key verified");
 
     const authHeader = req.headers.get("Authorization");
-    if (!authHeader) throw new Error("No authorization header provided");
+    if (!authHeader) {
+      return new Response(JSON.stringify({ error: "Unauthorized" }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 401,
+      });
+    }
     logStep("Authorization header found");
 
     const token = authHeader.replace("Bearer ", "");
@@ -201,8 +206,8 @@ serve(async (req) => {
       logStep("Active subscription found", { subscriptionId: subscription.id, endDate: subscriptionEnd });
 
       // Premium item decides the tier; extra-child add-on items set the child allowance.
-      const addonItem = subscription.items.data.find(isAddonItem);
-      childAddons = addonItem?.quantity ?? 0;
+      childAddons = subscriptions.data.reduce((total, sub) =>
+        total + sub.items.data.filter(isAddonItem).reduce((sum, item) => sum + (item.quantity ?? 1), 0), 0);
       const baseItem = subscription.items.data.find((i) => !isAddonItem(i));
       const interval = baseItem?.price?.recurring?.interval;
       const product = baseItem?.price?.product;
@@ -210,6 +215,46 @@ serve(async (req) => {
       const planId = product && typeof product === "object" ? product.metadata?.plan_id : subscription.metadata?.planId;
       subscriptionTier = getSubscriptionTier(baseItem?.price?.unit_amount || 0, interval, productName, planId);
       logStep("Determined subscription tier", { interval, subscriptionTier, childAddons });
+
+      // Legacy website add-on customers move to Family at their next renewal.
+      // Keep the current paid phase unchanged and make this idempotent by
+      // marking the schedule with its destination plan.
+      if (childAddons > 0 && !String(subscriptionTier).toLowerCase().startsWith("family") && (interval === "month" || interval === "year")) {
+        const familyPlanId = interval === "year" ? "family-yearly" : "family-monthly";
+        const currentSchedule = subscription.schedule
+          ? await stripe.subscriptionSchedules.retrieve(String(subscription.schedule))
+          : null;
+        if (currentSchedule?.metadata?.planId !== familyPlanId) {
+          const product = await stripe.products.create({
+            name: interval === "year" ? "Family Annual Plan" : "Family Monthly Plan",
+            metadata: { plan_id: familyPlanId },
+          });
+          const price = await stripe.prices.create({
+            currency: "usd",
+            unit_amount: interval === "year" ? 34900 : 4900,
+            recurring: { interval },
+            product: product.id,
+            metadata: { plan_id: familyPlanId },
+          });
+          const schedule = currentSchedule ?? await stripe.subscriptionSchedules.create({ from_subscription: subscription.id });
+          await stripe.subscriptionSchedules.update(schedule.id, {
+            end_behavior: "release",
+            phases: [
+              {
+                items: subscription.items.data.map((item) => ({ price: item.price.id, quantity: item.quantity ?? 1 })),
+                start_date: subscription.current_period_start,
+                end_date: subscription.current_period_end,
+              },
+              { items: [{ price: price.id, quantity: 1 }], start_date: subscription.current_period_end },
+            ],
+            metadata: { planId: familyPlanId, userId: user.id },
+          });
+          for (const legacyAddon of subscriptions.data.filter((sub) => sub.id !== subscription.id && sub.items.data.every(isAddonItem))) {
+            await stripe.subscriptions.update(legacyAddon.id, { cancel_at_period_end: true });
+          }
+          logStep("Scheduled legacy add-on customer for Family", { familyPlanId, effectiveAt: subscription.current_period_end });
+        }
+      }
     } else {
       logStep("No active subscription found");
     }
