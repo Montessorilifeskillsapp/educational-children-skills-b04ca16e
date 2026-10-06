@@ -26,7 +26,7 @@ interface SubscriptionContextType {
   loading: boolean;
   subscriptionEnd: string | null;
   provider: string | null;
-  /** Children covered by the membership: 1 + paid extra-child add-ons. */
+  /** Children covered by the membership: one for Free/Premium, four for Family. */
   childAllowance: number;
   childAddons: number;
   /** Add-ons bought on the website (Stripe) only. */
@@ -59,6 +59,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   const [loading, setLoading] = useState(true);
   const [childAddons, setChildAddons] = useState(0);
   const [websiteChildAddons, setWebsiteChildAddons] = useState(0);
+  const [childAllowance, setChildAllowance] = useState(1);
 
   const [purchasedItems, setPurchasedItems] = useState<string[]>(() => {
     try {
@@ -74,6 +75,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
     if (!user) {
       setServerVerifiedPremium(false);
       setChildAddons(0);
+      setChildAllowance(1);
       setServerVerifiedFamily(false);
       setSubscriptionEnd(null);
       setProvider(null);
@@ -116,17 +118,19 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       setServerVerifiedPremium(isSubscribed);
       setChildAddons(isSubscribed ? Math.max(0, Number(data?.child_addons) || 0) : 0);
       setWebsiteChildAddons(isSubscribed ? Math.max(0, Number(data?.website_child_addons ?? data?.child_addons) || 0) : 0);
-      setServerVerifiedFamily(tier === 'Family');
+      setChildAllowance(isSubscribed ? Math.max(1, Number(data?.child_allowance) || (family ? 4 : 1)) : 1);
+      const family = typeof tier === 'string' && tier.toLowerCase().startsWith('family');
+      setServerVerifiedFamily(family);
       setSubscriptionEnd(end);
       setProvider(verifiedProvider);
 
       if (isSubscribed) {
         const isAnnual = typeof tier === 'string' && tier.toLowerCase().includes('annual');
         const premiumPlan: SubscriptionPlan = {
-          id: tier === 'Family' ? 'family' : isAnnual ? 'premium-yearly' : 'premium-monthly',
-          name: tier === 'Family' ? 'Family Plan' : isAnnual ? 'Premium Annual Plan' : 'Premium Monthly Plan',
-          price: tier === 'Family' || isAnnual ? 199 : 29,
-          period: tier === 'Family' || isAnnual ? 'year' : 'month',
+          id: family ? (isAnnual ? 'family-yearly' : 'family-monthly') : isAnnual ? 'premium-yearly' : 'premium-monthly',
+          name: family ? `Family ${isAnnual ? 'Annual' : 'Monthly'} Plan` : isAnnual ? 'Premium Annual Plan' : 'Premium Monthly Plan',
+          price: family ? (isAnnual ? 349 : 49) : (isAnnual ? 199 : 29.99),
+          period: isAnnual ? 'year' : 'month',
           features: [],
           premium: true,
         };
@@ -138,6 +142,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       console.error('Subscription verification error:', error);
       setServerVerifiedPremium(false);
       setChildAddons(0);
+      setChildAllowance(1);
       setServerVerifiedFamily(false);
       setSubscriptionEnd(null);
       setProvider(null);
@@ -190,7 +195,7 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
       loading,
       subscriptionEnd,
       provider,
-      childAllowance: 1 + childAddons,
+      childAllowance,
       childAddons,
       websiteChildAddons,
     }}>

@@ -20,7 +20,10 @@ Deno.serve(async (req) => {
       return json({ error: `Choose between 0 and ${MAX_ADDONS} extra children.` }, 400);
     }
 
-    const { data: row } = await admin.from("subscribers").select("provider").eq("user_id", user.id).maybeSingle();
+    const { data: row } = await admin.from("subscribers").select("provider, subscription_tier").eq("user_id", user.id).maybeSingle();
+    if (String(row?.subscription_tier ?? "").toLowerCase().startsWith("family")) {
+      return json({ error: "Family already includes up to four children. Contact montessorilifeskills@gmail.com if you need more profiles." }, 400);
+    }
     const stripe = new Stripe(Deno.env.get("STRIPE_SECRET_KEY")!, { apiVersion: "2023-10-16" });
 
     // App-store members: Premium stays with Apple/Google; add-ons are a separate website subscription.

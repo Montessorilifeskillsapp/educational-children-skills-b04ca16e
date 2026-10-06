@@ -23,9 +23,10 @@ interface RcPayload {
 }
 
 const tierFromProduct = (productId?: string | null) =>
-  productId?.includes("annual") ? "Premium Annual"
+  productId?.startsWith("family_") ? (productId.includes("annual") ? "Family Annual" : "Family Monthly")
+    : productId?.includes("annual") ? "Premium Annual"
     : productId?.includes("consultation") ? "Consultation"
-    : productId ? "Premium" : null;
+    : productId ? "Premium Monthly" : null;
 
 serve(async (req) => {
   if (req.method !== "POST") return new Response("Method not allowed", { status: 405 });
@@ -75,7 +76,7 @@ serve(async (req) => {
   // Look up the subscriber row by user_id (RC app_user_id = supabase user id)
   const { data: existing } = await supabase
     .from("subscribers")
-    .select("email, user_id")
+    .select("email, user_id, provider, subscribed, subscription_tier, subscription_end")
     .eq("user_id", userId)
     .maybeSingle();
 
@@ -97,15 +98,21 @@ serve(async (req) => {
     return new Response("ok", { status: 200 });
   }
 
+  const currentStripeActive = existing.provider === "stripe" && Boolean(existing.subscribed) &&
+    (!existing.subscription_end || new Date(existing.subscription_end).getTime() > Date.now());
+  const incomingTier = tierFromProduct(event.product_id);
+  const preserveStripe = currentStripeActive &&
+    (String(existing.subscription_tier ?? "").toLowerCase().startsWith("family") || !String(incomingTier ?? "").toLowerCase().startsWith("family"));
+
   await supabase.from("subscribers").upsert(
     {
       email: existing.email,
       user_id: userId,
-      provider: "revenuecat",
+      provider: preserveStripe ? "stripe" : "revenuecat",
       platform: event.store === "PLAY_STORE" ? "android" : event.store === "APP_STORE" ? "ios" : "mobile",
-      subscribed: isGranting,
-      subscription_tier: isGranting ? tierFromProduct(event.product_id) : null,
-      subscription_end: subscriptionEnd,
+      subscribed: currentStripeActive || isGranting,
+      subscription_tier: preserveStripe ? existing.subscription_tier : isGranting ? incomingTier : null,
+      subscription_end: preserveStripe ? existing.subscription_end : subscriptionEnd,
       revenuecat_app_user_id: userId,
       revenuecat_entitlement: isGranting ? ENTITLEMENT_ID : null,
       revenuecat_product_id: event.product_id ?? null,

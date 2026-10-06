@@ -88,7 +88,7 @@ const HelpPage: React.FC = () => {
       questions: [
         {
           question: "Can I create profiles for multiple children?",
-          answer: "Yes. The free plan and Premium each include one child profile. Premium members can add another child for $24.99/month per child (on the Annual plan this is billed yearly, $199 per extra child). Add or remove children any time in Manage Child Profiles."
+          answer: "Yes. Explorer and Premium each include one child profile. Family includes up to four child profiles. Add and manage children normally in Manage Child Profiles. Families needing more than four profiles should contact support."
         },
         {
           question: "Is the app safe for children?",
@@ -96,7 +96,7 @@ const HelpPage: React.FC = () => {
         },
         {
           question: "Can other family members access the account?",
-          answer: "Your subscription covers your family's use. We recommend sharing account credentials securely within your household. Premium includes one child profile; each additional child can be added for $24.99/month."
+          answer: "Your subscription covers your household's use. Premium includes one child profile; Family includes up to four. We recommend keeping account credentials secure."
         }
       ]
     }

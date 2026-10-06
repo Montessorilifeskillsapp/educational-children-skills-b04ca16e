@@ -10,8 +10,6 @@ import BackButton from '@/components/ui/back-button';
 import ChildCoveragePanel from './ChildCoveragePanel';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useAuthContext } from './AuthProvider';
-import { useChildAddonPurchase, addonErrorMessage } from '@/hooks/useChildAddonPurchase';
-import { useToast } from '@/hooks/use-toast';
 
 interface ChildProfile {
   id: string;
@@ -46,10 +44,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   const [editingProfile, setEditingProfile] = useState<ChildProfile | undefined>();
   const [hoveredProfile, setHoveredProfile] = useState<string | null>(null);
   const [limitHit, setLimitHit] = useState(false);
-  const { childAllowance, isPremium } = useSubscription();
-  const addon = useChildAddonPurchase();
-  const { toast } = useToast();
-  const [needsAddon, setNeedsAddon] = useState(false);
+  const { childAllowance, isFamily } = useSubscription();
   const { user } = useAuthContext();
   const coveredCount = profiles.filter(p => p.covered !== false).length;
 
@@ -74,12 +69,10 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   const handleAddProfile = () => {
     const allowance = user ? childAllowance : 1;
     const full = coveredCount >= allowance;
-    if (full && !(user && isPremium)) {
+    if (full) {
       setLimitHit(true);
       return;
     }
-    // Premium members: the form's save button takes payment for the extra child in one step.
-    setNeedsAddon(full);
     setEditingProfile(undefined);
     setShowModal(true);
   };
@@ -106,7 +99,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
 
       <ChildCoveragePanel highlight={limitHit} />
       {limitHit && !user && (
-        <p className="text-sm rounded-md border p-3">The free plan includes one child. Sign in and choose Premium to add more children.</p>
+        <p className="text-sm rounded-md border p-3">Explorer includes one child. Sign in and choose Family to add up to four children.</p>
       )}
 
       {/* Interactive Progress Dashboard for Active Child */}
@@ -223,7 +216,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                   <h3 className="font-semibold text-lg">{profile.name}</h3>
                   <p className="text-sm text-gray-600">{profile.age} years old</p>
                   {profile.covered === false && (
-                    <Badge variant="outline" className="mt-1 text-xs">Needs a child add-on</Badge>
+                    <Badge variant="outline" className="mt-1 text-xs">Not included in current plan</Badge>
                   )}
                   <div className="flex flex-wrap gap-1 mt-2">
                     {profile.interests.slice(0, 2).map(interest => (
@@ -265,24 +258,6 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
         }}
         onSave={handleProfileSave}
         profile={editingProfile}
-        purchase={needsAddon && !editingProfile ? {
-          label: addon.priceLabel,
-          run: async (draft) => {
-            try {
-              const outcome = await addon.buy(draft);
-              if (outcome === 'cancelled') {
-                toast({ title: 'Payment cancelled', description: 'Nothing was charged. Your details are still here.' });
-                return false;
-              }
-              if (outcome === 'redirected') return false;
-              toast({ title: `${draft.name} is on your plan`, description: 'Their profile is ready to use.' });
-              return true;
-            } catch (e) {
-              toast({ title: 'Could not add child', description: addonErrorMessage(e), variant: 'destructive' });
-              return false;
-            }
-          },
-        } : undefined}
       />
     </div>
   );

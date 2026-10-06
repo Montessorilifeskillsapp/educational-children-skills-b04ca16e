@@ -16,9 +16,6 @@ interface Member {
   name: string | null;
   joined: string;
   children: number;
-  child_addons?: number;
-  website_child_addons?: number;
-  store_child_addons?: number;
   premium: boolean;
   via: 'paid' | 'access_code' | null;
   plan: string | null;
@@ -61,8 +58,8 @@ const AdminMembersPage = () => {
   }, [data, filter, q]);
 
   const downloadCsv = () => {
-    const head = ['Name', 'Email', 'Joined', 'Children', 'Extra-child add-ons', 'Premium', 'How', 'Plan', 'Where', 'Songs collection', 'Renews/ends'];
-    const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.child_addons ?? 0, m.premium ? 'Yes' : 'No',
+    const head = ['Name', 'Email', 'Joined', 'Children', 'Member', 'How', 'Plan', 'Where', 'Songs collection', 'Renews/ends'];
+    const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.premium ? 'Yes' : 'No',
       m.via === 'paid' ? 'Paid' : m.via === 'access_code' ? 'Access code' : '', m.plan ?? '', m.where ?? '', m.songs ? 'Yes' : 'No', fmt(m.renews)]
       .map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
@@ -119,7 +116,6 @@ const AdminMembersPage = () => {
                     <TableHead>Email</TableHead>
                     <TableHead>Joined</TableHead>
                     <TableHead className="text-right">Children</TableHead>
-                    <TableHead className="text-right">Add-ons</TableHead>
                     <TableHead>Plan</TableHead>
                     <TableHead>Where</TableHead>
                     <TableHead>Songs</TableHead>
@@ -133,14 +129,6 @@ const AdminMembersPage = () => {
                       <TableCell>{m.email}</TableCell>
                       <TableCell>{fmt(m.joined)}</TableCell>
                       <TableCell className="text-right">{m.children}</TableCell>
-                      <TableCell className="text-right">
-                        {m.child_addons ?? 0}
-                        {(m.child_addons ?? 0) > 0 && (
-                          <span className="block text-xs text-muted-foreground">
-                            {[m.website_child_addons ? `Website ${m.website_child_addons}` : '', m.store_child_addons ? `App ${m.store_child_addons}` : ''].filter(Boolean).join(' · ')}
-                          </span>
-                        )}
-                      </TableCell>
                       <TableCell>
                         {m.premium
                           ? <Badge variant={m.via === 'paid' ? 'default' : 'secondary'}>{m.via === 'access_code' ? `Code: ${m.plan}` : m.plan}</Badge>
@@ -152,7 +140,7 @@ const AdminMembersPage = () => {
                     </TableRow>
                   ))}
                   {rows.length === 0 && (
-                    <TableRow><TableCell colSpan={9} className="text-center text-muted-foreground">No one matches.</TableCell></TableRow>
+                    <TableRow><TableCell colSpan={8} className="text-center text-muted-foreground">No one matches.</TableCell></TableRow>
                   )}
                 </TableBody>
               </Table>

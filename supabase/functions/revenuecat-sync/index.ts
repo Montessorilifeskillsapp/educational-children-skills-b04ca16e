@@ -29,7 +29,7 @@ interface SyncBody {
   productId?: string;
 }
 
-const KNOWN_SUBSCRIPTION_PRODUCTS = new Set(["premium_monthly", "premium_annual"]);
+const KNOWN_SUBSCRIPTION_PRODUCTS = new Set(["premium_monthly", "premium_annual", "family_monthly", "family_annual"]);
 const KNOWN_ONE_TIME_PRODUCTS = new Set(["consultation_session"]);
 
 serve(async (req) => {
@@ -90,10 +90,12 @@ serve(async (req) => {
       subscriptionEnd = raw ?? null;
     }
 
-    const tier = productId?.includes("annual")
+    const tier = productId?.startsWith("family_")
+      ? (productId.includes("annual") ? "Family Annual" : "Family Monthly")
+      : productId?.includes("annual")
       ? "Premium Annual"
       : productId && KNOWN_SUBSCRIPTION_PRODUCTS.has(productId)
-        ? "Premium"
+        ? "Premium Monthly"
         : productId
           ? null
           : null;
@@ -126,15 +128,24 @@ serve(async (req) => {
       }
     }
 
+    const { data: current } = await supabaseAdmin.from("subscribers")
+      .select("provider, subscribed, subscription_tier, subscription_end")
+      .eq("user_id", user.id).maybeSingle();
+    const currentStripeActive = current?.provider === "stripe" && Boolean(current.subscribed) &&
+      (!current.subscription_end || new Date(current.subscription_end).getTime() > Date.now());
+    const currentIsFamily = String(current?.subscription_tier ?? "").toLowerCase().startsWith("family");
+    const incomingIsFamily = String(tier ?? "").toLowerCase().startsWith("family");
+    const preserveStripe = currentStripeActive && (currentIsFamily || !incomingIsFamily);
+
     await supabaseAdmin.from("subscribers").upsert(
       {
         email: user.email,
         user_id: user.id,
-        provider: subscribed ? "revenuecat" : "stripe",
+        provider: preserveStripe ? "stripe" : subscribed ? "revenuecat" : (current?.provider ?? "revenuecat"),
         platform: body.platform ?? "mobile",
-        subscribed,
-        subscription_tier: tier,
-        subscription_end: subscriptionEnd,
+        subscribed: currentStripeActive || subscribed,
+        subscription_tier: preserveStripe ? current?.subscription_tier : tier,
+        subscription_end: preserveStripe ? current?.subscription_end : subscriptionEnd,
         revenuecat_app_user_id: user.id,
         revenuecat_entitlement: subscribed ? ENTITLEMENT_ID : null,
         revenuecat_product_id: productId ?? purchasedProductId ?? null,

@@ -38,14 +38,14 @@ Premium Monthly: US$29.99 per month.
 Premium Annual: US$199 per year.
 Premium unlocks the full activity curriculum for one child.
 
-EXTRA CHILD PROFILES
-Each additional child needs a separate paid add-on. The monthly add-on is US$24.99 per extra child; the annual add-on is US$199 per extra child per year. Each child has their own profile, goals and progress.
+FAMILY PLAN
+Family Monthly is US$49 per month and Family Annual is US$349 per year. Family includes up to four child profiles, each with separate goals and progress. Households needing more than four profiles can contact montessorilifeskills@gmail.com.
 
 PRIVATE CONSULTATION WITH KERRY HOWARD
 Book personalized Montessori guidance separately from Premium: US$225 for one session or US$600 for three sessions. Contact montessorilifeskills@gmail.com for booking enquiries.
 
 SUBSCRIPTION INFORMATION
-Premium and extra-child add-ons are recurring subscriptions. Store purchases are charged to your Apple or Google account and renew automatically unless cancelled before renewal. Manage or cancel them in your store account's subscription settings. Prices above are in US dollars; your store displays the applicable local price before purchase. An internet connection is required for account synchronization and streaming content.
+Premium and Family are recurring subscriptions. Store purchases are charged to your Apple or Google account and renew automatically unless cancelled before renewal. Manage or cancel them in your store account's subscription settings. Prices above are in US dollars; your store displays the applicable local price before purchase. An internet connection is required for account synchronization and streaming content.
 
 Privacy Policy: https://montessorilifeskillsapp.com/privacy-policy
 Terms of Service: https://montessorilifeskillsapp.com/terms-of-service
@@ -68,7 +68,7 @@ https://montessorilifeskillsapp.com/terms-of-service
 
 ## What's New (for updates)
 - A Family Dashboard with separate progress, goals, calendar entries and weekly reports for each child.
-- Updated one-child Premium plans and extra-child add-on options.
+- New Family Plan for up to four child profiles.
 - Clearer activity materials, classroom setup guidance and consultation options.
 
 ---
@@ -76,8 +76,9 @@ https://montessorilifeskillsapp.com/terms-of-service
 ## Submission checks (not public listing copy)
 
 - This document updates listing copy only; it does not submit or update either store listing.
-- Confirm the submitted native version supports every feature named above, including in-app extra-child purchases, and test purchase, cancellation and restore flows on both platforms.
-- Confirm the configured Apple and Google US prices before submitting. The approved annual extra-child price is US$199; if a store uses a different price point, adapt that store's listing to its actual price rather than advertising an unverified amount.
+- Configure `premium_monthly` (US$29.99/month), `premium_annual` (US$199/year), `family_monthly` (US$49/month), and `family_annual` (US$349/year) in App Store Connect, Google Play, and RevenueCat.
+- Confirm the submitted native version supports Premium and Family purchases, and test purchase, plan change, cancellation and restore flows on both platforms.
+- Confirm the configured Apple and Google US prices before submitting. If a store uses a different price point, adapt that store's listing to its actual price rather than advertising an unverified amount.
 - Do not advertise offline access, printable materials, guaranteed outcomes or videos for every activity.
 - Use current screenshots of the actual submitted app; do not use invented screens or sample progress presented as a real user's data.
 

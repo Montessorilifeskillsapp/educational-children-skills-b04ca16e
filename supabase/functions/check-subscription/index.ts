@@ -14,7 +14,10 @@ const logStep = (step: string, details?: unknown) => {
   console.log(`[CHECK-SUBSCRIPTION] ${step}${detailsStr}`);
 };
 
-const getSubscriptionTier = (amount: number, interval?: string | null) => {
+const getSubscriptionTier = (amount: number, interval?: string | null, productName?: string | null, planId?: string | null) => {
+  const identity = `${planId ?? ""} ${productName ?? ""}`.toLowerCase();
+  if (identity.includes("family")) return interval === "year" ? "Family Annual" : "Family Monthly";
+  if (identity.includes("premium")) return interval === "year" ? "Premium Annual" : "Premium Monthly";
   if (amount === 1500 && interval === "month") {
     return "Premium";
   }
@@ -114,7 +117,8 @@ serve(async (req) => {
         child_addons: (existingRow.child_addons ?? 0) + (existingRow.store_child_addons ?? 0),
         website_child_addons: existingRow.child_addons ?? 0,
         store_child_addons: existingRow.store_child_addons ?? 0,
-        child_allowance: 1 + (active ? (existingRow.child_addons ?? 0) + (existingRow.store_child_addons ?? 0) : 0),
+        child_allowance: active && String(existingRow.subscription_tier ?? "").toLowerCase().startsWith("family")
+          ? 4 : 1 + (active ? (existingRow.child_addons ?? 0) + (existingRow.store_child_addons ?? 0) : 0),
       }), {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
         status: 200,
@@ -175,8 +179,17 @@ serve(async (req) => {
       limit: 10,
       expand: ADDON_EXPAND,
     });
-    // The Premium subscription is the one with a base (non-add-on) item.
-    const premiumSub = subscriptions.data.find((s) => s.items.data.some((i) => !isAddonItem(i)));
+    // Prefer a Family base subscription when overlapping legacy subscriptions
+    // temporarily coexist; otherwise use the newest active base subscription.
+    const baseSubscriptions = subscriptions.data
+      .filter((s) => s.items.data.some((i) => !isAddonItem(i)))
+      .sort((a, b) => b.created - a.created);
+    const productIdentity = (s: typeof baseSubscriptions[number]) => {
+      const item = s.items.data.find((i) => !isAddonItem(i));
+      const product = item?.price?.product;
+      return `${s.metadata?.planId ?? ""} ${product && typeof product === "object" ? `${product.name ?? ""} ${product.metadata?.plan_id ?? ""}` : ""}`.toLowerCase();
+    };
+    const premiumSub = baseSubscriptions.find((s) => productIdentity(s).includes("family")) ?? baseSubscriptions[0];
     const hasActiveSub = Boolean(premiumSub);
     let subscriptionTier = null;
     let subscriptionEnd = null;
@@ -192,7 +205,10 @@ serve(async (req) => {
       childAddons = addonItem?.quantity ?? 0;
       const baseItem = subscription.items.data.find((i) => !isAddonItem(i));
       const interval = baseItem?.price?.recurring?.interval;
-      subscriptionTier = interval === "year" ? "Premium Annual" : interval === "month" ? "Premium" : getSubscriptionTier(baseItem?.price?.unit_amount || 0, interval);
+      const product = baseItem?.price?.product;
+      const productName = product && typeof product === "object" ? product.name : null;
+      const planId = product && typeof product === "object" ? product.metadata?.plan_id : subscription.metadata?.planId;
+      subscriptionTier = getSubscriptionTier(baseItem?.price?.unit_amount || 0, interval, productName, planId);
       logStep("Determined subscription tier", { interval, subscriptionTier, childAddons });
     } else {
       logStep("No active subscription found");
@@ -221,7 +237,8 @@ serve(async (req) => {
       child_addons: childAddons + storeAddons,
       website_child_addons: childAddons,
       store_child_addons: storeAddons,
-      child_allowance: 1 + (hasActiveSub ? childAddons + storeAddons : 0),
+      child_allowance: hasActiveSub && String(subscriptionTier ?? "").toLowerCase().startsWith("family")
+        ? 4 : 1 + (hasActiveSub ? childAddons + storeAddons : 0),
       provider: "stripe",
     }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

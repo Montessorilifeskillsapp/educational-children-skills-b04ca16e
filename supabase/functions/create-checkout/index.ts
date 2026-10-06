@@ -1,7 +1,6 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@14.21.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
-import { ADDON_PRODUCT_NAME, MAX_ADDONS, addonCentsFor } from "../_shared/childAddons.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -37,6 +36,16 @@ const PLAN_CONFIG = {
   "premium-yearly": {
     productName: "Premium Annual Plan",
     unitAmount: 19900,
+    interval: "year" as const,
+  },
+  "family-monthly": {
+    productName: "Family Monthly Plan",
+    unitAmount: 4900,
+    interval: "month" as const,
+  },
+  "family-yearly": {
+    productName: "Family Annual Plan",
+    unitAmount: 34900,
     interval: "year" as const,
   },
 };
@@ -77,8 +86,7 @@ serve(async (req) => {
       logStep("No auth header — guest checkout");
     }
 
-    const { planId, childAddons } = await req.json();
-    const addonQty = Number.isInteger(childAddons) ? Math.min(Math.max(childAddons, 0), MAX_ADDONS) : 0;
+    const { planId } = await req.json();
     const normalizedPlanId = typeof planId === "string" ? planId : "";
     const selectedPlan = PLAN_CONFIG[normalizedPlanId as keyof typeof PLAN_CONFIG];
 
@@ -96,6 +104,51 @@ serve(async (req) => {
       if (customers.data.length > 0) {
         customerId = customers.data[0].id;
         logStep("Existing customer found", { customerId });
+      }
+    }
+
+    // Existing website subscribers switch to Family at renewal. This avoids a
+    // second overlapping subscription and preserves their current paid period.
+    if (user && customerId && normalizedPlanId.startsWith("family-")) {
+      const active = await stripe.subscriptions.list({ customer: customerId, status: "active", limit: 10 });
+      const current = active.data.find((sub) => sub.metadata?.kind !== "child_addons");
+      if (current) {
+        const existingSchedule = current.schedule
+          ? await stripe.subscriptionSchedules.retrieve(String(current.schedule))
+          : null;
+        if (existingSchedule?.metadata?.planId === normalizedPlanId) {
+          return new Response(JSON.stringify({ scheduled: true, effectiveAt: new Date(current.current_period_end * 1000).toISOString() }), {
+            headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200,
+          });
+        }
+        const product = await stripe.products.create({
+          name: selectedPlan.productName,
+          metadata: { plan_id: normalizedPlanId },
+        });
+        const price = await stripe.prices.create({
+          currency: "usd",
+          unit_amount: selectedPlan.unitAmount,
+          recurring: { interval: selectedPlan.interval },
+          product: product.id,
+          metadata: { plan_id: normalizedPlanId },
+        });
+        const schedule = existingSchedule ?? await stripe.subscriptionSchedules.create({ from_subscription: current.id });
+        const currentItems = current.items.data.map((item) => ({ price: item.price.id, quantity: item.quantity ?? 1 }));
+        await stripe.subscriptionSchedules.update(schedule.id, {
+          end_behavior: "release",
+          phases: [
+            { items: currentItems, start_date: current.current_period_start, end_date: current.current_period_end },
+            { items: [{ price: price.id, quantity: 1 }], start_date: current.current_period_end },
+          ],
+          metadata: { planId: normalizedPlanId, userId: user.id },
+        });
+        for (const legacyAddon of active.data.filter((sub) => sub.metadata?.kind === "child_addons")) {
+          await stripe.subscriptions.update(legacyAddon.id, { cancel_at_period_end: true });
+        }
+        logStep("Family migration scheduled", { subscriptionId: current.id, effectiveAt: current.current_period_end });
+        return new Response(JSON.stringify({ scheduled: true, effectiveAt: new Date(current.current_period_end * 1000).toISOString() }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200,
+        });
       }
     }
 
@@ -147,23 +200,12 @@ serve(async (req) => {
         {
           price_data: {
             currency: "usd",
-            product_data: { name: selectedPlan.productName },
+            product_data: { name: selectedPlan.productName, metadata: { plan_id: normalizedPlanId } },
             unit_amount: selectedPlan.unitAmount,
             recurring: { interval: selectedPlan.interval },
           },
           quantity: 1,
         },
-        ...(addonQty > 0
-          ? [{
-              price_data: {
-                currency: "usd",
-                product_data: { name: ADDON_PRODUCT_NAME },
-                unit_amount: addonCentsFor(selectedPlan.interval),
-                recurring: { interval: selectedPlan.interval },
-              },
-              quantity: addonQty,
-            }]
-          : []),
       ],
       mode: "subscription",
       success_url: `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}&planId=${encodeURIComponent(normalizedPlanId)}`,
