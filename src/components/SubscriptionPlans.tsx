@@ -140,6 +140,8 @@ interface SubscriptionPlansProps {
 
 type CheckoutResponse = {
   url?: string;
+  scheduled?: boolean;
+  effectiveAt?: string;
   error?: string;
 };
 
@@ -255,6 +257,15 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       if (error) throw error;
       const checkoutData = data as CheckoutResponse | null;
       if (checkoutData?.error) throw new Error(checkoutData.error);
+      if (checkoutData?.scheduled) {
+        toast({
+          title: 'Family Plan scheduled',
+          description: checkoutData.effectiveAt
+            ? `Your Family Plan begins when your current plan renews on ${formatSubscriptionEnd(checkoutData.effectiveAt)}.`
+            : 'Your Family Plan begins at your next renewal.',
+        });
+        return;
+      }
       if (!data?.url) throw new Error('Stripe checkout URL was not returned');
       toast({
         title: 'Redirecting to Checkout',

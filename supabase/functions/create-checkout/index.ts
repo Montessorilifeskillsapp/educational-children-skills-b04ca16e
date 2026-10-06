@@ -107,6 +107,42 @@ serve(async (req) => {
       }
     }
 
+    // Existing website subscribers switch to Family at renewal. This avoids a
+    // second overlapping subscription and preserves their current paid period.
+    if (user && customerId && normalizedPlanId.startsWith("family-")) {
+      const active = await stripe.subscriptions.list({ customer: customerId, status: "active", limit: 10 });
+      const current = active.data.find((sub) => sub.metadata?.kind !== "child_addons");
+      if (current) {
+        const product = await stripe.products.create({
+          name: selectedPlan.productName,
+          metadata: { plan_id: normalizedPlanId },
+        });
+        const price = await stripe.prices.create({
+          currency: "usd",
+          unit_amount: selectedPlan.unitAmount,
+          recurring: { interval: selectedPlan.interval },
+          product: product.id,
+          metadata: { plan_id: normalizedPlanId },
+        });
+        const schedule = current.schedule
+          ? await stripe.subscriptionSchedules.retrieve(String(current.schedule))
+          : await stripe.subscriptionSchedules.create({ from_subscription: current.id });
+        const currentItems = current.items.data.map((item) => ({ price: item.price.id, quantity: item.quantity ?? 1 }));
+        await stripe.subscriptionSchedules.update(schedule.id, {
+          end_behavior: "release",
+          phases: [
+            { items: currentItems, start_date: current.current_period_start, end_date: current.current_period_end },
+            { items: [{ price: price.id, quantity: 1 }], start_date: current.current_period_end },
+          ],
+          metadata: { planId: normalizedPlanId, userId: user.id },
+        });
+        logStep("Family migration scheduled", { subscriptionId: current.id, effectiveAt: current.current_period_end });
+        return new Response(JSON.stringify({ scheduled: true, effectiveAt: new Date(current.current_period_end * 1000).toISOString() }), {
+          headers: { ...corsHeaders, "Content-Type": "application/json" }, status: 200,
+        });
+      }
+    }
+
     const ALLOWED_ORIGINS = [
       "https://montessorilifeskillsapp.com",
       "https://educational-children-skills.lovable.app",
