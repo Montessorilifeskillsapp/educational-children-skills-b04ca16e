@@ -1,7 +1,7 @@
 ## Open tasks
-- [ ] Replace per-child add-ons with two plans: Premium (1 child, $29.99/month or $199/year) and Family (up to 4 children, $49/month or $349/year); migrate existing add-on subscribers at renewal and direct families over four to support.
+- [x] Replace per-child add-ons with two plans: Premium (1 child, $29.99/month or $199/year) and Family (up to 4 children, $49/month or $349/year); preserve legacy add-on access for renewal migration and direct families over four to support.
 - [x] October 6 prepublication diagnostic: 72 public page views, nine free starter navigation flows, hosted auth settings, service guards, 53 regression tests, lint and dependency/security scans. Evidence: PREPUBLICATION_DIAGNOSTIC.md.
-- [ ] October 6 release blockers: authenticated password-reset render, stale plan savings/one-child copy, install-banner Back obstruction, purchase offered for empty songs catalog, security advisory review. Diagnostic-only request; awaiting approval for changes.
+- [x] October 6 release blockers: authenticated password-reset render, stale plan savings/one-child copy, install-banner Back obstruction, purchase offered for empty songs catalog, security advisory review.
 - [ ] October 6 signed-in Premium/admin/dashboard/child editing checks: unavailable for external unmanaged authentication; real payments, email delivery and native device checks still need validation.
 - [x] Clarified scope: add copyright and permitted-use terms for Kerry's songs and instructional videos; keep school licensing separate and do not imply family access grants trademark rights.
 - [x] Family Dashboard redesign: per-child overview, goals, calendar, weekly reports, working settings, email + push notifications
@@ -58,7 +58,7 @@
 - [x] Rebuild the homepage around a truthful adult-guide journey, preserving colors and curriculum access.
 
 - [x] Homepage Pouring Water sample photo: use the user-approved image only in this sample section.
-- [x] Premium covers one child; extra-child add-on $24.99/month (annual: $199/yr per child); free plan one child; existing extra profiles need an add-on
-- [ ] Native extra-child add-on: create child_addon_monthly / child_addon_annual in App Store Connect and Google Play, then map in revenuecat-sync — needs store setup + app release
+- [x] Premium covers one child; Family covers up to four children; free plan covers one child.
+- [ ] Native Family products: create family_monthly and family_annual in App Store Connect, Google Play, and RevenueCat — needs store setup + app release.
 
 - [ ] Exact item photos for "What you'll need": batch 1 (Practical Life, 20) awaiting approval; then remaining Practical Life, Sensorial, Math, Language, Botany, Geography, Science, Art, Grace and Courtesy

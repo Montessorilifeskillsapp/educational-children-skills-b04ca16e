@@ -6,7 +6,7 @@ import { toast } from '@/hooks/use-toast';
 const isLimitError = (e: unknown) => /CHILD_LIMIT_REACHED/.test(String((e as { message?: string })?.message ?? e));
 const showLimitToast = () => toast({
   title: 'Your plan covers this many children',
-  description: 'Add another child to your Premium plan for $24.99/month from Plans or Manage Child Profiles.',
+  description: 'Choose the Family Plan for up to four children, or contact support if you need more.',
 });
 
 interface ChildProfile {
@@ -16,7 +16,7 @@ interface ChildProfile {
   avatar: string;
   interests: string[];
   learningStyle: string;
-  /** False when this child needs an extra-child add-on before it can be used. */
+  /** False when this child is outside the current plan allowance. */
   covered?: boolean;
 }
 
@@ -304,7 +304,7 @@ export const ProfileProvider: React.FC<{ children: React.ReactNode }> = ({ child
 
   const setActiveProfile = (profile: ChildProfile) => {
     if (profile.covered === false) {
-      toast({ title: `${profile.name} needs a child add-on`, description: 'Their saved progress is safe. Add them to your plan in Manage Child Profiles.' });
+      toast({ title: `${profile.name} is not included in this plan`, description: 'Their saved progress is safe. Choose Family for up to four children.' });
       return;
     }
     setActiveProfileState(profile);
