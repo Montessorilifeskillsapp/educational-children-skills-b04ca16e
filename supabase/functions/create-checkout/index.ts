@@ -152,6 +152,19 @@ serve(async (req) => {
       }
     }
 
+    // Never open a second overlapping subscription for an existing website member.
+    if (customerId && normalizedPlanId !== "songs-bundle") {
+      const active = await stripe.subscriptions.list({ customer: customerId, status: "active", limit: 10 });
+      const trialing = await stripe.subscriptions.list({ customer: customerId, status: "trialing", limit: 10 });
+      const hasBase = [...active.data, ...trialing.data].some((sub) => sub.metadata?.kind !== "child_addons");
+      if (hasBase) {
+        throw new CheckoutError(
+          "You already have an active plan. To change it, use Manage Subscription or contact montessorilifeskills@gmail.com.",
+          409,
+        );
+      }
+    }
+
     const ALLOWED_ORIGINS = [
       "https://montessorilifeskillsapp.com",
       "https://educational-children-skills.lovable.app",
