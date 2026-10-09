@@ -37,16 +37,20 @@ Deno.serve(async (req) => {
   }
 
   if (userId) {
-    // Grant premium access for review
-    const { error: subErr } = await admin.from('subscribers').upsert({
+    // Grant premium access for review (subscribers has no unique key on user_id, so update-or-insert)
+    const grant = {
       user_id: userId,
       email,
       subscribed: true,
-      subscription_tier: 'premium-yearly',
+      subscription_tier: 'Premium Annual',
       subscription_end: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
       provider: 'manual',
-    }, { onConflict: 'user_id' });
-    if (subErr) console.error('subscriber upsert', subErr); (globalThis as any).__subErr = subErr?.message;
+      updated_at: new Date().toISOString(),
+    };
+    const { data: updated, error: updErr } = await admin.from('subscribers').update(grant).eq('user_id', userId).select('id');
+    let subErr = updErr;
+    if (!updErr && !updated?.length) ({ error: subErr } = await admin.from('subscribers').insert(grant));
+    if (subErr) console.error('subscriber grant', subErr); (globalThis as any).__subErr = subErr?.message;
 
     // Demo child with sample progress/goals so recordings show a lived-in dashboard.
     const { data: kids } = await admin.from('child_profiles').select('id').eq('user_id', userId).limit(1);
