@@ -80,10 +80,15 @@ Deno.serve(async (req) => {
           { child_id: childId, user_id: userId, title: 'Early sound recognition', area: 'language', skill_ids: ['sandpaper-letters'], priority: 2, sort_order: 1, status: 'active' },
         ]);
       }
-      const start = new Date(); start.setDate(start.getDate() + 1); start.setHours(9, 30, 0, 0);
-      await admin.from('calendar_events').insert({
-        child_id: childId, user_id: userId, skill_id: 'pink-tower', title: 'Pink Tower', starts_at: start.toISOString(), duration_minutes: 20,
-      });
+      // Keep exactly one upcoming demo session (earlier versions of this seed added duplicates).
+      const { data: evs } = await admin.from('calendar_events').select('id').eq('child_id', childId).eq('title', 'Pink Tower').order('created_at');
+      if (evs && evs.length > 1) await admin.from('calendar_events').delete().in('id', evs.slice(1).map((e) => e.id));
+      if (!evs?.length) {
+        const start = new Date(); start.setDate(start.getDate() + 1); start.setHours(9, 30, 0, 0);
+        await admin.from('calendar_events').insert({
+          child_id: childId, user_id: userId, skill_id: 'pink-tower', title: 'Pink Tower', starts_at: start.toISOString(), duration_minutes: 20,
+        });
+      }
     }
   }
 
