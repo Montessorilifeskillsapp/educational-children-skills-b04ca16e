@@ -38,7 +38,7 @@ Deno.serve(async (req) => {
 
   if (userId) {
     // Grant premium access for review
-    await admin.from('subscribers').upsert({
+    const { error: subErr } = await admin.from('subscribers').upsert({
       user_id: userId,
       email,
       subscribed: true,
@@ -46,6 +46,7 @@ Deno.serve(async (req) => {
       subscription_end: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString(),
       provider: 'manual',
     }, { onConflict: 'user_id' });
+    if (subErr) console.error('subscriber upsert', subErr); (globalThis as any).__subErr = subErr?.message;
 
     // Demo child with sample progress/goals so recordings show a lived-in dashboard.
     const { data: kids } = await admin.from('child_profiles').select('id').eq('user_id', userId).limit(1);
@@ -82,7 +83,7 @@ Deno.serve(async (req) => {
     }
   }
 
-  return new Response(JSON.stringify({ ok: true, email, password, userId }), {
+  return new Response(JSON.stringify({ ok: true, email, password, userId, subErr: (globalThis as any).__subErr ?? null }), {
     headers: { ...corsHeaders, 'Content-Type': 'application/json' },
   });
 });
