@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] TV demo: record real screen clips of the app (desktop 1920x1080 + phone) signed in as the premium demo account; seed demo child/progress.
 - [x] Replace per-child add-ons with two plans: Premium (1 child, $29.99/month or $199/year) and Family (up to 4 children, $49/month or $349/year); preserve legacy add-on access for renewal migration and direct families over four to support.
 - [x] October 6 prepublication diagnostic: 72 public page views, nine free starter navigation flows, hosted auth settings, service guards, 53 regression tests, lint and dependency/security scans. Evidence: PREPUBLICATION_DIAGNOSTIC.md.
 - [x] October 6 release blockers: authenticated password-reset render, stale plan savings/one-child copy, install-banner Back obstruction, purchase offered for empty songs catalog, security advisory review.
