@@ -13,6 +13,7 @@ import RosterTab from '@/components/school/RosterTab';
 import ProgressTab from '@/components/school/ProgressTab';
 import PlanningTab from '@/components/school/PlanningTab';
 import StaffTab from '@/components/school/StaffTab';
+import StaffActivity from '@/components/school/StaffActivity';
 import StudentPanel from '@/components/school/StudentPanel';
 import { skillById } from '@/components/school/curriculum';
 
@@ -41,6 +42,7 @@ export default function SchoolPortalPage() {
   }, [user]);
 
   const { data, loading, reload } = useSchoolData(schoolId);
+  const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const me = memberships?.find((m) => m.school_id === schoolId);
   const role = me?.role ?? 'assistant';
   const visibleRooms = useMemo(() => {
@@ -54,7 +56,7 @@ export default function SchoolPortalPage() {
   // If the current tab is no longer available (role changed, classroom gone), fall back to Overview instead of a blank page.
   useEffect(() => {
     if (!memberships) return;
-    if ((tab === 'staff' && !can.manageSchool(role)) || (tab !== 'overview' && tab !== 'staff' && !classroomId)) setTab('overview');
+    if (((tab === 'staff' || tab === 'activity') && !can.manageSchool(role)) || (!['overview', 'staff', 'activity'].includes(tab) && !classroomId)) setTab('overview');
   }, [tab, role, classroomId, memberships]);
 
   if (authLoading || (user && memberships === null)) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner /></div>;
@@ -90,7 +92,7 @@ export default function SchoolPortalPage() {
       <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
         <div>
           <h1 className="text-3xl font-bold text-foreground">School Portal</h1>
-          <p className="text-muted-foreground">{school.name} · {ROLE_LABEL[role]}</p>
+          <p className="text-muted-foreground">{school.name} · {ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
           {memberships.length > 1 && (
@@ -115,6 +117,7 @@ export default function SchoolPortalPage() {
             <TabsTrigger value="roster" disabled={!classroom}>Class roster</TabsTrigger>
             <TabsTrigger value="progress" disabled={!classroom}>Progress</TabsTrigger>
             <TabsTrigger value="planning" disabled={!classroom}>Lesson planning</TabsTrigger>
+            {can.manageSchool(role) && <TabsTrigger value="activity">Staff activity</TabsTrigger>}
             {can.manageSchool(role) && <TabsTrigger value="staff">Classrooms & staff</TabsTrigger>}
           </TabsList>
 
@@ -159,12 +162,17 @@ export default function SchoolPortalPage() {
                 <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} onChange={reload} onOpenStudent={setOpenStudent} />
               </TabsContent>
               <TabsContent value="progress">
-                <ProgressTab students={students} progress={progress} onChange={reload} onOpenStudent={setOpenStudent} />
+                <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
               </TabsContent>
               <TabsContent value="planning">
                 <PlanningTab key={planSeed ? planSeed.skill_id : 'plan'} role={role} classroom={classroom} students={students} plans={plans} onChange={reload} initial={planSeed} onInitialUsed={() => setPlanSeed(null)} />
               </TabsContent>
             </>
+          )}
+          {can.manageSchool(role) && (
+            <TabsContent value="activity">
+              <StaffActivity data={data} nameOf={nameOf} onOpenStudent={setOpenStudent} />
+            </TabsContent>
           )}
           {can.manageSchool(role) && schoolId && (
             <TabsContent value="staff">
@@ -177,7 +185,8 @@ export default function SchoolPortalPage() {
       {openStudent && (
         <StudentPanel role={role} userId={user.id} student={data.students.find((s) => s.id === openStudent) ?? null}
           progress={data.progress} observations={data.observations} reports={data.reports}
-          onClose={() => setOpenStudent(null)} onChange={reload}
+          onClose={() => setOpenStudent(null)} onChange={reload} nameOf={nameOf} onSelect={setOpenStudent}
+          classmates={(() => { const st = data.students.find((x) => x.id === openStudent); return data.students.filter((x) => x.classroom_id === st?.classroom_id && !x.archived); })()}
           onPlan={(skillId, sid) => { if (skillById(skillId)) { setPlanSeed({ skill_id: skillId, student_ids: [sid] }); setOpenStudent(null); setTab('planning'); } }} />
       )}
     </div>
