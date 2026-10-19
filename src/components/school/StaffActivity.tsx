@@ -1,9 +1,10 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { ROLE_LABEL } from './api';
 import { SchoolData } from './useSchoolData';
-import { skillById } from './curriculum';
+import { skillById, skillLink } from './curriculum';
 import { StatusBadge } from './ProgressChooser';
 
 interface Props { data: SchoolData; nameOf: (userId: string | null) => string; onOpenStudent: (id: string) => void }
@@ -39,13 +40,14 @@ export default function StaffActivity({ data, nameOf, onOpenStudent }: Props) {
           <ul className="divide-y divide-border">
             {items.map((r) => {
               const st = student(r.studentId);
+              const skill = r.kind === 'progress' ? skillById(r.p.skill_id) : undefined;
               return (
                 <li key={`${r.kind}-${r.id}`} className="py-2 text-sm flex flex-wrap items-center gap-2">
                   <span className="text-xs text-muted-foreground w-28">{new Date(r.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} · {nameOf(r.by)}</span>
                   <button className="font-medium hover:underline" onClick={() => st && onOpenStudent(st.id)}>{st?.name ?? 'Student'}</button>
                   <span className="text-xs text-muted-foreground">{room(st?.classroom_id)}</span>
                   {r.kind === 'progress'
-                    ? <><span>{skillById(r.p.skill_id)?.title ?? r.p.skill_id}</span><StatusBadge status={r.p.status} />{r.p.note && <span className="text-muted-foreground">· {r.p.note}</span>}</>
+                    ? <>{skill ? <Link to={skillLink(skill)} className="font-medium hover:underline">{skill.title}</Link> : <span>{r.p.skill_id}</span>}<StatusBadge status={r.p.status} />{r.p.note && <span className="text-muted-foreground">· {r.p.note}</span>}</>
                     : <span className="text-muted-foreground">Note: {r.o.body.length > 140 ? `${r.o.body.slice(0, 140)}…` : r.o.body}</span>}
                 </li>
               );

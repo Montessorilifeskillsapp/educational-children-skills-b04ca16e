@@ -1,19 +1,31 @@
 import { useCallback, useMemo, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Search, UserRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress, Student } from './api';
 import ProgressChooser, { STATUS_LABEL, lastUpdate } from './ProgressChooser';
-import { areas, orderedSkills } from './curriculum';
+import { areas, orderedSkills, skillLink } from './curriculum';
 
 interface Props { students: Student[]; progress: Progress[]; canEdit: boolean; nameOf: (userId: string | null) => string; onChange: () => void; onOpenStudent: (id: string) => void }
 
 export default function ProgressTab({ students, progress, canEdit, nameOf, onChange, onOpenStudent }: Props) {
-  const [area, setArea] = useState(areas()[0].key);
-  const [selectedId, setSelectedId] = useState('');
-  const [activityId, setActivityId] = useState('');
-  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
+  const [params, setParams] = useSearchParams();
+  const updateParam = (key: string, value: string) => setParams((previous) => {
+    const next = new URLSearchParams(previous);
+    if (value) next.set(key, value); else next.delete(key);
+    return next;
+  }, { replace: true });
+  const area = params.get('area') || areas()[0].key;
+  const selectedId = params.get('recordStudent') || '';
+  const activityId = params.get('recordActivity') || '';
+  const query = params.get('search') || '';
+  const setArea = (value: string) => updateParam('area', value);
+  const setSelectedId = (value: string) => updateParam('recordStudent', value);
+  const setActivityId = (value: string) => updateParam('recordActivity', value);
+  const setQuery = (value: string) => updateParam('search', value);
   const [draft, setDraft] = useState({ dirty: false, busy: false });
   const onDraftChange = useCallback((dirty: boolean, busy: boolean) => setDraft({ dirty, busy }), []);
   const student = students.find((s) => s.id === selectedId) ?? students[0];
@@ -55,6 +67,7 @@ export default function ProgressTab({ students, progress, canEdit, nameOf, onCha
           <div className="mb-5 border-b border-border pb-4">
             <div className="flex flex-wrap items-center justify-between gap-2"><p className="text-xs font-medium text-muted-foreground">{activity.areaTitle ?? areas().find((a) => a.key === area)?.title}</p>{!canEdit && <span className="text-xs text-muted-foreground">View only</span>}</div>
             <h2 className="text-xl font-semibold mt-1">{activity.title}</h2>
+            <Button variant="outline" size="sm" className="mt-3" disabled={draft.busy} onClick={() => switchContext(() => navigate(skillLink(activity)))}>Open activity guide</Button>
             <p className="text-xs text-muted-foreground mt-2">{current ? `Last recorded ${lastUpdate(current, nameOf)}` : 'No observation recorded'}</p>
           </div>
           {canEdit ? <ProgressChooser key={`${student.id}:${activity.id}`} inline studentId={student.id} studentName={student.name} activityTitle={activity.title} skillId={activity.id} current={current} nameOf={nameOf} onSaved={onChange} onDraftChange={onDraftChange} /> : <div className="space-y-4"><p className="font-medium">{current ? STATUS_LABEL[current.status] : 'Not presented'}</p><p className="text-sm whitespace-pre-wrap break-words text-muted-foreground">{current?.note ?? 'No observation notes.'}</p></div>}
