@@ -10,7 +10,7 @@ import { Dialog, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { can, Classroom, PlanItem, schoolCall, SchoolRole, Student } from './api';
-import { areas, orderedSkills, skillById } from './curriculum';
+import { areas, orderedSkills, skillById, skillLink } from './curriculum';
 
 const iso = (d: Date) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
 const monday = (d: Date) => { const x = new Date(d); const day = (x.getDay() + 6) % 7; x.setDate(x.getDate() - day); x.setHours(0, 0, 0, 0); return x; };
@@ -66,7 +66,7 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
                       <div className="flex items-start gap-2">
                         <Checkbox checked={p.done} onCheckedChange={(v) => act({ action: 'plan_done', id: p.id, done: !!v })} aria-label="Mark done" className="mt-0.5 print:hidden" />
                         <div className="flex-1">
-                          {sk ? <Link to={sk.route} className={`font-medium hover:underline ${p.done ? 'line-through' : ''}`}>{sk.title}</Link> : <span>{p.skill_id}</span>}
+                          {sk ? <Link to={skillLink(sk)} className={`font-medium hover:underline ${p.done ? 'line-through' : ''}`}>{sk.title}</Link> : <span>{p.skill_id}</span>}
                           <p className="text-muted-foreground">{p.student_ids.length ? p.student_ids.map((id) => names.get(id) ?? '').filter(Boolean).join(', ') : 'Whole class'}</p>
                           {p.notes && <p className="mt-1">{p.notes}</p>}
                         </div>
