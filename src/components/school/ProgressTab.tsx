@@ -2,34 +2,17 @@ import { useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { useToast } from '@/hooks/use-toast';
-import { Progress, schoolCall, Student } from './api';
+import { Progress, Student } from './api';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import ProgressChooser, { STATUSES, STATUS_LABEL, STATUS_STYLE, lastUpdate } from './ProgressChooser';
 import { areas, orderedSkills } from './curriculum';
 
-const NEXT: Record<string, 'presented' | 'practising' | 'mastered' | 'clear'> = { none: 'presented', presented: 'practising', practising: 'mastered', mastered: 'clear' };
-const MARK: Record<string, string> = { presented: 'P', practising: 'Pr', mastered: 'M' };
-const STYLE: Record<string, string> = {
-  presented: 'bg-accent text-accent-foreground', practising: 'bg-secondary text-secondary-foreground', mastered: 'bg-primary text-primary-foreground',
-};
+interface Props { students: Student[]; progress: Progress[]; canEdit: boolean; nameOf: (userId: string | null) => string; onChange: () => void; onOpenStudent: (id: string) => void }
 
-interface Props { students: Student[]; progress: Progress[]; onChange: () => void; onOpenStudent: (id: string) => void }
-
-export default function ProgressTab({ students, progress, onChange, onOpenStudent }: Props) {
-  const { toast } = useToast();
+export default function ProgressTab({ students, progress, canEdit, nameOf, onChange, onOpenStudent }: Props) {
   const [area, setArea] = useState(areas()[0].key);
   const skills = useMemo(() => orderedSkills().filter((s) => s.areaKey === area), [area]);
   const map = useMemo(() => new Map(progress.map((p) => [`${p.student_id}:${p.skill_id}`, p])), [progress]);
-  const [busy, setBusy] = useState<string | null>(null);
-
-  const cycle = async (sid: string, skill: string) => {
-    const key = `${sid}:${skill}`;
-    const cur = map.get(key)?.status ?? 'none';
-    setBusy(key);
-    try { await schoolCall({ action: 'progress_set', student_id: sid, skill_id: skill, status: NEXT[cur] }); onChange(); }
-    catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
-    finally { setBusy(null); }
-  };
-
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-3 flex-wrap space-y-0">
@@ -40,7 +23,10 @@ export default function ProgressTab({ students, progress, onChange, onOpenStuden
         </Select>
       </CardHeader>
       <CardContent>
-        <p className="text-xs text-muted-foreground mb-3">Tap a cell to step through Presented (P), Practising (Pr), Mastered (M), then clear. Activities run beginner to advanced, left to right.</p>
+        <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-muted-foreground">
+          {STATUSES.map((st) => <span key={st} className={`rounded px-1.5 py-0.5 font-semibold border ${STATUS_STYLE[st]}`}>{STATUS_LABEL[st]}</span>)}
+          <span>{canEdit ? 'Tap a cell to choose a status. Tap a name to open that student.' : 'View only. Tap a name to see that student.'} Activities run beginner to advanced, left to right.</span>
+        </div>
         {students.length === 0 ? <p className="text-sm text-muted-foreground">Add students to start recording.</p> : (
           <div className="overflow-auto max-h-[70vh] border border-border rounded-md">
             <table className="text-sm border-collapse">
@@ -64,11 +50,24 @@ export default function ProgressTab({ students, progress, onChange, onOpenStuden
                       const p = map.get(`${st.id}:${sk.id}`);
                       return (
                         <td key={sk.id} className="p-1 border-b border-border text-center">
-                          <button aria-label={`${st.name}, ${sk.title}: ${p?.status ?? 'not recorded'}`} disabled={busy === `${st.id}:${sk.id}`}
-                            onClick={() => cycle(st.id, sk.id)}
-                            className={`w-10 h-8 rounded text-xs font-semibold border border-border ${p ? STYLE[p.status] : 'bg-background text-muted-foreground'}`}>
-                            {p ? MARK[p.status] : '·'}
-                          </button>
+                          {(() => {
+                            const cell = (
+                              <button type="button" aria-label={`${st.name}, ${sk.title}: ${p ? STATUS_LABEL[p.status] : 'not recorded'}`} title={lastUpdate(p, nameOf)}
+                                className={`w-24 h-8 rounded text-[11px] font-semibold border ${p ? STATUS_STYLE[p.status] : 'bg-background text-muted-foreground border-border'} ${canEdit ? '' : 'cursor-default'}`}>
+                                {p ? STATUS_LABEL[p.status] : canEdit ? '+ Record' : '—'}
+                              </button>
+                            );
+                            if (!canEdit) return cell;
+                            return (
+                              <Popover>
+                                <PopoverTrigger asChild>{cell}</PopoverTrigger>
+                                <PopoverContent className="w-72">
+                                  <p className="text-sm font-medium mb-2">{st.name} · {sk.title}</p>
+                                  <ProgressChooser studentId={st.id} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} />
+                                </PopoverContent>
+                              </Popover>
+                            );
+                          })()}
                         </td>
                       );
                     })}
