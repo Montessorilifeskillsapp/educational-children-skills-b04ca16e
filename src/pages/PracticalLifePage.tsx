@@ -4,11 +4,13 @@ import PracticalLifeOverview from '@/components/PracticalLifeOverview';
 import PracticalLifeSkills from '@/components/PracticalLifeSkills';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import SEOOptimizer from '@/components/SEOOptimizer';
+import SchoolReturnBar from '@/components/school/SchoolReturnBar';
 import { useSEO } from '@/hooks/useSEO';
+import { useActivityParam } from '@/hooks/useActivityParam';
 
 const PracticalLifePage: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedSkill, setSelectedSkill] = useState<string>('');
+  const [selectedSkill, setSelectedSkill] = useActivityParam();
   const [completedSkills, setCompletedSkills] = useState<string[]>([]);
   const { isPremium } = useSubscription();
   
@@ -39,6 +41,7 @@ const PracticalLifePage: React.FC = () => {
   if (selectedSkill) {
     return (
       <SEOOptimizer>
+        <SchoolReturnBar />
         <PracticalLifeSkills
           skillId={selectedSkill}
           onBack={handleBack}
