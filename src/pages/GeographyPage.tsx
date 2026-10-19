@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import GeographySkills from '@/components/GeographySkills';
+import SchoolReturnBar from '@/components/school/SchoolReturnBar';
+import { useActivityParam } from '@/hooks/useActivityParam';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useActivityCompletions } from '@/hooks/useActivityCompletions';
@@ -9,7 +11,7 @@ import { useSEO } from '@/hooks/useSEO';
 
 const GeographyPage: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedSkill, setSelectedSkill] = useState('');
+  const [selectedSkill, setSelectedSkill] = useActivityParam();
   const { isPremium } = useSubscription();
   const { activeProfile } = useProfile();
   const { completedSkillIds } = useActivityCompletions(activeProfile?.id);
@@ -22,6 +24,7 @@ const GeographyPage: React.FC = () => {
 
   return (
     <SEOOptimizer>
+      {selectedSkill && <SchoolReturnBar />}
       <GeographySkills
         onBack={() => navigate('/')}
         onSkillSelect={setSelectedSkill}
