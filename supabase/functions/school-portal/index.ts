@@ -2,6 +2,7 @@ import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { z } from 'npm:zod@3.23.8'
 import { roleAllows, type SchoolRole } from './rules.ts'
+import { queueParentReport } from './reportDelivery.ts'
 
 const json = (b: unknown, status = 200) =>
   new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
@@ -251,15 +252,8 @@ Deno.serve(async (req) => {
         if (!a) return forbidden()
         const to = a.student.family_email
         if (!to) return json({ error: 'Add a family email to this student first.' }, 400)
-        const { data, error } = await admin.from('student_reports').insert({ student_id: b.student_id, school_id: a.school_id,
-          period_start: b.period_start, period_end: b.period_end, summary: { ...b.summary, title: b.title, body: b.body },
-          sent_to: to, sent_at: new Date().toISOString(), created_by: uid }).select().single()
-        if (error) throw error
-        const { error: me } = await admin.functions.invoke('send-transactional-email', {
-          body: { templateName: 'school-notice', recipientEmail: to, idempotencyKey: `school-report-${data.id}`, templateData: { title: b.title, body: b.body } },
-        })
-        if (me) console.error('report email', me)
-        return json({ report: data })
+        const result = await queueParentReport(admin, { ...b, school_id: a.school_id, recipient: to, user_id: uid })
+        return json(result)
       }
       case 'admin_list': {
         if (!(await isAppAdmin())) return forbidden()

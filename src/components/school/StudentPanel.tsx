@@ -28,9 +28,10 @@ export default function StudentPanel({ role, userId, student, progress, observat
   const [from, setFrom] = useState(() => iso(new Date(Date.now() - 30 * 864e5)));
   const [to, setTo] = useState(() => iso(new Date()));
   const [preview, setPreview] = useState<{ title: string; body: string } | null>(null);
+  const [sending, setSending] = useState(false);
   const mine = useMemo(() => progress.filter((p) => p.student_id === student?.id), [progress, student]);
   const obs = useMemo(() => observations.filter((o) => o.student_id === student?.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)), [observations, student]);
-  const sent = reports.filter((r) => r.student_id === student?.id).sort((a, b) => (b.sent_at ?? '').localeCompare(a.sent_at ?? ''));
+  const sent = reports.filter((r) => r.student_id === student?.id && r.summary.email_status === 'queued');
   const suggestions = useMemo(() => nextSuggestions(mine), [mine]);
 
   if (!student) return null;
@@ -60,11 +61,14 @@ export default function StudentPanel({ role, userId, student, progress, observat
     setPreview({ title: `Progress report for ${student.name}`, body: lines.join('\n').trim() });
   };
   const send = async () => {
-    if (!preview) return;
+    if (!preview || sending) return;
+    setSending(true);
     try {
-      await schoolCall({ action: 'report_send', student_id: student.id, period_start: from, period_end: to, title: preview.title, body: preview.body, summary: { records: mine.length } });
-      toast({ title: 'Report sent', description: `Emailed to ${student.family_email}` }); setPreview(null); onChange();
-    } catch (e) { toast({ title: 'Could not send', description: (e as Error).message, variant: 'destructive' }); }
+      const result = await schoolCall<{ queued: boolean }>({ action: 'report_send', student_id: student.id, period_start: from, period_end: to, title: preview.title, body: preview.body, summary: { records: mine.length } });
+      if (result.queued !== true) throw new Error('Email queue acceptance was not confirmed. Please try again.');
+      toast({ title: 'Report queued for email', description: `Addressed to ${student.family_email}; delivery is not yet confirmed.` }); setPreview(null); onChange();
+    } catch (e) { toast({ title: 'Could not queue report', description: (e as Error).message, variant: 'destructive' }); }
+    finally { setSending(false); }
   };
 
   return (
@@ -152,7 +156,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                   <Input value={preview.title} onChange={(e) => setPreview({ ...preview, title: e.target.value })} />
                   <Textarea rows={12} value={preview.body} onChange={(e) => setPreview({ ...preview, body: e.target.value })} />
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={send} disabled={!student.family_email}>{student.family_email ? `Email to ${student.family_email}` : 'Add a family email first'}</Button>
+                    <Button size="sm" onClick={send} disabled={sending || !student.family_email}>{sending ? 'Queuing…' : student.family_email ? `Email to ${student.family_email}` : 'Add a family email first'}</Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       const w = window.open('', '_blank'); if (!w) return;
                       w.document.title = preview.title;
@@ -164,8 +168,8 @@ export default function StudentPanel({ role, userId, student, progress, observat
               )}
               {sent.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-sm font-medium">Sent reports</p>
-                  <ul className="text-sm text-muted-foreground">{sent.map((r) => <li key={r.id}>{r.sent_at?.slice(0, 10)} · {r.period_start} to {r.period_end} · {r.sent_to}</li>)}</ul>
+                  <p className="text-sm font-medium">Reports queued for email</p>
+                  <ul className="text-sm text-muted-foreground">{sent.map((r) => <li key={r.id}>{r.period_start} to {r.period_end} · {r.sent_to} · Delivery unconfirmed</li>)}</ul>
                 </div>
               )}
             </section>
