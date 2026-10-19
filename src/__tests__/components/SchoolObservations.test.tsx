@@ -17,11 +17,10 @@ const students = [
 function mount(canEdit = true, progress: Progress[] = []) {
   return render(<ProgressTab students={students} progress={progress} canEdit={canEdit} nameOf={() => 'Teacher'} onChange={vi.fn()} onOpenStudent={vi.fn()} />);
 }
-afterEach(() => { cleanup(); vi.clearAllMocks(); });
+afterEach(() => { cleanup(); vi.clearAllMocks(); vi.restoreAllMocks(); });
 describe('student observation recording', () => {
   it('does not write when selecting an observation; saves the selected child and note only on submission', async () => {
     call.mockResolvedValue({}); mount();
-    fireEvent.click(screen.getByRole('button', { name: 'Record observation' }));
     fireEvent.click(screen.getByRole('radio', { name: /Practising/ }));
     fireEvent.change(screen.getByLabelText('Observation notes'), { target: { value: 'Repeated pouring without spilling.' } });
     expect(call).not.toHaveBeenCalled();
@@ -31,7 +30,6 @@ describe('student observation recording', () => {
   it('switches students without carrying the previous child record into the next save', async () => {
     call.mockResolvedValue({}); mount(true, [{ id: 'record', student_id: 'child-a', skill_id: 'pouring', status: 'presented', note: 'Alex note', updated_by: 'teacher', presented_at: '2026-10-19', updated_at: '2026-10-19' }]);
     fireEvent.click(screen.getByRole('button', { name: 'Next student' }));
-    fireEvent.click(screen.getByRole('button', { name: 'Record observation' }));
     expect(screen.getByLabelText('Observation notes')).toHaveValue('');
     fireEvent.click(screen.getByRole('radio', { name: /Working independently/ }));
     fireEvent.click(screen.getByRole('button', { name: 'Save observation' }));
@@ -39,7 +37,6 @@ describe('student observation recording', () => {
   });
   it('retains the unsaved note when saving fails and permits a retry', async () => {
     call.mockRejectedValueOnce(new Error('Connection lost')).mockResolvedValueOnce({}); mount();
-    fireEvent.click(screen.getByRole('button', { name: 'Record observation' }));
     fireEvent.click(screen.getByRole('radio', { name: /Presented/ }));
     fireEvent.change(screen.getByLabelText('Observation notes'), { target: { value: 'Presentation given.' } });
     fireEvent.click(screen.getByRole('button', { name: 'Save observation' }));
@@ -48,9 +45,18 @@ describe('student observation recording', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Save observation' }));
     await waitFor(() => expect(call).toHaveBeenCalledTimes(2));
   });
+  it('keeps an unsaved observation when student switching is cancelled', () => {
+    mount();
+    fireEvent.change(screen.getByLabelText('Observation notes'), { target: { value: 'Still observing Alex.' } });
+    const confirm = vi.spyOn(window, 'confirm').mockReturnValue(false);
+    fireEvent.click(screen.getByRole('button', { name: 'Next student' }));
+    expect(confirm).toHaveBeenCalled();
+    expect(screen.getByLabelText('Observation notes')).toHaveValue('Still observing Alex.');
+    expect(call).not.toHaveBeenCalled();
+  });
   it('does not offer editing to read-only assistants', () => {
     mount(false);
-    expect(screen.queryByRole('button', { name: 'Record observation' })).not.toBeInTheDocument();
+    expect(screen.queryByRole('button', { name: 'Save observation' })).not.toBeInTheDocument();
     expect(call).not.toHaveBeenCalled();
   });
 });
