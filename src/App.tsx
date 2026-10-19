@@ -58,7 +58,9 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
+const SchoolPortalPage = lazy(() => import("./pages/SchoolPortalPage"));
+const AdminSchoolsPage = lazy(() => import("./pages/AdminSchoolsPage"));
 import { Capacitor } from "@capacitor/core";
 import { useCapacitorAuthDeepLink } from "@/hooks/useCapacitorAuthDeepLink";
 import { useNativeWebViewRecovery } from "@/hooks/useNativeWebViewRecovery";
@@ -145,6 +147,8 @@ const App = () => {
                           <Route path="/admin/videos" element={<AdminVideosPage />} />
                           <Route path="/admin/songs" element={<AdminSongsPage />} />
                           <Route path="/songs" element={<SongsPage />} />
+                          <Route path="/school" element={<Suspense fallback={null}><SchoolPortalPage /></Suspense>} />
+                          <Route path="/admin/schools" element={<Suspense fallback={null}><AdminSchoolsPage /></Suspense>} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />

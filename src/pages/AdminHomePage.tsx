@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
-import { BarChart3, Crown, KeyRound, Music, Package, Users, Video } from 'lucide-react';
+import { BarChart3, Crown, KeyRound, Music, Package, School, Users, Video } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -8,6 +8,12 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import AdminBackBar from '@/components/AdminBackBar';
 
 const links = [
+  {
+    to: '/admin/schools',
+    title: 'Schools',
+    description: 'Set up licensed schools, their admins and places per classroom.',
+    icon: School,
+  },
   {
     to: '/admin/members',
     title: 'Members',
