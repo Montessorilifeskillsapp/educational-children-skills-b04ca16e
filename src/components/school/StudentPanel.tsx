@@ -8,7 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
 import { areas, nextSuggestions, orderedSkills, skillById } from './curriculum';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ProgressChooser, { StatusBadge, lastUpdate } from './ProgressChooser';
+import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
 
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
@@ -16,7 +16,7 @@ interface Props {
   classmates: Student[]; onSelect: (id: string) => void; nameOf: (userId: string | null) => string;
 }
 
-const LABEL = { presented: 'Presented', practising: 'Practising', mastered: 'Mastered' } as const;
+const LABEL = STATUS_LABEL;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
 export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, classmates, onSelect, nameOf }: Props) {
@@ -87,7 +87,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
         <div className="space-y-6 mt-4">
           <section>
             <h3 className="font-semibold mb-2">Ready for next</h3>
-            {suggestions.length === 0 ? <p className="text-sm text-muted-foreground">Suggestions appear once an activity is marked Mastered.</p> : (
+            {suggestions.length === 0 ? <p className="text-sm text-muted-foreground">No next activity suggested yet.</p> : (
               <ul className="space-y-1">
                 {suggestions.map((s) => (
                   <li key={s.id} className="flex items-center justify-between text-sm gap-2">
@@ -114,7 +114,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                   <li key={sk.id} className="py-2">
                     <p className="text-sm font-medium mb-1">{sk.title}</p>
                     {editable
-                      ? <ProgressChooser studentId={student.id} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} compact />
+                      ? <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p?.status} /><ProgressChooser key={`${student.id}:${sk.id}`} studentId={student.id} studentName={student.name} activityTitle={sk.title} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} /></div>
                       : <div className="flex items-center gap-2 text-xs text-muted-foreground"><StatusBadge status={p?.status} />{p && <span>{lastUpdate(p, nameOf)}</span>}{p?.note && <span>· {p.note}</span>}</div>}
                   </li>
                 );

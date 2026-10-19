@@ -1,83 +1,38 @@
 import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChevronLeft, ChevronRight, UserRound } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Progress, Student } from './api';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import ProgressChooser, { STATUSES, STATUS_LABEL, STATUS_STYLE, lastUpdate } from './ProgressChooser';
+import ProgressChooser, { StatusBadge, lastUpdate } from './ProgressChooser';
 import { areas, orderedSkills } from './curriculum';
 
 interface Props { students: Student[]; progress: Progress[]; canEdit: boolean; nameOf: (userId: string | null) => string; onChange: () => void; onOpenStudent: (id: string) => void }
 
 export default function ProgressTab({ students, progress, canEdit, nameOf, onChange, onOpenStudent }: Props) {
   const [area, setArea] = useState(areas()[0].key);
+  const [selectedId, setSelectedId] = useState('');
+  const student = students.find((s) => s.id === selectedId) ?? students[0];
+  const index = students.findIndex((s) => s.id === student?.id);
   const skills = useMemo(() => orderedSkills().filter((s) => s.areaKey === area), [area]);
-  const map = useMemo(() => new Map(progress.map((p) => [`${p.student_id}:${p.skill_id}`, p])), [progress]);
-  return (
-    <Card>
-      <CardHeader className="flex flex-row items-center justify-between gap-3 flex-wrap space-y-0">
-        <CardTitle className="text-lg">Progress & records</CardTitle>
-        <Select value={area} onValueChange={setArea}>
-          <SelectTrigger className="w-56"><SelectValue /></SelectTrigger>
-          <SelectContent>{areas().map((a) => <SelectItem key={a.key} value={a.key}>{a.title}</SelectItem>)}</SelectContent>
-        </Select>
-      </CardHeader>
-      <CardContent>
-        <div className="flex flex-wrap items-center gap-2 mb-3 text-xs text-muted-foreground">
-          {STATUSES.map((st) => <span key={st} className={`rounded px-1.5 py-0.5 font-semibold border ${STATUS_STYLE[st]}`}>{STATUS_LABEL[st]}</span>)}
-          <span>{canEdit ? 'Tap a cell to choose a status. Tap a name to open that student.' : 'View only. Tap a name to see that student.'} Activities run beginner to advanced, left to right.</span>
-        </div>
-        {students.length === 0 ? <p className="text-sm text-muted-foreground">Add students to start recording.</p> : (
-          <div className="overflow-auto max-h-[70vh] border border-border rounded-md">
-            <table className="text-sm border-collapse">
-              <thead className="sticky top-0 bg-card z-10">
-                <tr>
-                  <th className="sticky left-0 bg-card p-2 text-left min-w-[140px] border-b border-border">Student</th>
-                  {skills.map((s) => (
-                    <th key={s.id} className="p-1 border-b border-border align-bottom">
-                      <Link to={s.route} className="block w-24 text-[11px] font-medium leading-tight text-left hover:underline" title={s.title}>{s.title}</Link>
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {students.map((st) => (
-                  <tr key={st.id}>
-                    <td className="sticky left-0 bg-card p-2 border-b border-border">
-                      <button className="font-medium hover:underline" onClick={() => onOpenStudent(st.id)}>{st.name}</button>
-                    </td>
-                    {skills.map((sk) => {
-                      const p = map.get(`${st.id}:${sk.id}`);
-                      return (
-                        <td key={sk.id} className="p-1 border-b border-border text-center">
-                          {(() => {
-                            const cell = (
-                              <button type="button" aria-label={`${st.name}, ${sk.title}: ${p ? STATUS_LABEL[p.status] : 'not recorded'}`} title={lastUpdate(p, nameOf)}
-                                className={`w-24 h-8 rounded text-[11px] font-semibold border ${p ? STATUS_STYLE[p.status] : 'bg-background text-muted-foreground border-border'} ${canEdit ? '' : 'cursor-default'}`}>
-                                {p ? STATUS_LABEL[p.status] : canEdit ? '+ Record' : '—'}
-                              </button>
-                            );
-                            if (!canEdit) return cell;
-                            return (
-                              <Popover>
-                                <PopoverTrigger asChild>{cell}</PopoverTrigger>
-                                <PopoverContent className="w-72">
-                                  <p className="text-sm font-medium mb-2">{st.name} · {sk.title}</p>
-                                  <ProgressChooser studentId={st.id} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} />
-                                </PopoverContent>
-                              </Popover>
-                            );
-                          })()}
-                        </td>
-                      );
-                    })}
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </CardContent>
-    </Card>
-  );
+  const records = useMemo(() => new Map(progress.filter((p) => p.student_id === student?.id).map((p) => [p.skill_id, p])), [progress, student?.id]);
+  if (!student) return <p className="py-6 text-muted-foreground">No students in this classroom.</p>;
+  return <section className="space-y-5 py-4">
+    <header className="flex flex-wrap items-center justify-between gap-3"><h2 className="text-xl font-semibold">Student observations</h2>{!canEdit && <span className="text-sm text-muted-foreground">View only</span>}</header>
+    <div className="grid gap-4 sm:grid-cols-2">
+      <div className="space-y-2"><Label htmlFor="observation-student">Student</Label><div className="flex gap-2">
+        <Button variant="outline" size="icon" aria-label="Previous student" disabled={index <= 0} onClick={() => setSelectedId(students[index - 1].id)}><ChevronLeft className="h-4 w-4" /></Button>
+        <Select value={student.id} onValueChange={setSelectedId}><SelectTrigger id="observation-student" className="flex-1 min-w-0"><SelectValue /></SelectTrigger><SelectContent>{students.map((s) => <SelectItem key={s.id} value={s.id}>{s.name}</SelectItem>)}</SelectContent></Select>
+        <Button variant="outline" size="icon" aria-label="Next student" disabled={index >= students.length - 1} onClick={() => setSelectedId(students[index + 1].id)}><ChevronRight className="h-4 w-4" /></Button>
+      </div></div>
+      <div className="space-y-2"><Label htmlFor="observation-area">Curriculum area</Label><Select value={area} onValueChange={setArea}><SelectTrigger id="observation-area"><SelectValue /></SelectTrigger><SelectContent>{areas().map((a) => <SelectItem key={a.key} value={a.key}>{a.title}</SelectItem>)}</SelectContent></Select></div>
+    </div>
+    <div className="flex items-center justify-between gap-3 border-b border-border pb-3"><h3 className="text-lg font-semibold">{student.name}</h3><Button variant="ghost" size="sm" onClick={() => onOpenStudent(student.id)}><UserRound className="h-4 w-4 mr-2" />Student notes & details</Button></div>
+    <ul className="divide-y divide-border">
+      {skills.map((sk) => { const p = records.get(sk.id); return <li key={`${student.id}:${sk.id}`} className="py-4 grid gap-3 sm:grid-cols-[minmax(0,1fr)_auto] items-start">
+        <div className="min-w-0 space-y-1"><h4 className="font-medium">{sk.title}</h4><StatusBadge status={p?.status} />{p && <p className="text-xs text-muted-foreground">{lastUpdate(p, nameOf)}</p>}{p?.note && <p className="text-sm whitespace-pre-wrap break-words text-muted-foreground">{p.note}</p>}</div>
+        {canEdit && <div><ProgressChooser studentId={student.id} studentName={student.name} activityTitle={sk.title} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} /></div>}
+      </li>; })}
+    </ul>
+  </section>;
 }
