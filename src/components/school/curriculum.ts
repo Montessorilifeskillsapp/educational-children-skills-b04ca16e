@@ -26,6 +26,11 @@ export function skillById(id: string): SkillRef | undefined {
   return orderedSkills().find((s) => s.id === id);
 }
 
+/** Deep link that opens this exact activity on its section page, marked as coming from the School Portal. */
+export function skillLink(sk: SkillRef): string {
+  return `${sk.route}?activity=${encodeURIComponent(sk.id)}&from=school`;
+}
+
 /** The next activity in the same area after the furthest mastered one, skipping anything already recorded. */
 export function nextSuggestions(records: { skill_id: string; status: string }[]): SkillRef[] {
   const all = orderedSkills();

@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import MathSkills from '@/components/MathSkills';
 import SkillActivity from '@/components/SkillActivity';
+import SchoolReturnBar from '@/components/school/SchoolReturnBar';
+import { useActivityParam } from '@/hooks/useActivityParam';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
 import { useActivityCompletions } from '@/hooks/useActivityCompletions';
@@ -11,7 +13,7 @@ import { useSEO } from '@/hooks/useSEO';
 
 const MathPage: React.FC = () => {
   const navigate = useNavigate();
-  const [selectedSkill, setSelectedSkill] = useState('');
+  const [selectedSkill, setSelectedSkill] = useActivityParam();
   const { isPremium } = useSubscription();
   const { activeProfile } = useProfile();
   const { completedSkillIds, logCompletion } = useActivityCompletions(activeProfile?.id);
@@ -25,6 +27,7 @@ const MathPage: React.FC = () => {
   if (selectedSkill && mathSkillsData[selectedSkill]) {
     return (
       <SEOOptimizer>
+        <SchoolReturnBar />
         <SkillActivity
           key={selectedSkill}
           skillId={selectedSkill}
