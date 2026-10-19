@@ -88,8 +88,12 @@ Deno.serve(async (req) => {
         if (email) {
           const { data: invites } = await admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null)
           for (const inv of invites ?? []) {
-            const { data: prof } = await admin.from('user_profiles').select('full_name').eq('user_id', uid).maybeSingle()
-            await admin.from('school_members').upsert({ school_id: inv.school_id, user_id: uid, email, role: inv.role, full_name: prof?.full_name ?? null }, { onConflict: 'school_id,user_id' })
+            // An invite never changes the role of someone already in that school (roles change only via member_role).
+            const { data: existing } = await admin.from('school_members').select('id').eq('school_id', inv.school_id).eq('user_id', uid).maybeSingle()
+            if (!existing) {
+              const { data: prof } = await admin.from('user_profiles').select('full_name').eq('user_id', uid).maybeSingle()
+              await admin.from('school_members').insert({ school_id: inv.school_id, user_id: uid, email, role: inv.role, full_name: prof?.full_name ?? null })
+            }
             await admin.from('school_invites').update({ accepted_at: new Date().toISOString() }).eq('id', inv.id)
           }
         }
@@ -128,6 +132,8 @@ Deno.serve(async (req) => {
         const m = await membership(b.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
         const inviteEmail = b.email.toLowerCase()
+        const { data: already } = await admin.from('school_members').select('id').eq('school_id', b.school_id).ilike('email', inviteEmail).maybeSingle()
+        if (already) return json({ error: 'This person is already on your staff. Change their role in the list below instead.' }, 400)
         const { error } = await admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, accepted_at: null }, { onConflict: 'school_id,email' })
         if (error) throw error
         const { data: school } = await admin.from('schools').select('name').eq('id', b.school_id).single()

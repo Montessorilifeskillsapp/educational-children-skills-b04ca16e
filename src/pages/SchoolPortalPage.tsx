@@ -45,6 +45,11 @@ export default function SchoolPortalPage() {
   useEffect(() => {
     if (!visibleRooms.find((c) => c.id === classroomId)) setClassroomId(visibleRooms[0]?.id ?? null);
   }, [visibleRooms, classroomId]);
+  // If the current tab is no longer available (role changed, classroom gone), fall back to Overview instead of a blank page.
+  useEffect(() => {
+    if (!memberships) return;
+    if ((tab === 'staff' && !can.manageSchool(role)) || (tab !== 'overview' && tab !== 'staff' && !classroomId)) setTab('overview');
+  }, [tab, role, classroomId, memberships]);
 
   if (authLoading || (user && memberships === null)) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner /></div>;
 
