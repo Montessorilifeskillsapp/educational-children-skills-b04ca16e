@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Replace school progress matrix with student-specific observation records and explicit save; verify selection, notes and student switching.
 - [x] TV demo: 8 real screen clips (6 desktop 1920x1080, 3 phone 1080x1920 minus video scene) saved to Files/tv-demo; no activity video available to record.
 - [x] Replace per-child add-ons with two plans: Premium (1 child, $29.99/month or $199/year) and Family (up to 4 children, $49/month or $349/year); preserve legacy add-on access for renewal migration and direct families over four to support.
 - [x] October 6 prepublication diagnostic: 72 public page views, nine free starter navigation flows, hosted auth settings, service guards, 53 regression tests, lint and dependency/security scans. Evidence: PREPUBLICATION_DIAGNOSTIC.md.
