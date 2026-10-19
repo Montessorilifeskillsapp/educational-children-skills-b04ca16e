@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { BarChart3, KeyRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -8,6 +8,7 @@ import { supabase } from '@/integrations/supabase/client';
 const AdminAnalyticsLink: React.FC = () => {
   const { user } = useAuthContext();
   const [isAdmin, setIsAdmin] = useState(false);
+  const { pathname } = useLocation();
 
   useEffect(() => {
     if (!user) {
@@ -28,7 +29,7 @@ const AdminAnalyticsLink: React.FC = () => {
     checkAdmin();
   }, [user]);
 
-  if (!isAdmin) return null;
+  if (!isAdmin || pathname.startsWith('/school')) return null;
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end">

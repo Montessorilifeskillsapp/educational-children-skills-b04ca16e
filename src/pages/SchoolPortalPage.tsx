@@ -26,6 +26,8 @@ export default function SchoolPortalPage() {
   const [openStudent, setOpenStudent] = useState<string | null>(null);
   const [planSeed, setPlanSeed] = useState<{ skill_id: string; student_ids: string[] } | null>(null);
 
+  // One step back in history; only fall back to home when the portal was opened directly.
+  const goBack = () => { if (window.history.state?.idx > 0) navigate(-1); else navigate('/'); };
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
   useEffect(() => {
     if (!user) return;
@@ -56,7 +58,7 @@ export default function SchoolPortalPage() {
   if (!user || !memberships?.length) {
     return (
       <div className="min-h-screen p-6 max-w-xl mx-auto flex flex-col justify-center gap-4">
-        <BackButton onClick={() => navigate('/')} />
+        <BackButton onClick={goBack} />
         <h1 className="text-3xl font-bold text-foreground">School Portal</h1>
         <p className="text-muted-foreground">The School Portal is for schools licensed by Montessori Life Skills. Staff are invited by their school.</p>
         {!user ? <Button asChild><Link to="/auth">Sign in</Link></Button> : <p className="text-sm text-muted-foreground">This account isn't linked to a school yet. If you were invited, sign in with the email address the invitation was sent to.</p>}
@@ -78,7 +80,7 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-6xl mx-auto space-y-4">
-      <div className="print:hidden"><BackButton onClick={() => navigate('/')} /></div>
+      <div className="print:hidden"><BackButton onClick={goBack} /></div>
       <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
         <div>
           <h1 className="text-3xl font-bold text-foreground">School Portal</h1>
