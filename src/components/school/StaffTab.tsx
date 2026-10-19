@@ -69,7 +69,8 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
           <ul className="divide-y divide-border">
             {members.map((m) => (
               <li key={m.id} className="py-2 flex items-center justify-between gap-2 flex-wrap">
-                <span className="text-sm">{m.full_name || m.email} <span className="text-muted-foreground">· {m.email}</span></span>
+                <span className="text-sm">{m.full_name || m.email} <span className="text-muted-foreground">· {m.email}</span>
+                  <span className="block text-xs text-muted-foreground">{m.role === 'school_admin' ? 'All classrooms' : (classrooms.filter((c) => staff.some((s) => s.classroom_id === c.id && s.member_id === m.id)).map((c) => c.name).join(', ') || 'No classroom yet — tick them in a classroom above')}{m.role === 'assistant' ? ' · View only' : ''}</span></span>
                 {m.user_id === user?.id || (m.role === 'school_admin' && adminCount <= 1) ? (
                   <span className="text-sm text-muted-foreground">{ROLE_LABEL[m.role]}{m.user_id === user?.id ? ' (you)' : ''}</span>
                 ) : (
