@@ -35,6 +35,7 @@ const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('admin_school_save'), id: uuid.optional(), name: z.string().min(1).max(160),
     contact_email: z.string().email().max(255).nullable().optional(), seat_limit: z.number().int().min(1).max(500),
     active: z.boolean(), first_admin_email: z.string().email().max(255).optional() }),
+  z.object({ action: z.literal('admin_school_delete'), id: uuid }),
 ])
 
 Deno.serve(async (req) => {
@@ -272,6 +273,12 @@ Deno.serve(async (req) => {
           await sendInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`)
         }
         return json({ school: data })
+      }
+      case 'admin_school_delete': {
+        if (!(await isAppAdmin())) return forbidden()
+        const { error } = await admin.from('schools').delete().eq('id', b.id)
+        if (error) throw error
+        return json({ ok: true })
       }
     }
   } catch (e) {

@@ -44,6 +44,26 @@ export default function AdminSchoolsPage() {
     } catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
   };
 
+  const remove = async (s: School) => {
+    if (!confirm(`Delete ${s.name}? This permanently removes its classrooms, students, staff and records.`)) return;
+    try { await schoolCall({ action: 'admin_school_delete', id: s.id }); toast({ title: 'School deleted' }); if (draft?.id === s.id) setDraft(null); load(); }
+    catch (e) { toast({ title: 'Could not delete', description: (e as Error).message, variant: 'destructive' }); }
+  };
+
+  const form = draft && (
+    <Card>
+      <CardHeader><CardTitle className="text-lg">{draft.id ? 'Edit school' : 'New school'}</CardTitle></CardHeader>
+      <CardContent className="space-y-3">
+        <div><Label>School name</Label><Input value={draft.name ?? ''} onChange={(e) => setDraft({ ...draft, name: e.target.value })} /></div>
+        <div><Label>Contact email</Label><Input type="email" value={draft.contact_email ?? ''} onChange={(e) => setDraft({ ...draft, contact_email: e.target.value })} /></div>
+        <div><Label>Places per classroom</Label><Input type="number" min={1} max={500} value={draft.seat_limit ?? 30} onChange={(e) => setDraft({ ...draft, seat_limit: Number(e.target.value) })} /></div>
+        <div><Label>{draft.id ? 'Invite another School Admin (optional)' : 'First School Admin email'}</Label><Input type="email" value={draft.first_admin_email ?? ''} onChange={(e) => setDraft({ ...draft, first_admin_email: e.target.value })} /></div>
+        <label className="flex items-center gap-2 text-sm"><Switch checked={draft.active ?? true} onCheckedChange={(v) => setDraft({ ...draft, active: v })} /> Portal turned on</label>
+        <div className="flex gap-2"><Button onClick={save}>Save</Button><Button variant="outline" onClick={() => setDraft(null)}>Cancel</Button></div>
+      </CardContent>
+    </Card>
+  );
+
   return (
     <div className="min-h-screen p-6 max-w-3xl mx-auto space-y-6">
       <AdminBackBar />
@@ -55,25 +75,16 @@ export default function AdminSchoolsPage() {
         <Button onClick={() => setDraft({ seat_limit: 30, active: true })}>New school</Button>
       </header>
 
-      {draft && (
-        <Card>
-          <CardHeader><CardTitle className="text-lg">{draft.id ? 'Edit school' : 'New school'}</CardTitle></CardHeader>
-          <CardContent className="space-y-3">
-            <div><Label>School name</Label><Input value={draft.name ?? ''} onChange={(e) => setDraft({ ...draft, name: e.target.value })} /></div>
-            <div><Label>Contact email</Label><Input type="email" value={draft.contact_email ?? ''} onChange={(e) => setDraft({ ...draft, contact_email: e.target.value })} /></div>
-            <div><Label>Places per classroom</Label><Input type="number" min={1} max={500} value={draft.seat_limit ?? 30} onChange={(e) => setDraft({ ...draft, seat_limit: Number(e.target.value) })} /></div>
-            <div><Label>{draft.id ? 'Invite another School Admin (optional)' : 'First School Admin email'}</Label><Input type="email" value={draft.first_admin_email ?? ''} onChange={(e) => setDraft({ ...draft, first_admin_email: e.target.value })} /></div>
-            <label className="flex items-center gap-2 text-sm"><Switch checked={draft.active ?? true} onCheckedChange={(v) => setDraft({ ...draft, active: v })} /> Portal turned on</label>
-            <div className="flex gap-2"><Button onClick={save}>Save</Button><Button variant="outline" onClick={() => setDraft(null)}>Cancel</Button></div>
-          </CardContent>
-        </Card>
-      )}
+      {draft && !draft.id && form}
 
-      {!data ? <LoadingSpinner /> : data.schools.length === 0 ? <p className="text-muted-foreground">No schools yet.</p> : data.schools.map((s) => (
+      {!data ? <LoadingSpinner /> : data.schools.length === 0 ? <p className="text-muted-foreground">No schools yet.</p> : data.schools.map((s) => draft?.id === s.id ? <div key={s.id}>{form}</div> : (
         <Card key={s.id}>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0">
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 gap-2">
             <CardTitle className="text-lg">{s.name} {!s.active && <span className="text-sm text-muted-foreground">(off)</span>}</CardTitle>
-            <Button size="sm" variant="outline" onClick={() => setDraft(s)}>Edit</Button>
+            <div className="flex gap-2">
+              <Button size="sm" variant="outline" onClick={() => setDraft({ ...s })}>Edit</Button>
+              <Button size="sm" variant="ghost" className="text-destructive" onClick={() => remove(s)}>Delete</Button>
+            </div>
           </CardHeader>
           <CardContent className="text-sm text-muted-foreground space-y-1">
             <p>{s.seat_limit} places per classroom{s.contact_email ? ` · ${s.contact_email}` : ''}</p>
