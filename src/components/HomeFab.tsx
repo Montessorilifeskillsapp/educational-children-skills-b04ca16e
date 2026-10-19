@@ -6,7 +6,7 @@ import { Home } from 'lucide-react';
  * Persistent one-tap Home button.
  * Always visible on section/activity screens so a user can never get locked in.
  */
-const HIDDEN_PREFIXES = ['/auth', '/admin'];
+const HIDDEN_PREFIXES = ['/auth', '/admin', '/school'];
 
 const HomeFab: React.FC = () => {
   const navigate = useNavigate();
