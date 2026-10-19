@@ -1,4 +1,4 @@
-import { useId, useState } from 'react';
+import { useEffect, useId, useState } from 'react';
 import { ClipboardPen } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -29,17 +29,20 @@ export function lastUpdate(p: Progress | undefined, nameOf: (userId: string | nu
   const d = new Date(p.updated_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
   return `${d}${p.updated_by ? ` · ${nameOf(p.updated_by)}` : ''}`;
 }
-interface Props { studentId: string; skillId: string; current?: Progress; nameOf: (userId: string | null) => string; onSaved: () => void; compact?: boolean; studentName?: string; activityTitle?: string }
+interface Props { studentId: string; skillId: string; current?: Progress; nameOf: (userId: string | null) => string; onSaved: () => void; compact?: boolean; studentName?: string; activityTitle?: string; inline?: boolean; onDraftChange?: (dirty: boolean, busy: boolean) => void }
 
-export default function ProgressChooser({ studentId, skillId, current, nameOf, onSaved, studentName, activityTitle }: Props) {
+export default function ProgressChooser({ studentId, skillId, current, nameOf, onSaved, studentName, activityTitle, inline = false, onDraftChange }: Props) {
   const { toast } = useToast();
   const id = useId();
   const [open, setOpen] = useState(false);
-  const [status, setStatus] = useState<Status | ''>('');
-  const [note, setNote] = useState('');
+  const [status, setStatus] = useState<Status | ''>(current?.status ?? '');
+  const [note, setNote] = useState(current?.note ?? '');
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState('');
   const dirty = status !== (current?.status ?? '') || note !== (current?.note ?? '');
+  useEffect(() => { onDraftChange?.(dirty, busy); }, [dirty, busy, onDraftChange]);
+  useEffect(() => { setStatus(current?.status ?? ''); setNote(current?.note ?? ''); }, [current?.status, current?.note]);
+  const reset = () => { setStatus(current?.status ?? ''); setNote(current?.note ?? ''); setError(''); };
   const changeOpen = (value: boolean) => {
     if (busy) return;
     if (!value && dirty && !window.confirm('Discard this unsaved observation?')) return;
@@ -50,14 +53,11 @@ export default function ProgressChooser({ studentId, skillId, current, nameOf, o
     setBusy(true); setError('');
     try {
       await schoolCall({ action: 'progress_set', student_id: studentId, skill_id: skillId, status: value, note: value === 'clear' ? null : note.trim() || null });
-      onSaved(); setOpen(false); toast({ title: value === 'clear' ? 'Record removed' : 'Observation saved' });
+      setStatus(value === 'clear' ? '' : value); setNote(value === 'clear' ? '' : note.trim()); onSaved(); setOpen(false); toast({ title: value === 'clear' ? 'Record removed' : 'Observation saved' });
     } catch (e) { setError((e as Error).message); }
     finally { setBusy(false); }
   };
-  return <Dialog open={open} onOpenChange={changeOpen}>
-    <Button type="button" size="sm" variant="outline" onClick={() => changeOpen(true)}><ClipboardPen className="h-4 w-4 mr-2" />{current ? 'Edit record' : 'Record observation'}</Button>
-    <DialogContent className="max-w-lg max-h-[90dvh] overflow-y-auto" onEscapeKeyDown={(e) => { if (busy) e.preventDefault(); }}>
-      <DialogHeader><DialogTitle>{studentName ?? 'Student observation'}</DialogTitle><DialogDescription>{activityTitle ?? 'Activity record'}</DialogDescription></DialogHeader>
+  const form = (
       <form onSubmit={(e) => { e.preventDefault(); if (status) void save(status); }} className="space-y-4">
         <fieldset disabled={busy} className="space-y-3">
           <legend className="text-sm font-semibold mb-3">Observed activity</legend>
@@ -73,10 +73,17 @@ export default function ProgressChooser({ studentId, skillId, current, nameOf, o
         {error && <p role="alert" className="text-sm text-destructive">{error}</p>}
         <div className="flex flex-wrap justify-end gap-2">
           {current && <Button type="button" variant="ghost" disabled={busy} className="text-destructive mr-auto" onClick={() => { if (window.confirm('Remove this activity record?')) void save('clear'); }}>Remove record</Button>}
-          <Button type="button" variant="outline" disabled={busy} onClick={() => changeOpen(false)}>Cancel</Button>
+          <Button type="button" variant="outline" disabled={busy} onClick={() => inline ? reset() : changeOpen(false)}>Cancel</Button>
           <Button type="submit" disabled={busy || !status || !dirty}>{busy ? 'Saving…' : 'Save observation'}</Button>
         </div>
       </form>
+  );
+  if (inline) return form;
+  return <Dialog open={open} onOpenChange={changeOpen}>
+    <Button type="button" size="sm" variant="outline" onClick={() => changeOpen(true)}><ClipboardPen className="h-4 w-4 mr-2" />{current ? 'Edit record' : 'Record observation'}</Button>
+    <DialogContent className="max-w-lg max-h-[90dvh] overflow-y-auto" onEscapeKeyDown={(e) => { if (busy) e.preventDefault(); }}>
+      <DialogHeader><DialogTitle>{studentName ?? 'Student observation'}</DialogTitle><DialogDescription>{activityTitle ?? 'Activity record'}</DialogDescription></DialogHeader>
+      {form}
     </DialogContent>
   </Dialog>;
 }
