@@ -1,5 +1,5 @@
 ## Open tasks
-- [ ] Correct school parent-report confirmation: failed/suppressed email requests must not appear sent; accepted requests must be described as queued, not delivered.
+- [x] Correct school parent-report confirmation: failed/suppressed requests return errors; only explicit queue acceptance shows queued, never delivered. Four delivery regression tests pass, 14 school tests pass, preview build OK, school-portal deployed. Authenticated inbox delivery remains unverified under the existing external-auth blocker.
 - [x] Streamline school observations into a compact activity browser and one in-place editor, with search and guarded student switching; ten tests and isolated desktop/mobile interaction checks pass.
 - [x] Fix song preview player reference being cleared during page initialization; regression test passes and actual uploaded Continents preview plays and pauses without media errors.
 - [x] Replace school progress matrix with student-specific observation records and explicit save; nine tests pass and isolated desktop/mobile checks verify selection, notes and student switching.
