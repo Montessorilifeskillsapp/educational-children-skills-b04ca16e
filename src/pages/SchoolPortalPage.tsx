@@ -40,7 +40,7 @@ export default function SchoolPortalPage() {
   // Remember the exact portal spot so activity pages can offer "Return to School Portal".
   useEffect(() => {
     rememberSchoolReturn(window.location.pathname + window.location.search);
-  }, [tab, openStudent, classroomId, schoolId]);
+  }, [params, schoolId]);
   useEffect(() => {
     if (!user) return;
     schoolCall<{ memberships: Membership[] }>({ action: 'me' })

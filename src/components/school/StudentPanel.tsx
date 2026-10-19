@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -6,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { useToast } from '@/hooks/use-toast';
 import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
-import { areas, nextSuggestions, orderedSkills, skillById } from './curriculum';
+import { areas, nextSuggestions, orderedSkills, skillById, skillLink } from './curriculum';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
 
@@ -95,7 +96,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
               <ul className="space-y-1">
                 {suggestions.map((s) => (
                   <li key={s.id} className="flex items-center justify-between text-sm gap-2">
-                    <span>{s.title} <span className="text-muted-foreground">· {s.areaTitle}</span></span>
+                    <span><Link to={skillLink(s)} className="font-medium hover:underline">{s.title}</Link> <span className="text-muted-foreground">· {s.areaTitle}</span></span>
                     {can.plan(role) && <Button size="sm" variant="outline" onClick={() => onPlan(s.id, student.id)}>Plan</Button>}
                   </li>
                 ))}
@@ -116,7 +117,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                 const p = mine.find((x) => x.skill_id === sk.id);
                 return (
                   <li key={sk.id} className="py-2">
-                    <p className="text-sm font-medium mb-1">{sk.title}</p>
+                    <Link to={skillLink(sk)} className="block text-sm font-medium mb-1 hover:underline">{sk.title}</Link>
                     {editable
                       ? <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p?.status} /><ProgressChooser key={`${student.id}:${sk.id}`} studentId={student.id} studentName={student.name} activityTitle={sk.title} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} /></div>
                       : <div className="flex items-center gap-2 text-xs text-muted-foreground"><StatusBadge status={p?.status} />{p && <span>{lastUpdate(p, nameOf)}</span>}{p?.note && <span>· {p.note}</span>}</div>}

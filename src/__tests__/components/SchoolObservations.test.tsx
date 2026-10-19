@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, vi } from 'vitest';
 import { cleanup, fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { MemoryRouter, useLocation } from 'react-router-dom';
 import ProgressTab from '@/components/school/ProgressTab';
 import { Progress } from '@/components/school/api';
 
@@ -8,17 +9,34 @@ vi.mock('@/components/school/api', () => ({ schoolCall: call }));
 vi.mock('@/hooks/use-toast', () => ({ useToast: () => ({ toast: vi.fn() }) }));
 vi.mock('@/components/school/curriculum', () => ({
   areas: () => [{ key: 'practical', title: 'Practical Life' }],
-  orderedSkills: () => [{ id: 'pouring', title: 'Pouring Water', areaKey: 'practical' }],
+  orderedSkills: () => [{ id: 'pouring', title: 'Pouring Water', areaKey: 'practical', route: '/practical-life' }],
+  skillLink: (skill: { id: string; route: string }) => `${skill.route}?activity=${skill.id}&from=school`,
 }));
 const students = [
   { id: 'child-a', classroom_id: 'room', name: 'Alex', archived: false, date_of_birth: null, family_email: null },
   { id: 'child-b', classroom_id: 'room', name: 'Sam', archived: false, date_of_birth: null, family_email: null },
 ];
 function mount(canEdit = true, progress: Progress[] = []) {
-  return render(<ProgressTab students={students} progress={progress} canEdit={canEdit} nameOf={() => 'Teacher'} onChange={vi.fn()} onOpenStudent={vi.fn()} />);
+  function Location() { const location = useLocation(); return <output aria-label="Current location">{location.pathname}{location.search}</output>; }
+  return render(<MemoryRouter initialEntries={['/school?tab=progress&room=room']}><ProgressTab students={students} progress={progress} canEdit={canEdit} nameOf={() => 'Teacher'} onChange={vi.fn()} onOpenStudent={vi.fn()} /><Location /></MemoryRouter>);
 }
 afterEach(() => { cleanup(); vi.clearAllMocks(); vi.restoreAllMocks(); });
 describe('student observation recording', () => {
+  it('opens the exact activity guide for read-only assistants without writing a record', () => {
+    mount(false);
+    fireEvent.click(screen.getByRole('button', { name: 'Open activity guide' }));
+    expect(screen.getByLabelText('Current location')).toHaveTextContent('/practical-life?activity=pouring&from=school');
+    expect(call).not.toHaveBeenCalled();
+  });
+  it('keeps an unsaved observation when opening the guide is cancelled', () => {
+    mount();
+    fireEvent.change(screen.getByLabelText('Observation notes'), { target: { value: 'Still observing.' } });
+    vi.spyOn(window, 'confirm').mockReturnValue(false);
+    fireEvent.click(screen.getByRole('button', { name: 'Open activity guide' }));
+    expect(screen.getByLabelText('Current location')).toHaveTextContent('/school?tab=progress&room=room');
+    expect(screen.getByLabelText('Observation notes')).toHaveValue('Still observing.');
+    expect(call).not.toHaveBeenCalled();
+  });
   it('does not write when selecting an observation; saves the selected child and note only on submission', async () => {
     call.mockResolvedValue({}); mount();
     fireEvent.click(screen.getByRole('radio', { name: /Practising/ }));

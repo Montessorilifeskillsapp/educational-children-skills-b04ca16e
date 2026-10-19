@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] Restore activity-guide links in school observations, student records and staff activity; preserve observation selection/search in the return URL. Sixteen school tests pass and guides in all nine areas open without runtime errors; signed-in portal return remains unverified under external unmanaged authentication.
 - [x] Correct school parent-report confirmation: failed/suppressed requests return errors; only explicit queue acceptance shows queued, never delivered. Four delivery regression tests pass, 14 school tests pass, preview build OK, school-portal deployed. Authenticated inbox delivery remains unverified under the existing external-auth blocker.
 - [x] Streamline school observations into a compact activity browser and one in-place editor, with search and guarded student switching; ten tests and isolated desktop/mobile interaction checks pass.
 - [x] Fix song preview player reference being cleared during page initialization; regression test passes and actual uploaded Continents preview plays and pauses without media errors.
