@@ -22,6 +22,13 @@
 - Roles only change through the Staff tab, not through invites, so a role never switches by itself.
 - To preview Teacher or Assistant, invite a second email address with that role, assign it a classroom, and sign in with that address in another browser. Your own account stays School Admin.
 
+## Clearer progress recording (replaces tap-to-cycle)
+- Tapping a cell no longer cycles through codes. It opens a small chooser for that student and activity with three labelled buttons: **Presented**, **Practising**, **Mastered**. The current one is highlighted, with a "Clear record" link underneath.
+- The chooser shows the last update ("Practising · Oct 19 · J. Smith") and has an optional short note field, so the status and a note are saved together.
+- Grid cells show full-colour badges with a legend above the grid. Short codes (P / Pr / M) are no longer used on their own.
+- The student panel lists each activity with the same three buttons, so a teacher can record a whole child's work in one place and move to the next child with Previous / Next.
+- Assistants see the badges and history but get no chooser.
+
 ## Technical details
 - `rules.ts`: `record_progress` becomes School Admin and Teacher only. Add a `view` permission for all roles. Update tests: assistant can't record progress, add notes or plan; admin and teacher can.
 - `index.ts`: observation_add, progress_set and plan_done use the updated rules. Add a read action `staff_activity` (admin only) that returns progress, observations and plans filtered by `updated_by`/`author_id`, and redeploy. Existing `updated_by`/`author_id` columns already record the author, so no database change is needed.
