@@ -37,14 +37,19 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isSchoolStaff, setIsSchoolStaff] = useState(false);
   const navigate = useNavigate();
   const { user } = useAuthContext();
 
   useEffect(() => {
     if (!user) {
       setIsAdmin(false);
+      setIsSchoolStaff(false);
       return;
     }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    (supabase as any).from('school_members').select('id').eq('user_id', user.id).limit(1)
+      .then(({ data }: { data: unknown[] | null }) => setIsSchoolStaff(!!data?.length));
 
     const checkAdmin = async () => {
       const { data } = await supabase
@@ -76,6 +81,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
+    ...(isSchoolStaff ? [{ label: 'School Portal', icon: School, onClick: () => navigate('/school'), color: 'border-primary/30' }] : []),
     ...(isAdmin ? [
       { label: 'Admin', icon: BarChart3, onClick: () => navigate('/admin'), color: 'border-destructive/40' },
       { label: 'Access Codes', icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
