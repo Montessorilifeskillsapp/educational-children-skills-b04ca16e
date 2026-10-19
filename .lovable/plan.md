@@ -18,6 +18,19 @@
 
 The existing unused Schools template is reused for layout where it fits. Its fake educator and messaging sections are left out.
 
+## Improvements over the first draft
+- **Observation notes:** quick dated notes per student, kept in the order they were written, the way Montessori guides record observations. They can be included in parent reports.
+- **"Ready for next" suggestions:** once a student masters an activity, the next activity in the curriculum sequence appears as a suggestion for planning.
+- **Class view:** see at a glance which students haven't had a presentation lately, so no child is overlooked.
+- **Print-friendly reports and plans,** for staff who keep paper records or post plans on the wall.
+- **Activity guides link straight through:** an activity in the grid or planner opens the existing activity page for that activity.
+
+## The rest of the app stays the same
+- Nothing changes on the homepage, activity pages, Family Dashboard, plans, prices or shop.
+- The only visible additions outside the portal are a "School Portal" menu entry, shown only to staff of a school, and the existing licensing contact button.
+- The portal uses the app's current colours, fonts and buttons. It gets no new theme.
+- A teacher who also has a family account keeps both, separately.
+
 ## Admin additions
 - Admin → Schools: create a school, set its first School Admin's email, set the per-classroom limit, and turn the school on or off.
 
@@ -33,4 +46,6 @@ The existing unused Schools template is reused for layout where it fits. Its fak
 - Invites go out through send-transactional-email with a new `school-invite` template. Accepting an invite links the signed-in account.
 - Reports are emailed through the existing transactional email function.
 - Kept separate from family child_profiles and subscriptions, so family billing is unaffected.
+- All portal code lives in its own folder (`src/components/school/`) and its own lazy-loaded /school routes. Shared components and existing tables are not modified, apart from one conditional menu item.
+- Observation notes are stored in a student_observations table.
 - Tests for: the 30-seat default and override, the assistant not being able to delete or send, and members not seeing other schools.
