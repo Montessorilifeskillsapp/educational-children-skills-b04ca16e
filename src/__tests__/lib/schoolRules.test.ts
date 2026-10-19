@@ -7,7 +7,7 @@ describe('school portal rules', () => {
     expect(roleAllows('assistant', 'delete_student')).toBe(false);
     expect(roleAllows('assistant', 'send_report')).toBe(false);
   });
-  it('assistants can record progress', () => { expect(roleAllows('assistant', 'record_progress')).toBe(true); });
+  it('assistants are view only: they cannot record progress or notes', () => { expect(roleAllows('assistant', 'record_progress')).toBe(false); expect(roleAllows('assistant', 'view')).toBe(true); expect(roleAllows('teacher', 'record_progress')).toBe(true); expect(roleAllows('school_admin', 'record_progress')).toBe(true); });
   it('only School Admins manage staff and classrooms', () => {
     expect(roleAllows('teacher', 'manage_school')).toBe(false);
     expect(roleAllows('school_admin', 'manage_school')).toBe(true);

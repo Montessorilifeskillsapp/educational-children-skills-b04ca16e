@@ -6,18 +6,24 @@ import { Textarea } from '@/components/ui/textarea';
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { useToast } from '@/hooks/use-toast';
 import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
-import { areas, nextSuggestions, skillById } from './curriculum';
+import { areas, nextSuggestions, orderedSkills, skillById } from './curriculum';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import ProgressChooser, { StatusBadge, lastUpdate } from './ProgressChooser';
 
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
   onClose: () => void; onChange: () => void; onPlan: (skillId: string, studentId: string) => void;
+  classmates: Student[]; onSelect: (id: string) => void; nameOf: (userId: string | null) => string;
 }
 
 const LABEL = { presented: 'Presented', practising: 'Practising', mastered: 'Mastered' } as const;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
-export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan }: Props) {
+export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, classmates, onSelect, nameOf }: Props) {
   const { toast } = useToast();
+  const [area, setArea] = useState(areas()[0].key);
+  const areaSkills = useMemo(() => orderedSkills().filter((s) => s.areaKey === area), [area]);
+  const editable = can.recordProgress(role);
   const [note, setNote] = useState('');
   const [from, setFrom] = useState(() => iso(new Date(Date.now() - 30 * 864e5)));
   const [to, setTo] = useState(() => iso(new Date()));
@@ -64,7 +70,20 @@ export default function StudentPanel({ role, userId, student, progress, observat
   return (
     <Sheet open onOpenChange={(o) => !o && onClose()}>
       <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
-        <SheetHeader><SheetTitle>{student.name}</SheetTitle></SheetHeader>
+        <SheetHeader><SheetTitle>{student.name}{!editable && <span className="ml-2 text-xs font-normal text-muted-foreground">View only</span>}</SheetTitle></SheetHeader>
+        {(() => {
+          const i = classmates.findIndex((c) => c.id === student.id);
+          return (
+            <div className="flex items-center gap-2 mt-3">
+              <Button size="sm" variant="outline" disabled={i <= 0} onClick={() => onSelect(classmates[i - 1].id)}>Previous</Button>
+              <Select value={student.id} onValueChange={onSelect}>
+                <SelectTrigger className="h-9 flex-1"><SelectValue /></SelectTrigger>
+                <SelectContent>{classmates.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
+              </Select>
+              <Button size="sm" variant="outline" disabled={i < 0 || i >= classmates.length - 1} onClick={() => onSelect(classmates[i + 1].id)}>Next</Button>
+            </div>
+          );
+        })()}
         <div className="space-y-6 mt-4">
           <section>
             <h3 className="font-semibold mb-2">Ready for next</h3>
@@ -81,31 +100,40 @@ export default function StudentPanel({ role, userId, student, progress, observat
           </section>
 
           <section>
-            <h3 className="font-semibold mb-2">Progress</h3>
-            {mine.length === 0 ? <p className="text-sm text-muted-foreground">Nothing recorded yet.</p> : areas().map((a) => {
-              const items = mine.filter((p) => skillById(p.skill_id)?.areaKey === a.key);
-              if (!items.length) return null;
-              return (
-                <div key={a.key} className="mb-2">
-                  <p className="text-sm font-medium">{a.title}</p>
-                  <ul className="text-sm text-muted-foreground">
-                    {items.map((p) => <li key={p.id}>{skillById(p.skill_id)?.title ?? p.skill_id} — {LABEL[p.status]}</li>)}
-                  </ul>
-                </div>
-              );
-            })}
+            <div className="flex items-center justify-between gap-2 mb-2">
+              <h3 className="font-semibold">Progress</h3>
+              <Select value={area} onValueChange={setArea}>
+                <SelectTrigger className="w-48 h-8"><SelectValue /></SelectTrigger>
+                <SelectContent>{areas().map((a) => <SelectItem key={a.key} value={a.key}>{a.title}</SelectItem>)}</SelectContent>
+              </Select>
+            </div>
+            <ul className="divide-y divide-border">
+              {areaSkills.map((sk) => {
+                const p = mine.find((x) => x.skill_id === sk.id);
+                return (
+                  <li key={sk.id} className="py-2">
+                    <p className="text-sm font-medium mb-1">{sk.title}</p>
+                    {editable
+                      ? <ProgressChooser studentId={student.id} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} compact />
+                      : <div className="flex items-center gap-2 text-xs text-muted-foreground"><StatusBadge status={p?.status} />{p && <span>{lastUpdate(p, nameOf)}</span>}{p?.note && <span>· {p.note}</span>}</div>}
+                  </li>
+                );
+              })}
+            </ul>
           </section>
 
           <section>
             <h3 className="font-semibold mb-2">Observation notes</h3>
-            <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="What did you observe?" />
-            <Button size="sm" className="mt-2" onClick={addNote} disabled={!note.trim()}>Add note</Button>
+            {editable && <>
+              <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="What did you observe?" />
+              <Button size="sm" className="mt-2" onClick={addNote} disabled={!note.trim()}>Add note</Button>
+            </>}
             <ul className="mt-3 space-y-2">
               {obs.map((o) => (
                 <li key={o.id} className="text-sm border-l-2 border-border pl-3">
-                  <p className="text-xs text-muted-foreground">{new Date(o.observed_at).toLocaleString()}</p>
+                  <p className="text-xs text-muted-foreground">{new Date(o.observed_at).toLocaleString()}{o.author_id ? ` · ${nameOf(o.author_id)}` : ''}</p>
                   <p className="whitespace-pre-wrap">{o.body}</p>
-                  {(o.author_id === userId || can.editRoster(role)) && <button className="text-xs underline text-destructive" onClick={() => delNote(o.id)}>Delete</button>}
+                  {editable && (o.author_id === userId || can.editRoster(role)) && <button className="text-xs underline text-destructive" onClick={() => delNote(o.id)}>Delete</button>}
                 </li>
               ))}
             </ul>

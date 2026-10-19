@@ -7,7 +7,8 @@ export const PERMISSIONS: Record<string, SchoolRole[]> = {
   delete_student: ['school_admin', 'teacher'],
   plan: ['school_admin', 'teacher'],
   send_report: ['school_admin', 'teacher'],
-  record_progress: ['school_admin', 'teacher', 'assistant'],
+  record_progress: ['school_admin', 'teacher'],
+  view: ['school_admin', 'teacher', 'assistant'],
 }
 
 export const DEFAULT_SEAT_LIMIT = 30
