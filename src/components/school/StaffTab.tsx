@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Classroom, Invite, Member, ROLE_LABEL, schoolCall, SchoolRole } from './api';
 
@@ -11,6 +12,8 @@ interface Props { schoolId: string; members: Member[]; invites: Invite[]; classr
 
 export default function StaffTab({ schoolId, members, invites, classrooms, staff, onChange }: Props) {
   const { toast } = useToast();
+  const { user } = useAuthContext();
+  const adminCount = members.filter((m) => m.role === 'school_admin').length;
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<SchoolRole>('teacher');
   const [room, setRoom] = useState('');
@@ -67,6 +70,9 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
             {members.map((m) => (
               <li key={m.id} className="py-2 flex items-center justify-between gap-2 flex-wrap">
                 <span className="text-sm">{m.full_name || m.email} <span className="text-muted-foreground">· {m.email}</span></span>
+                {m.user_id === user?.id || (m.role === 'school_admin' && adminCount <= 1) ? (
+                  <span className="text-sm text-muted-foreground">{ROLE_LABEL[m.role]}{m.user_id === user?.id ? ' (you)' : ''}</span>
+                ) : (
                 <div className="flex gap-2 items-center">
                   <Select value={m.role} onValueChange={(v) => run({ action: 'member_role', id: m.id, role: v })}>
                     <SelectTrigger className="w-36 h-8"><SelectValue /></SelectTrigger>
@@ -74,6 +80,7 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
                   </Select>
                   <Button size="sm" variant="ghost" className="text-destructive" onClick={() => confirm(`Remove ${m.email}?`) && run({ action: 'member_remove', id: m.id })}>Remove</Button>
                 </div>
+                )}
               </li>
             ))}
             {invites.map((i) => (
