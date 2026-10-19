@@ -9,7 +9,7 @@ export interface Classroom { id: string; school_id: string; name: string; seat_l
 export interface Member { id: string; user_id: string; email: string; full_name: string | null; role: SchoolRole }
 export interface Invite { id: string; email: string; role: SchoolRole; accepted_at: string | null }
 export interface Student { id: string; classroom_id: string; name: string; date_of_birth: string | null; family_email: string | null; archived: boolean }
-export interface Progress { id: string; student_id: string; skill_id: string; status: 'presented' | 'practising' | 'mastered'; note: string | null; presented_at: string; updated_at: string }
+export interface Progress { id: string; student_id: string; skill_id: string; status: 'presented' | 'practising' | 'mastered'; note: string | null; updated_by: string | null; presented_at: string; updated_at: string }
 export interface Observation { id: string; student_id: string; body: string; author_id: string | null; observed_at: string }
 export interface PlanItem { id: string; classroom_id: string; plan_date: string; skill_id: string; student_ids: string[]; notes: string | null; done: boolean }
 export interface Report { id: string; student_id: string; period_start: string; period_end: string; sent_to: string | null; sent_at: string | null; summary: { title?: string; body?: string } }
@@ -36,7 +36,7 @@ export const can = {
   editRoster: (r: SchoolRole) => r !== 'assistant',
   plan: (r: SchoolRole) => r !== 'assistant',
   sendReport: (r: SchoolRole) => r !== 'assistant',
-  recordProgress: (_r: SchoolRole) => true,
+  recordProgress: (r: SchoolRole) => r !== 'assistant',
 };
 
 export const KERRY_EMAIL = 'montessorilifeskills@gmail.com';
