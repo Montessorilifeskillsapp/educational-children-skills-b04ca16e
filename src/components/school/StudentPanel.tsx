@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -10,6 +10,7 @@ import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } f
 import { areas, nextSuggestions, orderedSkills, skillById, skillLink } from './curriculum';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
+import { SCHOOL_LEAVE_EVENT } from './navigation';
 
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
@@ -34,6 +35,13 @@ export default function StudentPanel({ role, userId, student, progress, observat
   const obs = useMemo(() => observations.filter((o) => o.student_id === student?.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)), [observations, student]);
   const sent = reports.filter((r) => r.student_id === student?.id && r.summary.email_status === 'queued');
   const suggestions = useMemo(() => nextSuggestions(mine), [mine]);
+  useEffect(() => {
+    const beforeLeave = (event: Event) => {
+      if (sending || (note.trim() && !window.confirm('Discard this unsaved student note?'))) event.preventDefault();
+    };
+    window.addEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
+    return () => window.removeEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
+  }, [note, sending]);
 
   if (!student) return null;
 
