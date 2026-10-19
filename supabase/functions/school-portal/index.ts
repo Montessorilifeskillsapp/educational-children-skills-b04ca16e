@@ -152,6 +152,7 @@ Deno.serve(async (req) => {
         const { data: t } = await admin.from('school_members').select('school_id, user_id, role').eq('id', b.id).maybeSingle()
         const m = t && await membership(t.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
+        if (t!.user_id === uid) return json({ error: 'Another School Admin must change or remove your own access.' }, 400)
         // Never leave a school without a School Admin.
         if (t!.role === 'school_admin' && (b.action === 'member_remove' || b.role !== 'school_admin')) {
           const { count } = await admin.from('school_members').select('id', { count: 'exact', head: true }).eq('school_id', t!.school_id).eq('role', 'school_admin')
