@@ -27,7 +27,7 @@ export default function SchoolPortalPage() {
   const [planSeed, setPlanSeed] = useState<{ skill_id: string; student_ids: string[] } | null>(null);
 
   // One step back in history; only fall back to home when the portal was opened directly.
-  const goBack = () => { if (window.history.state?.idx > 0) navigate(-1); else navigate('/'); };
+  const goBack = () => { if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); if (window.history.state?.idx > 0) navigate(-1); else navigate('/'); };
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
   useEffect(() => {
     if (!user) return;
