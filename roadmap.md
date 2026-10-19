@@ -1,5 +1,5 @@
 ## Open tasks
-- [ ] Fix song preview player reference being cleared during page initialization; test real uploaded preview playback and pause.
+- [x] Fix song preview player reference being cleared during page initialization; regression test passes and actual uploaded Continents preview plays and pauses without media errors.
 - [x] Replace school progress matrix with student-specific observation records and explicit save; nine tests pass and isolated desktop/mobile checks verify selection, notes and student switching.
 - [ ] Verify school observation saves and readback in a signed-in school account — blocked by external unmanaged authentication; isolated UI and mocked-save tests do not establish hosted persistence.
 - [x] TV demo: 8 real screen clips (6 desktop 1920x1080, 3 phone 1080x1920 minus video scene) saved to Files/tv-demo; no activity video available to record.
