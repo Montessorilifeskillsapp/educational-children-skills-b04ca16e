@@ -1,8 +1,9 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { SCHOOL_RETURN_KEY, hasSchoolReturn, schoolReturnTarget } from './navigation';
 
-export const SCHOOL_RETURN_KEY = 'school-return-url';
+export { SCHOOL_RETURN_KEY } from './navigation';
 
 export function rememberSchoolReturn(url: string) {
   try {
@@ -18,17 +19,16 @@ export function rememberSchoolReturn(url: string) {
  */
 export default function SchoolReturnBar() {
   const navigate = useNavigate();
+  const location = useLocation();
   const [params] = useSearchParams();
-  if (params.get('from') !== 'school') return null;
-  let target = '/school';
-  try {
-    target = sessionStorage.getItem(SCHOOL_RETURN_KEY) || '/school';
-  } catch {
-    /* storage unavailable */
-  }
+  if (location.pathname.startsWith('/school') || location.pathname.startsWith('/admin') || location.pathname.startsWith('/auth')) return null;
+  const active = params.get('from') === 'school' || hasSchoolReturn();
+  if (!active) return null;
   return (
-    <div className="sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border px-4 py-2 print:hidden">
-      <Button variant="ghost" size="sm" onClick={() => navigate(target)}>
+    <div className={params.get('activity')
+      ? 'sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border px-4 py-2 print:hidden'
+      : 'fixed bottom-4 right-4 z-50 bg-background border border-border rounded-md shadow-md p-1 print:hidden'}>
+      <Button variant="ghost" size="sm" onClick={() => navigate(schoolReturnTarget())}>
         <ArrowLeft className="h-4 w-4 mr-2" />
         Return to School Portal
       </Button>

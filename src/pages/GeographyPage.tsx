@@ -1,7 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import GeographySkills from '@/components/GeographySkills';
-import SchoolReturnBar from '@/components/school/SchoolReturnBar';
 import { useActivityParam } from '@/hooks/useActivityParam';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
@@ -24,7 +23,6 @@ const GeographyPage: React.FC = () => {
 
   return (
     <SEOOptimizer>
-      {selectedSkill && <SchoolReturnBar />}
       <GeographySkills
         onBack={() => navigate('/')}
         onSkillSelect={setSelectedSkill}

@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { ChevronLeft, ChevronRight, Search, UserRound } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -7,6 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Progress, Student } from './api';
 import ProgressChooser, { STATUS_LABEL, lastUpdate } from './ProgressChooser';
 import { areas, orderedSkills, skillLink } from './curriculum';
+import { SCHOOL_LEAVE_EVENT } from './navigation';
 
 interface Props { students: Student[]; progress: Progress[]; canEdit: boolean; nameOf: (userId: string | null) => string; onChange: () => void; onOpenStudent: (id: string) => void }
 
@@ -28,6 +29,13 @@ export default function ProgressTab({ students, progress, canEdit, nameOf, onCha
   const setQuery = (value: string) => updateParam('search', value);
   const [draft, setDraft] = useState({ dirty: false, busy: false });
   const onDraftChange = useCallback((dirty: boolean, busy: boolean) => setDraft({ dirty, busy }), []);
+  useEffect(() => {
+    const beforeLeave = (event: Event) => {
+      if (draft.busy || (draft.dirty && !window.confirm('Discard this unsaved observation?'))) event.preventDefault();
+    };
+    window.addEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
+    return () => window.removeEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
+  }, [draft]);
   const student = students.find((s) => s.id === selectedId) ?? students[0];
   const index = students.findIndex((s) => s.id === student?.id);
   const skills = useMemo(() => orderedSkills().filter((s) => s.areaKey === area), [area]);

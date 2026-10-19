@@ -1,4 +1,5 @@
-import { useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { schoolReturnTarget } from '@/components/school/navigation';
 
 /**
  * Syncs the selected activity with the ?activity= URL parameter so individual
@@ -7,8 +8,13 @@ import { useSearchParams } from 'react-router-dom';
  */
 export function useActivityParam(): [string, (id: string) => void] {
   const [params, setParams] = useSearchParams();
+  const navigate = useNavigate();
   const activity = params.get('activity') ?? '';
-  const setActivity = (id: string) =>
+  const setActivity = (id: string) => {
+    if (!id && params.get('from') === 'school') {
+      navigate(schoolReturnTarget());
+      return;
+    }
     setParams(
       (p) => {
         const n = new URLSearchParams(p);
@@ -18,5 +24,6 @@ export function useActivityParam(): [string, (id: string) => void] {
       },
       { replace: true }
     );
+  };
   return [activity, setActivity];
 }

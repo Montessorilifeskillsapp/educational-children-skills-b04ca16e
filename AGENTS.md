@@ -9,4 +9,4 @@
 
 - School observations use a compact activity browser with one shared in-place explicit-save editor and guarded context switching; stored status identifiers remain stable while labels describe observed work. Why: prevents accidental writes and preserves existing records across presentation changes.
 - School parent reports use the tested reportDelivery helper and only confirm explicit email-queue acceptance; sent_at stays unset until actual sending is confirmed. Why: queue acceptance, suppression and delivery are different outcomes.
-- School activity guides use shared exact-activity links from observations, student records, planning and staff activity; observation selection and search live in portal URL parameters. Why: staff can open the guide and return to the same student and activity without losing context.
+- School activity guides use shared exact-activity links, URL-based observation context and a single app-wide portal-return bar; portal departures dispatch a cancelable navigation event for draft guards. Why: staff can browse the app and return to their student/activity without silently discarding work; navigation markers never grant access.
