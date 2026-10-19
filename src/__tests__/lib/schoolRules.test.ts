@@ -13,3 +13,11 @@ describe('school portal rules', () => {
     expect(roleAllows('school_admin', 'manage_school')).toBe(true);
   });
 });
+
+describe('removing staff', () => {
+  it('only a School Admin may remove or re-role staff, including other School Admins', () => {
+    expect(roleAllows('school_admin', 'manage_school')).toBe(true)
+    expect(roleAllows('teacher', 'manage_school')).toBe(false)
+    expect(roleAllows('assistant', 'manage_school')).toBe(false)
+  })
+})
