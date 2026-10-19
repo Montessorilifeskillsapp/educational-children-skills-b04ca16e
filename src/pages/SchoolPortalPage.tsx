@@ -16,24 +16,31 @@ import StaffTab from '@/components/school/StaffTab';
 import StaffActivity from '@/components/school/StaffActivity';
 import StudentPanel from '@/components/school/StudentPanel';
 import { skillById } from '@/components/school/curriculum';
+import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 
 export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
   const navigate = useNavigate();
   const [memberships, setMemberships] = useState<Membership[] | null>(null);
   const [schoolId, setSchoolId] = useState<string | null>(null);
-  const [classroomId, setClassroomId] = useState<string | null>(null);
-  // Tab lives in the address so returning from an activity page lands on the same tab.
+  // Tab, classroom and open student live in the address so returning from an activity page lands on the same spot.
   const [params, setParams] = useSearchParams();
   const tab = params.get('tab') || 'overview';
   const setTab = (t: string) => setParams((p) => { const n = new URLSearchParams(p); if (t === 'overview') n.delete('tab'); else n.set('tab', t); return n; }, { replace: true });
-  const [openStudent, setOpenStudent] = useState<string | null>(null);
+  const classroomId = params.get('room');
+  const setClassroomId = (id: string | null) => setParams((p) => { const n = new URLSearchParams(p); if (id) n.set('room', id); else n.delete('room'); return n; }, { replace: true });
+  const openStudent = params.get('student');
+  const setOpenStudent = (id: string | null) => setParams((p) => { const n = new URLSearchParams(p); if (id) n.set('student', id); else n.delete('student'); return n; }, { replace: true });
   const [planSeed, setPlanSeed] = useState<{ skill_id: string; student_ids: string[] } | null>(null);
 
   // Back steps within the portal (student -> tab -> Overview); leaving the portal is an explicit "Exit portal".
   const goBack = () => { if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
+  // Remember the exact portal spot so activity pages can offer "Return to School Portal".
+  useEffect(() => {
+    rememberSchoolReturn(window.location.pathname + window.location.search);
+  }, [tab, openStudent, classroomId, schoolId]);
   useEffect(() => {
     if (!user) return;
     schoolCall<{ memberships: Membership[] }>({ action: 'me' })
