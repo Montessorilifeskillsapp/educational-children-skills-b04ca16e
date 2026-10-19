@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -22,12 +22,16 @@ export default function SchoolPortalPage() {
   const [memberships, setMemberships] = useState<Membership[] | null>(null);
   const [schoolId, setSchoolId] = useState<string | null>(null);
   const [classroomId, setClassroomId] = useState<string | null>(null);
-  const [tab, setTab] = useState('overview');
+  // Tab lives in the address so returning from an activity page lands on the same tab.
+  const [params, setParams] = useSearchParams();
+  const tab = params.get('tab') || 'overview';
+  const setTab = (t: string) => setParams((p) => { const n = new URLSearchParams(p); if (t === 'overview') n.delete('tab'); else n.set('tab', t); return n; }, { replace: true });
   const [openStudent, setOpenStudent] = useState<string | null>(null);
   const [planSeed, setPlanSeed] = useState<{ skill_id: string; student_ids: string[] } | null>(null);
 
-  // One step back in history; only fall back to home when the portal was opened directly.
-  const goBack = () => { if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); if (window.history.state?.idx > 0) navigate(-1); else navigate('/'); };
+  // Back steps within the portal (student -> tab -> Overview); leaving the portal is an explicit "Exit portal".
+  const goBack = () => { if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
+  const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
   useEffect(() => {
     if (!user) return;
@@ -80,7 +84,9 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-6xl mx-auto space-y-4">
-      <div className="print:hidden"><BackButton onClick={goBack} /></div>
+      <div className="print:hidden">{atPortalHome
+        ? <Button variant="ghost" size="sm" onClick={() => navigate('/')}>Exit portal</Button>
+        : <BackButton onClick={goBack} />}</div>
       <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
         <div>
           <h1 className="text-3xl font-bold text-foreground">School Portal</h1>
