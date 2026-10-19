@@ -17,6 +17,7 @@ import StaffActivity from '@/components/school/StaffActivity';
 import StudentPanel from '@/components/school/StudentPanel';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
+import { allowSchoolNavigation } from '@/components/school/navigation';
 
 export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
@@ -34,7 +35,7 @@ export default function SchoolPortalPage() {
   const [planSeed, setPlanSeed] = useState<{ skill_id: string; student_ids: string[] } | null>(null);
 
   // Back steps within the portal (student -> tab -> Overview); leaving the portal is an explicit "Exit portal".
-  const goBack = () => { if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
+  const goBack = () => { if (!allowSchoolNavigation()) return; if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
   // Remember the exact portal spot so activity pages can offer "Return to School Portal".
@@ -93,9 +94,12 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-6xl mx-auto space-y-4">
-      <div className="print:hidden">{atPortalHome
-        ? <Button variant="ghost" size="sm" onClick={() => navigate('/')}>Exit portal</Button>
-        : <BackButton onClick={goBack} />}</div>
+      <div className="print:hidden flex items-center justify-between gap-3">
+        {atPortalHome
+          ? <Button variant="ghost" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit portal</Button>
+          : <BackButton onClick={goBack} />}
+        <Button variant="outline" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Browse app</Button>
+      </div>
       <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
         <div>
           <h1 className="text-3xl font-bold text-foreground">School Portal</h1>

@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import ArtSkills from '@/components/ArtSkills';
 import SEOOptimizer from '@/components/SEOOptimizer';
-import SchoolReturnBar from '@/components/school/SchoolReturnBar';
 import { useSEO } from '@/hooks/useSEO';
 import { useActivityParam } from '@/hooks/useActivityParam';
 
@@ -18,7 +17,6 @@ const ArtPage: React.FC = () => {
 
   return (
     <SEOOptimizer>
-      {selectedSkill && <SchoolReturnBar />}
       <ArtSkills
         onBack={() => navigate('/')}
         selectedSkill={selectedSkill}

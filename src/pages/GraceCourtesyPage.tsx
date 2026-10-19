@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import GraceAndCourtesySkills from '@/components/GraceAndCourtesySkills';
 import SkillActivity from '@/components/SkillActivity';
-import SchoolReturnBar from '@/components/school/SchoolReturnBar';
 import { useActivityParam } from '@/hooks/useActivityParam';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
@@ -26,7 +25,6 @@ const GraceCourtesyPage: React.FC = () => {
   if (selectedSkill) {
     return (
       <SEOOptimizer>
-        <SchoolReturnBar />
         <SkillActivity skillId={selectedSkill} onBack={() => setSelectedSkill('')} onComplete={logCompletion} />
       </SEOOptimizer>
     );
