@@ -113,7 +113,7 @@ export default function SchoolPortalPage() {
             </Select>
           )}
           {visibleRooms.length > 0 && (
-            <Select value={classroomId ?? ''} onValueChange={setClassroomId}>
+            <Select value={classroomId ?? ''} onValueChange={(id) => { if (allowSchoolNavigation()) setClassroomId(id); }}>
               <SelectTrigger className="w-48"><SelectValue placeholder="Classroom" /></SelectTrigger>
               <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
             </Select>
@@ -122,7 +122,7 @@ export default function SchoolPortalPage() {
       </header>
 
       {loading ? <LoadingSpinner /> : (
-        <Tabs value={tab} onValueChange={setTab}>
+        <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
           <TabsList className="flex flex-wrap h-auto print:hidden">
             <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="roster" disabled={!classroom}>Class roster</TabsTrigger>

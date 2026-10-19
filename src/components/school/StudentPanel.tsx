@@ -10,7 +10,7 @@ import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } f
 import { areas, nextSuggestions, orderedSkills, skillById, skillLink } from './curriculum';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
-import { SCHOOL_LEAVE_EVENT } from './navigation';
+import { allowSchoolNavigation, SCHOOL_LEAVE_EVENT } from './navigation';
 
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
@@ -44,6 +44,11 @@ export default function StudentPanel({ role, userId, student, progress, observat
   }, [note, sending]);
 
   if (!student) return null;
+
+  const switchStudent = (id: string) => {
+    if (!allowSchoolNavigation()) return;
+    setNote(''); setPreview(null); onSelect(id);
+  };
 
   const addNote = async () => {
     if (!note.trim()) return;
@@ -81,19 +86,19 @@ export default function StudentPanel({ role, userId, student, progress, observat
   };
 
   return (
-    <Sheet open onOpenChange={(o) => !o && onClose()}>
+    <Sheet open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
       <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
         <SheetHeader><SheetTitle>{student.name}{!editable && <span className="ml-2 text-xs font-normal text-muted-foreground">View only</span>}</SheetTitle></SheetHeader>
         {(() => {
           const i = classmates.findIndex((c) => c.id === student.id);
           return (
             <div className="flex items-center gap-2 mt-3">
-              <Button size="sm" variant="outline" disabled={i <= 0} onClick={() => onSelect(classmates[i - 1].id)}>Previous</Button>
-              <Select value={student.id} onValueChange={onSelect}>
+              <Button size="sm" variant="outline" disabled={i <= 0} onClick={() => switchStudent(classmates[i - 1].id)}>Previous</Button>
+              <Select value={student.id} onValueChange={switchStudent}>
                 <SelectTrigger className="h-9 flex-1"><SelectValue /></SelectTrigger>
                 <SelectContent>{classmates.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
-              <Button size="sm" variant="outline" disabled={i < 0 || i >= classmates.length - 1} onClick={() => onSelect(classmates[i + 1].id)}>Next</Button>
+              <Button size="sm" variant="outline" disabled={i < 0 || i >= classmates.length - 1} onClick={() => switchStudent(classmates[i + 1].id)}>Next</Button>
             </div>
           );
         })()}
@@ -104,7 +109,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
               <ul className="space-y-1">
                 {suggestions.map((s) => (
                   <li key={s.id} className="flex items-center justify-between text-sm gap-2">
-                    <span><Link to={skillLink(s)} className="font-medium hover:underline">{s.title}</Link> <span className="text-muted-foreground">· {s.areaTitle}</span></span>
+                    <span><Link to={skillLink(s)} onClick={(event) => { if (!allowSchoolNavigation()) event.preventDefault(); }} className="font-medium hover:underline">{s.title}</Link> <span className="text-muted-foreground">· {s.areaTitle}</span></span>
                     {can.plan(role) && <Button size="sm" variant="outline" onClick={() => onPlan(s.id, student.id)}>Plan</Button>}
                   </li>
                 ))}
@@ -125,7 +130,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                 const p = mine.find((x) => x.skill_id === sk.id);
                 return (
                   <li key={sk.id} className="py-2">
-                    <Link to={skillLink(sk)} className="block text-sm font-medium mb-1 hover:underline">{sk.title}</Link>
+                    <Link to={skillLink(sk)} onClick={(event) => { if (!allowSchoolNavigation()) event.preventDefault(); }} className="block text-sm font-medium mb-1 hover:underline">{sk.title}</Link>
                     {editable
                       ? <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p?.status} /><ProgressChooser key={`${student.id}:${sk.id}`} studentId={student.id} studentName={student.name} activityTitle={sk.title} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} /></div>
                       : <div className="flex items-center gap-2 text-xs text-muted-foreground"><StatusBadge status={p?.status} />{p && <span>{lastUpdate(p, nameOf)}</span>}{p?.note && <span>· {p.note}</span>}</div>}
