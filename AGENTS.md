@@ -6,3 +6,5 @@
 - Materials-list thumbnails resolve from a local exact-name item-photo registry, not from affiliate product pages or activity scenes. Why: purchase listings change and a wrong object photo misleads families.
 - Native subscriptions use four stable products (`premium_monthly`, `premium_annual`, `family_monthly`, `family_annual`) and preserve independent valid web/store access. Why: tier identity and allowance must not depend on price matching.
 - School Portal lives in `src/components/school/` with lazy `/school` and `/admin/schools` routes; school tables are member-read-only via RLS and all writes go through the `school-portal` edge function (role rules in its `rules.ts`). Why: keeps schools isolated from family data and the rest of the app unchanged.
+
+- School observation forms use a shared explicit-save editor; stored status identifiers remain stable while labels describe observed work. Why: prevents accidental writes and preserves existing records across presentation changes.
