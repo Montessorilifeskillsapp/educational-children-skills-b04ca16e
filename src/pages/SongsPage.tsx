@@ -40,9 +40,9 @@ const SongsPage: React.FC = () => {
   });
 
   useEffect(() => {
+    const audio = audioRef.current;
     return () => {
-      audioRef.current?.pause();
-      audioRef.current = null;
+      audio?.pause();
     };
   }, []);
 
