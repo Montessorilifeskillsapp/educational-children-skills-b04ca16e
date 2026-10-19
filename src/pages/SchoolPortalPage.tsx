@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -18,6 +18,7 @@ import { skillById } from '@/components/school/curriculum';
 
 export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
+  const navigate = useNavigate();
   const [memberships, setMemberships] = useState<Membership[] | null>(null);
   const [schoolId, setSchoolId] = useState<string | null>(null);
   const [classroomId, setClassroomId] = useState<string | null>(null);
@@ -50,7 +51,7 @@ export default function SchoolPortalPage() {
   if (!user || !memberships?.length) {
     return (
       <div className="min-h-screen p-6 max-w-xl mx-auto flex flex-col justify-center gap-4">
-        <BackButton />
+        <BackButton onClick={() => navigate('/')} />
         <h1 className="text-3xl font-bold text-foreground">School Portal</h1>
         <p className="text-muted-foreground">The School Portal is for schools licensed by Montessori Life Skills. Staff are invited by their school.</p>
         {!user ? <Button asChild><Link to="/auth">Sign in</Link></Button> : <p className="text-sm text-muted-foreground">This account isn't linked to a school yet. If you were invited, sign in with the email address the invitation was sent to.</p>}
@@ -72,7 +73,7 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="min-h-screen p-4 md:p-6 max-w-6xl mx-auto space-y-4">
-      <div className="print:hidden"><BackButton /></div>
+      <div className="print:hidden"><BackButton onClick={() => navigate('/')} /></div>
       <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
         <div>
           <h1 className="text-3xl font-bold text-foreground">School Portal</h1>

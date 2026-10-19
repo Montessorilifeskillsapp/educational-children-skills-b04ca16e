@@ -226,7 +226,12 @@ Deno.serve(async (req) => {
         await admin.from('lesson_plan_items').update({ done: b.done }).eq('id', b.id)
         if (b.done) {
           // A completed plan item counts as a presentation for students without a record yet.
-          for (const sid of p.student_ids ?? []) {
+          let ids: string[] = p.student_ids ?? []
+          if (!ids.length) {
+            const { data: all } = await admin.from('school_students').select('id').eq('classroom_id', p.classroom_id).eq('archived', false)
+            ids = (all ?? []).map((r: { id: string }) => r.id)
+          }
+          for (const sid of ids) {
             const { data: ex } = await admin.from('student_progress').select('id').eq('student_id', sid).eq('skill_id', p.skill_id).maybeSingle()
             if (!ex) await admin.from('student_progress').insert({ student_id: sid, school_id: p.school_id, skill_id: p.skill_id, status: 'presented', updated_by: uid })
           }
