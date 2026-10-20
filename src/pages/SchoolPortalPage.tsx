@@ -15,6 +15,7 @@ import PlanningTab from '@/components/school/PlanningTab';
 import StaffTab from '@/components/school/StaffTab';
 import StaffActivity from '@/components/school/StaffActivity';
 import StudentPanel from '@/components/school/StudentPanel';
+import ReportsTab from '@/components/school/ReportsTab';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
@@ -123,13 +124,14 @@ export default function SchoolPortalPage() {
 
       {loading ? <LoadingSpinner /> : (
         <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
-          <TabsList className="flex flex-wrap h-auto print:hidden">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="roster" disabled={!classroom}>Class roster</TabsTrigger>
-            <TabsTrigger value="progress" disabled={!classroom}>Progress</TabsTrigger>
-            <TabsTrigger value="planning" disabled={!classroom}>Lesson planning</TabsTrigger>
-            {can.manageSchool(role) && <TabsTrigger value="activity">Staff activity</TabsTrigger>}
-            {can.manageSchool(role) && <TabsTrigger value="staff">Classrooms & staff</TabsTrigger>}
+          <TabsList className="w-full justify-start flex flex-wrap h-auto gap-1 p-1 print:hidden">
+            <TabsTrigger value="overview" className="px-4 py-2">Overview</TabsTrigger>
+            <TabsTrigger value="progress" disabled={!classroom} className="px-4 py-2">Record progress</TabsTrigger>
+            <TabsTrigger value="reports" disabled={!classroom} className="px-4 py-2">Parent reports</TabsTrigger>
+            <TabsTrigger value="roster" disabled={!classroom} className="px-4 py-2">Students</TabsTrigger>
+            <TabsTrigger value="planning" disabled={!classroom} className="px-4 py-2">Lesson planning</TabsTrigger>
+            {can.manageSchool(role) && <TabsTrigger value="staff" className="px-4 py-2">Classrooms & staff</TabsTrigger>}
+            {can.manageSchool(role) && <TabsTrigger value="activity" className="px-4 py-2">Staff activity</TabsTrigger>}
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
@@ -174,6 +176,10 @@ export default function SchoolPortalPage() {
               </TabsContent>
               <TabsContent value="progress">
                 <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
+              </TabsContent>
+              <TabsContent value="reports">
+                <ReportsTab role={role} students={students} progress={progress} observations={data.observations} reports={data.reports}
+                  schoolName={school.name} schoolEmail={school.contact_email} onChange={reload} onEditStudent={() => setTab('roster')} />
               </TabsContent>
               <TabsContent value="planning">
                 <PlanningTab key={planSeed ? planSeed.skill_id : 'plan'} role={role} classroom={classroom} students={students} plans={plans} onChange={reload} initial={planSeed} onInitialUsed={() => setPlanSeed(null)} />
