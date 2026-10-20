@@ -24,7 +24,7 @@ const Email = ({ name }: Props) => (
           The most common questions parents ask:
         </Text>
         <Text style={text}>
-          • <strong>"Will it work for my child's age?"</strong> — Yes, the curriculum spans 2.5–6 years with clear progressions.<br />
+          • <strong>"Will it work for my child's age?"</strong> — Yes, the curriculum spans ages 2–6 with clear progressions.<br />
           • <strong>"Do I need to buy materials?"</strong> — Most starter activities use household items. Material lists are optional.<br />
           • <strong>"Can I cancel?"</strong> — Anytime, in one click. No phone calls.
         </Text>
