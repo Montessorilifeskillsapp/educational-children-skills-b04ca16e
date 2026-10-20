@@ -220,7 +220,7 @@ const SongsPage: React.FC = () => {
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                   <div>
                     <p className="text-lg font-bold text-primary">{SONGS_PRICE_LABEL}</p>
-                    <p className="text-xs text-muted-foreground">Not included with Premium plans.</p>
+                    <p className="text-xs text-muted-foreground">A separate purchase — not included with Premium or Family subscriptions.</p>
                   </div>
                   <Button onClick={handleBuy} disabled={busy} className="sm:ml-auto">
                     {busy ? <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" /> : <Music className="w-4 h-4 mr-2" aria-hidden="true" />}
