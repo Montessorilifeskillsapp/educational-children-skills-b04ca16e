@@ -4,7 +4,7 @@ import { FunctionsHttpError } from '@supabase/supabase-js';
 export type SchoolRole = 'school_admin' | 'teacher' | 'assistant';
 export const ROLE_LABEL: Record<SchoolRole, string> = { school_admin: 'School Admin', teacher: 'Teacher', assistant: 'Assistant' };
 
-export interface Membership { id: string; role: SchoolRole; school_id: string; schools: { id: string; name: string; seat_limit: number } }
+export interface Membership { id: string; role: SchoolRole; school_id: string; schools: { id: string; name: string; seat_limit: number; contact_email: string | null } }
 export interface Classroom { id: string; school_id: string; name: string; seat_limit: number | null }
 export interface Member { id: string; user_id: string; email: string; full_name: string | null; role: SchoolRole }
 export interface Invite { id: string; email: string; role: SchoolRole; accepted_at: string | null }
@@ -12,7 +12,7 @@ export interface Student { id: string; classroom_id: string; name: string; date_
 export interface Progress { id: string; student_id: string; skill_id: string; status: 'presented' | 'practising' | 'mastered'; note: string | null; updated_by: string | null; presented_at: string; updated_at: string }
 export interface Observation { id: string; student_id: string; body: string; author_id: string | null; observed_at: string }
 export interface PlanItem { id: string; classroom_id: string; plan_date: string; skill_id: string; student_ids: string[]; notes: string | null; done: boolean }
-export interface Report { id: string; student_id: string; period_start: string; period_end: string; sent_to: string | null; sent_at: string | null; summary: { title?: string; body?: string; email_status?: 'pending' | 'queued' } }
+export interface Report { id: string; student_id: string; period_start: string; period_end: string; sent_to: string | null; sent_at: string | null; summary: { title?: string; body?: string; email_status?: 'pending' | 'queued' | 'school_mail' } }
 
 // New tables may not be in generated types yet.
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

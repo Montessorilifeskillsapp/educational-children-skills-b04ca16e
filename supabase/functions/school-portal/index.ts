@@ -33,9 +33,11 @@ const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('plan_done'), id: uuid, done: z.boolean() }),
   z.object({ action: z.literal('report_send'), student_id: uuid, period_start: z.string(), period_end: z.string(),
     title: z.string().min(1).max(200), body: z.string().min(1).max(8000), summary: z.record(z.unknown()) }),
+  z.object({ action: z.literal('report_record'), student_id: uuid, period_start: z.string(), period_end: z.string(),
+    title: z.string().min(1).max(200), body: z.string().min(1).max(8000) }),
   z.object({ action: z.literal('admin_list') }),
   z.object({ action: z.literal('admin_school_save'), id: uuid.optional(), name: z.string().min(1).max(160),
-    contact_email: z.string().email().max(255).nullable().optional(), seat_limit: z.number().int().min(1).max(500),
+    contact_email: z.string().trim().email().max(255), seat_limit: z.number().int().min(1).max(500),
     active: z.boolean(), first_admin_email: z.string().email().max(255).optional() }),
   z.object({ action: z.literal('admin_school_delete'), id: uuid }),
 ])
@@ -94,7 +96,7 @@ Deno.serve(async (req) => {
             await acceptSchoolInvite(admin, inv, uid, email)
           }
         }
-        const { data } = await admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit)').eq('user_id', uid)
+        const { data } = await admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email)').eq('user_id', uid)
         // deno-lint-ignore no-explicit-any
         return json({ memberships: (data ?? []).filter((m: any) => m.schools?.active) })
       }
@@ -251,6 +253,19 @@ Deno.serve(async (req) => {
         const result = await queueParentReport(admin, { ...b, school_id: a.school_id, recipient: to, user_id: uid })
         return json(result)
       }
+      case 'report_record': {
+        // The teacher sends the report from the school's own email app; we keep a record of it.
+        const a = await studentAccess(b.student_id, 'send_report')
+        if (!a) return forbidden()
+        const to = a.student.family_email
+        if (!to) return json({ error: 'Add a family email to this student first.' }, 400)
+        const { data, error } = await admin.from('student_reports').insert({
+          student_id: b.student_id, school_id: a.school_id, period_start: b.period_start, period_end: b.period_end,
+          summary: { title: b.title, body: b.body, email_status: 'school_mail' }, sent_to: to, sent_at: null, created_by: uid,
+        }).select().single()
+        if (error) throw error
+        return json({ report: data })
+      }
       case 'admin_list': {
         if (!(await isAppAdmin())) return forbidden()
         const { data: schools } = await admin.from('schools').select('*').order('created_at', { ascending: false })
@@ -260,7 +275,7 @@ Deno.serve(async (req) => {
       }
       case 'admin_school_save': {
         if (!(await isAppAdmin())) return forbidden()
-        const row = { name: b.name, contact_email: b.contact_email ?? null, seat_limit: b.seat_limit, active: b.active }
+        const row = { name: b.name, contact_email: b.contact_email.toLowerCase(), seat_limit: b.seat_limit, active: b.active }
         const q = b.id ? admin.from('schools').update(row).eq('id', b.id) : admin.from('schools').insert(row)
         const { data, error } = await q.select().single()
         if (error) throw error
