@@ -245,7 +245,8 @@ const SongsPage: React.FC = () => {
                   <h3 className="font-semibold text-foreground">Schools: one licence for everything</h3>
                   <p className="text-sm text-muted-foreground">
                     For schools, the songs are part of a single school licence that also covers the
-                    curriculum app and the School Portal. Arranged directly with Kerry.
+                    curriculum app and the School Portal. Arranged directly with Kerry.{' '}
+                    <a href="/songs-licence" className="underline">Read the licence agreement</a>
                   </p>
                 </div>
               </div>
