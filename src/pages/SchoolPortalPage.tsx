@@ -197,6 +197,7 @@ export default function SchoolPortalPage() {
         <StudentPanel role={role} userId={user.id} student={data.students.find((s) => s.id === openStudent) ?? null}
           progress={data.progress} observations={data.observations} reports={data.reports}
           onClose={() => setOpenStudent(null)} onChange={reload} nameOf={nameOf} onSelect={setOpenStudent}
+          schoolName={school.name} schoolEmail={school.contact_email}
           classmates={(() => { const st = data.students.find((x) => x.id === openStudent); return data.students.filter((x) => x.classroom_id === st?.classroom_id && !x.archived); })()}
           onPlan={(skillId, sid) => { if (skillById(skillId)) { setPlanSeed({ skill_id: skillId, student_ids: [sid] }); setOpenStudent(null); setTab('planning'); } }} />
       )}

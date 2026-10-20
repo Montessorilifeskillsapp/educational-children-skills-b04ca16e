@@ -15,13 +15,14 @@ import { allowSchoolNavigation, SCHOOL_LEAVE_EVENT } from './navigation';
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
   onClose: () => void; onChange: () => void; onPlan: (skillId: string, studentId: string) => void;
+  schoolName: string; schoolEmail: string | null;
   classmates: Student[]; onSelect: (id: string) => void; nameOf: (userId: string | null) => string;
 }
 
 const LABEL = STATUS_LABEL;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
-export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, classmates, onSelect, nameOf }: Props) {
+export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, schoolName, schoolEmail, classmates, onSelect, nameOf }: Props) {
   const { toast } = useToast();
   const [area, setArea] = useState(areas()[0].key);
   const areaSkills = useMemo(() => orderedSkills().filter((s) => s.areaKey === area), [area]);
@@ -33,7 +34,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
   const [sending, setSending] = useState(false);
   const mine = useMemo(() => progress.filter((p) => p.student_id === student?.id), [progress, student]);
   const obs = useMemo(() => observations.filter((o) => o.student_id === student?.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)), [observations, student]);
-  const sent = reports.filter((r) => r.student_id === student?.id && r.summary.email_status === 'queued');
+  const sent = reports.filter((r) => r.student_id === student?.id && (r.summary.email_status === 'queued' || r.summary.email_status === 'school_mail'));
   const suggestions = useMemo(() => nextSuggestions(mine), [mine]);
   useEffect(() => {
     const beforeLeave = (event: Event) => {
@@ -74,15 +75,17 @@ export default function StudentPanel({ role, userId, student, progress, observat
     if (suggestions.length) { lines.push('Coming next:'); suggestions.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
     setPreview({ title: `Progress report for ${student.name}`, body: lines.join('\n').trim() });
   };
-  const send = async () => {
-    if (!preview || sending) return;
+  // One tap: opens the teacher's school email app with the parent, subject and report filled in, then records it.
+  const send = () => {
+    if (!preview || sending || !student.family_email) return;
+    const subject = `${schoolName} · ${preview.title}`;
+    const body = `${preview.body}\n\nWith warm regards,\n${schoolName}${schoolEmail ? `\n${schoolEmail}` : ''}`;
+    window.location.href = `mailto:${encodeURIComponent(student.family_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSending(true);
-    try {
-      const result = await schoolCall<{ queued: boolean }>({ action: 'report_send', student_id: student.id, period_start: from, period_end: to, title: preview.title, body: preview.body, summary: { records: mine.length } });
-      if (result.queued !== true) throw new Error('Email queue acceptance was not confirmed. Please try again.');
-      toast({ title: 'Report queued for email', description: `Addressed to ${student.family_email}; delivery is not yet confirmed.` }); setPreview(null); onChange();
-    } catch (e) { toast({ title: 'Could not queue report', description: (e as Error).message, variant: 'destructive' }); }
-    finally { setSending(false); }
+    schoolCall({ action: 'report_record', student_id: student.id, period_start: from, period_end: to, title: preview.title, body: preview.body })
+      .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); setPreview(null); onChange(); })
+      .catch((e) => toast({ title: 'Email opened, but the record was not saved', description: (e as Error).message, variant: 'destructive' }))
+      .finally(() => setSending(false));
   };
 
   return (
@@ -170,7 +173,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                   <Input value={preview.title} onChange={(e) => setPreview({ ...preview, title: e.target.value })} />
                   <Textarea rows={12} value={preview.body} onChange={(e) => setPreview({ ...preview, body: e.target.value })} />
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={send} disabled={sending || !student.family_email}>{sending ? 'Queuing…' : student.family_email ? `Email to ${student.family_email}` : 'Add a family email first'}</Button>
+                    <Button size="sm" onClick={send} disabled={sending || !student.family_email}>{student.family_email ? `Send from school email to ${student.family_email}` : 'Add a family email first'}</Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       const w = window.open('', '_blank'); if (!w) return;
                       w.document.title = preview.title;
@@ -182,8 +185,8 @@ export default function StudentPanel({ role, userId, student, progress, observat
               )}
               {sent.length > 0 && (
                 <div className="mt-3">
-                  <p className="text-sm font-medium">Reports queued for email</p>
-                  <ul className="text-sm text-muted-foreground">{sent.map((r) => <li key={r.id}>{r.period_start} to {r.period_end} · {r.sent_to} · Delivery unconfirmed</li>)}</ul>
+                  <p className="text-sm font-medium">Reports sent</p>
+                  <ul className="text-sm text-muted-foreground">{sent.map((r) => <li key={r.id}>{r.period_start} to {r.period_end} · {r.sent_to} · {r.summary.email_status === 'school_mail' ? 'Opened in school email' : 'Sent by app'}</li>)}</ul>
                 </div>
               )}
             </section>

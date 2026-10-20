@@ -37,8 +37,9 @@ export default function AdminSchoolsPage() {
 
   const save = async () => {
     if (!draft?.name?.trim()) return;
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(draft.contact_email?.trim() ?? '')) { toast({ title: 'School email required', description: "Enter the school's own email address. Parent reports are sent from the school's email.", variant: 'destructive' }); return; }
     try {
-      const result = await schoolCall<{ invitation?: { queued: boolean; error: string | null } }>({ action: 'admin_school_save', id: draft.id, name: draft.name.trim(), contact_email: draft.contact_email?.trim() || null,
+      const result = await schoolCall<{ invitation?: { queued: boolean; error: string | null } }>({ action: 'admin_school_save', id: draft.id, name: draft.name.trim(), contact_email: draft.contact_email!.trim(),
         seat_limit: Number(draft.seat_limit) || 30, active: draft.active ?? true, first_admin_email: draft.first_admin_email?.trim() || undefined });
       setInviteWarning(result.invitation?.error ?? null);
       toast({ title: 'School saved', description: result.invitation?.queued ? 'Invitation queued for email, not yet confirmed delivered.' : result.invitation?.error ?? undefined, variant: result.invitation?.error ? 'destructive' : 'default' });
@@ -57,7 +58,7 @@ export default function AdminSchoolsPage() {
       <CardHeader><CardTitle className="text-lg">{draft.id ? 'Edit school' : 'New school'}</CardTitle></CardHeader>
       <CardContent className="space-y-3">
         <div><Label>School name</Label><Input value={draft.name ?? ''} onChange={(e) => setDraft({ ...draft, name: e.target.value })} /></div>
-        <div><Label>Contact email</Label><Input type="email" value={draft.contact_email ?? ''} onChange={(e) => setDraft({ ...draft, contact_email: e.target.value })} /></div>
+        <div><Label>School email (required)</Label><p className="text-xs text-muted-foreground">The school's own address, e.g. office@yourschool.org. Parent reports go out from the school's email.</p><Input type="email" required value={draft.contact_email ?? ''} onChange={(e) => setDraft({ ...draft, contact_email: e.target.value })} /></div>
         <div><Label>Places per classroom</Label><Input type="number" min={1} max={500} value={draft.seat_limit ?? 30} onChange={(e) => setDraft({ ...draft, seat_limit: Number(e.target.value) })} /></div>
         <div><Label>{draft.id ? 'Invite another School Admin (optional)' : 'First School Admin email'}</Label><Input type="email" value={draft.first_admin_email ?? ''} onChange={(e) => setDraft({ ...draft, first_admin_email: e.target.value })} /></div>
         <label className="flex items-center gap-2 text-sm"><Switch checked={draft.active ?? true} onCheckedChange={(v) => setDraft({ ...draft, active: v })} /> Portal turned on</label>
