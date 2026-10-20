@@ -8,6 +8,11 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { useSongsCatalog, type SongTrack } from '@/hooks/useSongsCatalog';
 import { isNativePurchaseAvailable } from '@/lib/revenuecat';
+import { previewWindow } from '@/lib/songPreview';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { supabase } from '@/integrations/supabase/client';
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -29,8 +34,12 @@ const SongsPage: React.FC = () => {
   const isNative = isNativePurchaseAvailable();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const previewEndRef = useRef<number | null>(null);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [signOpen, setSignOpen] = useState(false);
+  const [signName, setSignName] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   useSEO({
     title: "Kerry's Montessori Songs — Montessori Life Skills",
@@ -47,7 +56,8 @@ const SongsPage: React.FC = () => {
   }, []);
 
   const togglePlay = (song: SongTrack) => {
-    const url = purchased && song.fullUrl ? song.fullUrl : song.previewUrl;
+    const isFull = purchased && !!song.fullUrl;
+    const url = isFull ? song.fullUrl : song.previewUrl;
     if (!url) return;
     const audio = audioRef.current;
     if (!audio) return;
@@ -57,25 +67,55 @@ const SongsPage: React.FC = () => {
       setPlayingId(null);
       return;
     }
+    previewEndRef.current = null;
+    const start = () => {
+      if (!isFull) {
+        const win = previewWindow(audio.duration);
+        audio.currentTime = win.start;
+        previewEndRef.current = win.end;
+      } else {
+        audio.currentTime = 0;
+      }
+      void audio.play().then(() => setPlayingId(song.id)).catch(() => {
+        toast({ title: 'Playback failed', description: 'Please try again in a moment.', variant: 'destructive' });
+      });
+    };
     if (audio.src !== url) {
       audio.src = url;
+      audio.addEventListener('loadedmetadata', start, { once: true });
+      audio.load();
+    } else if (audio.readyState >= 1) {
+      start();
+    } else {
+      audio.addEventListener('loadedmetadata', start, { once: true });
+      audio.load();
     }
-    audio.currentTime = 0;
-    void audio.play().then(() => setPlayingId(song.id)).catch(() => {
-      toast({ title: 'Playback failed', description: 'Please try again in a moment.', variant: 'destructive' });
-    });
   };
 
-  const handleBuy = async () => {
+  const handleTimeUpdate = () => {
+    const audio = audioRef.current;
+    const end = previewEndRef.current;
+    if (audio && end !== null && audio.currentTime >= end) {
+      audio.pause();
+      previewEndRef.current = null;
+      setPlayingId(null);
+    }
+  };
+
+  const handleBuy = () => {
     if (songs.length === 0) return;
     if (!user) {
       navigate('/auth?redirect=/songs');
       return;
     }
+    setSignOpen(true);
+  };
+
+  const startCheckout = async () => {
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { planId: 'songs-bundle' },
+        body: { planId: 'songs-bundle', licenceSignature: { name: signName.trim(), agreed } },
       });
       if (error) throw new Error(error.message);
       const url = (data as { url?: string }).url;
@@ -90,6 +130,7 @@ const SongsPage: React.FC = () => {
       setBusy(false);
     }
   };
+  const canSign = agreed && signName.trim().length >= 2;
 
   const openWebsite = () => {
     window.open('https://montessorilifeskillsapp.com/songs', '_system');
