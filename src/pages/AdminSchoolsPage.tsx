@@ -22,6 +22,7 @@ export default function AdminSchoolsPage() {
   const [isAdmin, setIsAdmin] = useState<boolean | null>(null);
   const [data, setData] = useState<{ schools: School[]; members: Row[]; invites: Row[] } | null>(null);
   const [draft, setDraft] = useState<Draft | null>(null);
+  const [inviteWarning, setInviteWarning] = useState<string | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -37,9 +38,10 @@ export default function AdminSchoolsPage() {
   const save = async () => {
     if (!draft?.name?.trim()) return;
     try {
-      await schoolCall({ action: 'admin_school_save', id: draft.id, name: draft.name.trim(), contact_email: draft.contact_email?.trim() || null,
+      const result = await schoolCall<{ invitation?: { queued: boolean; error: string | null } }>({ action: 'admin_school_save', id: draft.id, name: draft.name.trim(), contact_email: draft.contact_email?.trim() || null,
         seat_limit: Number(draft.seat_limit) || 30, active: draft.active ?? true, first_admin_email: draft.first_admin_email?.trim() || undefined });
-      toast({ title: 'School saved', description: draft.first_admin_email ? 'Invitation emailed to the School Admin.' : undefined });
+      setInviteWarning(result.invitation?.error ?? null);
+      toast({ title: 'School saved', description: result.invitation?.queued ? 'Invitation queued for email, not yet confirmed delivered.' : result.invitation?.error ?? undefined, variant: result.invitation?.error ? 'destructive' : 'default' });
       setDraft(null); load();
     } catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
   };
@@ -75,6 +77,8 @@ export default function AdminSchoolsPage() {
         <Button onClick={() => setDraft({ seat_limit: 30, active: true })}>New school</Button>
       </header>
 
+      {inviteWarning && <p role="alert" className="border border-destructive rounded-md p-3 text-sm text-destructive">{inviteWarning}</p>}
+
       {draft && !draft.id && form}
 
       {!data ? <LoadingSpinner /> : data.schools.length === 0 ? <p className="text-muted-foreground">No schools yet.</p> : data.schools.map((s) => draft?.id === s.id ? <div key={s.id}>{form}</div> : (
@@ -89,7 +93,7 @@ export default function AdminSchoolsPage() {
           <CardContent className="text-sm text-muted-foreground space-y-1">
             <p>{s.seat_limit} places per classroom{s.contact_email ? ` · ${s.contact_email}` : ''}</p>
             {data.members.filter((m) => m.school_id === s.id).map((m) => <p key={m.email}>{m.email} · {ROLE_LABEL[m.role]}</p>)}
-            {data.invites.filter((i) => i.school_id === s.id && !i.accepted_at).map((i) => <p key={i.email}>{i.email} · {ROLE_LABEL[i.role]} · invited</p>)}
+            {data.invites.filter((i) => i.school_id === s.id && !i.accepted_at).map((i) => <p key={i.email}>{i.email} · {ROLE_LABEL[i.role]} · pending sign-in</p>)}
           </CardContent>
         </Card>
       ))}

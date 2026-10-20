@@ -3,6 +3,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 import { z } from 'npm:zod@3.23.8'
 import { roleAllows, type SchoolRole } from './rules.ts'
 import { queueParentReport } from './reportDelivery.ts'
+import { acceptSchoolInvite, queueSchoolInvite } from './invitations.ts'
 
 const json = (b: unknown, status = 200) =>
   new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
@@ -87,15 +88,10 @@ Deno.serve(async (req) => {
     switch (b.action) {
       case 'me': {
         if (email) {
-          const { data: invites } = await admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null)
+          const { data: invites, error: inviteError } = await admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null)
+          if (inviteError) throw inviteError
           for (const inv of invites ?? []) {
-            // An invite never changes the role of someone already in that school (roles change only via member_role).
-            const { data: existing } = await admin.from('school_members').select('id').eq('school_id', inv.school_id).eq('user_id', uid).maybeSingle()
-            if (!existing) {
-              const { data: prof } = await admin.from('user_profiles').select('full_name').eq('user_id', uid).maybeSingle()
-              await admin.from('school_members').insert({ school_id: inv.school_id, user_id: uid, email, role: inv.role, full_name: prof?.full_name ?? null })
-            }
-            await admin.from('school_invites').update({ accepted_at: new Date().toISOString() }).eq('id', inv.id)
+            await acceptSchoolInvite(admin, inv, uid, email)
           }
         }
         const { data } = await admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit)').eq('user_id', uid)
@@ -138,8 +134,8 @@ Deno.serve(async (req) => {
         const { error } = await admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, accepted_at: null }, { onConflict: 'school_id,email' })
         if (error) throw error
         const { data: school } = await admin.from('schools').select('name').eq('id', b.school_id).single()
-        await sendInvite(admin, inviteEmail, school.name, b.role, `${b.school_id}-${inviteEmail}-${Date.now()}`)
-        return json({ ok: true })
+        const delivery = await queueSchoolInvite(admin, inviteEmail, school.name, b.role, `${b.school_id}-${inviteEmail}-${Date.now()}`)
+        return json({ ok: true, invitation: delivery })
       }
       case 'invite_cancel': {
         const { data: inv } = await admin.from('school_invites').select('school_id').eq('id', b.id).maybeSingle()
@@ -268,12 +264,14 @@ Deno.serve(async (req) => {
         const q = b.id ? admin.from('schools').update(row).eq('id', b.id) : admin.from('schools').insert(row)
         const { data, error } = await q.select().single()
         if (error) throw error
+        let invitation = null
         if (b.first_admin_email) {
           const e = b.first_admin_email.toLowerCase()
-          await admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' })
-          await sendInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`)
+          const { error: inviteError } = await admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' })
+          if (inviteError) return json({ school: data, invitation: { queued: false, error: 'School saved, but the invitation could not be saved. Edit this school to retry.' } })
+          invitation = await queueSchoolInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`)
         }
-        return json({ school: data })
+        return json({ school: data, invitation })
       }
       case 'admin_school_delete': {
         if (!(await isAppAdmin())) return forbidden()
@@ -288,16 +286,3 @@ Deno.serve(async (req) => {
   }
 })
 
-const ROLE_LABEL: Record<string, string> = { school_admin: 'School Admin', teacher: 'Teacher', assistant: 'Assistant' }
-
-// deno-lint-ignore no-explicit-any
-async function sendInvite(admin: any, to: string, schoolName: string, role: string, key: string) {
-  const { error } = await admin.functions.invoke('send-transactional-email', {
-    body: { templateName: 'school-notice', recipientEmail: to, idempotencyKey: key, templateData: {
-      title: `You're invited to ${schoolName}`,
-      body: `You've been added to ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[role]}.\nSign in or create an account with this email address, then open School Portal from the menu.`,
-      cta: 'Open School Portal', url: 'https://montessorilifeskillsapp.com/school',
-    } },
-  })
-  if (error) console.error('invite email', error)
-}
