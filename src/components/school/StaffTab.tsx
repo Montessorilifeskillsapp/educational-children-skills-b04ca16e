@@ -17,8 +17,16 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
   const [email, setEmail] = useState('');
   const [role, setRole] = useState<SchoolRole>('teacher');
   const [room, setRoom] = useState('');
+  const [inviteWarning, setInviteWarning] = useState<string | null>(null);
   const run = async (body: Record<string, unknown>, ok?: string) => {
-    try { await schoolCall(body); if (ok) toast({ title: ok }); onChange(); return true; }
+    try {
+      const result = await schoolCall<{ invitation?: { queued: boolean; error: string | null } }>(body);
+      if (body.action === 'invite') {
+        setInviteWarning(result.invitation?.error ?? null);
+        toast({ title: result.invitation?.queued ? 'Invitation queued for email' : 'Invitation saved', description: result.invitation?.error ?? 'Delivery is not yet confirmed.', variant: result.invitation?.error ? 'destructive' : 'default' });
+      } else if (ok) toast({ title: ok });
+      onChange(); return true;
+    }
     catch (e) { toast({ title: 'Could not update', description: (e as Error).message, variant: 'destructive' }); return false; }
   };
 
@@ -86,11 +94,15 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
             ))}
             {invites.map((i) => (
               <li key={i.id} className="py-2 flex items-center justify-between gap-2">
-                <span className="text-sm text-muted-foreground">{i.email} · {ROLE_LABEL[i.role]} · invited</span>
-                <Button size="sm" variant="ghost" onClick={() => run({ action: 'invite_cancel', id: i.id })}>Cancel</Button>
+                <span className="text-sm text-muted-foreground">{i.email} · {ROLE_LABEL[i.role]} · pending sign-in</span>
+                <div className="flex gap-2">
+                  <Button size="sm" variant="outline" onClick={() => run({ action: 'invite', school_id: schoolId, email: i.email, role: i.role })}>Resend</Button>
+                  <Button size="sm" variant="ghost" onClick={() => run({ action: 'invite_cancel', id: i.id })}>Cancel</Button>
+                </div>
               </li>
             ))}
           </ul>
+          {inviteWarning && <p role="alert" className="text-sm text-destructive">{inviteWarning}</p>}
         </CardContent>
       </Card>
     </div>
