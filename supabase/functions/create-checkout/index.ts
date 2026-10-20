@@ -206,12 +206,13 @@ serve(async (req) => {
           planId: "songs-bundle",
           userId: user.id,
           licence: "household-songs-licence",
+          licenceVersion: "2026-10-20",
           licenceSignedName: signedName,
           licenceSignedEmail: user.email,
           licenceSignedAt: signedAt,
         },
         payment_intent_data: {
-          metadata: { licence: "household-songs-licence", licenceSignedName: signedName, licenceSignedAt: signedAt },
+          metadata: { licence: "household-songs-licence", licenceVersion: "2026-10-20", licenceSignedName: signedName, licenceSignedAt: signedAt },
         },
       });
       logStep("Songs checkout session created", { sessionId: songsSession.id });

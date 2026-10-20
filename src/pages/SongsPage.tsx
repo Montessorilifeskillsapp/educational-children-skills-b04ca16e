@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CheckCircle2, ExternalLink, Loader2, Lock, Music, Pause, Play, School } from 'lucide-react';
+import { CheckCircle2, Download, ExternalLink, Loader2, Lock, Music, Pause, Play, School } from 'lucide-react';
 import PageLayout from '@/components/PageLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -147,7 +147,7 @@ const SongsPage: React.FC = () => {
               <DialogTitle>Sign the Household Licence Agreement</DialogTitle>
               <DialogDescription>
                 Before purchasing, please read and sign the licence for Kerry's Montessori Songs.
-                The songs are licensed for use in your own home only.
+                You may download the songs for private use within your own household only. They may not be used in any school, classroom, daycare, co-op, camp or other group setting.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
@@ -157,7 +157,7 @@ const SongsPage: React.FC = () => {
               <div className="flex items-start gap-3">
                 <Checkbox id="licence-agree" checked={agreed} onCheckedChange={(v) => setAgreed(v === true)} />
                 <Label htmlFor="licence-agree" className="text-sm leading-snug font-normal">
-                  I have read and agree to the Household Licence Agreement for Kerry's Montessori Songs.
+                  I have read and agree to the Household Licence Agreement, and confirm this purchase is for my household only, not for any school, childcare or group use.
                 </Label>
               </div>
               <div className="space-y-1.5">
@@ -305,6 +305,14 @@ const SongsPage: React.FC = () => {
                           </span>
                         )}
                       </div>
+                      {fullAvailable && song.downloadUrl && (
+                        <Button asChild variant="outline" size="sm" className="mt-3 w-full">
+                          <a href={song.downloadUrl} aria-label={`Download ${song.title}`}>
+                            <Download className="w-4 h-4 mr-2" aria-hidden="true" />
+                            Download
+                          </a>
+                        </Button>
+                      )}
                     </CardContent>
                   </Card>
                 );
@@ -339,7 +347,7 @@ const SongsPage: React.FC = () => {
           </Card>
 
            <p className="text-xs text-muted-foreground text-center">
-             © Kerry Howard. All rights reserved. Songs stream inside the app; family access does not transfer copyright.
+             © Kerry Howard. All rights reserved. Household downloads are for private use within the purchasing household only; no school, classroom or group use. Purchase does not transfer copyright.
              {' '}<a href="/terms-of-service" className="underline hover:text-foreground">Copyright and use terms</a>
           </p>
         </div>

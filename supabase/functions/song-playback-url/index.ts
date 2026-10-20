@@ -94,6 +94,7 @@ Deno.serve(async (req) => {
         let previewUrl: string | null = null;
         let coverUrl: string | null = null;
         let fullUrl: string | null = null;
+        let downloadUrl: string | null = null;
 
         const previewPath = song.preview_path || song.storage_path;
         if (previewPath) {
@@ -107,6 +108,12 @@ Deno.serve(async (req) => {
         if (purchased && song.storage_path) {
           const { data } = await admin.storage.from(BUCKET).createSignedUrl(song.storage_path, SIGNED_URL_TTL);
           fullUrl = data?.signedUrl ?? null;
+          const ext = (song.storage_path.split('.').pop() || 'mp3').toLowerCase();
+          const safe = song.title.replace(/[^a-z0-9 \-]/gi, '').trim() || 'song';
+          const { data: dl } = await admin.storage.from(BUCKET).createSignedUrl(song.storage_path, SIGNED_URL_TTL, {
+            download: `${safe} - Montessori Life Skills (Household Licence).${ext}`,
+          });
+          downloadUrl = dl?.signedUrl ?? null;
         }
 
         return {
@@ -119,6 +126,7 @@ Deno.serve(async (req) => {
           coverUrl,
           previewUrl,
           fullUrl,
+          downloadUrl,
         };
       })
     );
