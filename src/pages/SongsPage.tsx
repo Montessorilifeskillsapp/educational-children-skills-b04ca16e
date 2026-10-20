@@ -242,17 +242,18 @@ const SongsPage: React.FC = () => {
                   <School className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Schools: license the collection</h3>
+                  <h3 className="font-semibold text-foreground">Schools: one licence for everything</h3>
                   <p className="text-sm text-muted-foreground">
-                    Annual classroom licences are arranged directly with Kerry.
+                    For schools, the songs are part of a single school licence that also covers the
+                    curriculum app and the School Portal. Arranged directly with Kerry.
                   </p>
                 </div>
               </div>
               <Button asChild variant="outline" className="shrink-0">
                 <a
-                  href="mailto:montessorilifeskills@gmail.com?subject=Schools%3A%20license%20the%20Montessori%20Songs%20collection"
+                  href="mailto:montessorilifeskills@gmail.com?subject=School%20licence%3A%20app%2C%20School%20Portal%20and%20songs"
                 >
-                  Contact Kerry about licensing
+                  Ask Kerry about a school licence
                 </a>
               </Button>
             </CardContent>
