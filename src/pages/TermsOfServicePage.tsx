@@ -135,7 +135,8 @@ const TermsOfServicePage: React.FC = () => {
                   arranged directly with Kerry. The school licence is a single agreement covering the
                   curriculum app, the School Portal and the song collection for the licensed school and its
                   named staff. Family subscriptions or song purchases cannot be used for classroom or
-                  institutional purposes. For school licensing, contact montessorilifeskills@gmail.com.
+                  institutional purposes. For school licensing, contact montessorilifeskills@gmail.com. The full{' '}
+                  <a href="/songs-licence" className="underline">Songs Licence Agreement</a> applies.
                 </p>
                 <h3 className="text-lg font-medium mb-2">Instructional videos and app content</h3>
                 <p>

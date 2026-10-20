@@ -27,6 +27,7 @@ import PaymentSuccessPage from "./pages/PaymentSuccessPage";
 import PaymentCancelPage from "./pages/PaymentCancelPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
+import SongsLicencePage from "./pages/SongsLicencePage";
 import ContactPage from "./pages/ContactPage";
 import HelpPage from "./pages/HelpPage";
 import AboutPage from "./pages/AboutPage";
@@ -132,6 +133,7 @@ const App = () => {
                           <Route path="/privacy" element={<PrivacyPolicyPage />} />
                           <Route path="/terms-of-service" element={<TermsOfServicePage />} />
                           <Route path="/terms" element={<TermsOfServicePage />} />
+                          <Route path="/songs-licence" element={<SongsLicencePage />} />
                           <Route path="/contact" element={<ContactPage />} />
                           <Route path="/help" element={<HelpPage />} />
                           <Route path="/about" element={<AboutPage />} />
