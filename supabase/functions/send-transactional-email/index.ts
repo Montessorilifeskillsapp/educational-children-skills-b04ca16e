@@ -2,6 +2,7 @@ import * as React from 'npm:react@18.3.1'
 import { renderAsync } from 'npm:@react-email/components@0.0.22'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { TEMPLATES } from '../_shared/transactional-email-templates/registry.ts'
+import { GMAIL_DAILY_LIMIT, WARNING_SUBJECT, quotaLevel } from '../_shared/emailQuota.ts'
 
 // Emails are delivered directly through the connected Gmail account
 // (montessorilifeskills@gmail.com) via the Lovable connector gateway.
@@ -98,24 +99,59 @@ Deno.serve(async (req) => {
   const text = await renderAsync(element, { plainText: true })
   const subject = typeof template.subject === 'function' ? template.subject(templateData) : template.subject
 
-  const res = await fetch(GMAIL_SEND_URL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${LOVABLE_API_KEY}`,
-      'X-Connection-Api-Key': GOOGLE_MAIL_API_KEY,
-    },
-    body: JSON.stringify({ raw: buildRaw(recipient, subject, html, text) }),
-  })
+  const gatewayHeaders = {
+    'Content-Type': 'application/json',
+    Authorization: `Bearer ${LOVABLE_API_KEY}`,
+    'X-Connection-Api-Key': GOOGLE_MAIL_API_KEY,
+  }
+  const sendRaw = (to: string, subj: string, h: string, t: string) =>
+    fetch(GMAIL_SEND_URL, { method: 'POST', headers: gatewayHeaders, body: JSON.stringify({ raw: buildRaw(to, subj, h, t) }) })
+
+  // Daily-limit check: count everything sent from the account in the last 24 hours.
+  const sentLast24h = await countSentLast24h(gatewayHeaders)
+  const level = sentLast24h === null ? 'ok' : quotaLevel(sentLast24h)
+  if (level !== 'ok') {
+    console.warn('Gmail daily limit approaching', { sentLast24h, limit: GMAIL_DAILY_LIMIT })
+    await maybeSendWarning(gatewayHeaders, sendRaw, sentLast24h ?? 0)
+  }
+
+  const res = await sendRaw(recipient, subject, html, text)
 
   if (!res.ok) {
     const details = await res.text()
     console.error(`Gmail send failed [${res.status}]: ${details}`)
-    return json({ error: 'Email could not be sent', status: res.status, details }, 502)
+    const limitHit = res.status === 429 || /limit|quota/i.test(details)
+    return json({ error: limitHit ? 'Daily email limit reached' : 'Email could not be sent', status: res.status, details }, 502)
   }
 
   const sent = await res.json().catch(() => ({}))
   console.log('Email sent', { templateName, recipient, id: sent?.id })
   // `queued` kept for existing callers; Gmail accepted the message for delivery.
-  return json({ success: true, queued: true, sent: true, id: sent?.id ?? null })
+  return json({ success: true, queued: true, sent: true, id: sent?.id ?? null, sentLast24h, quota: level })
 })
+
+const GMAIL_BASE = 'https://connector-gateway.lovable.dev/google_mail/gmail/v1/users/me'
+
+async function countSentLast24h(headers: Record<string, string>): Promise<number | null> {
+  const after = Math.floor(Date.now() / 1000) - 86400
+  const res = await fetch(`${GMAIL_BASE}/messages?labelIds=SENT&maxResults=500&q=${encodeURIComponent(`after:${after}`)}`, { headers })
+  if (!res.ok) { console.warn('Could not count sent emails', res.status, await res.text()); return null }
+  const data = await res.json().catch(() => ({}))
+  return Array.isArray(data.messages) ? data.messages.length : 0
+}
+
+// One warning per 24 hours, to the owner inbox.
+// deno-lint-ignore no-explicit-any
+async function maybeSendWarning(headers: Record<string, string>, sendRaw: any, count: number) {
+  const q = encodeURIComponent(`in:sent subject:"${WARNING_SUBJECT}" newer_than:1d`)
+  const check = await fetch(`${GMAIL_BASE}/messages?maxResults=1&q=${q}`, { headers })
+  if (check.ok) {
+    const d = await check.json().catch(() => ({}))
+    if (Array.isArray(d.messages) && d.messages.length > 0) return
+  }
+  const remaining = Math.max(0, GMAIL_DAILY_LIMIT - count)
+  const text = `The app has sent ${count} of about ${GMAIL_DAILY_LIMIT} emails allowed by Gmail in the last 24 hours (${remaining} left).\n\nWhen the limit is reached, school invitations, parent reports and family reminders will fail until the 24-hour window clears.\n\nOptions: pause bulk sends (such as parent reports) until tomorrow, or move app email to a higher-volume sender. Reply to the developer chat to switch.`
+  const html = `<div style="font-family:Georgia,serif;color:#3d342b;line-height:1.6">${text.split('\n\n').map((p) => `<p>${p}</p>`).join('')}</div>`
+  const r = await sendRaw(FROM_ADDRESS, WARNING_SUBJECT, html, text)
+  if (!r.ok) console.error('Could not send limit warning', r.status, await r.text())
+}
