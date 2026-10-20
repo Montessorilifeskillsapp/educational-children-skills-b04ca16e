@@ -139,7 +139,44 @@ const SongsPage: React.FC = () => {
   return (
     <SEOOptimizer>
       <PageLayout title="Kerry's Montessori Songs" onBack={() => navigate('/')}>
-        <audio ref={audioRef} onEnded={() => setPlayingId(null)} preload="none" />
+        <audio ref={audioRef} onEnded={() => setPlayingId(null)} onTimeUpdate={handleTimeUpdate} preload="none" />
+
+        <Dialog open={signOpen} onOpenChange={(o) => !busy && setSignOpen(o)}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Sign the Household Licence Agreement</DialogTitle>
+              <DialogDescription>
+                Before purchasing, please read and sign the licence for Kerry's Montessori Songs.
+                The songs are licensed for use in your own home only.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <a href="/songs-licence" target="_blank" rel="noopener" className="text-sm text-primary underline inline-flex items-center gap-1">
+                Read the full licence agreement <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+              </a>
+              <div className="flex items-start gap-3">
+                <Checkbox id="licence-agree" checked={agreed} onCheckedChange={(v) => setAgreed(v === true)} />
+                <Label htmlFor="licence-agree" className="text-sm leading-snug font-normal">
+                  I have read and agree to the Household Licence Agreement for Kerry's Montessori Songs.
+                </Label>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="licence-name">Signature — type your full name</Label>
+                <Input id="licence-name" value={signName} onChange={(e) => setSignName(e.target.value)} placeholder="Full name" maxLength={120} autoComplete="name" />
+                <p className="text-xs text-muted-foreground">
+                  Signed as {user?.email} on {new Date().toLocaleDateString()}.
+                </p>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setSignOpen(false)} disabled={busy}>Cancel</Button>
+              <Button onClick={startCheckout} disabled={!canSign || busy}>
+                {busy && <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" />}
+                Sign and continue to payment
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <div className="space-y-6">
           {/* Collection intro + purchase */}
@@ -153,7 +190,7 @@ const SongsPage: React.FC = () => {
                   <h2 className="text-xl font-bold text-foreground">Songs for the Montessori home and classroom</h2>
                   <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
                     Ten original songs written by Kerry Howard, following authentic Montessori
-                    principles. Every song has a free preview; the full collection is a single
+                    principles. Every song has a free 15-second sample; the full collection is a single
                     purchase with lifetime access for your whole family.
                   </p>
                 </div>
