@@ -26,7 +26,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
   const student = students.find((s) => s.id === selected) ?? null;
   const canSend = can.sendReport(role);
 
-  const lastSent = (id: string) => reports.filter((r) => r.student_id === id && (r.summary.email_status === 'queued' || r.summary.email_status === 'school_mail')).sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
+  const lastSent = (id: string) => reports.filter((r) => r.student_id === id && (r.summary.email_status === 'queued' || r.summary.email_status === 'school_mail')).sort((a, b) => b.period_end.localeCompare(a.period_end))[0];
 
   const generated = useMemo(() => {
     if (!student) return null;
@@ -89,7 +89,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
                   className={`w-full text-left px-3 py-3 transition-colors ${s.id === selected ? 'bg-accent text-accent-foreground' : 'hover:bg-muted'}`}>
                   <span className="block font-medium">{s.name}</span>
                   <span className="block text-xs text-muted-foreground">
-                    {!s.family_email ? 'No parent email' : last ? `Last sent ${last.created_at.slice(0, 10)}` : 'Not sent yet'}
+                    {!s.family_email ? 'No parent email' : last ? `Last report to ${last.period_end}` : 'Not sent yet'}
                   </span>
                 </button>
               </li>
