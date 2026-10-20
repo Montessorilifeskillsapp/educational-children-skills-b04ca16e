@@ -18,6 +18,7 @@ vi.mock('@/hooks/useSongsCatalog', () => ({ useSongsCatalog: () => ({
 afterEach(() => { cleanup(); vi.restoreAllMocks(); });
 describe('song preview playback', () => {
   it('plays the preview after StrictMode initialization and pauses on a second click', async () => {
+    vi.spyOn(HTMLMediaElement.prototype, 'load').mockImplementation(() => {});
     const play = vi.spyOn(HTMLMediaElement.prototype, 'play').mockImplementation(function (this: HTMLMediaElement) {
       Object.defineProperty(this, 'paused', { configurable: true, value: false });
       return Promise.resolve();
