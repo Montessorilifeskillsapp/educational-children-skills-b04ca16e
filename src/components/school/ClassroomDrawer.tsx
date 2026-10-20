@@ -41,7 +41,7 @@ export default function ClassroomDrawer() {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} className="fixed bottom-4 left-4 z-50 shadow-lg print:hidden" aria-label="Open classroom record">
+      <Button onClick={() => setOpen(true)} className="fixed left-4 z-50 shadow-lg print:hidden rounded-full" style={{ bottom: 'calc(4.75rem + env(safe-area-inset-bottom))' }} aria-label="Open classroom record">
         <Users className="h-4 w-4 mr-2" />Classroom
       </Button>
       <Sheet open={open} onOpenChange={setOpen}>
