@@ -54,6 +54,7 @@ import AdminHomePage from "./pages/AdminHomePage";
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import HomeFab from "@/components/HomeFab";
 import SchoolReturnBar from "@/components/school/SchoolReturnBar";
+import ClassroomDrawer from "@/components/school/ClassroomDrawer";
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -104,6 +105,7 @@ const App = () => {
                         <ScrollToTop />
                         <RouteEffects />
                         <SchoolReturnBar />
+                        <ClassroomDrawer />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <ErrorBoundary>
                         <Routes>
