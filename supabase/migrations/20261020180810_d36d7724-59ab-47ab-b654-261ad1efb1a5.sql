@@ -1,0 +1,1 @@
+UPDATE public.email_schedule SET sent_at = now(), last_error = 'cancelled: stale backlog' WHERE sent_at IS NULL AND send_at < now() - interval '7 days';
