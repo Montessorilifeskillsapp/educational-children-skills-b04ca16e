@@ -7,7 +7,7 @@ export async function queueSchoolInvite(admin: any, to: string, schoolName: stri
     const { data, error } = await admin.functions.invoke('send-transactional-email', {
       body: { templateName: 'school-notice', recipientEmail: to, idempotencyKey: key, templateData: {
         title: `You're invited to ${schoolName}`,
-        body: `You've been added to ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[role]}.\nUse your existing Montessori Life Skills login with this email address. If you don't have an account, create one and choose your own password. Then open the School Portal. No separate school password is issued.`,
+        body: `Welcome! You've been added to ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[role]}.\nHow to sign in:\n1. Tap "Open School Portal" below (or go to montessorilifeskillsapp.com/school).\n2. Sign in with this email address (${to}). Already have a Montessori Life Skills login? Use it. New here? Choose "Sign up" and create your own password.\n3. Your school access is added automatically once you're signed in.\nNo separate school password is issued. Questions? Reply to this email or write to montessorilifeskills@gmail.com.`,
         cta: 'Open School Portal', url: 'https://montessorilifeskillsapp.com/school',
       } },
     });
