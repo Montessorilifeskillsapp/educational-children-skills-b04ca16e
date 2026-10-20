@@ -86,7 +86,7 @@ serve(async (req) => {
       logStep("No auth header — guest checkout");
     }
 
-    const { planId } = await req.json();
+    const { planId, licenceSignature } = await req.json();
     const normalizedPlanId = typeof planId === "string" ? planId : "";
     const selectedPlan = PLAN_CONFIG[normalizedPlanId as keyof typeof PLAN_CONFIG];
 
@@ -179,7 +179,12 @@ serve(async (req) => {
     // Ownership is recorded by verify-song-purchase after the buyer returns.
     if (normalizedPlanId === "songs-bundle") {
       if (!user) throw new CheckoutError("Sign in to purchase the song collection.", 401);
-      logStep("Songs bundle checkout", { userId: user.id });
+      const signedName = typeof licenceSignature?.name === "string" ? licenceSignature.name.trim().slice(0, 120) : "";
+      if (signedName.length < 2 || licenceSignature?.agreed !== true) {
+        throw new CheckoutError("Please read and sign the Household Licence Agreement before purchasing.", 400);
+      }
+      const signedAt = new Date().toISOString();
+      logStep("Songs bundle checkout", { userId: user.id, licenceSigned: true });
 
       const songsSession = await stripe.checkout.sessions.create({
         customer: customerId,
@@ -197,7 +202,17 @@ serve(async (req) => {
         mode: "payment",
         success_url: `${origin}/payment-success?session_id={CHECKOUT_SESSION_ID}&planId=songs-bundle`,
         cancel_url: `${origin}/payment-cancel?planId=songs-bundle`,
-        metadata: { planId: "songs-bundle", userId: user.id },
+        metadata: {
+          planId: "songs-bundle",
+          userId: user.id,
+          licence: "household-songs-licence",
+          licenceSignedName: signedName,
+          licenceSignedEmail: user.email,
+          licenceSignedAt: signedAt,
+        },
+        payment_intent_data: {
+          metadata: { licence: "household-songs-licence", licenceSignedName: signedName, licenceSignedAt: signedAt },
+        },
       });
       logStep("Songs checkout session created", { sessionId: songsSession.id });
       return new Response(JSON.stringify({ url: songsSession.url }), {
