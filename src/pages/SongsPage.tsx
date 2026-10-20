@@ -8,6 +8,11 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { useSongsCatalog, type SongTrack } from '@/hooks/useSongsCatalog';
 import { isNativePurchaseAvailable } from '@/lib/revenuecat';
+import { previewWindow } from '@/lib/songPreview';
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { Checkbox } from '@/components/ui/checkbox';
 import { supabase } from '@/integrations/supabase/client';
 import { useSEO } from '@/hooks/useSEO';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -29,8 +34,12 @@ const SongsPage: React.FC = () => {
   const isNative = isNativePurchaseAvailable();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const previewEndRef = useRef<number | null>(null);
   const [playingId, setPlayingId] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const [signOpen, setSignOpen] = useState(false);
+  const [signName, setSignName] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   useSEO({
     title: "Kerry's Montessori Songs — Montessori Life Skills",
@@ -47,7 +56,8 @@ const SongsPage: React.FC = () => {
   }, []);
 
   const togglePlay = (song: SongTrack) => {
-    const url = purchased && song.fullUrl ? song.fullUrl : song.previewUrl;
+    const isFull = purchased && !!song.fullUrl;
+    const url = isFull ? song.fullUrl : song.previewUrl;
     if (!url) return;
     const audio = audioRef.current;
     if (!audio) return;
@@ -57,25 +67,55 @@ const SongsPage: React.FC = () => {
       setPlayingId(null);
       return;
     }
+    previewEndRef.current = null;
+    const start = () => {
+      if (!isFull) {
+        const win = previewWindow(audio.duration);
+        audio.currentTime = win.start;
+        previewEndRef.current = win.end;
+      } else {
+        audio.currentTime = 0;
+      }
+      void audio.play().then(() => setPlayingId(song.id)).catch(() => {
+        toast({ title: 'Playback failed', description: 'Please try again in a moment.', variant: 'destructive' });
+      });
+    };
     if (audio.src !== url) {
       audio.src = url;
+      audio.addEventListener('loadedmetadata', start, { once: true });
+      audio.load();
+    } else if (audio.readyState >= 1) {
+      start();
+    } else {
+      audio.addEventListener('loadedmetadata', start, { once: true });
+      audio.load();
     }
-    audio.currentTime = 0;
-    void audio.play().then(() => setPlayingId(song.id)).catch(() => {
-      toast({ title: 'Playback failed', description: 'Please try again in a moment.', variant: 'destructive' });
-    });
   };
 
-  const handleBuy = async () => {
+  const handleTimeUpdate = () => {
+    const audio = audioRef.current;
+    const end = previewEndRef.current;
+    if (audio && end !== null && audio.currentTime >= end) {
+      audio.pause();
+      previewEndRef.current = null;
+      setPlayingId(null);
+    }
+  };
+
+  const handleBuy = () => {
     if (songs.length === 0) return;
     if (!user) {
       navigate('/auth?redirect=/songs');
       return;
     }
+    setSignOpen(true);
+  };
+
+  const startCheckout = async () => {
     setBusy(true);
     try {
       const { data, error } = await supabase.functions.invoke('create-checkout', {
-        body: { planId: 'songs-bundle' },
+        body: { planId: 'songs-bundle', licenceSignature: { name: signName.trim(), agreed } },
       });
       if (error) throw new Error(error.message);
       const url = (data as { url?: string }).url;
@@ -90,6 +130,7 @@ const SongsPage: React.FC = () => {
       setBusy(false);
     }
   };
+  const canSign = agreed && signName.trim().length >= 2;
 
   const openWebsite = () => {
     window.open('https://montessorilifeskillsapp.com/songs', '_system');
@@ -98,7 +139,44 @@ const SongsPage: React.FC = () => {
   return (
     <SEOOptimizer>
       <PageLayout title="Kerry's Montessori Songs" onBack={() => navigate('/')}>
-        <audio ref={audioRef} onEnded={() => setPlayingId(null)} preload="none" />
+        <audio ref={audioRef} onEnded={() => setPlayingId(null)} onTimeUpdate={handleTimeUpdate} preload="none" />
+
+        <Dialog open={signOpen} onOpenChange={(o) => !busy && setSignOpen(o)}>
+          <DialogContent className="max-w-lg">
+            <DialogHeader>
+              <DialogTitle>Sign the Household Licence Agreement</DialogTitle>
+              <DialogDescription>
+                Before purchasing, please read and sign the licence for Kerry's Montessori Songs.
+                The songs are licensed for use in your own home only.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <a href="/songs-licence" target="_blank" rel="noopener" className="text-sm text-primary underline inline-flex items-center gap-1">
+                Read the full licence agreement <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+              </a>
+              <div className="flex items-start gap-3">
+                <Checkbox id="licence-agree" checked={agreed} onCheckedChange={(v) => setAgreed(v === true)} />
+                <Label htmlFor="licence-agree" className="text-sm leading-snug font-normal">
+                  I have read and agree to the Household Licence Agreement for Kerry's Montessori Songs.
+                </Label>
+              </div>
+              <div className="space-y-1.5">
+                <Label htmlFor="licence-name">Signature — type your full name</Label>
+                <Input id="licence-name" value={signName} onChange={(e) => setSignName(e.target.value)} placeholder="Full name" maxLength={120} autoComplete="name" />
+                <p className="text-xs text-muted-foreground">
+                  Signed as {user?.email} on {new Date().toLocaleDateString()}.
+                </p>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button variant="outline" onClick={() => setSignOpen(false)} disabled={busy}>Cancel</Button>
+              <Button onClick={startCheckout} disabled={!canSign || busy}>
+                {busy && <Loader2 className="w-4 h-4 mr-2 animate-spin" aria-hidden="true" />}
+                Sign and continue to payment
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         <div className="space-y-6">
           {/* Collection intro + purchase */}
@@ -112,7 +190,7 @@ const SongsPage: React.FC = () => {
                   <h2 className="text-xl font-bold text-foreground">Songs for the Montessori home and classroom</h2>
                   <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
                     Ten original songs written by Kerry Howard, following authentic Montessori
-                    principles. Every song has a free preview; the full collection is a single
+                    principles. Every song has a free 15-second sample; the full collection is a single
                     purchase with lifetime access for your whole family.
                   </p>
                 </div>
