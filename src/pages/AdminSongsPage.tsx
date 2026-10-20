@@ -227,6 +227,29 @@ const AdminSongsPage: React.FC = () => {
     }
   }
 
+  const [rebuilding, setRebuilding] = useState<string | null>(null);
+  async function rebuildSamples() {
+    try {
+      const rows = songs.filter((s) => s.storage_path);
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        setRebuilding(`${i + 1} of ${rows.length}: ${row.title}`);
+        const { url } = await callAdmin({ action: 'full-url', path: row.storage_path });
+        const blob = await (await fetch(url)).blob();
+        const preview = await generateAudioPreview(blob);
+        const { path: previewPath, token } = await callAdmin({ action: 'upload-url', kind: 'preview', extension: 'wav' });
+        await uploadWithToken(previewPath, token, preview.blob);
+        await saveSong(row, { preview_path: previewPath, duration_seconds: preview.durationSeconds });
+      }
+      await refresh();
+      toast({ title: 'Samples rebuilt', description: 'Every song now has a 15-second sample from its middle.' });
+    } catch (err: any) {
+      toast({ title: 'Rebuild failed', description: err.message, variant: 'destructive' });
+    } finally {
+      setRebuilding(null);
+    }
+  }
+
   async function deleteSong(row: SongRow) {
     if (!window.confirm(`Remove "${row.title}" and its audio files? This cannot be undone.`)) return;
     setBusyId(row.id);
@@ -260,9 +283,12 @@ const AdminSongsPage: React.FC = () => {
       <header>
         <h1 className="text-3xl font-bold">Kerry's Montessori Songs</h1>
         <p className="text-muted-foreground">
-          Upload the collection, set the order, and control what families see. A 30-second preview is
-          created automatically from each song.
+          Upload the collection, set the order, and control what families see. A free 15-second sample is
+          created automatically from the middle of each song.
         </p>
+        <Button variant="outline" className="mt-3" onClick={rebuildSamples} disabled={!!rebuilding || songs.length === 0}>
+          {rebuilding ? `Rebuilding sample ${rebuilding}…` : 'Rebuild all 15-second samples'}
+        </Button>
       </header>
 
       <div className="grid grid-cols-3 gap-3">

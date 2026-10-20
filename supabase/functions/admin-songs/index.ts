@@ -64,6 +64,14 @@ Deno.serve(async (req) => {
       return json({ path, token: data.token, signedUrl: data.signedUrl, bucket: BUCKET });
     }
 
+    if (action === 'full-url') {
+      const path = String(body.path ?? '');
+      if (!path.startsWith('tracks/')) return json({ error: 'Invalid track path' }, 400);
+      const { data, error } = await admin.storage.from(BUCKET).createSignedUrl(path, 600);
+      if (error) return json({ error: error.message }, 400);
+      return json({ url: data.signedUrl });
+    }
+
     if (action === 'upsert') {
       const title = String(body.title ?? '').trim();
       const storagePath = String(body.storage_path ?? '').trim();

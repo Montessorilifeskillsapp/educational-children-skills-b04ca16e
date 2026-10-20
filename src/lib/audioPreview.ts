@@ -1,14 +1,14 @@
-// Generates a 30-second WAV preview clip from an audio file, entirely in the
+// Generates a 15-second (middle of the song) WAV preview clip from an audio file, entirely in the
 // browser, so full tracks never need to leave the private bucket for preview.
 export interface PreviewResult {
   blob: Blob;
   durationSeconds: number;
 }
 
-const PREVIEW_LENGTH_SECONDS = 30;
+const PREVIEW_LENGTH_SECONDS = 15;
 const TARGET_SAMPLE_RATE = 22050; // mono 16-bit — small files, clear voice/piano
 
-export async function generateAudioPreview(file: File, startSeconds = 0): Promise<PreviewResult> {
+export async function generateAudioPreview(file: Blob, _startSeconds = 0): Promise<PreviewResult> {
   const arrayBuffer = await file.arrayBuffer();
   const AudioCtx =
     window.AudioContext ||
@@ -17,7 +17,7 @@ export async function generateAudioPreview(file: File, startSeconds = 0): Promis
   const decoded = await decodeCtx.decodeAudioData(arrayBuffer.slice(0));
   void decodeCtx.close();
 
-  const start = Math.max(0, Math.min(startSeconds, Math.max(0, decoded.duration - 1)));
+  const start = Math.max(0, decoded.duration / 2 - PREVIEW_LENGTH_SECONDS / 2);
   const length = Math.min(PREVIEW_LENGTH_SECONDS, decoded.duration - start);
   if (length <= 0) throw new Error('The audio file is too short to make a preview.');
 
