@@ -92,6 +92,7 @@ const faqs = [
   { q: 'Do I need Montessori training to use this app?', a: 'No. Activities include written presentation steps and teaching notes for parents, caregivers, assistants, and teachers.' },
   { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
   { q: 'Can I use this for multiple children?', a: 'Yes. Premium covers one child, while Family covers up to four children with separate progress for each.' },
+  { q: 'Are Kerry\'s songs included with Premium?', a: 'No. The 10-song collection is a separate $99.99 one-time purchase with lifetime access and downloads for your household. Anyone can play the free 15-second samples.' },
   { q: 'Does this work without internet?', a: 'An internet connection is needed for current activity content, purchase links, account features, and protected videos.' },
   { q: 'How is the curriculum organized?', a: 'Activities are arranged from introductory to advanced work within each curriculum section, with materials and presentation guidance together in one place.' },
   { q: 'What if I\'m not satisfied?', a: 'Premium plans include a 30-day money-back guarantee. See the guarantee page for details.' },

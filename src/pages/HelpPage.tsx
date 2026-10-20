@@ -59,8 +59,12 @@ const HelpPage: React.FC = () => {
           answer: "Yes! You can cancel your subscription at any time through your account settings or the Stripe customer portal. Your premium features will remain active until the end of your current billing period."
         },
         {
-          question: "What's the difference between monthly, annual, and lifetime plans?",
-          answer: "Monthly ($9.99) bills every month, Annual ($79.99) saves 33% and includes bonus seasonal packs, and Lifetime ($149) is a one-time payment for permanent access to all current and future premium features."
+          question: "What plans are available?",
+          answer: "Premium covers one child at $29.99/month or $199/year. Family covers up to four children at $49/month or $349/year."
+        },
+        {
+          question: "Are Kerry's songs included with my subscription?",
+          answer: "No. The 10-song collection is a separate $99.99 one-time purchase with lifetime access and downloads for your household. It is not included with Premium or Family. Anyone can play the free 15-second samples."
         }
       ]
     },
