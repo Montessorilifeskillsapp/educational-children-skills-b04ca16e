@@ -11,6 +11,7 @@ export interface SongTrack {
   coverUrl: string | null;
   previewUrl: string | null;
   fullUrl: string | null;
+  downloadUrl?: string | null;
 }
 
 interface CatalogState {

@@ -45,9 +45,19 @@ const SongsLicencePage: React.FC = () => {
               </p>
               <h3 className="text-lg font-medium mb-2">Household Licence — $99.99 one-time</h3>
               <p>
-                For one purchaser and their household, for personal, non-commercial use at home, including singing,
-                listening, and home learning. This licence is perpetual while these terms are followed. It does not
-                cover schools, childcare, tutoring, camps, or business use.
+                For one purchaser and the members of their household, for private, non-commercial use within that
+                household only, including singing, listening, and home learning with the household's own children. The
+                purchaser may download the Songs and keep copies on devices used by that household. This licence is
+                perpetual while these terms are followed.
+              </p>
+              <p>
+                The Household Licence does not permit any use in or for a school, classroom, preschool, nursery,
+                daycare or childcare setting, homeschool co-op, tutoring or enrichment program, camp, studio, library,
+                church or community group, therapy or clinical practice, or any other organized group, even if the
+                purchaser is a parent, teacher, school employee or owner. It does not permit use for staff training,
+                curriculum delivery, lessons for children outside the household, public events, performances,
+                broadcasts, livestreams, or social-media or video content. Buying the Household Licence never grants a
+                school or organizational licence; such use requires the separate School Licence.
               </p>
               <h3 className="text-lg font-medium mb-2">School Licence — combined annual licence</h3>
               <p>
@@ -68,11 +78,18 @@ const SongsLicencePage: React.FC = () => {
               <p>The Licensee may not:</p>
               <ul>
                 <li>Sell, rent, sublicense, publicly post, broadcast, stream, upload, or distribute the Songs or files.</li>
-                <li>Share downloads outside the licensed household or school.</li>
+                <li>Share, transfer, email, upload, resell, or otherwise make downloads or copies available to anyone outside the purchasing household or licensed school.</li>
+                <li>Use a Household Licence for any school, childcare, group, or organizational purpose.</li>
                 <li>Use the Songs in commercial products, advertisements, or public promotional videos.</li>
                 <li>Remove copyright notices.</li>
                 <li>Use the Songs to train, test, or prompt an artificial-intelligence or machine-learning system.</li>
               </ul>
+              <p>
+                Any use beyond the licence purchased is a breach of this agreement and an infringement of the
+                Licensor's copyright. The Licensor may revoke access without refund and seek the applicable School
+                Licence fee and any other remedy available by law. Each signed purchase is recorded with the signer's
+                name, email, time of signing, and licence version.
+              </p>
               <p>
                 A school may offer listening-only access through a password-protected internal system to its staff and
                 enrolled families, provided source files cannot be downloaded or shared onward.
