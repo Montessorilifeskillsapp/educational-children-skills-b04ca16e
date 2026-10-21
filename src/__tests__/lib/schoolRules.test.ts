@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { roleAllows, DEFAULT_SEAT_LIMIT } from '../../../supabase/functions/school-portal/rules';
+import { roleAllows, resolvePolicies, DEFAULT_SEAT_LIMIT } from '../../../supabase/functions/school-portal/rules';
 
 describe('school portal rules', () => {
   it('classrooms default to 30 places', () => { expect(DEFAULT_SEAT_LIMIT).toBe(30); });
@@ -19,5 +19,25 @@ describe('removing staff', () => {
     expect(roleAllows('school_admin', 'manage_school')).toBe(true)
     expect(roleAllows('teacher', 'manage_school')).toBe(false)
     expect(roleAllows('assistant', 'manage_school')).toBe(false)
+  })
+})
+
+describe('school-controlled staff permissions', () => {
+  it('admins can let assistants record progress', () => {
+    const p = resolvePolicies({ assistant: { record_progress: true } })
+    expect(roleAllows('assistant', 'record_progress', p)).toBe(true)
+    expect(roleAllows('assistant', 'send_report', p)).toBe(false)
+  })
+  it('admins can stop teachers sending reports', () => {
+    expect(roleAllows('teacher', 'send_report', resolvePolicies({ teacher: { send_report: false } }))).toBe(false)
+  })
+  it('School Admins keep full access whatever the settings', () => {
+    const p = resolvePolicies({ teacher: { record_progress: false } })
+    expect(roleAllows('school_admin', 'record_progress', p)).toBe(true)
+    expect(roleAllows('teacher', 'manage_school', resolvePolicies({ teacher: { manage_school: true } }))).toBe(false)
+  })
+  it('staff see only assigned classrooms unless the admin widens it', () => {
+    expect(resolvePolicies({}).staff_scope).toBe('assigned')
+    expect(resolvePolicies({ staff_scope: 'school' }).staff_scope).toBe('school')
   })
 })
