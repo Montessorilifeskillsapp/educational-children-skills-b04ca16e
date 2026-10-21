@@ -384,30 +384,43 @@ export type Database = {
       }
       classrooms: {
         Row: {
+          age_group: string | null
           created_at: string
           id: string
+          lead_member_id: string | null
           name: string
           school_id: string
           seat_limit: number | null
           updated_at: string
         }
         Insert: {
+          age_group?: string | null
           created_at?: string
           id?: string
+          lead_member_id?: string | null
           name: string
           school_id: string
           seat_limit?: number | null
           updated_at?: string
         }
         Update: {
+          age_group?: string | null
           created_at?: string
           id?: string
+          lead_member_id?: string | null
           name?: string
           school_id?: string
           seat_limit?: number | null
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "classrooms_lead_member_id_fkey"
+            columns: ["lead_member_id"]
+            isOneToOne: false
+            referencedRelation: "school_members"
+            referencedColumns: ["id"]
+          },
           {
             foreignKeyName: "classrooms_school_id_fkey"
             columns: ["school_id"]
@@ -731,9 +744,11 @@ export type Database = {
           created_at: string
           date_of_birth: string | null
           family_email: string | null
+          health_notes: string | null
           id: string
           name: string
           school_id: string
+          support_notes: string | null
           updated_at: string
         }
         Insert: {
@@ -742,9 +757,11 @@ export type Database = {
           created_at?: string
           date_of_birth?: string | null
           family_email?: string | null
+          health_notes?: string | null
           id?: string
           name: string
           school_id: string
+          support_notes?: string | null
           updated_at?: string
         }
         Update: {
@@ -753,9 +770,11 @@ export type Database = {
           created_at?: string
           date_of_birth?: string | null
           family_email?: string | null
+          health_notes?: string | null
           id?: string
           name?: string
           school_id?: string
+          support_notes?: string | null
           updated_at?: string
         }
         Relationships: [

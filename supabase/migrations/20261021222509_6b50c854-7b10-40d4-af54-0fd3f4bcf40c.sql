@@ -1,0 +1,2 @@
+ALTER TABLE public.classrooms ADD COLUMN IF NOT EXISTS age_group text, ADD COLUMN IF NOT EXISTS lead_member_id uuid REFERENCES public.school_members(id) ON DELETE SET NULL;
+ALTER TABLE public.school_students ADD COLUMN IF NOT EXISTS health_notes text, ADD COLUMN IF NOT EXISTS support_notes text;
