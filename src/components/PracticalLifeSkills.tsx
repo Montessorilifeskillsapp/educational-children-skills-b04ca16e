@@ -1,13 +1,9 @@
+import { allPracticalLifeSkills } from '@/data/practicalLifeAll';
 import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { montessoriTheme } from './ThemeConfig';
-import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
-import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
-import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
-import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
-import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import SkillActivity from './SkillActivity';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 import GetTheMaterials from './GetTheMaterials';
@@ -28,13 +24,7 @@ interface PracticalLifeSkillsProps {
   onComplete: (skillId: string) => void;
 }
 
-const mergedPracticalLifeSkills = {
-  ...comprehensivePracticalLifeSkills,
-  ...enhancedPracticalLifeSkills,
-  ...additionalPracticalLifeSkills,
-  ...amiPracticalLifeSkills,
-  ...concisePracticalLifeSkills,
-};
+const mergedPracticalLifeSkills = allPracticalLifeSkills;
 
 const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBack, onComplete }) => {
   const skill = mergedPracticalLifeSkills[skillId];
