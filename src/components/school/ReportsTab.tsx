@@ -48,7 +48,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
     const inRange = (d: string) => d.slice(0, 10) >= from && d.slice(0, 10) <= to;
     const mine = progress.filter((p) => p.student_id === student.id);
     const lines: string[] = [];
-    if (style.opening.trim()) lines.push(style.opening.trim().replaceAll('{child}', student.name), '');
+    if (style.opening.trim()) lines.push(style.opening.trim().split('{child}').join(student.name), '');
     lines.push(`Summary for ${student.name}, ${from} to ${to}.`, '');
     for (const a of areas()) {
       if (style.areas.length && !style.areas.includes(a.key)) continue;
@@ -62,7 +62,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
     if (style.observations && notes.length) { lines.push('Observations:'); notes.forEach((o) => lines.push(`• ${o.observed_at.slice(0, 10)}: ${o.body}`)); lines.push(''); }
     const next = nextSuggestions(mine);
     if (style.next && next.length) { lines.push('Coming next:'); next.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
-    if (style.closing.trim()) lines.push('', style.closing.trim().replaceAll('{child}', student.name));
+    if (style.closing.trim()) lines.push('', style.closing.trim().split('{child}').join(student.name));
     return { title: `${style.heading.trim() || 'Progress report'} · ${student.name}`, body: lines.join('\n').trim() };
   }, [student, progress, observations, from, to, style]);
 
