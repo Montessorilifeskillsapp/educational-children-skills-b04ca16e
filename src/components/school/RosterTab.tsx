@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { useToast } from '@/hooks/use-toast';
@@ -79,7 +80,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
                     <span aria-hidden className="h-12 w-12 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-lg">{initials(s.name)}</span>
                     <span className="min-w-0 space-y-1">
                       <span className="block font-semibold text-foreground text-base truncate">{s.name}</span>
-                      <span className="block text-sm text-muted-foreground">{age ?? 'No birth date'}</span>
+                      <span className="block text-sm text-muted-foreground">{age ?? 'No birth date'}{s.health_notes ? <span className="ml-2 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">Health note</span> : null}</span>
                       <span className="block text-sm text-foreground">
                         {latestSkill ? <>Latest work: <span className="font-medium">{latestSkill.title}</span> · {STATUS_LABEL[latest.status]}</> : <span className="text-muted-foreground">No work recorded yet</span>}
                       </span>
