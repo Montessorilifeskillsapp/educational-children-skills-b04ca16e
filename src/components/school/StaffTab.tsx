@@ -86,6 +86,7 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
                   <div className="flex items-start justify-between gap-2">
                     <div>
                       <p className="font-semibold text-lg leading-tight">{c.name}</p>
+                      {c.age_group && <p className="text-xs font-medium text-primary">{c.age_group}</p>}
                       <p className="text-sm text-muted-foreground">{count}{cap ? ` of ${cap}` : ''} children</p>
                     </div>
                     <Button size="sm" variant="ghost" className="text-destructive" onClick={() => setPending({ title: `Delete ${c.name}?`, body: `This permanently deletes ${c.name}, its ${count} student${count === 1 ? '' : 's'} and every progress record, note and report for them. This cannot be undone.`, action: 'Delete classroom', run: () => run({ action: 'classroom_delete', id: c.id }, 'Classroom deleted') })}>Delete</Button>

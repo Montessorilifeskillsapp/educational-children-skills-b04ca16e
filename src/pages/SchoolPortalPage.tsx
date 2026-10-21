@@ -187,7 +187,7 @@ export default function SchoolPortalPage() {
                   const week = data.progress.filter((p) => ids.has(p.student_id) && p.updated_at >= weekAgo).length;
                   return (
                     <Card key={c.id} className={`cursor-pointer rounded-xl transition-all hover:border-primary hover:shadow-md ${c.id === classroomId ? 'border-primary' : ''}`} onClick={() => { setClassroomId(c.id); setTab('progress'); }}>
-                      <CardHeader><CardTitle className="text-lg">{c.name}</CardTitle></CardHeader>
+                      <CardHeader><CardTitle className="text-lg">{c.name}</CardTitle>{c.age_group && <p className="text-xs font-medium text-primary">{c.age_group}</p>}</CardHeader>
                       <CardContent className="text-sm text-muted-foreground">{kids.length} of {c.seat_limit ?? school.seat_limit} places · {week} records this week</CardContent>
                     </Card>
                   );
@@ -239,7 +239,7 @@ export default function SchoolPortalPage() {
           {can.manageSchool(role) && schoolId && (
             <TabsContent value="staff">
               <StaffPolicies schoolId={schoolId} policies={me!.schools.policies} onSaved={loadMe} />
-              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={reload} seatLimit={school.seat_limit} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
+              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={() => { reload(); loadMe(); }} seatLimit={school.seat_limit} schoolName={school.name} schoolEmail={school.contact_email} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
             </TabsContent>
           )}
         </Tabs>
