@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
-import { can, setSchoolPolicies, KERRY_EMAIL, Membership, ROLE_LABEL, schoolCall } from '@/components/school/api';
+import { can, setSchoolPolicies, setRolePreview, SchoolRole, KERRY_EMAIL, Membership, ROLE_LABEL, schoolCall } from '@/components/school/api';
 import { useSchoolData } from '@/components/school/useSchoolData';
 import RosterTab from '@/components/school/RosterTab';
 import ProgressTab from '@/components/school/ProgressTab';
@@ -18,6 +18,7 @@ import StudentPanel from '@/components/school/StudentPanel';
 import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
+import RoleBanner from '@/components/school/RoleBanner';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
@@ -56,11 +57,17 @@ export default function SchoolPortalPage() {
   const { data, loading, reload } = useSchoolData(schoolId);
   const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const me = memberships?.find((m) => m.school_id === schoolId);
-  const role = me?.role ?? 'assistant';
+  const realRole = me?.role ?? 'assistant';
+  // School Admins may preview the Teacher or Assistant view; saving is blocked while previewing.
+  const [previewRole, setPreviewRole] = useState<SchoolRole | null>(null);
+  const role: SchoolRole = realRole === 'school_admin' && previewRole ? previewRole : realRole;
+  const previewing = role !== realRole;
+  setRolePreview(previewing);
+  useEffect(() => () => setRolePreview(false), []);
   setSchoolPolicies(me?.schools.policies);
   const visibleRooms = useMemo(() => {
     if (!me) return [];
-    if (can.seeAllRooms(me.role)) return data.classrooms;
+    if (can.seeAllRooms(me.role)) return data.classrooms; // previews keep the admin's rooms so there is something to see
     return data.classrooms.filter((c) => data.staff.some((s) => s.classroom_id === c.id && s.member_id === me.id));
   }, [data, me]);
   useEffect(() => {
@@ -107,10 +114,16 @@ export default function SchoolPortalPage() {
       </div>
       <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">School Portal</h1>
+          <h1 className="text-3xl font-bold text-foreground">{role === 'school_admin' ? 'School Administration' : role === 'teacher' ? 'Teacher Workspace' : 'Assistant Workspace'}</h1>
           <p className="text-muted-foreground">{school.name} · {ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
+          {realRole === 'school_admin' && (
+            <Select value={role} onValueChange={(v) => setPreviewRole(v === 'school_admin' ? null : v as SchoolRole)}>
+              <SelectTrigger className="w-48" aria-label="View as"><span className="text-muted-foreground mr-1">View as:</span><SelectValue /></SelectTrigger>
+              <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
+            </Select>
+          )}
           {memberships.length > 1 && (
             <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
               <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
@@ -125,6 +138,8 @@ export default function SchoolPortalPage() {
           )}
         </div>
       </header>
+
+      <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />
 
       {loading ? <LoadingSpinner /> : (
         <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
