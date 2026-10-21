@@ -81,10 +81,10 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
     { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
     { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
-    ...(isSchoolStaff ? [{ label: 'School Portal & Administration', icon: School, onClick: () => navigate('/school'), color: 'border-primary/30' }] : []),
+    ...(isSchoolStaff ? [{ label: 'School Administration', icon: School, onClick: () => navigate('/school'), color: 'border-primary/30' }] : []),
     ...(isAdmin ? [
-      { label: 'Platform Admin (App Owner)', icon: BarChart3, onClick: () => navigate('/admin'), color: 'border-destructive/40' },
-      { label: 'Platform Access Codes', icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
+      { label: 'App Admin', icon: BarChart3, onClick: () => navigate('/admin'), color: 'border-destructive/40' },
+      { label: 'Access Codes', icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
     ] : []),
     { label: 'Terms of Service', icon: BookOpen, onClick: () => navigate('/terms-of-service'), color: 'border-border' },
     { label: 'Privacy Policy', icon: BookOpen, onClick: () => navigate('/privacy-policy'), color: 'border-border' },

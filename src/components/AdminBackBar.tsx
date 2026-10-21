@@ -22,7 +22,7 @@ const AdminBackBar: React.FC = () => {
         className="gap-1.5"
       >
         <ArrowLeft className="w-4 h-4" />
-        {isAdminHome ? 'Back to app' : 'Platform Admin'}
+        {isAdminHome ? 'Back to app' : 'Admin'}
       </Button>
       {!isAdminHome && (
         <Button asChild variant="ghost" size="sm" className="gap-1.5">
