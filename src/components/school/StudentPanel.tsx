@@ -11,6 +11,7 @@ import { areas, nextSuggestions, orderedSkills, skillById, skillLink } from './c
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
 import { allowSchoolNavigation, SCHOOL_LEAVE_EVENT } from './navigation';
+import { NoteList, ReportList } from './EditableRecords';
 
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
@@ -149,17 +150,15 @@ export default function StudentPanel({ role, userId, student, progress, observat
               <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="What did you observe?" />
               <Button size="sm" className="mt-2" onClick={addNote} disabled={!note.trim()}>Add note</Button>
             </>}
-            <ul className="mt-3 space-y-2">
-              {obs.map((o) => (
-                <li key={o.id} className="text-sm border-l-2 border-border pl-3">
-                  <p className="text-xs text-muted-foreground">{new Date(o.observed_at).toLocaleString()}{o.author_id ? ` · ${nameOf(o.author_id)}` : ''}</p>
-                  <p className="whitespace-pre-wrap">{o.body}</p>
-                  {editable && (o.author_id === userId || can.editOthers(role)) && <button className="text-xs underline text-destructive" onClick={() => delNote(o.id)}>Delete</button>}
-                </li>
-              ))}
-            </ul>
+            <NoteList notes={obs} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
           </section>
 
+          {!can.sendReport(role) && sent.length > 0 && (
+            <section>
+              <h3 className="font-semibold mb-2">Past parent reports</h3>
+              <ReportList reports={sent} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
+            </section>
+          )}
           {can.sendReport(role) && (
             <section>
               <h3 className="font-semibold mb-2">Parent report</h3>
@@ -184,9 +183,9 @@ export default function StudentPanel({ role, userId, student, progress, observat
                 </div>
               )}
               {sent.length > 0 && (
-                <div className="mt-3">
-                  <p className="text-sm font-medium">Reports sent</p>
-                  <ul className="text-sm text-muted-foreground">{sent.map((r) => <li key={r.id}>{r.period_start} to {r.period_end} · {r.sent_to} · {r.summary.email_status === 'school_mail' ? 'Opened in school email' : 'Sent by app'}</li>)}</ul>
+                <div className="mt-4">
+                  <p className="text-sm font-medium mb-2">Past parent reports</p>
+                  <ReportList reports={sent} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
                 </div>
               )}
             </section>
