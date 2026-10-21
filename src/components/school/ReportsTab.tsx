@@ -8,15 +8,17 @@ import { useToast } from '@/hooks/use-toast';
 import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
 import { areas, nextSuggestions, skillById } from './curriculum';
 import { STATUS_LABEL } from './ProgressChooser';
+import { ReportList } from './EditableRecords';
 
 interface Props {
   role: SchoolRole; students: Student[]; progress: Progress[]; observations: Observation[]; reports: Report[];
   schoolName: string; schoolEmail: string | null; onChange: () => void; onEditStudent: (id: string) => void;
+  userId: string; nameOf: (id: string | null) => string;
 }
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
-export default function ReportsTab({ role, students, progress, observations, reports, schoolName, schoolEmail, onChange, onEditStudent }: Props) {
+export default function ReportsTab({ role, students, progress, observations, reports, schoolName, schoolEmail, onChange, onEditStudent, userId, nameOf }: Props) {
   const { toast } = useToast();
   const [selected, setSelected] = useState<string | null>(students[0]?.id ?? null);
   const [from, setFrom] = useState(() => iso(new Date(Date.now() - 30 * 864e5)));
@@ -118,6 +120,11 @@ export default function ReportsTab({ role, students, progress, observations, rep
             </div>
           ) : <p className="text-sm text-muted-foreground">Assistants can view reports. A Teacher or School Admin sends them.</p>}
           <p className="text-xs text-muted-foreground">Opens your school email app with the parent, subject and report filled in — just press Send.</p>
+          <div className="pt-4 border-t border-border">
+            <h3 className="font-semibold mb-2">Past reports for {student.name}</h3>
+            <ReportList reports={reports.filter((r) => r.student_id === student.id).sort((a, b) => (b.created_at ?? b.period_end).localeCompare(a.created_at ?? a.period_end))}
+              role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
+          </div>
         </div>
       )}
     </section>

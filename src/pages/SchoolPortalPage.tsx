@@ -202,7 +202,7 @@ export default function SchoolPortalPage() {
               </TabsContent>
               <TabsContent value="reports">
                 <ReportsTab role={role} students={students} progress={progress} observations={data.observations} reports={data.reports}
-                  schoolName={school.name} schoolEmail={school.contact_email} onChange={reload} onEditStudent={() => setTab('roster')} />
+                  schoolName={school.name} schoolEmail={school.contact_email} onChange={reload} onEditStudent={() => setTab('roster')} userId={user.id} nameOf={nameOf} />
               </TabsContent>
               <TabsContent value="planning">
                 <PlanningTab key={planSeed ? planSeed.skill_id : 'plan'} role={role} classroom={classroom} students={students} plans={plans} onChange={reload} initial={planSeed} onInitialUsed={() => setPlanSeed(null)} />
