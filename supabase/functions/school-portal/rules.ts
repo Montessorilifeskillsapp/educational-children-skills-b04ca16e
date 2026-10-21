@@ -14,7 +14,7 @@ export interface SchoolPolicies {
 /** Defaults apply when a school never configures anything. School Admins always hold every capability. */
 export const DEFAULT_POLICIES: SchoolPolicies = {
   staff_scope: 'assigned',
-  teacher: { record_progress: true, edit_others_records: false, edit_roster: true, delete_student: true, plan: true, send_report: true },
+  teacher: { record_progress: true, edit_others_records: true, edit_roster: true, delete_student: true, plan: true, send_report: true },
   assistant: { record_progress: false, edit_others_records: false, edit_roster: false, delete_student: false, plan: false, send_report: false },
 }
 
