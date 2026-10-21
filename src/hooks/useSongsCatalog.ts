@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { songCoverFor } from '@/lib/songCovers';
 
 export interface SongTrack {
   id: string;
@@ -36,7 +37,7 @@ export function useSongsCatalog() {
       loading: false,
       error: null,
       purchased: Boolean(payload.purchased),
-      songs: payload.songs ?? [],
+      songs: (payload.songs ?? []).map((s) => ({ ...s, coverUrl: s.coverUrl ?? songCoverFor(s.title) })),
     });
   }, []);
 
