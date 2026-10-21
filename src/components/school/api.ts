@@ -20,7 +20,13 @@ export interface Report { id: string; student_id: string; period_start: string; 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export const db = supabase as any;
 
+let previewing = false;
+/** While a School Admin previews another role, nothing may be saved. */
+export function setRolePreview(on: boolean) { previewing = on; }
+export const PREVIEW_BLOCKED = 'Previewing another role. Changes are turned off.';
+
 export async function schoolCall<T = unknown>(body: Record<string, unknown>): Promise<T> {
+  if (previewing && body.action !== 'me') throw new Error(PREVIEW_BLOCKED);
   const { data, error } = await supabase.functions.invoke('school-portal', { body });
   if (error) {
     let msg = error.message;
