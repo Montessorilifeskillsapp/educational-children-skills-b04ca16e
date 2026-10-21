@@ -33,16 +33,16 @@ const AdminAnalyticsLink: React.FC = () => {
 
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end">
-      <Link to="/admin/access-codes" aria-label="Access Codes">
+      <Link to="/admin/access-codes" aria-label="Platform Access Codes">
         <Button size="sm" variant="outline" className="shadow-lg bg-background/90 backdrop-blur border-destructive/40">
           <KeyRound className="w-4 h-4 mr-2" />
-          Access Codes
+          Platform Access Codes
         </Button>
       </Link>
-      <Link to="/admin" aria-label="Admin">
+      <Link to="/admin" aria-label="Platform Admin (App Owner)">
         <Button size="sm" variant="outline" className="shadow-lg bg-background/90 backdrop-blur border-destructive/40">
           <BarChart3 className="w-4 h-4 mr-2" />
-          Admin
+          Platform Admin (App Owner)
         </Button>
       </Link>
     </div>
