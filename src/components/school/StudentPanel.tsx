@@ -104,6 +104,31 @@ export default function StudentPanel({ role, userId, student, progress, observat
           );
         })()}
         <div className="space-y-6 mt-4">
+          <section aria-label="Progress across the nine curriculum areas">
+            <h3 className="font-semibold mb-2">Across the curriculum</h3>
+            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              {areas().map((a) => {
+                const total = orderedSkills().filter((s) => s.areaKey === a.key).length || 1;
+                const rec = mine.filter((p) => skillById(p.skill_id)?.areaKey === a.key);
+                const m = rec.filter((p) => p.status === 'mastered').length;
+                const pr = rec.filter((p) => p.status === 'practising').length;
+                const ps = rec.filter((p) => p.status === 'presented').length;
+                return (
+                  <li key={a.key}>
+                    <button type="button" onClick={() => setArea(a.key)} className={`w-full text-left rounded-lg border p-2 transition-colors hover:border-primary ${area === a.key ? 'border-primary bg-accent' : 'border-border'}`}>
+                      <span className="block text-xs font-medium truncate">{a.title}</span>
+                      <span className="mt-1 flex h-1.5 w-full overflow-hidden rounded-full bg-muted" aria-hidden>
+                        <span className="bg-primary" style={{ width: `${(m / total) * 100}%` }} />
+                        <span className="bg-primary/60" style={{ width: `${(pr / total) * 100}%` }} />
+                        <span className="bg-primary/30" style={{ width: `${(ps / total) * 100}%` }} />
+                      </span>
+                      <span className="block mt-1 text-[11px] text-muted-foreground">{m} mastered · {pr} practising · {ps} presented</span>
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
           <section>
             <h3 className="font-semibold mb-2">Ready for next</h3>
             {suggestions.length === 0 ? <p className="text-sm text-muted-foreground">No next activity suggested yet.</p> : (

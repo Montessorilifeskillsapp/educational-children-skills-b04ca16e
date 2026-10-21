@@ -146,17 +146,33 @@ export default function SchoolPortalPage() {
 
       {loading ? <LoadingSpinner /> : (
         <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
-          <TabsList className="w-full justify-start flex flex-nowrap md:flex-wrap overflow-x-auto h-auto gap-1 p-1.5 rounded-xl print:hidden [scrollbar-width:none]">
-            <TabsTrigger value="overview" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Overview</TabsTrigger>
-            <TabsTrigger value="progress" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Record progress</TabsTrigger>
-            <TabsTrigger value="reports" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Parent reports</TabsTrigger>
-            <TabsTrigger value="roster" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Students</TabsTrigger>
-            <TabsTrigger value="planning" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Lesson planning</TabsTrigger>
-            {can.manageSchool(role) && <span aria-hidden className="mx-1 my-2 w-px shrink-0 bg-border" />}
-            {can.manageSchool(role) && <TabsTrigger value="staff" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Classrooms & staff</TabsTrigger>}
-            {can.manageSchool(role) && <TabsTrigger value="activity" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Staff activity</TabsTrigger>}
-            {can.manageSchool(role) && <TabsTrigger value="review" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">School-wide review</TabsTrigger>}
-          </TabsList>
+          {(() => {
+            const leadership = ['staff', 'activity', 'review'].includes(tab);
+            const t = 'px-4 py-2.5 min-h-11 shrink-0 rounded-lg';
+            return (
+              <div className="space-y-2 print:hidden">
+                {can.manageSchool(role) && (
+                  <div role="tablist" aria-label="Portal area" className="inline-flex rounded-xl border border-border bg-muted p-1 gap-1">
+                    <Button size="sm" variant={leadership ? 'ghost' : 'default'} className="rounded-lg min-h-10 px-4" onClick={() => { if (leadership && allowSchoolNavigation()) setTab('overview'); }}>Classroom</Button>
+                    <Button size="sm" variant={leadership ? 'default' : 'ghost'} className="rounded-lg min-h-10 px-4" onClick={() => { if (!leadership && allowSchoolNavigation()) setTab('staff'); }}>School leadership</Button>
+                  </div>
+                )}
+                <TabsList className="w-full justify-start flex flex-nowrap overflow-x-auto h-auto gap-1 p-1.5 rounded-xl [scrollbar-width:none]">
+                  {leadership ? (<>
+                    <TabsTrigger value="staff" className={t}>Classrooms & staff</TabsTrigger>
+                    <TabsTrigger value="review" className={t}>School-wide review</TabsTrigger>
+                    <TabsTrigger value="activity" className={t}>Staff activity</TabsTrigger>
+                  </>) : (<>
+                    <TabsTrigger value="overview" className={t}>Overview</TabsTrigger>
+                    <TabsTrigger value="progress" disabled={!classroom} className={t}>Record progress</TabsTrigger>
+                    <TabsTrigger value="roster" disabled={!classroom} className={t}>Students</TabsTrigger>
+                    <TabsTrigger value="planning" disabled={!classroom} className={t}>Lesson planning</TabsTrigger>
+                    <TabsTrigger value="reports" disabled={!classroom} className={t}>Parent reports</TabsTrigger>
+                  </>)}
+                </TabsList>
+              </div>
+            );
+          })()}
 
           <TabsContent value="overview" className="space-y-4">
             {visibleRooms.length === 0 ? (
@@ -223,7 +239,7 @@ export default function SchoolPortalPage() {
           {can.manageSchool(role) && schoolId && (
             <TabsContent value="staff">
               <StaffPolicies schoolId={schoolId} policies={me!.schools.policies} onSaved={loadMe} />
-              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={reload} />
+              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={reload} seatLimit={school.seat_limit} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
             </TabsContent>
           )}
         </Tabs>
