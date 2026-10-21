@@ -239,7 +239,7 @@ export default function SchoolPortalPage() {
           {can.manageSchool(role) && schoolId && (
             <TabsContent value="staff">
               <StaffPolicies schoolId={schoolId} policies={me!.schools.policies} onSaved={loadMe} />
-              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={reload} />
+              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={reload} seatLimit={school.seat_limit} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
             </TabsContent>
           )}
         </Tabs>
