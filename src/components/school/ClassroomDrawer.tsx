@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuthContext } from '@/components/AuthProvider';
-import { can, Membership, ROLE_LABEL, schoolCall } from './api';
+import { can, setSchoolPolicies, Membership, ROLE_LABEL, schoolCall } from './api';
 import { useSchoolData } from './useSchoolData';
 import { skillById } from './curriculum';
 import ProgressChooser, { StatusBadge, lastUpdate } from './ProgressChooser';

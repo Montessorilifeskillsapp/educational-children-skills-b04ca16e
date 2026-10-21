@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
-import { can, KERRY_EMAIL, Membership, ROLE_LABEL, schoolCall } from '@/components/school/api';
+import { can, setSchoolPolicies, KERRY_EMAIL, Membership, ROLE_LABEL, schoolCall } from '@/components/school/api';
 import { useSchoolData } from '@/components/school/useSchoolData';
 import RosterTab from '@/components/school/RosterTab';
 import ProgressTab from '@/components/school/ProgressTab';
