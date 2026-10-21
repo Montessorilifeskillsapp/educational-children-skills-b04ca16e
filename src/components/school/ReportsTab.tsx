@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
-import { Mail, Printer } from 'lucide-react';
+import { useEffect, useMemo, useState } from 'react';
+import { Mail, Palette, Printer } from 'lucide-react';
+import { Switch } from '@/components/ui/switch';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -18,6 +19,14 @@ interface Props {
 
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
+/** The school's own report wording, kept on this device so every report reads in the school's voice. */
+export interface ReportStyle { heading: string; opening: string; closing: string; signoff: string; observations: boolean; next: boolean; areas: string[] }
+const DEFAULT_STYLE: ReportStyle = { heading: 'Progress report', opening: '', closing: '', signoff: '', observations: true, next: true, areas: [] };
+const styleKey = (school: string) => `school-report-style:${school}`;
+function loadStyle(school: string): ReportStyle {
+  try { return { ...DEFAULT_STYLE, ...JSON.parse(localStorage.getItem(styleKey(school)) || '{}') }; } catch { return DEFAULT_STYLE; }
+}
+
 export default function ReportsTab({ role, students, progress, observations, reports, schoolName, schoolEmail, onChange, onEditStudent, userId, nameOf }: Props) {
   const { toast } = useToast();
   const [selected, setSelected] = useState<string | null>(students[0]?.id ?? null);
@@ -25,6 +34,10 @@ export default function ReportsTab({ role, students, progress, observations, rep
   const [to, setTo] = useState(() => iso(new Date()));
   const [edits, setEdits] = useState<Record<string, { title: string; body: string }>>({});
   const [sending, setSending] = useState(false);
+  const [style, setStyle] = useState<ReportStyle>(() => loadStyle(schoolName));
+  const [styleOpen, setStyleOpen] = useState(false);
+  useEffect(() => { try { localStorage.setItem(styleKey(schoolName), JSON.stringify(style)); } catch { /* ignore */ } }, [style, schoolName]);
+  const patchStyle = (p: Partial<ReportStyle>) => { setStyle((s) => ({ ...s, ...p })); setEdits({}); };
   const student = students.find((s) => s.id === selected) ?? null;
   const canSend = can.sendReport(role);
 
@@ -34,8 +47,11 @@ export default function ReportsTab({ role, students, progress, observations, rep
     if (!student) return null;
     const inRange = (d: string) => d.slice(0, 10) >= from && d.slice(0, 10) <= to;
     const mine = progress.filter((p) => p.student_id === student.id);
-    const lines: string[] = [`Progress summary for ${student.name}, ${from} to ${to}.`, ''];
+    const lines: string[] = [];
+    if (style.opening.trim()) lines.push(style.opening.trim().replaceAll('{child}', student.name), '');
+    lines.push(`Summary for ${student.name}, ${from} to ${to}.`, '');
     for (const a of areas()) {
+      if (style.areas.length && !style.areas.includes(a.key)) continue;
       const items = mine.filter((p) => inRange(p.updated_at) && skillById(p.skill_id)?.areaKey === a.key);
       if (!items.length) continue;
       lines.push(`${a.title}:`);
@@ -43,11 +59,12 @@ export default function ReportsTab({ role, students, progress, observations, rep
       lines.push('');
     }
     const notes = observations.filter((o) => o.student_id === student.id && inRange(o.observed_at)).sort((a, b) => a.observed_at.localeCompare(b.observed_at));
-    if (notes.length) { lines.push('Observations:'); notes.forEach((o) => lines.push(`• ${o.observed_at.slice(0, 10)}: ${o.body}`)); lines.push(''); }
+    if (style.observations && notes.length) { lines.push('Observations:'); notes.forEach((o) => lines.push(`• ${o.observed_at.slice(0, 10)}: ${o.body}`)); lines.push(''); }
     const next = nextSuggestions(mine);
-    if (next.length) { lines.push('Coming next:'); next.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
-    return { title: `Progress report for ${student.name}`, body: lines.join('\n').trim() };
-  }, [student, progress, observations, from, to]);
+    if (style.next && next.length) { lines.push('Coming next:'); next.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
+    if (style.closing.trim()) lines.push('', style.closing.trim().replaceAll('{child}', student.name));
+    return { title: `${style.heading.trim() || 'Progress report'} · ${student.name}`, body: lines.join('\n').trim() };
+  }, [student, progress, observations, from, to, style]);
 
   const key = student ? `${student.id}:${from}:${to}` : '';
   const report = (key && edits[key]) || generated;
@@ -56,7 +73,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
   const send = () => {
     if (!student || !report || !student.family_email || sending) return;
     const subject = `${schoolName} · ${report.title}`;
-    const body = `${report.body}\n\nWith warm regards,\n${schoolName}${schoolEmail ? `\n${schoolEmail}` : ''}`;
+    const body = `${report.body}\n\n${style.signoff.trim() || 'With warm regards,'}\n${schoolName}${schoolEmail ? `\n${schoolEmail}` : ''}`;
     window.location.href = `mailto:${encodeURIComponent(student.family_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSending(true);
     schoolCall({ action: 'report_record', student_id: student.id, period_start: from, period_end: to, title: report.title, body: report.body })
@@ -109,6 +126,36 @@ export default function ReportsTab({ role, students, progress, observations, rep
             </div>
             {!student.family_email && <Button size="sm" variant="outline" onClick={() => onEditStudent(student.id)}>Add parent email</Button>}
           </div>
+          {canSend && (
+            <div className="rounded-lg border border-border bg-muted/40">
+              <button type="button" onClick={() => setStyleOpen(!styleOpen)} aria-expanded={styleOpen}
+                className="w-full flex items-center justify-between gap-2 px-4 py-3 min-h-11 text-left">
+                <span className="flex items-center gap-2 font-medium text-foreground"><Palette className="h-4 w-4" />School report style</span>
+                <span className="text-sm text-muted-foreground">{styleOpen ? 'Close' : 'Customise'}</span>
+              </button>
+              {styleOpen && (
+                <div className="grid gap-3 px-4 pb-4 sm:grid-cols-2">
+                  <div className="sm:col-span-2"><Label htmlFor="rs-h">Report heading (term or cycle)</Label><Input id="rs-h" value={style.heading} placeholder="e.g. Autumn Term Observations" onChange={(e) => patchStyle({ heading: e.target.value })} /></div>
+                  <div className="sm:col-span-2"><Label htmlFor="rs-o">Opening note</Label><Textarea id="rs-o" rows={2} value={style.opening} placeholder="Dear family of {child}, …" onChange={(e) => patchStyle({ opening: e.target.value })} /></div>
+                  <div className="sm:col-span-2"><Label htmlFor="rs-c">Closing note</Label><Textarea id="rs-c" rows={2} value={style.closing} placeholder="A thought from the guide to finish the report" onChange={(e) => patchStyle({ closing: e.target.value })} /></div>
+                  <div className="sm:col-span-2"><Label htmlFor="rs-s">Sign-off</Label><Input id="rs-s" value={style.signoff} placeholder="With warm regards," onChange={(e) => patchStyle({ signoff: e.target.value })} /></div>
+                  <label className="flex items-center justify-between gap-2 rounded-md border border-border bg-background px-3 py-2 min-h-11"><span className="text-sm">Include observations</span><Switch checked={style.observations} onCheckedChange={(v) => patchStyle({ observations: v })} /></label>
+                  <label className="flex items-center justify-between gap-2 rounded-md border border-border bg-background px-3 py-2 min-h-11"><span className="text-sm">Include “Coming next”</span><Switch checked={style.next} onCheckedChange={(v) => patchStyle({ next: v })} /></label>
+                  <div className="sm:col-span-2">
+                    <p className="text-sm font-medium mb-2">Curriculum areas {style.areas.length ? '' : '(all)'}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {areas().map((a) => {
+                        const on = style.areas.includes(a.key);
+                        return <Button key={a.key} type="button" size="sm" variant={on ? 'default' : 'outline'} aria-pressed={on} className="min-h-10"
+                          onClick={() => patchStyle({ areas: on ? style.areas.filter((k) => k !== a.key) : [...style.areas, a.key] })}>{a.title}</Button>;
+                      })}
+                    </div>
+                  </div>
+                  <p className="sm:col-span-2 text-xs text-muted-foreground">Write {'{child}'} to insert the child’s name. This style is saved on this device and used for every report you prepare.</p>
+                </div>
+              )}
+            </div>
+          )}
           <Input aria-label="Report title" value={report.title} onChange={(e) => setReport({ ...report, title: e.target.value })} disabled={!canSend} />
           <Textarea aria-label="Report" rows={16} value={report.body} onChange={(e) => setReport({ ...report, body: e.target.value })} disabled={!canSend} />
           {canSend ? (
