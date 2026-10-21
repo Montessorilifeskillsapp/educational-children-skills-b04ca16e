@@ -90,6 +90,12 @@ export default function StudentPanel({ role, userId, student, progress, observat
     <Sheet open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
       <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
         <SheetHeader><SheetTitle>{student.name}{!editable && <span className="ml-2 text-xs font-normal text-muted-foreground">View only</span>}</SheetTitle></SheetHeader>
+        {(student.health_notes || student.support_notes) && (
+          <div className="mt-3 space-y-2 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm" role="note">
+            {student.health_notes && <p><span className="font-semibold">Health and allergies: </span>{student.health_notes}</p>}
+            {student.support_notes && <p><span className="font-semibold">Support notes: </span>{student.support_notes}</p>}
+          </div>
+        )}
         {(() => {
           const i = classmates.findIndex((c) => c.id === student.id);
           return (
