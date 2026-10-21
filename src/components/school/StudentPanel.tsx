@@ -154,7 +154,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                 <li key={o.id} className="text-sm border-l-2 border-border pl-3">
                   <p className="text-xs text-muted-foreground">{new Date(o.observed_at).toLocaleString()}{o.author_id ? ` · ${nameOf(o.author_id)}` : ''}</p>
                   <p className="whitespace-pre-wrap">{o.body}</p>
-                  {editable && (o.author_id === userId || can.editRoster(role)) && <button className="text-xs underline text-destructive" onClick={() => delNote(o.id)}>Delete</button>}
+                  {editable && (o.author_id === userId || can.editOthers(role)) && <button className="text-xs underline text-destructive" onClick={() => delNote(o.id)}>Delete</button>}
                 </li>
               ))}
             </ul>

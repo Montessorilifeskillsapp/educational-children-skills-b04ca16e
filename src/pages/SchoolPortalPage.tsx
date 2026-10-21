@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
-import { can, KERRY_EMAIL, Membership, ROLE_LABEL, schoolCall } from '@/components/school/api';
+import { can, setSchoolPolicies, KERRY_EMAIL, Membership, ROLE_LABEL, schoolCall } from '@/components/school/api';
 import { useSchoolData } from '@/components/school/useSchoolData';
 import RosterTab from '@/components/school/RosterTab';
 import ProgressTab from '@/components/school/ProgressTab';
@@ -16,6 +16,8 @@ import StaffTab from '@/components/school/StaffTab';
 import StaffActivity from '@/components/school/StaffActivity';
 import StudentPanel from '@/components/school/StudentPanel';
 import ReportsTab from '@/components/school/ReportsTab';
+import SchoolReview from '@/components/school/SchoolReview';
+import StaffPolicies from '@/components/school/StaffPolicies';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
@@ -43,20 +45,22 @@ export default function SchoolPortalPage() {
   useEffect(() => {
     rememberSchoolReturn(window.location.pathname + window.location.search);
   }, [params, schoolId]);
-  useEffect(() => {
+  const loadMe = useCallback(() => {
     if (!user) return;
     schoolCall<{ memberships: Membership[] }>({ action: 'me' })
       .then((r) => { setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
       .catch(() => setMemberships([]));
   }, [user]);
+  useEffect(() => { loadMe(); }, [loadMe]);
 
   const { data, loading, reload } = useSchoolData(schoolId);
   const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const me = memberships?.find((m) => m.school_id === schoolId);
   const role = me?.role ?? 'assistant';
+  setSchoolPolicies(me?.schools.policies);
   const visibleRooms = useMemo(() => {
     if (!me) return [];
-    if (me.role === 'school_admin') return data.classrooms;
+    if (can.seeAllRooms(me.role)) return data.classrooms;
     return data.classrooms.filter((c) => data.staff.some((s) => s.classroom_id === c.id && s.member_id === me.id));
   }, [data, me]);
   useEffect(() => {
@@ -65,7 +69,7 @@ export default function SchoolPortalPage() {
   // If the current tab is no longer available (role changed, classroom gone), fall back to Overview instead of a blank page.
   useEffect(() => {
     if (!memberships) return;
-    if (((tab === 'staff' || tab === 'activity') && !can.manageSchool(role)) || (!['overview', 'staff', 'activity'].includes(tab) && !classroomId)) setTab('overview');
+    if ((['staff', 'activity', 'review'].includes(tab) && !can.manageSchool(role)) || (!['overview', 'staff', 'activity', 'review'].includes(tab) && !classroomId)) setTab('overview');
   }, [tab, role, classroomId, memberships]);
 
   if (authLoading || (user && memberships === null)) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner /></div>;
@@ -132,6 +136,7 @@ export default function SchoolPortalPage() {
             <TabsTrigger value="planning" disabled={!classroom} className="px-4 py-2">Lesson planning</TabsTrigger>
             {can.manageSchool(role) && <TabsTrigger value="staff" className="px-4 py-2">Classrooms & staff</TabsTrigger>}
             {can.manageSchool(role) && <TabsTrigger value="activity" className="px-4 py-2">Staff activity</TabsTrigger>}
+            {can.manageSchool(role) && <TabsTrigger value="review" className="px-4 py-2">School-wide review</TabsTrigger>}
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
@@ -191,8 +196,14 @@ export default function SchoolPortalPage() {
               <StaffActivity data={data} nameOf={nameOf} onOpenStudent={setOpenStudent} />
             </TabsContent>
           )}
+          {can.manageSchool(role) && (
+            <TabsContent value="review">
+              <SchoolReview data={data} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
+            </TabsContent>
+          )}
           {can.manageSchool(role) && schoolId && (
             <TabsContent value="staff">
+              <StaffPolicies schoolId={schoolId} policies={me!.schools.policies} onSaved={loadMe} />
               <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={reload} />
             </TabsContent>
           )}

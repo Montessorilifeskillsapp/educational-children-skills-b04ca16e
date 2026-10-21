@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuthContext } from '@/components/AuthProvider';
-import { can, Membership, ROLE_LABEL, schoolCall } from './api';
+import { can, setSchoolPolicies, Membership, ROLE_LABEL, schoolCall } from './api';
 import { useSchoolData } from './useSchoolData';
 import { skillById } from './curriculum';
 import ProgressChooser, { StatusBadge, lastUpdate } from './ProgressChooser';
@@ -58,7 +58,8 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
   const me = memberships[0];
   const { data, loading, reload } = useSchoolData(me.school_id);
   const role = me.role;
-  const rooms = useMemo(() => role === 'school_admin' ? data.classrooms
+  setSchoolPolicies(me.schools.policies);
+  const rooms = useMemo(() => can.seeAllRooms(role) ? data.classrooms
     : data.classrooms.filter((c) => data.staff.some((s) => s.classroom_id === c.id && s.member_id === me.id)), [data, role, me.id]);
   const [roomId, setRoomId] = useState<string | null>(() => { try { return sessionStorage.getItem(ROOM_KEY); } catch { return null; } });
   useEffect(() => { if (rooms.length && !rooms.some((r) => r.id === roomId)) setRoomId(rooms[0].id); }, [rooms, roomId]);

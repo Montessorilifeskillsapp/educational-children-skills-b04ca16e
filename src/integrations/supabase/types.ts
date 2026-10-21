@@ -782,6 +782,7 @@ export type Database = {
           created_at: string
           id: string
           name: string
+          policies: Json
           seat_limit: number
           updated_at: string
         }
@@ -791,6 +792,7 @@ export type Database = {
           created_at?: string
           id?: string
           name: string
+          policies?: Json
           seat_limit?: number
           updated_at?: string
         }
@@ -800,6 +802,7 @@ export type Database = {
           created_at?: string
           id?: string
           name?: string
+          policies?: Json
           seat_limit?: number
           updated_at?: string
         }
@@ -955,6 +958,8 @@ export type Database = {
         Row: {
           author_id: string | null
           body: string
+          edited_at: string | null
+          edited_by: string | null
           id: string
           observed_at: string
           school_id: string
@@ -963,6 +968,8 @@ export type Database = {
         Insert: {
           author_id?: string | null
           body: string
+          edited_at?: string | null
+          edited_by?: string | null
           id?: string
           observed_at?: string
           school_id: string
@@ -971,6 +978,8 @@ export type Database = {
         Update: {
           author_id?: string | null
           body?: string
+          edited_at?: string | null
+          edited_by?: string | null
           id?: string
           observed_at?: string
           school_id?: string
@@ -1056,6 +1065,8 @@ export type Database = {
           sent_to: string | null
           student_id: string
           summary: Json
+          updated_at: string | null
+          updated_by: string | null
         }
         Insert: {
           created_at?: string
@@ -1068,6 +1079,8 @@ export type Database = {
           sent_to?: string | null
           student_id: string
           summary?: Json
+          updated_at?: string | null
+          updated_by?: string | null
         }
         Update: {
           created_at?: string
@@ -1080,6 +1093,8 @@ export type Database = {
           sent_to?: string | null
           student_id?: string
           summary?: Json
+          updated_at?: string | null
+          updated_by?: string | null
         }
         Relationships: [
           {

@@ -1,7 +1,7 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { z } from 'npm:zod@3.23.8'
-import { roleAllows, type SchoolRole } from './rules.ts'
+import { roleAllows, resolvePolicies, CAPABILITIES, type SchoolRole, type SchoolPolicies } from './rules.ts'
 import { queueParentReport } from './reportDelivery.ts'
 import { acceptSchoolInvite, queueSchoolInvite } from './invitations.ts'
 
@@ -35,6 +35,13 @@ const Body = z.discriminatedUnion('action', [
     title: z.string().min(1).max(200), body: z.string().min(1).max(8000), summary: z.record(z.unknown()) }),
   z.object({ action: z.literal('report_record'), student_id: uuid, period_start: z.string(), period_end: z.string(),
     title: z.string().min(1).max(200), body: z.string().min(1).max(8000) }),
+  z.object({ action: z.literal('policies_save'), school_id: uuid, policies: z.object({
+    staff_scope: z.enum(['assigned', 'school']),
+    teacher: z.object(Object.fromEntries(CAPABILITIES.map((c) => [c, z.boolean()]))),
+    assistant: z.object(Object.fromEntries(CAPABILITIES.map((c) => [c, z.boolean()]))),
+  }) }),
+  z.object({ action: z.literal('observation_update'), id: uuid, body: z.string().min(1).max(2000) }),
+  z.object({ action: z.literal('report_update'), id: uuid, title: z.string().min(1).max(200), body: z.string().min(1).max(8000) }),
   z.object({ action: z.literal('admin_list') }),
   z.object({ action: z.literal('admin_school_save'), id: uuid.optional(), name: z.string().min(1).max(160),
     contact_email: z.string().trim().email().max(255), seat_limit: z.number().int().min(1).max(500),
@@ -58,19 +65,20 @@ Deno.serve(async (req) => {
     const forbidden = () => json({ error: 'You do not have permission for this.' }, 403)
 
     const membership = async (schoolId: string) => {
-      const { data } = await admin.from('school_members').select('id, role, schools!inner(active)')
+      const { data } = await admin.from('school_members').select('id, role, schools!inner(active, policies)')
         .eq('school_id', schoolId).eq('user_id', uid).maybeSingle()
       // deno-lint-ignore no-explicit-any
       if (!data || !(data as any).schools?.active) return null
-      return data as { id: string; role: SchoolRole }
+      // deno-lint-ignore no-explicit-any
+      return { id: data.id as string, role: data.role as SchoolRole, policies: resolvePolicies((data as any).schools?.policies) as SchoolPolicies }
     }
     // Returns the caller's role in a classroom's school if they may work in that classroom.
     const classAccess = async (classroomId: string, action: string) => {
       const { data: c } = await admin.from('classrooms').select('id, school_id').eq('id', classroomId).maybeSingle()
       if (!c) return null
       const m = await membership(c.school_id)
-      if (!m || !roleAllows(m.role, action)) return null
-      if (m.role !== 'school_admin') {
+      if (!m || !roleAllows(m.role, action, m.policies)) return null
+      if (m.role !== 'school_admin' && m.policies.staff_scope === 'assigned') {
         const { data: s } = await admin.from('classroom_staff').select('member_id').eq('classroom_id', classroomId).eq('member_id', m.id).maybeSingle()
         if (!s) return null
       }
@@ -88,6 +96,32 @@ Deno.serve(async (req) => {
     }
 
     switch (b.action) {
+      case 'policies_save': {
+        const m = await membership(b.school_id)
+        if (!m || m.role !== 'school_admin') return forbidden()
+        const { error } = await admin.from('schools').update({ policies: resolvePolicies(b.policies) }).eq('id', b.school_id)
+        if (error) throw error
+        return json({ ok: true })
+      }
+      case 'observation_update': {
+        const { data: o } = await admin.from('student_observations').select('student_id, author_id').eq('id', b.id).maybeSingle()
+        if (!o) return forbidden()
+        const a = await studentAccess(o.student_id, o.author_id === uid ? 'record_progress' : 'edit_others_records')
+        if (!a) return forbidden()
+        const { error } = await admin.from('student_observations').update({ body: b.body, edited_by: uid, edited_at: new Date().toISOString() }).eq('id', b.id)
+        if (error) throw error
+        return json({ ok: true })
+      }
+      case 'report_update': {
+        const { data: r } = await admin.from('student_reports').select('student_id, created_by, summary').eq('id', b.id).maybeSingle()
+        if (!r) return forbidden()
+        const a = await studentAccess(r.student_id, r.created_by === uid ? 'send_report' : 'edit_others_records')
+        if (!a) return forbidden()
+        const { error } = await admin.from('student_reports').update({ summary: { ...(r.summary ?? {}), title: b.title, body: b.body },
+          updated_by: uid, updated_at: new Date().toISOString() }).eq('id', b.id)
+        if (error) throw error
+        return json({ ok: true })
+      }
       case 'me': {
         if (email) {
           const { data: invites, error: inviteError } = await admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null)
@@ -96,7 +130,7 @@ Deno.serve(async (req) => {
             await acceptSchoolInvite(admin, inv, uid, email)
           }
         }
-        const { data } = await admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email)').eq('user_id', uid)
+        const { data } = await admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email, policies)').eq('user_id', uid)
         // deno-lint-ignore no-explicit-any
         return json({ memberships: (data ?? []).filter((m: any) => m.schools?.active) })
       }
@@ -206,7 +240,7 @@ Deno.serve(async (req) => {
       case 'observation_delete': {
         const { data: o } = await admin.from('student_observations').select('student_id, author_id').eq('id', b.id).maybeSingle()
         if (!o) return forbidden()
-        const a = await studentAccess(o.student_id, o.author_id === uid ? 'record_progress' : 'edit_roster')
+        const a = await studentAccess(o.student_id, o.author_id === uid ? 'record_progress' : 'edit_others_records')
         if (!a) return forbidden()
         await admin.from('student_observations').delete().eq('id', b.id)
         return json({ ok: true })
