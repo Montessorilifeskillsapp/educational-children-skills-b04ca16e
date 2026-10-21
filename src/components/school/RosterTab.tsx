@@ -34,7 +34,8 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
     if (!editing?.name?.trim()) return;
     try {
       await schoolCall({ action: 'student_save', classroom_id: classroom.id, id: editing.id, name: editing.name.trim(),
-        date_of_birth: editing.date_of_birth || null, family_email: editing.family_email?.trim() || null });
+        date_of_birth: editing.date_of_birth || null, family_email: editing.family_email?.trim() || null,
+        health_notes: editing.health_notes?.trim() || null, support_notes: editing.support_notes?.trim() || null });
       setEditing(null); onChange();
     } catch (e) {
       const msg = (e as Error).message;
@@ -106,6 +107,8 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
             <div><Label htmlFor="sn">Name</Label><Input id="sn" value={editing?.name ?? ''} onChange={(e) => setEditing({ ...editing, name: e.target.value })} /></div>
             <div><Label htmlFor="sd">Birth date</Label><Input id="sd" type="date" value={editing?.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
             <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" type="email" value={editing?.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
+            <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing?.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
+            <div><Label htmlFor="ss">Support notes (staff only)</Label><Textarea id="ss" rows={2} placeholder="e.g. Settles best near the window" value={editing?.support_notes ?? ''} onChange={(e) => setEditing({ ...editing, support_notes: e.target.value })} /></div>
           </div>
           <DialogFooter><Button onClick={save}>Save</Button></DialogFooter>
         </DialogContent>
