@@ -59,7 +59,10 @@ export default function SchoolPortalPage() {
   const me = memberships?.find((m) => m.school_id === schoolId);
   const realRole = me?.role ?? 'assistant';
   // School Admins may preview the Teacher or Assistant view; saving is blocked while previewing.
-  const [previewRole, setPreviewRole] = useState<SchoolRole | null>(null);
+  // Stored in the address (?as=) so leaving for an activity and returning keeps the preview.
+  const asParam = params.get('as');
+  const previewRole: SchoolRole | null = asParam === 'teacher' || asParam === 'assistant' ? asParam : null;
+  const setPreviewRole = (r: SchoolRole | null) => setParams((p) => { const n = new URLSearchParams(p); if (r) n.set('as', r); else n.delete('as'); return n; }, { replace: true });
   const role: SchoolRole = realRole === 'school_admin' && previewRole ? previewRole : realRole;
   const previewing = role !== realRole;
   setRolePreview(previewing);
