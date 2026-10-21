@@ -196,7 +196,7 @@ export default function SchoolPortalPage() {
           {classroom && (
             <>
               <TabsContent value="roster">
-                <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} onChange={reload} onOpenStudent={setOpenStudent} />
+                <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} progress={data.progress} onChange={reload} onOpenStudent={setOpenStudent} />
               </TabsContent>
               <TabsContent value="progress">
                 <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
