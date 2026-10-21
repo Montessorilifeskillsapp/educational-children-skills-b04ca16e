@@ -1,13 +1,9 @@
+import { allPracticalLifeSkills } from '@/data/practicalLifeAll';
 import React from 'react';
 import SkillCard from './SkillCard';
 import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
-import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
-import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
-import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
-import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
-import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 import { getShopItemsForSkill } from '@/data/practicalLifeShopMapping';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
 import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
@@ -15,13 +11,7 @@ import { getPracticalLifeImage } from '@/lib/practicalLifeCardImages';
 // Legacy duplicates of AMI activities (sweeping / washing-tables / plant-care)
 const duplicateLegacyIds = new Set(['sweeping-floor', 'table-wiping', 'watering-plants']);
 
-const mergedPracticalLifeSkills = { 
-  ...comprehensivePracticalLifeSkills,
-  ...enhancedPracticalLifeSkills,
-  ...additionalPracticalLifeSkills, 
-  ...concisePracticalLifeSkills,
-  ...amiPracticalLifeSkills
-};
+const mergedPracticalLifeSkills = allPracticalLifeSkills;
 
 // Ensure every skill has shop items mapped for the overview cards
 Object.values(mergedPracticalLifeSkills).forEach(skill => {

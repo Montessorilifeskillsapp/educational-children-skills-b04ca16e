@@ -14,3 +14,5 @@
 - School staff grade from inside curriculum activity pages via a global `ClassroomDrawer` that renders only for school members with an open `?activity=`; it reuses ProgressChooser and the school-portal edge function. Why: one app for curriculum and classroom recording without changing the public/family experience.
 - Transactional email (send-transactional-email) sends directly through the linked Gmail connector gateway, not a DB queue. Why: the queue tables never existed and the Lovable sender domain failed verification.
 - School staff capabilities and classroom scope come from `schools.policies` resolved by `resolvePolicies` in school-portal `rules.ts` (shared by client and server); School Admins always hold every capability. Why: each school, not the product, decides how much scope teachers and assistants get.
+- Practical Life activities resolve from the single `src/data/practicalLifeAll.ts` map everywhere. Why: separate merge orders let pages and portal links disagree.
+- School parent-report style (heading, notes, sections) is stored per school on the device, not on the server. Why: wording preference only; report records still save through report_record.

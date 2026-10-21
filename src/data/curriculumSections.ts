@@ -1,8 +1,4 @@
-import { concisePracticalLifeSkills } from './concisePracticalLifeSkills';
-import { additionalPracticalLifeSkills } from './additionalPracticalLifeSkills';
-import { comprehensivePracticalLifeSkills } from './comprehensivePracticalLifeSkills';
-import { enhancedPracticalLifeSkills } from './enhancedPracticalLifeSkills';
-import { amiPracticalLifeSkills } from './amiPracticalLifeSkills';
+import { allPracticalLifeSkills } from './practicalLifeAll';
 import { sensorialSkills } from './sensorialSkills';
 import { additionalSensorialSkills } from './sensorialSkills2';
 import { tactileSensorialSkills } from './tactileSensorialSkills';
@@ -23,13 +19,7 @@ export interface CurriculumSectionSkills {
   skills: Record<string, { title: string; materials?: string[]; category?: string }>;
 }
 
-const mergedPracticalLifeSkills = {
-  ...comprehensivePracticalLifeSkills,
-  ...enhancedPracticalLifeSkills,
-  ...additionalPracticalLifeSkills,
-  ...concisePracticalLifeSkills,
-  ...amiPracticalLifeSkills,
-};
+const mergedPracticalLifeSkills = allPracticalLifeSkills;
 
 const mergedSensorialSkills = {
   ...sensorialSkills,

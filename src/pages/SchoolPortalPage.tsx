@@ -146,15 +146,16 @@ export default function SchoolPortalPage() {
 
       {loading ? <LoadingSpinner /> : (
         <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
-          <TabsList className="w-full justify-start flex flex-wrap h-auto gap-1 p-1 print:hidden">
-            <TabsTrigger value="overview" className="px-4 py-2">Overview</TabsTrigger>
-            <TabsTrigger value="progress" disabled={!classroom} className="px-4 py-2">Record progress</TabsTrigger>
-            <TabsTrigger value="reports" disabled={!classroom} className="px-4 py-2">Parent reports</TabsTrigger>
-            <TabsTrigger value="roster" disabled={!classroom} className="px-4 py-2">Students</TabsTrigger>
-            <TabsTrigger value="planning" disabled={!classroom} className="px-4 py-2">Lesson planning</TabsTrigger>
-            {can.manageSchool(role) && <TabsTrigger value="staff" className="px-4 py-2">Classrooms & staff</TabsTrigger>}
-            {can.manageSchool(role) && <TabsTrigger value="activity" className="px-4 py-2">Staff activity</TabsTrigger>}
-            {can.manageSchool(role) && <TabsTrigger value="review" className="px-4 py-2">School-wide review</TabsTrigger>}
+          <TabsList className="w-full justify-start flex flex-nowrap md:flex-wrap overflow-x-auto h-auto gap-1 p-1.5 rounded-xl print:hidden [scrollbar-width:none]">
+            <TabsTrigger value="overview" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Overview</TabsTrigger>
+            <TabsTrigger value="progress" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Record progress</TabsTrigger>
+            <TabsTrigger value="reports" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Parent reports</TabsTrigger>
+            <TabsTrigger value="roster" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Students</TabsTrigger>
+            <TabsTrigger value="planning" disabled={!classroom} className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Lesson planning</TabsTrigger>
+            {can.manageSchool(role) && <span aria-hidden className="mx-1 my-2 w-px shrink-0 bg-border" />}
+            {can.manageSchool(role) && <TabsTrigger value="staff" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Classrooms & staff</TabsTrigger>}
+            {can.manageSchool(role) && <TabsTrigger value="activity" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">Staff activity</TabsTrigger>}
+            {can.manageSchool(role) && <TabsTrigger value="review" className="px-4 py-2.5 min-h-11 shrink-0 rounded-lg">School-wide review</TabsTrigger>}
           </TabsList>
 
           <TabsContent value="overview" className="space-y-4">
@@ -169,7 +170,7 @@ export default function SchoolPortalPage() {
                   const ids = new Set(kids.map((k) => k.id));
                   const week = data.progress.filter((p) => ids.has(p.student_id) && p.updated_at >= weekAgo).length;
                   return (
-                    <Card key={c.id} className={`cursor-pointer transition-colors hover:border-primary ${c.id === classroomId ? 'border-primary' : ''}`} onClick={() => { setClassroomId(c.id); setTab('progress'); }}>
+                    <Card key={c.id} className={`cursor-pointer rounded-xl transition-all hover:border-primary hover:shadow-md ${c.id === classroomId ? 'border-primary' : ''}`} onClick={() => { setClassroomId(c.id); setTab('progress'); }}>
                       <CardHeader><CardTitle className="text-lg">{c.name}</CardTitle></CardHeader>
                       <CardContent className="text-sm text-muted-foreground">{kids.length} of {c.seat_limit ?? school.seat_limit} places · {week} records this week</CardContent>
                     </Card>
@@ -195,7 +196,7 @@ export default function SchoolPortalPage() {
           {classroom && (
             <>
               <TabsContent value="roster">
-                <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} onChange={reload} onOpenStudent={setOpenStudent} />
+                <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} progress={data.progress} onChange={reload} onOpenStudent={setOpenStudent} />
               </TabsContent>
               <TabsContent value="progress">
                 <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
