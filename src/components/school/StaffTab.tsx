@@ -4,18 +4,20 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Classroom, Invite, Member, ROLE_LABEL, schoolCall, SchoolRole } from './api';
 
-interface Props { schoolId: string; members: Member[]; invites: Invite[]; classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[]; onChange: () => void; studentCounts?: Record<string, number>; seatLimit?: number | null }
+interface Props { schoolId: string; members: Member[]; invites: Invite[]; classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[]; onChange: () => void; studentCounts?: Record<string, number>; seatLimit?: number | null; schoolName?: string; schoolEmail?: string | null }
 
 type Pending = { title: string; body: string; action: string; run: () => void } | null;
+const AGE_GROUPS = ['Nido (2 months–15 months)', 'Infant Community (15 months–3 years)', "Children's House (3–6 years)", 'Lower Elementary (6–9 years)', 'Upper Elementary (9–12 years)'];
 const initials = (s: string) => s.split(/[\s@.]+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
 
-export default function StaffTab({ schoolId, members, invites, classrooms, staff, onChange, studentCounts = {}, seatLimit }: Props) {
+export default function StaffTab({ schoolId, members, invites, classrooms, staff, onChange, studentCounts = {}, seatLimit, schoolName = '', schoolEmail = '' }: Props) {
   const { toast } = useToast();
   const { user } = useAuthContext();
   const adminCount = members.filter((m) => m.role === 'school_admin').length;
@@ -24,6 +26,14 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
   const [room, setRoom] = useState('');
   const [inviteWarning, setInviteWarning] = useState<string | null>(null);
   const [pending, setPending] = useState<Pending>(null);
+  const [profile, setProfile] = useState({ name: schoolName, contact_email: schoolEmail ?? '' });
+  const profileDirty = profile.name.trim() !== schoolName || profile.contact_email.trim().toLowerCase() !== (schoolEmail ?? '');
+  const inviteLink = `${window.location.origin}/auth?redirect=${encodeURIComponent('/school')}`;
+  const copyInvite = async (to: string, r: SchoolRole) => {
+    const text = `You're invited to join ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[r]}.\n\nOpen ${inviteLink} and sign in or create an account with ${to}. You'll go straight to your school workspace.`;
+    try { await navigator.clipboard.writeText(text); toast({ title: 'Invitation copied', description: 'Paste it into a message or chat to the new staff member.' }); }
+    catch { toast({ title: 'Could not copy', description: inviteLink }); }
+  };
   const run = async (body: Record<string, unknown>, ok?: string) => {
     try {
       const result = await schoolCall<{ invitation?: { queued: boolean; error: string | null } }>(body);
@@ -40,6 +50,18 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
 
   return (
     <div className="space-y-6">
+      <Card className="rounded-2xl">
+        <CardHeader>
+          <CardTitle className="text-xl">School profile</CardTitle>
+          <CardDescription>Your school's name and official email. Parent reports are sent from this email.</CardDescription>
+        </CardHeader>
+        <CardContent className="grid gap-3 md:grid-cols-[1fr_1fr_auto] items-end">
+          <div><Label htmlFor="sp-name">School name</Label><Input id="sp-name" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} /></div>
+          <div><Label htmlFor="sp-email">School email</Label><Input id="sp-email" type="email" value={profile.contact_email} onChange={(e) => setProfile({ ...profile, contact_email: e.target.value })} /></div>
+          <Button disabled={!profileDirty || !profile.name.trim() || !/\S+@\S+\.\S+/.test(profile.contact_email)} onClick={() => run({ action: 'school_profile_save', school_id: schoolId, name: profile.name.trim(), contact_email: profile.contact_email.trim() }, 'School profile saved')}>Save profile</Button>
+        </CardContent>
+      </Card>
+
       <Card className="rounded-2xl">
         <CardHeader>
           <CardTitle className="text-xl">Classrooms</CardTitle>
@@ -69,6 +91,22 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
                     <Button size="sm" variant="ghost" className="text-destructive" onClick={() => setPending({ title: `Delete ${c.name}?`, body: `This permanently deletes ${c.name}, its ${count} student${count === 1 ? '' : 's'} and every progress record, note and report for them. This cannot be undone.`, action: 'Delete classroom', run: () => run({ action: 'classroom_delete', id: c.id }, 'Classroom deleted') })}>Delete</Button>
                   </div>
                   {cap ? <div className="h-2 rounded-full bg-muted overflow-hidden" aria-label={`${pct}% full`}><div className="h-full bg-primary" style={{ width: `${pct}%` }} /></div> : null}
+                  <div className="grid grid-cols-2 gap-2">
+                    <Select value={c.age_group ?? 'none'} onValueChange={(v) => run({ action: 'classroom_save', school_id: schoolId, id: c.id, name: c.name, age_group: v === 'none' ? null : v }, 'Age group saved')}>
+                      <SelectTrigger aria-label="Age group"><SelectValue placeholder="Age group" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">No age group</SelectItem>
+                        {AGE_GROUPS.map((a) => <SelectItem key={a} value={a}>{a}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                    <Select value={c.lead_member_id ?? 'none'} onValueChange={(v) => run({ action: 'classroom_save', school_id: schoolId, id: c.id, name: c.name, lead_member_id: v === 'none' ? null : v }, 'Lead Guide saved')}>
+                      <SelectTrigger aria-label="Lead Guide"><SelectValue placeholder="Lead Guide" /></SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="none">No Lead Guide</SelectItem>
+                        {members.filter((m) => m.role !== 'assistant').map((m) => <SelectItem key={m.id} value={m.id}>Lead: {m.full_name || m.email}</SelectItem>)}
+                      </SelectContent>
+                    </Select>
+                  </div>
                   <div className="space-y-1 text-sm">
                     <p><span className="text-muted-foreground">Guides: </span>{guides.length ? guides.map((g) => g.full_name || g.email).join(', ') : <span className="text-muted-foreground">None assigned</span>}</p>
                     <p><span className="text-muted-foreground">Assistants: </span>{helpers.length ? helpers.map((g) => g.full_name || g.email).join(', ') : <span className="text-muted-foreground">None assigned</span>}</p>
@@ -148,7 +186,8 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
                   <li key={i.id} className="p-3 flex items-center justify-between gap-2 flex-wrap">
                     <span className="text-sm">{i.email} <Badge variant="outline" className="ml-1">{ROLE_LABEL[i.role]}</Badge></span>
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => run({ action: 'invite', school_id: schoolId, email: i.email, role: i.role })}>Resend</Button>
+                      <Button size="sm" variant="outline" onClick={() => run({ action: 'invite', school_id: schoolId, email: i.email, role: i.role })}>Resend email</Button>
+                      <Button size="sm" variant="outline" onClick={() => copyInvite(i.email, i.role)}>Copy invitation</Button>
                       <Button size="sm" variant="ghost" onClick={() => setPending({ title: `Cancel the invitation for ${i.email}?`, body: 'They will not be able to join unless invited again.', action: 'Cancel invitation', run: () => run({ action: 'invite_cancel', id: i.id }, 'Invitation cancelled') })}>Cancel</Button>
                     </div>
                   </li>
