@@ -57,9 +57,6 @@ export default function StudentPanel({ role, userId, student, progress, observat
     try { await schoolCall({ action: 'observation_add', student_id: student.id, body: note.trim() }); setNote(''); onChange(); }
     catch (e) { toast({ title: 'Could not save note', description: (e as Error).message, variant: 'destructive' }); }
   };
-  const delNote = async (id: string) => {
-    try { await schoolCall({ action: 'observation_delete', id }); onChange(); } catch (e) { toast({ title: 'Could not delete', description: (e as Error).message, variant: 'destructive' }); }
-  };
 
   const buildReport = () => {
     const inRange = (d: string) => d.slice(0, 10) >= from && d.slice(0, 10) <= to;
