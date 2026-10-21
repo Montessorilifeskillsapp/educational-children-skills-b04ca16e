@@ -96,6 +96,16 @@ Deno.serve(async (req) => {
     }
 
     switch (b.action) {
+      case 'school_profile_save': {
+        // School Admins maintain their own school's name and official email; places stay platform-managed.
+        const m = await membership(b.school_id)
+        if (!m || m.role !== 'school_admin') return forbidden()
+        const p = z.object({ name: z.string().trim().min(1).max(120), contact_email: z.string().trim().email().max(255) }).safeParse(b)
+        if (!p.success) return json({ error: 'Enter a school name and a valid school email.' }, 400)
+        const { error } = await admin.from('schools').update({ name: p.data.name, contact_email: p.data.contact_email.toLowerCase() }).eq('id', b.school_id)
+        if (error) throw error
+        return json({ ok: true })
+      }
       case 'policies_save': {
         const m = await membership(b.school_id)
         if (!m || m.role !== 'school_admin') return forbidden()
@@ -137,9 +147,16 @@ Deno.serve(async (req) => {
       case 'classroom_save': {
         const m = await membership(b.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
+        if (b.lead_member_id) {
+          const { data: lead } = await admin.from('school_members').select('id').eq('id', b.lead_member_id).eq('school_id', b.school_id).maybeSingle()
+          if (!lead) return forbidden()
+        }
+        const fields: Record<string, unknown> = { name: b.name }
+        if (b.age_group !== undefined) fields.age_group = b.age_group ? String(b.age_group).slice(0, 60) : null
+        if (b.lead_member_id !== undefined) fields.lead_member_id = b.lead_member_id || null
         const q = b.id
-          ? admin.from('classrooms').update({ name: b.name }).eq('id', b.id).eq('school_id', b.school_id)
-          : admin.from('classrooms').insert({ school_id: b.school_id, name: b.name })
+          ? admin.from('classrooms').update(fields).eq('id', b.id).eq('school_id', b.school_id)
+          : admin.from('classrooms').insert({ school_id: b.school_id, ...fields })
         const { data, error } = await q.select().single()
         if (error) throw error
         return json({ classroom: data })
@@ -199,7 +216,9 @@ Deno.serve(async (req) => {
         const a = await classAccess(b.classroom_id, 'edit_roster')
         if (!a) return forbidden()
         const row = { classroom_id: b.classroom_id, school_id: a.school_id, name: b.name, date_of_birth: b.date_of_birth ?? null,
-          family_email: b.family_email ?? null, ...(b.archived !== undefined ? { archived: b.archived } : {}) }
+          family_email: b.family_email ?? null, ...(b.archived !== undefined ? { archived: b.archived } : {}),
+          ...(b.health_notes !== undefined ? { health_notes: b.health_notes ? String(b.health_notes).slice(0, 1000) : null } : {}),
+          ...(b.support_notes !== undefined ? { support_notes: b.support_notes ? String(b.support_notes).slice(0, 1000) : null } : {}) }
         if (b.id) {
           const existing = await studentAccess(b.id, 'edit_roster')
           if (!existing) return forbidden()
