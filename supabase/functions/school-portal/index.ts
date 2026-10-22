@@ -1,59 +1,24 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { z } from 'npm:zod@3.23.8'
+import { Body } from './body.ts'
+import { sameClassroom, containsOnlyClassroomStudents } from './validation.ts'
 import { roleAllows, resolvePolicies, CAPABILITIES, type SchoolRole, type SchoolPolicies } from './rules.ts'
-import { queueParentReport } from './reportDelivery.ts'
 import { acceptSchoolInvite, queueSchoolInvite } from './invitations.ts'
+
+const checked = async <T extends { error: unknown }>(operation: PromiseLike<T>): Promise<T> => {
+  const result = await operation
+  if (result.error) throw result.error
+  return result
+}
 
 const json = (b: unknown, status = 200) =>
   new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
 
-const uuid = z.string().uuid()
-const role = z.enum(['school_admin', 'teacher', 'assistant'])
-const Body = z.discriminatedUnion('action', [
-  z.object({ action: z.literal('me') }),
-  z.object({ action: z.literal('classroom_save'), school_id: uuid, id: uuid.optional(), name: z.string().min(1).max(120),
-    age_group: z.string().max(60).nullable().optional(), lead_member_id: uuid.nullable().optional().or(z.literal('')) }),
-  z.object({ action: z.literal('school_profile_save'), school_id: uuid, name: z.string().trim().min(1).max(120), contact_email: z.string().trim().email().max(255) }),
-  z.object({ action: z.literal('classroom_delete'), id: uuid }),
-  z.object({ action: z.literal('staff_assign'), classroom_id: uuid, member_id: uuid, assigned: z.boolean() }),
-  z.object({ action: z.literal('invite'), school_id: uuid, email: z.string().email().max(255), role }),
-  z.object({ action: z.literal('invite_cancel'), id: uuid }),
-  z.object({ action: z.literal('member_role'), id: uuid, role }),
-  z.object({ action: z.literal('member_remove'), id: uuid }),
-  z.object({ action: z.literal('student_save'), classroom_id: uuid, id: uuid.optional(),
-    name: z.string().min(1).max(120), date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().optional(),
-    family_email: z.string().email().max(255).nullable().optional(), archived: z.boolean().optional(),
-    health_notes: z.string().max(1000).nullable().optional(), support_notes: z.string().max(1000).nullable().optional() }),
-  z.object({ action: z.literal('student_delete'), id: uuid }),
-  z.object({ action: z.literal('progress_set'), student_id: uuid, skill_id: z.string().min(1).max(160),
-    status: z.enum(['presented', 'practising', 'mastered', 'clear']), note: z.string().max(1000).nullable().optional() }),
-  z.object({ action: z.literal('observation_add'), student_id: uuid, body: z.string().min(1).max(2000) }),
-  z.object({ action: z.literal('observation_delete'), id: uuid }),
-  z.object({ action: z.literal('plan_save'), classroom_id: uuid, id: uuid.optional(), plan_date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-    skill_id: z.string().min(1).max(160), student_ids: z.array(uuid).max(100), notes: z.string().max(1000).nullable().optional() }),
-  z.object({ action: z.literal('plan_delete'), id: uuid }),
-  z.object({ action: z.literal('plan_done'), id: uuid, done: z.boolean() }),
-  z.object({ action: z.literal('report_send'), student_id: uuid, period_start: z.string(), period_end: z.string(),
-    title: z.string().min(1).max(200), body: z.string().min(1).max(8000), summary: z.record(z.unknown()) }),
-  z.object({ action: z.literal('report_record'), student_id: uuid, period_start: z.string(), period_end: z.string(),
-    title: z.string().min(1).max(200), body: z.string().min(1).max(8000) }),
-  z.object({ action: z.literal('policies_save'), school_id: uuid, policies: z.object({
-    staff_scope: z.enum(['assigned', 'school']),
-    teacher: z.object(Object.fromEntries(CAPABILITIES.map((c) => [c, z.boolean()]))),
-    assistant: z.object(Object.fromEntries(CAPABILITIES.map((c) => [c, z.boolean()]))),
-  }) }),
-  z.object({ action: z.literal('observation_update'), id: uuid, body: z.string().min(1).max(2000) }),
-  z.object({ action: z.literal('report_update'), id: uuid, title: z.string().min(1).max(200), body: z.string().min(1).max(8000) }),
-  z.object({ action: z.literal('admin_list') }),
-  z.object({ action: z.literal('admin_school_save'), id: uuid.optional(), name: z.string().min(1).max(160),
-    contact_email: z.string().trim().email().max(255), seat_limit: z.number().int().min(1).max(500),
-    active: z.boolean(), first_admin_email: z.string().email().max(255).optional() }),
-  z.object({ action: z.literal('admin_school_delete'), id: uuid }),
-])
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
+  if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
   try {
     const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
     const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '')
@@ -62,14 +27,18 @@ Deno.serve(async (req) => {
     const uid = u.user.id
     const email = (u.user.email ?? '').toLowerCase()
 
-    const parsed = Body.safeParse(await req.json())
+    const raw = await req.text()
+    if (new TextEncoder().encode(raw).length > 32768) return json({ error: 'Request is too large.' }, 413)
+    let input: unknown
+    try { input = JSON.parse(raw) } catch { return json({ error: 'Invalid request.' }, 400) }
+    const parsed = Body.safeParse(input)
     if (!parsed.success) return json({ error: parsed.error.flatten() }, 400)
     const b = parsed.data
     const forbidden = () => json({ error: 'You do not have permission for this.' }, 403)
 
     let auditSchool: string | null = null
     const membership = async (schoolId: string) => {
-      const { data } = await admin.from('school_members').select('id, role, schools!inner(active, policies)')
+      const { data } = await checked(admin.from('school_members').select('id, role, schools!inner(active, policies)'))
         .eq('school_id', schoolId).eq('user_id', uid).maybeSingle()
       // deno-lint-ignore no-explicit-any
       if (!data || !(data as any).schools?.active) return null
@@ -79,24 +48,24 @@ Deno.serve(async (req) => {
     }
     // Returns the caller's role in a classroom's school if they may work in that classroom.
     const classAccess = async (classroomId: string, action: string) => {
-      const { data: c } = await admin.from('classrooms').select('id, school_id').eq('id', classroomId).maybeSingle()
+      const { data: c } = await checked(admin.from('classrooms').select('id, school_id').eq('id', classroomId).maybeSingle())
       if (!c) return null
       const m = await membership(c.school_id)
       if (!m || !roleAllows(m.role, action, m.policies)) return null
       if (m.role !== 'school_admin' && m.policies.staff_scope === 'assigned') {
-        const { data: s } = await admin.from('classroom_staff').select('member_id').eq('classroom_id', classroomId).eq('member_id', m.id).maybeSingle()
+        const { data: s } = await checked(admin.from('classroom_staff').select('member_id').eq('classroom_id', classroomId).eq('member_id', m.id).maybeSingle())
         if (!s) return null
       }
       return { ...m, school_id: c.school_id as string }
     }
     const studentAccess = async (studentId: string, action: string) => {
-      const { data: s } = await admin.from('school_students').select('id, classroom_id, school_id, name, family_email').eq('id', studentId).maybeSingle()
+      const { data: s } = await checked(admin.from('school_students').select('id, classroom_id, school_id, name, family_email').eq('id', studentId).maybeSingle())
       if (!s) return null
       const a = await classAccess(s.classroom_id, action)
       return a ? { ...a, student: s } : null
     }
     const isAppAdmin = async () => {
-      const { data } = await admin.from('user_roles').select('role').eq('user_id', uid).eq('role', 'admin').maybeSingle()
+      const { data } = await checked(admin.from('user_roles').select('role').eq('user_id', uid).eq('role', 'admin').maybeSingle())
       return !!data
     }
 
@@ -107,28 +76,28 @@ Deno.serve(async (req) => {
         if (!m || m.role !== 'school_admin') return forbidden()
         const p = z.object({ name: z.string().trim().min(1).max(120), contact_email: z.string().trim().email().max(255) }).safeParse(b)
         if (!p.success) return json({ error: 'Enter a school name and a valid school email.' }, 400)
-        const { error } = await admin.from('schools').update({ name: p.data.name, contact_email: p.data.contact_email.toLowerCase() }).eq('id', b.school_id)
+        const { error } = await checked(admin.from('schools').update({ name: p.data.name, contact_email: p.data.contact_email.toLowerCase() }).eq('id', b.school_id))
         if (error) throw error
         return json({ ok: true })
       }
       case 'policies_save': {
         const m = await membership(b.school_id)
         if (!m || m.role !== 'school_admin') return forbidden()
-        const { error } = await admin.from('schools').update({ policies: resolvePolicies(b.policies) }).eq('id', b.school_id)
+        const { error } = await checked(admin.from('schools').update({ policies: resolvePolicies(b.policies) }).eq('id', b.school_id))
         if (error) throw error
         return json({ ok: true })
       }
       case 'observation_update': {
-        const { data: o } = await admin.from('student_observations').select('student_id, author_id').eq('id', b.id).maybeSingle()
+        const { data: o } = await checked(admin.from('student_observations').select('student_id, author_id').eq('id', b.id).maybeSingle())
         if (!o) return forbidden()
         const a = await studentAccess(o.student_id, o.author_id === uid ? 'record_progress' : 'edit_others_records')
         if (!a) return forbidden()
-        const { error } = await admin.from('student_observations').update({ body: b.body, edited_by: uid, edited_at: new Date().toISOString() }).eq('id', b.id)
+        const { error } = await checked(admin.from('student_observations').update({ body: b.body, edited_by: uid, edited_at: new Date().toISOString() }).eq('id', b.id))
         if (error) throw error
         return json({ ok: true })
       }
       case 'report_update': {
-        const { data: r } = await admin.from('student_reports').select('student_id, created_by, summary').eq('id', b.id).maybeSingle()
+        const { data: r } = await checked(admin.from('student_reports').select('student_id, created_by, summary').eq('id', b.id).maybeSingle())
         if (!r) return forbidden()
         const a = await studentAccess(r.student_id, r.created_by === uid ? 'send_report' : 'edit_others_records')
         if (!a) return forbidden()
@@ -139,13 +108,13 @@ Deno.serve(async (req) => {
       }
       case 'me': {
         if (email) {
-          const { data: invites, error: inviteError } = await admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null)
+          const { data: invites, error: inviteError } = await checked(admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null))
           if (inviteError) throw inviteError
           for (const inv of invites ?? []) {
             await acceptSchoolInvite(admin, inv, uid, email)
           }
         }
-        const { data } = await admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email, policies)').eq('user_id', uid)
+        const { data } = await checked(admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email, policies)').eq('user_id', uid))
         // deno-lint-ignore no-explicit-any
         return json({ memberships: (data ?? []).filter((m: any) => m.schools?.active) })
       }
@@ -153,7 +122,7 @@ Deno.serve(async (req) => {
         const m = await membership(b.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
         if (b.lead_member_id) {
-          const { data: lead } = await admin.from('school_members').select('id').eq('id', b.lead_member_id).eq('school_id', b.school_id).maybeSingle()
+          const { data: lead } = await checked(admin.from('school_members').select('id').eq('id', b.lead_member_id).eq('school_id', b.school_id).maybeSingle())
           if (!lead) return forbidden()
         }
         const fields: Record<string, unknown> = { name: b.name }
@@ -167,54 +136,54 @@ Deno.serve(async (req) => {
         return json({ classroom: data })
       }
       case 'classroom_delete': {
-        const { data: c } = await admin.from('classrooms').select('school_id').eq('id', b.id).maybeSingle()
+        const { data: c } = await checked(admin.from('classrooms').select('school_id').eq('id', b.id).maybeSingle())
         const m = c && await membership(c.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
-        await admin.from('classrooms').delete().eq('id', b.id)
+        await checked(admin.from('classrooms').delete().eq('id', b.id))
         return json({ ok: true })
       }
       case 'staff_assign': {
-        const { data: c } = await admin.from('classrooms').select('school_id').eq('id', b.classroom_id).maybeSingle()
+        const { data: c } = await checked(admin.from('classrooms').select('school_id').eq('id', b.classroom_id).maybeSingle())
         const m = c && await membership(c.school_id)
-        if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
-        const { data: target } = await admin.from('school_members').select('id').eq('id', b.member_id).eq('school_id', c!.school_id).maybeSingle()
+        if (!c || !m || !roleAllows(m.role, 'manage_school')) return forbidden()
+        const { data: target } = await checked(admin.from('school_members').select('id').eq('id', b.member_id).eq('school_id', c.school_id).maybeSingle())
         if (!target) return forbidden()
-        if (b.assigned) await admin.from('classroom_staff').upsert({ classroom_id: b.classroom_id, member_id: b.member_id })
-        else await admin.from('classroom_staff').delete().eq('classroom_id', b.classroom_id).eq('member_id', b.member_id)
+        if (b.assigned) await checked(admin.from('classroom_staff').upsert({ classroom_id: b.classroom_id, member_id: b.member_id }))
+        else await checked(admin.from('classroom_staff').delete().eq('classroom_id', b.classroom_id).eq('member_id', b.member_id))
         return json({ ok: true })
       }
       case 'invite': {
         const m = await membership(b.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
         const inviteEmail = b.email.toLowerCase()
-        const { data: already } = await admin.from('school_members').select('id').eq('school_id', b.school_id).ilike('email', inviteEmail).maybeSingle()
+        const { data: already } = await checked(admin.from('school_members').select('id').eq('school_id', b.school_id).ilike('email', inviteEmail).maybeSingle())
         if (already) return json({ error: 'This person is already on your staff. Change their role in the list below instead.' }, 400)
-        const { error } = await admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, accepted_at: null }, { onConflict: 'school_id,email' })
+        const { error } = await checked(admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, accepted_at: null }, { onConflict: 'school_id,email' }))
         if (error) throw error
-        const { data: school } = await admin.from('schools').select('name').eq('id', b.school_id).single()
+        const { data: school } = await checked(admin.from('schools').select('name').eq('id', b.school_id).single())
         const delivery = await queueSchoolInvite(admin, inviteEmail, school.name, b.role, `${b.school_id}-${inviteEmail}-${Date.now()}`)
         return json({ ok: true, invitation: delivery })
       }
       case 'invite_cancel': {
-        const { data: inv } = await admin.from('school_invites').select('school_id').eq('id', b.id).maybeSingle()
+        const { data: inv } = await checked(admin.from('school_invites').select('school_id').eq('id', b.id).maybeSingle())
         const m = inv && await membership(inv.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
-        await admin.from('school_invites').delete().eq('id', b.id)
+        await checked(admin.from('school_invites').delete().eq('id', b.id))
         return json({ ok: true })
       }
       case 'member_role':
       case 'member_remove': {
-        const { data: t } = await admin.from('school_members').select('school_id, user_id, role').eq('id', b.id).maybeSingle()
+        const { data: t } = await checked(admin.from('school_members').select('school_id, user_id, role').eq('id', b.id).maybeSingle())
         const m = t && await membership(t.school_id)
-        if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
-        if (t!.user_id === uid) return json({ error: 'Another School Admin must change or remove your own access.' }, 400)
+        if (!t || !m || !roleAllows(m.role, 'manage_school')) return forbidden()
+        if (t.user_id === uid) return json({ error: 'Another School Admin must change or remove your own access.' }, 400)
         // Never leave a school without a School Admin.
-        if (t!.role === 'school_admin' && (b.action === 'member_remove' || b.role !== 'school_admin')) {
-          const { count } = await admin.from('school_members').select('id', { count: 'exact', head: true }).eq('school_id', t!.school_id).eq('role', 'school_admin')
+        if (t.role === 'school_admin' && (b.action === 'member_remove' || b.role !== 'school_admin')) {
+          const { count } = await checked(admin.from('school_members').select('id', { count: 'exact', head: true }).eq('school_id', t.school_id).eq('role', 'school_admin'))
           if ((count ?? 0) <= 1) return json({ error: 'A school needs at least one School Admin.' }, 400)
         }
-        if (b.action === 'member_role') await admin.from('school_members').update({ role: b.role }).eq('id', b.id)
-        else await admin.from('school_members').delete().eq('id', b.id)
+        if (b.action === 'member_role') await checked(admin.from('school_members').update({ role: b.role }).eq('id', b.id))
+        else await checked(admin.from('school_members').delete().eq('id', b.id))
         return json({ ok: true })
       }
       case 'student_save': {
@@ -226,9 +195,9 @@ Deno.serve(async (req) => {
           ...(b.support_notes !== undefined ? { support_notes: b.support_notes ? String(b.support_notes).slice(0, 1000) : null } : {}) }
         if (b.id) {
           const existing = await studentAccess(b.id, 'edit_roster')
-          if (!existing) return forbidden()
+          if (!existing || !sameClassroom(existing.student, { classroom_id: b.classroom_id, school_id: a.school_id })) return forbidden()
         }
-        const q = b.id ? admin.from('school_students').update(row).eq('id', b.id) : admin.from('school_students').insert(row)
+        const q = b.id ? admin.from('school_students').update(row).eq('id', b.id).eq('school_id', a.school_id).eq('classroom_id', b.classroom_id) : admin.from('school_students').insert(row)
         const { data, error } = await q.select().single()
         if (error) {
           if (String(error.message).includes('CLASSROOM_FULL')) return json({ error: 'CLASSROOM_FULL' }, 409)
@@ -239,14 +208,14 @@ Deno.serve(async (req) => {
       case 'student_delete': {
         const a = await studentAccess(b.id, 'delete_student')
         if (!a) return forbidden()
-        await admin.from('school_students').delete().eq('id', b.id)
+        await checked(admin.rpc('erase_school_student', { _student_id: b.id, _actor_id: uid, _actor_email: email }))
         return json({ ok: true })
       }
       case 'progress_set': {
         const a = await studentAccess(b.student_id, 'record_progress')
         if (!a) return forbidden()
         if (b.status === 'clear') {
-          await admin.from('student_progress').delete().eq('student_id', b.student_id).eq('skill_id', b.skill_id)
+          await checked(admin.from('student_progress').delete().eq('student_id', b.student_id).eq('skill_id', b.skill_id))
           return json({ ok: true })
         }
         const { data, error } = await admin.from('student_progress').upsert({ student_id: b.student_id, school_id: a.school_id, skill_id: b.skill_id,
@@ -257,21 +226,24 @@ Deno.serve(async (req) => {
       case 'observation_add': {
         const a = await studentAccess(b.student_id, 'record_progress')
         if (!a) return forbidden()
-        const { data, error } = await admin.from('student_observations').insert({ student_id: b.student_id, school_id: a.school_id, body: b.body, author_id: uid }).select().single()
+        const { data, error } = await checked(admin.from('student_observations').insert({ student_id: b.student_id, school_id: a.school_id, body: b.body, author_id: uid }).select().single())
         if (error) throw error
         return json({ observation: data })
       }
       case 'observation_delete': {
-        const { data: o } = await admin.from('student_observations').select('student_id, author_id').eq('id', b.id).maybeSingle()
+        const { data: o } = await checked(admin.from('student_observations').select('student_id, author_id').eq('id', b.id).maybeSingle())
         if (!o) return forbidden()
         const a = await studentAccess(o.student_id, o.author_id === uid ? 'record_progress' : 'edit_others_records')
         if (!a) return forbidden()
-        await admin.from('student_observations').delete().eq('id', b.id)
+        await checked(admin.from('student_observations').delete().eq('id', b.id))
         return json({ ok: true })
       }
       case 'plan_save': {
         const a = await classAccess(b.classroom_id, 'plan')
         if (!a) return forbidden()
+        const { data: planStudents, error: studentError } = await checked(admin.from('school_students').select('id').eq('classroom_id', b.classroom_id).eq('archived', false).in('id', b.student_ids))
+        if (studentError) throw studentError
+        if (!containsOnlyClassroomStudents(b.student_ids, (planStudents ?? []).map((s: { id: string }) => s.id))) return forbidden()
         const row = { classroom_id: b.classroom_id, school_id: a.school_id, plan_date: b.plan_date, skill_id: b.skill_id, student_ids: b.student_ids, notes: b.notes ?? null }
         const q = b.id ? admin.from('lesson_plan_items').update(row).eq('id', b.id).eq('classroom_id', b.classroom_id) : admin.from('lesson_plan_items').insert(row)
         const { data, error } = await q.select().single()
@@ -280,36 +252,31 @@ Deno.serve(async (req) => {
       }
       case 'plan_delete':
       case 'plan_done': {
-        const { data: p } = await admin.from('lesson_plan_items').select('*').eq('id', b.id).maybeSingle()
+        const { data: p } = await checked(admin.from('lesson_plan_items').select('*').eq('id', b.id).maybeSingle())
         if (!p) return forbidden()
         const a = await classAccess(p.classroom_id, b.action === 'plan_delete' ? 'plan' : 'record_progress')
         if (!a) return forbidden()
         if (b.action === 'plan_delete') {
-          await admin.from('lesson_plan_items').delete().eq('id', b.id)
+          await checked(admin.from('lesson_plan_items').delete().eq('id', b.id))
           return json({ ok: true })
         }
-        await admin.from('lesson_plan_items').update({ done: b.done }).eq('id', b.id)
+        await checked(admin.from('lesson_plan_items').update({ done: b.done }).eq('id', b.id))
         if (b.done) {
           // A completed plan item counts as a presentation for students without a record yet.
           let ids: string[] = p.student_ids ?? []
           if (!ids.length) {
-            const { data: all } = await admin.from('school_students').select('id').eq('classroom_id', p.classroom_id).eq('archived', false)
+            const { data: all } = await checked(admin.from('school_students').select('id').eq('classroom_id', p.classroom_id).eq('archived', false))
             ids = (all ?? []).map((r: { id: string }) => r.id)
           }
+          const { data: validStudents, error: validError } = await checked(admin.from('school_students').select('id').eq('classroom_id', p.classroom_id).eq('archived', false).in('id', ids))
+          if (validError) throw validError
+          ids = (validStudents ?? []).map((s: { id: string }) => s.id)
           for (const sid of ids) {
-            const { data: ex } = await admin.from('student_progress').select('id').eq('student_id', sid).eq('skill_id', p.skill_id).maybeSingle()
-            if (!ex) await admin.from('student_progress').insert({ student_id: sid, school_id: p.school_id, skill_id: p.skill_id, status: 'presented', updated_by: uid })
+            const { data: ex } = await checked(admin.from('student_progress').select('id').eq('student_id', sid).eq('skill_id', p.skill_id).maybeSingle())
+            if (!ex) await checked(admin.from('student_progress').insert({ student_id: sid, school_id: p.school_id, skill_id: p.skill_id, status: 'presented', updated_by: uid }))
           }
         }
         return json({ ok: true })
-      }
-      case 'report_send': {
-        const a = await studentAccess(b.student_id, 'send_report')
-        if (!a) return forbidden()
-        const to = a.student.family_email
-        if (!to) return json({ error: 'Add a family email to this student first.' }, 400)
-        const result = await queueParentReport(admin, { ...b, school_id: a.school_id, recipient: to, user_id: uid })
-        return json(result)
       }
       case 'report_record': {
         // The teacher sends the report from the school's own email app; we keep a record of it.
@@ -326,21 +293,23 @@ Deno.serve(async (req) => {
       }
       case 'admin_list': {
         if (!(await isAppAdmin())) return forbidden()
-        const { data: schools } = await admin.from('schools').select('*').order('created_at', { ascending: false })
-        const { data: members } = await admin.from('school_members').select('school_id, email, role')
-        const { data: invites } = await admin.from('school_invites').select('school_id, email, role, accepted_at')
+        const { data: schools } = await checked(admin.from('schools').select('*').order('created_at', { ascending: false }))
+        const { data: members } = await checked(admin.from('school_members').select('school_id, email, role'))
+        const { data: invites } = await checked(admin.from('school_invites').select('school_id, email, role, accepted_at'))
         return json({ schools, members, invites })
       }
       case 'admin_school_save': {
         if (!(await isAppAdmin())) return forbidden()
+        auditSchool = b.id ?? null
         const row = { name: b.name, contact_email: b.contact_email.toLowerCase(), seat_limit: b.seat_limit, active: b.active }
         const q = b.id ? admin.from('schools').update(row).eq('id', b.id) : admin.from('schools').insert(row)
         const { data, error } = await q.select().single()
         if (error) throw error
+        auditSchool = data.id
         let invitation = null
         if (b.first_admin_email) {
           const e = b.first_admin_email.toLowerCase()
-          const { error: inviteError } = await admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' })
+          const { error: inviteError } = await checked(admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' }))
           if (inviteError) return json({ school: data, invitation: { queued: false, error: 'School saved, but the invitation could not be saved. Edit this school to retry.' } })
           invitation = await queueSchoolInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`)
         }
@@ -348,23 +317,28 @@ Deno.serve(async (req) => {
       }
       case 'admin_school_delete': {
         if (!(await isAppAdmin())) return forbidden()
-        const { error } = await admin.from('schools').delete().eq('id', b.id)
+        auditSchool = b.id
+        const { error } = await checked(admin.from('schools').delete().eq('id', b.id))
         if (error) throw error
         return json({ ok: true })
       }
       default: return json({ error: "Unknown action" }, 400)
     } })()
-    const READS = ['me', 'admin_list']
+    const READS = ['me', 'admin_list', 'student_delete']
     if (res.ok && !READS.includes(b.action)) {
       // deno-lint-ignore no-explicit-any
       const target = (b as any).id ?? (b as any).student_id ?? (b as any).classroom_id ?? null
-      await admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null })
+      const { error: auditError } = await checked(admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null }))
+      if (auditError) {
+        console.error('School audit write failed', { action: b.action, code: auditError.code })
+        return json({ error: 'The change was saved, but its audit entry could not be recorded. Reload before retrying.' }, 500)
+      }
     }
     return res
 
   } catch (e) {
-    console.error(e)
-    return json({ error: e instanceof Error ? e.message : 'Server error' }, 500)
+    console.error('School request failed', { message: e instanceof Error ? e.name : 'Database error' })
+    return json({ error: 'Could not complete this request. Reload and try again.' }, 500)
   }
 })
 
