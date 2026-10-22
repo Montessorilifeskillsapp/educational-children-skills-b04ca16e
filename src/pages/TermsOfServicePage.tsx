@@ -127,16 +127,16 @@ const TermsOfServicePage: React.FC = () => {
                   purchase provides access to stream the full songs through the app for your family. Free previews
                   are available without a purchase. Neither access option permits downloading, copying,
                   recording, redistributing, reselling, or using the songs in another product or publication.
-                  Purchasing family access does not grant a school licence or rights to use any name or mark.
+                  Purchasing family access does not grant a school license or rights to use any name or mark.
                 </p>
-                <h3 className="text-lg font-medium mb-2">School licence</h3>
+                <h3 className="text-lg font-medium mb-2">School license</h3>
                 <p className="mb-4">
-                  Classroom and other institutional use of the songs is permitted only under a school licence
-                  arranged directly with Kerry. The school licence is a single agreement covering the
+                  Classroom and other institutional use of the songs is permitted only under a school license
+                  arranged directly with Kerry. The school license is a single agreement covering the
                   curriculum app, the School Portal and the song collection for the licensed school and its
                   named staff. Family subscriptions or song purchases cannot be used for classroom or
                   institutional purposes. For school licensing, contact montessorilifeskills@gmail.com. The full{' '}
-                  <a href="/songs-licence" className="underline">Songs Licence Agreement</a> applies.
+                  <a href="/songs-licence" className="underline">Songs License Agreement</a> applies.
                 </p>
                 <h3 className="text-lg font-medium mb-2">Instructional videos and app content</h3>
                 <p>

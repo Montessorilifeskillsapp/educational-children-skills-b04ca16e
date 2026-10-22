@@ -8,7 +8,7 @@ import pouringSet from '@/assets/pouring-set.jpg';
 import heroPouring from '@/assets/hero-child-pouring-approved.jpg';
 
 const STEPS = [
-  { title: 'Prepare the tray', body: 'Set out two small glass pitchers on a tray. Fill the left pitcher about one-third with water (add a drop of food colouring to make the level visible).' },
+  { title: 'Prepare the tray', body: 'Set out two small glass pitchers on a tray. Fill the left pitcher about one-third with water (add a drop of food coloring to make the level visible).' },
   { title: 'Invite the child', body: '"Would you like me to show you how to pour water?" Walk together to a small table with the child to your dominant-hand side.' },
   { title: 'Show the grasp', body: 'Slowly grasp the handle with your dominant hand and place two fingers of your other hand under the spout to support it. Pause so the child sees both hands clearly.' },
   { title: 'Pour, slowly', body: 'Keeping two fingers under the spout throughout, lift, move over the empty pitcher, and tilt until water flows in a steady stream. Stop before the first pitcher is empty. Replace it gently.' },
@@ -97,7 +97,7 @@ const PreviewPouringWaterPage: React.FC = () => {
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> Two small, identical glass pitchers (child-sized — ~150ml)</li>
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> A small wooden or wicker tray</li>
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> A small natural sponge for spills</li>
-            <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> Water + (optional) a single drop of natural food colouring</li>
+            <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> Water + (optional) a single drop of natural food coloring</li>
           </ul>
         </section>
 

@@ -30,9 +30,9 @@ const AMI_SENSORIAL_GROUPS = [
   {
     key: 'colour',
     emoji: '🎨',
-    title: 'Visual — Colour',
+    title: 'Visual — Color',
     description:
-      'Matching, then naming, then grading colour. Introduced once the child can already pair and grade by dimension.',
+      'Matching, then naming, then grading color. Introduced once the child can already pair and grade by dimension.',
     skillIds: ['color-tablets'],
   },
   {
@@ -72,7 +72,7 @@ const AMI_SENSORIAL_GROUPS = [
     emoji: '✨',
     title: 'Stereognostic and Advanced Work',
     description:
-      'Recognising form by touch alone, then the algebraic cubes — the most advanced sensorial materials, a bridge to mathematics.',
+      'Recognizing form by touch alone, then the algebraic cubes — the most advanced sensorial materials, a bridge to mathematics.',
     skillIds: ['mystery-bag', 'binomial-cube', 'trinomial-cube'],
   },
 ];
@@ -121,7 +121,7 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
     <CurriculumSection
       title="👁️ Sensorial Development"
       intro="Sensorial materials refine and classify what the child has already absorbed through the senses. Each material isolates one quality, moves from simple to complex, and carries its own control of error."
-      sequence="Dimension → Colour → Form → Tactile → Auditory → Olfactory & Gustatory → Stereognostic"
+      sequence="Dimension → Color → Form → Tactile → Auditory → Olfactory & Gustatory → Stereognostic"
       groups={groups}
       shopCategory="Sensorial"
       className={montessoriTheme.backgrounds.sensorial}

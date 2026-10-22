@@ -11,9 +11,9 @@ const PaymentCancelPage: React.FC = () => {
 
   // SEO optimization
   useSEO({
-    title: "Payment Cancelled - Montessori Learning App",
-    description: "Your payment was cancelled. You can try again anytime to unlock premium Montessori learning features.",
-    keywords: "payment cancelled, montessori subscription, try again",
+    title: "Payment Canceled - Montessori Learning App",
+    description: "Your payment was canceled. You can try again anytime to unlock premium Montessori learning features.",
+    keywords: "payment canceled, montessori subscription, try again",
     canonical: "/payment-cancel"
   });
 
@@ -34,13 +34,13 @@ const PaymentCancelPage: React.FC = () => {
               <XCircle className="w-10 h-10 text-orange-600" />
             </div>
             <CardTitle className="text-2xl font-bold text-orange-800">
-              Payment Cancelled
+              Payment Canceled
             </CardTitle>
           </CardHeader>
           
           <CardContent className="text-center space-y-4">
             <p className="text-muted-foreground">
-              No worries! Your payment was cancelled and no charges were made to your account.
+              No worries! Your payment was canceled and no charges were made to your account.
             </p>
             
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
