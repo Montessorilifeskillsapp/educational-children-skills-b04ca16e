@@ -21,6 +21,7 @@ import StaffPolicies from '@/components/school/StaffPolicies';
 import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
+import CurriculumTab from '@/components/school/CurriculumTab';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
 
@@ -122,6 +123,7 @@ export default function SchoolPortalPage() {
     { v: 'progress', label: 'Record' },
     { v: 'planning', label: 'Plans' },
     { v: 'reports', label: 'Reports' },
+    { v: 'curriculum', label: 'Curriculum' },
   ];
   const leadershipNav = [
     { v: 'staff', label: 'Classrooms & staff' },
@@ -163,8 +165,7 @@ export default function SchoolPortalPage() {
           </div>
           <div className="flex shrink-0 items-center gap-1">
             {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full" onClick={() => go('staff')}>School settings</Button>}
-            <Button variant="ghost" size="sm" className="hidden md:inline-flex rounded-full" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit</Button>
-            <button type="button" className="school-cta rounded-full px-4 py-2 text-sm font-semibold" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Curriculum</button>
+            <button type="button" className="hidden md:inline-flex rounded-full px-3 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
           </div>
         </nav>
 
