@@ -47,7 +47,7 @@ export default function ClassroomDrawer() {
         <Users className="h-4 w-4 mr-2" />Classroom
       </Button>
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="w-full sm:max-w-md overflow-y-auto">
+        <SheetContent side="right" className="school-scale w-full sm:max-w-md overflow-y-auto">
           {open && <DrawerBody memberships={memberships} skillId={skill.id} skillTitle={skill.title} areaTitle={skill.areaTitle} />}
         </SheetContent>
       </Sheet>
