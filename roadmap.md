@@ -82,3 +82,4 @@
 - [ ] Native Family products: create family_monthly and family_annual in App Store Connect, Google Play, and RevenueCat — needs store setup + app release.
 
 - [ ] Exact item photos for "What you'll need": batch 1 (Practical Life, 20) awaiting approval; then remaining Practical Life, Sensorial, Math, Language, Botany, Geography, Science, Art, Grace and Courtesy
+- [x] School settings: one-tap staff assignment, classrooms chosen at invite, larger portal text
