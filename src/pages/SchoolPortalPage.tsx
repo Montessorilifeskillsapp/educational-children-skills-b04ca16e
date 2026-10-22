@@ -138,7 +138,7 @@ export default function SchoolPortalPage() {
     const active = tab === n.v;
     return (
       <button key={n.v} type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
-        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground font-medium' : 'text-muted-foreground hover:bg-card hover:text-foreground'}`}>
+        className={`shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-[15px] transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground font-medium' : 'text-muted-foreground hover:bg-card hover:text-foreground'}`}>
         {n.label}
       </button>
     );
@@ -146,9 +146,9 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="school-theme min-h-screen">
-      <div className="mx-auto max-w-6xl px-4 md:px-8 pb-16">
-        <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 flex items-center gap-3 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
-          <div className="min-w-0 shrink-0">
+      <div className="mx-auto max-w-7xl px-4 md:px-8 pb-16">
+        <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 flex flex-wrap items-center gap-x-2 gap-y-3 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
+          <div className="min-w-0 max-w-[12rem] shrink">
             <p className="truncate font-display text-lg leading-tight text-foreground">{school.name}</p>
             <p className="text-xs text-muted-foreground">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
           </div>
@@ -158,9 +158,9 @@ export default function SchoolPortalPage() {
               <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
             </Select>
           )}
-          <div className="mx-auto flex min-w-0 items-center gap-1 overflow-x-auto [scrollbar-width:none]">
+          <div className="mx-auto flex shrink-0 items-center gap-1 overflow-x-auto [scrollbar-width:none]">
             {leadership
-              ? <button type="button" onClick={() => go('overview')} className="shrink-0 rounded-full px-4 py-2 text-sm font-medium text-primary hover:bg-card">← Back to classroom</button>
+              ? <button type="button" onClick={() => go('overview')} className="shrink-0 rounded-full px-3.5 py-2 text-[15px] font-medium text-primary hover:bg-card">← Back to classroom</button>
               : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
           </div>
           <div className="flex shrink-0 items-center gap-1">
