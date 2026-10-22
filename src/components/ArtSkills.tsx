@@ -34,7 +34,7 @@ const ART_GROUPS = [
     emoji: '🖌️',
     title: 'Painting',
     description:
-      'The most advanced art work: managing water, brush and pigment with care, from direct finger painting to controlled watercolour.',
+      'The most advanced art work: managing water, brush and pigment with care, from direct finger painting to controlled watercolor.',
     skillIds: ['finger-painting', 'watercolor-basics'],
   },
 ];
