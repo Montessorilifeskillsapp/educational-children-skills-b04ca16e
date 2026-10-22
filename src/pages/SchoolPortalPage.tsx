@@ -146,28 +146,28 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="school-theme min-h-screen">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 pb-16">
+      <div className="mx-auto max-w-[96rem] px-4 md:px-8 pb-16">
         <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
-          <div className="flex w-full flex-wrap items-center gap-x-3 gap-y-2">
-            <div className="min-w-0">
-              <p className="font-display text-lg leading-tight text-foreground">{school.name}</p>
-              <p className="text-xs text-muted-foreground">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
+          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2 min-[1500px]:flex-nowrap">
+            <div className="min-w-0 shrink-0">
+              <p className="font-display text-lg leading-tight text-foreground whitespace-nowrap">{school.name}</p>
+              <p className="text-xs text-muted-foreground whitespace-nowrap">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
             </div>
             {!leadership && visibleRooms.length > 1 && (
               <Select value={classroomId ?? ''} onValueChange={(v) => { if (v !== classroomId && allowSchoolNavigation()) setClassroomId(v); }}>
-                <SelectTrigger className="w-auto max-w-[12rem] rounded-full bg-card" aria-label="Classroom"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="w-auto max-w-[12rem] shrink-0 rounded-full bg-card" aria-label="Classroom"><SelectValue /></SelectTrigger>
                 <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
             )}
-            <div className="ml-auto flex shrink-0 items-center gap-1">
-              {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full" onClick={() => go('staff')}>School settings</Button>}
-              <button type="button" className="hidden md:inline-flex rounded-full px-3 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
+            <div className="order-last flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none] min-[1500px]:order-none min-[1500px]:w-auto min-[1500px]:flex-1 min-[1500px]:justify-center min-[1500px]:overflow-visible">
+              {leadership
+                ? <button type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base font-medium text-primary hover:bg-card">← Back to classroom</button>
+                : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
             </div>
-          </div>
-          <div className="mt-3 flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none]">
-            {leadership
-              ? <button type="button" onClick={() => go('overview')} className="shrink-0 rounded-full px-4 py-2 text-base font-medium text-primary hover:bg-card">← Back to classroom</button>
-              : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
+            <div className="ml-auto flex shrink-0 items-center gap-1 min-[1500px]:ml-0">
+              {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap" onClick={() => go('staff')}>School settings</Button>}
+              <button type="button" className="hidden md:inline-flex whitespace-nowrap rounded-full px-3 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
+            </div>
           </div>
         </nav>
 
