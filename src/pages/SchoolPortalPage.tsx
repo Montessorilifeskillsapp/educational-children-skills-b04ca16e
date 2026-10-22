@@ -146,9 +146,9 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="school-theme min-h-screen">
-      <div className="mx-auto max-w-7xl px-4 md:px-8 pb-16">
+      <div className="mx-auto max-w-[96rem] px-4 md:px-8 pb-16">
         <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
-          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2 lg:flex-nowrap">
+          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2 min-[1400px]:flex-nowrap">
             <div className="min-w-0 shrink-0">
               <p className="font-display text-lg leading-tight text-foreground whitespace-nowrap">{school.name}</p>
               <p className="text-xs text-muted-foreground whitespace-nowrap">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
@@ -159,12 +159,12 @@ export default function SchoolPortalPage() {
                 <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
             )}
-            <div className="order-last flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none] lg:order-none lg:w-auto lg:flex-1 lg:justify-center lg:overflow-visible">
+            <div className="order-last flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none] min-[1400px]:order-none min-[1400px]:w-auto min-[1400px]:flex-1 min-[1400px]:justify-center min-[1400px]:overflow-visible">
               {leadership
                 ? <button type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base font-medium text-primary hover:bg-card">← Back to classroom</button>
                 : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
             </div>
-            <div className="ml-auto flex shrink-0 items-center gap-1 lg:ml-0">
+            <div className="ml-auto flex shrink-0 items-center gap-1 min-[1400px]:ml-0">
               {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap" onClick={() => go('staff')}>School settings</Button>}
               <button type="button" className="hidden md:inline-flex whitespace-nowrap rounded-full px-3 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
             </div>
