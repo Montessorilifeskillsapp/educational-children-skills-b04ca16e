@@ -97,7 +97,7 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
   // Keep the focused child's card statuses current after saves made here.
   useEffect(() => {
     const f = readFocus();
-    if (!f || loading) return;
+    if (!f || loading || !data.students.some((s) => s.id === f.id)) return;
     const rec = data.progress.find((p) => p.student_id === f.id && p.skill_id === skillId);
     if ((f.statuses[skillId] ?? null) !== (rec?.status ?? null)) updateFocusStatus(f.id, skillId, rec?.status ?? 'clear');
   }, [data.progress, skillId, loading]);
