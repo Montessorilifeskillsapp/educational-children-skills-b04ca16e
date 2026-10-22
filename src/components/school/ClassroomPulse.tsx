@@ -78,7 +78,7 @@ export default function ClassroomPulse({ students, progress, classroomName, onOp
                 </div>
                 <div className="mt-4 flex items-end gap-1 h-10" aria-label="Work recorded per curriculum area">
                   {r.perArea.map((n, i) => (
-                    <div key={areaList[i].key} title={`${areaList[i].title}: ${n}`} className="flex-1 rounded-sm bg-muted">
+                    <div key={areaList[i].key} title={`${areaList[i].title}: ${n}`} className="flex h-10 flex-1 flex-col justify-end rounded-sm bg-muted">
                       <div className="rounded-sm bg-primary/70" style={{ height: `${Math.max(n ? 12 : 0, (n / max) * 40)}px` }} />
                     </div>
                   ))}
