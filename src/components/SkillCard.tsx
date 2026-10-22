@@ -2,6 +2,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Crown, Lock } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
+import CardStatus from './school/CardStatus';
 
 interface Skill {
   id: string;
@@ -170,6 +171,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
             </span>
           </div>
 
+          <CardStatus skillId={skill.id} />
           {isCompleted && (
             <div className="flex justify-center mb-2">
               <div className={`text-white px-3 py-1 rounded-full text-sm font-medium ${montessoriTheme.button.secondary}`}>

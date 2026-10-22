@@ -10,6 +10,7 @@ import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } f
 import { areas, nextSuggestions, skillById } from './curriculum';
 import { STATUS_LABEL } from './ProgressChooser';
 import { ReportList } from './EditableRecords';
+import { conferenceHtml } from './conferenceReport';
 
 interface Props {
   role: SchoolRole; students: Student[]; progress: Progress[]; observations: Observation[]; reports: Report[];
@@ -83,11 +84,12 @@ export default function ReportsTab({ role, students, progress, observations, rep
   };
 
   const print = () => {
-    if (!report) return;
-    const w = window.open('', '_blank'); if (!w) return;
-    w.document.title = report.title;
-    const pre = w.document.createElement('pre'); pre.style.cssText = 'font-family:Georgia,serif;white-space:pre-wrap;font-size:14px;padding:24px';
-    pre.textContent = `${schoolName}\n\n${report.title}\n\n${report.body}`; w.document.body.appendChild(pre); w.print();
+    if (!report || !student) return;
+    const w = window.open('', '_blank'); if (!w) { toast({ title: 'Allow pop-ups to print', description: 'Your browser blocked the print window.', variant: 'destructive' }); return; }
+    w.document.open();
+    w.document.write(conferenceHtml({ schoolName, schoolEmail, studentName: student.name, periodStart: from, periodEnd: to, title: report.title, body: report.body, signoff: style.signoff.trim() }));
+    w.document.close();
+    w.focus(); setTimeout(() => w.print(), 250);
   };
 
   if (!students.length) return <p className="py-6 text-muted-foreground">No students in this classroom yet. Add them under Class roster.</p>;

@@ -1,5 +1,6 @@
 import React from 'react';
 import SkillCard from './SkillCard';
+import { FocusBar } from './school/CardStatus';
 import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
 import { getActivityImage } from '@/lib/activityImages';
@@ -66,6 +67,7 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
           <p className="text-lg text-gray-500 mt-2">Sequence: {sequence}</p>
         )}
       </div>
+      <FocusBar />
 
       {populated.map((group) => (
         <div className="mb-12" key={group.key}>

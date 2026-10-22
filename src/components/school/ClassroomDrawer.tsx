@@ -13,6 +13,7 @@ import { can, setSchoolPolicies, Membership, ROLE_LABEL, schoolCall } from './ap
 import { useSchoolData } from './useSchoolData';
 import { skillById } from './curriculum';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUSES, STATUS_LABEL, type Status } from './ProgressChooser';
+import { readFocus, updateFocusStatus } from './focusStudent';
 
 const ROOM_KEY = 'school-drawer-room';
 
@@ -93,6 +94,13 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
   };
 
   const students = data.students.filter((s) => s.classroom_id === roomId && !s.archived);
+  // Keep the focused child's card statuses current after saves made here.
+  useEffect(() => {
+    const f = readFocus();
+    if (!f || loading || !data.students.some((s) => s.id === f.id)) return;
+    const rec = data.progress.find((p) => p.student_id === f.id && p.skill_id === skillId);
+    if ((f.statuses[skillId] ?? null) !== (rec?.status ?? null)) updateFocusStatus(f.id, skillId, rec?.status ?? 'clear');
+  }, [data.progress, skillId, loading]);
   const recordFor = (sid: string) => data.progress.find((p) => p.student_id === sid && p.skill_id === skillId);
   const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const student = students.find((s) => s.id === studentId);

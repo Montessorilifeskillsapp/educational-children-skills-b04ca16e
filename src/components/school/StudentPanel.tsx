@@ -12,6 +12,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
 import { allowSchoolNavigation, SCHOOL_LEAVE_EVENT } from './navigation';
 import { NoteList, ReportList } from './EditableRecords';
+import { setFocus } from './focusStudent';
 
 interface Props {
   role: SchoolRole; userId: string; student: Student | null; progress: Progress[]; observations: Observation[]; reports: Report[];
@@ -37,6 +38,10 @@ export default function StudentPanel({ role, userId, student, progress, observat
   const obs = useMemo(() => observations.filter((o) => o.student_id === student?.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)), [observations, student]);
   const sent = reports.filter((r) => r.student_id === student?.id && (r.summary.email_status === 'queued' || r.summary.email_status === 'school_mail'));
   const suggestions = useMemo(() => nextSuggestions(mine), [mine]);
+  // Curriculum cards show this child's status while staff browse the app from here.
+  useEffect(() => {
+    if (student) setFocus({ id: student.id, name: student.name, statuses: Object.fromEntries(mine.map((p) => [p.skill_id, p.status])) });
+  }, [student?.id, student?.name, mine]);
   useEffect(() => {
     const beforeLeave = (event: Event) => {
       if (sending || (note.trim() && !window.confirm('Discard this unsaved student note?'))) event.preventDefault();
