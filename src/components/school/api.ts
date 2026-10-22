@@ -47,6 +47,7 @@ export const currentPolicies = () => active;
 export const can = {
   manageSchool: (r: SchoolRole) => r === 'school_admin',
   editRoster: (r: SchoolRole) => roleAllows(r, 'edit_roster', active),
+  deleteStudent: (r: SchoolRole) => roleAllows(r, 'delete_student', active),
   plan: (r: SchoolRole) => roleAllows(r, 'plan', active),
   sendReport: (r: SchoolRole) => roleAllows(r, 'send_report', active),
   recordProgress: (r: SchoolRole) => roleAllows(r, 'record_progress', active),

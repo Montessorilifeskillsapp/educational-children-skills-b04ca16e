@@ -14,6 +14,7 @@ import ProgressTab from '@/components/school/ProgressTab';
 import PlanningTab from '@/components/school/PlanningTab';
 import StaffTab from '@/components/school/StaffTab';
 import StaffActivity from '@/components/school/StaffActivity';
+import AuditHistory from '@/components/school/AuditHistory';
 import StudentPanel from '@/components/school/StudentPanel';
 import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
@@ -54,7 +55,7 @@ export default function SchoolPortalPage() {
   }, [user]);
   useEffect(() => { loadMe(); }, [loadMe]);
 
-  const { data, loading, reload } = useSchoolData(schoolId);
+  const { data, loading, error: dataError, reload } = useSchoolData(schoolId);
   const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const me = memberships?.find((m) => m.school_id === schoolId);
   const realRole = me?.role ?? 'assistant';
@@ -79,7 +80,7 @@ export default function SchoolPortalPage() {
   // If the current tab is no longer available (role changed, classroom gone), fall back to Overview instead of a blank page.
   useEffect(() => {
     if (!memberships) return;
-    if ((['staff', 'activity', 'review'].includes(tab) && !can.manageSchool(role)) || (!['overview', 'staff', 'activity', 'review'].includes(tab) && !classroomId)) setTab('overview');
+    if ((['staff', 'activity', 'review', 'history'].includes(tab) && !can.manageSchool(role)) || (!['overview', 'staff', 'activity', 'review', 'history'].includes(tab) && !classroomId)) setTab('overview');
   }, [tab, role, classroomId, memberships]);
 
   if (authLoading || (user && memberships === null)) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner /></div>;
@@ -97,7 +98,8 @@ export default function SchoolPortalPage() {
   }
 
   const classroom = visibleRooms.find((c) => c.id === classroomId) ?? null;
-  const school = me!.schools;
+  if (!me) return <LoadingSpinner />;
+  const school = me.schools;
   const seatLimit = classroom?.seat_limit ?? school.seat_limit;
   const students = data.students.filter((s) => s.classroom_id === classroomId && !s.archived);
   const studentIds = new Set(students.map((s) => s.id));
@@ -144,10 +146,11 @@ export default function SchoolPortalPage() {
 
       <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />
 
-      {loading ? <LoadingSpinner /> : (
+      {dataError && <div role="alert" className="flex items-center gap-3 text-destructive"><p>{dataError}</p><Button variant="outline" onClick={() => void reload()}>Retry</Button></div>}
+      {loading ? <LoadingSpinner /> : dataError ? null : (
         <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
           {(() => {
-            const leadership = ['staff', 'activity', 'review'].includes(tab);
+            const leadership = ['staff', 'activity', 'review', 'history'].includes(tab);
             const t = 'px-4 py-2.5 min-h-11 shrink-0 rounded-lg';
             return (
               <div className="space-y-2 print:hidden">
@@ -162,6 +165,7 @@ export default function SchoolPortalPage() {
                     <TabsTrigger value="staff" className={t}>Classrooms & staff</TabsTrigger>
                     <TabsTrigger value="review" className={t}>School-wide review</TabsTrigger>
                     <TabsTrigger value="activity" className={t}>Staff activity</TabsTrigger>
+                    <TabsTrigger value="history" className={t}>Change history</TabsTrigger>
                   </>) : (<>
                     <TabsTrigger value="overview" className={t}>Overview</TabsTrigger>
                     <TabsTrigger value="progress" disabled={!classroom} className={t}>Record progress</TabsTrigger>
@@ -227,6 +231,11 @@ export default function SchoolPortalPage() {
             </>
           )}
           {can.manageSchool(role) && (
+            <TabsContent value="history">
+              {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}
+            </TabsContent>
+          )}
+          {can.manageSchool(role) && (
             <TabsContent value="activity">
               <StaffActivity data={data} nameOf={nameOf} onOpenStudent={setOpenStudent} />
             </TabsContent>
@@ -238,7 +247,7 @@ export default function SchoolPortalPage() {
           )}
           {can.manageSchool(role) && schoolId && (
             <TabsContent value="staff">
-              <StaffPolicies schoolId={schoolId} policies={me!.schools.policies} onSaved={loadMe} />
+              <StaffPolicies schoolId={schoolId} policies={me.schools.policies} onSaved={loadMe} />
               <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={() => { reload(); loadMe(); }} seatLimit={school.seat_limit} schoolName={school.name} schoolEmail={school.contact_email} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
             </TabsContent>
           )}
