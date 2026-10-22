@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { Home, PenLine, Users, CalendarDays, Mail, Building2, ClipboardCheck, Activity, History, BookOpen, LogOut } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
@@ -254,6 +255,8 @@ export default function SchoolPortalPage() {
           )}
         </Tabs>
       )}
+      </main>
+     </div>
 
       {openStudent && (
         <StudentPanel role={role} userId={user.id} student={data.students.find((s) => s.id === openStudent) ?? null}
