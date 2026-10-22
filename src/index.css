@@ -337,3 +337,37 @@
 .markdown-preview ol {
   @apply my-4 ml-6;
 }
+
+/* School Portal theme — scoped to the portal only, palette and type of montessoristorybooks.com. */
+.school-theme {
+  --background: 41 76% 95%;
+  --foreground: 25 42% 14%;
+  --card: 48 83% 98%;
+  --card-foreground: 25 42% 14%;
+  --popover: 48 83% 98%;
+  --popover-foreground: 25 42% 14%;
+  --primary: 169 39% 45%;
+  --primary-foreground: 48 83% 98%;
+  --secondary: 26 92% 90%;
+  --secondary-foreground: 25 42% 14%;
+  --muted: 37 42% 93%;
+  --muted-foreground: 26 13% 38%;
+  --accent: 24 83% 84%;
+  --accent-foreground: 25 42% 14%;
+  --border: 38 28% 89%;
+  --input: 38 28% 89%;
+  --ring: 169 39% 45%;
+  --radius: 1rem;
+  --school-gradient-hero: radial-gradient(60% 80% at 0% 30%, hsl(24 100% 92% / 0.75), transparent 60%), radial-gradient(50% 70% at 100% 0%, hsl(166 50% 83% / 0.55), transparent 60%);
+  --school-gradient-cta: linear-gradient(135deg, hsl(26 64% 79%), hsl(166 39% 68%));
+  --school-shadow-soft: 0 1px 0 hsl(0 0% 100% / 0.6) inset, 0 14px 40px -18px hsl(25 56% 16% / 0.22);
+  background-color: hsl(var(--background));
+  background-image: var(--school-gradient-hero);
+  background-repeat: no-repeat;
+  color: hsl(var(--foreground));
+}
+.school-theme .font-display { font-family: 'Fraunces', Georgia, serif; font-optical-sizing: auto; letter-spacing: -0.01em; }
+.school-theme .school-card { background: hsl(var(--card)); border: 1px solid hsl(var(--border)); border-radius: 1.25rem; box-shadow: var(--school-shadow-soft); }
+.school-theme .school-cta { background-image: var(--school-gradient-cta); color: hsl(var(--foreground)); box-shadow: var(--school-shadow-soft); }
+.school-theme .school-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: hsl(var(--primary)); }
+@media print { .school-theme { background-image: none; } }
