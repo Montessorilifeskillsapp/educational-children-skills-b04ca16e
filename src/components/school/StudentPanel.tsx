@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
 import { areas, nextSuggestions, orderedSkills, skillById, skillLink } from './curriculum';
@@ -91,30 +93,41 @@ export default function StudentPanel({ role, userId, student, progress, observat
       .finally(() => setSending(false));
   };
 
+  const i = classmates.findIndex((c) => c.id === student.id);
+  const showReports = can.sendReport(role) || sent.length > 0;
   return (
-    <Sheet open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
-      <SheetContent className="w-full sm:max-w-xl overflow-y-auto">
-        <SheetHeader><SheetTitle>{student.name}{!editable && <span className="ml-2 text-xs font-normal text-muted-foreground">View only</span>}</SheetTitle></SheetHeader>
-        {(student.health_notes || student.support_notes) && (
-          <div className="mt-3 space-y-2 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm" role="note">
-            {student.health_notes && <p><span className="font-semibold">Health and allergies: </span>{student.health_notes}</p>}
-            {student.support_notes && <p><span className="font-semibold">Support notes: </span>{student.support_notes}</p>}
-          </div>
-        )}
-        {(() => {
-          const i = classmates.findIndex((c) => c.id === student.id);
-          return (
-            <div className="flex items-center gap-2 mt-3">
-              <Button size="sm" variant="outline" disabled={i <= 0} onClick={() => switchStudent(classmates[i - 1].id)}>Previous</Button>
+    <Dialog open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
+      <DialogContent className="school-scale max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl">
+        <div className="border-b border-border px-6 pt-6 pb-4 space-y-3">
+          <DialogHeader className="text-left pr-8">
+            <DialogTitle className="text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">View only</span>}</DialogTitle>
+          </DialogHeader>
+          {(student.health_notes || student.support_notes) && (
+            <div className="space-y-1 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm" role="note">
+              {student.health_notes && <p><span className="font-semibold">Health and allergies: </span>{student.health_notes}</p>}
+              {student.support_notes && <p><span className="font-semibold">Support notes: </span>{student.support_notes}</p>}
+            </div>
+          )}
+          {classmates.length > 1 && (
+            <div className="flex items-center gap-2">
+              <Button size="icon" variant="outline" aria-label="Previous child" disabled={i <= 0} onClick={() => switchStudent(classmates[i - 1].id)}><ChevronLeft className="h-4 w-4" /></Button>
               <Select value={student.id} onValueChange={switchStudent}>
-                <SelectTrigger className="h-9 flex-1"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Child" className="flex-1 max-w-xs"><SelectValue /></SelectTrigger>
                 <SelectContent>{classmates.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
-              <Button size="sm" variant="outline" disabled={i < 0 || i >= classmates.length - 1} onClick={() => switchStudent(classmates[i + 1].id)}>Next</Button>
+              <Button size="icon" variant="outline" aria-label="Next child" disabled={i < 0 || i >= classmates.length - 1} onClick={() => switchStudent(classmates[i + 1].id)}><ChevronRight className="h-4 w-4" /></Button>
+              <span className="text-sm text-muted-foreground">{i + 1} of {classmates.length}</span>
             </div>
-          );
-        })()}
-        <div className="space-y-6 mt-4">
+          )}
+        </div>
+        <div className="flex-1 overflow-y-auto px-6 py-5">
+        <Tabs defaultValue="notes">
+          <TabsList className="mb-5">
+            <TabsTrigger value="notes">Notes</TabsTrigger>
+            <TabsTrigger value="progress">Progress</TabsTrigger>
+            {showReports && <TabsTrigger value="reports">Parent report</TabsTrigger>}
+          </TabsList>
+          <TabsContent value="progress" className="mt-0 space-y-6">
           <section aria-label="Progress across the nine curriculum areas">
             <h3 className="font-semibold mb-2">Across the curriculum</h3>
             <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2">
@@ -176,16 +189,20 @@ export default function StudentPanel({ role, userId, student, progress, observat
               })}
             </ul>
           </section>
-
+          </TabsContent>
+          <TabsContent value="notes" className="mt-0">
           <section>
-            <h3 className="font-semibold mb-2">Observation notes</h3>
-            {editable && <>
-              <Textarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="What did you observe?" />
-              <Button size="sm" className="mt-2" onClick={addNote} disabled={!note.trim()}>Add note</Button>
-            </>}
+            {editable && <div className="rounded-xl border border-border bg-card p-4 mb-5">
+              <Label htmlFor="student-note" className="text-base font-semibold">New observation</Label>
+              <Textarea id="student-note" rows={4} className="mt-2 text-base" value={note} onChange={(e) => setNote(e.target.value)} placeholder={`What did you observe about ${student.name} today?`} />
+              <div className="flex justify-end mt-3"><Button onClick={addNote} disabled={!note.trim()}>Save note</Button></div>
+            </div>}
+            <h3 className="text-lg font-semibold mb-2">Earlier notes</h3>
+            {obs.length === 0 && <p className="text-muted-foreground">No notes yet.</p>}
             <NoteList notes={obs} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
           </section>
-
+          </TabsContent>
+          <TabsContent value="reports" className="mt-0 space-y-6">
           {!can.sendReport(role) && sent.length > 0 && (
             <section>
               <h3 className="font-semibold mb-2">Past parent reports</h3>
@@ -223,8 +240,10 @@ export default function StudentPanel({ role, userId, student, progress, observat
               )}
             </section>
           )}
+          </TabsContent>
+        </Tabs>
         </div>
-      </SheetContent>
-    </Sheet>
+      </DialogContent>
+    </Dialog>
   );
 }
