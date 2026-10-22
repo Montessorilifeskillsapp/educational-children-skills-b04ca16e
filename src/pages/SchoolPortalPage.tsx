@@ -21,6 +21,7 @@ import StaffPolicies from '@/components/school/StaffPolicies';
 import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
+import CurriculumTab from '@/components/school/CurriculumTab';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
 
@@ -122,6 +123,7 @@ export default function SchoolPortalPage() {
     { v: 'progress', label: 'Record' },
     { v: 'planning', label: 'Plans' },
     { v: 'reports', label: 'Reports' },
+    { v: 'curriculum', label: 'Curriculum' },
   ];
   const leadershipNav = [
     { v: 'staff', label: 'Classrooms & staff' },
@@ -159,12 +161,11 @@ export default function SchoolPortalPage() {
           <div className="mx-auto flex min-w-0 items-center gap-1 overflow-x-auto [scrollbar-width:none]">
             {leadership
               ? <button type="button" onClick={() => go('overview')} className="shrink-0 rounded-full px-4 py-2 text-sm font-medium text-primary hover:bg-card">← Back to classroom</button>
-              : classroomNav.map((n) => pill(n, n.v !== 'overview' && !classroom))}
+              : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
           </div>
           <div className="flex shrink-0 items-center gap-1">
             {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full" onClick={() => go('staff')}>School settings</Button>}
-            <Button variant="ghost" size="sm" className="hidden md:inline-flex rounded-full" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit</Button>
-            <button type="button" className="school-cta rounded-full px-4 py-2 text-sm font-semibold" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Curriculum</button>
+            <button type="button" className="hidden md:inline-flex rounded-full px-3 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
           </div>
         </nav>
 
@@ -239,6 +240,7 @@ export default function SchoolPortalPage() {
                 </TabsContent>
               </>
             )}
+            <TabsContent value="curriculum" className="mt-0"><CurriculumTab /></TabsContent>
             {can.manageSchool(role) && (
               <TabsContent value="history" className="mt-0">
                 {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}
