@@ -12,7 +12,9 @@ const uuid = z.string().uuid()
 const role = z.enum(['school_admin', 'teacher', 'assistant'])
 const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('me') }),
-  z.object({ action: z.literal('classroom_save'), school_id: uuid, id: uuid.optional(), name: z.string().min(1).max(120) }),
+  z.object({ action: z.literal('classroom_save'), school_id: uuid, id: uuid.optional(), name: z.string().min(1).max(120),
+    age_group: z.string().max(60).nullable().optional(), lead_member_id: uuid.nullable().optional().or(z.literal('')) }),
+  z.object({ action: z.literal('school_profile_save'), school_id: uuid, name: z.string().trim().min(1).max(120), contact_email: z.string().trim().email().max(255) }),
   z.object({ action: z.literal('classroom_delete'), id: uuid }),
   z.object({ action: z.literal('staff_assign'), classroom_id: uuid, member_id: uuid, assigned: z.boolean() }),
   z.object({ action: z.literal('invite'), school_id: uuid, email: z.string().email().max(255), role }),
@@ -21,7 +23,8 @@ const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('member_remove'), id: uuid }),
   z.object({ action: z.literal('student_save'), classroom_id: uuid, id: uuid.optional(),
     name: z.string().min(1).max(120), date_of_birth: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).nullable().optional(),
-    family_email: z.string().email().max(255).nullable().optional(), archived: z.boolean().optional() }),
+    family_email: z.string().email().max(255).nullable().optional(), archived: z.boolean().optional(),
+    health_notes: z.string().max(1000).nullable().optional(), support_notes: z.string().max(1000).nullable().optional() }),
   z.object({ action: z.literal('student_delete'), id: uuid }),
   z.object({ action: z.literal('progress_set'), student_id: uuid, skill_id: z.string().min(1).max(160),
     status: z.enum(['presented', 'practising', 'mastered', 'clear']), note: z.string().max(1000).nullable().optional() }),
