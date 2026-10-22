@@ -6,7 +6,6 @@ import { AuthProvider } from "@/components/AuthProvider";
 import { ProfileProvider } from "@/contexts/ProfileContext";
 import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
 import { AppProvider } from "@/contexts/AppContext";
-import { MobileSecurityProvider } from "@/components/MobileSecurityProvider";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import Index from "./pages/Index";
 import PracticalLifePage from "./pages/PracticalLifePage";
@@ -89,7 +88,6 @@ const App = () => {
     <ThemeProvider defaultTheme="light">
       <TooltipProvider>
         <AccessibilityProvider>
-          <MobileSecurityProvider>
             <AuthProvider>
               <AppProvider>
                 <ProfileProvider>
@@ -168,7 +166,6 @@ const App = () => {
                 </ProfileProvider>
               </AppProvider>
             </AuthProvider>
-          </MobileSecurityProvider>
         </AccessibilityProvider>
       </TooltipProvider>
     </ThemeProvider>

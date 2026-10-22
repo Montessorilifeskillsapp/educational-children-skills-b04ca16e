@@ -349,6 +349,7 @@ Deno.serve(async (req) => {
         if (error) throw error
         return json({ ok: true })
       }
+      default: return json({ error: "Unknown action" }, 400)
     } })()
     const READS = ['me', 'admin_list']
     if (res.ok && !READS.includes(b.action)) {
