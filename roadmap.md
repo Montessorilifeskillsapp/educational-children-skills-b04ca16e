@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] School Portal layout settled: restored the original tab-and-list portal after three visual redesigns were rejected. No further portal restyling without the user's go-ahead; any improvement must be small and asked for first.
 - [x] 0–3 foundation: stage types, four areas, empty hidden registry, plane resolvers, tests. Content build-out deferred by user.
 - [x] School privacy hardening: deployed classroom-scoped RLS, strict plain-text/date validation, plan-student isolation, admin Change history, and atomic student erasure with confirmation; 96 app tests and six service-schema tests pass, preview build OK. Signed-in use is not verified.
 - [ ] Validate student erasure, Change history and classroom isolation with real school accounts — blocked by external unmanaged authentication; no production student data was deleted for testing.
