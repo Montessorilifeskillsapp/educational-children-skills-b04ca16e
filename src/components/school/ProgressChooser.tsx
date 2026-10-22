@@ -10,7 +10,7 @@ import { Progress, schoolCall } from './api';
 
 export type Status = Progress['status'];
 export const STATUSES: Status[] = ['presented', 'practising', 'mastered'];
-export const STATUS_LABEL: Record<Status, string> = { presented: 'Presented', practising: 'Practising', mastered: 'Working independently' };
+export const STATUS_LABEL: Record<Status, string> = { presented: 'Presented', practising: 'Practicing', mastered: 'Working independently' };
 export const STATUS_STYLE: Record<Status, string> = {
   presented: 'bg-accent text-accent-foreground border-accent',
   practising: 'bg-secondary text-secondary-foreground border-secondary',

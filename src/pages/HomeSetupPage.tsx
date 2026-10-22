@@ -57,7 +57,7 @@ const STEPS = [
   },
   {
     title: 'Follow your child’s interests',
-    body: 'Observe what attracts your child and which skills they are ready to practise. Change activities gradually rather than replacing everything at once.',
+    body: 'Observe what attracts your child and which skills they are ready to practice. Change activities gradually rather than replacing everything at once.',
   },
   {
     title: 'Keep the atmosphere calm',
