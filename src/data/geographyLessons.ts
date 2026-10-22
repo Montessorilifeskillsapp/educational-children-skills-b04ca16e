@@ -27,7 +27,7 @@ export const geographyLessons: Record<string, GeographyLesson> = {
     purpose: 'Introduces the 5 paired land and water forms through tactile exploration with clay trays. Each land form has an opposite water form, helping the child understand how land and water relate to one another.',
     materials: [
       'Land and water form trays (5 pairs, 10 trays total)',
-      'Small pitcher of water tinted with blue food colouring',
+      'Small pitcher of water tinted with blue food coloring',
       'Sponge and towel for cleanup',
       'Land and water form nomenclature cards',
       'Clay or plasticine for modeling',

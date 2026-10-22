@@ -203,7 +203,7 @@ export const amiLanguageSkills: Record<string, LanguageSkillData> = {
     title: 'Pink Series – Object Box',
     description: 'Stage 1: Match three-letter phonetic words to miniature objects',
     icon: '🎁',
-    purpose: 'To give the child their first total reading experience: decoding a written word and recognising it represents a real, known object.',
+    purpose: 'To give the child their first total reading experience: decoding a written word and recognizing it represents a real, known object.',
     materials: ['Pink box with 6–8 miniature objects (cat, pig, hat, jug, pen, bus)', 'Matching printed word cards in pink', 'Small mat'],
     category: 'Language',
     difficulty: 'Beginner',
