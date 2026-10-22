@@ -20,6 +20,7 @@ import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
 import RoleBanner from '@/components/school/RoleBanner';
+import ClassroomPulse from '@/components/school/ClassroomPulse';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
@@ -117,10 +118,11 @@ export default function SchoolPortalPage() {
           : <BackButton onClick={goBack} />}
         <Button variant="outline" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Browse app</Button>
       </div>
-      <header className="flex items-end justify-between gap-3 flex-wrap print:hidden">
+      <header className="flex items-end justify-between gap-4 flex-wrap print:hidden rounded-3xl border border-border bg-gradient-to-br from-muted via-background to-accent/20 p-6 md:p-8">
         <div>
-          <h1 className="text-3xl font-bold text-foreground">{role === 'school_admin' ? 'School Administration' : role === 'teacher' ? 'Teacher Workspace' : 'Assistant Workspace'}</h1>
-          <p className="text-muted-foreground">{school.name} · {ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
+          <p className="text-xs font-medium uppercase tracking-widest text-primary">{school.name}</p>
+          <h1 className="mt-1 font-serif text-3xl md:text-4xl text-foreground">{role === 'school_admin' ? 'School Administration' : role === 'teacher' ? 'Teacher Workspace' : 'Assistant Workspace'}</h1>
+          <p className="mt-1 text-muted-foreground">{classroom ? `${classroom.name}${classroom.age_group ? ` · ${classroom.age_group}` : ''} · ` : ''}{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
           {realRole === 'school_admin' && (
@@ -199,17 +201,8 @@ export default function SchoolPortalPage() {
               </div>
             )}
             {classroom && (
-              <Card>
-                <CardHeader><CardTitle className="text-lg">Not seen recently · {classroom.name}</CardTitle></CardHeader>
-                <CardContent>
-                  {overlooked.length === 0 ? <p className="text-sm text-muted-foreground">Every student has a record from the last two weeks.</p> : (
-                    <ul className="flex flex-wrap gap-2">
-                      {overlooked.map((s) => <li key={s.id}><Button size="sm" variant="outline" onClick={() => setOpenStudent(s.id)}>{s.name}</Button></li>)}
-                    </ul>
-                  )}
-                  <p className="text-xs text-muted-foreground mt-2">Students with no presentation or progress recorded in the last 14 days.</p>
-                </CardContent>
-              </Card>
+              <ClassroomPulse students={students} progress={progress} classroomName={classroom.name} onOpenStudent={setOpenStudent}
+                onRecord={(sid, sk) => setParams((p) => { const n = new URLSearchParams(p); n.set('tab', 'progress'); n.set('recordStudent', sid); n.set('area', sk.areaKey); n.set('recordActivity', sk.id); return n; }, { replace: true })} />
             )}
           </TabsContent>
 
