@@ -1,4 +1,6 @@
 ## Open tasks
+- [ ] Complete school privacy hardening: enforce classroom-scoped reads, validate plain-text inputs and plan students, expose admin audit history, make student erasure atomic, and verify regression coverage.
+- [ ] Verify real-account school onboarding, Premium access, and Admin/Teacher/Assistant saved-record flows — blocked by external unmanaged authentication; device and inbox checks remain unavailable.
 - [x] Portal optimisation: one shared Practical Life activity list, group presentation recording in the Classroom drawer, child profile cards, touch-sized tabs, customisable parent report style. 88 tests pass.
 - [ ] Real three-account role check (Admin, Teacher, Assistant) — blocked: sign-in for this project's external login service can't be simulated here; needs testing on real devices with three accounts.
 - [x] Check admin school setup: confirmed existing verified account and School Admin membership; corrected false email confirmations, added staff resend and safeguarded invitation acceptance. Sixteen regression tests pass; school-portal deployed; public sign-in entry checked.
