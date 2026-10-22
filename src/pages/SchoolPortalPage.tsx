@@ -2,7 +2,8 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
+import { Home, PenLine, Users, CalendarDays, Mail, Building2, ClipboardCheck, Activity, History, BookOpen, LogOut } from 'lucide-react';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
@@ -107,101 +108,109 @@ export default function SchoolPortalPage() {
   const progress = data.progress.filter((p) => studentIds.has(p.student_id));
   const plans = data.plans.filter((p) => p.classroom_id === classroomId);
   const weekAgo = new Date(Date.now() - 7 * 864e5).toISOString();
-  const twoWeeksAgo = new Date(Date.now() - 14 * 864e5).toISOString();
-  const overlooked = students.filter((s) => !progress.some((p) => p.student_id === s.id && p.updated_at >= twoWeeksAgo));
+  const leadership = ['staff', 'activity', 'review', 'history'].includes(tab);
+  const go = (t: string) => { if (t !== tab && allowSchoolNavigation()) setTab(t); };
+  const myName = data.members.find((m) => m.user_id === user.id)?.full_name?.split(' ')[0];
+  const hour = new Date().getHours();
+  const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+  const classroomNav = [
+    { v: 'overview', label: 'Today', icon: Home },
+    { v: 'progress', label: 'Record progress', icon: PenLine },
+    { v: 'roster', label: 'Children', icon: Users },
+    { v: 'planning', label: 'Lesson planning', icon: CalendarDays },
+    { v: 'reports', label: 'Parent reports', icon: Mail },
+  ];
+  const leaderNav = [
+    { v: 'staff', label: 'Classrooms & staff', icon: Building2 },
+    { v: 'review', label: 'School-wide review', icon: ClipboardCheck },
+    { v: 'activity', label: 'Staff activity', icon: Activity },
+    { v: 'history', label: 'Change history', icon: History },
+  ];
+  const NavItem = ({ v, label, icon: Icon, disabled }: { v: string; label: string; icon: typeof Home; disabled?: boolean }) => (
+    <button disabled={disabled} onClick={() => go(v)} aria-current={tab === v ? 'page' : undefined}
+      className={`flex w-full shrink-0 items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-colors disabled:opacity-40 ${tab === v ? 'bg-primary text-primary-foreground shadow-sm' : 'text-foreground hover:bg-muted'}`}>
+      <Icon className="h-4 w-4 shrink-0" /><span className="whitespace-nowrap">{label}</span>
+    </button>
+  );
 
   return (
-    <div className="min-h-screen p-4 md:p-6 max-w-6xl mx-auto space-y-4">
-      <div className="print:hidden flex items-center justify-between gap-3">
-        {atPortalHome
-          ? <Button variant="ghost" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit portal</Button>
-          : <BackButton onClick={goBack} />}
-        <Button variant="outline" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Browse app</Button>
-      </div>
-      <header className="flex items-end justify-between gap-4 flex-wrap print:hidden rounded-3xl border border-border bg-gradient-to-br from-muted via-background to-accent/20 p-6 md:p-8">
+    <div className="min-h-screen bg-gradient-to-b from-muted/50 to-background">
+     <div className="mx-auto max-w-7xl p-4 md:p-6 lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
+      <aside className="print:hidden mb-4 lg:mb-0 lg:sticky lg:top-6 lg:self-start space-y-5">
+        <div className="rounded-2xl border border-border bg-card p-4">
+          <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">School Portal</p>
+          <p className="mt-1 font-serif text-lg leading-tight text-foreground">{school.name}</p>
+          <span className="mt-2 inline-block rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</span>
+        </div>
+        {visibleRooms.length > 0 && !leadership && (
+          <div>
+            <p className="mb-2 px-1 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Classroom</p>
+            <div className="flex gap-2 overflow-x-auto lg:flex-col [scrollbar-width:none]">
+              {visibleRooms.map((c) => (
+                <button key={c.id} onClick={() => { if (allowSchoolNavigation()) setClassroomId(c.id); }}
+                  className={`shrink-0 rounded-xl border px-3 py-2 text-left text-sm transition-colors ${c.id === classroomId ? 'border-primary bg-primary/10' : 'border-border bg-card hover:border-primary/50'}`}>
+                  <span className="block font-medium">{c.name}</span>
+                  <span className="block text-xs text-muted-foreground">{data.students.filter((s) => s.classroom_id === c.id && !s.archived).length} children{c.age_group ? ` · ${c.age_group}` : ''}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
+        <nav aria-label="Portal sections" className="space-y-4">
+          <div className="flex gap-1 overflow-x-auto lg:flex-col [scrollbar-width:none]">
+            {classroomNav.map((n) => <NavItem key={n.v} {...n} disabled={n.v !== 'overview' && !classroom} />)}
+          </div>
+          {can.manageSchool(role) && (
+            <div>
+              <p className="mb-2 px-1 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">School leadership</p>
+              <div className="flex gap-1 overflow-x-auto lg:flex-col [scrollbar-width:none]">{leaderNav.map((n) => <NavItem key={n.v} {...n} />)}</div>
+            </div>
+          )}
+        </nav>
+        <div className="flex gap-2 lg:flex-col">
+          <Button variant="outline" size="sm" className="justify-start" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}><BookOpen className="mr-2 h-4 w-4" />Browse curriculum</Button>
+          <Button variant="ghost" size="sm" className="justify-start" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}><LogOut className="mr-2 h-4 w-4" />Exit portal</Button>
+        </div>
+      </aside>
+
+      <main className="min-w-0 space-y-6">
+      <header className="flex items-end justify-between gap-4 flex-wrap print:hidden">
         <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-primary">{school.name}</p>
-          <h1 className="mt-1 font-serif text-3xl md:text-4xl text-foreground">{role === 'school_admin' ? 'School Administration' : role === 'teacher' ? 'Teacher Workspace' : 'Assistant Workspace'}</h1>
-          <p className="mt-1 text-muted-foreground">{classroom ? `${classroom.name}${classroom.age_group ? ` · ${classroom.age_group}` : ''} · ` : ''}{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
+          {!atPortalHome && <BackButton onClick={goBack} />}
+          <p className="text-sm text-muted-foreground">{new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}</p>
+          <h1 className="mt-1 font-serif text-3xl md:text-4xl text-foreground">
+            {tab === 'overview' ? `${greeting}${myName ? `, ${myName}` : ''}` : [...classroomNav, ...leaderNav].find((n) => n.v === tab)?.label}
+          </h1>
+          <p className="mt-1 text-muted-foreground">{leadership ? `All of ${school.name}` : classroom ? `${classroom.name}${classroom.age_group ? ` · ${classroom.age_group}` : ''}` : (role === 'school_admin' ? 'School Administration' : role === 'teacher' ? 'Teacher Workspace' : 'Assistant Workspace')}</p>
         </div>
         <div className="flex gap-2 flex-wrap">
           {realRole === 'school_admin' && (
             <Select value={role} onValueChange={(v) => setPreviewRole(v === 'school_admin' ? null : v as SchoolRole)}>
-              <SelectTrigger className="w-48" aria-label="View as"><span className="text-muted-foreground mr-1">View as:</span><SelectValue /></SelectTrigger>
+              <SelectTrigger className="w-48 bg-card" aria-label="View as"><span className="text-muted-foreground mr-1">View as:</span><SelectValue /></SelectTrigger>
               <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
             </Select>
           )}
           {memberships.length > 1 && (
             <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
-              <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
+              <SelectTrigger className="w-48 bg-card"><SelectValue /></SelectTrigger>
               <SelectContent>{memberships.map((m) => <SelectItem key={m.school_id} value={m.school_id}>{m.schools.name}</SelectItem>)}</SelectContent>
-            </Select>
-          )}
-          {visibleRooms.length > 0 && (
-            <Select value={classroomId ?? ''} onValueChange={(id) => { if (allowSchoolNavigation()) setClassroomId(id); }}>
-              <SelectTrigger className="w-48"><SelectValue placeholder="Classroom" /></SelectTrigger>
-              <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
             </Select>
           )}
         </div>
       </header>
 
-      <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />
+      {previewing && <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />}
 
       {dataError && <div role="alert" className="flex items-center gap-3 text-destructive"><p>{dataError}</p><Button variant="outline" onClick={() => void reload()}>Retry</Button></div>}
       {loading ? <LoadingSpinner /> : dataError ? null : (
         <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
-          {(() => {
-            const leadership = ['staff', 'activity', 'review', 'history'].includes(tab);
-            const t = 'px-4 py-2.5 min-h-11 shrink-0 rounded-lg';
-            return (
-              <div className="space-y-2 print:hidden">
-                {can.manageSchool(role) && (
-                  <div role="tablist" aria-label="Portal area" className="inline-flex rounded-xl border border-border bg-muted p-1 gap-1">
-                    <Button size="sm" variant={leadership ? 'ghost' : 'default'} className="rounded-lg min-h-10 px-4" onClick={() => { if (leadership && allowSchoolNavigation()) setTab('overview'); }}>Classroom</Button>
-                    <Button size="sm" variant={leadership ? 'default' : 'ghost'} className="rounded-lg min-h-10 px-4" onClick={() => { if (!leadership && allowSchoolNavigation()) setTab('staff'); }}>School leadership</Button>
-                  </div>
-                )}
-                <TabsList className="w-full justify-start flex flex-nowrap overflow-x-auto h-auto gap-1 p-1.5 rounded-xl [scrollbar-width:none]">
-                  {leadership ? (<>
-                    <TabsTrigger value="staff" className={t}>Classrooms & staff</TabsTrigger>
-                    <TabsTrigger value="review" className={t}>School-wide review</TabsTrigger>
-                    <TabsTrigger value="activity" className={t}>Staff activity</TabsTrigger>
-                    <TabsTrigger value="history" className={t}>Change history</TabsTrigger>
-                  </>) : (<>
-                    <TabsTrigger value="overview" className={t}>Overview</TabsTrigger>
-                    <TabsTrigger value="progress" disabled={!classroom} className={t}>Record progress</TabsTrigger>
-                    <TabsTrigger value="roster" disabled={!classroom} className={t}>Students</TabsTrigger>
-                    <TabsTrigger value="planning" disabled={!classroom} className={t}>Lesson planning</TabsTrigger>
-                    <TabsTrigger value="reports" disabled={!classroom} className={t}>Parent reports</TabsTrigger>
-                  </>)}
-                </TabsList>
-              </div>
-            );
-          })()}
-
-          <TabsContent value="overview" className="space-y-4">
+          <TabsContent value="overview" className="mt-0 space-y-4">
             {visibleRooms.length === 0 ? (
               <Card><CardContent className="pt-6 text-sm text-muted-foreground">
                 {can.manageSchool(role) ? 'Create your first classroom under Classrooms & staff.' : 'You have not been assigned to a classroom yet. Ask your School Admin.'}
               </CardContent></Card>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {visibleRooms.map((c) => {
-                  const kids = data.students.filter((s) => s.classroom_id === c.id && !s.archived);
-                  const ids = new Set(kids.map((k) => k.id));
-                  const week = data.progress.filter((p) => ids.has(p.student_id) && p.updated_at >= weekAgo).length;
-                  return (
-                    <Card key={c.id} className={`cursor-pointer rounded-xl transition-all hover:border-primary hover:shadow-md ${c.id === classroomId ? 'border-primary' : ''}`} onClick={() => { setClassroomId(c.id); setTab('progress'); }}>
-                      <CardHeader><CardTitle className="text-lg">{c.name}</CardTitle>{c.age_group && <p className="text-xs font-medium text-primary">{c.age_group}</p>}</CardHeader>
-                      <CardContent className="text-sm text-muted-foreground">{kids.length} of {c.seat_limit ?? school.seat_limit} places · {week} records this week</CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            )}
-            {classroom && (
-              <ClassroomPulse students={students} progress={progress} classroomName={classroom.name} onOpenStudent={setOpenStudent}
+            ) : classroom && (
+              <ClassroomPulse students={students} progress={progress} plans={plans} classroomName={classroom.name} onOpenStudent={setOpenStudent} onGo={go}
                 onRecord={(sid, sk) => setParams((p) => { const n = new URLSearchParams(p); n.set('tab', 'progress'); n.set('recordStudent', sid); n.set('area', sk.areaKey); n.set('recordActivity', sk.id); return n; }, { replace: true })} />
             )}
           </TabsContent>
@@ -246,6 +255,8 @@ export default function SchoolPortalPage() {
           )}
         </Tabs>
       )}
+      </main>
+     </div>
 
       {openStudent && (
         <StudentPanel role={role} userId={user.id} student={data.students.find((s) => s.id === openStudent) ?? null}
