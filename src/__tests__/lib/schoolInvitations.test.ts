@@ -43,3 +43,16 @@ describe('school invitation acceptance', () => {
     expect(insert.mock.invocationCallOrder[0]).toBeLessThan(update.mock.invocationCallOrder[0]);
   });
 });
+describe('invitation classrooms', () => {
+  it('assigns only classrooms from the inviting school when accepted', async () => {
+    const upsert = vi.fn().mockResolvedValue({ error: null });
+    const update = vi.fn().mockReturnValue({ eq: vi.fn().mockResolvedValue({ error: null }) });
+    const q: any = { eq: () => q, maybeSingle: async () => ({ data: { id: 'member' }, error: null }), single: async () => ({ data: { id: 'member' }, error: null }) };
+    const admin = { from: (t: string) => t === 'school_members' ? { select: () => q }
+      : t === 'classrooms' ? { select: () => ({ eq: () => ({ in: async () => ({ data: [{ id: 'room-a' }], error: null }) }) }) }
+      : t === 'classroom_staff' ? { upsert } : { update } };
+    await acceptSchoolInvite(admin, { id: 'i', school_id: 's', role: 'teacher', classroom_ids: ['room-a', 'other-school-room'] }, 'u', 'e@x.com');
+    expect(upsert).toHaveBeenCalledWith([{ classroom_id: 'room-a', member_id: 'member' }]);
+    expect(update).toHaveBeenCalledTimes(1);
+  });
+});
