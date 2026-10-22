@@ -664,6 +664,36 @@ export type Database = {
         }
         Relationships: []
       }
+      school_audit_log: {
+        Row: {
+          action: string
+          actor_email: string | null
+          actor_id: string
+          created_at: string
+          id: number
+          school_id: string | null
+          target_id: string | null
+        }
+        Insert: {
+          action: string
+          actor_email?: string | null
+          actor_id: string
+          created_at?: string
+          id?: never
+          school_id?: string | null
+          target_id?: string | null
+        }
+        Update: {
+          action?: string
+          actor_email?: string | null
+          actor_id?: string
+          created_at?: string
+          id?: never
+          school_id?: string | null
+          target_id?: string | null
+        }
+        Relationships: []
+      }
       school_invites: {
         Row: {
           accepted_at: string | null

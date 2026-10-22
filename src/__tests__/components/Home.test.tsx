@@ -36,22 +36,6 @@ vi.mock('@/components/AuthProvider', () => ({
   })
 }));
 
-// Mock MobileSecurityProvider
-vi.mock('@/components/MobileSecurityProvider', () => ({
-  useMobileSecurity: () => ({
-    isSecure: true,
-    securityStatus: 'secure',
-  }),
-  default: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}));
-
-vi.mock('@/hooks/useMobileSecurity', () => ({
-  useMobileSecurity: () => ({
-    isSecure: true,
-    securityStatus: 'secure',
-  }),
-}));
-
 // Mock Supabase
 vi.mock('@/lib/supabase', () => ({
   supabase: {

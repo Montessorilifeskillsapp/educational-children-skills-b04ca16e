@@ -64,11 +64,13 @@ Deno.serve(async (req) => {
     const b = parsed.data
     const forbidden = () => json({ error: 'You do not have permission for this.' }, 403)
 
+    let auditSchool: string | null = null
     const membership = async (schoolId: string) => {
       const { data } = await admin.from('school_members').select('id, role, schools!inner(active, policies)')
         .eq('school_id', schoolId).eq('user_id', uid).maybeSingle()
       // deno-lint-ignore no-explicit-any
       if (!data || !(data as any).schools?.active) return null
+      auditSchool = schoolId
       // deno-lint-ignore no-explicit-any
       return { id: data.id as string, role: data.role as SchoolRole, policies: resolvePolicies((data as any).schools?.policies) as SchoolPolicies }
     }
@@ -95,7 +97,7 @@ Deno.serve(async (req) => {
       return !!data
     }
 
-    switch (b.action) {
+    const res: Response = await (async () => { switch (b.action) {
       case 'school_profile_save': {
         // School Admins maintain their own school's name and official email; places stay platform-managed.
         const m = await membership(b.school_id)
@@ -347,7 +349,16 @@ Deno.serve(async (req) => {
         if (error) throw error
         return json({ ok: true })
       }
+      default: return json({ error: "Unknown action" }, 400)
+    } })()
+    const READS = ['me', 'admin_list']
+    if (res.ok && !READS.includes(b.action)) {
+      // deno-lint-ignore no-explicit-any
+      const target = (b as any).id ?? (b as any).student_id ?? (b as any).classroom_id ?? null
+      await admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null })
     }
+    return res
+
   } catch (e) {
     console.error(e)
     return json({ error: e instanceof Error ? e.message : 'Server error' }, 500)
