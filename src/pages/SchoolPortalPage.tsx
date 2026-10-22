@@ -134,15 +134,14 @@ export default function SchoolPortalPage() {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-muted/50 to-background">
+    <div className="min-h-screen bg-background">
      <div className="mx-auto max-w-7xl p-4 md:p-6 lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
       <aside className="print:hidden mb-4 lg:mb-0 lg:sticky lg:top-6 lg:self-start space-y-5">
-        <div className="rounded-2xl border border-border bg-card p-4">
-          <p className="text-[11px] font-semibold uppercase tracking-widest text-primary">School Portal</p>
+        <div className="px-1">
           <p className="mt-1 font-serif text-lg leading-tight text-foreground">{school.name}</p>
           <span className="mt-2 inline-block rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</span>
         </div>
-        {visibleRooms.length > 0 && !leadership && (
+        {visibleRooms.length > 1 && !leadership && (
           <div>
             <p className="mb-2 px-1 text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">Classroom</p>
             <div className="flex gap-2 overflow-x-auto lg:flex-col [scrollbar-width:none]">
