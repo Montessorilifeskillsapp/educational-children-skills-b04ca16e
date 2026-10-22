@@ -1357,14 +1357,6 @@ export type Database = {
       }
     }
     Functions: {
-      can_read_school_classroom: {
-        Args: { _classroom_id: string }
-        Returns: boolean
-      }
-      can_read_school_student: {
-        Args: { _student_id: string }
-        Returns: boolean
-      }
       child_allowance: { Args: { _user_id: string }; Returns: number }
       erase_school_student: {
         Args: { _actor_email: string; _actor_id: string; _student_id: string }
