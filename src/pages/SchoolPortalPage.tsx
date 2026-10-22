@@ -117,11 +117,11 @@ export default function SchoolPortalPage() {
   const overlooked = students.filter((s) => !progress.some((p) => p.student_id === s.id && p.updated_at >= twoWeeksAgo));
 
   const classroomNav = [
-    { v: 'overview', label: "Today's lessons" },
-    { v: 'progress', label: 'Record progress' },
+    { v: 'overview', label: 'Today' },
     { v: 'roster', label: 'Children' },
-    { v: 'planning', label: 'Lesson planning' },
-    { v: 'reports', label: 'Parent reports' },
+    { v: 'progress', label: 'Record' },
+    { v: 'planning', label: 'Plans' },
+    { v: 'reports', label: 'Reports' },
   ];
   const leadershipNav = [
     { v: 'staff', label: 'Classrooms & staff' },
@@ -130,15 +130,13 @@ export default function SchoolPortalPage() {
     { v: 'history', label: 'Change history' },
   ];
   const leadership = leadershipNav.some((n) => n.v === tab);
-  const currentLabel = [...classroomNav, ...leadershipNav].find((n) => n.v === tab)?.label ?? "Today's lessons";
   const go = (v: string) => { if (v !== tab && allowSchoolNavigation()) { setOpenStudent(null); setTab(v); } };
   const todayCount = plans.filter((p) => p.plan_date === new Date().toLocaleDateString('en-CA')).length;
-  const navLink = (n: { v: string; label: string }) => {
-    const disabled = !leadershipNav.some((l) => l.v === n.v) && n.v !== 'overview' && !classroom;
+  const pill = (n: { v: string; label: string }, disabled = false) => {
     const active = tab === n.v;
     return (
       <button key={n.v} type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
-        className={`shrink-0 whitespace-nowrap border-b-2 py-2 text-[0.95rem] transition-colors disabled:opacity-40 ${active ? 'border-primary text-foreground font-medium' : 'border-transparent text-muted-foreground hover:text-foreground'}`}>
+        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-sm transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground font-medium' : 'text-muted-foreground hover:bg-card hover:text-foreground'}`}>
         {n.label}
       </button>
     );
@@ -146,69 +144,59 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="school-theme min-h-screen">
-      <div className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
-        <nav aria-label="School Portal" className="print:hidden flex items-center gap-4 py-5">
-          <button type="button" onClick={() => go('overview')} className="flex min-w-0 items-center gap-3 text-left">
-            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card font-display text-lg text-primary shadow-sm border border-border">{school.name.trim().charAt(0).toUpperCase()}</span>
-            <span className="min-w-0">
-              <span className="block truncate font-display text-lg leading-tight text-foreground">{school.name}</span>
-              <span className="block text-xs text-muted-foreground">School Portal · {ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</span>
-            </span>
-          </button>
-          <div className="ml-auto flex items-center gap-2">
-            {!atPortalHome && <Button variant="ghost" size="sm" className="rounded-full" onClick={goBack}>Back</Button>}
-            <Button variant="ghost" size="sm" className="hidden sm:inline-flex rounded-full" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit portal</Button>
-            <button type="button" className="school-cta rounded-full px-5 py-2.5 text-sm font-semibold" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Browse app</button>
+      <div className="mx-auto max-w-6xl px-4 md:px-8 pb-16">
+        <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 flex items-center gap-3 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
+          <div className="min-w-0 shrink-0">
+            <p className="truncate font-display text-lg leading-tight text-foreground">{school.name}</p>
+            <p className="text-xs text-muted-foreground">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
+          </div>
+          {!leadership && visibleRooms.length > 1 && (
+            <Select value={classroomId ?? ''} onValueChange={(v) => { if (v !== classroomId && allowSchoolNavigation()) setClassroomId(v); }}>
+              <SelectTrigger className="w-auto max-w-[12rem] rounded-full bg-card" aria-label="Classroom"><SelectValue /></SelectTrigger>
+              <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
+            </Select>
+          )}
+          <div className="mx-auto flex min-w-0 items-center gap-1 overflow-x-auto [scrollbar-width:none]">
+            {leadership
+              ? <button type="button" onClick={() => go('overview')} className="shrink-0 rounded-full px-4 py-2 text-sm font-medium text-primary hover:bg-card">← Back to classroom</button>
+              : classroomNav.map((n) => pill(n, n.v !== 'overview' && !classroom))}
+          </div>
+          <div className="flex shrink-0 items-center gap-1">
+            {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full" onClick={() => go('staff')}>School settings</Button>}
+            <Button variant="ghost" size="sm" className="hidden md:inline-flex rounded-full" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit</Button>
+            <button type="button" className="school-cta rounded-full px-4 py-2 text-sm font-semibold" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Curriculum</button>
           </div>
         </nav>
 
-        <div className="print:hidden flex items-center gap-6 overflow-x-auto border-b border-border [scrollbar-width:none]">
-          {(leadership ? leadershipNav : classroomNav).map(navLink)}
-          {can.manageSchool(role) && (
-            <>
-              <span aria-hidden className="h-5 w-px shrink-0 bg-border" />
-              <button type="button" onClick={() => go(leadership ? 'overview' : 'staff')} className="shrink-0 whitespace-nowrap py-2 text-[0.95rem] font-medium text-primary hover:underline">
-                {leadership ? '← Back to classroom' : 'School leadership →'}
-              </button>
-            </>
-          )}
-        </div>
+        {leadership && (
+          <div className="print:hidden mb-6 flex flex-wrap items-center gap-1">
+            {leadershipNav.map((n) => pill(n))}
+            <div className="ml-auto flex flex-wrap gap-2">
+              {memberships.length > 1 && (
+                <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
+                  <SelectTrigger className="w-48 rounded-full bg-card" aria-label="School"><SelectValue /></SelectTrigger>
+                  <SelectContent>{memberships.map((m) => <SelectItem key={m.school_id} value={m.school_id}>{m.schools.name}</SelectItem>)}</SelectContent>
+                </Select>
+              )}
+              {realRole === 'school_admin' && (
+                <Select value={role} onValueChange={(v) => { setPreviewRole(v === 'school_admin' ? null : v as SchoolRole); if (v !== 'school_admin') setTab('overview'); }}>
+                  <SelectTrigger className="w-52 rounded-full bg-card" aria-label="Preview portal as"><span className="text-muted-foreground mr-1">Preview as:</span><SelectValue /></SelectTrigger>
+                  <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
+                </Select>
+              )}
+            </div>
+          </div>
+        )}
 
-        <header className="print:hidden flex flex-wrap items-end justify-between gap-6 pt-10 pb-8">
-          <div className="min-w-0">
-            <p className="school-label">
-              {leadership ? school.name : classroom ? `${classroom.name}${classroom.age_group ? ` · ${classroom.age_group}` : ''}` : school.name}
-              {' · '}{new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
+        {tab === 'overview' && classroom && (
+          <header className="print:hidden pb-6">
+            <h1 className="font-display text-3xl md:text-4xl leading-tight text-foreground">{classroom.name}</h1>
+            <p className="mt-1 text-muted-foreground">
+              {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })} · {todayCount ? `${todayCount} presentation${todayCount === 1 ? '' : 's'} planned` : 'nothing planned yet'}
+              {overlooked.length > 0 && <> · <button type="button" className="underline decoration-dotted underline-offset-4 hover:text-foreground" onClick={() => go('roster')}>{overlooked.length} not observed lately</button></>}
             </p>
-            <h1 className="font-display mt-3 text-4xl md:text-5xl leading-[1.05] text-foreground">{currentLabel}{tab === 'overview' ? '.' : ''}</h1>
-            {tab === 'overview' && classroom && (
-              <p className="mt-3 text-lg text-muted-foreground">
-                {todayCount ? `${todayCount} presentation${todayCount === 1 ? '' : 's'} planned` : 'No presentations planned yet'} · {students.length} children
-                {overlooked.length > 0 && <> · <button type="button" className="underline decoration-dotted underline-offset-4 hover:text-foreground" onClick={() => go('roster')}>{overlooked.length} not observed in two weeks</button></>}
-              </p>
-            )}
-          </div>
-          <div className="flex flex-wrap items-center gap-2">
-            {!leadership && visibleRooms.length > 1 && visibleRooms.map((c) => (
-              <button key={c.id} type="button" onClick={() => { if (c.id !== classroomId && allowSchoolNavigation()) setClassroomId(c.id); }}
-                className={`rounded-full border px-4 py-2 text-sm transition-colors ${c.id === classroomId ? 'border-primary bg-card text-foreground font-medium' : 'border-border text-muted-foreground hover:text-foreground'}`}>
-                {c.name}
-              </button>
-            ))}
-            {memberships.length > 1 && (
-              <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
-                <SelectTrigger className="w-48 rounded-full bg-card" aria-label="School"><SelectValue /></SelectTrigger>
-                <SelectContent>{memberships.map((m) => <SelectItem key={m.school_id} value={m.school_id}>{m.schools.name}</SelectItem>)}</SelectContent>
-              </Select>
-            )}
-            {realRole === 'school_admin' && (
-              <Select value={role} onValueChange={(v) => setPreviewRole(v === 'school_admin' ? null : v as SchoolRole)}>
-                <SelectTrigger className="w-52 rounded-full bg-card" aria-label="View as"><span className="text-muted-foreground mr-1">View as:</span><SelectValue /></SelectTrigger>
-                <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
-              </Select>
-            )}
-          </div>
-        </header>
+          </header>
+        )}
 
         {previewing && <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />}
 
