@@ -1,6 +1,7 @@
 import { allPracticalLifeSkills } from '@/data/practicalLifeAll';
 import React from 'react';
 import SkillCard from './SkillCard';
+import { FocusBar } from './school/CardStatus';
 import ShopSectionCTA from './ShopSectionCTA';
 import PageLayout from './PageLayout';
 import { montessoriTheme } from './ThemeConfig';
@@ -118,6 +119,7 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
           Sequence: Beginning Activities → Care of Environment → Care of Self → Grace and Courtesy → Advanced Activities
         </p>
       </div>
+      <FocusBar />
 
       {skillsByCategory.map(({ category, skills }) =>
         skills.length > 0 ? (
