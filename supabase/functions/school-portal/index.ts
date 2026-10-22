@@ -3,7 +3,7 @@ import { createClient } from 'npm:@supabase/supabase-js@2'
 import { z } from 'npm:zod@3.23.8'
 import { Body } from './body.ts'
 import { sameClassroom, containsOnlyClassroomStudents } from './validation.ts'
-import { roleAllows, resolvePolicies, CAPABILITIES, type SchoolRole, type SchoolPolicies } from './rules.ts'
+import { roleAllows, resolvePolicies, type SchoolRole, type SchoolPolicies } from './rules.ts'
 import { acceptSchoolInvite, queueSchoolInvite } from './invitations.ts'
 
 const checked = async <T extends { error: unknown }>(operation: PromiseLike<T>): Promise<T> => {
@@ -20,7 +20,10 @@ Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders })
   if (req.method !== 'POST') return json({ error: 'Method not allowed' }, 405)
   try {
-    const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
+    const url = Deno.env.get('SUPABASE_URL')
+    const key = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')
+    if (!url || !key) return json({ error: 'School service is unavailable.' }, 503)
+    const admin = createClient(url, key)
     const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '')
     const { data: u, error: ue } = await admin.auth.getUser(token)
     if (ue || !u.user) return json({ error: 'Unauthorized' }, 401)
@@ -38,8 +41,8 @@ Deno.serve(async (req) => {
 
     let auditSchool: string | null = null
     const membership = async (schoolId: string) => {
-      const { data } = await checked(admin.from('school_members').select('id, role, schools!inner(active, policies)'))
-        .eq('school_id', schoolId).eq('user_id', uid).maybeSingle()
+      const { data } = await checked(admin.from('school_members').select('id, role, schools!inner(active, policies)')
+        .eq('school_id', schoolId).eq('user_id', uid).maybeSingle())
       // deno-lint-ignore no-explicit-any
       if (!data || !(data as any).schools?.active) return null
       auditSchool = schoolId
@@ -309,7 +312,7 @@ Deno.serve(async (req) => {
         let invitation = null
         if (b.first_admin_email) {
           const e = b.first_admin_email.toLowerCase()
-          const { error: inviteError } = await checked(admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' }))
+          const { error: inviteError } = await admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' })
           if (inviteError) return json({ school: data, invitation: { queued: false, error: 'School saved, but the invitation could not be saved. Edit this school to retry.' } })
           invitation = await queueSchoolInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`)
         }
@@ -328,7 +331,7 @@ Deno.serve(async (req) => {
     if (res.ok && !READS.includes(b.action)) {
       // deno-lint-ignore no-explicit-any
       const target = (b as any).id ?? (b as any).student_id ?? (b as any).classroom_id ?? null
-      const { error: auditError } = await checked(admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null }))
+      const { error: auditError } = await admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null })
       if (auditError) {
         console.error('School audit write failed', { action: b.action, code: auditError.code })
         return json({ error: 'The change was saved, but its audit entry could not be recorded. Reload before retrying.' }, 500)

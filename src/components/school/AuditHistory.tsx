@@ -45,7 +45,7 @@ export default function AuditHistory({ schoolId }: { schoolId: string }) {
     {error ? <p role="alert" className="text-destructive">{error}</p> : loading ? <p className="text-muted-foreground">Loading change history…</p> : !visible.length ? <p className="text-muted-foreground">No matching changes on this page.</p> :
       <ol className="divide-y divide-border">{visible.map((entry) => <li key={entry.id} className="py-3 grid gap-1 sm:grid-cols-[12rem_1fr]">
         <time className="text-sm text-muted-foreground" dateTime={entry.created_at}>{new Date(entry.created_at).toLocaleString()}</time>
-        <div className="min-w-0"><p className="font-medium">{labels[entry.action] ?? entry.action.replaceAll('_', ' ')}</p>
+        <div className="min-w-0"><p className="font-medium">{labels[entry.action] ?? entry.action.replace(/_/g, ' ')}</p>
           <p className="text-sm text-muted-foreground break-all">{entry.actor_email || 'Former staff'}</p>
           {entry.target_id && <p className="text-xs text-muted-foreground break-all">Record: {entry.target_id}</p>}
         </div>
