@@ -371,3 +371,14 @@
 .school-theme .school-cta { background-image: var(--school-gradient-cta); color: hsl(var(--foreground)); box-shadow: var(--school-shadow-soft); }
 .school-theme .school-label { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: hsl(var(--primary)); }
 @media print { .school-theme { background-image: none; } }
+
+/* Larger, at-a-glance text across the School Portal and the Classroom drawer only. */
+.school-theme, .school-scale { font-size: 1.0625rem; line-height: 1.6; }
+:is(.school-theme, .school-scale) .text-xs { font-size: 0.9375rem; line-height: 1.4rem; }
+:is(.school-theme, .school-scale) .text-sm { font-size: 1.0625rem; line-height: 1.6rem; }
+:is(.school-theme, .school-scale) .text-base { font-size: 1.125rem; line-height: 1.7rem; }
+:is(.school-theme, .school-scale) .text-lg { font-size: 1.25rem; line-height: 1.8rem; }
+:is(.school-theme, .school-scale) .text-xl { font-size: 1.375rem; line-height: 1.9rem; }
+:is(.school-theme, .school-scale) :is(button, input, select, textarea, [role="combobox"]) { font-size: max(1em, 1.0625rem); }
+:is(.school-theme, .school-scale) :is(input, [role="combobox"]) { min-height: 2.75rem; }
+.school-theme .school-label { font-size: 0.875rem; }

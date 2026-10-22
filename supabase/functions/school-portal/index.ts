@@ -161,7 +161,12 @@ Deno.serve(async (req) => {
         const inviteEmail = b.email.toLowerCase()
         const { data: already } = await checked(admin.from('school_members').select('id').eq('school_id', b.school_id).ilike('email', inviteEmail).maybeSingle())
         if (already) return json({ error: 'This person is already on your staff. Change their role in the list below instead.' }, 400)
-        const { error } = await checked(admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, accepted_at: null }, { onConflict: 'school_id,email' }))
+        const roomIds = [...new Set(b.classroom_ids ?? [])]
+        if (roomIds.length) {
+          const { data: rooms } = await checked(admin.from('classrooms').select('id').eq('school_id', b.school_id).in('id', roomIds))
+          if ((rooms ?? []).length !== roomIds.length) return json({ error: 'One of the chosen classrooms does not belong to this school.' }, 400)
+        }
+        const { error } = await checked(admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, classroom_ids: roomIds, accepted_at: null }, { onConflict: 'school_id,email' }))
         if (error) throw error
         const { data: school } = await checked(admin.from('schools').select('name').eq('id', b.school_id).single())
         const delivery = await queueSchoolInvite(admin, inviteEmail, school.name, b.role, `${b.school_id}-${inviteEmail}-${Date.now()}`)

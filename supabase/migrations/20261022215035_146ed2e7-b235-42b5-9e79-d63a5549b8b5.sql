@@ -1,0 +1,1 @@
+ALTER TABLE public.school_invites ADD COLUMN IF NOT EXISTS classroom_ids uuid[] NOT NULL DEFAULT '{}';

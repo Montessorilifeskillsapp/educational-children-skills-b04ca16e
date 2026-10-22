@@ -12,7 +12,7 @@ export const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('school_profile_save'), school_id: uuid, name: text(120), contact_email: z.string().trim().email().max(255) }).strict(),
   z.object({ action: z.literal('classroom_delete'), id: uuid }).strict(),
   z.object({ action: z.literal('staff_assign'), classroom_id: uuid, member_id: uuid, assigned: z.boolean() }).strict(),
-  z.object({ action: z.literal('invite'), school_id: uuid, email: z.string().email().max(255), role }).strict(),
+  z.object({ action: z.literal('invite'), school_id: uuid, email: z.string().email().max(255), role, classroom_ids: z.array(uuid).max(50).optional() }).strict(),
   z.object({ action: z.literal('invite_cancel'), id: uuid }).strict(),
   z.object({ action: z.literal('member_role'), id: uuid, role }).strict(),
   z.object({ action: z.literal('member_remove'), id: uuid }).strict(),

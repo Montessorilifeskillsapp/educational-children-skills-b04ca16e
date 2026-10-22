@@ -20,7 +20,7 @@ export async function queueSchoolInvite(admin: any, to: string, schoolName: stri
 
 // Never consume an invitation before its membership write succeeds.
 // deno-lint-ignore no-explicit-any
-export async function acceptSchoolInvite(admin: any, inv: { id: string; school_id: string; role: string }, uid: string, email: string) {
+export async function acceptSchoolInvite(admin: any, inv: { id: string; school_id: string; role: string; classroom_ids?: string[] | null }, uid: string, email: string) {
   const { data: existing, error: lookupError } = await admin.from('school_members').select('id').eq('school_id', inv.school_id).eq('user_id', uid).maybeSingle();
   if (lookupError) throw lookupError;
   if (!existing) {
@@ -28,6 +28,15 @@ export async function acceptSchoolInvite(admin: any, inv: { id: string; school_i
     if (profileError) throw profileError;
     const { error } = await admin.from('school_members').insert({ school_id: inv.school_id, user_id: uid, email, role: inv.role, full_name: prof?.full_name ?? null });
     if (error) throw error;
+  }
+  const rooms = inv.classroom_ids ?? [];
+  if (rooms.length && inv.role !== 'school_admin') {
+    const { data: member, error: memberError } = await admin.from('school_members').select('id').eq('school_id', inv.school_id).eq('user_id', uid).single();
+    if (memberError) throw memberError;
+    const { data: valid, error: roomError } = await admin.from('classrooms').select('id').eq('school_id', inv.school_id).in('id', rooms);
+    if (roomError) throw roomError;
+    const rows = (valid ?? []).map((c: { id: string }) => ({ classroom_id: c.id, member_id: member.id }));
+    if (rows.length) { const { error: assignError } = await admin.from('classroom_staff').upsert(rows); if (assignError) throw assignError; }
   }
   const { error } = await admin.from('school_invites').update({ accepted_at: new Date().toISOString() }).eq('id', inv.id);
   if (error) throw error;

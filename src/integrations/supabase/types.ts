@@ -697,6 +697,7 @@ export type Database = {
       school_invites: {
         Row: {
           accepted_at: string | null
+          classroom_ids: string[]
           created_at: string
           email: string
           id: string
@@ -705,6 +706,7 @@ export type Database = {
         }
         Insert: {
           accepted_at?: string | null
+          classroom_ids?: string[]
           created_at?: string
           email: string
           id?: string
@@ -713,6 +715,7 @@ export type Database = {
         }
         Update: {
           accepted_at?: string | null
+          classroom_ids?: string[]
           created_at?: string
           email?: string
           id?: string
