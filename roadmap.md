@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] 0–3 foundation: stage types, four areas, empty hidden registry, plane resolvers, tests. Content build-out deferred by user.
 - [x] School privacy hardening: deployed classroom-scoped RLS, strict plain-text/date validation, plan-student isolation, admin Change history, and atomic student erasure with confirmation; 96 app tests and six service-schema tests pass, preview build OK. Signed-in use is not verified.
 - [ ] Validate student erasure, Change history and classroom isolation with real school accounts — blocked by external unmanaged authentication; no production student data was deleted for testing.
 - [ ] Independent security assessment, encryption/backup-retention evidence, and recovery exercise — blocked by access to the school's production security configuration and independent assessment resources; basic scan excludes deep code analysis and 64 pre-existing database warnings remain.
