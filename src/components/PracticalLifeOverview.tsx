@@ -90,7 +90,7 @@ const categoryDetails: Record<string, { emoji: string; description: string }> = 
   },
   'Grace and Courtesy': {
     emoji: '🤝',
-    description: 'Social skills and polite behaviours that help children interact respectfully, confidently and peacefully with others.'
+    description: 'Social skills and polite behaviors that help children interact respectfully, confidently and peacefully with others.'
   },
   'Advanced Activities': {
     emoji: '✨',

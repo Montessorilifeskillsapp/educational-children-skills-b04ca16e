@@ -53,7 +53,7 @@ const AMI_MATH_GROUPS = [
   {
     key: 'stage-6',
     emoji: '🧠',
-    title: 'Memorisation of Number Facts',
+    title: 'Memorization of Number Facts',
     description: 'Committing addition, subtraction, multiplication, and division facts to memory.',
     skillIds: ['addition-strip-board', 'subtraction-strip-board', 'multiplication-board', 'division-board'],
   },
@@ -100,8 +100,8 @@ const MathSkills: React.FC<MathSkillsProps> = ({
   return (
     <CurriculumSection
       title="🧮 Mathematics"
-      intro="The mathematical mind is built through materialised abstraction. Each material prepares the next indirectly, so the child moves from quantity to symbol to operation without ever being rushed."
-      sequence="Numbers 1–10 → Decimal System → Linear Counting → Snake Games → Stamp Game → Memorisation → Abstraction → Fractions"
+      intro="The mathematical mind is built through materialized abstraction. Each material prepares the next indirectly, so the child moves from quantity to symbol to operation without ever being rushed."
+      sequence="Numbers 1–10 → Decimal System → Linear Counting → Snake Games → Stamp Game → Memorization → Abstraction → Fractions"
       groups={groups}
       shopCategory="Mathematics"
       className={montessoriTheme.backgrounds.math}

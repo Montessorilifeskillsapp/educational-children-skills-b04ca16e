@@ -54,7 +54,7 @@ const CULTURAL_GROUPS = [
     emoji: '🌏',
     title: 'World Cultures',
     description:
-      'The most advanced cultural work: recognising that people everywhere meet the same human needs in different ways — in dress, food and celebration.',
+      'The most advanced cultural work: recognizing that people everywhere meet the same human needs in different ways — in dress, food and celebration.',
     skillIds: ['flags-of-the-world', 'traditional-clothing', 'food-around-the-world', 'celebrations-traditions'],
   },
 ];

@@ -146,7 +146,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                         <span className="bg-primary/60" style={{ width: `${(pr / total) * 100}%` }} />
                         <span className="bg-primary/30" style={{ width: `${(ps / total) * 100}%` }} />
                       </span>
-                      <span className="block mt-1 text-[11px] text-muted-foreground">{m} mastered · {pr} practising · {ps} presented</span>
+                      <span className="block mt-1 text-[11px] text-muted-foreground">{m} mastered · {pr} practicing · {ps} presented</span>
                     </button>
                   </li>
                 );

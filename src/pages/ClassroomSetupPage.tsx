@@ -30,7 +30,7 @@ const PRINCIPLES = [
   },
   {
     title: 'Freedom within limits',
-    body: 'The child is free to choose work, to work with it for as long as they wish, and to repeat it — provided the work is not misused and does not disturb others. Freedom is built on discipline, not licence.',
+    body: 'The child is free to choose work, to work with it for as long as they wish, and to repeat it — provided the work is not misused and does not disturb others. Freedom is built on discipline, not license.',
   },
   {
     title: 'Child-sized proportions',
@@ -65,7 +65,7 @@ const AREAS = [
     groups: [
       'Visual — pink tower, brown stair, red rods, knobbed cylinders',
       'Tactile — touch boards, touch tablets, fabric box',
-      'Chromatic — colour tablets, boxes one through three',
+      'Chromatic — color tablets, boxes one through three',
       'Auditory — sound cylinders, the bells',
       'Baric, thermic, and stereognostic — baric tablets, thermic bottles, mystery bag',
       'Olfactory and gustatory — smelling bottles, tasting exercises',
@@ -95,7 +95,7 @@ const AREAS = [
     groups: [
       'Numbers one to ten — number rods, sandpaper numbers, spindle box, cards and counters',
       'The decimal system — golden beads: unit, ten, hundred, thousand',
-      'Teens and tens — Seguin boards, coloured bead stair',
+      'Teens and tens — Seguin boards, colored bead stair',
       'Linear counting — the hundred chain and thousand chain',
       'Memorization — addition, subtraction, multiplication and division tables',
     ],
@@ -107,7 +107,7 @@ const AREAS = [
     position: 'Woven through the environment from the start.',
     image: sandpaperGlobe,
     groups: [
-      'Geography — land and water forms, sandpaper and coloured globes, puzzle maps',
+      'Geography — land and water forms, sandpaper and colored globes, puzzle maps',
       'Botany — leaf cabinet, parts of a plant, care of plants in the room',
       'Zoology — classification of the animal kingdom, care of classroom animals',
       'Art and music — real art at child height, singing, the bells',
@@ -119,14 +119,14 @@ const AREAS = [
 const SHELF_RULES = [
   'Materials are arranged left to right, top to bottom, simplest to most complex — the order in which the child reads and the order in which the sequence unfolds.',
   'Every activity is complete and self-contained on its own tray, basket, or stand. Nothing is missing; nothing extra is added.',
-  'Each material isolates one difficulty. A pouring set does not also teach colour; a dressing frame does not also teach language.',
+  'Each material isolates one difficulty. A pouring set does not also teach color; a dressing frame does not also teach language.',
   'Wherever possible the material carries a control of error — the child can see the mistake without an adult pointing it out.',
   'Broken, incomplete, or worn materials are repaired or removed the same day. An incomplete set is worse than none at all.',
   'Low, open shelving lets the child see the whole room\u2019s work at a glance and choose freely.',
 ];
 
 const ADULT_RULES = [
-  'Prepare the environment, then step back. The adult is the link between the child and the environment — not the centre of it.',
+  'Prepare the environment, then step back. The adult is the link between the child and the environment — not the center of it.',
   'Observe before intervening. Most "problems" resolve when the child is given time.',
   'Present each activity individually, slowly, with precise and economical movements. Analysis of movement: every motion is shown clearly enough for the child to imitate.',
   'Present, then withdraw. The child learns through repetition, not through the adult\u2019s commentary.',

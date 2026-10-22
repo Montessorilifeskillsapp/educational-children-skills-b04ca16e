@@ -28,7 +28,7 @@ const AMI_GEOGRAPHY_GROUPS = [
     emoji: '🌍',
     title: 'The Globes and Continents',
     description:
-      'From the sandpaper globe to the coloured globe and puzzle maps, the child builds a first impression of the whole earth and its continents and oceans.',
+      'From the sandpaper globe to the colored globe and puzzle maps, the child builds a first impression of the whole earth and its continents and oceans.',
     skillIds: ['continents', 'oceans'],
   },
   {
@@ -44,7 +44,7 @@ const AMI_GEOGRAPHY_GROUPS = [
     emoji: '🏳️',
     title: 'Countries, Flags and Climate',
     description:
-      'The most advanced geography work: naming countries and capitals, recognising flags, and understanding how climate shapes life on earth.',
+      'The most advanced geography work: naming countries and capitals, recognizing flags, and understanding how climate shapes life on earth.',
     skillIds: ['countries-capitals', 'world-flags', 'climate-zones'],
   },
 ];

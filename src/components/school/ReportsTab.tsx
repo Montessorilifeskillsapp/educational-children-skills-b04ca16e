@@ -133,7 +133,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
               <button type="button" onClick={() => setStyleOpen(!styleOpen)} aria-expanded={styleOpen}
                 className="w-full flex items-center justify-between gap-2 px-4 py-3 min-h-11 text-left">
                 <span className="flex items-center gap-2 font-medium text-foreground"><Palette className="h-4 w-4" />School report style</span>
-                <span className="text-sm text-muted-foreground">{styleOpen ? 'Close' : 'Customise'}</span>
+                <span className="text-sm text-muted-foreground">{styleOpen ? 'Close' : 'Customize'}</span>
               </button>
               {styleOpen && (
                 <div className="grid gap-3 px-4 pb-4 sm:grid-cols-2">

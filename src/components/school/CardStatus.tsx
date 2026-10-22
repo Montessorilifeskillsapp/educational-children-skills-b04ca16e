@@ -2,7 +2,7 @@ import { X } from 'lucide-react';
 import { useAuthContext } from '@/components/AuthProvider';
 import { setFocus, useFocusStudent } from './focusStudent';
 
-const LABEL = { presented: 'Presented', practising: 'Practising', mastered: 'Working independently' } as const;
+const LABEL = { presented: 'Presented', practising: 'Practicing', mastered: 'Working independently' } as const;
 const STYLE = {
   presented: 'bg-accent text-accent-foreground',
   practising: 'bg-secondary text-secondary-foreground',

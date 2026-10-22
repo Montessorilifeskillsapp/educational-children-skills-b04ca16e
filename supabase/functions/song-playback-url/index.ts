@@ -111,7 +111,7 @@ Deno.serve(async (req) => {
           const ext = (song.storage_path.split('.').pop() || 'mp3').toLowerCase();
           const safe = song.title.replace(/[^a-z0-9 \-]/gi, '').trim() || 'song';
           const { data: dl } = await admin.storage.from(BUCKET).createSignedUrl(song.storage_path, SIGNED_URL_TTL, {
-            download: `${safe} - Montessori Life Skills (Household Licence).${ext}`,
+            download: `${safe} - Montessori Life Skills (Household License).${ext}`,
           });
           downloadUrl = dl?.signedUrl ?? null;
         }

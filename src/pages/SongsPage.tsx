@@ -144,20 +144,20 @@ const SongsPage: React.FC = () => {
         <Dialog open={signOpen} onOpenChange={(o) => !busy && setSignOpen(o)}>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle>Sign the Household Licence Agreement</DialogTitle>
+              <DialogTitle>Sign the Household License Agreement</DialogTitle>
               <DialogDescription>
-                Before purchasing, please read and sign the licence for Kerry's Montessori Songs.
+                Before purchasing, please read and sign the license for Kerry's Montessori Songs.
                 You may download the songs for private use within your own household only. They may not be used in any school, classroom, daycare, co-op, camp or other group setting.
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
               <a href="/songs-licence" target="_blank" rel="noopener" className="text-sm text-primary underline inline-flex items-center gap-1">
-                Read the full licence agreement <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
+                Read the full license agreement <ExternalLink className="w-3.5 h-3.5" aria-hidden="true" />
               </a>
               <div className="flex items-start gap-3">
                 <Checkbox id="licence-agree" checked={agreed} onCheckedChange={(v) => setAgreed(v === true)} />
                 <Label htmlFor="licence-agree" className="text-sm leading-snug font-normal">
-                  I have read and agree to the Household Licence Agreement, and confirm this purchase is for my household only, not for any school, childcare or group use.
+                  I have read and agree to the Household License Agreement, and confirm this purchase is for my household only, not for any school, childcare or group use.
                 </Label>
               </div>
               <div className="space-y-1.5">
@@ -328,19 +328,19 @@ const SongsPage: React.FC = () => {
                   <School className="w-5 h-5" aria-hidden="true" />
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Schools: one licence for everything</h3>
+                  <h3 className="font-semibold text-foreground">Schools: one license for everything</h3>
                   <p className="text-sm text-muted-foreground">
-                    For schools, the songs are part of a single school licence that also covers the
+                    For schools, the songs are part of a single school license that also covers the
                     curriculum app and the School Portal. Arranged directly with Kerry.{' '}
-                    <a href="/songs-licence" className="underline">Read the licence agreement</a>
+                    <a href="/songs-licence" className="underline">Read the license agreement</a>
                   </p>
                 </div>
               </div>
               <Button asChild variant="outline" className="shrink-0">
                 <a
-                  href="mailto:montessorilifeskills@gmail.com?subject=School%20licence%3A%20app%2C%20School%20Portal%20and%20songs"
+                  href="mailto:montessorilifeskills@gmail.com?subject=School%20license%3A%20app%2C%20School%20Portal%20and%20songs"
                 >
-                  Ask Kerry about a school licence
+                  Ask Kerry about a school license
                 </a>
               </Button>
             </CardContent>

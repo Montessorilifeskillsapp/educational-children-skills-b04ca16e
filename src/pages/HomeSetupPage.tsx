@@ -57,7 +57,7 @@ const STEPS = [
   },
   {
     title: 'Follow your child’s interests',
-    body: 'Observe what attracts your child and which skills they are ready to practise. Change activities gradually rather than replacing everything at once.',
+    body: 'Observe what attracts your child and which skills they are ready to practice. Change activities gradually rather than replacing everything at once.',
   },
   {
     title: 'Keep the atmosphere calm',
@@ -84,7 +84,7 @@ const HomeSetupPage: React.FC = () => {
   useSEO({
     title: 'How to Set Up a Montessori Learning Space at Home',
     description:
-      'Set up a calm, organised Montessori learning space at home without a large classroom or expensive materials. Practical Life–first guide for parents and caregivers.',
+      'Set up a calm, organized Montessori learning space at home without a large classroom or expensive materials. Practical Life–first guide for parents and caregivers.',
     canonical: 'https://montessorilifeskillsapp.com/home-setup',
   });
 
@@ -106,7 +106,7 @@ const HomeSetupPage: React.FC = () => {
           </h1>
           <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
             You do not need a large classroom or expensive materials to bring Montessori into your home.
-            Begin with one small, calm, organised area where your child can work independently.
+            Begin with one small, calm, organized area where your child can work independently.
           </p>
         </div>
       </section>

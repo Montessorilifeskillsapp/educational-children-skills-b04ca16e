@@ -24,9 +24,9 @@ const ART_GROUPS = [
   {
     key: 'colour',
     emoji: '🎨',
-    title: 'Exploring Colour',
+    title: 'Exploring Color',
     description:
-      'After the hand is prepared, the child isolates colour — first the three primaries, then discovering the secondaries by mixing them.',
+      'After the hand is prepared, the child isolates color — first the three primaries, then discovering the secondaries by mixing them.',
     skillIds: ['primary-colors', 'color-mixing'],
   },
   {
@@ -34,7 +34,7 @@ const ART_GROUPS = [
     emoji: '🖌️',
     title: 'Painting',
     description:
-      'The most advanced art work: managing water, brush and pigment with care, from direct finger painting to controlled watercolour.',
+      'The most advanced art work: managing water, brush and pigment with care, from direct finger painting to controlled watercolor.',
     skillIds: ['finger-painting', 'watercolor-basics'],
   },
 ];
@@ -60,8 +60,8 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
   return (
     <CurriculumSection
       title="🎨 Art"
-      intro="Montessori art gives the child real tools and real technique. Each activity isolates one skill — line, colour or brushwork — so creative expression rests on genuine ability."
-      sequence="First Marks and Drawing → Exploring Colour → Painting"
+      intro="Montessori art gives the child real tools and real technique. Each activity isolates one skill — line, color or brushwork — so creative expression rests on genuine ability."
+      sequence="First Marks and Drawing → Exploring Color → Painting"
       groups={groups}
       shopCategory="Art"
       className={montessoriTheme.backgrounds.art}

@@ -39,7 +39,7 @@ describe('student observation recording', () => {
   });
   it('does not write when selecting an observation; saves the selected child and note only on submission', async () => {
     call.mockResolvedValue({}); mount();
-    fireEvent.click(screen.getByRole('radio', { name: /Practising/ }));
+    fireEvent.click(screen.getByRole('radio', { name: /Practicing/ }));
     fireEvent.change(screen.getByLabelText('Observation notes'), { target: { value: 'Repeated pouring without spilling.' } });
     expect(call).not.toHaveBeenCalled();
     fireEvent.click(screen.getByRole('button', { name: 'Save observation' }));

@@ -181,7 +181,7 @@ serve(async (req) => {
       if (!user) throw new CheckoutError("Sign in to purchase the song collection.", 401);
       const signedName = typeof licenceSignature?.name === "string" ? licenceSignature.name.trim().slice(0, 120) : "";
       if (signedName.length < 2 || licenceSignature?.agreed !== true) {
-        throw new CheckoutError("Please read and sign the Household Licence Agreement before purchasing.", 400);
+        throw new CheckoutError("Please read and sign the Household License Agreement before purchasing.", 400);
       }
       const signedAt = new Date().toISOString();
       logStep("Songs bundle checkout", { userId: user.id, licenceSigned: true });
@@ -205,14 +205,14 @@ serve(async (req) => {
         metadata: {
           planId: "songs-bundle",
           userId: user.id,
-          licence: "household-songs-licence",
+          license: "household-songs-licence",
           licenceVersion: "2026-10-20",
           licenceSignedName: signedName,
           licenceSignedEmail: user.email,
           licenceSignedAt: signedAt,
         },
         payment_intent_data: {
-          metadata: { licence: "household-songs-licence", licenceVersion: "2026-10-20", licenceSignedName: signedName, licenceSignedAt: signedAt },
+          metadata: { license: "household-songs-licence", licenceVersion: "2026-10-20", licenceSignedName: signedName, licenceSignedAt: signedAt },
         },
       });
       logStep("Songs checkout session created", { sessionId: songsSession.id });
