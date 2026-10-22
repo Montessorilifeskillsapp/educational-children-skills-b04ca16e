@@ -1,0 +1,36 @@
+import { assertEquals } from 'https://deno.land/std@0.224.0/assert/mod.ts'
+import { Body } from './body.ts'
+
+const school = '00000000-0000-4000-8000-000000000001'
+const member = '00000000-0000-4000-8000-000000000002'
+Deno.test('student save preserves health and support notes', () => {
+  const result = Body.safeParse({ action: 'student_save', classroom_id: school, name: 'Child', health_notes: 'Nut allergy', support_notes: 'Quiet space' })
+  assertEquals(result.success, true)
+  if (result.success) {
+    assertEquals(result.data.health_notes, 'Nut allergy')
+    assertEquals(result.data.support_notes, 'Quiet space')
+  }
+})
+Deno.test('classroom save preserves age group and Lead Guide', () => {
+  const result = Body.safeParse({ action: 'classroom_save', school_id: school, name: 'Classroom', age_group: '3–6 years', lead_member_id: member })
+  assertEquals(result.success, true)
+  if (result.success) {
+    assertEquals(result.data.age_group, '3–6 years')
+    assertEquals(result.data.lead_member_id, member)
+  }
+})
+Deno.test('school profile action accepts required official email', () => {
+  assertEquals(Body.safeParse({ action: 'school_profile_save', school_id: school, name: 'School', contact_email: 'office@example.org' }).success, true)
+  assertEquals(Body.safeParse({ action: 'school_profile_save', school_id: school, name: 'School' }).success, false)
+})
+Deno.test('schema drift and reversed report dates are rejected', () => {
+  assertEquals(Body.safeParse({ action: 'student_save', classroom_id: school, name: 'Child', unexpected: 'ignored?' }).success, false)
+  assertEquals(Body.safeParse({ action: 'report_record', student_id: member, period_start: '2026-10-22', period_end: '2026-10-01', title: 'Report', body: 'Notes' }).success, false)
+})
+Deno.test('permanent deletion requires explicit confirmation', () => {
+  assertEquals(Body.safeParse({ action: 'student_delete', id: member }).success, false)
+  assertEquals(Body.safeParse({ action: 'student_delete', id: member, confirmation: 'DELETE' }).success, true)
+})
+Deno.test('app Gmail report sending is not an available school action', () => {
+  assertEquals(Body.safeParse({ action: 'report_send', student_id: member }).success, false)
+})
