@@ -1,4 +1,5 @@
 import { X } from 'lucide-react';
+import { useAuthContext } from '@/components/AuthProvider';
 import { setFocus, useFocusStudent } from './focusStudent';
 
 const LABEL = { presented: 'Presented', practising: 'Practising', mastered: 'Working independently' } as const;
@@ -11,7 +12,8 @@ const STYLE = {
 /** Status of the focused School Portal student for this activity. Renders nothing for families and visitors. */
 export default function CardStatus({ skillId }: { skillId: string }) {
   const focus = useFocusStudent();
-  if (!focus) return null;
+  const { user } = useAuthContext();
+  if (!focus || !user) return null;
   const status = focus.statuses[skillId];
   return (
     <div className="flex justify-center mb-2" data-testid="school-card-status">
@@ -25,7 +27,8 @@ export default function CardStatus({ skillId }: { skillId: string }) {
 /** Small bar telling staff whose statuses the cards show, with a way to stop showing them. */
 export function FocusBar() {
   const focus = useFocusStudent();
-  if (!focus) return null;
+  const { user } = useAuthContext();
+  if (!focus || !user) return null;
   return (
     <div className="mb-4 flex items-center justify-between gap-2 rounded-lg border border-border bg-muted px-3 py-2 text-sm text-foreground print:hidden">
       <span>Showing <strong>{focus.name}</strong>'s recorded progress on each activity.</span>
