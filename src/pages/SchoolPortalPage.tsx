@@ -161,7 +161,7 @@ export default function SchoolPortalPage() {
           <div className="mx-auto flex min-w-0 items-center gap-1 overflow-x-auto [scrollbar-width:none]">
             {leadership
               ? <button type="button" onClick={() => go('overview')} className="shrink-0 rounded-full px-4 py-2 text-sm font-medium text-primary hover:bg-card">← Back to classroom</button>
-              : classroomNav.map((n) => pill(n, n.v !== 'overview' && !classroom))}
+              : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
           </div>
           <div className="flex shrink-0 items-center gap-1">
             {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full" onClick={() => go('staff')}>School settings</Button>}
@@ -240,6 +240,7 @@ export default function SchoolPortalPage() {
                 </TabsContent>
               </>
             )}
+            <TabsContent value="curriculum" className="mt-0"><CurriculumTab /></TabsContent>
             {can.manageSchool(role) && (
               <TabsContent value="history" className="mt-0">
                 {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}
