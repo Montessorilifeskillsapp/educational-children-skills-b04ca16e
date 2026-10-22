@@ -213,7 +213,6 @@ const ALIASES: Record<string, string> = {
   'black and white verification stair': 'Black and white bead stair',
   'black and white bead stair': 'Black and white bead stair',
   'colored bead bars': 'Colored bead stair (1–9)',
-  'colored bead bars': 'Colored bead stair (1–9)',
   'colored bead stair': 'Colored bead stair (1–9)',
   'colored bead stair (1-9)': 'Colored bead stair (1–9)',
   'gray bead bars': 'Gray bead stair',
