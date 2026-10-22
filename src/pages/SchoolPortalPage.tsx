@@ -138,7 +138,7 @@ export default function SchoolPortalPage() {
     const active = tab === n.v;
     return (
       <button key={n.v} type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
-        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground font-medium' : 'text-muted-foreground hover:bg-card hover:text-foreground'}`}>
+        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base transition-colors disabled:opacity-40 ${active ? 'bg-primary text-foreground font-medium' : 'text-foreground hover:bg-card'}`}>
         {n.label}
       </button>
     );
@@ -161,12 +161,12 @@ export default function SchoolPortalPage() {
             )}
             <div className="order-last flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none] min-[1500px]:order-none min-[1500px]:w-auto min-[1500px]:flex-1 min-[1500px]:justify-center min-[1500px]:overflow-visible">
               {leadership
-                ? <button type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base font-medium text-primary hover:bg-card">← Back to classroom</button>
+                ? <button type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base font-medium text-foreground hover:bg-card">← Back to classroom</button>
                 : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
             </div>
             <div className="ml-auto flex shrink-0 items-center gap-1 min-[1500px]:ml-0">
-              {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap" onClick={() => go('staff')}>School settings</Button>}
-              <button type="button" className="hidden md:inline-flex whitespace-nowrap rounded-full px-3 py-2 text-xs text-muted-foreground hover:text-foreground" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
+              {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap text-foreground" onClick={() => go('staff')}>School settings</Button>}
+              <button type="button" className="hidden md:inline-flex whitespace-nowrap rounded-full px-3 py-2 text-xs text-foreground hover:bg-card" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
             </div>
           </div>
         </nav>
