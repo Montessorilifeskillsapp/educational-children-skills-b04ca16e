@@ -1,5 +1,4 @@
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
-import { getActivityImage } from '@/lib/activityImages';
 
 export interface SkillRef { id: string; title: string; areaKey: string; areaTitle: string; route: string; order: number }
 
@@ -46,13 +45,4 @@ export function nextSuggestions(records: { skill_id: string; status: string }[])
     if (next) out.push(next);
   }
   return out;
-}
-
-/** Exact activity photograph, if the app has one; never a neighbouring activity's photo. */
-export function skillImage(id: string): string | undefined {
-  for (const s of curriculumSectionsForMaterials) {
-    const sk = s.skills[id];
-    if (sk) return getActivityImage(id, sk as { category?: string });
-  }
-  return undefined;
 }
