@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
@@ -20,7 +19,7 @@ import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
 import RoleBanner from '@/components/school/RoleBanner';
-import ClassroomPulse from '@/components/school/ClassroomPulse';
+import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
@@ -44,6 +43,14 @@ export default function SchoolPortalPage() {
   const goBack = () => { if (!allowSchoolNavigation()) return; if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
+  // The portal's display typeface loads only here so the public app is unaffected.
+  useEffect(() => {
+    if (document.getElementById('school-portal-font')) return;
+    const l = document.createElement('link');
+    l.id = 'school-portal-font'; l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap';
+    document.head.appendChild(l);
+  }, []);
   // Remember the exact portal spot so activity pages can offer "Return to School Portal".
   useEffect(() => {
     rememberSchoolReturn(window.location.pathname + window.location.search);
@@ -106,7 +113,6 @@ export default function SchoolPortalPage() {
   const studentIds = new Set(students.map((s) => s.id));
   const progress = data.progress.filter((p) => studentIds.has(p.student_id));
   const plans = data.plans.filter((p) => p.classroom_id === classroomId);
-  const weekAgo = new Date(Date.now() - 7 * 864e5).toISOString();
   const twoWeeksAgo = new Date(Date.now() - 14 * 864e5).toISOString();
   const overlooked = students.filter((s) => !progress.some((p) => p.student_id === s.id && p.updated_at >= twoWeeksAgo));
 
