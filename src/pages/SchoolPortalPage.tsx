@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
@@ -20,7 +19,7 @@ import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
 import RoleBanner from '@/components/school/RoleBanner';
-import ClassroomPulse from '@/components/school/ClassroomPulse';
+import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
@@ -44,6 +43,14 @@ export default function SchoolPortalPage() {
   const goBack = () => { if (!allowSchoolNavigation()) return; if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
+  // The portal's display typeface loads only here so the public app is unaffected.
+  useEffect(() => {
+    if (document.getElementById('school-portal-font')) return;
+    const l = document.createElement('link');
+    l.id = 'school-portal-font'; l.rel = 'stylesheet';
+    l.href = 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap';
+    document.head.appendChild(l);
+  }, []);
   // Remember the exact portal spot so activity pages can offer "Return to School Portal".
   useEffect(() => {
     rememberSchoolReturn(window.location.pathname + window.location.search);
@@ -106,146 +113,168 @@ export default function SchoolPortalPage() {
   const studentIds = new Set(students.map((s) => s.id));
   const progress = data.progress.filter((p) => studentIds.has(p.student_id));
   const plans = data.plans.filter((p) => p.classroom_id === classroomId);
-  const weekAgo = new Date(Date.now() - 7 * 864e5).toISOString();
   const twoWeeksAgo = new Date(Date.now() - 14 * 864e5).toISOString();
   const overlooked = students.filter((s) => !progress.some((p) => p.student_id === s.id && p.updated_at >= twoWeeksAgo));
 
+  const classroomNav = [
+    { v: 'overview', label: "Today's lessons" },
+    { v: 'progress', label: 'Record progress' },
+    { v: 'roster', label: 'Children' },
+    { v: 'planning', label: 'Lesson planning' },
+    { v: 'reports', label: 'Parent reports' },
+  ];
+  const leadershipNav = [
+    { v: 'staff', label: 'Classrooms & staff' },
+    { v: 'review', label: 'School-wide review' },
+    { v: 'activity', label: 'Staff activity' },
+    { v: 'history', label: 'Change history' },
+  ];
+  const leadership = leadershipNav.some((n) => n.v === tab);
+  const currentLabel = [...classroomNav, ...leadershipNav].find((n) => n.v === tab)?.label ?? "Today's lessons";
+  const go = (v: string) => { if (v !== tab && allowSchoolNavigation()) { setOpenStudent(null); setTab(v); } };
+  const todayCount = plans.filter((p) => p.plan_date === new Date().toLocaleDateString('en-CA')).length;
+  const navLink = (n: { v: string; label: string }) => {
+    const disabled = !leadershipNav.some((l) => l.v === n.v) && n.v !== 'overview' && !classroom;
+    const active = tab === n.v;
+    return (
+      <button key={n.v} type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
+        className={`shrink-0 whitespace-nowrap border-b-2 py-2 text-[0.95rem] transition-colors disabled:opacity-40 ${active ? 'border-primary text-foreground font-medium' : 'border-transparent text-muted-foreground hover:text-foreground'}`}>
+        {n.label}
+      </button>
+    );
+  };
+
   return (
-    <div className="min-h-screen p-4 md:p-6 max-w-6xl mx-auto space-y-4">
-      <div className="print:hidden flex items-center justify-between gap-3">
-        {atPortalHome
-          ? <Button variant="ghost" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit portal</Button>
-          : <BackButton onClick={goBack} />}
-        <Button variant="outline" size="sm" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Browse app</Button>
-      </div>
-      <header className="flex items-end justify-between gap-4 flex-wrap print:hidden rounded-3xl border border-border bg-gradient-to-br from-muted via-background to-accent/20 p-6 md:p-8">
-        <div>
-          <p className="text-xs font-medium uppercase tracking-widest text-primary">{school.name}</p>
-          <h1 className="mt-1 font-serif text-3xl md:text-4xl text-foreground">{role === 'school_admin' ? 'School Administration' : role === 'teacher' ? 'Teacher Workspace' : 'Assistant Workspace'}</h1>
-          <p className="mt-1 text-muted-foreground">{classroom ? `${classroom.name}${classroom.age_group ? ` · ${classroom.age_group}` : ''} · ` : ''}{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
-        </div>
-        <div className="flex gap-2 flex-wrap">
-          {realRole === 'school_admin' && (
-            <Select value={role} onValueChange={(v) => setPreviewRole(v === 'school_admin' ? null : v as SchoolRole)}>
-              <SelectTrigger className="w-48" aria-label="View as"><span className="text-muted-foreground mr-1">View as:</span><SelectValue /></SelectTrigger>
-              <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
-            </Select>
-          )}
-          {memberships.length > 1 && (
-            <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
-              <SelectTrigger className="w-48"><SelectValue /></SelectTrigger>
-              <SelectContent>{memberships.map((m) => <SelectItem key={m.school_id} value={m.school_id}>{m.schools.name}</SelectItem>)}</SelectContent>
-            </Select>
-          )}
-          {visibleRooms.length > 0 && (
-            <Select value={classroomId ?? ''} onValueChange={(id) => { if (allowSchoolNavigation()) setClassroomId(id); }}>
-              <SelectTrigger className="w-48"><SelectValue placeholder="Classroom" /></SelectTrigger>
-              <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
-            </Select>
-          )}
-        </div>
-      </header>
+    <div className="school-theme min-h-screen">
+      <div className="mx-auto max-w-6xl px-5 md:px-8 pb-16">
+        <nav aria-label="School Portal" className="print:hidden flex items-center gap-4 py-5">
+          <button type="button" onClick={() => go('overview')} className="flex min-w-0 items-center gap-3 text-left">
+            <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-card font-display text-lg text-primary shadow-sm border border-border">{school.name.trim().charAt(0).toUpperCase()}</span>
+            <span className="min-w-0">
+              <span className="block truncate font-display text-lg leading-tight text-foreground">{school.name}</span>
+              <span className="block text-xs text-muted-foreground">School Portal · {ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</span>
+            </span>
+          </button>
+          <div className="ml-auto flex items-center gap-2">
+            {!atPortalHome && <Button variant="ghost" size="sm" className="rounded-full" onClick={goBack}>Back</Button>}
+            <Button variant="ghost" size="sm" className="hidden sm:inline-flex rounded-full" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Exit portal</Button>
+            <button type="button" className="school-cta rounded-full px-5 py-2.5 text-sm font-semibold" onClick={() => { if (allowSchoolNavigation()) navigate('/?from=school#curriculum'); }}>Browse app</button>
+          </div>
+        </nav>
 
-      <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />
-
-      {dataError && <div role="alert" className="flex items-center gap-3 text-destructive"><p>{dataError}</p><Button variant="outline" onClick={() => void reload()}>Retry</Button></div>}
-      {loading ? <LoadingSpinner /> : dataError ? null : (
-        <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }}>
-          {(() => {
-            const leadership = ['staff', 'activity', 'review', 'history'].includes(tab);
-            const t = 'px-4 py-2.5 min-h-11 shrink-0 rounded-lg';
-            return (
-              <div className="space-y-2 print:hidden">
-                {can.manageSchool(role) && (
-                  <div role="tablist" aria-label="Portal area" className="inline-flex rounded-xl border border-border bg-muted p-1 gap-1">
-                    <Button size="sm" variant={leadership ? 'ghost' : 'default'} className="rounded-lg min-h-10 px-4" onClick={() => { if (leadership && allowSchoolNavigation()) setTab('overview'); }}>Classroom</Button>
-                    <Button size="sm" variant={leadership ? 'default' : 'ghost'} className="rounded-lg min-h-10 px-4" onClick={() => { if (!leadership && allowSchoolNavigation()) setTab('staff'); }}>School leadership</Button>
-                  </div>
-                )}
-                <TabsList className="w-full justify-start flex flex-nowrap overflow-x-auto h-auto gap-1 p-1.5 rounded-xl [scrollbar-width:none]">
-                  {leadership ? (<>
-                    <TabsTrigger value="staff" className={t}>Classrooms & staff</TabsTrigger>
-                    <TabsTrigger value="review" className={t}>School-wide review</TabsTrigger>
-                    <TabsTrigger value="activity" className={t}>Staff activity</TabsTrigger>
-                    <TabsTrigger value="history" className={t}>Change history</TabsTrigger>
-                  </>) : (<>
-                    <TabsTrigger value="overview" className={t}>Overview</TabsTrigger>
-                    <TabsTrigger value="progress" disabled={!classroom} className={t}>Record progress</TabsTrigger>
-                    <TabsTrigger value="roster" disabled={!classroom} className={t}>Students</TabsTrigger>
-                    <TabsTrigger value="planning" disabled={!classroom} className={t}>Lesson planning</TabsTrigger>
-                    <TabsTrigger value="reports" disabled={!classroom} className={t}>Parent reports</TabsTrigger>
-                  </>)}
-                </TabsList>
-              </div>
-            );
-          })()}
-
-          <TabsContent value="overview" className="space-y-4">
-            {visibleRooms.length === 0 ? (
-              <Card><CardContent className="pt-6 text-sm text-muted-foreground">
-                {can.manageSchool(role) ? 'Create your first classroom under Classrooms & staff.' : 'You have not been assigned to a classroom yet. Ask your School Admin.'}
-              </CardContent></Card>
-            ) : (
-              <div className="grid gap-4 md:grid-cols-2">
-                {visibleRooms.map((c) => {
-                  const kids = data.students.filter((s) => s.classroom_id === c.id && !s.archived);
-                  const ids = new Set(kids.map((k) => k.id));
-                  const week = data.progress.filter((p) => ids.has(p.student_id) && p.updated_at >= weekAgo).length;
-                  return (
-                    <Card key={c.id} className={`cursor-pointer rounded-xl transition-all hover:border-primary hover:shadow-md ${c.id === classroomId ? 'border-primary' : ''}`} onClick={() => { setClassroomId(c.id); setTab('progress'); }}>
-                      <CardHeader><CardTitle className="text-lg">{c.name}</CardTitle>{c.age_group && <p className="text-xs font-medium text-primary">{c.age_group}</p>}</CardHeader>
-                      <CardContent className="text-sm text-muted-foreground">{kids.length} of {c.seat_limit ?? school.seat_limit} places · {week} records this week</CardContent>
-                    </Card>
-                  );
-                })}
-              </div>
-            )}
-            {classroom && (
-              <ClassroomPulse students={students} progress={progress} classroomName={classroom.name} onOpenStudent={setOpenStudent}
-                onRecord={(sid, sk) => setParams((p) => { const n = new URLSearchParams(p); n.set('tab', 'progress'); n.set('recordStudent', sid); n.set('area', sk.areaKey); n.set('recordActivity', sk.id); return n; }, { replace: true })} />
-            )}
-          </TabsContent>
-
-          {classroom && (
+        <div className="print:hidden flex items-center gap-6 overflow-x-auto border-b border-border [scrollbar-width:none]">
+          {(leadership ? leadershipNav : classroomNav).map(navLink)}
+          {can.manageSchool(role) && (
             <>
-              <TabsContent value="roster">
-                <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} progress={data.progress} onChange={reload} onOpenStudent={setOpenStudent} />
-              </TabsContent>
-              <TabsContent value="progress">
-                <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
-              </TabsContent>
-              <TabsContent value="reports">
-                <ReportsTab role={role} students={students} progress={progress} observations={data.observations} reports={data.reports}
-                  schoolName={school.name} schoolEmail={school.contact_email} onChange={reload} onEditStudent={() => setTab('roster')} userId={user.id} nameOf={nameOf} />
-              </TabsContent>
-              <TabsContent value="planning">
-                <PlanningTab key={planSeed ? planSeed.skill_id : 'plan'} role={role} classroom={classroom} students={students} plans={plans} onChange={reload} initial={planSeed} onInitialUsed={() => setPlanSeed(null)} />
-              </TabsContent>
+              <span aria-hidden className="h-5 w-px shrink-0 bg-border" />
+              <button type="button" onClick={() => go(leadership ? 'overview' : 'staff')} className="shrink-0 whitespace-nowrap py-2 text-[0.95rem] font-medium text-primary hover:underline">
+                {leadership ? '← Back to classroom' : 'School leadership →'}
+              </button>
             </>
           )}
-          {can.manageSchool(role) && (
-            <TabsContent value="history">
-              {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}
+        </div>
+
+        <header className="print:hidden flex flex-wrap items-end justify-between gap-6 pt-10 pb-8">
+          <div className="min-w-0">
+            <p className="school-label">
+              {leadership ? school.name : classroom ? `${classroom.name}${classroom.age_group ? ` · ${classroom.age_group}` : ''}` : school.name}
+              {' · '}{new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })}
+            </p>
+            <h1 className="font-display mt-3 text-4xl md:text-5xl leading-[1.05] text-foreground">{currentLabel}{tab === 'overview' ? '.' : ''}</h1>
+            {tab === 'overview' && classroom && (
+              <p className="mt-3 text-lg text-muted-foreground">
+                {todayCount ? `${todayCount} presentation${todayCount === 1 ? '' : 's'} planned` : 'No presentations planned yet'} · {students.length} children
+                {overlooked.length > 0 && <> · <button type="button" className="underline decoration-dotted underline-offset-4 hover:text-foreground" onClick={() => go('roster')}>{overlooked.length} not observed in two weeks</button></>}
+              </p>
+            )}
+          </div>
+          <div className="flex flex-wrap items-center gap-2">
+            {!leadership && visibleRooms.length > 1 && visibleRooms.map((c) => (
+              <button key={c.id} type="button" onClick={() => { if (c.id !== classroomId && allowSchoolNavigation()) setClassroomId(c.id); }}
+                className={`rounded-full border px-4 py-2 text-sm transition-colors ${c.id === classroomId ? 'border-primary bg-card text-foreground font-medium' : 'border-border text-muted-foreground hover:text-foreground'}`}>
+                {c.name}
+              </button>
+            ))}
+            {memberships.length > 1 && (
+              <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
+                <SelectTrigger className="w-48 rounded-full bg-card" aria-label="School"><SelectValue /></SelectTrigger>
+                <SelectContent>{memberships.map((m) => <SelectItem key={m.school_id} value={m.school_id}>{m.schools.name}</SelectItem>)}</SelectContent>
+              </Select>
+            )}
+            {realRole === 'school_admin' && (
+              <Select value={role} onValueChange={(v) => setPreviewRole(v === 'school_admin' ? null : v as SchoolRole)}>
+                <SelectTrigger className="w-52 rounded-full bg-card" aria-label="View as"><span className="text-muted-foreground mr-1">View as:</span><SelectValue /></SelectTrigger>
+                <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
+              </Select>
+            )}
+          </div>
+        </header>
+
+        {previewing && <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />}
+
+        {dataError && <div role="alert" className="mb-6 flex items-center gap-3 text-destructive"><p>{dataError}</p><Button variant="outline" onClick={() => void reload()}>Retry</Button></div>}
+        {loading ? <LoadingSpinner /> : dataError ? null : (
+          <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }} className="space-y-6">
+            <TabsContent value="overview" className="mt-0">
+              {visibleRooms.length === 0 ? (
+                <div className="school-card p-8 max-w-2xl text-muted-foreground">
+                  {can.manageSchool(role) ? 'Create your first classroom under School leadership → Classrooms & staff.' : 'You have not been assigned to a classroom yet. Ask your School Admin.'}
+                </div>
+              ) : classroom && (
+                students.length === 0 ? (
+                  <div className="school-card p-8 max-w-2xl">
+                    <p className="font-display text-2xl">No children in {classroom.name} yet.</p>
+                    <button type="button" onClick={() => go('roster')} className="mt-4 font-medium text-primary hover:underline">Add children →</button>
+                  </div>
+                ) : (
+                  <TodayLessons students={students} progress={progress} plans={plans} canPlan={can.plan(role)} canRecord={can.recordProgress(role)}
+                    onChange={reload} onPlan={() => go('planning')} onOpenStudent={setOpenStudent}
+                    onRecord={(sid, sk) => setParams((p) => { const n = new URLSearchParams(p); n.set('tab', 'progress'); n.set('recordStudent', sid); n.set('area', sk.areaKey); n.set('recordActivity', sk.id); return n; }, { replace: true })} />
+                )
+              )}
             </TabsContent>
-          )}
-          {can.manageSchool(role) && (
-            <TabsContent value="activity">
-              <StaffActivity data={data} nameOf={nameOf} onOpenStudent={setOpenStudent} />
-            </TabsContent>
-          )}
-          {can.manageSchool(role) && (
-            <TabsContent value="review">
-              <SchoolReview data={data} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
-            </TabsContent>
-          )}
-          {can.manageSchool(role) && schoolId && (
-            <TabsContent value="staff">
-              <StaffPolicies schoolId={schoolId} policies={me.schools.policies} onSaved={loadMe} />
-              <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={() => { reload(); loadMe(); }} seatLimit={school.seat_limit} schoolName={school.name} schoolEmail={school.contact_email} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
-            </TabsContent>
-          )}
-        </Tabs>
-      )}
+
+            {classroom && (
+              <>
+                <TabsContent value="roster" className="mt-0">
+                  <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} progress={data.progress} onChange={reload} onOpenStudent={setOpenStudent} />
+                </TabsContent>
+                <TabsContent value="progress" className="mt-0">
+                  <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
+                </TabsContent>
+                <TabsContent value="reports" className="mt-0">
+                  <ReportsTab role={role} students={students} progress={progress} observations={data.observations} reports={data.reports}
+                    schoolName={school.name} schoolEmail={school.contact_email} onChange={reload} onEditStudent={() => setTab('roster')} userId={user.id} nameOf={nameOf} />
+                </TabsContent>
+                <TabsContent value="planning" className="mt-0">
+                  <PlanningTab key={planSeed ? planSeed.skill_id : 'plan'} role={role} classroom={classroom} students={students} plans={plans} onChange={reload} initial={planSeed} onInitialUsed={() => setPlanSeed(null)} />
+                </TabsContent>
+              </>
+            )}
+            {can.manageSchool(role) && (
+              <TabsContent value="history" className="mt-0">
+                {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}
+              </TabsContent>
+            )}
+            {can.manageSchool(role) && (
+              <TabsContent value="activity" className="mt-0">
+                <StaffActivity data={data} nameOf={nameOf} onOpenStudent={setOpenStudent} />
+              </TabsContent>
+            )}
+            {can.manageSchool(role) && (
+              <TabsContent value="review" className="mt-0">
+                <SchoolReview data={data} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
+              </TabsContent>
+            )}
+            {can.manageSchool(role) && schoolId && (
+              <TabsContent value="staff" className="mt-0 space-y-6">
+                <StaffPolicies schoolId={schoolId} policies={me.schools.policies} onSaved={loadMe} />
+                <StaffTab schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={() => { reload(); loadMe(); }} seatLimit={school.seat_limit} schoolName={school.name} schoolEmail={school.contact_email} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
+              </TabsContent>
+            )}
+          </Tabs>
+        )}
+      </div>
 
       {openStudent && (
         <StudentPanel role={role} userId={user.id} student={data.students.find((s) => s.id === openStudent) ?? null}
