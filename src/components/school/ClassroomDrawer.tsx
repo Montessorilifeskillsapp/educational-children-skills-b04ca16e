@@ -14,6 +14,7 @@ import { useSchoolData } from './useSchoolData';
 import { skillById } from './curriculum';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUSES, STATUS_LABEL, type Status } from './ProgressChooser';
 import { readFocus, updateFocusStatus } from './focusStudent';
+import { NoteList } from './EditableRecords';
 
 const ROOM_KEY = 'school-drawer-room';
 
@@ -57,6 +58,7 @@ export default function ClassroomDrawer() {
 
 function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { memberships: Membership[]; skillId: string; skillTitle: string; areaTitle: string }) {
   const { toast } = useToast();
+  const { user } = useAuthContext();
   const me = memberships[0];
   const { data, loading, reload } = useSchoolData(me.school_id);
   const role = me.role;
@@ -105,6 +107,7 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
   const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const student = students.find((s) => s.id === studentId);
   const canRecord = can.recordProgress(role);
+  const studentNotes = student ? data.observations.filter((o) => o.student_id === student.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)) : [];
   const pick = (id: string | null) => {
     if ((dirty || obs.trim()) && !window.confirm('Discard this unsaved observation?')) return;
     setDirty(false); setObs(''); setStudentId(id);
@@ -114,7 +117,7 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
     setBusy(true);
     try {
       await schoolCall({ action: 'observation_add', student_id: student.id, body: `${skillTitle}: ${obs.trim()}` });
-      setObs(''); toast({ title: 'Observation added' }); reload();
+      setObs(''); toast({ title: 'Note saved' }); reload();
     } catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
     finally { setBusy(false); }
   };
@@ -138,17 +141,23 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
             <Button variant="ghost" size="sm" onClick={() => pick(null)}>← All students</Button>
             <h3 className="text-lg font-semibold text-foreground">{student.name}</h3>
             {canRecord ? (
-              <>
-                <ProgressChooser inline studentId={student.id} skillId={skillId} current={recordFor(student.id)} nameOf={nameOf} onSaved={reload} onDraftChange={onDraft} />
-                <div className="space-y-2 border-t border-border pt-4">
-                  <Label htmlFor="drawer-obs">General observation</Label>
-                  <Textarea id="drawer-obs" rows={3} maxLength={1000} value={obs} onChange={(e) => setObs(e.target.value)} placeholder="Anything noticed during this activity…" />
-                  <div className="flex justify-end"><Button size="sm" disabled={busy || !obs.trim()} onClick={addObservation}>{busy ? 'Saving…' : 'Add observation'}</Button></div>
-                </div>
-              </>
+              <ProgressChooser inline studentId={student.id} skillId={skillId} current={recordFor(student.id)} nameOf={nameOf} onSaved={reload} onDraftChange={onDraft} />
             ) : (
               <p className="text-sm text-muted-foreground"><StatusBadge status={recordFor(student.id)?.status} /> · {lastUpdate(recordFor(student.id), nameOf)}</p>
             )}
+            <div className="space-y-3 border-t border-border pt-4">
+              <h4 className="font-display text-base font-semibold text-foreground">Notes</h4>
+              {canRecord && (
+                <div className="space-y-2">
+                  <Label htmlFor="drawer-obs" className="sr-only">New note</Label>
+                  <Textarea id="drawer-obs" rows={3} maxLength={1000} value={obs} onChange={(e) => setObs(e.target.value)} placeholder={`Anything noticed about ${student.name} during this activity…`} />
+                  <div className="flex justify-end"><Button size="sm" disabled={busy || !obs.trim()} onClick={addObservation}>{busy ? 'Saving…' : 'Save note'}</Button></div>
+                </div>
+              )}
+              {studentNotes.length
+                ? <NoteList notes={studentNotes} role={role} userId={user?.id ?? ''} nameOf={nameOf} onChange={reload} />
+                : <p className="text-sm text-muted-foreground">No notes for {student.name} yet.</p>}
+            </div>
           </div>
         ) : group ? (
           <div className="space-y-4">
