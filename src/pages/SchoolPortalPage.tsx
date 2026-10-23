@@ -22,6 +22,7 @@ import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
 import CurriculumTab from '@/components/school/CurriculumTab';
+import ScreenGuard from '@/components/school/ScreenGuard';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
 
@@ -146,6 +147,7 @@ export default function SchoolPortalPage() {
 
   return (
     <div className="school-theme min-h-screen">
+      <ScreenGuard />
       <div className="mx-auto max-w-[96rem] px-4 md:px-8 pb-16">
         <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
           <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2 min-[1500px]:flex-nowrap">
@@ -228,10 +230,10 @@ export default function SchoolPortalPage() {
             {classroom && (
               <>
                 <TabsContent value="roster" className="mt-0">
-                  <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} progress={data.progress} onChange={reload} onOpenStudent={setOpenStudent} />
+                  <RosterTab role={role} classroom={classroom} students={data.students.filter((s) => s.classroom_id === classroom.id)} seatLimit={seatLimit} schoolName={school.name} progress={data.progress} onChange={reload} onOpenStudent={setOpenStudent} memberId={me?.id} />
                 </TabsContent>
                 <TabsContent value="progress" className="mt-0">
-                  <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
+                  <ProgressTab students={students} progress={progress} canEdit={can.recordProgress(role)} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} memberId={me?.id} />
                 </TabsContent>
                 <TabsContent value="reports" className="mt-0">
                   <ReportsTab role={role} students={students} progress={progress} observations={data.observations} reports={data.reports}
@@ -255,7 +257,7 @@ export default function SchoolPortalPage() {
             )}
             {can.manageSchool(role) && (
               <TabsContent value="review" className="mt-0">
-                <SchoolReview data={data} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} />
+                <SchoolReview data={data} nameOf={nameOf} onChange={reload} onOpenStudent={setOpenStudent} memberId={me?.id} />
               </TabsContent>
             )}
             {can.manageSchool(role) && schoolId && (
