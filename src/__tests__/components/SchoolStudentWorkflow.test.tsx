@@ -42,7 +42,7 @@ describe('streamlined child workflow', () => {
   });
   it('opens the shared recorder for the selected child and activity without writing', () => {
     const { onRecord } = mount();
-    fireEvent.click(screen.getByRole('tab', { name: 'Progress' }));
+    fireEvent.mouseDown(screen.getByRole('tab', { name: 'Progress' }), { button: 0, ctrlKey: false });
     fireEvent.click(screen.getByRole('button', { name: 'Record observation' }));
     expect(onRecord).toHaveBeenCalledWith('alex', expect.objectContaining({ id: 'pouring', areaKey: 'practical-life' }));
     expect(call).not.toHaveBeenCalled();
