@@ -33,12 +33,11 @@ export default function ReportsTab({ role, students, progress, observations, rep
   const [selected, setSelected] = useState<string | null>(students[0]?.id ?? null);
   const [from, setFrom] = useState(() => iso(new Date(Date.now() - 30 * 864e5)));
   const [to, setTo] = useState(() => iso(new Date()));
-  const [edits, setEdits] = useState<Record<string, { title: string; body: string }>>({});
   const [sending, setSending] = useState(false);
   const [style, setStyle] = useState<ReportStyle>(() => loadStyle(schoolName));
   const [styleOpen, setStyleOpen] = useState(false);
   useEffect(() => { try { localStorage.setItem(styleKey(schoolName), JSON.stringify(style)); } catch { /* ignore */ } }, [style, schoolName]);
-  const patchStyle = (p: Partial<ReportStyle>) => { setStyle((s) => ({ ...s, ...p })); setEdits({}); };
+  const patchStyle = (p: Partial<ReportStyle>) => setStyle((s) => ({ ...s, ...p }));
   const student = students.find((s) => s.id === selected) ?? null;
   const canSend = can.sendReport(role);
 
@@ -67,9 +66,10 @@ export default function ReportsTab({ role, students, progress, observations, rep
     return { title: `${style.heading.trim() || 'Progress report'} · ${student.name}`, body: lines.join('\n').trim() };
   }, [student, progress, observations, from, to, style]);
 
-  const key = student ? `${student.id}:${from}:${to}` : '';
-  const report = (key && edits[key]) || generated;
-  const setReport = (r: { title: string; body: string }) => setEdits((e) => ({ ...e, [key]: r }));
+  // Edits autosave on this device per child and period, so staff can leave and come back to finish.
+  const [draft, setDraft, clearDraft] = useDraft<{ title: string; body: string } | null>(student ? `${userId}:report:${student.id}:${from}:${to}` : null, null);
+  const report = draft || generated;
+  const setReport = (r: { title: string; body: string }) => setDraft(r);
 
   const send = () => {
     if (!student || !report || !student.family_email || sending) return;
@@ -78,7 +78,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
     window.location.href = `mailto:${encodeURIComponent(student.family_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSending(true);
     schoolCall({ action: 'report_record', student_id: student.id, period_start: from, period_end: to, title: report.title, body: report.body })
-      .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); onChange(); })
+      .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); clearDraft(); onChange(); })
       .catch((e) => toast({ title: 'Email opened, but the record was not saved', description: (e as Error).message, variant: 'destructive' }))
       .finally(() => setSending(false));
   };
@@ -156,6 +156,12 @@ export default function ReportsTab({ role, students, progress, observations, rep
                   <p className="sm:col-span-2 text-xs text-muted-foreground">Write {'{child}'} to insert the child’s name. This style is saved on this device and used for every report you prepare.</p>
                 </div>
               )}
+            </div>
+          )}
+          {draft && canSend && (
+            <div className="flex items-center justify-between gap-2 text-sm text-muted-foreground">
+              <span>Your edits are saved on this device.</span>
+              <Button size="sm" variant="ghost" onClick={() => { if (window.confirm('Discard your edits and rebuild this report from the records?')) clearDraft(); }}>Start over</Button>
             </div>
           )}
           <Input aria-label="Report title" value={report.title} onChange={(e) => setReport({ ...report, title: e.target.value })} disabled={!canSend} />
