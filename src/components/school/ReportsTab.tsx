@@ -10,6 +10,7 @@ import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } f
 import { areas, nextSuggestions, skillById } from './curriculum';
 import { STATUS_LABEL } from './ProgressChooser';
 import { ReportList } from './EditableRecords';
+import { useDraft } from './drafts';
 import { conferenceHtml } from './conferenceReport';
 
 interface Props {
