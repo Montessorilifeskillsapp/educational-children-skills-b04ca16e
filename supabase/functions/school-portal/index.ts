@@ -5,6 +5,7 @@ import { Body } from './body.ts'
 import { sameClassroom, containsOnlyClassroomStudents } from './validation.ts'
 import { roleAllows, resolvePolicies, type SchoolRole, type SchoolPolicies } from './rules.ts'
 import { acceptSchoolInvite, queueSchoolInvite } from './invitations.ts'
+import { parentOwnsRecord, exactEmailPattern } from './parentRecords.ts'
 
 const checked = async <T extends { error: unknown }>(operation: PromiseLike<T>): Promise<T> => {
   const result = await operation
@@ -73,6 +74,38 @@ Deno.serve(async (req) => {
     }
 
     const res: Response = await (async () => { switch (b.action) {
+      case 'parent_records': {
+        if (!u.user.email_confirmed_at || !email) return forbidden()
+        if (!b.student_id) {
+          const { data } = await checked(admin.from('school_students')
+            .select('id, name, schools!inner(name, active)').ilike('family_email', exactEmailPattern(email))
+            .eq('schools.active', true).order('id').limit(100))
+          return json({ students: (data ?? []).map((s) => ({ id: s.id, name: s.name,
+            school_name: (s.schools as unknown as { name: string }).name })) })
+        }
+        const { data: student } = await checked(admin.from('school_students')
+          .select('id, school_id, name, date_of_birth, family_email, health_notes, schools!inner(name, active)')
+          .eq('id', b.student_id).maybeSingle())
+        if (!student || !parentOwnsRecord(u.user, student.family_email) || !(student.schools as unknown as { active: boolean }).active) return forbidden()
+        auditSchool = student.school_id
+        const readAll = async (table: string, fields: string, order: string) => {
+          const rows: Record<string, unknown>[] = []
+          for (let offset = 0; ; offset += 500) {
+            const { data } = await checked(admin.from(table).select(fields).eq('student_id', student.id)
+              .eq('school_id', student.school_id).order(order).order('id').range(offset, offset + 499))
+            const page = (data ?? []) as unknown as Record<string, unknown>[]
+            rows.push(...page)
+            if (page.length < 500) return rows
+          }
+        }
+        const [observations, progress, reports] = await Promise.all([
+          readAll('student_observations', 'id, body, observed_at, edited_at', 'observed_at'),
+          readAll('student_progress', 'id, skill_id, status, note, presented_at, updated_at', 'updated_at'),
+          readAll('student_reports', 'id, period_start, period_end, summary, created_at, updated_at', 'created_at'),
+        ])
+        return json({ student: { id: student.id, name: student.name, date_of_birth: student.date_of_birth,
+          health_notes: student.health_notes, school_name: (student.schools as unknown as { name: string }).name }, observations, progress, reports })
+      }
       case 'school_profile_save': {
         // School Admins maintain their own school's name and official email; places stay platform-managed.
         const m = await membership(b.school_id)
@@ -337,7 +370,7 @@ Deno.serve(async (req) => {
       }
       default: return json({ error: "Unknown action" }, 400)
     } })()
-    const READS = ['me', 'admin_list', 'student_delete']
+    const READS = ['me', 'admin_list', 'student_delete', ...((b.action === 'parent_records' && !b.student_id) ? ['parent_records'] : [])]
     if (res.ok && !READS.includes(b.action)) {
       // deno-lint-ignore no-explicit-any
       const target = (b as any).id ?? (b as any).student_id ?? (b as any).classroom_id ?? null
