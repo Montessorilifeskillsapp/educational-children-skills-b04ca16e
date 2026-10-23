@@ -1,5 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
-import { FunctionsHttpError } from '@supabase/supabase-js';
+import { FunctionsFetchError, FunctionsHttpError } from '@supabase/supabase-js';
+import { configureQueue, enqueue, isConnectionError, QUEUEABLE } from './offlineQueue';
 import { DEFAULT_POLICIES, resolvePolicies, roleAllows, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 export { CAPABILITIES, DEFAULT_POLICIES, resolvePolicies, type Capability, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 
@@ -25,10 +26,10 @@ let previewing = false;
 export function setRolePreview(on: boolean) { previewing = on; }
 export const PREVIEW_BLOCKED = 'Previewing another role. Changes are turned off.';
 
-export async function schoolCall<T = unknown>(body: Record<string, unknown>): Promise<T> {
-  if (previewing && body.action !== 'me') throw new Error(PREVIEW_BLOCKED);
+async function send<T>(body: Record<string, unknown>): Promise<T> {
   const { data, error } = await supabase.functions.invoke('school-portal', { body });
   if (error) {
+    if (error instanceof FunctionsFetchError) throw error;
     let msg = error.message;
     if (error instanceof FunctionsHttpError) {
       try { msg = (await error.context.json()).error ?? msg; } catch { /* keep */ }
@@ -36,6 +37,26 @@ export async function schoolCall<T = unknown>(body: Record<string, unknown>): Pr
     throw new Error(typeof msg === 'string' ? msg : 'Something went wrong');
   }
   return data as T;
+}
+
+const uid = async () => (await supabase.auth.getSession()).data.session?.user.id ?? null;
+configureQueue(send, uid);
+
+/** Result returned when a record was kept on this device to send once the connection returns. */
+export interface QueuedResult { queued: true }
+export const isQueued = (r: unknown): r is QueuedResult => !!r && (r as QueuedResult).queued === true;
+
+export async function schoolCall<T = unknown>(body: Record<string, unknown>): Promise<T> {
+  if (previewing && body.action !== 'me') throw new Error(PREVIEW_BLOCKED);
+  const queueable = QUEUEABLE.has(String(body.action));
+  const keep = async () => { const id = await uid(); if (!id) throw new Error('Please sign in again.'); enqueue(id, body); return { queued: true } as T; };
+  if (queueable && typeof navigator !== 'undefined' && !navigator.onLine) return keep();
+  try { return await send<T>(body); }
+  catch (e) {
+    if (queueable && isConnectionError(e)) return keep();
+    if (e instanceof FunctionsFetchError) throw new Error('No connection. Please try again when you are back online.');
+    throw e;
+  }
 }
 
 let active: SchoolPolicies = DEFAULT_POLICIES;
