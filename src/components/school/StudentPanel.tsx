@@ -8,7 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
+import { can, isQueued, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
+import { useDraft } from './drafts';
 import { areas, nextSuggestions, orderedSkills, skillById, skillLink, type SkillRef } from './curriculum';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
@@ -32,11 +33,11 @@ export default function StudentPanel({ role, userId, student, progress, observat
   const [area, setArea] = useState(areas()[0].key);
   const areaRecords = useMemo(() => progress.filter((p) => p.student_id === student?.id && skillById(p.skill_id)?.areaKey === area).sort((a, b) => b.updated_at.localeCompare(a.updated_at)), [area, progress, student?.id]);
   const editable = can.recordProgress(role);
-  const [note, setNote] = useState('');
+  const [note, setNote, clearNote] = useDraft(student ? `${userId}:note:${student.id}` : null, '');
   const [savingNote, setSavingNote] = useState(false);
   const [from, setFrom] = useState(() => iso(new Date(Date.now() - 30 * 864e5)));
   const [to, setTo] = useState(() => iso(new Date()));
-  const [preview, setPreview] = useState<{ title: string; body: string } | null>(null);
+  const [preview, setPreview, clearPreview] = useDraft<{ title: string; body: string } | null>(student ? `${userId}:panel-report:${student.id}` : null, null);
   const [sending, setSending] = useState(false);
   const [savingAccess, setSavingAccess] = useState(false);
   const mine = useMemo(() => progress.filter((p) => p.student_id === student?.id), [progress, student]);
@@ -49,23 +50,29 @@ export default function StudentPanel({ role, userId, student, progress, observat
   }, [student?.id, student?.name, mine]);
   useEffect(() => {
     const beforeLeave = (event: Event) => {
-      if (sending || savingNote || (note.trim() && !window.confirm('Discard this unsaved student note?'))) event.preventDefault();
+      // Unsaved text is kept as a draft on this device, so leaving only waits for a save in progress.
+      if (sending || savingNote) event.preventDefault();
     };
     window.addEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
     return () => window.removeEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
-  }, [note, sending, savingNote]);
+  }, [sending, savingNote]);
 
   if (!student) return null;
 
   const switchStudent = (id: string) => {
     if (!allowSchoolNavigation()) return;
-    setNote(''); setPreview(null); onSelect(id);
+    onSelect(id);
   };
 
   const addNote = async () => {
     if (!note.trim() || savingNote) return;
     setSavingNote(true);
-    try { await schoolCall({ action: 'observation_add', student_id: student.id, body: note.trim() }); setNote(''); onChange(); }
+    try {
+      const r = await schoolCall({ action: 'observation_add', student_id: student.id, body: note.trim() });
+      clearNote();
+      if (isQueued(r)) toast({ title: 'Saved on this device', description: 'No connection right now. It will sync automatically.' });
+      onChange();
+    }
     catch (e) { toast({ title: 'Could not save note', description: (e as Error).message, variant: 'destructive' }); }
     finally { setSavingNote(false); }
   };
@@ -93,7 +100,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
     window.location.href = `mailto:${encodeURIComponent(student.family_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSending(true);
     schoolCall({ action: 'report_record', student_id: student.id, period_start: from, period_end: to, title: preview.title, body: preview.body })
-      .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); setPreview(null); onChange(); })
+      .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); clearPreview(); onChange(); })
       .catch((e) => toast({ title: 'Email opened, but the record was not saved', description: (e as Error).message, variant: 'destructive' }))
       .finally(() => setSending(false));
   };
