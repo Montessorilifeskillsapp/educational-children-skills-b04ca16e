@@ -1,5 +1,6 @@
 ## Open tasks
-- [ ] Correct parent transparency: preserve ordinary note-taking and add verified, child-specific parent access to full school records without hidden note categories.
+- [x] Parent transparency: existing observation/progress note-taking preserved; School Admin verifies parent contact and enables full-record access in the child's Notes tab; Family Dashboard shows every observation, progress note, health note and report. Email changes revoke approval; reads are no-store and audited. Thirty targeted tests pass and service deployed; signed-out hosted request returns 401.
+- [ ] Validate parent approval, actual parent sign-in and complete school-record readback end-to-end — blocked by external unmanaged authentication; no authenticated parent session available. Previously deleted support-note contents cannot be recovered from the current application data.
 - [x] School Portal layout settled: restored the original tab-and-list portal after three visual redesigns were rejected. No further portal restyling without the user's go-ahead; any improvement must be small and asked for first.
 - [x] 0–3 foundation: stage types, four areas, empty hidden registry, plane resolvers, tests. Content build-out deferred by user.
 - [x] School privacy hardening: deployed classroom-scoped RLS, strict plain-text/date validation, plan-student isolation, admin Change history, and atomic student erasure with confirmation; 96 app tests and six service-schema tests pass, preview build OK. Signed-in use is not verified.
