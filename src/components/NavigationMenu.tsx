@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
 import { useAuthContext } from '@/components/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
+import { schoolCall } from '@/components/school/api';
 import {
   Menu, BookOpen, Settings, Home, Brain,
   Palette, Calculator, Globe, Leaf, Heart, User, Users,
@@ -41,15 +42,37 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   const { user } = useAuthContext();
 
   useEffect(() => {
+    setIsSchoolStaff(false);
+    if (!user) return;
+    let cancelled = false;
+    let checking = false;
+    const refresh = async () => {
+      if (checking || !navigator.onLine) return;
+      checking = true;
+      try {
+        // The server accepts matching pending invitations before returning active memberships.
+        const result = await schoolCall<{ memberships: { id: string }[] }>({ action: 'me' });
+        if (!cancelled) setIsSchoolStaff(!!result.memberships?.length);
+      } catch {
+        // Keep existing access visible during a temporary connection failure.
+      } finally { checking = false; }
+    };
+    void refresh();
+    window.addEventListener('focus', refresh);
+    window.addEventListener('online', refresh);
+    return () => {
+      cancelled = true;
+      window.removeEventListener('focus', refresh);
+      window.removeEventListener('online', refresh);
+    };
+  }, [user?.id, isOpen]);
+
+  useEffect(() => {
     if (!user) {
       setIsAdmin(false);
       setIsSchoolStaff(false);
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    (supabase as any).from('school_members').select('id').eq('user_id', user.id).limit(1)
-      .then(({ data }: { data: unknown[] | null }) => setIsSchoolStaff(!!data?.length));
-
     const checkAdmin = async () => {
       const { data } = await supabase
         .from('user_roles')
