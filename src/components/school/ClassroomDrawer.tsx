@@ -155,7 +155,7 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
                 </div>
               )}
               {studentNotes.length
-                ? <NoteList notes={studentNotes} role={role} userId={user?.id ?? null} nameOf={nameOf} onChange={reload} />
+                ? <NoteList notes={studentNotes} role={role} userId={user?.id ?? ''} nameOf={nameOf} onChange={reload} />
                 : <p className="text-sm text-muted-foreground">No notes for {student.name} yet.</p>}
             </div>
           </div>
