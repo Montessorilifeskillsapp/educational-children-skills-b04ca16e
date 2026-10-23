@@ -14,10 +14,11 @@ export function useSchoolData(schoolId: string | null) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const generation = useRef(0);
+  const loadedSchool = useRef<string | null>(null);
 
   const reload = useCallback(async () => {
     const request = ++generation.current;
-    setLoading(true); setError(null);
+    setLoading(loadedSchool.current !== schoolId); setError(null);
     if (!schoolId) { setData(EMPTY); setLoading(false); return; }
     // Fetch every page: the hosted API may cap each response at 1,000 rows.
     const q = async (table: string, order = 'id') => {
@@ -43,6 +44,7 @@ export function useSchoolData(schoolId: string | null) {
         : { data: [], error: null };
       if (staffRes.error) throw staffRes.error;
       if (request !== generation.current) return;
+      loadedSchool.current = schoolId;
       setData({
         classrooms, staff: staffRes.data ?? [], members: m as Member[], invites: (i as Invite[]).filter((x) => !x.accepted_at),
         students: s as Student[], progress: p as Progress[], observations: o as Observation[], plans: pl as PlanItem[], reports: r as Report[],
@@ -53,6 +55,6 @@ export function useSchoolData(schoolId: string | null) {
     } finally { if (request === generation.current) setLoading(false); }
   }, [schoolId]);
 
-  useEffect(() => { setData(EMPTY); void reload(); return () => { generation.current++; }; }, [reload]);
+  useEffect(() => { loadedSchool.current = null; setData(EMPTY); void reload(); return () => { generation.current++; }; }, [reload]);
   return { data, loading, error, reload };
 }
