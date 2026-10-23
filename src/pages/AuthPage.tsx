@@ -12,6 +12,8 @@ import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { supabase } from '@/integrations/supabase/client';
 
+const EXISTING_ACCOUNT_MESSAGE = 'This email already has an account, so no new account was created and no email was sent. Sign in below — if it was made with Google or Apple, use that button. Or tap "Forgot password?" to set a password.';
+
 const AuthPage = () => {
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
@@ -53,8 +55,10 @@ const AuthPage = () => {
   };
 
   const describeAuthError = (message: string) => {
-    if (/already registered|already exists|user already/i.test(message)) return 'This email already has an account. Try signing in instead.';
+    if (/already registered|already exists|user already/i.test(message)) return EXISTING_ACCOUNT_MESSAGE;
+    if (/invalid login credentials/i.test(message)) return 'That email and password don\'t match. If you first signed up with Google or Apple, use those buttons below — or tap "Forgot password?" to set a password for this email.';
     if (/rate limit|too many requests|email rate/i.test(message)) return 'Too many attempts right now. Please wait a little while and try again.';
+    if (/known to be weak|easy to guess/i.test(message)) return 'That password has appeared in a known data leak, so it can\'t be used. Please choose a different, less common password.';
     if (/password.*weak|password.*short/i.test(message)) return 'Please choose a stronger password with at least 6 characters.';
     if (/invalid.*email/i.test(message)) return 'Please enter a valid email address.';
     if (/network|fetch failed|failed to fetch/i.test(message)) return 'We could not connect right now. Check your connection and try again.';
@@ -149,9 +153,14 @@ const AuthPage = () => {
 
     setIsSubmitting(true);
     try {
-      const { error } = await signUp(email.trim(), password);
+      const { error, existing } = await signUp(email.trim(), password);
       if (error) {
         setFormError(describeAuthError(error.message));
+      } else if (existing) {
+        setPassword('');
+        setConfirmPassword('');
+        setMode('signin');
+        setFormError(EXISTING_ACCOUNT_MESSAGE);
       } else {
         setConfirmationEmail(email.trim());
         setPassword('');
