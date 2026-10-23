@@ -1,7 +1,12 @@
-import { describe, it, expect } from 'vitest';
-import { LOCK_AFTER_MS, SIGN_OUT_AFTER_MS } from '@/components/school/ScreenGuard';
+import { describe, it, expect, beforeEach } from 'vitest';
+import { DEFAULT_LOCK_MINUTES, LOCK_OPTIONS, readPrefs } from '@/components/school/ScreenGuard';
 
 describe('portal screen guard', () => {
-  it('hides records after 5 minutes idle', () => { expect(LOCK_AFTER_MS).toBe(5 * 60 * 1000); });
-  it('signs out after 30 minutes idle', () => { expect(SIGN_OUT_AFTER_MS).toBe(30 * 60 * 1000); });
+  beforeEach(() => localStorage.clear());
+  it('defaults to on, 15 minutes', () => { expect(readPrefs()).toEqual({ minutes: 15, off: false }); expect(DEFAULT_LOCK_MINUTES).toBe(15); });
+  it('offers 5 min to 2 hours', () => { expect([...LOCK_OPTIONS]).toEqual([5, 15, 30, 60, 120]); });
+  it('remembers disabled on this device', () => {
+    localStorage.setItem('school-screen-guard', JSON.stringify({ minutes: 60, off: true }));
+    expect(readPrefs()).toEqual({ minutes: 60, off: true });
+  });
 });
