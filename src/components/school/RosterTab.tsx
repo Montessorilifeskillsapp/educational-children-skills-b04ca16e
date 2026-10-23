@@ -112,7 +112,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
       <AlertDialog open={!!deleting} onOpenChange={(open) => { if (!open && !busy) setDeleting(null); }}>
         <AlertDialogContent>
           <AlertDialogHeader><AlertDialogTitle>Delete {deleting?.name} permanently?</AlertDialogTitle>
-            <AlertDialogDescription>This removes the student's profile, health and support notes, observations, progress and reports from the app, and removes them from lesson plans. It cannot be undone. Previously emailed reports and backup copies are not removed by this action.</AlertDialogDescription>
+            <AlertDialogDescription>This removes the student's profile, health notes, observations, progress and reports from the app, and removes them from lesson plans. It cannot be undone. Previously emailed reports and backup copies are not removed by this action.</AlertDialogDescription>
           </AlertDialogHeader>
           <div className="space-y-2"><Label htmlFor="delete-confirmation">Type DELETE to confirm</Label><Input id="delete-confirmation" autoComplete="off" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} /></div>
           <AlertDialogFooter><AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel><Button variant="destructive" disabled={busy || confirmation !== 'DELETE'} onClick={() => void remove()}>{busy ? 'Deleting…' : 'Delete permanently'}</Button></AlertDialogFooter>
