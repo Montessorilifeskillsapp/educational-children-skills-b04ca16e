@@ -199,8 +199,7 @@ Deno.serve(async (req) => {
         if (!a) return forbidden()
         const row = { classroom_id: b.classroom_id, school_id: a.school_id, name: b.name, date_of_birth: b.date_of_birth ?? null,
           family_email: b.family_email ?? null, ...(b.archived !== undefined ? { archived: b.archived } : {}),
-          ...(b.health_notes !== undefined ? { health_notes: b.health_notes ? String(b.health_notes).slice(0, 1000) : null } : {}),
-          ...(b.support_notes !== undefined ? { support_notes: b.support_notes ? String(b.support_notes).slice(0, 1000) : null } : {}) }
+          ...(b.health_notes !== undefined ? { health_notes: b.health_notes ? String(b.health_notes).slice(0, 1000) : null } : {}) }
         if (b.id) {
           const existing = await studentAccess(b.id, 'edit_roster')
           if (!existing || !sameClassroom(existing.student, { classroom_id: b.classroom_id, school_id: a.school_id })) return forbidden()
@@ -211,12 +210,26 @@ Deno.serve(async (req) => {
           if (String(error.message).includes('CLASSROOM_FULL')) return json({ error: 'CLASSROOM_FULL' }, 409)
           throw error
         }
+        // Confidential support notes: only School Admins and the classroom's Lead Guide may write (or read) them.
+        if (b.support_notes !== undefined) {
+          const { data: room } = await checked(admin.from('classrooms').select('lead_member_id').eq('id', b.classroom_id).maybeSingle())
+          if (a.role === 'school_admin' || room?.lead_member_id === a.id) {
+            if (b.support_notes) await checked(admin.from('student_support_notes').upsert({ student_id: data.id, school_id: a.school_id, body: String(b.support_notes).slice(0, 1000), updated_by: uid, updated_at: new Date().toISOString() }))
+            else await checked(admin.from('student_support_notes').delete().eq('student_id', data.id))
+          }
+        }
         return json({ student: data })
       }
       case 'student_delete': {
         const a = await studentAccess(b.id, 'delete_student')
         if (!a) return forbidden()
         await checked(admin.rpc('erase_school_student', { _student_id: b.id, _actor_id: uid, _actor_email: email }))
+        return json({ ok: true })
+      }
+      case 'record_export': {
+        // Records that a School Admin exported a child's full record; the audit entry is written below.
+        const a = await studentAccess(b.student_id, 'manage_school')
+        if (!a) return forbidden()
         return json({ ok: true })
       }
       case 'progress_set': {
