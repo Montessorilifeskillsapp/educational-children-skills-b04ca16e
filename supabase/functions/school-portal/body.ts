@@ -39,6 +39,7 @@ export const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('observation_update'), id: uuid, body: text(2000) }).strict(),
   z.object({ action: z.literal('report_update'), id: uuid, title: text(200), body: text(8000) }).strict(),
   z.object({ action: z.literal('admin_list') }).strict(),
+  z.object({ action: z.literal('record_export'), student_id: uuid }).strict(),
   z.object({ action: z.literal('admin_school_save'), id: uuid.optional(), name: text(160),
     contact_email: z.string().trim().email().max(255), seat_limit: z.number().int().min(1).max(500),
     active: z.boolean(), first_admin_email: z.string().email().max(255).optional() }).strict(),

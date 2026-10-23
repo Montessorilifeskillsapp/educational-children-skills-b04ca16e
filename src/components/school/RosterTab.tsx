@@ -21,9 +21,9 @@ function ageOf(dob: string | null) {
 }
 const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
 
-interface Props { role: SchoolRole; classroom: Classroom; students: Student[]; seatLimit: number; schoolName: string; progress?: Progress[]; onChange: () => void; onOpenStudent: (id: string) => void }
+interface Props { role: SchoolRole; classroom: Classroom; students: Student[]; seatLimit: number; schoolName: string; progress?: Progress[]; onChange: () => void; onOpenStudent: (id: string) => void; memberId?: string }
 
-export default function RosterTab({ role, classroom, students, seatLimit, schoolName, progress = [], onChange, onOpenStudent }: Props) {
+export default function RosterTab({ role, classroom, students, seatLimit, schoolName, progress = [], onChange, onOpenStudent, memberId }: Props) {
   const { toast } = useToast();
   const [editing, setEditing] = useState<Partial<Student> | null>(null);
   const [showArchived, setShowArchived] = useState(false);
@@ -35,6 +35,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
   const full = active.length >= seatLimit;
   const edit = can.editRoster(role);
   const canDelete = can.deleteStudent(role);
+  const supportOk = role === 'school_admin' || (!!memberId && classroom.lead_member_id === memberId);
 
   const save = async () => {
     if (!editing?.name?.trim() || busy) return;
@@ -42,7 +43,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
     try {
       await schoolCall({ action: 'student_save', classroom_id: classroom.id, id: editing.id, name: editing.name.trim(),
         date_of_birth: editing.date_of_birth || null, family_email: editing.family_email?.trim() || null,
-        health_notes: editing.health_notes?.trim() || null, support_notes: editing.support_notes?.trim() || null });
+        health_notes: editing.health_notes?.trim() || null, ...(supportOk ? { support_notes: editing.support_notes?.trim() || null } : {}) });
       setEditing(null); onChange();
     } catch (e) {
       const msg = (e as Error).message;
@@ -126,7 +127,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
             <div><Label htmlFor="sd">Birth date</Label><Input id="sd" type="date" value={editing?.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
             <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" type="email" value={editing?.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
             <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing?.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
-            <div><Label htmlFor="ss">Support notes (staff only)</Label><Textarea id="ss" rows={2} placeholder="e.g. Settles best near the window" value={editing?.support_notes ?? ''} onChange={(e) => setEditing({ ...editing, support_notes: e.target.value })} /></div>
+            {supportOk && <div><Label htmlFor="ss">Support notes (confidential: School Admin and Lead Guide only)</Label><Textarea id="ss" rows={2} placeholder="e.g. Settles best near the window" value={editing?.support_notes ?? ''} onChange={(e) => setEditing({ ...editing, support_notes: e.target.value })} /></div>}
           </div>
           <DialogFooter><Button disabled={busy || !editing?.name?.trim()} onClick={save}>{busy ? 'Saving…' : 'Save'}</Button></DialogFooter>
         </DialogContent>
