@@ -13,6 +13,7 @@ import { GoalsTab } from './GoalsTab';
 import { CalendarTab } from './CalendarTab';
 import { ReportsTab } from './ReportsTab';
 import { SettingsTab } from './SettingsTab';
+import SchoolRecords from './SchoolRecords';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -40,6 +41,8 @@ const FamilyDashboard = ({ onBack, onManageProfiles }: { onBack: () => void; onM
           <h1 className="text-3xl font-bold text-foreground">Family Dashboard</h1>
           <p className="text-muted-foreground">Progress, goals, planning and reports for each child.</p>
         </header>
+
+        {user && <SchoolRecords key={user.id} userId={user.id} />}
 
         {!user ? (
           <Card><CardContent className="py-10 text-center text-muted-foreground">Sign in to track progress, set goals and plan activities.</CardContent></Card>

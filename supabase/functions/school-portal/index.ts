@@ -14,7 +14,7 @@ const checked = async <T extends { error: unknown }>(operation: PromiseLike<T>):
 }
 
 const json = (b: unknown, status = 200) =>
-  new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
+  new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json', 'Cache-Control': 'no-store' } })
 
 
 Deno.serve(async (req) => {
@@ -74,19 +74,26 @@ Deno.serve(async (req) => {
     }
 
     const res: Response = await (async () => { switch (b.action) {
+      case 'parent_access': {
+        const a = await studentAccess(b.student_id, 'manage_school')
+        if (!a || a.role !== 'school_admin') return forbidden()
+        if (b.approved && !a.student.family_email) return json({ error: 'Add and verify the child’s parent email first.' }, 400)
+        await checked(admin.from('school_students').update({ parent_access_enabled: b.approved }).eq('id', b.student_id))
+        return json({ ok: true })
+      }
       case 'parent_records': {
         if (!u.user.email_confirmed_at || !email) return forbidden()
         if (!b.student_id) {
           const { data } = await checked(admin.from('school_students')
             .select('id, name, schools!inner(name, active)').ilike('family_email', exactEmailPattern(email))
-            .eq('schools.active', true).order('id').limit(100))
+            .eq('parent_access_enabled', true).eq('schools.active', true).order('id').limit(100))
           return json({ students: (data ?? []).map((s) => ({ id: s.id, name: s.name,
             school_name: (s.schools as unknown as { name: string }).name })) })
         }
         const { data: student } = await checked(admin.from('school_students')
-          .select('id, school_id, name, date_of_birth, family_email, health_notes, schools!inner(name, active)')
+          .select('id, school_id, name, date_of_birth, family_email, health_notes, parent_access_enabled, schools!inner(name, active)')
           .eq('id', b.student_id).maybeSingle())
-        if (!student || !parentOwnsRecord(u.user, student.family_email) || !(student.schools as unknown as { active: boolean }).active) return forbidden()
+        if (!student || !parentOwnsRecord(u.user, student.family_email, student.parent_access_enabled) || !(student.schools as unknown as { active: boolean }).active) return forbidden()
         auditSchool = student.school_id
         const readAll = async (table: string, fields: string, order: string) => {
           const rows: Record<string, unknown>[] = []

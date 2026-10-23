@@ -8,6 +8,7 @@ const role = z.enum(['school_admin', 'teacher', 'assistant'])
 export const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('me') }).strict(),
   z.object({ action: z.literal('parent_records'), student_id: uuid.optional() }).strict(),
+  z.object({ action: z.literal('parent_access'), student_id: uuid, approved: z.boolean() }).strict(),
   z.object({ action: z.literal('classroom_save'), school_id: uuid, id: uuid.optional(), name: text(120),
     age_group: text(60, false).nullable().optional(), lead_member_id: uuid.nullable().optional().or(z.literal('')) }).strict(),
   z.object({ action: z.literal('school_profile_save'), school_id: uuid, name: text(120), contact_email: z.string().trim().email().max(255) }).strict(),

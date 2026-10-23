@@ -36,6 +36,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
   const [to, setTo] = useState(() => iso(new Date()));
   const [preview, setPreview] = useState<{ title: string; body: string } | null>(null);
   const [sending, setSending] = useState(false);
+  const [savingAccess, setSavingAccess] = useState(false);
   const mine = useMemo(() => progress.filter((p) => p.student_id === student?.id), [progress, student]);
   const obs = useMemo(() => observations.filter((o) => o.student_id === student?.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)), [observations, student]);
   const sent = reports.filter((r) => r.student_id === student?.id && (r.summary.email_status === 'queued' || r.summary.email_status === 'school_mail'));
@@ -94,6 +95,17 @@ export default function StudentPanel({ role, userId, student, progress, observat
   };
 
   const i = classmates.findIndex((c) => c.id === student.id);
+  const changeParentAccess = async () => {
+    if (!student.family_email || savingAccess) return;
+    if (!student.parent_access_enabled && !window.confirm(`Have you verified that ${student.family_email} belongs to ${student.name}’s parent? This gives that confirmed account access to every note, progress record, health note and report for this child.`)) return;
+    setSavingAccess(true);
+    try {
+      await schoolCall({ action: 'parent_access', student_id: student.id, approved: !student.parent_access_enabled });
+      onChange();
+      toast({ title: student.parent_access_enabled ? 'Parent access revoked' : 'Parent access enabled' });
+    } catch (e) { toast({ title: 'Could not update parent access', description: (e as Error).message, variant: 'destructive' }); }
+    finally { setSavingAccess(false); }
+  };
   const showReports = can.sendReport(role) || sent.length > 0;
   const exportRecord = async () => {
     try {
@@ -206,6 +218,10 @@ export default function StudentPanel({ role, userId, student, progress, observat
           </TabsContent>
           <TabsContent value="notes" className="mt-0">
           <section>
+            {role === 'school_admin' && <div className="mb-5 border-b border-border pb-4 flex flex-wrap items-center justify-between gap-3">
+              <div><h3 className="font-semibold">Parent access</h3><p className="text-sm text-muted-foreground">{student.family_email || 'Add the parent email in the child’s details.'}</p></div>
+              <Button variant="outline" onClick={changeParentAccess} disabled={!student.family_email || savingAccess}>{savingAccess ? 'Saving…' : student.parent_access_enabled ? 'Revoke parent access' : 'Verify parent and enable access'}</Button>
+            </div>}
             {editable && <div className="rounded-xl border border-border bg-card p-4 mb-5">
               <Label htmlFor="student-note" className="text-base font-semibold">New observation</Label>
               <Textarea id="student-note" rows={4} className="mt-2 text-base" value={note} onChange={(e) => setNote(e.target.value)} placeholder={`What did you observe about ${student.name} today?`} />

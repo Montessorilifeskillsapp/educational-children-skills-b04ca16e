@@ -1,0 +1,3 @@
+ALTER TABLE public.school_students ADD COLUMN parent_access_enabled boolean NOT NULL DEFAULT false;
+CREATE OR REPLACE FUNCTION public.reset_school_parent_access() RETURNS trigger LANGUAGE plpgsql SET search_path = public AS $$ BEGIN IF NEW.family_email IS DISTINCT FROM OLD.family_email THEN NEW.parent_access_enabled := false; END IF; RETURN NEW; END; $$;
+CREATE TRIGGER reset_school_parent_access BEFORE UPDATE OF family_email ON public.school_students FOR EACH ROW EXECUTE FUNCTION public.reset_school_parent_access();
