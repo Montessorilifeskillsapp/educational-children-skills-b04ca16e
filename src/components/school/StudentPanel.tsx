@@ -9,9 +9,9 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { can, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
-import { areas, nextSuggestions, orderedSkills, skillById, skillLink } from './curriculum';
+import { areas, nextSuggestions, orderedSkills, skillById, skillLink, type SkillRef } from './curriculum';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import ProgressChooser, { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
+import { StatusBadge, lastUpdate, STATUS_LABEL } from './ProgressChooser';
 import { allowSchoolNavigation, SCHOOL_LEAVE_EVENT } from './navigation';
 import { NoteList, ReportList } from './EditableRecords';
 import { setFocus } from './focusStudent';
@@ -21,17 +21,19 @@ interface Props {
   onClose: () => void; onChange: () => void; onPlan: (skillId: string, studentId: string) => void;
   schoolName: string; schoolEmail: string | null;
   classmates: Student[]; onSelect: (id: string) => void; nameOf: (userId: string | null) => string;
+  onRecord: (studentId: string, skill: SkillRef) => void;
 }
 
 const LABEL = STATUS_LABEL;
 const iso = (d: Date) => d.toISOString().slice(0, 10);
 
-export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, schoolName, schoolEmail, classmates, onSelect, nameOf }: Props) {
+export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, onRecord, schoolName, schoolEmail, classmates, onSelect, nameOf }: Props) {
   const { toast } = useToast();
   const [area, setArea] = useState(areas()[0].key);
-  const areaSkills = useMemo(() => orderedSkills().filter((s) => s.areaKey === area), [area]);
+  const areaRecords = useMemo(() => progress.filter((p) => p.student_id === student?.id && skillById(p.skill_id)?.areaKey === area).sort((a, b) => b.updated_at.localeCompare(a.updated_at)), [area, progress, student?.id]);
   const editable = can.recordProgress(role);
   const [note, setNote] = useState('');
+  const [savingNote, setSavingNote] = useState(false);
   const [from, setFrom] = useState(() => iso(new Date(Date.now() - 30 * 864e5)));
   const [to, setTo] = useState(() => iso(new Date()));
   const [preview, setPreview] = useState<{ title: string; body: string } | null>(null);
@@ -47,11 +49,11 @@ export default function StudentPanel({ role, userId, student, progress, observat
   }, [student?.id, student?.name, mine]);
   useEffect(() => {
     const beforeLeave = (event: Event) => {
-      if (sending || (note.trim() && !window.confirm('Discard this unsaved student note?'))) event.preventDefault();
+      if (sending || savingNote || (note.trim() && !window.confirm('Discard this unsaved student note?'))) event.preventDefault();
     };
     window.addEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
     return () => window.removeEventListener(SCHOOL_LEAVE_EVENT, beforeLeave);
-  }, [note, sending]);
+  }, [note, sending, savingNote]);
 
   if (!student) return null;
 
@@ -61,9 +63,11 @@ export default function StudentPanel({ role, userId, student, progress, observat
   };
 
   const addNote = async () => {
-    if (!note.trim()) return;
+    if (!note.trim() || savingNote) return;
+    setSavingNote(true);
     try { await schoolCall({ action: 'observation_add', student_id: student.id, body: note.trim() }); setNote(''); onChange(); }
     catch (e) { toast({ title: 'Could not save note', description: (e as Error).message, variant: 'destructive' }); }
+    finally { setSavingNote(false); }
   };
 
   const buildReport = () => {
@@ -123,11 +127,10 @@ export default function StudentPanel({ role, userId, student, progress, observat
   };
   return (
     <Dialog open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
-      <DialogContent className="school-scale max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl">
+      <DialogContent className="school-theme school-scale max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl" aria-describedby={undefined}>
         <div className="border-b border-border px-6 pt-6 pb-4 space-y-3">
           <DialogHeader className="text-left pr-8">
-            <DialogTitle className="text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">View only</span>}</DialogTitle>
-            {role === 'school_admin' && <Button variant="outline" size="sm" className="mt-2 w-fit" onClick={exportRecord}>Download full record</Button>}
+            <DialogTitle className="font-display text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">View only</span>}</DialogTitle>
           </DialogHeader>
           {student.health_notes && (
             <div className="space-y-1 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm" role="note">
@@ -154,31 +157,6 @@ export default function StudentPanel({ role, userId, student, progress, observat
             {showReports && <TabsTrigger value="reports">Parent report</TabsTrigger>}
           </TabsList>
           <TabsContent value="progress" className="mt-0 space-y-6">
-          <section aria-label="Progress across the nine curriculum areas">
-            <h3 className="font-semibold mb-2">Across the curriculum</h3>
-            <ul className="grid grid-cols-1 sm:grid-cols-3 gap-2">
-              {areas().map((a) => {
-                const total = orderedSkills().filter((s) => s.areaKey === a.key).length || 1;
-                const rec = mine.filter((p) => skillById(p.skill_id)?.areaKey === a.key);
-                const m = rec.filter((p) => p.status === 'mastered').length;
-                const pr = rec.filter((p) => p.status === 'practising').length;
-                const ps = rec.filter((p) => p.status === 'presented').length;
-                return (
-                  <li key={a.key}>
-                    <button type="button" onClick={() => setArea(a.key)} className={`w-full text-left rounded-lg border p-2 transition-colors hover:border-primary ${area === a.key ? 'border-primary bg-accent' : 'border-border'}`}>
-                      <span className="block text-xs font-medium truncate">{a.title}</span>
-                      <span className="mt-1 flex h-1.5 w-full overflow-hidden rounded-full bg-muted" aria-hidden>
-                        <span className="bg-primary" style={{ width: `${(m / total) * 100}%` }} />
-                        <span className="bg-primary/60" style={{ width: `${(pr / total) * 100}%` }} />
-                        <span className="bg-primary/30" style={{ width: `${(ps / total) * 100}%` }} />
-                      </span>
-                      <span className="block mt-1 text-[11px] text-muted-foreground">{m} mastered · {pr} practicing · {ps} presented</span>
-                    </button>
-                  </li>
-                );
-              })}
-            </ul>
-          </section>
           <section>
             <h3 className="font-semibold mb-2">Ready for next</h3>
             {suggestions.length === 0 ? <p className="text-sm text-muted-foreground">No next activity suggested yet.</p> : (
@@ -194,22 +172,28 @@ export default function StudentPanel({ role, userId, student, progress, observat
           </section>
 
           <section>
-            <div className="flex items-center justify-between gap-2 mb-2">
+            <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
               <h3 className="font-semibold">Progress</h3>
               <Select value={area} onValueChange={setArea}>
-                <SelectTrigger className="w-48 h-8"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label="Progress area" className="w-56"><SelectValue /></SelectTrigger>
                 <SelectContent>{areas().map((a) => <SelectItem key={a.key} value={a.key}>{a.title}</SelectItem>)}</SelectContent>
               </Select>
             </div>
+            {editable && <Button className="mb-4" onClick={() => {
+              const skill = orderedSkills().find((s) => s.areaKey === area);
+              if (skill && allowSchoolNavigation()) onRecord(student.id, skill);
+            }}>Record observation</Button>}
+            {areaRecords.length === 0 && <p className="text-muted-foreground">No observations in this area yet.</p>}
             <ul className="divide-y divide-border">
-              {areaSkills.map((sk) => {
-                const p = mine.find((x) => x.skill_id === sk.id);
+              {areaRecords.map((p) => {
+                const sk = skillById(p.skill_id);
+                if (!sk) return null;
                 return (
-                  <li key={sk.id} className="py-2">
+                  <li key={p.id} className="py-3 space-y-1">
                     <Link to={skillLink(sk)} onClick={(event) => { if (!allowSchoolNavigation()) event.preventDefault(); }} className="block text-sm font-medium mb-1 hover:underline">{sk.title}</Link>
-                    {editable
-                      ? <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p?.status} /><ProgressChooser key={`${student.id}:${sk.id}`} studentId={student.id} studentName={student.name} activityTitle={sk.title} skillId={sk.id} current={p} nameOf={nameOf} onSaved={onChange} /></div>
-                      : <div className="flex items-center gap-2 text-xs text-muted-foreground"><StatusBadge status={p?.status} />{p && <span>{lastUpdate(p, nameOf)}</span>}{p?.note && <span>· {p.note}</span>}</div>}
+                    <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p.status} />{editable && <Button variant="link" className="h-auto px-0" onClick={() => { if (allowSchoolNavigation()) onRecord(student.id, sk); }}>Edit observation</Button>}</div>
+                    <p className="text-xs text-muted-foreground">{lastUpdate(p, nameOf)}</p>
+                    {p.note && <p className="text-sm whitespace-pre-wrap break-words">{p.note}</p>}
                   </li>
                 );
               })}
@@ -218,18 +202,23 @@ export default function StudentPanel({ role, userId, student, progress, observat
           </TabsContent>
           <TabsContent value="notes" className="mt-0">
           <section>
-            {role === 'school_admin' && <div className="mb-5 border-b border-border pb-4 flex flex-wrap items-center justify-between gap-3">
-              <div><h3 className="font-semibold">Parent access</h3><p className="text-sm text-muted-foreground">{student.family_email || 'Add the parent email in the child’s details.'}</p></div>
-              <Button variant="outline" onClick={changeParentAccess} disabled={!student.family_email || savingAccess}>{savingAccess ? 'Saving…' : student.parent_access_enabled ? 'Revoke parent access' : 'Verify parent and enable access'}</Button>
-            </div>}
-            {editable && <div className="rounded-xl border border-border bg-card p-4 mb-5">
+            {editable && <div className="mb-6">
               <Label htmlFor="student-note" className="text-base font-semibold">New observation</Label>
-              <Textarea id="student-note" rows={4} className="mt-2 text-base" value={note} onChange={(e) => setNote(e.target.value)} placeholder={`What did you observe about ${student.name} today?`} />
-              <div className="flex justify-end mt-3"><Button onClick={addNote} disabled={!note.trim()}>Save note</Button></div>
+              <Textarea id="student-note" rows={4} maxLength={2000} disabled={savingNote} className="mt-2 text-base" value={note} onChange={(e) => setNote(e.target.value)} placeholder={`What did you observe about ${student.name} today?`} />
+              <div className="flex justify-end mt-3"><Button onClick={addNote} disabled={!note.trim() || savingNote}>{savingNote ? 'Saving…' : 'Save note'}</Button></div>
             </div>}
             <h3 className="text-lg font-semibold mb-2">Earlier notes</h3>
-            {obs.length === 0 && <p className="text-muted-foreground">No notes yet.</p>}
             <NoteList notes={obs} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
+            {role === 'school_admin' && <details className="mt-6 border-t border-border pt-4">
+              <summary className="cursor-pointer font-medium text-foreground">Parent access & full record</summary>
+              <div className="mt-4 space-y-3">
+                <p className="text-sm text-muted-foreground">{student.family_email || 'Add the parent email in the child’s details.'}</p>
+                <div className="flex flex-wrap gap-2">
+                  <Button variant="outline" className="h-auto min-h-11 whitespace-normal" onClick={changeParentAccess} disabled={!student.family_email || savingAccess}>{savingAccess ? 'Saving…' : student.parent_access_enabled ? 'Revoke parent access' : 'Verify parent and enable access'}</Button>
+                  <Button variant="ghost" onClick={exportRecord}>Download full record</Button>
+                </div>
+              </div>
+            </details>}
           </section>
           </TabsContent>
           <TabsContent value="reports" className="mt-0 space-y-6">

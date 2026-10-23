@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
 import { ArrowRight, Check, CheckCircle2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { PlanItem, Progress, schoolCall, Student } from './api';
@@ -38,14 +39,13 @@ export default function TodayLessons({ students, progress, plans, canPlan, canRe
       <section aria-labelledby="today-heading" className="space-y-4">
         <h2 id="today-heading" className="sr-only">Today's lessons</h2>
         {today.length === 0 ? (
-          <div className="school-card p-8 md:p-10 max-w-2xl">
+          <div className="py-6 max-w-2xl">
             <p className="school-label">Today</p>
             <p className="font-display mt-2 text-2xl text-foreground">Nothing is planned for today yet.</p>
-            <p className="mt-2 text-muted-foreground">Plan the presentations you intend to give and they will appear here each morning.</p>
             {canPlan && (
-              <button onClick={onPlan} className="mt-5 inline-flex items-center gap-1.5 font-medium text-primary hover:underline">
+              <Button variant="default" onClick={onPlan} className="mt-5 gap-2">
                 Plan today's lessons <ArrowRight className="h-4 w-4" />
-              </button>
+              </Button>
             )}
           </div>
         ) : (
@@ -66,9 +66,9 @@ export default function TodayLessons({ students, progress, plans, canPlan, canRe
                       </Link>
                     )}
                     {canRecord && (
-                      <button onClick={() => void toggle(p)} className="inline-flex items-center gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground">
+                      <Button variant="ghost" onClick={() => void toggle(p)} className="h-auto px-0 gap-1.5 text-sm font-medium text-muted-foreground hover:text-foreground">
                         {p.done ? <><CheckCircle2 className="h-4 w-4 text-primary" />Given</> : <><Check className="h-4 w-4" />Mark as given</>}
-                      </button>
+                      </Button>
                     )}
                   </div>
                 </li>
@@ -82,17 +82,16 @@ export default function TodayLessons({ students, progress, plans, canPlan, canRe
         <section aria-labelledby="ready-heading" className="space-y-4">
           <div>
             <h2 id="ready-heading" className="font-display text-2xl text-foreground">Ready for a next presentation</h2>
-            <p className="mt-1 text-sm text-muted-foreground">The next activity in sequence after work a child now does independently.</p>
           </div>
-          <ul className="school-card divide-y divide-border overflow-hidden">
+          <ul className="divide-y divide-border border-y border-border">
             {ready.map(({ s, sk }) => (
-              <li key={s.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 px-6 py-4">
-                <button onClick={() => onOpenStudent(s.id)} className="font-medium text-foreground hover:underline">{s.name}</button>
-                <span className="flex-1 min-w-0 truncate text-sm text-muted-foreground">{sk.title} · {sk.areaTitle}</span>
+              <li key={s.id} className="flex flex-wrap items-center gap-x-4 gap-y-1 py-4">
+                <Button variant="link" onClick={() => onOpenStudent(s.id)} className="h-auto px-0 font-medium text-foreground">{s.name}</Button>
+                <span className="flex-1 min-w-40 text-sm text-muted-foreground">{sk.title} · {sk.areaTitle}</span>
                 {canRecord && (
-                  <button onClick={() => onRecord(s.id, sk)} className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">
+                  <Button variant="link" onClick={() => onRecord(s.id, sk)} className="gap-1.5 px-0 text-sm font-medium text-primary">
                     Record <ArrowRight className="h-4 w-4" />
-                  </button>
+                  </Button>
                 )}
               </li>
             ))}

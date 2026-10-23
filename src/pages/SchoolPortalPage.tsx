@@ -22,7 +22,6 @@ import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
 import CurriculumTab from '@/components/school/CurriculumTab';
-import ScreenGuard from '@/components/school/ScreenGuard';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
 
@@ -115,8 +114,9 @@ export default function SchoolPortalPage() {
   const studentIds = new Set(students.map((s) => s.id));
   const progress = data.progress.filter((p) => studentIds.has(p.student_id));
   const plans = data.plans.filter((p) => p.classroom_id === classroomId);
-  const twoWeeksAgo = new Date(Date.now() - 14 * 864e5).toISOString();
-  const overlooked = students.filter((s) => !progress.some((p) => p.student_id === s.id && p.updated_at >= twoWeeksAgo));
+  const recordActivity = (sid: string, sk: { id: string; areaKey: string }) => setParams((p) => {
+    const n = new URLSearchParams(p); n.delete('student'); n.set('tab', 'progress'); n.set('recordStudent', sid); n.set('area', sk.areaKey); n.set('recordActivity', sk.id); return n;
+  }, { replace: true });
 
   const classroomNav = [
     { v: 'overview', label: 'Today' },
@@ -138,37 +138,36 @@ export default function SchoolPortalPage() {
   const pill = (n: { v: string; label: string }, disabled = false) => {
     const active = tab === n.v;
     return (
-      <button key={n.v} type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
-        className={`shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground font-medium' : 'text-foreground hover:bg-card'}`}>
+      <Button key={n.v} variant="ghost" type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
+        className={`h-11 shrink-0 whitespace-nowrap rounded-full px-3 py-2 transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground font-medium' : 'text-foreground hover:bg-card'}`}>
         {n.label}
-      </button>
+      </Button>
     );
   };
 
   return (
     <div className="school-theme min-h-screen">
-      <ScreenGuard />
       <div className="mx-auto max-w-[96rem] px-4 md:px-8 pb-16">
         <nav aria-label="School Portal" className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
-          <div className="flex w-full flex-wrap items-center gap-x-4 gap-y-2 min-[1500px]:flex-nowrap">
-            <div className="min-w-0 shrink-0">
-              <p className="font-display text-lg leading-tight text-foreground whitespace-nowrap">{school.name}</p>
+          <div className="flex w-full flex-nowrap items-center gap-2 overflow-x-auto [scrollbar-width:thin]">
+            <div className="min-w-0 max-w-40 shrink-0 mr-1">
+              <p className="font-display text-lg leading-tight text-foreground truncate" title={school.name}>{school.name}</p>
               <p className="text-xs text-muted-foreground whitespace-nowrap">{ROLE_LABEL[role]}{!can.recordProgress(role) ? ' · View only' : ''}</p>
             </div>
             {!leadership && visibleRooms.length > 1 && (
               <Select value={classroomId ?? ''} onValueChange={(v) => { if (v !== classroomId && allowSchoolNavigation()) setClassroomId(v); }}>
-                <SelectTrigger className="w-auto max-w-[12rem] shrink-0 rounded-full bg-card" aria-label="Classroom"><SelectValue /></SelectTrigger>
+                <SelectTrigger className="w-36 shrink-0 rounded-full bg-card" aria-label="Classroom"><SelectValue /></SelectTrigger>
                 <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
             )}
-            <div className="order-last flex w-full items-center gap-1 overflow-x-auto [scrollbar-width:none] min-[1500px]:order-none min-[1500px]:w-auto min-[1500px]:flex-1 min-[1500px]:justify-center min-[1500px]:overflow-visible">
+            <div className="flex flex-1 items-center justify-center gap-0.5">
               {leadership
-                ? <button type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-base font-medium text-foreground hover:bg-card">← Back to classroom</button>
+                ? <Button variant="ghost" type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-3 py-2 font-medium text-foreground hover:bg-card">← Back to classroom</Button>
                 : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
             </div>
-            <div className="ml-auto flex shrink-0 items-center gap-1 min-[1500px]:ml-0">
+            <div className="ml-auto flex shrink-0 items-center gap-1">
               {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap text-foreground" onClick={() => go('staff')}>School settings</Button>}
-              <button type="button" className="hidden md:inline-flex whitespace-nowrap rounded-full px-3 py-2 text-xs text-foreground hover:bg-card" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</button>
+              <Button variant="ghost" type="button" className="whitespace-nowrap rounded-full px-3 py-2 text-foreground hover:bg-card" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</Button>
             </div>
           </div>
         </nav>
@@ -198,7 +197,6 @@ export default function SchoolPortalPage() {
             <h1 className="font-display text-3xl md:text-4xl leading-tight text-foreground">{classroom.name}</h1>
             <p className="mt-1 text-muted-foreground">
               {new Date().toLocaleDateString(undefined, { weekday: 'long', month: 'long', day: 'numeric' })} · {todayCount ? `${todayCount} presentation${todayCount === 1 ? '' : 's'} planned` : 'nothing planned yet'}
-              {overlooked.length > 0 && <> · <button type="button" className="underline decoration-dotted underline-offset-4 hover:text-foreground" onClick={() => go('roster')}>{overlooked.length} not observed lately</button></>}
             </p>
           </header>
         )}
@@ -222,7 +220,7 @@ export default function SchoolPortalPage() {
                 ) : (
                   <TodayLessons students={students} progress={progress} plans={plans} canPlan={can.plan(role)} canRecord={can.recordProgress(role)}
                     onChange={reload} onPlan={() => go('planning')} onOpenStudent={setOpenStudent}
-                    onRecord={(sid, sk) => setParams((p) => { const n = new URLSearchParams(p); n.set('tab', 'progress'); n.set('recordStudent', sid); n.set('area', sk.areaKey); n.set('recordActivity', sk.id); return n; }, { replace: true })} />
+                    onRecord={recordActivity} />
                 )
               )}
             </TabsContent>
@@ -274,6 +272,7 @@ export default function SchoolPortalPage() {
           progress={data.progress} observations={data.observations} reports={data.reports}
           onClose={() => setOpenStudent(null)} onChange={reload} nameOf={nameOf} onSelect={setOpenStudent}
           schoolName={school.name} schoolEmail={school.contact_email}
+          onRecord={recordActivity}
           classmates={(() => { const st = data.students.find((x) => x.id === openStudent); return data.students.filter((x) => x.classroom_id === st?.classroom_id && !x.archived); })()}
           onPlan={(skillId, sid) => { if (skillById(skillId)) { setPlanSeed({ skill_id: skillId, student_ids: [sid] }); setOpenStudent(null); setTab('planning'); } }} />
       )}
