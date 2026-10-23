@@ -3,7 +3,7 @@ import { useLocation, useSearchParams } from 'react-router-dom';
 import { ClipboardPen, Users, UsersRound } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Button } from '@/components/ui/button';
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
@@ -46,11 +46,11 @@ export default function ClassroomDrawer() {
       <Button onClick={() => setOpen(true)} className="fixed left-4 z-50 shadow-lg print:hidden rounded-full" style={{ bottom: 'calc(4.75rem + env(safe-area-inset-bottom))' }} aria-label="Open classroom record">
         <Users className="h-4 w-4 mr-2" />Classroom
       </Button>
-      <Sheet open={open} onOpenChange={setOpen}>
-        <SheetContent side="right" className="school-scale w-full sm:max-w-md overflow-y-auto">
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="school-theme school-scale w-[calc(100vw-2rem)] max-w-2xl max-h-[88vh] overflow-y-auto rounded-lg">
           {open && <DrawerBody memberships={memberships} skillId={skill.id} skillTitle={skill.title} areaTitle={skill.areaTitle} />}
-        </SheetContent>
-      </Sheet>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
@@ -121,10 +121,10 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
 
   return (
     <div className="space-y-4">
-      <SheetHeader className="text-left">
-        <SheetTitle>{skillTitle}</SheetTitle>
-        <SheetDescription>{areaTitle} · {me.schools.name} · {ROLE_LABEL[role]}{!canRecord ? ' · View only' : ''}</SheetDescription>
-      </SheetHeader>
+      <DialogHeader className="text-left">
+        <DialogTitle className="font-display">{skillTitle}</DialogTitle>
+        <DialogDescription>{areaTitle} · {me.schools.name} · {ROLE_LABEL[role]}{!canRecord ? ' · View only' : ''}</DialogDescription>
+      </DialogHeader>
       {rooms.length > 1 && (
         <Select value={roomId ?? ''} onValueChange={(v) => { pick(null); setPicked([]); setRoomId(v); }}>
           <SelectTrigger><SelectValue placeholder="Classroom" /></SelectTrigger>
