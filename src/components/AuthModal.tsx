@@ -26,15 +26,22 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
     e.preventDefault()
     setLoading(true)
 
-    const { error } = isSignUp 
+    const result = isSignUp 
       ? await signUp(email, password)
       : await signIn(email, password)
+    const { error } = result
 
     if (error) {
       toast({
         title: 'Error',
         description: error.message,
         variant: 'destructive',
+      })
+    } else if (isSignUp && 'existing' in result && result.existing) {
+      setIsSignUp(false)
+      toast({
+        title: 'This email already has an account',
+        description: 'No new account was created. Sign in instead — use Google or Apple if that is how it was made.',
       })
     } else {
       toast({
