@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { db, Classroom, Invite, Member, Observation, PlanItem, Progress, Report, Student } from './api';
+import { startQueue, SYNCED_EVENT } from './offlineQueue';
 
 export interface SchoolData {
   classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[];
@@ -51,10 +52,28 @@ export function useSchoolData(schoolId: string | null) {
       });
     } catch {
       if (request !== generation.current) return;
+      // A background refresh that fails (e.g. lost Wi-Fi) keeps what is already on screen.
+      if (loadedSchool.current === schoolId) return;
       setData(EMPTY); setError('School records could not be loaded. Please retry.');
     } finally { if (request === generation.current) setLoading(false); }
   }, [schoolId]);
 
   useEffect(() => { loadedSchool.current = null; setData(EMPTY); void reload(); return () => { generation.current++; }; }, [reload]);
+
+  // Keep linked accounts current: refresh after queued records sync, on return to the app, and every minute while visible.
+  useEffect(() => {
+    startQueue();
+    const refresh = () => { if (document.visibilityState === 'visible' && navigator.onLine) void reload(); };
+    window.addEventListener(SYNCED_EVENT, refresh);
+    window.addEventListener('online', refresh);
+    document.addEventListener('visibilitychange', refresh);
+    const t = window.setInterval(refresh, 60_000);
+    return () => {
+      window.removeEventListener(SYNCED_EVENT, refresh);
+      window.removeEventListener('online', refresh);
+      document.removeEventListener('visibilitychange', refresh);
+      window.clearInterval(t);
+    };
+  }, [reload]);
   return { data, loading, error, reload };
 }
