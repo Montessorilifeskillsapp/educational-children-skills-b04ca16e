@@ -1,0 +1,1 @@
+DROP TABLE IF EXISTS public.student_support_notes; DROP FUNCTION IF EXISTS private.can_read_support_notes(uuid); ALTER TABLE public.school_students DROP COLUMN IF EXISTS support_notes;

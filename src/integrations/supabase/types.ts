@@ -781,7 +781,6 @@ export type Database = {
           id: string
           name: string
           school_id: string
-          support_notes: string | null
           updated_at: string
         }
         Insert: {
@@ -794,7 +793,6 @@ export type Database = {
           id?: string
           name: string
           school_id: string
-          support_notes?: string | null
           updated_at?: string
         }
         Update: {
@@ -807,7 +805,6 @@ export type Database = {
           id?: string
           name?: string
           school_id?: string
-          support_notes?: string | null
           updated_at?: string
         }
         Relationships: [
@@ -1160,45 +1157,6 @@ export type Database = {
             foreignKeyName: "student_reports_student_id_fkey"
             columns: ["student_id"]
             isOneToOne: false
-            referencedRelation: "school_students"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      student_support_notes: {
-        Row: {
-          body: string
-          school_id: string
-          student_id: string
-          updated_at: string
-          updated_by: string | null
-        }
-        Insert: {
-          body: string
-          school_id: string
-          student_id: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Update: {
-          body?: string
-          school_id?: string
-          student_id?: string
-          updated_at?: string
-          updated_by?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "student_support_notes_school_id_fkey"
-            columns: ["school_id"]
-            isOneToOne: false
-            referencedRelation: "schools"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "student_support_notes_student_id_fkey"
-            columns: ["student_id"]
-            isOneToOne: true
             referencedRelation: "school_students"
             referencedColumns: ["id"]
           },
