@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import StudentPanel from '@/components/school/StudentPanel';
 
 const { call } = vi.hoisted(() => ({ call: vi.fn() }));
-vi.mock('@/components/school/api', () => ({ schoolCall: call, can: { recordProgress: () => true, sendReport: () => false, plan: () => false, editOthers: () => false } }));
+vi.mock('@/components/school/api', () => ({ schoolCall: call, isQueued: () => false, can: { recordProgress: () => true, sendReport: () => false, plan: () => false, editOthers: () => false } }));
 vi.mock('@/hooks/use-toast', () => ({ useToast: () => ({ toast: vi.fn() }) }));
 vi.mock('@/components/school/curriculum', () => {
   const skill = { id: 'pouring', title: 'Pouring Water', areaKey: 'practical-life', areaTitle: 'Practical Life', route: '/practical-life' };
@@ -16,7 +16,7 @@ function mount() {
   render(<MemoryRouter><StudentPanel role="teacher" userId="guide" student={alex} progress={[]} observations={[]} reports={[]} onClose={vi.fn()} onChange={onChange} onPlan={vi.fn()} onRecord={onRecord} schoolName="School" schoolEmail={null} classmates={[alex]} onSelect={vi.fn()} nameOf={() => 'Guide'} /></MemoryRouter>);
   return { onChange, onRecord };
 }
-afterEach(() => { cleanup(); vi.clearAllMocks(); });
+afterEach(() => { cleanup(); vi.clearAllMocks(); localStorage.clear(); });
 describe('streamlined child workflow', () => {
   it('blocks duplicate note submissions while saving and clears only after success', async () => {
     let finish: ((value: unknown) => void) | undefined;
