@@ -1,0 +1,1 @@
+REVOKE ALL ON public.student_support_notes FROM anon;
