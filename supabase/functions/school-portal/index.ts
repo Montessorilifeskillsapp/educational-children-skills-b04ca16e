@@ -169,7 +169,7 @@ Deno.serve(async (req) => {
         const { error } = await checked(admin.from('school_invites').upsert({ school_id: b.school_id, email: inviteEmail, role: b.role, classroom_ids: roomIds, accepted_at: null }, { onConflict: 'school_id,email' }))
         if (error) throw error
         const { data: school } = await checked(admin.from('schools').select('name').eq('id', b.school_id).single())
-        const delivery = await queueSchoolInvite(admin, inviteEmail, school.name, b.role, `${b.school_id}-${inviteEmail}-${Date.now()}`)
+        const delivery = await queueSchoolInvite(admin, inviteEmail, school.name, b.role, `${b.school_id}-${inviteEmail}-${Date.now()}`, req.headers.get('Origin'))
         return json({ ok: true, invitation: delivery })
       }
       case 'invite_cancel': {
@@ -332,7 +332,7 @@ Deno.serve(async (req) => {
           const e = b.first_admin_email.toLowerCase()
           const { error: inviteError } = await admin.from('school_invites').upsert({ school_id: data.id, email: e, role: 'school_admin', accepted_at: null }, { onConflict: 'school_id,email' })
           if (inviteError) return json({ school: data, invitation: { queued: false, error: 'School saved, but the invitation could not be saved. Edit this school to retry.' } })
-          invitation = await queueSchoolInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`)
+          invitation = await queueSchoolInvite(admin, e, data.name, 'school_admin', `${data.id}-${e}-${Date.now()}`, req.headers.get('Origin'))
         }
         return json({ school: data, invitation })
       }

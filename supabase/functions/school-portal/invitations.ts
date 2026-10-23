@@ -2,20 +2,33 @@ const ROLE_LABEL: Record<string, string> = { school_admin: 'School Admin', teach
 
 // Saving an invitation and delivering its email are separate outcomes.
 // deno-lint-ignore no-explicit-any
-export async function queueSchoolInvite(admin: any, to: string, schoolName: string, role: string, key: string) {
+export function portalBase(origin: string | null | undefined): string {
+  const prod = 'https://montessorilifeskillsapp.com'
+  if (!origin) return prod
+  try {
+    const u = new URL(origin)
+    if (u.protocol === 'https:' && (u.hostname === 'montessorilifeskillsapp.com' || u.hostname.endsWith('.lovable.app'))) return u.origin
+  } catch { /* fall through */ }
+  return prod
+}
+
+export async function queueSchoolInvite(admin: any, to: string, schoolName: string, role: string, key: string, origin?: string | null) {
+  const base = portalBase(origin)
+  const link = `${base}/auth?redirect=%2Fschool`
+  const shown = base.replace(/^https:\/\//, '') + '/school'
   try {
     const { data, error } = await admin.functions.invoke('send-transactional-email', {
       body: { templateName: 'school-notice', recipientEmail: to, idempotencyKey: key, templateData: {
         title: `You're invited to ${schoolName}`,
-        body: `Welcome! You've been added to ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[role]}.\nHow to sign in:\n1. Tap "Open School Portal" below (or go to montessorilifeskillsapp.com/school).\n2. Sign in with this email address (${to}). Already have a Montessori Life Skills login? Use it. New here? Choose "Sign up" and create your own password.\n3. Your school access is added automatically once you're signed in.\nNo separate school password is issued. Questions? Reply to this email or write to montessorilifeskills@gmail.com.`,
-        cta: 'Open School Portal', url: 'https://montessorilifeskillsapp.com/school',
+        body: `Welcome! You've been added to ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[role]}.\nHow to sign in:\n1. Tap "Open School Portal" below (or go to ${shown}).\n2. Sign in with this email address (${to}). Already have a Montessori Life Skills login? Use it. New here? Choose "Sign up" and create your own password.\n3. Your school access is added automatically once you're signed in.\nNo separate school password is issued. Questions? Reply to this email or write to montessorilifeskills@gmail.com.`,
+        cta: 'Open School Portal', url: link,
       } },
     });
     if (!error && data?.success === true && data?.queued === true) return { queued: true, error: null };
   } catch {
     // Preserve the saved invitation when the email service is unavailable.
   }
-  return { queued: false, error: 'Invitation saved, but its email could not be queued. Share https://montessorilifeskillsapp.com/school directly. They must sign in or create an account using the invited email address; no separate school password is issued.' };
+  return { queued: false, error: `Invitation saved, but its email could not be queued. Share ${link} directly. They must sign in or create an account using the invited email address; no separate school password is issued.` };
 }
 
 // Never consume an invitation before its membership write succeeds.
