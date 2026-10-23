@@ -67,15 +67,18 @@ export const useAuth = () => {
   }
 
   const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: getAuthCallbackUrl()
       }
     })
-    if (!error) analytics.track('signup', { method: 'password' })
-    return { error }
+    // An already-registered email returns no error but a user with no identities,
+    // and no confirmation email is sent. Surface that instead of a false "check your email".
+    const existing = !error && !!data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0
+    if (!error && !existing) analytics.track('signup', { method: 'password' })
+    return { error, existing }
   }
 
   const signOut = async () => {
