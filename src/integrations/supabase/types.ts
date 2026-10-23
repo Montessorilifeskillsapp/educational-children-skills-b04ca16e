@@ -780,6 +780,7 @@ export type Database = {
           health_notes: string | null
           id: string
           name: string
+          parent_access_enabled: boolean
           school_id: string
           updated_at: string
         }
@@ -792,6 +793,7 @@ export type Database = {
           health_notes?: string | null
           id?: string
           name: string
+          parent_access_enabled?: boolean
           school_id: string
           updated_at?: string
         }
@@ -804,6 +806,7 @@ export type Database = {
           health_notes?: string | null
           id?: string
           name?: string
+          parent_access_enabled?: boolean
           school_id?: string
           updated_at?: string
         }
