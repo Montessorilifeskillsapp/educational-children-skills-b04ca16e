@@ -9,7 +9,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
 import { useAuthContext } from '@/components/AuthProvider';
-import { can, setSchoolPolicies, Membership, ROLE_LABEL, schoolCall } from './api';
+import { can, isQueued, setSchoolPolicies, Membership, ROLE_LABEL, schoolCall } from './api';
+import { useDraft } from './drafts';
 import { useSchoolData } from './useSchoolData';
 import { skillById } from './curriculum';
 import ProgressChooser, { StatusBadge, lastUpdate, STATUSES, STATUS_LABEL, type Status } from './ProgressChooser';
@@ -70,16 +71,17 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
   useEffect(() => { try { if (roomId) sessionStorage.setItem(ROOM_KEY, roomId); } catch { /* ignore */ } }, [roomId]);
   const [studentId, setStudentId] = useState<string | null>(null);
   const [dirty, setDirty] = useState(false);
-  const [obs, setObs] = useState('');
+  const uid = user?.id ?? 'anon';
+  const [obs, setObs, clearObs] = useDraft(studentId ? `${uid}:obs:${studentId}:${skillId}` : null, '');
   const [busy, setBusy] = useState(false);
   const onDraft = useCallback((d: boolean) => setDirty(d), []);
   const [group, setGroup] = useState(false);
   const [picked, setPicked] = useState<string[]>([]);
   const [groupStatus, setGroupStatus] = useState<Status>('presented');
-  const [groupNote, setGroupNote] = useState('');
+  const [groupNote, setGroupNote] = useDraft(`${uid}:group:${skillId}`, '');
   const leaveGroup = () => {
-    if ((picked.length || groupNote.trim()) && !window.confirm('Discard this unsaved group record?')) return;
-    setGroup(false); setPicked([]); setGroupNote('');
+    // The group note stays saved as a draft on this device; only the selection is cleared.
+    setGroup(false); setPicked([]);
   };
   const saveGroup = async () => {
     if (!picked.length) return;
@@ -109,15 +111,17 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
   const canRecord = can.recordProgress(role);
   const studentNotes = student ? data.observations.filter((o) => o.student_id === student.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)) : [];
   const pick = (id: string | null) => {
-    if ((dirty || obs.trim()) && !window.confirm('Discard this unsaved observation?')) return;
-    setDirty(false); setObs(''); setStudentId(id);
+    if (dirty && !window.confirm('Discard this unsaved observation?')) return;
+    setDirty(false); setStudentId(id);
   };
   const addObservation = async () => {
     if (!student || !obs.trim()) return;
     setBusy(true);
     try {
-      await schoolCall({ action: 'observation_add', student_id: student.id, body: `${skillTitle}: ${obs.trim()}` });
-      setObs(''); toast({ title: 'Note saved' }); reload();
+      const r = await schoolCall({ action: 'observation_add', student_id: student.id, body: `${skillTitle}: ${obs.trim()}` });
+      clearObs();
+      toast(isQueued(r) ? { title: 'Saved on this device', description: 'No connection right now. It will sync automatically.' } : { title: 'Note saved' });
+      reload();
     } catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
     finally { setBusy(false); }
   };
