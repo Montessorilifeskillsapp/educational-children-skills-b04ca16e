@@ -95,17 +95,33 @@ export default function StudentPanel({ role, userId, student, progress, observat
 
   const i = classmates.findIndex((c) => c.id === student.id);
   const showReports = can.sendReport(role) || sent.length > 0;
+  const showSupport = !!student.support_notes && role !== 'assistant';
+  const exportRecord = async () => {
+    try {
+      await schoolCall({ action: 'record_export', student_id: student.id });
+      const record = { exported_at: new Date().toISOString(), school: schoolName, student: { name: student.name, date_of_birth: student.date_of_birth, family_email: student.family_email, health_notes: student.health_notes ?? null, support_notes: student.support_notes ?? null },
+        progress: mine.map((p) => ({ activity: skillById(p.skill_id)?.title ?? p.skill_id, status: STATUS_LABEL[p.status] ?? p.status, note: p.note, recorded_by: p.updated_by ? nameOf(p.updated_by) : null, presented_at: p.presented_at, updated_at: p.updated_at })),
+        observations: obs.map((o) => ({ observed_at: o.observed_at, author: o.author_id ? nameOf(o.author_id) : null, body: o.body, edited_at: o.edited_at ?? null })),
+        reports: sent.map((r) => ({ period_start: r.period_start, period_end: r.period_end, title: r.summary.title, body: r.summary.body, sent_to: r.sent_to, sent_at: r.sent_at })) };
+      const text = JSON.stringify(record, null, 2);
+      const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))).map((b) => b.toString(16).padStart(2, '0')).join('');
+      const blob = new Blob([JSON.stringify({ ...record, sha256_of_record: digest }, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `student-record-${student.id.slice(0, 8)}.json`; a.click(); URL.revokeObjectURL(a.href);
+      toast({ title: 'Full record downloaded', description: 'The export was logged in your school change history.' });
+    } catch (e) { toast({ title: 'Export failed', description: (e as Error).message, variant: 'destructive' }); }
+  };
   return (
     <Dialog open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
       <DialogContent className="school-scale max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl">
         <div className="border-b border-border px-6 pt-6 pb-4 space-y-3">
           <DialogHeader className="text-left pr-8">
             <DialogTitle className="text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">View only</span>}</DialogTitle>
+            {role === 'school_admin' && <Button variant="outline" size="sm" className="mt-2 w-fit" onClick={exportRecord}>Download full record</Button>}
           </DialogHeader>
-          {(student.health_notes || student.support_notes) && (
+          {(student.health_notes || showSupport) && (
             <div className="space-y-1 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm" role="note">
               {student.health_notes && <p><span className="font-semibold">Health and allergies: </span>{student.health_notes}</p>}
-              {student.support_notes && <p><span className="font-semibold">Support notes: </span>{student.support_notes}</p>}
+              {showSupport && <p><span className="font-semibold">Support notes: </span>{student.support_notes}</p>}
             </div>
           )}
           {classmates.length > 1 && (
