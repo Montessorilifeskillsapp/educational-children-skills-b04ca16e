@@ -42,13 +42,10 @@ export function useSchoolData(schoolId: string | null) {
         ? await db.from('classroom_staff').select('*').in('classroom_id', classrooms.map((x) => x.id))
         : { data: [], error: null };
       if (staffRes.error) throw staffRes.error;
-      // Confidential support notes live apart; RLS returns them only to School Admins and Lead Guides.
-      const notesRes = await db.from('student_support_notes').select('student_id, body').eq('school_id', schoolId);
-      const notes = new Map<string, string>((notesRes.data ?? []).map((n: { student_id: string; body: string }) => [n.student_id, n.body]));
       if (request !== generation.current) return;
       setData({
         classrooms, staff: staffRes.data ?? [], members: m as Member[], invites: (i as Invite[]).filter((x) => !x.accepted_at),
-        students: (s as Student[]).map((st) => ({ ...st, support_notes: notes.get(st.id) ?? null })), progress: p as Progress[], observations: o as Observation[], plans: pl as PlanItem[], reports: r as Report[],
+        students: s as Student[], progress: p as Progress[], observations: o as Observation[], plans: pl as PlanItem[], reports: r as Report[],
       });
     } catch {
       if (request !== generation.current) return;

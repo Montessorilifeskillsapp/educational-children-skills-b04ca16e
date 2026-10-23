@@ -210,14 +210,6 @@ Deno.serve(async (req) => {
           if (String(error.message).includes('CLASSROOM_FULL')) return json({ error: 'CLASSROOM_FULL' }, 409)
           throw error
         }
-        // Confidential support notes: only School Admins and the classroom's Lead Guide may write (or read) them.
-        if (b.support_notes !== undefined) {
-          const { data: room } = await checked(admin.from('classrooms').select('lead_member_id').eq('id', b.classroom_id).maybeSingle())
-          if (a.role === 'school_admin' || room?.lead_member_id === a.id) {
-            if (b.support_notes) await checked(admin.from('student_support_notes').upsert({ student_id: data.id, school_id: a.school_id, body: String(b.support_notes).slice(0, 1000), updated_by: uid, updated_at: new Date().toISOString() }))
-            else await checked(admin.from('student_support_notes').delete().eq('student_id', data.id))
-          }
-        }
         return json({ student: data })
       }
       case 'student_delete': {

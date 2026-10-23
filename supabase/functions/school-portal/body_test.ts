@@ -3,13 +3,15 @@ import { Body } from './body.ts'
 
 const school = '00000000-0000-4000-8000-000000000001'
 const member = '00000000-0000-4000-8000-000000000002'
-Deno.test('student save preserves health and support notes', () => {
-  const result = Body.safeParse({ action: 'student_save', classroom_id: school, name: 'Child', health_notes: 'Nut allergy', support_notes: 'Quiet space' })
+Deno.test('student save preserves health notes and rejects private notes', () => {
+  const result = Body.safeParse({ action: 'student_save', classroom_id: school, name: 'Child', health_notes: 'Nut allergy' })
   assertEquals(result.success, true)
   if (result.success && result.data.action === 'student_save') {
     assertEquals(result.data.health_notes, 'Nut allergy')
-    assertEquals(result.data.support_notes, 'Quiet space')
   }
+})
+Deno.test('student save rejects separate private notes', () => {
+  assertEquals(Body.safeParse({ action: 'student_save', classroom_id: school, name: 'Child', support_notes: 'x' }).success, false)
 })
 Deno.test('classroom save preserves age group and Lead Guide', () => {
   const result = Body.safeParse({ action: 'classroom_save', school_id: school, name: 'Classroom', age_group: '3–6 years', lead_member_id: member })
