@@ -2,14 +2,17 @@ const ROLE_LABEL: Record<string, string> = { school_admin: 'School Admin', teach
 
 // Saving an invitation and delivering its email are separate outcomes.
 // deno-lint-ignore no-explicit-any
+// Invites sent from the live site link to the live site; anything else (editor preview,
+// preview domains) links to the shareable preview where the portal already exists.
 export function portalBase(origin: string | null | undefined): string {
   const prod = 'https://montessorilifeskillsapp.com'
-  if (!origin) return prod
+  const preview = 'https://id-preview--cad132a6-4b28-41b0-93d9-ba4b9938bbc8.lovable.app'
   try {
-    const u = new URL(origin)
-    if (u.protocol === 'https:' && (u.hostname === 'montessorilifeskillsapp.com' || u.hostname.endsWith('.lovable.app'))) return u.origin
-  } catch { /* fall through */ }
-  return prod
+    const host = new URL(origin ?? '').hostname
+    if (host === 'montessorilifeskillsapp.com' || host === 'www.montessorilifeskillsapp.com' || host === 'educational-children-skills.lovable.app') return prod
+    if (host) return preview
+  } catch { /* no usable origin */ }
+  return preview
 }
 
 export async function queueSchoolInvite(admin: any, to: string, schoolName: string, role: string, key: string, origin?: string | null) {
