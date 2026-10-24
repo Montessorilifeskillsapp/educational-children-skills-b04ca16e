@@ -15,9 +15,11 @@ function mount(role: SchoolRole) {
 afterEach(() => { cleanup(); vi.clearAllMocks(); setSchoolPolicies({}); });
 it.each(['teacher', 'assistant'] as const)('%s can read both parents and child details but cannot edit or save', (role) => {
   mount(role);
-  expect(screen.getByLabelText('Parent 1 full name')).toHaveValue('Alex Morgan');
-  expect(screen.getByLabelText('Parent 2 full name')).toHaveValue('Sam Morgan');
-  for (const label of ['Name', 'Birth date', 'Parent 1 full name', 'Parent 2 full name', 'Family email (for reports)', 'Health and allergies (staff only)']) {
+  expect(screen.getByLabelText('Parent 1 first name')).toHaveValue('Alex');
+  expect(screen.getByLabelText('Parent 1 surname')).toHaveValue('Morgan');
+  expect(screen.getByLabelText('Parent 2 first name')).toHaveValue('Sam');
+  expect(screen.getByLabelText('Parent 2 surname')).toHaveValue('Morgan');
+  for (const label of ['Student first name', 'Student surname', 'Birth date', 'Parent 1 first name', 'Parent 1 surname', 'Parent 2 first name', 'Parent 2 surname', 'Family email (for reports)', 'Health and allergies (staff only)']) {
     expect(screen.getByLabelText(label)).toHaveAttribute('readonly');
   }
   expect(screen.queryByRole('button', { name: 'Save' })).not.toBeInTheDocument();
@@ -26,8 +28,10 @@ it.each(['teacher', 'assistant'] as const)('%s can read both parents and child d
 it('School Admin saves both parents full names with the child information', async () => {
   call.mockResolvedValue({});
   mount('school_admin');
-  fireEvent.change(screen.getByLabelText('Parent 1 full name'), { target: { value: 'Taylor Morgan' } });
-  fireEvent.change(screen.getByLabelText('Parent 2 full name'), { target: { value: 'Jordan Morgan' } });
+  fireEvent.change(screen.getByLabelText('Student first name'), { target: { value: 'Jamie' } });
+  fireEvent.change(screen.getByLabelText('Student surname'), { target: { value: 'Morgan' } });
+  fireEvent.change(screen.getByLabelText('Parent 1 first name'), { target: { value: 'Taylor' } });
+  fireEvent.change(screen.getByLabelText('Parent 2 first name'), { target: { value: 'Jordan' } });
   fireEvent.click(screen.getByRole('button', { name: 'Save' }));
-  await waitFor(() => expect(call).toHaveBeenCalledWith(expect.objectContaining({ action: 'student_save', parent_one_full_name: 'Taylor Morgan', parent_two_full_name: 'Jordan Morgan' })));
+  await waitFor(() => expect(call).toHaveBeenCalledWith(expect.objectContaining({ action: 'student_save', name: 'Jamie Morgan', parent_one_full_name: 'Taylor Morgan', parent_two_full_name: 'Jordan Morgan' })));
 });

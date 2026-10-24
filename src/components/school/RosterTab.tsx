@@ -20,12 +20,20 @@ function ageOf(dob: string | null) {
   return `${Math.floor(m / 12)} yrs ${m % 12} mo`;
 }
 const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
+type NameParts = { first: string; surname: string };
+const splitName = (name?: string | null): NameParts => {
+  const [first = '', ...rest] = (name ?? '').trim().split(/\s+/);
+  return { first, surname: rest.join(' ') };
+};
+const fullName = ({ first, surname }: NameParts) => [first.trim(), surname.trim()].filter(Boolean).join(' ');
+interface ChildForm extends Partial<Student> { studentName: NameParts; parentOne: NameParts; parentTwo: NameParts }
+const childForm = (student: Partial<Student>): ChildForm => ({ ...student, studentName: splitName(student.name), parentOne: splitName(student.parent_one_full_name), parentTwo: splitName(student.parent_two_full_name) });
 
 interface Props { role: SchoolRole; classroom: Classroom; students: Student[]; seatLimit: number; schoolName: string; progress?: Progress[]; onChange: () => void; onOpenStudent: (id: string) => void; memberId?: string }
 
 export default function RosterTab({ role, classroom, students, seatLimit, schoolName, progress = [], onChange, onOpenStudent, memberId }: Props) {
   const { toast } = useToast();
-  const [editing, setEditing] = useState<Partial<Student> | null>(null);
+  const [editing, setEditing] = useState<ChildForm | null>(null);
   const [showArchived, setShowArchived] = useState(false);
   const [deleting, setDeleting] = useState<Student | null>(null);
   const [confirmation, setConfirmation] = useState('');
@@ -37,12 +45,12 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
   const canDelete = can.deleteStudent(role);
 
   const save = async () => {
-    if (!edit || !editing?.name?.trim() || busy) return;
+    if (!edit || !editing?.studentName.first.trim() || busy) return;
     setBusy(true);
     try {
-      await schoolCall({ action: 'student_save', classroom_id: classroom.id, id: editing.id, name: editing.name.trim(),
+      await schoolCall({ action: 'student_save', classroom_id: classroom.id, id: editing.id, name: fullName(editing.studentName),
         date_of_birth: editing.date_of_birth || null, family_email: editing.family_email?.trim() || null,
-        parent_one_full_name: editing.parent_one_full_name?.trim() || null, parent_two_full_name: editing.parent_two_full_name?.trim() || null,
+        parent_one_full_name: fullName(editing.parentOne) || null, parent_two_full_name: fullName(editing.parentTwo) || null,
         health_notes: editing.health_notes?.trim() || null });
       setEditing(null); onChange();
     } catch (e) {
@@ -71,7 +79,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
         <CardTitle className="text-lg">{classroom.name} · {active.length} of {seatLimit} places</CardTitle>
         <div className="flex gap-2 flex-wrap">
           <Button variant="outline" size="sm" onClick={() => setShowArchived(!showArchived)}>{showArchived ? 'Show current' : 'Show archived'}</Button>
-          {edit && !full && <Button size="sm" onClick={() => setEditing({})}>Add student</Button>}
+          {edit && !full && <Button size="sm" onClick={() => setEditing(childForm({}))}>Add student</Button>}
           {edit && full && <Button size="sm" asChild><a href={requestMailto}>Request more places</a></Button>}
         </div>
       </CardHeader>
@@ -97,7 +105,7 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
                     </span>
                   </button>
                     <div className="flex gap-1 border-t border-border px-2 py-1.5">
-                      <Button size="sm" variant="ghost" className="min-h-10" onClick={() => setEditing(s)}>{edit ? 'Edit' : 'Child information'}</Button>
+                      <Button size="sm" variant="ghost" className="min-h-10" onClick={() => setEditing(childForm(s))}>{edit ? 'Edit' : 'Child information'}</Button>
                       {edit && <Button size="sm" variant="ghost" className="min-h-10" onClick={() => archive(s, !s.archived)}>{s.archived ? 'Restore' : 'Archive'}</Button>}
                       {canDelete && <Button size="sm" variant="ghost" className="min-h-10 ml-auto text-destructive" onClick={() => { setDeleting(s); setConfirmation(''); }}>Delete</Button>}
                     </div>
@@ -118,19 +126,28 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
         </AlertDialogContent>
       </AlertDialog>
       <Dialog open={!!editing} onOpenChange={(o) => !o && !busy && setEditing(null)}>
-        <DialogContent>
+        <DialogContent className="max-h-[90vh] overflow-y-auto" aria-describedby={undefined}>
           <DialogHeader><DialogTitle>{!edit ? 'Child information' : editing?.id ? 'Edit student' : 'Add student'}</DialogTitle></DialogHeader>
           <div className="space-y-3">
-            <div><Label htmlFor="sn">Name</Label><Input id="sn" readOnly={!edit} value={editing?.name ?? ''} onChange={(e) => setEditing({ ...editing, name: e.target.value })} /></div>
-            <div><Label htmlFor="sd">Birth date</Label><Input id="sd" readOnly={!edit} type="date" value={editing?.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
-            <fieldset className="space-y-3"><legend className="text-sm font-medium mb-2">Parents</legend>
-              <div><Label htmlFor="sp1">Parent 1 full name</Label><Input id="sp1" maxLength={120} readOnly={!edit} value={editing?.parent_one_full_name ?? ''} onChange={(e) => setEditing({ ...editing, parent_one_full_name: e.target.value })} /></div>
-              <div><Label htmlFor="sp2">Parent 2 full name</Label><Input id="sp2" maxLength={120} readOnly={!edit} value={editing?.parent_two_full_name ?? ''} onChange={(e) => setEditing({ ...editing, parent_two_full_name: e.target.value })} /></div>
-            </fieldset>
-            <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" readOnly={!edit} type="email" value={editing?.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
-            <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" readOnly={!edit} rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing?.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
+            {editing && <>
+              <fieldset className="space-y-2"><legend className="text-sm font-medium">Student</legend>
+                <div className="grid grid-cols-2 gap-3">
+                  <div><Label htmlFor="sn-first">First name</Label><Input id="sn-first" aria-label="Student first name" maxLength={120} readOnly={!edit} value={editing.studentName.first} onChange={(e) => setEditing({ ...editing, studentName: { ...editing.studentName, first: e.target.value } })} /></div>
+                  <div><Label htmlFor="sn-surname">Surname</Label><Input id="sn-surname" aria-label="Student surname" maxLength={120} readOnly={!edit} value={editing.studentName.surname} onChange={(e) => setEditing({ ...editing, studentName: { ...editing.studentName, surname: e.target.value } })} /></div>
+                </div>
+              </fieldset>
+              <div><Label htmlFor="sd">Birth date</Label><Input id="sd" readOnly={!edit} type="date" value={editing.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
+              {(['parentOne', 'parentTwo'] as const).map((key, index) => <fieldset key={key} className="space-y-2"><legend className="text-sm font-medium">Parent {index + 1}</legend>
+                <div className="grid grid-cols-2 gap-3">
+                  <div><Label htmlFor={`${key}-first`}>First name</Label><Input id={`${key}-first`} aria-label={`Parent ${index + 1} first name`} maxLength={120} readOnly={!edit} value={editing[key].first} onChange={(e) => setEditing({ ...editing, [key]: { ...editing[key], first: e.target.value } })} /></div>
+                  <div><Label htmlFor={`${key}-surname`}>Surname</Label><Input id={`${key}-surname`} aria-label={`Parent ${index + 1} surname`} maxLength={120} readOnly={!edit} value={editing[key].surname} onChange={(e) => setEditing({ ...editing, [key]: { ...editing[key], surname: e.target.value } })} /></div>
+                </div>
+              </fieldset>)}
+              <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" readOnly={!edit} type="email" value={editing.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
+              <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" readOnly={!edit} rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
+            </>}
           </div>
-          <DialogFooter>{edit ? <Button disabled={busy || !editing?.name?.trim()} onClick={save}>{busy ? 'Saving…' : 'Save'}</Button> : <Button variant="outline" onClick={() => setEditing(null)}>Close</Button>}</DialogFooter>
+          <DialogFooter>{edit ? <Button disabled={busy || !editing?.studentName.first.trim()} onClick={save}>{busy ? 'Saving…' : 'Save'}</Button> : <Button variant="outline" onClick={() => setEditing(null)}>Close</Button>}</DialogFooter>
         </DialogContent>
       </Dialog>
     </Card>
