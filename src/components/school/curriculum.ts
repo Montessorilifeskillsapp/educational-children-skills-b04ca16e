@@ -8,11 +8,11 @@ let cache: SkillRef[] | null = null;
 export function orderedSkills(): SkillRef[] {
   if (cache) return cache;
   const out: SkillRef[] = [];
-  const seen = new Set<string>();
   for (const s of curriculumSectionsForMaterials) {
     for (const [id, sk] of Object.entries(s.skills)) {
-      if (seen.has(id) || !sk?.title) continue;
-      seen.add(id);
+      // An activity can belong to more than one area. Keep each area's entry;
+      // the stored skill id still identifies the same observation record.
+      if (!sk?.title) continue;
       out.push({ id, title: sk.title, areaKey: s.key, areaTitle: s.title, route: s.route, order: out.length });
     }
   }

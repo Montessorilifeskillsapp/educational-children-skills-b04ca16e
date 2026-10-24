@@ -45,7 +45,7 @@ export default function CurriculumTab() {
       <ul className="school-card divide-y divide-border">
         {visible.length === 0 && <li className="p-6 text-muted-foreground">No activities match “{query}”.</li>}
         {visible.map((sk, i) => (
-          <li key={sk.id}>
+          <li key={`${sk.areaKey}:${sk.id}`}>
             <button type="button" onClick={() => { if (allowSchoolNavigation()) navigate(skillLink(sk)); }}
               className="flex w-full items-center gap-4 px-5 py-4 text-left hover:bg-accent/50">
               <span className="w-8 shrink-0 text-sm text-muted-foreground">{q ? '' : i + 1}</span>
