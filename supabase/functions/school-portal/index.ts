@@ -236,9 +236,11 @@ Deno.serve(async (req) => {
       }
       case 'student_save': {
         const a = await classAccess(b.classroom_id, 'edit_roster')
-        if (!a) return forbidden()
+        if (!a || a.role !== 'school_admin') return forbidden()
         const row = { classroom_id: b.classroom_id, school_id: a.school_id, name: b.name, date_of_birth: b.date_of_birth ?? null,
           family_email: b.family_email ?? null, ...(b.archived !== undefined ? { archived: b.archived } : {}),
+          ...(b.parent_one_full_name !== undefined ? { parent_one_full_name: b.parent_one_full_name || null } : {}),
+          ...(b.parent_two_full_name !== undefined ? { parent_two_full_name: b.parent_two_full_name || null } : {}),
           ...(b.health_notes !== undefined ? { health_notes: b.health_notes ? String(b.health_notes).slice(0, 1000) : null } : {}) }
         if (b.id) {
           const existing = await studentAccess(b.id, 'edit_roster')

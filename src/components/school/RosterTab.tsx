@@ -37,11 +37,12 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
   const canDelete = can.deleteStudent(role);
 
   const save = async () => {
-    if (!editing?.name?.trim() || busy) return;
+    if (!edit || !editing?.name?.trim() || busy) return;
     setBusy(true);
     try {
       await schoolCall({ action: 'student_save', classroom_id: classroom.id, id: editing.id, name: editing.name.trim(),
         date_of_birth: editing.date_of_birth || null, family_email: editing.family_email?.trim() || null,
+        parent_one_full_name: editing.parent_one_full_name?.trim() || null, parent_two_full_name: editing.parent_two_full_name?.trim() || null,
         health_notes: editing.health_notes?.trim() || null });
       setEditing(null); onChange();
     } catch (e) {
@@ -95,13 +96,11 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
                       <span className="block text-xs text-muted-foreground">{mine.length} {mine.length === 1 ? 'activity' : 'activities'} recorded · {s.family_email ? 'Parent email saved' : 'No parent email'}</span>
                     </span>
                   </button>
-                  {(edit || canDelete) && (
                     <div className="flex gap-1 border-t border-border px-2 py-1.5">
-                      {edit && <Button size="sm" variant="ghost" className="min-h-10" onClick={() => setEditing(s)}>Edit</Button>}
+                      <Button size="sm" variant="ghost" className="min-h-10" onClick={() => setEditing(s)}>{edit ? 'Edit' : 'Child information'}</Button>
                       {edit && <Button size="sm" variant="ghost" className="min-h-10" onClick={() => archive(s, !s.archived)}>{s.archived ? 'Restore' : 'Archive'}</Button>}
                       {canDelete && <Button size="sm" variant="ghost" className="min-h-10 ml-auto text-destructive" onClick={() => { setDeleting(s); setConfirmation(''); }}>Delete</Button>}
                     </div>
-                  )}
                 </li>
               );
             })}
@@ -120,14 +119,18 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
       </AlertDialog>
       <Dialog open={!!editing} onOpenChange={(o) => !o && !busy && setEditing(null)}>
         <DialogContent>
-          <DialogHeader><DialogTitle>{editing?.id ? 'Edit student' : 'Add student'}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{!edit ? 'Child information' : editing?.id ? 'Edit student' : 'Add student'}</DialogTitle></DialogHeader>
           <div className="space-y-3">
-            <div><Label htmlFor="sn">Name</Label><Input id="sn" value={editing?.name ?? ''} onChange={(e) => setEditing({ ...editing, name: e.target.value })} /></div>
-            <div><Label htmlFor="sd">Birth date</Label><Input id="sd" type="date" value={editing?.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
-            <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" type="email" value={editing?.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
-            <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing?.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
+            <div><Label htmlFor="sn">Name</Label><Input id="sn" readOnly={!edit} value={editing?.name ?? ''} onChange={(e) => setEditing({ ...editing, name: e.target.value })} /></div>
+            <div><Label htmlFor="sd">Birth date</Label><Input id="sd" readOnly={!edit} type="date" value={editing?.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
+            <fieldset className="space-y-3"><legend className="text-sm font-medium mb-2">Parents</legend>
+              <div><Label htmlFor="sp1">Parent 1 full name</Label><Input id="sp1" maxLength={120} readOnly={!edit} value={editing?.parent_one_full_name ?? ''} onChange={(e) => setEditing({ ...editing, parent_one_full_name: e.target.value })} /></div>
+              <div><Label htmlFor="sp2">Parent 2 full name</Label><Input id="sp2" maxLength={120} readOnly={!edit} value={editing?.parent_two_full_name ?? ''} onChange={(e) => setEditing({ ...editing, parent_two_full_name: e.target.value })} /></div>
+            </fieldset>
+            <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" readOnly={!edit} type="email" value={editing?.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
+            <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" readOnly={!edit} rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing?.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
           </div>
-          <DialogFooter><Button disabled={busy || !editing?.name?.trim()} onClick={save}>{busy ? 'Saving…' : 'Save'}</Button></DialogFooter>
+          <DialogFooter>{edit ? <Button disabled={busy || !editing?.name?.trim()} onClick={save}>{busy ? 'Saving…' : 'Save'}</Button> : <Button variant="outline" onClick={() => setEditing(null)}>Close</Button>}</DialogFooter>
         </DialogContent>
       </Dialog>
     </Card>

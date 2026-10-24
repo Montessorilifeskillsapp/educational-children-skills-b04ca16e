@@ -21,6 +21,7 @@ export const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('student_save'), classroom_id: uuid, id: uuid.optional(),
     name: text(120), date_of_birth: date.nullable().optional(),
     family_email: z.string().email().max(255).nullable().optional(), archived: z.boolean().optional(),
+    parent_one_full_name: text(120, false).nullable().optional(), parent_two_full_name: text(120, false).nullable().optional(),
     health_notes: text(1000, false).nullable().optional() }).strict(),
   z.object({ action: z.literal('student_delete'), id: uuid, confirmation: z.literal('DELETE') }).strict(),
   z.object({ action: z.literal('progress_set'), student_id: uuid, skill_id: text(160),
