@@ -781,6 +781,8 @@ export type Database = {
           id: string
           name: string
           parent_access_enabled: boolean
+          parent_one_full_name: string | null
+          parent_two_full_name: string | null
           school_id: string
           updated_at: string
         }
@@ -794,6 +796,8 @@ export type Database = {
           id?: string
           name: string
           parent_access_enabled?: boolean
+          parent_one_full_name?: string | null
+          parent_two_full_name?: string | null
           school_id: string
           updated_at?: string
         }
@@ -807,6 +811,8 @@ export type Database = {
           id?: string
           name?: string
           parent_access_enabled?: boolean
+          parent_one_full_name?: string | null
+          parent_two_full_name?: string | null
           school_id?: string
           updated_at?: string
         }
