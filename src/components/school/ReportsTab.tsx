@@ -41,16 +41,20 @@ export default function ReportsTab({ role, students, progress, observations, rep
   const patchStyle = (p: Partial<ReportStyle>) => setStyle((s) => ({ ...s, ...p }));
   const student = students.find((s) => s.id === selected) ?? null;
   const canSend = can.sendReport(role);
+  // Edits autosave on this device per child, together with their period, so staff can come back on a later day and finish.
+  const [draft, setDraft, clearDraft] = useDraft<{ title: string; body: string; from?: string; to?: string } | null>(student ? `${userId}:report:${student.id}` : null, null);
+  const pFrom = draft?.from ?? from;
+  const pTo = draft?.to ?? to;
 
   const lastSent = (id: string) => reports.filter((r) => r.student_id === id && (r.summary.email_status === 'queued' || r.summary.email_status === 'school_mail')).sort((a, b) => b.period_end.localeCompare(a.period_end))[0];
 
   const generated = useMemo(() => {
     if (!student) return null;
-    const inRange = (d: string) => d.slice(0, 10) >= from && d.slice(0, 10) <= to;
+    const inRange = (d: string) => d.slice(0, 10) >= pFrom && d.slice(0, 10) <= pTo;
     const mine = progress.filter((p) => p.student_id === student.id);
     const lines: string[] = [];
     if (style.opening.trim()) lines.push(style.opening.trim().split('{child}').join(student.name), '');
-    lines.push(`Summary for ${student.name}, ${from} to ${to}.`, '');
+    lines.push(`Summary for ${student.name}, ${pFrom} to ${pTo}.`, '');
     for (const a of areas()) {
       if (style.areas.length && !style.areas.includes(a.key)) continue;
       const items = mine.filter((p) => inRange(p.updated_at) && skillById(p.skill_id)?.areaKey === a.key);
@@ -65,12 +69,10 @@ export default function ReportsTab({ role, students, progress, observations, rep
     if (style.next && next.length) { lines.push('Coming next:'); next.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
     if (style.closing.trim()) lines.push('', style.closing.trim().split('{child}').join(student.name));
     return { title: `${style.heading.trim() || 'Progress report'} · ${student.name}`, body: lines.join('\n').trim() };
-  }, [student, progress, observations, from, to, style]);
+  }, [student, progress, observations, pFrom, pTo, style]);
 
-  // Edits autosave on this device per child and period, so staff can leave and come back to finish.
-  const [draft, setDraft, clearDraft] = useDraft<{ title: string; body: string } | null>(student ? `${userId}:report:${student.id}:${from}:${to}` : null, null);
   const report = draft || generated;
-  const setReport = (r: { title: string; body: string }) => setDraft(r);
+  const setReport = (r: { title: string; body: string }) => setDraft({ title: r.title, body: r.body, from: pFrom, to: pTo });
 
   const send = () => {
     if (!student || !report || !student.family_email || sending) return;
@@ -78,7 +80,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
     const body = `${report.body}\n\n${style.signoff.trim() || 'With warm regards,'}\n${schoolName}${schoolEmail ? `\n${schoolEmail}` : ''}`;
     window.location.href = `mailto:${encodeURIComponent(student.family_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSending(true);
-    schoolCall({ action: 'report_record', student_id: student.id, period_start: from, period_end: to, title: report.title, body: report.body })
+    schoolCall({ action: 'report_record', student_id: student.id, period_start: pFrom, period_end: pTo, title: report.title, body: report.body })
       .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); clearDraft(); onChange(); })
       .catch((e) => toast({ title: 'Email opened, but the record was not saved', description: (e as Error).message, variant: 'destructive' }))
       .finally(() => setSending(false));
@@ -88,7 +90,7 @@ export default function ReportsTab({ role, students, progress, observations, rep
     if (!report || !student) return;
     const w = window.open('', '_blank'); if (!w) { toast({ title: 'Allow pop-ups to print', description: 'Your browser blocked the print window.', variant: 'destructive' }); return; }
     w.document.open();
-    w.document.write(conferenceHtml({ schoolName, schoolEmail, studentName: student.name, periodStart: from, periodEnd: to, title: report.title, body: report.body, signoff: style.signoff.trim() }));
+    w.document.write(conferenceHtml({ schoolName, schoolEmail, studentName: student.name, periodStart: pFrom, periodEnd: pTo, title: report.title, body: report.body, signoff: style.signoff.trim() }));
     w.document.close();
     w.focus(); setTimeout(() => w.print(), 250);
   };
@@ -99,8 +101,8 @@ export default function ReportsTab({ role, students, progress, observations, rep
     <section className="pt-3 grid gap-6 md:grid-cols-[280px_minmax(0,1fr)]">
       <aside className="space-y-3">
         <div className="grid grid-cols-2 gap-2">
-          <div><Label htmlFor="rf">From</Label><Input id="rf" type="date" value={from} onChange={(e) => setFrom(e.target.value)} /></div>
-          <div><Label htmlFor="rt">To</Label><Input id="rt" type="date" value={to} onChange={(e) => setTo(e.target.value)} /></div>
+          <div><Label htmlFor="rf">From</Label><Input id="rf" type="date" value={pFrom} onChange={(e) => (draft ? setDraft({ ...draft, from: e.target.value }) : setFrom(e.target.value))} /></div>
+          <div><Label htmlFor="rt">To</Label><Input id="rt" type="date" value={pTo} onChange={(e) => (draft ? setDraft({ ...draft, to: e.target.value }) : setTo(e.target.value))} /></div>
         </div>
         <ul className="rounded-md border border-border divide-y divide-border max-h-[520px] overflow-y-auto">
           {students.map((s) => {
