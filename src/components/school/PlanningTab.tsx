@@ -76,7 +76,7 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
         {record ? <Button variant="ghost" size="icon" className="h-8 w-8 shrink-0 print:hidden" disabled={pending === p.id} aria-label={`${p.done ? 'Mark not given' : 'Mark as given'}: ${sk?.title ?? p.skill_id}`} title={p.done ? 'Mark not given' : 'Mark as given'} onClick={() => void act(p)}>{p.done ? <CheckCircle2 className="h-5 w-5 text-primary" /> : <Circle className="h-5 w-5 text-muted-foreground" />}</Button> : p.done && <CheckCircle2 className="h-5 w-5 shrink-0 text-primary" />}
       </div>
       {sk ? <Link to={skillLink(sk)} className={`block font-medium leading-snug text-foreground hover:text-primary break-words ${p.done ? 'line-through' : ''}`}>{sk.title}</Link> : <p className="break-words">{p.skill_id}</p>}
-      <div className="flex items-start gap-1.5 text-xs text-muted-foreground"><Users className="h-4 w-4 shrink-0 mt-0.5" /><span className="break-words">{audience(p)}</span></div>
+      <div className="flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground"><Users className="h-4 w-4 shrink-0" />{p.student_ids.length ? p.student_ids.map((id) => names.get(id)).filter(Boolean).map((name, i) => <span key={`${p.id}:${i}`} className="max-w-full rounded-md bg-muted px-2 py-0.5 break-words">{name}</span>) : <span className="rounded-md bg-muted px-2 py-0.5">Whole class</span>}</div>
       {p.notes && <p className="text-sm text-muted-foreground whitespace-pre-wrap break-words">{p.notes}</p>}
       {edit && <div className="flex justify-end gap-1 border-t border-border pt-2 print:hidden">
         <Button variant="ghost" size="icon" className="h-8 w-8" title="Edit lesson" aria-label={`Edit ${sk?.title ?? p.skill_id}`} onClick={() => open(new Date(), p)}><Pencil className="h-4 w-4" /></Button>
@@ -117,12 +117,12 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
       </section>; })}
     </div> : <>
       <div className="overflow-x-auto rounded-lg border border-border">
-        <div className="min-w-[640px]">
+        <div className="min-w-[840px]">
           <div className="grid grid-cols-7 border-b border-border bg-muted/60">{['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].map((day) => <p key={day} className="p-3 text-xs font-medium text-muted-foreground text-center">{day}</p>)}</div>
           <div className="grid grid-cols-7">
             {days.map((date) => { const items = dayPlans(date); const current = planDate(date) === today; const selected = planDate(date) === planDate(selectedDay); return <div key={planDate(date)} className={`min-w-0 min-h-[140px] border-b border-r border-border p-2 ${selected ? 'bg-primary/10 ring-1 ring-inset ring-primary' : isWeekend(date) ? 'bg-muted/50' : 'bg-card/70'} ${!isSameMonth(date, anchor) ? 'opacity-50' : ''}`}>
               <Button variant={current ? 'default' : 'ghost'} className="h-8 w-full justify-between rounded-md px-2" aria-label={`Show lessons for ${format(date, 'EEEE, MMMM d')}`} aria-pressed={selected} onClick={() => setSelectedDay(date)}><span>{format(date, 'd')}</span>{current && <span className="text-xs">Today</span>}</Button>
-              <div className="mt-2 space-y-1">{items.slice(0, 2).map((p) => { const sk = skillById(p.skill_id); return <Button key={p.id} variant="ghost" className={`h-auto w-full justify-start whitespace-normal text-left rounded-md px-2 py-1.5 text-xs border ${planAreaStyle(sk?.areaKey)} ${p.done ? 'line-through opacity-65' : ''}`} onClick={() => setSelectedDay(date)} title={`${sk?.title ?? p.skill_id} · ${audience(p)}`}><span className="line-clamp-2 break-words">{sk?.title ?? p.skill_id}</span></Button>; })}{items.length > 2 && <Button variant="link" className="h-auto px-1 py-0 text-xs" onClick={() => setSelectedDay(date)}>+{items.length - 2} more</Button>}</div>
+              <div className="mt-2 space-y-1">{items.slice(0, 2).map((p) => { const sk = skillById(p.skill_id); return <Button key={p.id} variant="ghost" className={`h-auto w-full justify-start whitespace-normal text-left rounded-md px-2 py-1.5 text-xs border ${planAreaStyle(sk?.areaKey)} ${p.done ? 'line-through opacity-65' : ''}`} onClick={() => setSelectedDay(date)} title={`${sk?.title ?? p.skill_id} · ${audience(p)}`}><span className="min-w-0"><span className="line-clamp-2 break-words">{sk?.title ?? p.skill_id}</span><span className="flex items-center gap-1 mt-1 text-muted-foreground"><Users className="h-3 w-3" />{p.student_ids.length || 'All'}</span></span></Button>; })}{items.length > 2 && <Button variant="link" className="h-auto px-1 py-0 text-xs" onClick={() => setSelectedDay(date)}>+{items.length - 2} more</Button>}</div>
             </div>; })}
           </div>
         </div>
