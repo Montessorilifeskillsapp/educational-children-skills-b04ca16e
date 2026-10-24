@@ -46,7 +46,7 @@ export default function StaffPolicies({ schoolId, policies, onSaved }: { schoolI
           <span className="text-sm font-medium text-muted-foreground">Allowed to…</span>
           <span className="text-sm font-medium text-muted-foreground hidden md:block">Teachers</span>
           <span className="text-sm font-medium text-muted-foreground hidden md:block">Assistants</span>
-          {CAPABILITIES.map((c) => (
+          {CAPABILITIES.filter((c) => c !== 'edit_roster').map((c) => (
             <div key={c} className="contents">
               <span className="text-sm">{LABEL[c]}</span>
               <label className="flex items-center gap-2 text-sm"><Switch checked={p.teacher[c]} onCheckedChange={(v) => toggle('teacher', c, v)} aria-label={`Teachers: ${LABEL[c]}`} /><span className="md:hidden">Teachers</span></label>

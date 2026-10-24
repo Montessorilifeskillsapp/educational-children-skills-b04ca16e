@@ -33,5 +33,6 @@ export function roleAllows(role: SchoolRole, action: string, policies: SchoolPol
   if (role === 'school_admin') return true
   if (action === 'view') return true
   if (action === 'manage_school') return false
+  if (action === 'edit_roster') return false
   return !!policies[role][action as Capability]
 }

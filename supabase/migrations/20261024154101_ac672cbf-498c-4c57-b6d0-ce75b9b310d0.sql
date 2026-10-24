@@ -1,0 +1,1 @@
+ALTER TABLE public.school_students ADD COLUMN parent_one_full_name text, ADD COLUMN parent_two_full_name text;

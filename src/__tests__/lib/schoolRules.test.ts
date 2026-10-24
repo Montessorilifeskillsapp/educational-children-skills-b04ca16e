@@ -2,6 +2,14 @@ import { describe, it, expect } from 'vitest';
 import { roleAllows, resolvePolicies, DEFAULT_SEAT_LIMIT } from '../../../supabase/functions/school-portal/rules';
 
 describe('school portal rules', () => {
+  it('only School Admins can edit child information even when staff roster permissions are enabled', () => {
+    const policies = resolvePolicies({ teacher: { edit_roster: true }, assistant: { edit_roster: true } });
+    expect(roleAllows('school_admin', 'edit_roster', policies)).toBe(true);
+    expect(roleAllows('teacher', 'edit_roster', policies)).toBe(false);
+    expect(roleAllows('assistant', 'edit_roster', policies)).toBe(false);
+    expect(roleAllows('teacher', 'view', policies)).toBe(true);
+    expect(roleAllows('assistant', 'view', policies)).toBe(true);
+  });
   it('classrooms default to 30 places', () => { expect(DEFAULT_SEAT_LIMIT).toBe(30); });
   it('assistants cannot delete students or send reports', () => {
     expect(roleAllows('assistant', 'delete_student')).toBe(false);

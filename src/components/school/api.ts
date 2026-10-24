@@ -11,7 +11,7 @@ export interface Membership { id: string; role: SchoolRole; school_id: string; s
 export interface Classroom { id: string; school_id: string; name: string; seat_limit: number | null; age_group?: string | null; lead_member_id?: string | null }
 export interface Member { id: string; user_id: string; email: string; full_name: string | null; role: SchoolRole }
 export interface Invite { id: string; email: string; role: SchoolRole; accepted_at: string | null; classroom_ids?: string[] }
-export interface Student { id: string; classroom_id: string; name: string; date_of_birth: string | null; family_email: string | null; archived: boolean; health_notes?: string | null; parent_access_enabled?: boolean }
+export interface Student { id: string; classroom_id: string; name: string; date_of_birth: string | null; parent_one_full_name?: string | null; parent_two_full_name?: string | null; family_email: string | null; archived: boolean; health_notes?: string | null; parent_access_enabled?: boolean }
 export interface Progress { id: string; student_id: string; skill_id: string; status: 'presented' | 'practising' | 'mastered'; note: string | null; updated_by: string | null; presented_at: string; updated_at: string }
 export interface Observation { id: string; student_id: string; body: string; author_id: string | null; observed_at: string; edited_by?: string | null; edited_at?: string | null }
 export interface PlanItem { id: string; classroom_id: string; plan_date: string; skill_id: string; student_ids: string[]; notes: string | null; done: boolean }
