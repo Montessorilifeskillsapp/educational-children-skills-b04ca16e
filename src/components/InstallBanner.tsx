@@ -1,7 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Download, Leaf, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuthContext } from "@/components/AuthProvider";
 
 interface BeforeInstallPromptEvent extends Event {
   prompt: () => Promise<void>;
@@ -16,6 +17,9 @@ const InstallBanner = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const navigate = useNavigate();
+  const { user, loading } = useAuthContext();
+  const { pathname } = useLocation();
+  const blocked = loading || !!user || /^\/(school|admin)(\/|$)/.test(pathname);
   const installButtonRef = useRef<HTMLButtonElement>(null);
   const previouslyFocusedRef = useRef<HTMLElement | null>(null);
   const bannerRef = useRef<HTMLDivElement>(null);
@@ -25,7 +29,7 @@ const InstallBanner = () => {
   useEffect(() => {
     const el = bannerRef.current;
     const root = document.documentElement;
-    if (!isVisible || !el) {
+    if (!isVisible || blocked || !el) {
       root.style.setProperty('--banner-h', '0px');
       window.dispatchEvent(new Event('banner-resize'));
       return;
@@ -52,26 +56,20 @@ const InstallBanner = () => {
       root.style.setProperty('--banner-h', '0px');
       window.dispatchEvent(new Event('banner-resize'));
     };
-  }, [isVisible]);
+  }, [isVisible, blocked]);
 
   useEffect(() => {
-    // Dev/test override: ?forceInstallBanner=1 shows the banner for this URL only.
-    const params = new URLSearchParams(window.location.search);
-    localStorage.removeItem("pwa-install-banner-force");
-    const forced = params.get("forceInstallBanner") === "1";
-
-    let timer: ReturnType<typeof setTimeout> | undefined;
+    setIsVisible(false);
+    setDeferredPrompt(null);
     const installedHandler = () => {
       localStorage.setItem(PWA_INSTALLED_KEY, "1");
-      clearTimeout(timer);
       setDeferredPrompt(null);
       setIsVisible(false);
     };
     window.addEventListener("appinstalled", installedHandler);
     const cleanupInstalled = () => window.removeEventListener("appinstalled", installedHandler);
 
-    if (!forced) {
-      const isStandalone =
+    const isStandalone =
         window.matchMedia("(display-mode: standalone)").matches ||
         // @ts-expect-error iOS Safari only
         window.navigator.standalone === true;
@@ -79,49 +77,33 @@ const InstallBanner = () => {
         installedHandler();
         return cleanupInstalled;
       }
-      // Once the app has been installed, never show the banner again.
-      if (localStorage.getItem(PWA_INSTALLED_KEY)) return cleanupInstalled;
-      // If dismissed with the X, the banner stays hidden for 72 hours then reappears.
-      const dismissedAt = localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY);
-      if (dismissedAt) {
-        const hoursSinceDismissal = (Date.now() - Number(dismissedAt)) / (1000 * 60 * 60);
-        if (hoursSinceDismissal < 72) return cleanupInstalled;
-      }
-    }
-
-
+    // Existing dismissals remain permanent, including old timestamp values.
+    if (blocked || localStorage.getItem(PWA_INSTALLED_KEY) ||
+        localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY)) return cleanupInstalled;
     const ua = navigator.userAgent;
     const ios = /iPad|iPhone|iPod/.test(ua);
     setIsIOS(ios);
+    if (!/Android|iPad|iPhone|iPod/i.test(ua)) return cleanupInstalled;
 
     const handler = (e: Event) => {
       e.preventDefault();
-      if (localStorage.getItem(PWA_INSTALLED_KEY)) return;
+      if (localStorage.getItem(PWA_INSTALLED_KEY) ||
+          localStorage.getItem(INSTALL_BANNER_DISMISSED_KEY)) return;
       setDeferredPrompt(e as BeforeInstallPromptEvent);
       setIsVisible(true);
     };
 
     window.addEventListener("beforeinstallprompt", handler);
 
-    // On iOS (no beforeinstallprompt support) show the manual instructions banner.
-    // On desktop/Android, show after a short delay if no native prompt fires —
-    // users can still click Install to open the /install instructions page.
-    timer = setTimeout(() => {
-      if (localStorage.getItem(PWA_INSTALLED_KEY)) return;
-      setIsVisible(true);
-    }, forced ? 0 : 1500);
-
     return () => {
-      clearTimeout(timer);
       window.removeEventListener("beforeinstallprompt", handler);
       window.removeEventListener("appinstalled", installedHandler);
     };
-  }, []);
+  }, [blocked]);
 
   const handleDismiss = () => {
     setIsVisible(false);
-    const forced = new URLSearchParams(window.location.search).get("forceInstallBanner") === "1";
-    if (!forced) localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, String(Date.now()));
+    localStorage.setItem(INSTALL_BANNER_DISMISSED_KEY, String(Date.now()));
     // Restore focus to whatever was focused before the banner appeared
     previouslyFocusedRef.current?.focus?.();
   };
@@ -142,7 +124,7 @@ const InstallBanner = () => {
 
   // Focus management + keyboard dismiss (Escape)
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || blocked) return;
 
     previouslyFocusedRef.current = document.activeElement as HTMLElement | null;
     // Move focus to the primary action so screen readers announce the banner
@@ -156,9 +138,9 @@ const InstallBanner = () => {
     };
     document.addEventListener("keydown", onKeyDown);
     return () => document.removeEventListener("keydown", onKeyDown);
-  }, [isVisible]);
+  }, [isVisible, blocked]);
 
-  if (!isVisible) return null;
+  if (!isVisible || blocked) return null;
 
   const description = isIOS
     ? "Install for quick access like a real app"
@@ -199,14 +181,16 @@ const InstallBanner = () => {
           <Download aria-hidden="true" className="w-3.5 h-3.5" />
           <span className="hidden sm:inline">Install</span>
         </Button>
-        <button
+        <Button
           type="button"
+          variant="ghost"
+          size="icon"
           onClick={handleDismiss}
           aria-label="Dismiss install banner (Escape)"
           className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           <X aria-hidden="true" className="w-4 h-4 text-slate-400" />
-        </button>
+        </Button>
       </div>
     </div>
   );
