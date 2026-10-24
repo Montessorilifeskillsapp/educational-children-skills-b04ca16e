@@ -134,7 +134,7 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
     </>}
 
     <Dialog open={!!draft} onOpenChange={(o) => !o && close()}>
-      <DialogContent className="school-theme max-w-2xl max-h-[90dvh] overflow-y-auto">
+      <DialogContent aria-describedby={undefined} className="school-theme max-w-2xl max-h-[90dvh] overflow-y-auto">
         <DialogHeader><DialogTitle className="font-display text-2xl">{draft?.id ? 'Edit lesson' : 'Plan a lesson'}</DialogTitle></DialogHeader>
         <div className="space-y-5">
           <div className="grid gap-4 sm:grid-cols-2">
@@ -161,6 +161,6 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
         <DialogFooter><Button variant="outline" disabled={busy} onClick={close}><X className="h-4 w-4 mr-2" />Cancel</Button><Button onClick={() => void save()} disabled={!draft?.skill_id || !draft.plan_date || busy}>{busy ? 'Saving…' : 'Save lesson'}</Button></DialogFooter>
       </DialogContent>
     </Dialog>
-    <Dialog open={!!removing} onOpenChange={(o) => !o && !pending && setRemoving(null)}><DialogContent className="school-theme"><DialogHeader><DialogTitle>Remove this lesson?</DialogTitle></DialogHeader><p>{removing ? skillById(removing.skill_id)?.title ?? removing.skill_id : ''}</p><DialogFooter><Button variant="outline" disabled={!!pending} onClick={() => setRemoving(null)}>Keep lesson</Button><Button variant="destructive" disabled={!!pending} onClick={() => removing && void act(removing, true)}>{pending ? 'Removing…' : 'Remove lesson'}</Button></DialogFooter></DialogContent></Dialog>
+    <Dialog open={!!removing} onOpenChange={(o) => !o && !pending && setRemoving(null)}><DialogContent aria-describedby={undefined} className="school-theme"><DialogHeader><DialogTitle>Remove this lesson?</DialogTitle></DialogHeader><p>{removing ? skillById(removing.skill_id)?.title ?? removing.skill_id : ''}</p><DialogFooter><Button variant="outline" disabled={!!pending} onClick={() => setRemoving(null)}>Keep lesson</Button><Button variant="destructive" disabled={!!pending} onClick={() => removing && void act(removing, true)}>{pending ? 'Removing…' : 'Remove lesson'}</Button></DialogFooter></DialogContent></Dialog>
   </div>;
 }

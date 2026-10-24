@@ -31,7 +31,7 @@ describe('School planner', () => {
   });
   it('opens month dates and retains the selected date when adding a lesson', () => {
     show();
-    fireEvent.click(screen.getByRole('button', { name: 'Month', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: /^Month$/ }));
     fireEvent.click(screen.getByRole('button', { name: 'Show lessons for Wednesday, October 21' }));
     fireEvent.click(within(screen.getByRole('region', { name: 'Selected day lessons' })).getByRole('button', { name: 'Add lesson' }));
     expect(screen.getByLabelText('Date')).toHaveValue('2026-10-21');
@@ -55,7 +55,7 @@ describe('School planner', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Cancel' }));
     fireEvent.click(screen.getByRole('button', { name: /^Remove / }));
     expect(schoolCall).not.toHaveBeenCalled();
-    fireEvent.click(screen.getByRole('button', { name: 'Remove lesson', exact: true }));
+    fireEvent.click(screen.getByRole('button', { name: /^Remove lesson$/ }));
     await waitFor(() => expect(schoolCall).toHaveBeenCalledWith({ action: 'plan_delete', id: 'lesson-one' }));
   });
   it('shows no write controls to an assistant without planning or recording permission', () => {
