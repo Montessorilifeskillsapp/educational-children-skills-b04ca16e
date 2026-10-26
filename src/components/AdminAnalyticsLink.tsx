@@ -4,7 +4,9 @@ import { BarChart3, KeyRound, School } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useAuthContext } from '@/components/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
-import { schoolCall } from '@/components/school/api';
+import { schoolCall, type Membership } from '@/components/school/api';
+import { cacheMemberships, preloadPortal, setPortalOwner } from '@/components/school/portalCache';
+import { fetchSchoolData } from '@/components/school/useSchoolData';
 import { hasSchoolReturn } from '@/components/school/navigation';
 
 const AdminAnalyticsLink: React.FC = () => {
@@ -30,14 +32,25 @@ const AdminAnalyticsLink: React.FC = () => {
 
   useEffect(() => {
     setIsSchoolStaff(false);
+    setPortalOwner(user?.id ?? null);
     if (!user) return;
     let cancelled = false;
+    let warmed = false;
     const refresh = async () => {
       if (!navigator.onLine) return;
       try {
         // Accepts matching pending invitations server-side, then returns memberships.
-        const r = await schoolCall<{ memberships: { id: string }[] }>({ action: 'me' });
-        if (!cancelled) setIsSchoolStaff(!!r.memberships?.length);
+        const r = await schoolCall<{ memberships: Membership[] }>({ action: 'me' });
+        if (cancelled) return;
+        const ms = r.memberships ?? [];
+        cacheMemberships(user.id, ms);
+        setIsSchoolStaff(!!ms.length);
+        // Get the portal ready in the background so opening it is instant.
+        if (ms.length && !warmed) {
+          warmed = true;
+          void preloadPortal();
+          void fetchSchoolData(ms[0].school_id).catch(() => {});
+        }
       } catch { /* keep current state */ }
     };
     void refresh();
