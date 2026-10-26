@@ -63,7 +63,7 @@ export default function SchoolPortalPage() {
   const loadMe = useCallback(() => {
     if (!user) return;
     schoolCall<{ memberships: Membership[] }>({ action: 'me' })
-      .then((r) => { setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
+      .then((r) => { cacheMemberships(user.id, r.memberships); setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
       .catch(() => setMemberships([]));
   }, [user]);
   useEffect(() => { loadMe(); }, [loadMe]);
