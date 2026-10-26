@@ -2,7 +2,7 @@
 - InstallBanner uses shared auth and route context and only responds to mobile native install prompts; existing dismissal timestamps are permanent. Why: no repeated install interruptions.
 - Family Dashboard lives in `src/components/family/`; old demo dashboard is kept unrouted in `src/components/schools-template/` as the future Schools Portal template. Why: parents need real per-child data; schools reuse the richer layout later.
 - Dashboard writes (goals, calendar, prefs, push tokens, reports) go through the `dashboard-data` edge function; tables are read-only to clients via owner RLS. Why: project rule of no direct client writes.
-- Notifications run from one hourly `family-notifications` cron job (email via send-transactional-email `family-notice`, push via FCM using FIREBASE_SERVICE_ACCOUNT_JSON). Why: single bounded job, per-timezone hour granularity.
+- Notifications run from one hourly `family-notifications` cron job (email via send-transactional-email `family-notice`, push via FCM using FIREBASE_SERVICE_ACCOUNT_JSON). Why: one bounded job, per-timezone hours.
 - Child allowance is tier-based and enforced by a child_profiles insert trigger: Free/Premium allow one child and Family allows four; legacy add-ons remain readable only during migration. Why: client inserts profiles directly, so limits must be server-authoritative.
 - Materials-list thumbnails resolve from a local exact-name item-photo registry, not from affiliate product pages or activity scenes. Why: listings change; wrong photos mislead.
 - Native subscriptions use four stable products (`premium_monthly`, `premium_annual`, `family_monthly`, `family_annual`) and preserve independent valid web/store access. Why: tier identity and allowance must not depend on price matching.
