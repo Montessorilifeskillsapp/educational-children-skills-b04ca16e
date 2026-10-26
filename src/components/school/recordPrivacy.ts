@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Capacitor, registerPlugin } from '@capacitor/core';
 
 interface RecordPrivacyPlugin { enable(): Promise<void>; disable(): Promise<void> }
@@ -10,19 +10,13 @@ const isAndroid = () => Capacitor.isNativePlatform() && Capacitor.getPlatform() 
 const editable = (t: EventTarget | null) =>
   t instanceof HTMLElement && !!t.closest('input, textarea, select, [contenteditable="true"]');
 
-const BLUR_KEY = 'school-focus-blur';
-export const readFocusBlur = () => { try { return localStorage.getItem(BLUR_KEY) !== 'off'; } catch { return true; } };
-
 /**
  * While mounted: Android blocks screenshots/screen recording (OS-level); the web blocks copy,
- * right-click and dragging outside form fields, and (optionally) blurs records while the window
- * isn't active.
+ * right-click and dragging outside form fields.
  */
 export function useRecordPrivacy() {
-  const [blurOn, setBlurOn] = useState(readFocusBlur);
-  const root = document.documentElement;
-
   useEffect(() => {
+    const root = document.documentElement;
     if (isAndroid()) RecordPrivacy.enable().catch(() => {});
     const block = (e: Event) => { if (!editable(e.target)) e.preventDefault(); };
     const events = ['copy', 'cut', 'contextmenu', 'dragstart'] as const;
@@ -31,26 +25,7 @@ export function useRecordPrivacy() {
     return () => {
       if (isAndroid()) RecordPrivacy.disable().catch(() => {});
       events.forEach((ev) => document.removeEventListener(ev, block));
-      root.classList.remove('record-privacy', 'record-obscured');
+      root.classList.remove('record-privacy');
     };
   }, []);
-
-  useEffect(() => {
-    if (!blurOn) { root.classList.remove('record-obscured'); return; }
-    const hide = () => root.classList.add('record-obscured');
-    const show = () => { if (!document.hidden) root.classList.remove('record-obscured'); };
-    const vis = () => (document.hidden ? hide() : show());
-    window.addEventListener('blur', hide);
-    window.addEventListener('focus', show);
-    document.addEventListener('visibilitychange', vis);
-    return () => {
-      window.removeEventListener('blur', hide);
-      window.removeEventListener('focus', show);
-      document.removeEventListener('visibilitychange', vis);
-      root.classList.remove('record-obscured');
-    };
-  }, [blurOn]);
-
-  const toggleBlur = () => setBlurOn((v) => { try { localStorage.setItem(BLUR_KEY, v ? 'off' : 'on'); } catch { /* ignore */ } return !v; });
-  return { blurOn, toggleBlur };
 }
