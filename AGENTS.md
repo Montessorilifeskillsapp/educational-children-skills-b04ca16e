@@ -1,5 +1,5 @@
 # Agents
-- InstallBanner uses shared auth and route context and only responds to mobile native install prompts; existing dismissal timestamps are permanent. Why: refreshes and classroom work must not trigger repeated installation interruptions.
+- InstallBanner uses shared auth and route context and only responds to mobile native install prompts; existing dismissal timestamps are permanent. Why: no repeated install interruptions.
 - Family Dashboard lives in `src/components/family/`; old demo dashboard is kept unrouted in `src/components/schools-template/` as the future Schools Portal template. Why: parents need real per-child data; schools reuse the richer layout later.
 - Dashboard writes (goals, calendar, prefs, push tokens, reports) go through the `dashboard-data` edge function; tables are read-only to clients via owner RLS. Why: project rule of no direct client writes.
 - Notifications run from one hourly `family-notifications` cron job (email via send-transactional-email `family-notice`, push via FCM using FIREBASE_SERVICE_ACCOUNT_JSON). Why: single bounded job, per-timezone hour granularity.
@@ -30,4 +30,4 @@
 - 0–3 (Nido/Infant Community) lives in `src/data/curriculumStages.ts`: ids prefixed `it-`, four areas, empty registry behind `INFANT_TODDLER_ENABLED`; plane resolves from id prefix or classroom age group. Why: future 0–3 content is a data-only addition without touching 3–6.
 - School notes and progress saved without a connection queue on the device (`offlineQueue.ts`, scoped to the signed-in user) and replay automatically; portal data refreshes on sync, focus and every minute; in-progress text autosaves per user/child via `drafts.ts`. Why: lost Wi-Fi or navigating away must never lose classroom work.
 - School planning uses local date-only helpers for Week/Month views and retains existing plan_save/plan_done/plan_delete calls; controls mirror planning and recording permissions independently. Why: calendar presentation must not change stored records or grant new capabilities.
-- School Portal mounts `useRecordPrivacy` (`src/components/school/recordPrivacy.ts`): Android FLAG_SECURE via the native RecordPrivacy plugin plus web copy/context-menu/drag blocking outside form fields; printing stays allowed. Why: student records must not be captured, while conference reports and plans remain printable.
+- School Portal mounts `useRecordPrivacy`: Android FLAG_SECURE plugin plus copy/context-menu blocking outside fields; printing allowed. Why: records must not be captured; reports stay printable.
