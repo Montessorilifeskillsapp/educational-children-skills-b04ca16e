@@ -19,6 +19,7 @@ import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
 import { useRecordPrivacy } from '@/components/school/recordPrivacy';
+import { cacheMemberships, cachedMemberships } from '@/components/school/portalCache';
 import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
@@ -30,8 +31,9 @@ import SyncStatus from '@/components/school/SyncStatus';
 export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
   const navigate = useNavigate();
-  const [memberships, setMemberships] = useState<Membership[] | null>(null);
-  const [schoolId, setSchoolId] = useState<string | null>(null);
+  // Memberships already fetched by the corner School Portal button open the portal at once.
+  const [memberships, setMemberships] = useState<Membership[] | null>(() => cachedMemberships(user?.id));
+  const [schoolId, setSchoolId] = useState<string | null>(() => cachedMemberships(user?.id)?.[0]?.school_id ?? null);
   // Tab, classroom and open student live in the address so returning from an activity page lands on the same spot.
   const [params, setParams] = useSearchParams();
   const tab = params.get('tab') || 'overview';
@@ -61,7 +63,7 @@ export default function SchoolPortalPage() {
   const loadMe = useCallback(() => {
     if (!user) return;
     schoolCall<{ memberships: Membership[] }>({ action: 'me' })
-      .then((r) => { setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
+      .then((r) => { cacheMemberships(user.id, r.memberships); setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
       .catch(() => setMemberships([]));
   }, [user]);
   useEffect(() => { loadMe(); }, [loadMe]);
