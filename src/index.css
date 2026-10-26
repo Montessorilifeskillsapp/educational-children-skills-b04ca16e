@@ -386,3 +386,6 @@
 /* School Portal: student records can't be selected or long-pressed out (form fields stay editable). */
 html.record-privacy body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
 html.record-privacy input, html.record-privacy textarea, html.record-privacy select, html.record-privacy [contenteditable="true"] { -webkit-user-select: text; user-select: text; }
+/* School Portal watermark (static tiled image) and inactive-window blur. */
+html.record-privacy .school-theme::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 60; background-image: var(--record-watermark, none); }
+html.record-obscured .school-theme > *, html.record-obscured [role="dialog"] { filter: blur(14px); }
