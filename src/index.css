@@ -382,3 +382,7 @@
 :is(.school-theme, .school-scale) :is(button, input, select, textarea, [role="combobox"]) { font-size: max(1em, 1.0625rem); }
 :is(.school-theme, .school-scale) :is(input, [role="combobox"]) { min-height: 2.75rem; }
 .school-theme .school-label { font-size: 0.875rem; }
+
+/* School Portal: student records can't be selected or long-pressed out (form fields stay editable). */
+html.record-privacy body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+html.record-privacy input, html.record-privacy textarea, html.record-privacy select, html.record-privacy [contenteditable="true"] { -webkit-user-select: text; user-select: text; }
