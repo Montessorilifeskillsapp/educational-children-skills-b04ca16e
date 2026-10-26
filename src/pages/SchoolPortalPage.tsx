@@ -73,7 +73,7 @@ export default function SchoolPortalPage() {
   const me = memberships?.find((m) => m.school_id === schoolId);
   const realRole = me?.role ?? 'assistant';
   const myName = data.members.find((m) => m.user_id === user?.id)?.full_name || user?.email || null;
-  const { blurOn, toggleBlur } = useRecordPrivacy(user ? myName : null);
+  const { blurOn, toggleBlur } = useRecordPrivacy();
   // School Admins may preview the Teacher or Assistant view; saving is blocked while previewing.
   // Stored in the address (?as=) so leaving for an activity and returning keeps the preview.
   const asParam = params.get('as');
