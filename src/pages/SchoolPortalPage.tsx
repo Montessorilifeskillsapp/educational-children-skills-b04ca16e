@@ -46,7 +46,6 @@ export default function SchoolPortalPage() {
   const goBack = () => { if (!allowSchoolNavigation()) return; if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
-  useRecordPrivacy();
   // The portal's display typeface loads only here so the public app is unaffected.
   useEffect(() => {
     if (document.getElementById('school-portal-font')) return;
@@ -71,6 +70,8 @@ export default function SchoolPortalPage() {
   const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
   const me = memberships?.find((m) => m.school_id === schoolId);
   const realRole = me?.role ?? 'assistant';
+  const myName = data.members.find((m) => m.user_id === user?.id)?.full_name || user?.email || null;
+  const { blurOn, toggleBlur } = useRecordPrivacy(user ? myName : null);
   // School Admins may preview the Teacher or Assistant view; saving is blocked while previewing.
   // Stored in the address (?as=) so leaving for an activity and returning keeps the preview.
   const asParam = params.get('as');
@@ -269,6 +270,10 @@ export default function SchoolPortalPage() {
             )}
           </Tabs>
         )}
+        <p className="print:hidden mt-12 text-center text-xs text-muted-foreground">
+          Records blur when this window isn't active: {blurOn ? 'On' : 'Off'} ·{' '}
+          <button type="button" onClick={toggleBlur} className="underline hover:text-foreground">{blurOn ? 'Turn off on this device' : 'Turn on'}</button>
+        </p>
       </div>
 
       {openStudent && (
