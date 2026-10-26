@@ -18,6 +18,7 @@ import StudentPanel from '@/components/school/StudentPanel';
 import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
+import { useRecordPrivacy } from '@/components/school/recordPrivacy';
 import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
@@ -45,6 +46,7 @@ export default function SchoolPortalPage() {
   const goBack = () => { if (!allowSchoolNavigation()) return; if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = 'School Portal · Montessori Life Skills'; }, []);
+  useRecordPrivacy();
   // The portal's display typeface loads only here so the public app is unaffected.
   useEffect(() => {
     if (document.getElementById('school-portal-font')) return;
