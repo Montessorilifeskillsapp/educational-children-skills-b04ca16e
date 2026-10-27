@@ -1,11 +1,11 @@
-// Generates a 15-second (middle of the song) WAV preview clip from an audio file, entirely in the
+// Generates a 10-second (middle of the song) WAV preview clip from an audio file, entirely in the
 // browser, so full tracks never need to leave the private bucket for preview.
 export interface PreviewResult {
   blob: Blob;
   durationSeconds: number;
 }
 
-const PREVIEW_LENGTH_SECONDS = 15;
+const PREVIEW_LENGTH_SECONDS = 10;
 const TARGET_SAMPLE_RATE = 22050; // mono 16-bit — small files, clear voice/piano
 
 export async function generateAudioPreview(file: Blob, _startSeconds = 0): Promise<PreviewResult> {

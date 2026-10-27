@@ -242,7 +242,7 @@ const AdminSongsPage: React.FC = () => {
         await saveSong(row, { preview_path: previewPath, duration_seconds: preview.durationSeconds });
       }
       await refresh();
-      toast({ title: 'Samples rebuilt', description: 'Every song now has a 15-second sample from its middle.' });
+      toast({ title: 'Samples rebuilt', description: 'Every song now has a 10-second sample from its middle.' });
     } catch (err: any) {
       toast({ title: 'Rebuild failed', description: err.message, variant: 'destructive' });
     } finally {
@@ -283,11 +283,11 @@ const AdminSongsPage: React.FC = () => {
       <header>
         <h1 className="text-3xl font-bold">Kerry's Montessori Songs</h1>
         <p className="text-muted-foreground">
-          Upload the collection, set the order, and control what families see. A free 15-second sample is
+          Upload the collection, set the order, and control what families see. A free 10-second sample is
           created automatically from the middle of each song.
         </p>
         <Button variant="outline" className="mt-3" onClick={rebuildSamples} disabled={!!rebuilding || songs.length === 0}>
-          {rebuilding ? `Rebuilding sample ${rebuilding}…` : 'Rebuild all 15-second samples'}
+          {rebuilding ? `Rebuilding sample ${rebuilding}…` : 'Rebuild all 10-second samples'}
         </Button>
       </header>
 

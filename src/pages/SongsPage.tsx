@@ -190,7 +190,7 @@ const SongsPage: React.FC = () => {
                   <h2 className="text-xl font-bold text-foreground">Songs for the Montessori home and classroom</h2>
                   <p className="text-sm text-muted-foreground mt-1 max-w-2xl">
                     Ten original songs written by Kerry Howard, following authentic Montessori
-                    principles. Every song has a free 15-second sample; the full collection is a single
+                    principles. Every song has a free 10-second sample; the full collection is a single
                     purchase with lifetime access for your whole family.
                   </p>
                 </div>
