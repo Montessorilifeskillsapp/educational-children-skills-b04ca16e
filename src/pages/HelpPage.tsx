@@ -64,7 +64,7 @@ const HelpPage: React.FC = () => {
         },
         {
           question: "Are Kerry's songs included with my subscription?",
-          answer: "No. The 10-song collection is a separate $99.99 one-time purchase with lifetime access and downloads for your household. It is not included with Premium or Family. Anyone can play the free 15-second samples."
+          answer: "No. The 10-song collection is a separate $99.99 one-time purchase with lifetime access and downloads for your household. It is not included with Premium or Family. Anyone can play the free 10-second samples."
         }
       ]
     },

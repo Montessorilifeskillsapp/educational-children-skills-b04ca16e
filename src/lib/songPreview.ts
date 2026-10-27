@@ -1,6 +1,6 @@
-export const PREVIEW_SECONDS = 15;
+export const PREVIEW_SECONDS = 10;
 
-/** Free sample window: 15 seconds taken from the middle of the song. */
+/** Free sample window: 10 seconds taken from the middle of the song. */
 export function previewWindow(duration: number): { start: number; end: number } {
   if (!Number.isFinite(duration) || duration <= PREVIEW_SECONDS) {
     return { start: 0, end: Number.isFinite(duration) && duration > 0 ? duration : PREVIEW_SECONDS };
