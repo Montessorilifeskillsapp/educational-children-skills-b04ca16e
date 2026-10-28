@@ -27,6 +27,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { LogIn, Sparkles } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
@@ -63,7 +64,8 @@ const AppLayout: React.FC = () => {
   const location = useLocation();
   const { user, loading } = useAuthContext();
   const { isPremium } = useSubscription();
-  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
+  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile, loading: profilesLoading } = useProfile();
+  const isSchoolStaff = useIsSchoolStaff(user?.id);
   const { completedSkillIds, logCompletion, streak } = useActivityCompletions(activeProfile?.id);
   const completedSkills = completedSkillIds;
 
@@ -121,12 +123,19 @@ const AppLayout: React.FC = () => {
   // Constants
   const practicalSkills = Object.keys(allPracticalLifeSkills);
 
+  // School staff without their own family children use the School Portal, never child setup.
+  const staffOnly = !!user && isSchoolStaff === true && !profilesLoading && profiles.length === 0;
+  const familyView = currentView === 'dashboard' || currentView === 'parent' || currentView === 'profiles';
+  useEffect(() => {
+    if (staffOnly && (familyView || (!isOnboarded && currentView !== 'home'))) navigate('/school');
+  }, [staffOnly, familyView, isOnboarded, currentView, navigate]);
+
   // Early returns after all hooks are called
   // Show marketing landing page regardless of auth state
   if (currentView === 'home') {
     return (
       <Home 
-        onGetStarted={() => handleViewChange('dashboard')}
+        onGetStarted={() => (staffOnly ? navigate('/school') : handleViewChange('dashboard'))}
         onSubscriptionView={() => handleViewChange('subscription')}
         onDashboardView={() => handleViewChange('dashboard')}
         onPracticalView={() => navigate('/practical-life')}
@@ -179,6 +188,15 @@ const AppLayout: React.FC = () => {
             </Link>
           </CardContent>
         </Card>
+      </div>
+    );
+  }
+
+  // Never show child setup to school staff (or while their staff status is still being checked).
+  if (!isOnboarded && user && (isSchoolStaff !== false || profilesLoading)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary" aria-label="Opening School Portal" />
       </div>
     );
   }
