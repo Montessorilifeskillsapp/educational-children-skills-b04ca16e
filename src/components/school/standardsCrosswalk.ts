@@ -151,8 +151,13 @@ export type Alignment = 'direct' | 'extension' | 'indirect';
 
 export interface CrosswalkEntry { codes: string[]; alignment: Alignment; note?: string }
 
-const d = (codes: string[], note?: string): CrosswalkEntry => ({ codes, alignment: 'direct', note });
-const x = (codes: string[], note?: string): CrosswalkEntry => ({ codes, alignment: 'extension', note });
+/** Content-standard alignment; graded as an extension when any cited standard is above Kindergarten. */
+const auto = (codes: string[], note?: string): CrosswalkEntry => ({
+  codes, note,
+  alignment: codes.some((c) => /^[1-9]$/.test(STANDARDS[c]?.grade ?? '')) ? 'extension' : 'direct',
+});
+const d = auto;
+const x = auto;
 const i = (codes: string[], note: string): CrosswalkEntry => ({ codes, alignment: 'indirect', note });
 
 const PL_CARE = 'Practical Life has no CCSS content standard; it builds concentration, order and coordination.';
@@ -281,7 +286,7 @@ export const CROSSWALK: Record<string, CrosswalkEntry> = {
   'Composting': d(['K-ESS3-3', 'K-ESS2-2']),
   'Garden Care': d(['K-LS1-1', 'K-ESS3-3']),
   // Art
-  'Basic Drawing Skills': d(['VA:Cr2.1.Ka', 'SL.K.5' in {} ? '' : 'W.K.2'].filter(Boolean), 'Drawing is an accepted mode of composition in W.K.2.'),
+  'Basic Drawing Skills': d(['VA:Cr2.1.Ka', 'W.K.2'], 'Drawing is an accepted mode of composition in W.K.2.'),
   'Observational Drawing': d(['VA:Cr2.1.Ka', 'SL.K.4']),
   'Primary Colors': d(['VA:Cr1.1.Ka', 'L.K.6']),
   'Color Mixing': d(['VA:Cr1.1.Ka', 'VA:Cr2.1.Ka']),
