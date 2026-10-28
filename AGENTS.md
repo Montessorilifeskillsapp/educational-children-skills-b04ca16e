@@ -29,4 +29,4 @@
 - 0–3 (Nido/Infant Community) lives in `src/data/curriculumStages.ts`: ids prefixed `it-`, four areas, empty registry behind `INFANT_TODDLER_ENABLED`; plane resolves from id prefix or classroom age group. Why: future 0–3 content is a data-only addition without touching 3–6.
 - School notes and progress saved without a connection queue on the device (`offlineQueue.ts`, scoped to the signed-in user) and replay automatically; portal data refreshes on sync, focus and every minute; in-progress text autosaves per user/child via `drafts.ts`. Why: lost Wi-Fi or navigating away must never lose classroom work.
 
-- Subdirectories have their own `AGENTS.md`; read it before changing files there.
+- Subdirectories have their own `AGENTS.md`; read it before changing files there.- School staff without their own family children are sent to the School Portal from Start Free and family/child-setup screens; staff who also have children keep their Family Dashboard. Why: invited staff must not create family child profiles by accident.
