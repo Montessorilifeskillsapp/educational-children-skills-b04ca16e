@@ -27,6 +27,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import BackButton from '@/components/ui/back-button';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { LogIn, Sparkles } from 'lucide-react';
 import { sensorialSkills } from '@/data/sensorialSkills';
 import { languageSkillsData } from '@/data/languageSkills';
@@ -63,7 +64,8 @@ const AppLayout: React.FC = () => {
   const location = useLocation();
   const { user, loading } = useAuthContext();
   const { isPremium } = useSubscription();
-  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile } = useProfile();
+  const { profiles, activeProfile, isOnboarded, completeOnboarding, setProfiles, setActiveProfile, loading: profilesLoading } = useProfile();
+  const isSchoolStaff = useIsSchoolStaff(user?.id);
   const { completedSkillIds, logCompletion, streak } = useActivityCompletions(activeProfile?.id);
   const completedSkills = completedSkillIds;
 
