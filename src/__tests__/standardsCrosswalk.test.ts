@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { orderedSkills } from './curriculum';
-import { CROSSWALK, STANDARDS } from './standardsCrosswalk';
-import { crosswalkHtml } from './crosswalkReport';
+import { orderedSkills } from '@/components/school/curriculum';
+import { CROSSWALK, STANDARDS } from '@/components/school/standardsCrosswalk';
+import { crosswalkHtml } from '@/components/school/crosswalkReport';
 
 describe('standards crosswalk', () => {
   it('covers every curriculum activity', () => {
