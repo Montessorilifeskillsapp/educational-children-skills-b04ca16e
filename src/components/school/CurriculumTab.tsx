@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ChevronRight } from 'lucide-react';
+import { Search, ChevronRight, Printer } from 'lucide-react';
+import { crosswalkHtml } from './crosswalkReport';
 import { Input } from '@/components/ui/input';
 import { areas, orderedSkills, skillLink } from './curriculum';
 import { allowSchoolNavigation } from './navigation';
 
 /** Browse every curriculum activity from inside the portal; opening one keeps the "Return to School Portal" bar. */
-export default function CurriculumTab() {
+export default function CurriculumTab({ schoolName = '' }: { schoolName?: string }) {
   const navigate = useNavigate();
   const all = orderedSkills();
   const list = areas();
@@ -18,12 +19,23 @@ export default function CurriculumTab() {
     [all, area, q],
   );
 
+  const printCrosswalk = () => {
+    const w = window.open('', '_blank');
+    if (!w) return;
+    w.document.write(crosswalkHtml(schoolName));
+    w.document.close();
+    w.focus(); setTimeout(() => w.print(), 250);
+  };
+
   return (
     <section className="space-y-5">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
           <h2 className="font-display text-3xl text-foreground">Curriculum</h2>
           <p className="text-muted-foreground">Every presentation, in order from first to most advanced.</p>
+          <button type="button" onClick={printCrosswalk} className="mt-1 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
+            <Printer className="h-4 w-4" /> Common Core standards crosswalk
+          </button>
         </div>
         <div className="relative w-full sm:w-72">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
