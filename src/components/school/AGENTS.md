@@ -1,0 +1,4 @@
+- School parent-report style (heading, notes, sections) is stored per school on the device, not on the server. Why: wording preference only; report records still save through report_record.
+- School planning uses local date-only helpers for Week/Month views and retains existing plan_save/plan_done/plan_delete calls; controls mirror planning and recording permissions independently. Why: calendar presentation must not change stored records or grant new capabilities.
+- Portal `useRecordPrivacy`: Android FLAG_SECURE, copy blocking outside fields; no inactive-window blur; printing allowed; no watermark. Why: records stay clean.
+- The U.S. standards crosswalk (`src/components/school/standardsCrosswalk.ts`) is keyed by exact activity title and prints from the portal Curriculum tab; a test fails if any curriculum activity is unmapped or cites an uncataloged code. Why: new activities must not silently lack an alignment.
