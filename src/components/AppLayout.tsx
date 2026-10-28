@@ -127,8 +127,8 @@ const AppLayout: React.FC = () => {
   const staffOnly = !!user && isSchoolStaff === true && !profilesLoading && profiles.length === 0;
   const familyView = currentView === 'dashboard' || currentView === 'parent' || currentView === 'profiles';
   useEffect(() => {
-    if (staffOnly && familyView) navigate('/school');
-  }, [staffOnly, familyView, navigate]);
+    if (staffOnly && (familyView || (!isOnboarded && currentView !== 'home'))) navigate('/school');
+  }, [staffOnly, familyView, isOnboarded, currentView, navigate]);
 
   // Early returns after all hooks are called
   // Show marketing landing page regardless of auth state
