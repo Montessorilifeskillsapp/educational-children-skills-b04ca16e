@@ -248,7 +248,7 @@ export default function SchoolPortalPage() {
                 </TabsContent>
               </>
             )}
-            <TabsContent value="curriculum" className="mt-0"><CurriculumTab /></TabsContent>
+            <TabsContent value="curriculum" className="mt-0"><CurriculumTab schoolName={school.name} /></TabsContent>
             {can.manageSchool(role) && (
               <TabsContent value="history" className="mt-0">
                 {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}
