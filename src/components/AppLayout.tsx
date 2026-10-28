@@ -192,6 +192,15 @@ const AppLayout: React.FC = () => {
     );
   }
 
+  // Never show child setup to school staff (or while their staff status is still being checked).
+  if (!isOnboarded && user && (isSchoolStaff !== false || profilesLoading)) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary" aria-label="Opening School Portal" />
+      </div>
+    );
+  }
+
   if (!isOnboarded) {
     return <OnboardingFlow onComplete={(profiles) => { completeOnboarding(profiles); setCurrentView('dashboard'); }} />;
   }
