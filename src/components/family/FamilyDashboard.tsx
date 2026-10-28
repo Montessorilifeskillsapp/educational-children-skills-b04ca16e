@@ -14,6 +14,7 @@ import { CalendarTab } from './CalendarTab';
 import { ReportsTab } from './ReportsTab';
 import { SettingsTab } from './SettingsTab';
 import SchoolRecords from './SchoolRecords';
+import { HomeschoolTab } from './HomeschoolTab';
 
 const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
@@ -70,12 +71,14 @@ const FamilyDashboard = ({ onBack, onManageProfiles }: { onBack: () => void; onM
                   <TabsTrigger value="goals">Goals</TabsTrigger>
                   <TabsTrigger value="calendar">Calendar</TabsTrigger>
                   <TabsTrigger value="reports">Weekly Reports</TabsTrigger>
+                  <TabsTrigger value="homeschool">Homeschool Standards</TabsTrigger>
                   <TabsTrigger value="settings">Settings</TabsTrigger>
                 </TabsList>
                 <TabsContent value="overview"><OverviewTab name={child.name} completions={data.completions} goals={data.goals} events={data.events} /></TabsContent>
                 <TabsContent value="goals"><GoalsTab childId={child.id} goals={data.goals} completions={data.completions} reload={data.reload} /></TabsContent>
                 <TabsContent value="calendar"><CalendarTab childId={child.id} childName={child.name} events={data.events} completions={data.completions} reload={data.reload} /></TabsContent>
                 <TabsContent value="reports"><ReportsTab key={child.id} childId={child.id} childName={child.name} reports={data.reports} reload={data.reload} /></TabsContent>
+                <TabsContent value="homeschool"><HomeschoolTab key={child.id} childName={child.name} completions={data.completions} /></TabsContent>
                 <TabsContent value="settings"><SettingsTab onManageProfiles={onManageProfiles} /></TabsContent>
               </Tabs>
             )}
