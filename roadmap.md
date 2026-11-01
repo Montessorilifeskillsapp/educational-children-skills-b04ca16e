@@ -92,3 +92,4 @@
 - [x] School settings: one-tap staff assignment, classrooms chosen at invite, larger portal text
 
 - [x] Offline note/progress queue with auto-sync, linked-account refresh, and draft autosave for notes and reports
+- School staff get full activity access

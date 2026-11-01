@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
+import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { isNativePurchaseAvailable, syncCurrentRevenueCatStatus } from '@/lib/revenuecat';
 
 interface SubscriptionPlan {
@@ -164,7 +165,9 @@ export const SubscriptionProvider: React.FC<{ children: ReactNode }> = ({ childr
   }, [purchasedItems]);
 
   // isPremium and isFamily are ALWAYS derived from server verification
-  const isPremium = serverVerifiedPremium;
+  // Invited school staff (server-verified membership) get every activity.
+  const isSchoolStaff = useIsSchoolStaff(user?.id) === true;
+  const isPremium = serverVerifiedPremium || isSchoolStaff;
   const isFamily = serverVerifiedFamily;
 
   const subscribe = (plan: SubscriptionPlan) => {
