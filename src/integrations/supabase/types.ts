@@ -670,6 +670,7 @@ export type Database = {
           actor_email: string | null
           actor_id: string
           created_at: string
+          detail: string | null
           id: number
           school_id: string | null
           target_id: string | null
@@ -679,6 +680,7 @@ export type Database = {
           actor_email?: string | null
           actor_id: string
           created_at?: string
+          detail?: string | null
           id?: never
           school_id?: string | null
           target_id?: string | null
@@ -688,6 +690,7 @@ export type Database = {
           actor_email?: string | null
           actor_id?: string
           created_at?: string
+          detail?: string | null
           id?: never
           school_id?: string | null
           target_id?: string | null
@@ -836,6 +839,7 @@ export type Database = {
       schools: {
         Row: {
           active: boolean
+          backup_reminders_sent: string[]
           contact_email: string | null
           created_at: string
           id: string
@@ -846,6 +850,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean
+          backup_reminders_sent?: string[]
           contact_email?: string | null
           created_at?: string
           id?: string
@@ -856,6 +861,7 @@ export type Database = {
         }
         Update: {
           active?: boolean
+          backup_reminders_sent?: string[]
           contact_email?: string | null
           created_at?: string
           id?: string

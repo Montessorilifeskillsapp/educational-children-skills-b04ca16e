@@ -41,6 +41,7 @@ Deno.serve(async (req) => {
     const forbidden = () => json({ error: 'You do not have permission for this.' }, 403)
 
     let auditSchool: string | null = null
+    let auditDetail: string | null = null
     const membership = async (schoolId: string) => {
       const { data } = await checked(admin.from('school_members').select('id, role, schools!inner(active, policies)')
         .eq('school_id', schoolId).eq('user_id', uid).maybeSingle())
@@ -291,6 +292,12 @@ Deno.serve(async (req) => {
         return json({ exported_at: new Date().toISOString(), exported_by: email, school, classrooms, students, members, classroom_staff: staff,
           progress, progress_history: entries, observations, reports, lesson_plans: plans, change_history: audit })
       }
+      case 'backup_confirm': {
+        const m = await membership(b.school_id)
+        if (!m || m.role !== 'school_admin') return forbidden()
+        auditDetail = b.location + (b.note ? `: ${b.note}` : '')
+        return json({ ok: true })
+      }
       case 'progress_set': {
         const a = await studentAccess(b.student_id, 'record_progress')
         if (!a) return forbidden()
@@ -427,7 +434,7 @@ Deno.serve(async (req) => {
     if (res.ok && !READS.includes(b.action)) {
       // deno-lint-ignore no-explicit-any
       const target = (b as any).id ?? (b as any).student_id ?? (b as any).classroom_id ?? null
-      const { error: auditError } = await admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null })
+      const { error: auditError } = await admin.from('school_audit_log').insert({ school_id: auditSchool, actor_id: uid, actor_email: email, action: b.action, target_id: target ? String(target) : null, detail: auditDetail })
       if (auditError) {
         console.error('School audit write failed', { action: b.action, code: auditError.code })
         return json({ error: 'The change was saved, but its audit entry could not be recorded. Reload before retrying.' }, 500)

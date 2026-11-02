@@ -1,4 +1,4 @@
-import JSZip from 'jszip';
+import { BlobWriter, TextReader, ZipWriter } from '@zip.js/zip.js';
 
 /** Calendar quarter helpers for the mandatory quarterly school backup. */
 export function quarterOf(d: Date) {
@@ -68,9 +68,37 @@ ${s.health_notes ? `<div class="card"><strong>Health and allergy details</strong
 </body></html>`;
 }
 
-/** Builds the school's backup archive: readable student records, spreadsheets of every table, and a complete JSON copy. */
-export async function buildBackupZip(d: BackupData, title: (id: string) => string = (id) => id): Promise<{ blob: Blob; filename: string; counts: Record<string, number> }> {
-  const zip = new JSZip();
+function summaryPage(d: BackupData, counts: Record<string, number>, quarter: string) {
+  const rows = d.classrooms.map((c) => {
+    const kids = d.students.filter((s) => s.classroom_id === c.id);
+    const ids = new Set(kids.map((k) => k.id));
+    const of = (rs: Row[]) => rs.filter((r) => ids.has(r.student_id)).length;
+    const mastered = d.progress.filter((p) => ids.has(p.student_id) && p.status === 'mastered').length;
+    const staff = d.classroom_staff.filter((x) => x.classroom_id === c.id).length;
+    return `<tr><td>${esc(c.name)}</td><td>${esc(c.age_group ?? '')}</td><td>${kids.filter((k) => !k.archived).length}</td><td>${staff}</td><td>${of(d.progress_history)}</td><td>${mastered}</td><td>${of(d.observations)}</td><td>${of(d.reports)}</td></tr>`;
+  }).join('');
+  const roles = ['school_admin', 'teacher', 'assistant'].map((r) => d.members.filter((m) => m.role === r).length);
+  const tile = (n: number, l: string) => `<div class="tile"><b>${n}</b><span>${l}</span></div>`;
+  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>${esc(d.school.name)} — ${quarter} records summary</title>
+<style>body{font-family:Georgia,serif;color:#332115;background:#FCF6E9;max-width:900px;margin:32px auto;padding:0 20px;line-height:1.5}
+h1{margin:0 0 4px}.muted{color:#7a6556}.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:24px 0}.tile{background:#fff;border-radius:12px;padding:14px;border-top:4px solid #46A08F}
+.tile b{display:block;font-size:28px}.tile span{font-size:13px;color:#7a6556}table{width:100%;border-collapse:collapse;font-size:14px;background:#fff;border-radius:12px}
+td,th{text-align:left;padding:8px;border-bottom:1px solid #F8CFB4}th{background:#FDE2CE}.sign{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:56px}
+.sign div{border-top:1px solid #332115;padding-top:6px;font-size:13px}@media print{body{background:#fff}}</style></head><body>
+<p class="muted">Quarterly records backup · ${quarter}</p><h1>${esc(d.school.name)}</h1>
+<p class="muted">Prepared ${new Date(d.exported_at).toLocaleString('en-US', { dateStyle: 'long', timeStyle: 'short' })} by ${esc(d.exported_by)}${d.school.contact_email ? ` · ${esc(d.school.contact_email)}` : ''}</p>
+<div class="tiles">${tile(d.students.filter((s) => !s.archived).length, 'Enrolled children')}${tile(counts.classrooms, 'Classrooms')}${tile(counts.staff, `Staff (${roles[0]} admin, ${roles[1]} teacher, ${roles[2]} assistant)`)}${tile(counts.progress_recordings, 'Progress recordings')}
+${tile(counts.observations, 'Observations')}${tile(counts.reports, 'Parent reports')}${tile(counts.lesson_plans, 'Lesson plans')}${tile(counts.change_history, 'Change history entries')}</div>
+<h2>By classroom</h2><table><tr><th>Classroom</th><th>Age group</th><th>Children</th><th>Staff</th><th>Recordings</th><th>Mastered</th><th>Observations</th><th>Reports</th></tr>${rows || '<tr><td colspan="8">No classrooms.</td></tr>'}</table>
+<div class="sign"><div>Reviewed by (School Admin)</div><div>Date</div></div>
+<p class="muted" style="margin-top:32px;font-size:12px">Contains sensitive information about children. Store only on your school's own secure systems.</p>
+</body></html>`;
+}
+
+/** Builds the school's backup archive: summary, readable student records, spreadsheets and a complete JSON copy. With a password the file is AES-256 encrypted. */
+export async function buildBackupZip(d: BackupData, title: (id: string) => string = (id) => id, password?: string): Promise<{ blob: Blob; filename: string; counts: Record<string, number> }> {
+  const files: [string, string][] = [];
+  const zip = { file: (n: string, c: string) => { files.push([n, c]); } };
   const q = quarterOf(new Date(d.exported_at));
   const base = `${fileSafe(d.school.name)} ${q.label.replace(' ', ' ')} Backup`;
   const roomName = (id: unknown) => String(d.classrooms.find((c) => c.id === id)?.name ?? '');
@@ -83,6 +111,7 @@ export async function buildBackupZip(d: BackupData, title: (id: string) => strin
     `Exported ${new Date(d.exported_at).toLocaleString('en-US')} by ${d.exported_by}`, '',
     'Contents', ...Object.entries(counts).map(([k, v]) => `  ${k.replace(/_/g, ' ')}: ${v}`), '',
     'Folders',
+  '  School summary.html  Totals by classroom, with a review signature line.',
     '  Student records/  One printable page per child (open in any web browser).',
     '  Spreadsheets/     Every table as a CSV file (opens in Excel, Numbers or Google Sheets).',
     '  school-backup.json Complete machine-readable copy of all records.', '',
@@ -90,6 +119,7 @@ export async function buildBackupZip(d: BackupData, title: (id: string) => strin
     'children; store it only where your school’s privacy policy allows, and share it with no one',
     'other than authorized school staff and each child’s own parents.',
   ].join('\r\n'));
+  zip.file('School summary.html', summaryPage(d, counts, q.label));
   zip.file('school-backup.json', JSON.stringify(d, null, 2));
   const sheets: [string, Row[]][] = [['students', d.students], ['classrooms', d.classrooms], ['staff', d.members], ['classroom-staff', d.classroom_staff],
     ['progress-current', d.progress], ['progress-every-recording', d.progress_history], ['observations', d.observations],
@@ -103,6 +133,8 @@ export async function buildBackupZip(d: BackupData, title: (id: string) => strin
     used.add(n);
     zip.file(`Student records/${n}.html`, studentPage(d, s, roomName(s.classroom_id), title, staffName));
   }
-  const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE' });
+  const writer = new ZipWriter(new BlobWriter('application/zip'), password ? { password, encryptionStrength: 3 } : {});
+  for (const [n, c] of files) await writer.add(n, new TextReader(c));
+  const blob = await writer.close();
   return { blob, filename: `${base}.zip`, counts };
 }
