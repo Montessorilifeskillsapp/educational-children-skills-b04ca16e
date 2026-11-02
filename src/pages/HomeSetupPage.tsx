@@ -186,7 +186,7 @@ const HomeSetupPage: React.FC = () => {
             </div>
           </div>
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
-            <img
+            <img decoding="async"
               src={spooningImg}
               alt="A complete Montessori spooning activity ready for home use"
               className="w-full aspect-[4/3] object-cover"
@@ -203,7 +203,7 @@ const HomeSetupPage: React.FC = () => {
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
         <div className="grid lg:grid-cols-2 gap-10 items-start">
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted order-2 lg:order-1">
-            <img
+            <img decoding="async"
               src={cleaningTools}
               alt="Child-sized cleaning tools arranged for independent access"
               className="w-full aspect-[4/3] object-cover"

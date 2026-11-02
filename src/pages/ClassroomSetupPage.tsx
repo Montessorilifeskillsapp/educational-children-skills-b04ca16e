@@ -223,7 +223,7 @@ const ClassroomSetupPage: React.FC = () => {
             <Card key={area.name} className="overflow-hidden border-border/60">
               <div className="grid md:grid-cols-3">
                 <div className="relative aspect-[4/3] md:aspect-auto bg-muted">
-                  <img
+                  <img decoding="async"
                     src={area.image}
                     alt={`Montessori ${area.name} materials`}
                     className="absolute inset-0 w-full h-full object-cover"
@@ -274,7 +274,7 @@ const ClassroomSetupPage: React.FC = () => {
             </ul>
           </div>
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
-            <img
+            <img decoding="async"
               src={spooningImg}
               alt="A complete Montessori spooning activity on its own tray"
               className="w-full aspect-[4/3] object-cover"
@@ -305,7 +305,7 @@ const ClassroomSetupPage: React.FC = () => {
             </ul>
           </div>
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
-            <img
+            <img decoding="async"
               src={walkingLine}
               alt="The line taped in an ellipse on the classroom floor, prepared for walking on the line"
               className="w-full aspect-[4/3] object-cover"

@@ -45,7 +45,7 @@ const LandingPage: React.FC = () => {
           </div>
           <div className="relative">
             <div className="absolute -inset-4 bg-gradient-to-tr from-primary/20 to-accent/30 rounded-[2rem] blur-2xl" />
-            <img
+            <img decoding="async"
               src={heroImage}
               alt="Child working with the Pink Tower and Brown Stair Montessori materials"
               width={1536}

@@ -73,7 +73,7 @@ export const ClassroomMaterials: React.FC = () => {
                   const row = (
                     <>
                       {item.imageUrl ? (
-                        <img
+                        <img decoding="async"
                           src={item.imageUrl}
                           alt=""
                           loading="lazy"

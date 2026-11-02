@@ -257,7 +257,7 @@ const SongsPage: React.FC = () => {
                   <Card key={song.id} className="overflow-hidden flex flex-col">
                     <div className="relative bg-muted">
                       {song.coverUrl ? (
-                        <img
+                        <img decoding="async"
                           src={song.coverUrl}
                           alt={`${song.title} cover`}
                           className="w-full h-40 object-cover"

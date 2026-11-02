@@ -56,6 +56,21 @@ export default defineConfig(({ mode }) => ({
       },
     }),
   ].filter(Boolean),
+  build: {
+    rollupOptions: {
+      output: {
+        // Long-lived vendor chunks: cached across app updates, parsed in parallel.
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+          if (/node_modules\/(react|react-dom|react-router|react-router-dom|scheduler)\//.test(id)) return "vendor-react";
+          if (id.includes("@radix-ui")) return "vendor-ui";
+          if (id.includes("@supabase")) return "vendor-supabase";
+          if (id.includes("@tanstack")) return "vendor-query";
+          if (id.includes("lucide-react")) return "vendor-icons";
+        },
+      },
+    },
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

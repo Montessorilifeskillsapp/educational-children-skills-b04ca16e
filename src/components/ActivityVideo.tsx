@@ -29,7 +29,7 @@ export const ActivityVideo: React.FC<ActivityVideoProps> = ({ skillId, activityT
           {locked ? (
             <div className="relative">
               {thumbnailUrl ? (
-                <img
+                <img decoding="async"
                   src={thumbnailUrl}
                   alt={`Preview image for ${heading}`}
                   className="w-full aspect-video object-cover"

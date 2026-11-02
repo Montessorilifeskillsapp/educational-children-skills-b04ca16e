@@ -70,7 +70,7 @@ const HeroAppPreview: React.FC<HeroAppPreviewProps> = ({ onGetStarted }) => {
 
         <div className="grid lg:grid-cols-[1fr_0.72fr] gap-8 lg:gap-12 items-center">
           <div id="real-app-screen" role="tabpanel" className="overflow-hidden rounded-2xl border border-border bg-card shadow-xl">
-            <img
+            <img decoding="async"
               key={activeScreen.id}
               src={activeScreen.image}
               alt={activeScreen.alt}

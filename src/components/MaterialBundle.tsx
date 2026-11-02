@@ -86,7 +86,7 @@ export function MaterialBundle({ title, materials, className, showDisclosure = t
             >
               <div className="flex items-start gap-3 min-w-0">
                 {material.imageUrl ? (
-                  <img
+                  <img decoding="async"
                     src={material.imageUrl}
                     alt=""
                     loading="lazy"
