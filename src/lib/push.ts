@@ -44,7 +44,7 @@ async function enableWeb(): Promise<PushResult> {
   const permission = Notification.permission === 'granted' ? 'granted' : await Notification.requestPermission();
   if (permission !== 'granted') return { status: 'denied' };
   const query = new URLSearchParams(config as Record<string, string>).toString();
-  const reg = await navigator.serviceWorker.register(`/firebase-messaging-sw.js?${query}`);
+  const reg = await navigator.serviceWorker.register(`/firebase-messaging-sw.js?${query}`, { scope: "/firebase-cloud-messaging-push-scope" });
   const app = getApps()[0] ?? initializeApp(config as Record<string, string>);
   const token = await getToken(getMessaging(app), { vapidKey, serviceWorkerRegistration: reg });
   if (!token) return { status: 'denied' };
