@@ -10,6 +10,7 @@ import { Check, Plus, X } from 'lucide-react';
 import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Classroom, Invite, Member, ROLE_LABEL, schoolCall, SchoolRole } from './api';
+import { useSettingsDraft } from './useSettingsDraft';
 
 interface Props { schoolId: string; members: Member[]; invites: Invite[]; classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[]; onChange: () => void; studentCounts?: Record<string, number>; seatLimit?: number | null; schoolName?: string; schoolEmail?: string | null; permissions?: ReactNode }
 
@@ -41,8 +42,16 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
   const [inviteWarning, setInviteWarning] = useState<string | null>(null);
   const [pending, setPending] = useState<Pending>(null);
   const [override, setOverride] = useState<Record<string, boolean>>({});
-  const [profile, setProfile] = useState({ name: schoolName, contact_email: schoolEmail ?? '' });
-  const profileDirty = profile.name.trim() !== schoolName || profile.contact_email.trim().toLowerCase() !== (schoolEmail ?? '');
+  const { draft: profile, setDraft: setProfile, acknowledge, dirty: profileDirty } = useSettingsDraft(schoolId, { name: schoolName, contact_email: schoolEmail ?? '' });
+  const [savingProfile, setSavingProfile] = useState(false);
+  const saveProfile = async () => {
+    if (savingProfile) return;
+    const submitted = { name: profile.name.trim(), contact_email: profile.contact_email.trim().toLowerCase() };
+    setSavingProfile(true);
+    try {
+      if (await run({ action: 'school_profile_save', school_id: schoolId, ...submitted }, 'School profile saved')) { setProfile(submitted); acknowledge(submitted); }
+    } finally { setSavingProfile(false); }
+  };
   const inviteLink = `${window.location.origin}/auth?redirect=${encodeURIComponent('/school')}`;
   const copyInvite = async (to: string, r: SchoolRole) => {
     const text = `You're invited to join ${schoolName} on Montessori Life Skills as ${ROLE_LABEL[r]}.\n\nOpen ${inviteLink} and sign in or create an account with ${to}. You'll go straight to your school workspace.`;
@@ -236,9 +245,9 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
 
       <Section id="sec-profile" title="School profile" desc="Your school's name and official email. Parent reports are sent from this email.">
         <div className="grid gap-3 md:grid-cols-[1fr_1fr_auto] items-end">
-          <div className="space-y-1"><Label htmlFor="sp-name" className="text-base">School name</Label><Input id="sp-name" className="h-11 text-base" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} /></div>
-          <div className="space-y-1"><Label htmlFor="sp-email" className="text-base">School email</Label><Input id="sp-email" type="email" className="h-11 text-base" value={profile.contact_email} onChange={(e) => setProfile({ ...profile, contact_email: e.target.value })} /></div>
-          <Button size="lg" disabled={!profileDirty || !profile.name.trim() || !/\S+@\S+\.\S+/.test(profile.contact_email)} onClick={() => run({ action: 'school_profile_save', school_id: schoolId, name: profile.name.trim(), contact_email: profile.contact_email.trim() }, 'School profile saved')}>Save profile</Button>
+          <div className="space-y-1"><Label htmlFor="sp-name" className="text-base">School name</Label><Input id="sp-name" disabled={savingProfile} className="h-11 text-base" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })} /></div>
+          <div className="space-y-1"><Label htmlFor="sp-email" className="text-base">School email</Label><Input id="sp-email" disabled={savingProfile} type="email" className="h-11 text-base" value={profile.contact_email} onChange={(e) => setProfile({ ...profile, contact_email: e.target.value })} /></div>
+          <Button size="lg" disabled={savingProfile || !profileDirty || !profile.name.trim() || !/\S+@\S+\.\S+/.test(profile.contact_email)} onClick={saveProfile}>{savingProfile ? 'Saving…' : 'Save profile'}</Button>
         </div>
       </Section>
 

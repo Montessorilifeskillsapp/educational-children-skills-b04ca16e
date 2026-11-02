@@ -19,7 +19,7 @@ import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
 import { useRecordPrivacy } from '@/components/school/recordPrivacy';
-import { cacheMemberships, cachedMemberships } from '@/components/school/portalCache';
+import { fetchMemberships, cachedMemberships } from '@/components/school/portalCache';
 import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
@@ -62,9 +62,11 @@ export default function SchoolPortalPage() {
   }, [params, schoolId]);
   const loadMe = useCallback(() => {
     if (!user) return;
-    schoolCall<{ memberships: Membership[] }>({ action: 'me' })
-      .then((r) => { cacheMemberships(user.id, r.memberships); setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
-      .catch(() => setMemberships([]));
+    let cancelled = false;
+    void fetchMemberships(user.id)
+      .then((ms) => { if (cancelled) return; setMemberships(ms); setSchoolId((s) => ms.some((m) => m.school_id === s) ? s : ms[0]?.school_id ?? null); })
+      .catch(() => { /* retain current membership on a temporary connection failure */ });
+    return () => { cancelled = true; };
   }, [user]);
   useEffect(() => { loadMe(); }, [loadMe]);
 

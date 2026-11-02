@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Switch } from '@/components/ui/switch';
 import { useToast } from '@/hooks/use-toast';
 import { CAPABILITIES, Capability, resolvePolicies, schoolCall, SchoolPolicies } from './api';
+import { useSettingsDraft } from './useSettingsDraft';
 
 const LABEL: Record<Capability, string> = {
   record_progress: 'Record progress and observation notes',
@@ -17,15 +18,14 @@ const LABEL: Record<Capability, string> = {
 /** School Admins decide what Teachers and Assistants may do. School Admins always keep full access. */
 export default function StaffPolicies({ schoolId, policies, onSaved }: { schoolId: string; policies: unknown; onSaved: () => void }) {
   const { toast } = useToast();
-  const [p, setP] = useState<SchoolPolicies>(() => resolvePolicies(policies));
+  const { draft: p, setDraft: setP, acknowledge, dirty, discard } = useSettingsDraft<SchoolPolicies>(schoolId, resolvePolicies(policies));
   const [saving, setSaving] = useState(false);
-  useEffect(() => { setP(resolvePolicies(policies)); }, [policies]);
-  const dirty = JSON.stringify(p) !== JSON.stringify(resolvePolicies(policies));
   const toggle = (role: 'teacher' | 'assistant', c: Capability, v: boolean) => setP((x) => ({ ...x, [role]: { ...x[role], [c]: v } }));
 
   const save = async () => {
     setSaving(true);
-    try { await schoolCall({ action: 'policies_save', school_id: schoolId, policies: p }); toast({ title: 'Staff permissions saved' }); onSaved(); }
+    const submitted = p;
+    try { await schoolCall({ action: 'policies_save', school_id: schoolId, policies: submitted }); acknowledge(submitted); toast({ title: 'Staff permissions saved' }); onSaved(); }
     catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
     finally { setSaving(false); }
   };
@@ -56,7 +56,7 @@ export default function StaffPolicies({ schoolId, policies, onSaved }: { schoolI
         </div>
         <div className="flex gap-2">
           <Button onClick={save} disabled={!dirty || saving}>{saving ? 'Saving…' : 'Save permissions'}</Button>
-          {dirty && <Button variant="ghost" onClick={() => setP(resolvePolicies(policies))}>Discard</Button>}
+          {dirty && <Button variant="ghost" onClick={discard}>Discard</Button>}
         </div>
       </CardContent>
     </Card>
