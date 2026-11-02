@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ExternalLink, Package } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
 import { normalizeMaterialKey } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
@@ -69,25 +68,6 @@ export function resolveMaterials(
 }
 
 export function MaterialBundle({ title, materials, className, showDisclosure = true }: MaterialBundleProps) {
-  // Only links belonging to the material itself count towards the Buy button —
-  // a borrowed parent link would otherwise send the button to a child row.
-  const linked = materials.filter((m) => !!m.amazonUrl && !m.inheritedFrom);
-
-  const buyAllUrl = (() => {
-    if (!linked.length) return null;
-    // Amazon does not support a true multi-item affiliate cart URL, so we link
-    // to the first essential item (or first item) when the Buy button is clicked.
-    const first = materials.find((m) => m.essential && m.amazonUrl && !m.inheritedFrom)?.amazonUrl
-      || linked[0].amazonUrl;
-    return first;
-  })();
-
-  const buyAllVendor = (() => {
-    if (!buyAllUrl) return 'supplier';
-    const match = materials.find((m) => m.amazonUrl === buyAllUrl);
-    return vendorLabel(buyAllUrl, match?.vendor);
-  })();
-
   return (
     <Card className={className}>
       <CardHeader className="pb-3">
@@ -161,19 +141,7 @@ export function MaterialBundle({ title, materials, className, showDisclosure = t
           ))}
         </ul>
 
-        {buyAllUrl ? (
-          <Button asChild className="w-full">
-            <a
-              href={buyAllUrl}
-              target="_blank"
-              rel="sponsored noopener noreferrer"
-              aria-label={`Buy materials on ${buyAllVendor}`}
-            >
-              <ShoppingCart className="w-4 h-4 mr-2" aria-hidden="true" />
-              {`Buy on ${buyAllVendor}`}
-            </a>
-          </Button>
-        ) : (
+        {!materials.some((material) => material.amazonUrl) && (
           <p className="text-xs text-muted-foreground text-center">
             Supplier links for these materials are not yet available. Source the items locally or check back soon.
           </p>

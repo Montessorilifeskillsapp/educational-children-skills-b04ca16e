@@ -75,12 +75,27 @@ describe('MaterialBundle included-with notes', () => {
     expect(resolved.find((m) => m.key === 'blue-strips-1-9')?.amazonUrl).toBeNull();
   });
 
-  it('never points "Buy all" at a borrowed parent link', () => {
+  it('provides only item-level purchase destinations, including explicitly identified parent products', () => {
     const links = linkMap([
       { material_key: 'subtraction-strip-board', amazon_url: 'https://www.amazon.com/dp/B000BOARD' },
     ]);
     renderBundle(resolveMaterials(materials, links));
-    const buyAll = screen.getByRole('link', { name: /Buy materials on/i });
-    expect(buyAll).toHaveAttribute('href', expect.stringContaining('B000BOARD'));
+    const purchaseLinks = screen.getAllByRole('link').filter((link) => link.hasAttribute('target'));
+    expect(purchaseLinks).toHaveLength(2);
+    for (const link of purchaseLinks) {
+      expect(link).toHaveAttribute('href', expect.stringContaining('B000BOARD'));
+    }
+  });
+
+  it('keeps separate products linked to their own listings without adding a bundle destination', () => {
+    const links = linkMap([
+      { material_key: 'subtraction-strip-board', amazon_url: 'https://www.amazon.com/dp/B000BOARD' },
+      { material_key: 'work-mat', amazon_url: 'https://www.amazon.com/dp/B000MAT' },
+    ]);
+    renderBundle(resolveMaterials([materials[0], materials[2]], links));
+    const purchaseLinks = screen.getAllByRole('link').filter((link) => link.hasAttribute('target'));
+    expect(purchaseLinks).toHaveLength(2);
+    expect(purchaseLinks[0]).toHaveAttribute('href', expect.stringContaining('/dp/B000BOARD'));
+    expect(purchaseLinks[1]).toHaveAttribute('href', expect.stringContaining('/dp/B000MAT'));
   });
 });
