@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Apply approved portal performance/settings fixes: indexed school reads, shared in-flight requests, draft-safe settings synchronization, and saves that do not wait for full record refresh; verify regressions without publishing.
 - [x] Investigate teacher trial access: invitation emails hard-code the gated developer preview; clean-browser check redirects to Lovable's login rather than the app. Current local app sign-in shows Google and hosted public auth settings enable Google, Apple, email and signup with confirmation required. Callback also drops the school destination. No app changes or publishing.
 - [ ] Correct and verify teacher trial entry end-to-end — blocked by the exact tester/shared review URL and a working external app-only preview entry; connector message source and real-account sign-in remain unverified. Do not substitute the published app or bypass school permissions.
 - [x] Stop repeated home-screen banners: hide for signed-in users and school/admin pages, honor dismissals permanently, and remove timed/forced reminders. Thirteen targeted tests pass; school page refresh checked in the browser; nothing published.
