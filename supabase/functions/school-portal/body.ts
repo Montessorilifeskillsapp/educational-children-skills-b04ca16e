@@ -4,6 +4,8 @@ import { cleanText, isCalendarDate } from './validation.ts'
 const text = (max: number, required = true) => z.string().max(max).transform(cleanText).pipe(required ? z.string().min(1).max(max) : z.string().max(max))
 const date = z.string().refine(isCalendarDate, 'Enter a valid date in YYYY-MM-DD format.')
 const uuid = z.string().uuid()
+// When a record was actually made (offline recordings arrive later). Future times are not accepted.
+const recordedAt = z.string().datetime({ offset: true }).refine((v) => Date.parse(v) <= Date.now() + 5 * 60_000, 'Recording time cannot be in the future.').optional()
 const role = z.enum(['school_admin', 'teacher', 'assistant'])
 export const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('me') }).strict(),
@@ -25,8 +27,9 @@ export const Body = z.discriminatedUnion('action', [
     health_notes: text(1000, false).nullable().optional() }).strict(),
   z.object({ action: z.literal('student_delete'), id: uuid, confirmation: z.literal('DELETE') }).strict(),
   z.object({ action: z.literal('progress_set'), student_id: uuid, skill_id: text(160),
-    status: z.enum(['presented', 'practising', 'mastered', 'clear']), note: text(1000, false).nullable().optional() }).strict(),
-  z.object({ action: z.literal('observation_add'), student_id: uuid, body: text(2000) }).strict(),
+    status: z.enum(['presented', 'practising', 'mastered', 'clear']), note: text(1000, false).nullable().optional(), recorded_at: recordedAt }).strict(),
+  z.object({ action: z.literal('observation_add'), student_id: uuid, body: text(2000), recorded_at: recordedAt }).strict(),
+  z.object({ action: z.literal('progress_history'), student_id: uuid, skill_id: text(160).optional() }).strict(),
   z.object({ action: z.literal('observation_delete'), id: uuid }).strict(),
   z.object({ action: z.literal('plan_save'), classroom_id: uuid, id: uuid.optional(), plan_date: date,
     skill_id: text(160), student_ids: z.array(uuid).max(100), notes: text(1000, false).nullable().optional() }).strict(),

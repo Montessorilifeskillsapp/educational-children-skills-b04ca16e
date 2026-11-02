@@ -273,15 +273,34 @@ Deno.serve(async (req) => {
           await checked(admin.from('student_progress').delete().eq('student_id', b.student_id).eq('skill_id', b.skill_id))
           return json({ ok: true })
         }
+        // Every recording is kept, so two teachers grading the same child offline never overwrite each other.
+        const recordedAt = b.recorded_at ?? new Date().toISOString()
+        await checked(admin.from('student_progress_entries').insert({ student_id: b.student_id, school_id: a.school_id, skill_id: b.skill_id,
+          status: b.status, note: b.note ?? null, recorded_by: uid, recorded_at: recordedAt }))
+        // The current status follows the most recent recording; an older offline recording does not replace a newer one.
+        const { data: current } = await checked(admin.from('student_progress').select('*').eq('student_id', b.student_id).eq('skill_id', b.skill_id).maybeSingle())
+        if (current && Date.parse(current.updated_at) > Date.parse(recordedAt)) return json({ progress: current, kept_as_entry: true })
         const { data, error } = await admin.from('student_progress').upsert({ student_id: b.student_id, school_id: a.school_id, skill_id: b.skill_id,
           status: b.status, note: b.note ?? null, updated_by: uid }, { onConflict: 'student_id,skill_id' }).select().single()
         if (error) throw error
         return json({ progress: data })
       }
+      case 'progress_history': {
+        const a = await studentAccess(b.student_id, 'view')
+        if (!a) return forbidden()
+        let q = admin.from('student_progress_entries').select('id, skill_id, status, note, recorded_by, recorded_at')
+          .eq('student_id', b.student_id).order('recorded_at', { ascending: false }).limit(500)
+        if (b.skill_id) q = q.eq('skill_id', b.skill_id)
+        const { data: entries } = await checked(q)
+        const ids = [...new Set((entries ?? []).map((e: { recorded_by: string | null }) => e.recorded_by).filter(Boolean))]
+        const { data: people } = ids.length ? await checked(admin.from('school_members').select('user_id, full_name, email').eq('school_id', a.school_id).in('user_id', ids)) : { data: [] }
+        const name = new Map((people ?? []).map((p: { user_id: string; full_name: string | null; email: string }) => [p.user_id, p.full_name || p.email]))
+        return json({ entries: (entries ?? []).map((e: { recorded_by: string | null }) => ({ ...e, recorded_by_name: e.recorded_by ? name.get(e.recorded_by) ?? 'Former staff member' : null })) })
+      }
       case 'observation_add': {
         const a = await studentAccess(b.student_id, 'record_progress')
         if (!a) return forbidden()
-        const { data, error } = await checked(admin.from('student_observations').insert({ student_id: b.student_id, school_id: a.school_id, body: b.body, author_id: uid }).select().single())
+        const { data, error } = await checked(admin.from('student_observations').insert({ student_id: b.student_id, school_id: a.school_id, body: b.body, author_id: uid, ...(b.recorded_at ? { observed_at: b.recorded_at } : {}) }).select().single())
         if (error) throw error
         return json({ observation: data })
       }
