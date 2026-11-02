@@ -28,6 +28,29 @@ Deno.serve(async (req) => {
     );
 
     const body = (await req.json().catch(() => ({}))) as Record<string, unknown>;
+    // Offline download: every presentation video this person may watch, with download links.
+    if (body.list === true) {
+      const authHeader = req.headers.get('Authorization');
+      const { data: userData } = authHeader ? await admin.auth.getUser(authHeader.replace('Bearer ', '')) : { data: null };
+      const user = userData?.user ?? null;
+      let entitled = false;
+      if (user) {
+        const { data: isAdmin } = await admin.rpc('has_role', { _user_id: user.id, _role: 'admin' });
+        const { data: sub } = await admin.from('subscribers').select('subscribed, subscription_end').eq('user_id', user.id).maybeSingle();
+        const notExpired = sub?.subscription_end ? new Date(sub.subscription_end).getTime() > Date.now() : true;
+        entitled = Boolean(isAdmin) || (Boolean(sub?.subscribed) && notExpired) || await isActiveSchoolStaff(admin, user.id);
+      }
+      const { data: all, error: listErr } = await admin.from('activity_videos')
+        .select('skill_id, title, storage_path, thumbnail_path, duration_seconds, free_preview, section_key').eq('active', true);
+      if (listErr) return json({ error: listErr.message }, 400);
+      const videos = await Promise.all((all ?? []).filter((v) => entitled || v.free_preview).map(async (v) => {
+        const { data: s } = await admin.storage.from(BUCKET).createSignedUrl(v.storage_path, SIGNED_URL_TTL);
+        const thumb = v.thumbnail_path ? (await admin.storage.from(BUCKET).createSignedUrl(v.thumbnail_path, SIGNED_URL_TTL)).data?.signedUrl ?? null : null;
+        return { skill_id: v.skill_id, title: v.title, section_key: v.section_key, duration_seconds: v.duration_seconds, url: s?.signedUrl ?? null, thumbnailUrl: thumb };
+      }));
+      return json({ entitled, videos: videos.filter((v) => v.url) });
+    }
+
     const skillId = String(body.skill_id ?? '').trim();
     if (!skillId) return json({ error: 'skill_id is required' }, 400);
 
