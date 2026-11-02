@@ -36,7 +36,11 @@ Deno.serve(async (req) => {
     let input: unknown
     try { input = JSON.parse(raw) } catch { return json({ error: 'Invalid request.' }, 400) }
     const parsed = Body.safeParse(input)
-    if (!parsed.success) return json({ error: parsed.error.flatten() }, 400)
+    if (!parsed.success) {
+      const issue = parsed.error.issues[0]
+      const field = issue?.path.filter((x) => typeof x === 'string').join(' ').replace(/_/g, ' ')
+      return json({ error: issue ? `Please check ${field || 'the form'}: ${issue.message}` : 'Please check the form and try again.' }, 400)
+    }
     const b = parsed.data
     const forbidden = () => json({ error: 'You do not have permission for this.' }, 403)
 
