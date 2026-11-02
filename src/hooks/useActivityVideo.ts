@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
+import { localMediaUrl, savedMedia } from '@/lib/offlineMedia';
 
 export interface ActivityVideoState {
   exists: boolean;
@@ -27,6 +28,14 @@ export const useActivityVideo = (skillId: string) => {
   const load = useCallback(async () => {
     if (!skillId) return;
     setLoading(true);
+    // A copy saved on this device plays first, with or without internet.
+    const local = await localMediaUrl('video', skillId);
+    const saved = savedMedia('video').find((m) => m.id === skillId);
+    if (local && (!navigator.onLine)) {
+      setState({ exists: true, locked: false, url: local, thumbnailUrl: null, title: saved?.title ?? null, durationSeconds: saved?.durationSeconds ?? null });
+      setLoading(false);
+      return;
+    }
     try {
       const { data, error } = await supabase.functions.invoke('video-playback-url', {
         body: { skill_id: skillId },
@@ -36,13 +45,15 @@ export const useActivityVideo = (skillId: string) => {
         exists: Boolean(data?.exists),
         locked: Boolean(data?.locked),
         reason: data?.reason,
-        url: data?.url ?? null,
+        url: (!data?.locked && local) ? local : data?.url ?? null,
         thumbnailUrl: data?.thumbnailUrl ?? null,
         title: data?.title ?? null,
         durationSeconds: data?.duration_seconds ?? null,
       });
     } catch {
-      setState(emptyState);
+      setState(local
+        ? { exists: true, locked: false, url: local, thumbnailUrl: null, title: saved?.title ?? null, durationSeconds: saved?.durationSeconds ?? null }
+        : emptyState);
     } finally {
       setLoading(false);
     }
