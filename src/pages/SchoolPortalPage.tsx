@@ -14,6 +14,7 @@ import PlanningTab from '@/components/school/PlanningTab';
 import StaffTab from '@/components/school/StaffTab';
 import StaffActivity from '@/components/school/StaffActivity';
 import AuditHistory from '@/components/school/AuditHistory';
+import { BackupReminder } from '@/components/school/BackupPanel';
 import StudentPanel from '@/components/school/StudentPanel';
 import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
@@ -217,6 +218,7 @@ export default function SchoolPortalPage() {
 
         {dataError && <div role="alert" className="mb-6 flex items-center gap-3 text-destructive"><p>{dataError}</p><Button variant="outline" onClick={() => void reload()}>Retry</Button></div>}
         {loading ? <LoadingSpinner /> : dataError ? null : (
+          {can.manageSchool(role) && schoolId && <div className="mb-4"><BackupReminder schoolId={schoolId} onOpen={() => { if (allowSchoolNavigation()) { setTab('staff'); setTimeout(() => document.getElementById('sec-backup')?.scrollIntoView({ behavior: 'smooth' }), 150); } }} /></div>}
           <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }} className="space-y-6">
             <TabsContent value="overview" className="mt-0">
               {visibleRooms.length === 0 ? (

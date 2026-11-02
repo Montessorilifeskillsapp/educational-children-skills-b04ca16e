@@ -11,13 +11,14 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Classroom, Invite, Member, ROLE_LABEL, schoolCall, SchoolRole } from './api';
 import { useSettingsDraft } from './useSettingsDraft';
+import BackupPanel from './BackupPanel';
 
 interface Props { schoolId: string; members: Member[]; invites: Invite[]; classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[]; onChange: () => void; studentCounts?: Record<string, number>; seatLimit?: number | null; schoolName?: string; schoolEmail?: string | null; permissions?: ReactNode }
 
 type Pending = { title: string; body: string; action: string; run: () => void } | null;
 const AGE_GROUPS = ['Nido (2 months–15 months)', 'Infant Community (15 months–3 years)', "Children's House (3–6 years)", 'Lower Elementary (6–9 years)', 'Upper Elementary (9–12 years)'];
 const initials = (s: string) => s.split(/[\s@.]+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
-const SECTIONS = [{ id: 'sec-staff', label: 'Staff' }, { id: 'sec-rooms', label: 'Classrooms' }, { id: 'sec-perms', label: 'Permissions' }, { id: 'sec-profile', label: 'School profile' }];
+const SECTIONS = [{ id: 'sec-staff', label: 'Staff' }, { id: 'sec-rooms', label: 'Classrooms' }, { id: 'sec-perms', label: 'Permissions' }, { id: 'sec-profile', label: 'School profile' }, { id: 'sec-backup', label: 'Backups' }];
 
 function Section({ id, title, desc, children, extra }: { id: string; title: string; desc: string; children: ReactNode; extra?: ReactNode }) {
   return (
@@ -263,6 +264,9 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <Section id="sec-backup" title="Quarterly records backup" desc="Required each quarter: download a full copy of your school's records and keep it on your school's own system.">
+        <BackupPanel schoolId={schoolId} schoolName={schoolName} />
+      </Section>
     </div>
   );
 }

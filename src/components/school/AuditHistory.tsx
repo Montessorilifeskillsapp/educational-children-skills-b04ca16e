@@ -13,7 +13,7 @@ const labels: Record<string, string> = {
   classroom_save: 'Classroom settings saved', classroom_delete: 'Classroom deleted', staff_assign: 'Classroom assignment changed',
   invite: 'Staff invitation created', invite_cancel: 'Invitation cancelled', member_role: 'Staff role changed',
   member_remove: 'Staff access removed', plan_save: 'Lesson plan saved', plan_delete: 'Lesson plan deleted',
-  plan_done: 'Lesson plan completion changed', policies_save: 'Staff permissions saved', school_profile_save: 'School profile saved',
+  plan_done: 'Lesson plan completion changed', policies_save: 'Staff permissions saved', school_profile_save: 'School profile saved', school_backup: 'Quarterly records backup downloaded',
 };
 
 export default function AuditHistory({ schoolId }: { schoolId: string }) {
