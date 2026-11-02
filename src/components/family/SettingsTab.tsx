@@ -10,6 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useAuthContext } from '@/components/AuthProvider';
 import { enablePush, pushMessage } from '@/lib/push';
 import { call, db, DEFAULT_PREFS, Prefs } from './api';
+import OfflineMediaPanel from '@/components/OfflineMediaPanel';
 
 const DAYS = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
