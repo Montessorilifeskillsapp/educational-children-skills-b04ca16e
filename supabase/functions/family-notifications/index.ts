@@ -129,5 +129,38 @@ Deno.serve(async (req) => {
     }
   }
 
+  // School quarterly records backup reminders (once per stage, around 15:00 UTC on weekdays).
+  const now = new Date()
+  if (now.getUTCHours() === 15) {
+    const q = Math.floor(now.getUTCMonth() / 3), y = now.getUTCFullYear()
+    const qStart = new Date(Date.UTC(y, q * 3, 1)), qEnd = new Date(Date.UTC(y, q * 3 + 3, 1))
+    const pStart = new Date(Date.UTC(y, q * 3 - 3, 1))
+    const label = `Q${q + 1} ${y}`, prevLabel = `Q${((q + 3) % 4) + 1} ${q === 0 ? y - 1 : y}`
+    const daysLeft = Math.ceil((qEnd.getTime() - now.getTime()) / 86400_000)
+    const { data: schools } = await admin.from('schools').select('id, name, created_at, backup_reminders_sent').eq('active', true).limit(1000)
+    for (const sc of schools ?? []) {
+      const { data: done } = await admin.from('school_audit_log').select('created_at').eq('school_id', sc.id).eq('action', 'school_backup').gte('created_at', pStart.toISOString()).limit(50)
+      const has = (a: Date, b: Date) => (done ?? []).some((d: any) => { const t = new Date(d.created_at); return t >= a && t < b })
+      let stage: string | null = null, title = '', body = ''
+      if (!has(pStart, qStart) && new Date(sc.created_at) < qStart && daysLeft > 60) {
+        stage = `${prevLabel}:missed`; title = `${sc.name}: records backup overdue`
+        body = `Your school's ${prevLabel} records backup was not made. Open the School Portal, go to Staff, and download a backup to your school's own system today.`
+      } else if (!has(qStart, qEnd) && (daysLeft <= 7 || daysLeft <= 21)) {
+        stage = `${label}:${daysLeft <= 7 ? 'due7' : 'due21'}`; title = `${sc.name}: ${label} records backup due in ${daysLeft} days`
+        body = `Each quarter your school keeps its own copy of all records. Open the School Portal, go to Staff, and download this quarter's backup.`
+      }
+      const sent: string[] = sc.backup_reminders_sent ?? []
+      if (!stage || sent.includes(stage)) continue
+      const { data: admins } = await admin.from('school_members').select('email').eq('school_id', sc.id).eq('role', 'school_admin')
+      for (const a of admins ?? []) {
+        const { error } = await admin.functions.invoke('send-transactional-email', {
+          body: { templateName: 'family-notice', recipientEmail: a.email, idempotencyKey: `backup-${sc.id}-${stage}-${a.email}`, templateData: { title, body } },
+        })
+        if (error) console.error('backup reminder email', error)
+      }
+      await admin.from('schools').update({ backup_reminders_sent: [...sent, stage].slice(-12) }).eq('id', sc.id)
+    }
+  }
+
   return json({ ok: true, stats })
 })

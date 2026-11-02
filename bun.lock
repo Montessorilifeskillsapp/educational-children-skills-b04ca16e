@@ -51,6 +51,7 @@
         "@testing-library/react": "^16.3.0",
         "@testing-library/user-event": "^14.6.1",
         "@types/uuid": "^10.0.0",
+        "@zip.js/zip.js": "^2.24.0",
         "class-variance-authority": "^0.7.1",
         "clsx": "^2.1.1",
         "cmdk": "^1.0.0",
@@ -946,6 +947,8 @@
     "@xml-tools/parser": ["@xml-tools/parser@1.0.11", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@xml-tools/parser/-/parser-1.0.11.tgz", { "dependencies": { "chevrotain": "7.1.1" } }, "sha512-aKqQ077XnR+oQtHJlrAflaZaL7qZsulWc/i/ZEooar5JiWj1eLt0+Wg28cpa+XLney107wXqneC+oG1IZvxkTA=="],
 
     "@xmldom/xmldom": ["@xmldom/xmldom@0.9.10", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/@xmldom/xmldom/-/xmldom-0.9.10.tgz", {}, "sha512-A9gOqLdi6cV4ibazAjcQufGj0B1y/vDqYrcuP6d/6x8P27gRS8643Dj9o1dEKtB6O7fwxb2FgBmJS2mX7gpvdw=="],
+
+    "@zip.js/zip.js": ["@zip.js/zip.js@2.24.0", "", {}, "sha512-WlaVKzdqBK+RF3bdiXZWbdCnvGB6PdO4IHC1mn/2Yfl3bASgqUNegnU3+PNg61iecwoPfUi5BgLUPqBukXpyWw=="],
 
     "JSONStream": ["JSONStream@1.3.5", "https://europe-west4-npm.pkg.dev/lovable-core-prod/sandbox-npm-cache/JSONStream/-/JSONStream-1.3.5.tgz", { "dependencies": { "jsonparse": "^1.2.0", "through": ">=2.2.7 <3" }, "bin": { "JSONStream": "./bin.js" } }, "sha512-E+iruNOY8VV9s4JEbe1aNEm6MiszPRr/UfcHMz0TQh1BXSxHK+ASV1R6W4HpjBhSeS+54PIsAMCBmwD06LLsqQ=="],
 
