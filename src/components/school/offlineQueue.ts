@@ -44,7 +44,7 @@ export async function flushQueue() {
   let sent = 0;
   try {
     for (const item of load().filter((q) => q.uid === uid)) {
-      try { await sender(item.body); sent++; }
+      try { await sender({ ...item.body, recorded_at: item.body.recorded_at ?? item.at }); sent++; }
       catch (e) {
         if (isConnectionError(e)) break;
         rejected++; // server refused (e.g. permission changed): drop rather than retry forever

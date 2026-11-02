@@ -27,6 +27,7 @@ import CurriculumTab from '@/components/school/CurriculumTab';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
 import SyncStatus from '@/components/school/SyncStatus';
+import OfflineMediaPanel from '@/components/OfflineMediaPanel';
 
 export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
@@ -253,7 +254,7 @@ export default function SchoolPortalPage() {
                 </TabsContent>
               </>
             )}
-            <TabsContent value="curriculum" className="mt-0"><CurriculumTab schoolName={school.name} /></TabsContent>
+            <TabsContent value="curriculum" className="mt-0 space-y-6"><CurriculumTab schoolName={school.name} /><OfflineMediaPanel /></TabsContent>
             {can.manageSchool(role) && (
               <TabsContent value="history" className="mt-0">
                 {schoolId && <AuditHistory key={schoolId} schoolId={schoolId} />}

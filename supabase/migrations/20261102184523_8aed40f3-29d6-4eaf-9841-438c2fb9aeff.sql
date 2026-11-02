@@ -1,0 +1,1 @@
+REVOKE SELECT ON public.student_progress_entries FROM authenticated;
