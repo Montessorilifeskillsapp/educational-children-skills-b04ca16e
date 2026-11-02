@@ -158,7 +158,7 @@ Deno.serve(async (req) => {
             await acceptSchoolInvite(admin, inv, uid, email)
           }
         }
-        const { data } = await checked(admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email, policies)').eq('user_id', uid))
+        const { data } = await checked(admin.from('school_members').select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email, policies, backup_frequency)').eq('user_id', uid))
         // deno-lint-ignore no-explicit-any
         return json({ memberships: (data ?? []).filter((m: any) => m.schools?.active) })
       }
@@ -291,6 +291,29 @@ Deno.serve(async (req) => {
         ])
         return json({ exported_at: new Date().toISOString(), exported_by: email, school, classrooms, students, members, classroom_staff: staff,
           progress, progress_history: entries, observations, reports, lesson_plans: plans, change_history: audit })
+      }
+      case 'backup_settings_set': {
+        const m = await membership(b.school_id)
+        if (!m || m.role !== 'school_admin') return forbidden()
+        await checked(admin.from('schools').update({ backup_frequency: b.frequency }).eq('id', b.school_id))
+        auditDetail = b.frequency
+        return json({ ok: true })
+      }
+      case 'backup_auto_done': {
+        // The automatic backup was saved on a School Admin's device; confirm by email to the school's primary address (no student data).
+        const m = await membership(b.school_id)
+        if (!m || m.role !== 'school_admin') return forbidden()
+        auditDetail = `auto: ${b.period}`
+        const { data: school } = await checked(admin.from('schools').select('name, contact_email').eq('id', b.school_id).single())
+        const { data: who } = await checked(admin.from('school_members').select('full_name').eq('id', m.id).maybeSingle())
+        if (school?.contact_email) {
+          const when = new Date().toLocaleDateString('en-US', { dateStyle: 'long', timeZone: 'America/Chicago' })
+          const { error } = await admin.functions.invoke('send-transactional-email', { body: { templateName: 'family-notice', recipientEmail: school.contact_email,
+            idempotencyKey: `autobackup-${b.school_id}-${b.period}`, templateData: { title: `${school.name}: ${b.period} records backup saved`,
+              body: `Your ${b.period} records backup was saved automatically on ${when} by ${who?.full_name || email}. The password-protected file is on that School Admin's device; please move it to your school's own secure storage.` } } })
+          if (error) console.error('auto backup email', error)
+        }
+        return json({ ok: true })
       }
       case 'backup_confirm': {
         const m = await membership(b.school_id)

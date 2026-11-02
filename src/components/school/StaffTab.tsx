@@ -13,7 +13,7 @@ import { Classroom, Invite, Member, ROLE_LABEL, schoolCall, SchoolRole } from '.
 import { useSettingsDraft } from './useSettingsDraft';
 import BackupPanel from './BackupPanel';
 
-interface Props { schoolId: string; members: Member[]; invites: Invite[]; classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[]; onChange: () => void; studentCounts?: Record<string, number>; seatLimit?: number | null; schoolName?: string; schoolEmail?: string | null; permissions?: ReactNode }
+interface Props { schoolId: string; members: Member[]; invites: Invite[]; classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[]; onChange: () => void; studentCounts?: Record<string, number>; seatLimit?: number | null; schoolName?: string; schoolEmail?: string | null; permissions?: ReactNode; backupFrequency?: 'quarterly' | 'semester'; onSettingsSaved?: () => void }
 
 type Pending = { title: string; body: string; action: string; run: () => void } | null;
 const AGE_GROUPS = ['Nido (2 months–15 months)', 'Infant Community (15 months–3 years)', "Children's House (3–6 years)", 'Lower Elementary (6–9 years)', 'Upper Elementary (9–12 years)'];
@@ -32,7 +32,7 @@ function Section({ id, title, desc, children, extra }: { id: string; title: stri
   );
 }
 
-export default function StaffTab({ schoolId, members, invites, classrooms, staff, onChange, studentCounts = {}, seatLimit, schoolName = '', schoolEmail = '', permissions }: Props) {
+export default function StaffTab({ schoolId, members, invites, classrooms, staff, onChange, studentCounts = {}, seatLimit, schoolName = '', schoolEmail = '', permissions, backupFrequency, onSettingsSaved }: Props) {
   const { toast } = useToast();
   const { user } = useAuthContext();
   const adminCount = members.filter((m) => m.role === 'school_admin').length;
@@ -265,7 +265,7 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
         </AlertDialogContent>
       </AlertDialog>
       <Section id="sec-backup" title="Quarterly records backup" desc="Required each quarter: download a full copy of your school's records and keep it on your school's own system.">
-        <BackupPanel schoolId={schoolId} schoolName={schoolName} />
+        <BackupPanel schoolId={schoolId} schoolName={schoolName} frequency={backupFrequency} onSettingsSaved={onSettingsSaved} />
       </Section>
     </div>
   );

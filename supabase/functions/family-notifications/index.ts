@@ -129,28 +129,25 @@ Deno.serve(async (req) => {
     }
   }
 
-  // School quarterly records backup reminders (once per stage, around 15:00 UTC on weekdays).
+  // Safety net only: one email to School Admins when a whole backup period ended with no backup (~15:00 UTC).
   const now = new Date()
   if (now.getUTCHours() === 15) {
-    const q = Math.floor(now.getUTCMonth() / 3), y = now.getUTCFullYear()
-    const qStart = new Date(Date.UTC(y, q * 3, 1)), qEnd = new Date(Date.UTC(y, q * 3 + 3, 1))
-    const pStart = new Date(Date.UTC(y, q * 3 - 3, 1))
-    const label = `Q${q + 1} ${y}`, prevLabel = `Q${((q + 3) % 4) + 1} ${q === 0 ? y - 1 : y}`
-    const daysLeft = Math.ceil((qEnd.getTime() - now.getTime()) / 86400_000)
-    const { data: schools } = await admin.from('schools').select('id, name, created_at, backup_reminders_sent').eq('active', true).limit(1000)
+    const y = now.getUTCFullYear(), mo = now.getUTCMonth()
+    const { data: schools } = await admin.from('schools').select('id, name, created_at, backup_reminders_sent, backup_frequency').eq('active', true).limit(1000)
     for (const sc of schools ?? []) {
-      const { data: done } = await admin.from('school_audit_log').select('created_at').eq('school_id', sc.id).eq('action', 'school_backup').gte('created_at', pStart.toISOString()).limit(50)
-      const has = (a: Date, b: Date) => (done ?? []).some((d: any) => { const t = new Date(d.created_at); return t >= a && t < b })
-      let stage: string | null = null, title = '', body = ''
-      if (!has(pStart, qStart) && new Date(sc.created_at) < qStart && daysLeft > 60) {
-        stage = `${prevLabel}:missed`; title = `${sc.name}: records backup overdue`
-        body = `Your school's ${prevLabel} records backup was not made. Open the School Portal, go to Staff, and download a backup to your school's own system today.`
-      } else if (!has(qStart, qEnd) && daysLeft <= 21) {
-        stage = `${label}:${daysLeft <= 7 ? 'due7' : 'due21'}`; title = `${sc.name}: ${label} records backup due in ${daysLeft} days`
-        body = `Each quarter your school keeps its own copy of all records. Open the School Portal, go to Staff, and download this quarter's backup.`
-      }
+      const len = sc.backup_frequency === 'semester' ? 6 : 3
+      const curStartMonth = Math.floor(mo / len) * len
+      const curStart = new Date(Date.UTC(y, curStartMonth, 1)), prevStart = new Date(Date.UTC(y, curStartMonth - len, 1))
+      const py = prevStart.getUTCFullYear(), pm = prevStart.getUTCMonth()
+      const prevLabel = len === 6 ? `${pm < 6 ? 'Spring' : 'Fall'} semester ${py}` : `Q${pm / 3 + 1} ${py}`
+      if (new Date(sc.created_at) >= curStart) continue
+      const { data: done } = await admin.from('school_audit_log').select('id').eq('school_id', sc.id).eq('action', 'school_backup')
+        .gte('created_at', prevStart.toISOString()).lt('created_at', curStart.toISOString()).limit(1)
+      const stage = `${prevLabel}:missed`
       const sent: string[] = sc.backup_reminders_sent ?? []
-      if (!stage || sent.includes(stage)) continue
+      if (done?.length || sent.includes(stage)) continue
+      const title = `${sc.name}: ${prevLabel} records backup was not made`
+      const body = `No School Admin opened the School Portal with a backup password set during ${prevLabel}, so no automatic backup was saved. Open the School Portal on your device and the backup will save itself.`
       const { data: admins } = await admin.from('school_members').select('email').eq('school_id', sc.id).eq('role', 'school_admin')
       for (const a of admins ?? []) {
         const { error } = await admin.functions.invoke('send-transactional-email', {

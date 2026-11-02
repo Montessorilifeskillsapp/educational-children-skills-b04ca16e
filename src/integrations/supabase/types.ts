@@ -839,6 +839,7 @@ export type Database = {
       schools: {
         Row: {
           active: boolean
+          backup_frequency: string
           backup_reminders_sent: string[]
           contact_email: string | null
           created_at: string
@@ -850,6 +851,7 @@ export type Database = {
         }
         Insert: {
           active?: boolean
+          backup_frequency?: string
           backup_reminders_sent?: string[]
           contact_email?: string | null
           created_at?: string
@@ -861,6 +863,7 @@ export type Database = {
         }
         Update: {
           active?: boolean
+          backup_frequency?: string
           backup_reminders_sent?: string[]
           contact_email?: string | null
           created_at?: string

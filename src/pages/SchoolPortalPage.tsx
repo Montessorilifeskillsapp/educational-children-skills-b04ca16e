@@ -14,7 +14,7 @@ import PlanningTab from '@/components/school/PlanningTab';
 import StaffTab from '@/components/school/StaffTab';
 import StaffActivity from '@/components/school/StaffActivity';
 import AuditHistory from '@/components/school/AuditHistory';
-import { BackupReminder } from '@/components/school/BackupPanel';
+import { AutoBackup } from '@/components/school/BackupPanel';
 import StudentPanel from '@/components/school/StudentPanel';
 import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
@@ -217,7 +217,7 @@ export default function SchoolPortalPage() {
         {previewing && <RoleBanner role={role} canRecord={can.recordProgress(role)} previewing={previewing} onExitPreview={() => setPreviewRole(null)} />}
 
         {dataError && <div role="alert" className="mb-6 flex items-center gap-3 text-destructive"><p>{dataError}</p><Button variant="outline" onClick={() => void reload()}>Retry</Button></div>}
-        {can.manageSchool(role) && schoolId && <div className="mb-4"><BackupReminder schoolId={schoolId} onOpen={() => { if (allowSchoolNavigation()) { setTab('staff'); setTimeout(() => document.getElementById('sec-backup')?.scrollIntoView({ behavior: 'smooth' }), 150); } }} /></div>}
+        {realRole === 'school_admin' && !previewRole && schoolId && user && <AutoBackup schoolId={schoolId} userId={user.id} frequency={me?.schools.backup_frequency ?? 'quarterly'} />}
         {loading ? <LoadingSpinner /> : dataError ? null : (
           <Tabs value={tab} onValueChange={(value) => { if (allowSchoolNavigation()) setTab(value); }} className="space-y-6">
             <TabsContent value="overview" className="mt-0">
@@ -274,7 +274,7 @@ export default function SchoolPortalPage() {
             )}
             {can.manageSchool(role) && schoolId && (
               <TabsContent value="staff" className="mt-0 space-y-6">
-                <StaffTab permissions={<StaffPolicies schoolId={schoolId} policies={me.schools.policies} onSaved={loadMe} />} schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={() => { reload(); loadMe(); }} seatLimit={school.seat_limit} schoolName={school.name} schoolEmail={school.contact_email} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
+                <StaffTab permissions={<StaffPolicies schoolId={schoolId} policies={me.schools.policies} onSaved={loadMe} />} schoolId={schoolId} members={data.members} invites={data.invites} classrooms={data.classrooms} staff={data.staff} onChange={() => { reload(); loadMe(); }} seatLimit={school.seat_limit} schoolName={school.name} schoolEmail={school.contact_email} backupFrequency={me.schools.backup_frequency ?? 'quarterly'} onSettingsSaved={loadMe} studentCounts={Object.fromEntries(data.classrooms.map((c) => [c.id, data.students.filter((s) => s.classroom_id === c.id && !s.archived).length]))} />
               </TabsContent>
             )}
           </Tabs>

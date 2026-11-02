@@ -47,6 +47,8 @@ export const Body = z.discriminatedUnion('action', [
   z.object({ action: z.literal('admin_list') }).strict(),
   z.object({ action: z.literal('record_export'), student_id: uuid }).strict(),
   z.object({ action: z.literal('school_backup'), school_id: uuid }).strict(),
+  z.object({ action: z.literal('backup_settings_set'), school_id: uuid, frequency: z.enum(['quarterly', 'semester']) }).strict(),
+  z.object({ action: z.literal('backup_auto_done'), school_id: uuid, period: text(40) }).strict(),
   z.object({ action: z.literal('backup_confirm'), school_id: uuid, location: z.enum(['school_drive', 'school_server', 'external_drive', 'other']), note: text(200, false).optional() }).strict(),
   z.object({ action: z.literal('admin_school_save'), id: uuid.optional(), name: text(160),
     contact_email: z.string().trim().email().max(255), seat_limit: z.number().int().min(1).max(500),
