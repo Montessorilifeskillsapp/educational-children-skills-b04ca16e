@@ -28,10 +28,10 @@ export default function ActivityPage({ skillId, title, sectionLabel, purpose, im
       <GetTheMaterials skillId={skillId} skillMaterials={materials} />
       <ActivityVideo skillId={skillId} activityTitle={title} />
       <ActivitySteps steps={steps} onToggle={onToggle} />
-      {notes && <details className="mb-8 border-t border-border pt-4">
-        <summary className="cursor-pointer text-sm font-semibold text-foreground">Teaching notes</summary>
-        <div className="mt-5">{notes}</div>
-      </details>}
+      <details className="mb-8 border-t border-border pt-4">
+        <summary className="cursor-pointer text-sm font-semibold text-foreground">Extensions and Variations</summary>
+        <div className="mt-5">{notes || <p className="text-muted-foreground">Activity-specific extensions and variations are not yet available.</p>}</div>
+      </details>
       {complete && <section className="my-8 text-center">
         <h2 className="text-2xl font-bold text-foreground">Excellent Work!</h2>
         <p className="mt-2 mb-4 text-muted-foreground">You have mastered {title.toLowerCase()}!</p>
