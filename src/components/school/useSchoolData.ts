@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { db, Classroom, Invite, Member, Observation, PlanItem, Progress, Report, Student } from './api';
 import { startQueue, SYNCED_EVENT } from './offlineQueue';
-import { cachedSchoolData, cacheSchoolData, sharedPortalRead } from './portalCache';
+import { cachedSchoolData, cacheSchoolData, sharedPortalRead, SCHOOL_SAVED_EVENT } from './portalCache';
 
 export interface SchoolData {
   classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[];
@@ -63,6 +63,15 @@ export function useSchoolData(schoolId: string | null) {
   const [error, setError] = useState<string | null>(null);
   const generation = useRef(0);
   const loadedSchool = useRef<string | null>(cached ? schoolId : null);
+  useEffect(() => {
+    const saved = () => {
+      if (!schoolId) return;
+      const next = cachedSchoolData<SchoolData>(schoolId);
+      if (next) { loadedSchool.current = schoolId; setData(next); }
+    };
+    window.addEventListener(SCHOOL_SAVED_EVENT, saved);
+    return () => window.removeEventListener(SCHOOL_SAVED_EVENT, saved);
+  }, [schoolId]);
 
   const reload = useCallback(async () => {
     const request = ++generation.current;

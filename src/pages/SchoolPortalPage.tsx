@@ -34,6 +34,7 @@ export default function SchoolPortalPage() {
   // Memberships already fetched by the corner School Portal button open the portal at once.
   const [memberships, setMemberships] = useState<Membership[] | null>(() => cachedMemberships(user?.id));
   const [schoolId, setSchoolId] = useState<string | null>(() => cachedMemberships(user?.id)?.[0]?.school_id ?? null);
+  const [membershipError, setMembershipError] = useState(false);
   // Tab, classroom and open student live in the address so returning from an activity page lands on the same spot.
   const [params, setParams] = useSearchParams();
   const tab = params.get('tab') || 'overview';
@@ -62,10 +63,11 @@ export default function SchoolPortalPage() {
   }, [params, schoolId]);
   const loadMe = useCallback(() => {
     if (!user) return;
+    setMembershipError(false);
     let cancelled = false;
     void fetchMemberships(user.id)
       .then((ms) => { if (cancelled) return; setMemberships(ms); setSchoolId((s) => ms.some((m) => m.school_id === s) ? s : ms[0]?.school_id ?? null); })
-      .catch(() => { /* retain current membership on a temporary connection failure */ });
+      .catch(() => { if (!cancelled) setMembershipError(true); });
     return () => { cancelled = true; };
   }, [user]);
   useEffect(() => { loadMe(); }, [loadMe]);
@@ -99,6 +101,7 @@ export default function SchoolPortalPage() {
     if ((['staff', 'activity', 'review', 'history'].includes(tab) && !can.manageSchool(role)) || (!['overview', 'staff', 'activity', 'review', 'history'].includes(tab) && !classroomId)) setTab('overview');
   }, [tab, role, classroomId, memberships]);
 
+  if (user && memberships === null && membershipError) return <div role="alert" className="min-h-screen flex flex-col items-center justify-center gap-4"><p>School access could not be checked. Please retry.</p><Button onClick={() => loadMe()}>Retry</Button></div>;
   if (authLoading || (user && memberships === null)) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner /></div>;
 
   if (!user || !memberships?.length) {

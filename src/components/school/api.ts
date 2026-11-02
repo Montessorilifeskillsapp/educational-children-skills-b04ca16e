@@ -1,6 +1,7 @@
 import { supabase } from '@/integrations/supabase/client';
 import { FunctionsFetchError, FunctionsHttpError } from '@supabase/supabase-js';
 import { configureQueue, enqueue, isConnectionError, QUEUEABLE } from './offlineQueue';
+import { applySavedSchoolChange, sharedPortalRead, setPortalOwner } from './portalCache';
 import { DEFAULT_POLICIES, resolvePolicies, roleAllows, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 export { CAPABILITIES, DEFAULT_POLICIES, resolvePolicies, type Capability, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 
@@ -48,10 +49,21 @@ export const isQueued = (r: unknown): r is QueuedResult => !!r && (r as QueuedRe
 
 export async function schoolCall<T = unknown>(body: Record<string, unknown>): Promise<T> {
   if (previewing && body.action !== 'me') throw new Error(PREVIEW_BLOCKED);
+  if (body.action === 'me') {
+    const id = await uid();
+    if (!id) throw new Error('Please sign in again.');
+    setPortalOwner(id);
+    return sharedPortalRead('me:send', () => send<T>(body));
+  }
   const queueable = QUEUEABLE.has(String(body.action));
   const keep = async () => { const id = await uid(); if (!id) throw new Error('Please sign in again.'); enqueue(id, body); return { queued: true } as T; };
   if (queueable && typeof navigator !== 'undefined' && !navigator.onLine) return keep();
-  try { return await send<T>(body); }
+  const userId = await uid();
+  try {
+    const result = await send<T>(body);
+    if (userId && result && typeof result === 'object') applySavedSchoolChange(userId, body, result as Record<string, unknown>);
+    return result;
+  }
   catch (e) {
     if (queueable && isConnectionError(e)) return keep();
     if (e instanceof FunctionsFetchError) throw new Error('No connection. Please try again when you are back online.');

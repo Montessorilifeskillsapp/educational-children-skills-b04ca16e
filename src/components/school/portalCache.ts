@@ -1,4 +1,6 @@
 import type { Membership } from './api';
+import type { SchoolData } from './useSchoolData';
+import { savedSchoolData } from './savedSchoolData';
 
 /**
  * In-memory only (never stored on the device): the corner School Portal button fetches
@@ -41,6 +43,12 @@ export const cachedMemberships = (userId: string | undefined) => (userId && user
 export function cacheMemberships(userId: string, ms: Membership[]) { setPortalOwner(userId); memberships = ms; }
 export const cachedSchoolData = <T>(schoolId: string) => data.get(schoolId) as T | undefined;
 export function cacheSchoolData(schoolId: string, d: unknown) { if (owner) data.set(schoolId, d); }
+export const SCHOOL_SAVED_EVENT = 'school:server-saved';
+export function applySavedSchoolChange(userId: string, body: Record<string, unknown>, reply: Record<string, unknown>) {
+  if (owner !== userId || reply.queued) return;
+  for (const [id, current] of data) data.set(id, savedSchoolData(current as SchoolData, id, body, reply));
+  window.dispatchEvent(new Event(SCHOOL_SAVED_EVENT));
+}
 
 let portalChunk: Promise<unknown> | null = null;
 /** Downloads the portal's code ahead of the tap. */
