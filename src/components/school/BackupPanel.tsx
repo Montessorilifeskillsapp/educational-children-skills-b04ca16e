@@ -1,15 +1,10 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Progress } from '@/components/ui/progress';
-import { Archive, CheckCircle2, Download, AlertTriangle, CalendarClock, ShieldCheck, Lock, HardDrive } from 'lucide-react';
+import { ShieldCheck, Lock } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { db, schoolCall } from './api';
-import { backupState, buildBackupZip, periodOf, type BackupData, type BackupFrequency } from './backup';
+import { backupState, buildBackupZip, type BackupData, type BackupFrequency } from './backup';
 import { useAuthContext } from '@/components/AuthProvider';
 import { skillById } from './curriculum';
 import { downloadBlob } from '@/lib/downloadBlob';
