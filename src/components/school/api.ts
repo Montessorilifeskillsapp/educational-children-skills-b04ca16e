@@ -1,6 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import { FunctionsFetchError, FunctionsHttpError } from '@supabase/supabase-js';
-import { configureQueue, enqueue, isConnectionError, QUEUEABLE } from './offlineQueue';
+import { configureQueue, enqueue, isConnectionError, QUEUEABLE, withdraw } from './offlineQueue';
 import { applySavedSchoolChange, sharedPortalRead, setPortalOwner } from './portalCache';
 import { DEFAULT_POLICIES, resolvePolicies, roleAllows, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 export { CAPABILITIES, DEFAULT_POLICIES, resolvePolicies, type Capability, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';

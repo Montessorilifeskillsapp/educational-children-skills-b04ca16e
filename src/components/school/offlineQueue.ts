@@ -54,11 +54,14 @@ export async function flushQueue() {
   let sent = 0;
   try {
     for (const item of load().filter((q) => q.uid === uid)) {
+      if (!load().some((q) => q.id === item.id)) continue;
+      sending.add(item.id);
       try { await sender({ ...item.body, recorded_at: item.body.recorded_at ?? item.at }); sent++; }
       catch (e) {
         if (isConnectionError(e)) break;
         rejected++; // server refused (e.g. permission changed): drop rather than retry forever
       }
+      finally { sending.delete(item.id); }
       store(load().filter((q) => q.id !== item.id));
     }
   } finally { syncing = false; emit(); }
