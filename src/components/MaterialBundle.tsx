@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ExternalLink, Package } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 import type { ActivityMaterial } from '@/lib/materials';
 import { normalizeMaterialKey } from '@/lib/materials';
 import type { MaterialLink } from '@/hooks/useMaterialLinks';
@@ -126,16 +127,22 @@ export function MaterialBundle({ title, materials, className, showDisclosure = t
                 </div>
               </div>
               {material.amazonUrl ? (
-                <a
-                  href={material.amazonUrl}
-                  target="_blank"
-                  rel="sponsored noopener noreferrer"
-                  className="shrink-0 inline-flex items-center text-xs font-medium text-primary hover:underline"
-                  aria-label={`Buy ${material.inheritedFrom || material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="shrink-0 max-w-[45%] min-h-9 h-auto whitespace-normal border-primary/25 bg-primary/5 px-3 py-2 text-xs text-foreground hover:border-primary/50 hover:bg-primary/10 hover:text-foreground"
                 >
-                  {material.inheritedFrom ? `Buy ${material.inheritedFrom}` : 'Buy'}
-                  <ExternalLink className="w-3 h-3 ml-1" aria-hidden="true" />
-                </a>
+                  <a
+                    href={material.amazonUrl}
+                    target="_blank"
+                    rel="sponsored noopener noreferrer"
+                    aria-label={`Buy ${material.inheritedFrom || material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
+                  >
+                    <span>{material.inheritedFrom ? `Buy ${material.inheritedFrom}` : 'Buy'}</span>
+                    <ExternalLink className="w-3.5 h-3.5 ml-2 shrink-0 text-primary" aria-hidden="true" />
+                  </a>
+                </Button>
               ) : null}
             </li>
           ))}
