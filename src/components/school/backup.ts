@@ -1,6 +1,6 @@
 import { BlobWriter, TextReader, ZipWriter } from '@zip.js/zip.js';
 
-/** Calendar quarter helpers for the mandatory quarterly school backup. */
+/** Calendar quarter helpers for the mandatory school backup. */
 export function quarterOf(d: Date) {
   const q = Math.floor(d.getMonth() / 3);
   const start = new Date(d.getFullYear(), q * 3, 1);
@@ -8,15 +8,24 @@ export function quarterOf(d: Date) {
   return { label: `Q${q + 1} ${d.getFullYear()}`, q: q + 1, year: d.getFullYear(), start, end };
 }
 
+export type BackupFrequency = 'quarterly' | 'semester';
+/** Backup period: a calendar quarter, or a semester (January–June, July–December). */
+export function periodOf(d: Date, frequency: BackupFrequency = 'quarterly') {
+  if (frequency === 'quarterly') return quarterOf(d);
+  const h = d.getMonth() < 6 ? 0 : 1;
+  return { label: `${h ? 'Fall' : 'Spring'} semester ${d.getFullYear()}`, q: h + 1, year: d.getFullYear(),
+    start: new Date(d.getFullYear(), h * 6, 1), end: new Date(d.getFullYear(), h * 6 + 6, 1) };
+}
+
 export type BackupState = 'done' | 'due' | 'overdue';
 
-/** Done when a backup exists in the current quarter; overdue when the previous quarter was also missed (after the first quarter). */
-export function backupState(backups: Date[], now = new Date(), schoolCreated?: Date): { state: BackupState; daysLeft: number; quarter: string } {
-  const cur = quarterOf(now);
+/** Done when a backup exists in the current period; overdue when the previous period was also missed (after the first period). */
+export function backupState(backups: Date[], now = new Date(), schoolCreated?: Date, frequency: BackupFrequency = 'quarterly'): { state: BackupState; daysLeft: number; quarter: string } {
+  const cur = periodOf(now, frequency);
   const daysLeft = Math.max(0, Math.ceil((cur.end.getTime() - now.getTime()) / 86_400_000));
   const inCur = backups.some((b) => b >= cur.start && b < cur.end);
   if (inCur) return { state: 'done', daysLeft, quarter: cur.label };
-  const prev = quarterOf(new Date(cur.start.getTime() - 86_400_000));
+  const prev = periodOf(new Date(cur.start.getTime() - 86_400_000), frequency);
   const prevApplies = !schoolCreated || schoolCreated < prev.end;
   const inPrev = backups.some((b) => b >= prev.start && b < prev.end);
   return { state: prevApplies && !inPrev ? 'overdue' : 'due', daysLeft, quarter: cur.label };
