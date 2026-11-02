@@ -404,7 +404,7 @@ const Home: React.FC<HomeProps> = ({
             <Reveal>
               <Card className="h-full border-border/60 bg-card">
                 <CardContent className="p-6 lg:p-8">
-                  <img
+                  <img decoding="async"
                     src={heroChildPouring}
                     alt="A child pours water from one small glass pitcher into another on a wooden tray, one hand on the handle and the other supporting the pitcher"
                     width={1024}
@@ -486,7 +486,7 @@ const Home: React.FC<HomeProps> = ({
               <Reveal key={area.name} delay={index * 60}>
                 <button onClick={() => handleCurriculumClick(area.name)} className="group w-full text-left rounded-2xl overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 bg-card">
                   <div className="relative h-40 overflow-hidden">
-                    <img src={area.image} alt={`${area.name} Montessori materials`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none" loading="lazy" />
+                    <img decoding="async" src={area.image} alt={`${area.name} Montessori materials`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none" loading="lazy" />
                   </div>
                   <div className="p-4">
                     <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">{area.name}</h3>
@@ -505,7 +505,7 @@ const Home: React.FC<HomeProps> = ({
           <Reveal>
             <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
               <div className="md:col-span-2">
-                <img src={founderKerry} alt="Kerry Howard, AMI-trained Montessori guide and founder" className="rounded-2xl shadow-xl object-cover w-full aspect-square border-4 border-card" loading="lazy" />
+                <img decoding="async" src={founderKerry} alt="Kerry Howard, AMI-trained Montessori guide and founder" className="rounded-2xl shadow-xl object-cover w-full aspect-square border-4 border-card" loading="lazy" />
               </div>
               <div className="md:col-span-3">
                 <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Meet the founder</p>

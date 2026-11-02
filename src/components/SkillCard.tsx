@@ -139,7 +139,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         <CardHeader className="pb-3">
           {skill.image ? (
             <div className="mb-3">
-              <img
+              <img decoding="async"
                 src={skill.image}
                 alt={`${skill.title} Montessori material`}
                 className="w-full h-32 object-cover rounded-lg"

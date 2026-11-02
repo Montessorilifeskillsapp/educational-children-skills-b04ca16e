@@ -70,7 +70,7 @@ const PreviewPouringWaterPage: React.FC = () => {
           <span className="text-sm text-muted-foreground ml-2">Loved by 1,200+ families</span>
         </div>
 
-        <img
+        <img decoding="async"
           src={heroPouring}
           alt="Child supporting the spout while pouring water from one small glass pitcher into another on a tray"
           width={1024} height={1024}
@@ -92,7 +92,7 @@ const PreviewPouringWaterPage: React.FC = () => {
 
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-4">Materials you'll need</h2>
-          <img src={pouringSet} alt="Two small glass pitchers, a wooden tray, and a small sponge — the exact materials for a Montessori pouring water activity" width={1024} height={1024} className="w-full max-w-md rounded-xl border border-border mb-4" loading="lazy" />
+          <img decoding="async" src={pouringSet} alt="Two small glass pitchers, a wooden tray, and a small sponge — the exact materials for a Montessori pouring water activity" width={1024} height={1024} className="w-full max-w-md rounded-xl border border-border mb-4" loading="lazy" />
           <ul className="space-y-2 text-foreground/80">
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> Two small, identical glass pitchers (child-sized — ~150ml)</li>
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> A small wooden or wicker tray</li>

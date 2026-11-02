@@ -9,7 +9,7 @@ const FounderWeeklyNote: React.FC = () => {
   return (
     <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-card via-background to-primary/5 p-5 sm:p-6">
       <div className="flex items-center gap-3 mb-4">
-        <img
+        <img decoding="async"
           src={founderKerry}
           alt="Kerry Howard, AMI-trained 3–6 Primary Guide and founder"
           width={48} height={48}

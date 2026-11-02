@@ -42,7 +42,7 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
 
       {image && (
         <div className="mb-5 rounded-xl overflow-hidden border border-border shadow-sm">
-          <img
+          <img decoding="async"
             src={image}
             alt={`Authentic Montessori materials for ${title}`}
             loading="lazy"

@@ -67,7 +67,7 @@ const MaterialAlternativesPage: React.FC = () => {
         </CardHeader>
         <CardContent className="space-y-4">
           {image && (
-            <img
+            <img decoding="async"
               src={image}
               alt={`Montessori material: ${displayName}`}
               loading="lazy"
