@@ -24,9 +24,19 @@ function emit() {
 
 export function configureQueue(send: Sender, uid: () => Promise<string | null>) { sender = send; currentUid = uid; }
 
-export function enqueue(uid: string, body: Record<string, unknown>) {
-  store([...load(), { id: crypto.randomUUID(), uid, body, at: new Date().toISOString() }]);
+export function enqueue(uid: string, body: Record<string, unknown>): string {
+  const id = crypto.randomUUID();
+  store([...load(), { id, uid, body, at: new Date().toISOString() }]);
+  return id;
 }
+
+/** Remove a kept record whose original slow request reached the server after all. */
+export function withdraw(id: string) {
+  if (sending.has(id)) return;
+  const items = load();
+  if (items.some((q) => q.id === id)) store(items.filter((q) => q.id !== id));
+}
+const sending = new Set<string>();
 
 /** True when a failure means "could not reach the server", not "the server said no". */
 export function isConnectionError(e: unknown) {
@@ -44,11 +54,14 @@ export async function flushQueue() {
   let sent = 0;
   try {
     for (const item of load().filter((q) => q.uid === uid)) {
+      if (!load().some((q) => q.id === item.id)) continue;
+      sending.add(item.id);
       try { await sender({ ...item.body, recorded_at: item.body.recorded_at ?? item.at }); sent++; }
       catch (e) {
         if (isConnectionError(e)) break;
         rejected++; // server refused (e.g. permission changed): drop rather than retry forever
       }
+      finally { sending.delete(item.id); }
       store(load().filter((q) => q.id !== item.id));
     }
   } finally { syncing = false; emit(); }

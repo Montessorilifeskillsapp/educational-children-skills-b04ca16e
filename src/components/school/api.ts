@@ -1,6 +1,6 @@
 import { supabase } from '@/integrations/supabase/client';
 import { FunctionsFetchError, FunctionsHttpError } from '@supabase/supabase-js';
-import { configureQueue, enqueue, isConnectionError, QUEUEABLE } from './offlineQueue';
+import { configureQueue, enqueue, isConnectionError, QUEUEABLE, withdraw } from './offlineQueue';
 import { applySavedSchoolChange, sharedPortalRead, setPortalOwner } from './portalCache';
 import { DEFAULT_POLICIES, resolvePolicies, roleAllows, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 export { CAPABILITIES, DEFAULT_POLICIES, resolvePolicies, type Capability, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
@@ -56,20 +56,39 @@ export async function schoolCall<T = unknown>(body: Record<string, unknown>): Pr
     return sharedPortalRead('me:send', () => send<T>(body));
   }
   const queueable = QUEUEABLE.has(String(body.action));
-  const keep = async () => { const id = await uid(); if (!id) throw new Error('Please sign in again.'); enqueue(id, body); return { queued: true } as T; };
-  if (queueable && typeof navigator !== 'undefined' && !navigator.onLine) return keep();
+  const keep = async () => { const id = await uid(); if (!id) throw new Error('Please sign in again.'); return { queued: true, id: enqueue(id, body) }; };
+  if (queueable && typeof navigator !== 'undefined' && !navigator.onLine) { await keep(); return { queued: true } as T; }
   const userId = await uid();
-  try {
-    const result = await send<T>(body);
+  const request = send<T>(body).then((result) => {
     if (userId && result && typeof result === 'object') applySavedSchoolChange(userId, body, result as Record<string, unknown>);
     return result;
+  });
+  if (!queueable) {
+    try { return await request; }
+    catch (e) {
+      if (e instanceof FunctionsFetchError) throw new Error('No connection. Please try again when you are back online.');
+      throw e;
+    }
   }
-  catch (e) {
-    if (queueable && isConnectionError(e)) return keep();
-    if (e instanceof FunctionsFetchError) throw new Error('No connection. Please try again when you are back online.');
+  // Slow-connection guard: after SAVE_TIMEOUT_MS the record is kept on this device so the screen never hangs.
+  // The original request keeps going; if it lands, the device copy is withdrawn so nothing is sent twice.
+  let timer: ReturnType<typeof setTimeout> | undefined;
+  const timedOut = new Promise<'timeout'>((r) => { timer = setTimeout(() => r('timeout'), SAVE_TIMEOUT_MS); });
+  try {
+    const first = await Promise.race([request, timedOut]);
+    if (first !== 'timeout') return first as T;
+  } catch (e) {
+    clearTimeout(timer);
+    if (isConnectionError(e)) { await keep(); return { queued: true } as T; }
     throw e;
   }
+  const kept = await keep();
+  request.then(() => withdraw(kept.id), (e) => { if (!isConnectionError(e)) withdraw(kept.id); });
+  return { queued: true } as T;
 }
+
+/** Queueable saves that take longer than this are kept on the device and confirmed on screen. */
+export const SAVE_TIMEOUT_MS = 3500;
 
 let active: SchoolPolicies = DEFAULT_POLICIES;
 /** Set the current school's policies so buttons match what the server will allow. */
