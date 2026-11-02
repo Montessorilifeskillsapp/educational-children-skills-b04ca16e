@@ -23,7 +23,7 @@ describe('quarterly school backup', () => {
       progress: [], progress_history: [], observations: [{ student_id: 's1', body: '<b>hi</b>', observed_at: '2026-10-01' }], reports: [], lesson_plans: [], change_history: [] };
     const { blob, filename } = await buildBackupZip(d);
     expect(filename).toBe('Oak Q4 2026 Backup.zip');
-    const zip = await JSZip.loadAsync(await blob.arrayBuffer());
+    const zip = await JSZip.loadAsync(blob);
     const pages = Object.keys(zip.files).filter((f) => f.startsWith('Student records/') && !zip.files[f].dir);
     expect(pages).toHaveLength(2);
     expect(await zip.file(pages[0])!.async('string')).toContain('&lt;b&gt;hi');
