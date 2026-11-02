@@ -1111,6 +1111,57 @@ export type Database = {
           },
         ]
       }
+      student_progress_entries: {
+        Row: {
+          created_at: string
+          id: string
+          note: string | null
+          recorded_at: string
+          recorded_by: string | null
+          school_id: string
+          skill_id: string
+          status: string
+          student_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          recorded_at?: string
+          recorded_by?: string | null
+          school_id: string
+          skill_id: string
+          status: string
+          student_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          note?: string | null
+          recorded_at?: string
+          recorded_by?: string | null
+          school_id?: string
+          skill_id?: string
+          status?: string
+          student_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "student_progress_entries_school_id_fkey"
+            columns: ["school_id"]
+            isOneToOne: false
+            referencedRelation: "schools"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "student_progress_entries_student_id_fkey"
+            columns: ["student_id"]
+            isOneToOne: false
+            referencedRelation: "school_students"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       student_reports: {
         Row: {
           created_at: string
