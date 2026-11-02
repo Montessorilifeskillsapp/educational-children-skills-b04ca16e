@@ -1,4 +1,6 @@
-// @vitest-environment node
+import { Blob as NodeBlob } from 'node:buffer';
+// jsdom's Blob cannot be read back; use Node's.
+globalThis.Blob = NodeBlob as unknown as typeof Blob;
 import { describe, it, expect } from 'vitest';
 import { backupState, quarterOf, toCsv, buildBackupZip, type BackupData } from './backup';
 import { BlobReader, TextWriter, ZipReader } from '@zip.js/zip.js';
