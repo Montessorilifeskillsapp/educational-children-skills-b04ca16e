@@ -264,7 +264,7 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Section id="sec-backup" title="Quarterly records backup" desc="Required each quarter: download a full copy of your school's records and keep it on your school's own system.">
+      <Section id="sec-backup" title="Backups" desc="Your school's records save to this device automatically, and a confirmation email goes to your school's primary email.">
         <BackupPanel schoolId={schoolId} schoolName={schoolName} frequency={backupFrequency} onSettingsSaved={onSettingsSaved} />
       </Section>
     </div>

@@ -83,135 +83,35 @@ export default function BackupPanel({ schoolId, schoolName, frequency: initialFr
     saveBackupPassword(user.id, schoolId, autoPw); setHasPw(true); setAutoPw(''); setAutoPw2('');
     toast({ title: 'Automatic backups are on for this device' });
   };
-  const { entries, reload } = useBackupHistory(schoolId);
-  const [step, setStep] = useState<null | 'collect' | 'pack'>(null);
-  const [last, setLast] = useState<Record<string, number> | null>(null);
-  const [pw, setPw] = useState(''); const [pw2, setPw2] = useState('');
-  const [confirmOpen, setConfirmOpen] = useState(false);
-  const [loc, setLoc] = useState('school_drive'); const [note, setNote] = useState(''); const [saving, setSaving] = useState(false);
-  const pwError = pw.length > 0 && pw.length < 8 ? 'Use at least 8 characters.' : pw2 && pw !== pw2 ? 'Passwords do not match.' : null;
-  const pwReady = pw.length >= 8 && pw === pw2;
-  const confirmStored = async () => {
-    setSaving(true);
-    try {
-      await schoolCall({ action: 'backup_confirm', school_id: schoolId, location: loc, ...(note.trim() ? { note: note.trim() } : {}) });
-      toast({ title: 'Storage recorded', description: 'Added to your backup log.' });
-      setConfirmOpen(false); setNote(''); void reload();
-    } catch (e) { toast({ title: 'Could not record', description: e instanceof Error ? e.message : 'Please try again.', variant: 'destructive' }); }
-    finally { setSaving(false); }
-  };
-  const status = useMemo(() => entries && backupState(entries.map((e) => new Date(e.created_at)), new Date(), undefined, frequency), [entries, frequency]);
-  const year = new Date().getFullYear();
-  const len = frequency === 'semester' ? 6 : 3;
-  const quarters = Array.from({ length: 12 / len }, (_, i) => i + 1).map((q) => {
-    const start = new Date(year, (q - 1) * len, 1), end = new Date(year, q * len, 1);
-    const hit = entries?.find((e) => { const d = new Date(e.created_at); return d >= start && d < end; });
-    return { q, hit, current: periodOf(new Date(), frequency).q === q, future: start > new Date() };
-  });
-
-  const run = async () => {
-    if (step || !pwReady) return;
-    setStep('collect'); setLast(null);
-    try {
-      const data = await schoolCall<BackupData>({ action: 'school_backup', school_id: schoolId });
-      setStep('pack');
-      const { blob, filename, counts } = await buildBackupZip(data, (id) => skillById(id)?.title ?? id, pw, frequency);
-      downloadBlob(blob, filename);
-      setLast(counts); setPw(''); setPw2(''); setConfirmOpen(true);
-      toast({ title: 'Backup downloaded', description: `${filename} — move it to your school’s own secure storage.` });
-      void reload();
-    } catch (e) {
-      toast({ title: 'Backup could not be made', description: e instanceof Error ? e.message : 'Please try again.', variant: 'destructive' });
-    } finally { setStep(null); }
-  };
-
-  const tone = status?.state === 'done' ? 'text-primary' : status?.state === 'overdue' ? 'text-destructive' : 'text-foreground';
-  const Icon = status?.state === 'done' ? CheckCircle2 : status?.state === 'overdue' ? AlertTriangle : CalendarClock;
+  const { entries } = useBackupHistory(schoolId);
+  const turnOff = () => { if (user) saveBackupPassword(user.id, schoolId, null); setHasPw(false); toast({ title: 'Automatic backups are off for this device' }); };
 
   return (
     <div className="space-y-5">
-      <div className="grid gap-4 md:grid-cols-[1.2fr_1fr]">
-        <div className="rounded-xl bg-background/60 p-4 ring-1 ring-border">
-          {status ? (
-            <div className={`flex items-start gap-3 ${tone}`}>
-              <Icon className="mt-0.5 h-6 w-6 shrink-0" aria-hidden />
-              <div>
-                <p className="font-display text-xl">{status.state === 'done' ? `${status.quarter} backup complete` : status.state === 'overdue' ? 'Backup overdue' : `${status.quarter} backup due`}</p>
-                <p className="text-sm text-muted-foreground">
-                  {status.state === 'done' ? `Next backup opens in ${status.daysLeft} day${status.daysLeft === 1 ? '' : 's'}.`
-                    : status.state === 'overdue' ? 'The last period was not backed up. Opening the portal with a saved password backs up automatically.'
-                    : `${status.daysLeft} day${status.daysLeft === 1 ? '' : 's'} left in this period.`}
-                </p>
-              </div>
-            </div>
-          ) : <p className="text-sm text-muted-foreground">Checking backup history…</p>}
-          <ol className={`mt-4 grid gap-2 ${len === 6 ? 'grid-cols-2' : 'grid-cols-4'}`} aria-label={`${year} backup periods`}>
-            {quarters.map(({ q, hit, current, future }) => (
-              <li key={q} className={`rounded-lg px-2 py-2 text-center text-xs ring-1 ${hit ? 'bg-primary/10 ring-primary/40' : current ? 'ring-primary' : 'ring-border'} ${future ? 'opacity-50' : ''}`}>
-                <span className="block font-semibold">{len === 6 ? (q === 1 ? 'Spring' : 'Fall') : `Q${q}`}</span>
-                <span className="text-muted-foreground">{hit ? new Date(hit.created_at).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : future ? 'Upcoming' : current ? 'Due' : 'Missed'}</span>
-              </li>
-            ))}
-          </ol>
-        </div>
-        <div className="flex flex-col justify-between gap-3 rounded-xl bg-background/60 p-4 ring-1 ring-border">
-          <div className="text-sm">
-            <p className="font-semibold">What’s inside</p>
-            <ul className="mt-1 list-disc space-y-0.5 pl-5 text-muted-foreground">
-              <li>A school summary with totals by classroom</li>
-              <li>A printable record page for every child</li>
-              <li>Spreadsheets of progress, observations, reports and plans</li>
-              <li>A complete data copy for your school’s systems</li>
-            </ul>
-          </div>
-          <div className="space-y-2">
-            <Label htmlFor="bk-pw" className="flex items-center gap-1.5"><Lock className="h-3.5 w-3.5" aria-hidden /> File password</Label>
-            <Input id="bk-pw" type="password" autoComplete="new-password" placeholder="At least 8 characters" value={pw} onChange={(e) => setPw(e.target.value)} />
-            <Input aria-label="Repeat password" type="password" autoComplete="new-password" placeholder="Repeat password" value={pw2} onChange={(e) => setPw2(e.target.value)} />
-            <p className={`text-xs ${pwError ? 'text-destructive' : 'text-muted-foreground'}`}>{pwError ?? 'Needed to open the file. Keep it somewhere safe — it cannot be recovered.'}</p>
-          </div>
-          <Button onClick={run} disabled={!!step || !pwReady} className="w-full">
-            {step ? <Archive className="mr-2 h-4 w-4 animate-pulse" /> : <Download className="mr-2 h-4 w-4" />}
-            {step === 'collect' ? 'Gathering records…' : step === 'pack' ? 'Packing your file…' : `Download ${schoolName} backup`}
-          </Button>
-          {step && <Progress value={step === 'collect' ? 40 : 85} aria-label="Backup progress" />}
+      <div className="space-y-2">
+        <p className="text-sm font-semibold">Schedule</p>
+        <div role="radiogroup" aria-label="Backup schedule" className="inline-flex rounded-lg p-1 ring-1 ring-border">
+          {(['quarterly', 'semester'] as const).map((f) => (
+            <Button key={f} role="radio" aria-checked={frequency === f} size="sm" variant={frequency === f ? 'default' : 'ghost'} onClick={() => frequency !== f && changeFrequency(f)}>
+              {f === 'quarterly' ? 'Quarterly' : 'Semester'}
+            </Button>
+          ))}
         </div>
       </div>
 
-      {last && (
-        <p className="flex items-center gap-2 rounded-lg bg-primary/10 px-3 py-2 text-sm">
-          <ShieldCheck className="h-4 w-4 text-primary" aria-hidden />
-          Saved {last.students} children, {last.progress_recordings} progress recordings, {last.observations} observations and {last.reports} reports.
-          <Button variant="link" size="sm" className="ml-auto h-auto p-0" onClick={() => setConfirmOpen(true)}>Confirm where it's stored</Button>
-        </p>
-      )}
-
-      <div className="grid gap-4 rounded-xl bg-background/60 p-4 ring-1 ring-border md:grid-cols-2">
-        <div className="space-y-2">
-          <p className="text-sm font-semibold">Automatic backup schedule</p>
-          <div role="radiogroup" aria-label="Backup schedule" className="inline-flex rounded-lg p-1 ring-1 ring-border">
-            {(['quarterly', 'semester'] as const).map((f) => (
-              <Button key={f} role="radio" aria-checked={frequency === f} size="sm" variant={frequency === f ? 'default' : 'ghost'} onClick={() => frequency !== f && changeFrequency(f)}>
-                {f === 'quarterly' ? 'Quarterly' : 'Semester'}
-              </Button>
-            ))}
+      <div className="space-y-2">
+        <p className="flex items-center gap-1.5 text-sm font-semibold"><Lock className="h-3.5 w-3.5" aria-hidden /> Automatic backup</p>
+        {hasPw ? (
+          <div className="flex items-center gap-2 text-sm"><ShieldCheck className="h-4 w-4 text-primary" aria-hidden /> On for this device.
+            <Button variant="link" size="sm" className="h-auto p-0" onClick={turnOff}>Turn off</Button></div>
+        ) : (
+          <div className="grid max-w-md gap-2">
+            <Input aria-label="Backup password" type="password" autoComplete="new-password" placeholder="Password (at least 8 characters)" value={autoPw} onChange={(e) => setAutoPw(e.target.value)} />
+            <Input aria-label="Repeat backup password" type="password" autoComplete="new-password" placeholder="Repeat password" value={autoPw2} onChange={(e) => setAutoPw2(e.target.value)} />
+            <Button size="sm" className="justify-self-start" onClick={saveAutoPw} disabled={autoPw.length < 8 || autoPw !== autoPw2}>Turn on automatic backup</Button>
           </div>
-          <p className="text-xs text-muted-foreground">The backup saves itself the first time a School Admin opens the portal in each {frequency === 'semester' ? 'semester' : 'quarter'}, and a confirmation email goes to your school's primary email.</p>
-        </div>
-        <div className="space-y-2">
-          <p className="flex items-center gap-1.5 text-sm font-semibold"><Lock className="h-3.5 w-3.5" aria-hidden /> Automatic backup password</p>
-          {hasPw ? (
-            <div className="flex items-center gap-2 text-sm"><ShieldCheck className="h-4 w-4 text-primary" aria-hidden /> Saved on this device.
-              <Button variant="link" size="sm" className="h-auto p-0" onClick={() => { if (user) saveBackupPassword(user.id, schoolId, null); setHasPw(false); }}>Change</Button></div>
-          ) : (
-            <>
-              <Input aria-label="Automatic backup password" type="password" autoComplete="new-password" placeholder="At least 8 characters" value={autoPw} onChange={(e) => setAutoPw(e.target.value)} />
-              <Input aria-label="Repeat automatic backup password" type="password" autoComplete="new-password" placeholder="Repeat password" value={autoPw2} onChange={(e) => setAutoPw2(e.target.value)} />
-              <Button size="sm" onClick={saveAutoPw} disabled={autoPw.length < 8 || autoPw !== autoPw2}>Turn on automatic backups</Button>
-            </>
-          )}
-          <p className="text-xs text-muted-foreground">Kept only on this device, never sent to us. Keep a copy somewhere safe — the file cannot be opened without it.</p>
-        </div>
+        )}
+        <p className="text-xs text-muted-foreground">The password opens the backup file and stays only on this device. Keep a copy somewhere safe.</p>
       </div>
 
       <div>
@@ -221,32 +121,12 @@ export default function BackupPanel({ schoolId, schoolName, frequency: initialFr
             {entries.map((e) => (
               <li key={e.id} className="flex justify-between py-1.5">
                 <span>{new Date(e.created_at).toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' })}</span>
-                <span className="text-right text-muted-foreground">{e.actor_email}{e.stored ? <span className="flex items-center justify-end gap-1 text-xs text-primary"><HardDrive className="h-3 w-3" aria-hidden />{storedLabel(e.stored)}</span> : <span className="block text-xs">Storage not confirmed</span>}</span>
+                <span className="text-muted-foreground">{e.actor_email}</span>
               </li>
             ))}
           </ul>
         ) : <p className="text-sm text-muted-foreground">No backups yet.</p>}
-        <p className="mt-3 text-xs text-muted-foreground">Every school keeps its own backup once each {frequency === 'semester' ? 'semester (January and July)' : 'quarter (January, April, July, October)'}. The file contains sensitive information about children — store it only where your privacy policy allows.</p>
       </div>
-      <Dialog open={confirmOpen} onOpenChange={setConfirmOpen}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Where did you store the backup?</DialogTitle>
-            <DialogDescription>Move the downloaded file off this device to your school's own secure storage, then record where it went. This is kept in your backup log for reviews.</DialogDescription>
-          </DialogHeader>
-          <div className="space-y-3">
-            <Select value={loc} onValueChange={setLoc}>
-              <SelectTrigger aria-label="Storage location"><SelectValue /></SelectTrigger>
-              <SelectContent>{Object.entries(LOCATIONS).map(([k, v]) => <SelectItem key={k} value={k}>{v}</SelectItem>)}</SelectContent>
-            </Select>
-            <Textarea maxLength={200} placeholder="Optional: folder name or note (no passwords)" value={note} onChange={(e) => setNote(e.target.value)} />
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setConfirmOpen(false)}>Later</Button>
-            <Button onClick={confirmStored} disabled={saving}>{saving ? 'Saving…' : 'Confirm stored'}</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
