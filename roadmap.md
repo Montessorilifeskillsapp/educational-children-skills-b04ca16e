@@ -1,4 +1,5 @@
 ## Open tasks
+- [ ] Investigate teacher trial access: preview access denied, connector prompts, missing Google sign-in and broken invitation links; do not publish or restyle.
 - [x] Stop repeated home-screen banners: hide for signed-in users and school/admin pages, honor dismissals permanently, and remove timed/forced reminders. Thirteen targeted tests pass; school page refresh checked in the browser; nothing published.
 - [x] Build the approved interactive school planner: Week/Month views, day highlighting, searchable activities, student chips, edit/remove controls and print action. Twenty-nine targeted checks pass; sample-data desktop/phone browser interactions verified without runtime errors or page overflow. Real-account saved readback remains blocked by external unmanaged authentication; nothing published.
 - [x] Add both parents' full names above family email; authorized teachers/assistants open child information read-only; School Admin-only writes enforced by shared rules and deployed school service. Sixteen app tests and ten service tests pass; preview build OK. Real-account save/readback remains unverified under external unmanaged authentication.
