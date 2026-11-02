@@ -10,6 +10,8 @@ import { savedSchoolData } from './savedSchoolData';
 let owner: string | null = null;
 let memberships: Membership[] | null = null;
 const data = new Map<string, unknown>();
+const revisions = new Map<string, number>();
+export const schoolRevision = (schoolId: string) => revisions.get(schoolId) ?? 0;
 let epoch = 0;
 const requests = new Map<string, Promise<unknown>>();
 
@@ -37,7 +39,7 @@ export function fetchMemberships(userId: string): Promise<Membership[]> {
 
 export function setPortalOwner(userId: string | null) {
   if (userId === owner) return;
-  owner = userId; memberships = null; data.clear(); epoch++; requests.clear();
+  owner = userId; memberships = null; data.clear(); revisions.clear(); epoch++; requests.clear();
 }
 export const cachedMemberships = (userId: string | undefined) => (userId && userId === owner ? memberships : null);
 export function cacheMemberships(userId: string, ms: Membership[]) { setPortalOwner(userId); memberships = ms; }
@@ -46,7 +48,10 @@ export function cacheSchoolData(schoolId: string, d: unknown) { if (owner) data.
 export const SCHOOL_SAVED_EVENT = 'school:server-saved';
 export function applySavedSchoolChange(userId: string, body: Record<string, unknown>, reply: Record<string, unknown>) {
   if (owner !== userId || reply.queued) return;
-  for (const [id, current] of data) data.set(id, savedSchoolData(current as SchoolData, id, body, reply));
+  for (const [id, current] of data) {
+    const next = savedSchoolData(current as SchoolData, id, body, reply);
+    if (next !== current) { data.set(id, next); revisions.set(id, schoolRevision(id) + 1); }
+  }
   window.dispatchEvent(new Event(SCHOOL_SAVED_EVENT));
 }
 

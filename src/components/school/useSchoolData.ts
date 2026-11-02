@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { db, Classroom, Invite, Member, Observation, PlanItem, Progress, Report, Student } from './api';
 import { startQueue, SYNCED_EVENT } from './offlineQueue';
-import { cachedSchoolData, cacheSchoolData, sharedPortalRead, SCHOOL_SAVED_EVENT } from './portalCache';
+import { cachedSchoolData, cacheSchoolData, sharedPortalRead, SCHOOL_SAVED_EVENT, schoolRevision } from './portalCache';
 
 export interface SchoolData {
   classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[];
@@ -13,7 +13,14 @@ const EMPTY: SchoolData = { classrooms: [], staff: [], members: [], invites: [],
 
 /** Loads every record the signed-in member may read for one school. */
 export async function fetchSchoolData(schoolId: string): Promise<SchoolData> {
-  return sharedPortalRead(`school:${schoolId}`, () => readSchoolData(schoolId), (data) => cacheSchoolData(schoolId, data));
+  return sharedPortalRead(`school:${schoolId}`, async () => {
+    for (;;) {
+      const revision = schoolRevision(schoolId);
+      const next = await readSchoolData(schoolId);
+      if (revision === schoolRevision(schoolId)) return next;
+      // A save completed during this read: reconcile again instead of undoing its displayed result.
+    }
+  }, (data) => cacheSchoolData(schoolId, data));
 }
 
 async function readSchoolData(schoolId: string): Promise<SchoolData> {
