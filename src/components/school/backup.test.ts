@@ -1,3 +1,4 @@
+// @vitest-environment node
 import { describe, it, expect } from 'vitest';
 import { backupState, quarterOf, toCsv, buildBackupZip, type BackupData } from './backup';
 import { BlobReader, TextWriter, ZipReader } from '@zip.js/zip.js';
