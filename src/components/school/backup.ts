@@ -105,10 +105,10 @@ ${tile(counts.observations, 'Observations')}${tile(counts.reports, 'Parent repor
 }
 
 /** Builds the school's backup archive: summary, readable student records, spreadsheets and a complete JSON copy. With a password the file is AES-256 encrypted. */
-export async function buildBackupZip(d: BackupData, title: (id: string) => string = (id) => id, password?: string): Promise<{ blob: Blob; filename: string; counts: Record<string, number> }> {
+export async function buildBackupZip(d: BackupData, title: (id: string) => string = (id) => id, password?: string, frequency: BackupFrequency = 'quarterly'): Promise<{ blob: Blob; filename: string; counts: Record<string, number> }> {
   const files: [string, string][] = [];
   const zip = { file: (n: string, c: string) => { files.push([n, c]); } };
-  const q = quarterOf(new Date(d.exported_at));
+  const q = periodOf(new Date(d.exported_at), frequency);
   const base = `${fileSafe(d.school.name)} ${q.label.replace(' ', ' ')} Backup`;
   const roomName = (id: unknown) => String(d.classrooms.find((c) => c.id === id)?.name ?? '');
   const staffName = (id: unknown) => { const m = d.members.find((x) => x.user_id === id); return String(m?.full_name || m?.email || (id ? 'Former staff' : '')); };
@@ -116,7 +116,7 @@ export async function buildBackupZip(d: BackupData, title: (id: string) => strin
     observations: d.observations.length, reports: d.reports.length, lesson_plans: d.lesson_plans.length, change_history: d.change_history.length };
 
   zip.file('README.txt', [
-    `${d.school.name} — quarterly records backup (${q.label})`,
+    `${d.school.name} — records backup (${q.label})`,
     `Exported ${new Date(d.exported_at).toLocaleString('en-US')} by ${d.exported_by}`, '',
     'Contents', ...Object.entries(counts).map(([k, v]) => `  ${k.replace(/_/g, ' ')}: ${v}`), '',
     'Folders',
