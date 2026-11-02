@@ -24,9 +24,19 @@ function emit() {
 
 export function configureQueue(send: Sender, uid: () => Promise<string | null>) { sender = send; currentUid = uid; }
 
-export function enqueue(uid: string, body: Record<string, unknown>) {
-  store([...load(), { id: crypto.randomUUID(), uid, body, at: new Date().toISOString() }]);
+export function enqueue(uid: string, body: Record<string, unknown>): string {
+  const id = crypto.randomUUID();
+  store([...load(), { id, uid, body, at: new Date().toISOString() }]);
+  return id;
 }
+
+/** Remove a kept record whose original slow request reached the server after all. */
+export function withdraw(id: string) {
+  if (sending.has(id)) return;
+  const items = load();
+  if (items.some((q) => q.id === id)) store(items.filter((q) => q.id !== id));
+}
+const sending = new Set<string>();
 
 /** True when a failure means "could not reach the server", not "the server said no". */
 export function isConnectionError(e: unknown) {
