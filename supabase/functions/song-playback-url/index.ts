@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors';
+import { isActiveSchoolStaff } from '../_shared/schoolStaff.ts';
 
 const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
@@ -39,7 +40,7 @@ Deno.serve(async (req) => {
               .eq('user_id', user.id)
               .eq('product', 'songs_bundle')
               .maybeSingle();
-            purchased = Boolean(purchase);
+            purchased = Boolean(purchase) || await isActiveSchoolStaff(admin, user.id);
           }
         }
       }
@@ -86,7 +87,7 @@ Deno.serve(async (req) => {
         .eq('user_id', userId)
         .eq('product', 'songs_bundle')
         .maybeSingle();
-      purchased = Boolean(purchase);
+      purchased = Boolean(purchase) || await isActiveSchoolStaff(admin, userId);
     }
 
     const enriched = await Promise.all(

@@ -1,4 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
+import { isActiveSchoolStaff } from '../_shared/schoolStaff.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -82,7 +83,8 @@ Deno.serve(async (req) => {
     const notExpired = subscriber?.subscription_end
       ? new Date(subscriber.subscription_end).getTime() > Date.now()
       : true;
-    const entitled = Boolean(isAdmin) || (Boolean(subscriber?.subscribed) && notExpired);
+    const entitled = Boolean(isAdmin) || (Boolean(subscriber?.subscribed) && notExpired)
+      || await isActiveSchoolStaff(admin, user.id);
 
     if (!entitled) return json({ ...meta, locked: true, reason: 'not_subscribed' });
 
