@@ -24,7 +24,7 @@ describe('quarterly school backup', () => {
     const { blob, filename } = await buildBackupZip(d);
     expect(filename).toBe('Oak Q4 2026 Backup.zip');
     const zip = await JSZip.loadAsync(await blob.arrayBuffer());
-    const pages = Object.keys(zip.files).filter((f) => f.startsWith('Student records/'));
+    const pages = Object.keys(zip.files).filter((f) => f.startsWith('Student records/') && !zip.files[f].dir);
     expect(pages).toHaveLength(2);
     expect(await zip.file(pages[0])!.async('string')).toContain('&lt;b&gt;hi');
     expect(zip.file('Spreadsheets/observations.csv')).toBeTruthy();
