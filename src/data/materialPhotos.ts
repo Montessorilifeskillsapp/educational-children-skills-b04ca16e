@@ -31,6 +31,7 @@ import plant from '@/assets/materials/item-stock/plant.jpg';
 import soap from '@/assets/materials/item-stock/soap.jpg';
 import paper from '@/assets/materials/item-stock/paper.jpg';
 import mirror from '@/assets/materials/item-stock/mirror.jpg';
+import handBrushDustpan from '@/assets/materials/item-stock/hand-brush-dustpan.jpg';
 
 export const materialPhotos: Record<string, string> = {
   spoon, pitcher, bowl, funnel, scissors, cloth, broom, dustpan, sponge,
@@ -38,10 +39,14 @@ export const materialPhotos: Record<string, string> = {
   glass, tongs, 'watering-can': wateringCan, 'wooden-chair': chair,
   'work-mat': workMat, scoop, beans, basin, towel, vase, apron, hanger,
   hairbrush, plate, fork, plant, soap, paper, mirror,
+  'hand-brush-dustpan': handBrushDustpan,
 };
 
 /** Wording variants that refer to the same physical item (variant key -> canonical key). */
 export const materialPhotoAliases: Record<string, string> = {
+  'two-matching-pitchers': 'pitcher',
+  'dry-pouring-material': 'beans',
+  brush: 'hand-brush-dustpan',
   placemats: 'placemat',
   'button-frame': 'button-dressing-frame',
   'zipper-frame': 'zipper-dressing-frame',
