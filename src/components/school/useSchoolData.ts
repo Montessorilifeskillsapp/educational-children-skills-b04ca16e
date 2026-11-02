@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { db, Classroom, Invite, Member, Observation, PlanItem, Progress, Report, Student } from './api';
 import { startQueue, SYNCED_EVENT } from './offlineQueue';
-import { cachedSchoolData, cacheSchoolData } from './portalCache';
+import { cachedSchoolData, cacheSchoolData, sharedPortalRead, SCHOOL_SAVED_EVENT, schoolRevision } from './portalCache';
 
 export interface SchoolData {
   classrooms: Classroom[]; staff: { classroom_id: string; member_id: string }[];
@@ -13,6 +13,17 @@ const EMPTY: SchoolData = { classrooms: [], staff: [], members: [], invites: [],
 
 /** Loads every record the signed-in member may read for one school. */
 export async function fetchSchoolData(schoolId: string): Promise<SchoolData> {
+  return sharedPortalRead(`school:${schoolId}`, async () => {
+    for (;;) {
+      const revision = schoolRevision(schoolId);
+      const next = await readSchoolData(schoolId);
+      if (revision === schoolRevision(schoolId)) return next;
+      // A save completed during this read: reconcile again instead of undoing its displayed result.
+    }
+  }, (data) => cacheSchoolData(schoolId, data));
+}
+
+async function readSchoolData(schoolId: string): Promise<SchoolData> {
   // Fetch every page: the hosted API may cap each response at 1,000 rows.
   const q = async (table: string, order = 'id') => {
     const rows: unknown[] = [];
@@ -25,21 +36,30 @@ export async function fetchSchoolData(schoolId: string): Promise<SchoolData> {
       if ((result.data?.length ?? 0) < 500) return rows;
     }
   };
-  const [c, m, i, s, p, o, pl, r] = await Promise.all([
-    q('classrooms', 'created_at'), q('school_members', 'created_at'), q('school_invites', 'created_at'),
+  const rooms = q('classrooms', 'created_at');
+  const staffRead = rooms.then(async (rows) => {
+    const ids = (rows as Classroom[]).map((x) => x.id);
+    const staff: { classroom_id: string; member_id: string }[] = [];
+    for (let chunk = 0; chunk < ids.length; chunk += 100) {
+      for (let offset = 0; ; offset += 500) {
+        const result = await db.from('classroom_staff').select('*').in('classroom_id', ids.slice(chunk, chunk + 100)).order('classroom_id').order('member_id').range(offset, offset + 499);
+        if (result.error) throw result.error;
+        staff.push(...(result.data ?? []));
+        if ((result.data?.length ?? 0) < 500) break;
+      }
+    }
+    return staff;
+  });
+  const [c, m, i, s, p, o, pl, r, staff] = await Promise.all([
+    rooms, q('school_members', 'created_at'), q('school_invites', 'created_at'),
     q('school_students', 'name'), q('student_progress'), q('student_observations', 'observed_at'),
-    q('lesson_plan_items', 'plan_date'), q('student_reports', 'created_at'),
+    q('lesson_plan_items', 'plan_date'), q('student_reports', 'created_at'), staffRead,
   ]);
   const classrooms = c as Classroom[];
-  const staffRes = classrooms.length
-    ? await db.from('classroom_staff').select('*').in('classroom_id', classrooms.map((x) => x.id))
-    : { data: [], error: null };
-  if (staffRes.error) throw staffRes.error;
   const data: SchoolData = {
-    classrooms, staff: staffRes.data ?? [], members: m as Member[], invites: (i as Invite[]).filter((x) => !x.accepted_at),
+    classrooms, staff, members: m as Member[], invites: (i as Invite[]).filter((x) => !x.accepted_at),
     students: s as Student[], progress: p as Progress[], observations: o as Observation[], plans: pl as PlanItem[], reports: r as Report[],
   };
-  cacheSchoolData(schoolId, data);
   return data;
 }
 
@@ -50,6 +70,15 @@ export function useSchoolData(schoolId: string | null) {
   const [error, setError] = useState<string | null>(null);
   const generation = useRef(0);
   const loadedSchool = useRef<string | null>(cached ? schoolId : null);
+  useEffect(() => {
+    const saved = () => {
+      if (!schoolId) return;
+      const next = cachedSchoolData<SchoolData>(schoolId);
+      if (next) { loadedSchool.current = schoolId; setData(next); }
+    };
+    window.addEventListener(SCHOOL_SAVED_EVENT, saved);
+    return () => window.removeEventListener(SCHOOL_SAVED_EVENT, saved);
+  }, [schoolId]);
 
   const reload = useCallback(async () => {
     const request = ++generation.current;
@@ -90,5 +119,5 @@ export function useSchoolData(schoolId: string | null) {
       window.clearInterval(t);
     };
   }, [reload]);
-  return { data, loading, error, reload };
+  return { data: loadedSchool.current === schoolId ? data : (cached ?? EMPTY), loading, error, reload };
 }

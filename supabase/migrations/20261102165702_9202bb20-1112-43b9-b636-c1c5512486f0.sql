@@ -1,0 +1,15 @@
+CREATE INDEX IF NOT EXISTS classrooms_school_created_idx ON public.classrooms (school_id, created_at, id);
+CREATE INDEX IF NOT EXISTS school_members_user_idx ON public.school_members (user_id);
+CREATE INDEX IF NOT EXISTS school_members_school_created_idx ON public.school_members (school_id, created_at, id);
+CREATE INDEX IF NOT EXISTS school_invites_school_created_idx ON public.school_invites (school_id, created_at, id);
+CREATE INDEX IF NOT EXISTS school_invites_pending_email_idx ON public.school_invites (email) WHERE accepted_at IS NULL;
+CREATE INDEX IF NOT EXISTS classroom_staff_member_idx ON public.classroom_staff (member_id, classroom_id);
+CREATE INDEX IF NOT EXISTS school_students_school_name_idx ON public.school_students (school_id, name, id);
+CREATE INDEX IF NOT EXISTS school_students_classroom_idx ON public.school_students (classroom_id);
+CREATE INDEX IF NOT EXISTS student_progress_school_idx ON public.student_progress (school_id, id);
+CREATE INDEX IF NOT EXISTS student_observations_school_observed_idx ON public.student_observations (school_id, observed_at, id);
+CREATE INDEX IF NOT EXISTS student_observations_student_idx ON public.student_observations (student_id);
+CREATE INDEX IF NOT EXISTS lesson_plan_items_school_date_idx ON public.lesson_plan_items (school_id, plan_date, id);
+CREATE INDEX IF NOT EXISTS lesson_plan_items_classroom_idx ON public.lesson_plan_items (classroom_id);
+CREATE INDEX IF NOT EXISTS student_reports_school_created_idx ON public.student_reports (school_id, created_at, id);
+CREATE INDEX IF NOT EXISTS student_reports_student_idx ON public.student_reports (student_id);

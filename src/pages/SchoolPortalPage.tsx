@@ -19,7 +19,7 @@ import ReportsTab from '@/components/school/ReportsTab';
 import SchoolReview from '@/components/school/SchoolReview';
 import StaffPolicies from '@/components/school/StaffPolicies';
 import { useRecordPrivacy } from '@/components/school/recordPrivacy';
-import { cacheMemberships, cachedMemberships } from '@/components/school/portalCache';
+import { fetchMemberships, cachedMemberships } from '@/components/school/portalCache';
 import RoleBanner from '@/components/school/RoleBanner';
 import TodayLessons from '@/components/school/TodayLessons';
 import { skillById } from '@/components/school/curriculum';
@@ -34,6 +34,7 @@ export default function SchoolPortalPage() {
   // Memberships already fetched by the corner School Portal button open the portal at once.
   const [memberships, setMemberships] = useState<Membership[] | null>(() => cachedMemberships(user?.id));
   const [schoolId, setSchoolId] = useState<string | null>(() => cachedMemberships(user?.id)?.[0]?.school_id ?? null);
+  const [membershipError, setMembershipError] = useState(false);
   // Tab, classroom and open student live in the address so returning from an activity page lands on the same spot.
   const [params, setParams] = useSearchParams();
   const tab = params.get('tab') || 'overview';
@@ -62,9 +63,12 @@ export default function SchoolPortalPage() {
   }, [params, schoolId]);
   const loadMe = useCallback(() => {
     if (!user) return;
-    schoolCall<{ memberships: Membership[] }>({ action: 'me' })
-      .then((r) => { cacheMemberships(user.id, r.memberships); setMemberships(r.memberships); setSchoolId((s) => s ?? r.memberships[0]?.school_id ?? null); })
-      .catch(() => setMemberships([]));
+    setMembershipError(false);
+    let cancelled = false;
+    void fetchMemberships(user.id)
+      .then((ms) => { if (cancelled) return; setMemberships(ms); setSchoolId((s) => ms.some((m) => m.school_id === s) ? s : ms[0]?.school_id ?? null); })
+      .catch(() => { if (!cancelled) setMembershipError(true); });
+    return () => { cancelled = true; };
   }, [user]);
   useEffect(() => { loadMe(); }, [loadMe]);
 
@@ -97,6 +101,7 @@ export default function SchoolPortalPage() {
     if ((['staff', 'activity', 'review', 'history'].includes(tab) && !can.manageSchool(role)) || (!['overview', 'staff', 'activity', 'review', 'history'].includes(tab) && !classroomId)) setTab('overview');
   }, [tab, role, classroomId, memberships]);
 
+  if (user && memberships === null && membershipError) return <div role="alert" className="min-h-screen flex flex-col items-center justify-center gap-4"><p>School access could not be checked. Please retry.</p><Button onClick={() => loadMe()}>Retry</Button></div>;
   if (authLoading || (user && memberships === null)) return <div className="min-h-screen flex items-center justify-center"><LoadingSpinner /></div>;
 
   if (!user || !memberships?.length) {
