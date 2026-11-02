@@ -145,7 +145,7 @@ Deno.serve(async (req) => {
       if (!has(pStart, qStart) && new Date(sc.created_at) < qStart && daysLeft > 60) {
         stage = `${prevLabel}:missed`; title = `${sc.name}: records backup overdue`
         body = `Your school's ${prevLabel} records backup was not made. Open the School Portal, go to Staff, and download a backup to your school's own system today.`
-      } else if (!has(qStart, qEnd) && (daysLeft <= 7 || daysLeft <= 21)) {
+      } else if (!has(qStart, qEnd) && daysLeft <= 21) {
         stage = `${label}:${daysLeft <= 7 ? 'due7' : 'due21'}`; title = `${sc.name}: ${label} records backup due in ${daysLeft} days`
         body = `Each quarter your school keeps its own copy of all records. Open the School Portal, go to Staff, and download this quarter's backup.`
       }
