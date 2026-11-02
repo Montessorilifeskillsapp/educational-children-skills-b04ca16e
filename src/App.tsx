@@ -1,3 +1,4 @@
+import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -8,48 +9,48 @@ import { SubscriptionProvider } from "@/contexts/SubscriptionContext";
 import { AppProvider } from "@/contexts/AppContext";
 import { AccessibilityProvider } from "@/components/AccessibilityProvider";
 import Index from "./pages/Index";
-import PracticalLifePage from "./pages/PracticalLifePage";
-import SensorialPage from "./pages/SensorialPage";
-import LanguagePage from "./pages/LanguagePage";
-import MathPage from "./pages/MathPage";
-import GeographyPage from "./pages/GeographyPage";
-import BotanyPage from "./pages/BotanyPage";
-import ArtPage from "./pages/ArtPage";
-import CulturalPage from "./pages/CulturalPage";
-import GraceCourtesyPage from "./pages/GraceCourtesyPage";
-import ShopPage from "./pages/ShopPage";
-import MaterialAlternativesPage from "./pages/MaterialAlternativesPage";
-import PlansPage from "./pages/PlansPage";
-import AuthPage from "./pages/AuthPage";
-import AuthCallbackPage from "./pages/AuthCallbackPage";
-import PaymentSuccessPage from "./pages/PaymentSuccessPage";
-import PaymentCancelPage from "./pages/PaymentCancelPage";
-import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
-import TermsOfServicePage from "./pages/TermsOfServicePage";
-import SongsLicencePage from "./pages/SongsLicencePage";
-import ContactPage from "./pages/ContactPage";
-import HelpPage from "./pages/HelpPage";
-import AboutPage from "./pages/AboutPage";
-import InstallPage from "./pages/InstallPage";
-import GuaranteePage from "./pages/GuaranteePage";
-import PreviewPouringWaterPage from "./pages/PreviewPouringWaterPage";
-import UnsubscribePage from "./pages/UnsubscribePage";
+const PracticalLifePage = lazy(() => import("./pages/PracticalLifePage"));
+const SensorialPage = lazy(() => import("./pages/SensorialPage"));
+const LanguagePage = lazy(() => import("./pages/LanguagePage"));
+const MathPage = lazy(() => import("./pages/MathPage"));
+const GeographyPage = lazy(() => import("./pages/GeographyPage"));
+const BotanyPage = lazy(() => import("./pages/BotanyPage"));
+const ArtPage = lazy(() => import("./pages/ArtPage"));
+const CulturalPage = lazy(() => import("./pages/CulturalPage"));
+const GraceCourtesyPage = lazy(() => import("./pages/GraceCourtesyPage"));
+const ShopPage = lazy(() => import("./pages/ShopPage"));
+const MaterialAlternativesPage = lazy(() => import("./pages/MaterialAlternativesPage"));
+const PlansPage = lazy(() => import("./pages/PlansPage"));
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const AuthCallbackPage = lazy(() => import("./pages/AuthCallbackPage"));
+const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
+const PaymentCancelPage = lazy(() => import("./pages/PaymentCancelPage"));
+const PrivacyPolicyPage = lazy(() => import("./pages/PrivacyPolicyPage"));
+const TermsOfServicePage = lazy(() => import("./pages/TermsOfServicePage"));
+const SongsLicencePage = lazy(() => import("./pages/SongsLicencePage"));
+const ContactPage = lazy(() => import("./pages/ContactPage"));
+const HelpPage = lazy(() => import("./pages/HelpPage"));
+const AboutPage = lazy(() => import("./pages/AboutPage"));
+const InstallPage = lazy(() => import("./pages/InstallPage"));
+const GuaranteePage = lazy(() => import("./pages/GuaranteePage"));
+const PreviewPouringWaterPage = lazy(() => import("./pages/PreviewPouringWaterPage"));
+const UnsubscribePage = lazy(() => import("./pages/UnsubscribePage"));
 import AppUpdateDialog from "@/components/AppUpdateDialog";
 import InstallBanner from "@/components/InstallBanner";
-import NotFound from "./pages/NotFound";
-import LandingPage from "./pages/LandingPage";
-import ClassroomSetupPage from "./pages/ClassroomSetupPage";
-import HomeSetupPage from "./pages/HomeSetupPage";
-import SongsPage from "./pages/SongsPage";
-import AdminSongsPage from "./pages/AdminSongsPage";
-import AdminAnalyticsPage from "./pages/AdminAnalyticsPage";
-import AdminLeadsPage from "./pages/AdminLeadsPage";
-import AdminMembersPage from "./pages/AdminMembersPage";
-import AdminAccessCodesPage from "./pages/AdminAccessCodesPage";
-import AdminMaterialsPage from "./pages/AdminMaterialsPage";
-import AdminVideosPage from "./pages/AdminVideosPage";
-import AdminVerifyPage from "./pages/AdminVerifyPage";
-import AdminHomePage from "./pages/AdminHomePage";
+const NotFound = lazy(() => import("./pages/NotFound"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+const ClassroomSetupPage = lazy(() => import("./pages/ClassroomSetupPage"));
+const HomeSetupPage = lazy(() => import("./pages/HomeSetupPage"));
+const SongsPage = lazy(() => import("./pages/SongsPage"));
+const AdminSongsPage = lazy(() => import("./pages/AdminSongsPage"));
+const AdminAnalyticsPage = lazy(() => import("./pages/AdminAnalyticsPage"));
+const AdminLeadsPage = lazy(() => import("./pages/AdminLeadsPage"));
+const AdminMembersPage = lazy(() => import("./pages/AdminMembersPage"));
+const AdminAccessCodesPage = lazy(() => import("./pages/AdminAccessCodesPage"));
+const AdminMaterialsPage = lazy(() => import("./pages/AdminMaterialsPage"));
+const AdminVideosPage = lazy(() => import("./pages/AdminVideosPage"));
+const AdminVerifyPage = lazy(() => import("./pages/AdminVerifyPage"));
+const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import HomeFab from "@/components/HomeFab";
@@ -60,7 +61,6 @@ import ScrollToTop from "@/components/ScrollToTop";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
 import { analytics } from "@/lib/analytics";
 import { useUtmTracking } from "@/hooks/useUtmTracking";
-import { useEffect, lazy, Suspense } from "react";
 const SchoolPortalPage = lazy(() => import("./pages/SchoolPortalPage"));
 const AdminSchoolsPage = lazy(() => import("./pages/AdminSchoolsPage"));
 import { Capacitor } from "@capacitor/core";
@@ -107,6 +107,7 @@ const App = () => {
                         <ClassroomDrawer />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <ErrorBoundary>
+                        <Suspense fallback={null}>
                         <Routes>
                           <Route path="/" element={<Index />} />
                           <Route path="/index" element={<Index />} />
@@ -151,12 +152,13 @@ const App = () => {
                           <Route path="/admin/videos" element={<AdminVideosPage />} />
                           <Route path="/admin/songs" element={<AdminSongsPage />} />
                           <Route path="/songs" element={<SongsPage />} />
-                          <Route path="/school" element={<Suspense fallback={null}><SchoolPortalPage /></Suspense>} />
-                          <Route path="/admin/schools" element={<Suspense fallback={null}><AdminSchoolsPage /></Suspense>} />
+                          <Route path="/school" element={<SchoolPortalPage />} />
+                          <Route path="/admin/schools" element={<AdminSchoolsPage />} />
 
                           <Route path="/admin/verify" element={<AdminVerifyPage />} />
                           <Route path="*" element={<NotFound />} />
                         </Routes>
+                        </Suspense>
                         </ErrorBoundary>
                         
                         <HomeFab />
