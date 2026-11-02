@@ -266,6 +266,31 @@ Deno.serve(async (req) => {
         if (!a) return forbidden()
         return json({ ok: true })
       }
+      case 'school_backup': {
+        // Full copy of one school's records for the school's own systems. School Admins only; the audit entry is written below.
+        const m = await membership(b.school_id)
+        if (!m || m.role !== 'school_admin') return forbidden()
+        const all = async (table: string, column = 'school_id', value: string | string[] = b.school_id) => {
+          const rows: unknown[] = []
+          for (let from = 0; ; from += 1000) {
+            let q = admin.from(table).select('*')
+            q = Array.isArray(value) ? q.in(column, value.length ? value : ['00000000-0000-0000-0000-000000000000']) : q.eq(column, value)
+            const { data } = await checked(q.order(column === 'classroom_id' ? 'member_id' : 'id').range(from, from + 999))
+            rows.push(...(data ?? []))
+            if (!data || data.length < 1000) break
+          }
+          return rows
+        }
+        const { data: school } = await checked(admin.from('schools').select('id, name, contact_email, seat_limit, created_at').eq('id', b.school_id).single())
+        const classrooms = await all('classrooms') as { id: string }[]
+        const [students, members, staff, progress, entries, observations, reports, plans, audit] = await Promise.all([
+          all('school_students'), all('school_members'), all('classroom_staff', 'classroom_id', classrooms.map((c) => c.id)),
+          all('student_progress'), all('student_progress_entries'), all('student_observations'), all('student_reports'),
+          all('lesson_plan_items'), all('school_audit_log'),
+        ])
+        return json({ exported_at: new Date().toISOString(), exported_by: email, school, classrooms, students, members, classroom_staff: staff,
+          progress, progress_history: entries, observations, reports, lesson_plans: plans, change_history: audit })
+      }
       case 'progress_set': {
         const a = await studentAccess(b.student_id, 'record_progress')
         if (!a) return forbidden()
