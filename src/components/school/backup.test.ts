@@ -24,13 +24,13 @@ describe('quarterly school backup', () => {
     expect(pages).toHaveLength(2);
     expect(entries.some((e) => e.filename === 'School summary.html')).toBe(true);
     const page = entries.find((e) => e.filename === pages[0].filename)!;
-    expect(await page.getData!(new TextWriter())).toContain('&lt;b&gt;hi');
+    expect(await (page as any).getData(new TextWriter())).toContain('&lt;b&gt;hi');
   });
   it('password-protected backups cannot be read without the password', async () => {
     const { blob } = await buildBackupZip(d, undefined, 'correct horse');
     const entries = await new ZipReader(new BlobReader(blob)).getEntries();
     expect(entries[0].encrypted).toBe(true);
-    await expect(entries[0].getData!(new TextWriter(), { password: 'wrong pass' })).rejects.toThrow();
-    expect(await entries[0].getData!(new TextWriter(), { password: 'correct horse' })).toContain('Oak');
+    await expect((entries[0] as any).getData(new TextWriter(), { password: 'wrong pass' })).rejects.toThrow();
+    expect(await (entries[0] as any).getData(new TextWriter(), { password: 'correct horse' })).toContain('Oak');
   });
 });
