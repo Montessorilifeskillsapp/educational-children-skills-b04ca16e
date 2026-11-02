@@ -117,6 +117,7 @@ export const SettingsTab = ({ onManageProfiles }: { onManageProfiles: () => void
             <Button variant="outline" onClick={onManageProfiles}><Users className="h-4 w-4 mr-1" />Manage child profiles</Button>
           </CardContent>
         </Card>
+        <OfflineMediaPanel />
       </div>
     </div>
   );
