@@ -14,7 +14,7 @@ interface ActivityLayoutProps {
 /**
  * Shared shell for every activity page: back button on its own line, a full
  * width title that never clips, a small section label instead of a large
- * coloured banner, the photo, and one short purpose line.
+ * colored banner, the photo, and one short purpose line.
  */
 export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
   sectionLabel,
