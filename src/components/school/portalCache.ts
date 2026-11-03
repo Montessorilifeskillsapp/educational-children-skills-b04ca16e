@@ -29,12 +29,38 @@ export function sharedPortalRead<T>(key: string, read: () => Promise<T>, commit?
   return request;
 }
 
-export function fetchMemberships(userId: string): Promise<Membership[]> {
-  setPortalOwner(userId);
+/** Server `me` call: also activates matching pending invitations. Can be slow on a cold start. */
+function serverMemberships(userId: string): Promise<Membership[]> {
   return sharedPortalRead('me', async () => {
     const { schoolCall } = await import('./api');
     return (await schoolCall<{ memberships: Membership[] }>({ action: 'me' })).memberships ?? [];
   }, (ms) => cacheMemberships(userId, ms));
+}
+
+/** Fast path: read the caller's own membership rows directly (RLS: own rows only). */
+async function directMemberships(userId: string): Promise<Membership[]> {
+  const { supabase } = await import('@/integrations/supabase/client');
+  const { data, error } = await supabase.from('school_members')
+    .select('id, role, school_id, schools!inner(id, name, active, seat_limit, contact_email, policies, backup_frequency)')
+    .eq('user_id', userId);
+  if (error) throw error;
+  // deno-lint-ignore no-explicit-any
+  return ((data ?? []) as any[]).filter((m) => m.schools?.active) as Membership[];
+}
+
+export function fetchMemberships(userId: string): Promise<Membership[]> {
+  setPortalOwner(userId);
+  return sharedPortalRead('me-fast', async () => {
+    const started = epoch;
+    let fast: Membership[] = [];
+    try { fast = await directMemberships(userId); } catch { /* fall back to server */ }
+    if (fast.length) {
+      if (epoch === started) cacheMemberships(userId, fast);
+      void serverMemberships(userId).catch(() => {});
+      return fast;
+    }
+    return serverMemberships(userId);
+  });
 }
 
 export function setPortalOwner(userId: string | null) {
