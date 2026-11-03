@@ -22,7 +22,7 @@ const ART_GROUPS = [
     skillIds: ['basic-drawing', 'observational-drawing'],
   },
   {
-    key: 'colour',
+    key: 'color',
     emoji: '🎨',
     title: 'Exploring Color',
     description:

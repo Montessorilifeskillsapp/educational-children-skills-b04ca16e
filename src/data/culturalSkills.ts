@@ -262,7 +262,7 @@ export const culturalSkillsData: Record<string, {
     purpose: 'Gives a gross-motor, embodied experience of orbital motion and the relationship between a central sun and orbiting planets.',
     materials: ['Large ellipse taped on the floor', 'Sun card or yellow ball', 'Small planet models or cards', 'Open floor space'],
     steps: [
-      { id: '1', instruction: 'Place a yellow ball or card in the centre to represent the Sun', completed: false },
+      { id: '1', instruction: 'Place a yellow ball or card in the center to represent the Sun', completed: false },
       { id: '2', instruction: 'Identify the taped ellipse as a planet path', completed: false },
       { id: '3', instruction: 'Invite the child to hold a planet and walk slowly around the Sun', completed: false },
       { id: '4', instruction: 'Demonstrate steady, even pacing along the ellipse', completed: false },

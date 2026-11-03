@@ -7,7 +7,7 @@ import { Capacitor } from '@capacitor/core';
  * On iOS, dismissing a native modal (StoreKit purchase sheet, OAuth browser,
  * share sheet) can leave the WKWebView with a stale/blank compositing layer:
  * the DOM is intact but nothing is painted, so the user sees an empty
- * background-coloured screen. Forcing a layout + repaint when the app returns
+ * background-colored screen. Forcing a layout + repaint when the app returns
  * to the foreground restores rendering.
  *
  * Also hides the native splash screen as soon as the web app is ready.

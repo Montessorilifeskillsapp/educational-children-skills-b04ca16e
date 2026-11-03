@@ -28,7 +28,7 @@ const AMI_SENSORIAL_GROUPS = [
     skillIds: ['knobbed-cylinders', 'pink-tower', 'brown-stair', 'red-rods', 'knobless-cylinders'],
   },
   {
-    key: 'colour',
+    key: 'color',
     emoji: '🎨',
     title: 'Visual — Color',
     description:
