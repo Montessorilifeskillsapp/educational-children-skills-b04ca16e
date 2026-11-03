@@ -1,5 +1,8 @@
 project_id = "lpdvohgfkjnjarrpsnqr"
 
+[functions.provision-school-testers]
+verify_jwt = false
+
 [functions.create-checkout]
 verify_jwt = false
 
