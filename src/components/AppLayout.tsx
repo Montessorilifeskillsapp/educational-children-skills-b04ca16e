@@ -129,6 +129,15 @@ const AppLayout: React.FC = () => {
   useEffect(() => {
     if (staffOnly && (familyView || (!isOnboarded && currentView !== 'home'))) navigate('/school');
   }, [staffOnly, familyView, isOnboarded, currentView, navigate]);
+  // When staff open the app, start them in the School Portal once per visit.
+  useEffect(() => {
+    if (!staffOnly || location.pathname !== '/' || location.search) return;
+    try {
+      if (sessionStorage.getItem('school_auto_open')) return;
+      sessionStorage.setItem('school_auto_open', '1');
+    } catch { /* ignore */ }
+    navigate('/school', { replace: true });
+  }, [staffOnly, location.pathname, location.search, navigate]);
 
   // Early returns after all hooks are called
   // Show marketing landing page regardless of auth state
