@@ -1,4 +1,5 @@
 ## Open tasks
+- [x] Provision four confirmed teacher accounts with all seven classrooms; activate Amber's existing School Admin membership without changing her login. Individual credential emails accepted by Gmail; database readback confirms roles, confirmation and invitation activation. One-time provisioning endpoint removed. Actual inbox receipt and shared-preview sign-in remain unverified.
 - [x] Tier B offline: full curriculum and photos saved for offline use in the published app; lesson videos and songs downloadable to the device from Family Settings and the portal Curriculum tab; saved copies play without internet; offline grades keep their recording time and every progress entry is preserved. Offline queue tests pass; build OK.
 - [ ] Show each teacher's preserved progress entries in the student record for School Admin reconciliation (data and `progress_history` read are in place; screen not yet built).
 - [ ] Verify offline downloads and playback on real devices — needs the published app or a native build plus a signed-in account with videos/songs; nothing published.
