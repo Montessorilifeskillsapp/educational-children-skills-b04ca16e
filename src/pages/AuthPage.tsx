@@ -90,11 +90,21 @@ const AuthPage = () => {
         console.warn('Unable to clear auth redirect intent');
       }
       navigate(postAuthRedirect, { replace: true });
-    } else if (isFreshSignup) {
-      localStorage.setItem(welcomedKey, '1');
-      navigate('/preview/pouring-water?firstrun=1', { replace: true });
     } else {
-      navigate('/', { replace: true });
+      // School staff go straight to their portal; everyone else continues as before.
+      let cancelled = false;
+      import('@/components/school/portalCache')
+        .then(({ fetchMemberships }) => fetchMemberships(user.id))
+        .catch(() => [])
+        .then((ms) => {
+          if (cancelled) return;
+          if (ms.length) { navigate('/school', { replace: true }); return; }
+          if (isFreshSignup) {
+            localStorage.setItem(welcomedKey, '1');
+            navigate('/preview/pouring-water?firstrun=1', { replace: true });
+          } else navigate('/', { replace: true });
+        });
+      return () => { cancelled = true; };
     }
   }, [user, loading, navigate, getPostAuthRedirect]);
 
