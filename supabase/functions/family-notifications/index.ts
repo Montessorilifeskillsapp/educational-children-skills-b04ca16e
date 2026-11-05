@@ -140,7 +140,9 @@ Deno.serve(async (req) => {
       const curStart = new Date(Date.UTC(y, curStartMonth, 1)), prevStart = new Date(Date.UTC(y, curStartMonth - len, 1))
       const py = prevStart.getUTCFullYear(), pm = prevStart.getUTCMonth()
       const prevLabel = len === 6 ? `${pm < 6 ? 'Spring' : 'Fall'} semester ${py}` : `Q${pm / 3 + 1} ${py}`
-      if (new Date(sc.created_at) >= curStart) continue
+      // Only alert for whole periods the school existed for, after automatic backups launched (Nov 2026).
+      const BACKUP_LAUNCH = new Date(Date.UTC(2026, 10, 1))
+      if (prevStart < BACKUP_LAUNCH || new Date(sc.created_at) > prevStart) continue
       const { data: done } = await admin.from('school_audit_log').select('id').eq('school_id', sc.id).eq('action', 'school_backup')
         .gte('created_at', prevStart.toISOString()).lt('created_at', curStart.toISOString()).limit(1)
       const stage = `${prevLabel}:missed`
