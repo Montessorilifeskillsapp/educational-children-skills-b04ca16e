@@ -53,3 +53,6 @@ verify_jwt = false
 
 [functions.verify-song-purchase]
 verify_jwt = false
+
+[functions.book-consultation]
+verify_jwt = false
