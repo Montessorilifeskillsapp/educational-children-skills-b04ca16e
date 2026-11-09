@@ -35,12 +35,12 @@ const b64 = (s: string) => btoa(Array.from(new TextEncoder().encode(s), (b) => S
 const header = (v: string) => (/^[\x00-\x7F]*$/.test(v) ? v : `=?UTF-8?B?${b64(v)}?=`)
 const EMAIL_RE = /^[^\s@<>,]+@[^\s@<>,]+\.[^\s@<>,]+$/
 
-function buildRaw(to: string, subject: string, html: string, text: string): string {
+function buildRaw(to: string, subject: string, html: string, text: string, replyTo: string = FROM_ADDRESS): string {
   const boundary = `b_${crypto.randomUUID()}`
   const msg = [
     `From: ${header(FROM_NAME)} <${FROM_ADDRESS}>`,
     `To: ${to}`,
-    `Reply-To: ${FROM_ADDRESS}`,
+    `Reply-To: ${replyTo}`,
     `Subject: ${header(subject)}`,
     'MIME-Version: 1.0',
     `Content-Type: multipart/alternative; boundary="${boundary}"`,
@@ -115,7 +115,15 @@ Deno.serve(async (req) => {
     await maybeSendWarning(gatewayHeaders, sendRaw, sentLast24h ?? 0)
   }
 
-  const res = await sendRaw(recipient, subject, html, text)
+  // Optional Reply-To (e.g. a visitor's address on owner notifications).
+  const replyToRaw = typeof body.replyTo === 'string' ? body.replyTo.trim() : ''
+  const replyTo = replyToRaw && replyToRaw.length <= 255 && EMAIL_RE.test(replyToRaw) ? replyToRaw : FROM_ADDRESS
+
+  const res = await fetch(GMAIL_SEND_URL, {
+    method: 'POST',
+    headers: gatewayHeaders,
+    body: JSON.stringify({ raw: buildRaw(recipient, subject, html, text, replyTo) }),
+  })
 
   if (!res.ok) {
     const details = await res.text()
