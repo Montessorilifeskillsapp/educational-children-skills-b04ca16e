@@ -27,6 +27,10 @@ const AdminLeadsPage = () => {
   const [data, setData] = useState<LeadStats | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [consults, setConsults] = useState<{
+    id: string; created_at: string; name: string; email: string; package: string;
+    child_age: string | null; topics: string; preferred_times: string | null;
+  }[] | null>(null);
 
   useEffect(() => {
     if (authLoading) return;
@@ -39,6 +43,16 @@ const AdminLeadsPage = () => {
       .maybeSingle()
       .then(({ data }) => setIsAdmin(!!data));
   }, [user, authLoading]);
+
+  useEffect(() => {
+    if (!isAdmin) return;
+    supabase
+      .from('consultation_requests')
+      .select('id, created_at, name, email, package, child_age, topics, preferred_times')
+      .order('created_at', { ascending: false })
+      .limit(200)
+      .then(({ data }) => setConsults(data ?? []));
+  }, [isAdmin]);
 
   useEffect(() => {
     if (!isAdmin) return;
@@ -97,6 +111,44 @@ const AdminLeadsPage = () => {
           ))}
         </div>
       </div>
+
+      <Card>
+        <CardHeader><CardTitle>Consultation requests</CardTitle></CardHeader>
+        <CardContent>
+          {consults === null ? (
+            <LoadingSpinner />
+          ) : consults.length === 0 ? (
+            <p className="text-muted-foreground text-sm">No consultation requests yet.</p>
+          ) : (
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead>Received</TableHead>
+                  <TableHead>Name</TableHead>
+                  <TableHead>Email</TableHead>
+                  <TableHead>Package</TableHead>
+                  <TableHead>Child's age</TableHead>
+                  <TableHead>Topics</TableHead>
+                  <TableHead>Preferred times</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {consults.map((c) => (
+                  <TableRow key={c.id}>
+                    <TableCell className="whitespace-nowrap text-xs">{new Date(c.created_at).toLocaleString()}</TableCell>
+                    <TableCell className="font-medium">{c.name}</TableCell>
+                    <TableCell><a className="text-primary underline underline-offset-2" href={`mailto:${c.email}`}>{c.email}</a></TableCell>
+                    <TableCell className="whitespace-nowrap">{c.package === 'bundle' ? 'Three sessions' : 'Single session'}</TableCell>
+                    <TableCell>{c.child_age || '—'}</TableCell>
+                    <TableCell className="max-w-xs whitespace-pre-wrap text-sm">{c.topics}</TableCell>
+                    <TableCell className="text-sm">{c.preferred_times || '—'}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </CardContent>
+      </Card>
 
       {error && <Card><CardContent className="pt-6 text-destructive">{error}</CardContent></Card>}
       {loading && <div className="flex justify-center py-8"><LoadingSpinner /></div>}
