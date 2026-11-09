@@ -430,6 +430,48 @@ export type Database = {
           },
         ]
       }
+      consultation_requests: {
+        Row: {
+          child_age: string | null
+          confirmation_sent_at: string | null
+          created_at: string
+          email: string
+          id: string
+          name: string
+          owner_notified_at: string | null
+          package: string
+          preferred_times: string | null
+          topics: string
+          user_id: string | null
+        }
+        Insert: {
+          child_age?: string | null
+          confirmation_sent_at?: string | null
+          created_at?: string
+          email: string
+          id?: string
+          name: string
+          owner_notified_at?: string | null
+          package?: string
+          preferred_times?: string | null
+          topics: string
+          user_id?: string | null
+        }
+        Update: {
+          child_age?: string | null
+          confirmation_sent_at?: string | null
+          created_at?: string
+          email?: string
+          id?: string
+          name?: string
+          owner_notified_at?: string | null
+          package?: string
+          preferred_times?: string | null
+          topics?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
       email_schedule: {
         Row: {
           attempts: number
