@@ -709,6 +709,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           </p>
         </div>
       )}
+      <ConsultationDialog open={consultOpen} onOpenChange={setConsultOpen} />
     </div>
   );
 };

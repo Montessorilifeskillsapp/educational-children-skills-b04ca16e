@@ -17,6 +17,7 @@ import { geographyImages } from '@/assets/geography';
 import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
 import ExitIntentCapture from './ExitIntentCapture';
+import ConsultationDialog from './ConsultationDialog';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -112,6 +113,7 @@ const Home: React.FC<HomeProps> = ({
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
+  const [consultOpen, setConsultOpen] = useState(false);
 
   const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
     { label: 'Practical Life', onClick: onPracticalView },
@@ -579,7 +581,7 @@ const Home: React.FC<HomeProps> = ({
                     {['Customized curriculum guidance', 'Family routine integration', 'Written action plan to follow', 'Two weeks of follow-up email'].map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />{item}</li>)}
                     <li className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />3-session package: $600</li>
                   </ul>
-                  <Button onClick={() => navigate('/plans')} variant="outline" size="lg" className="w-full rounded-xl mt-auto">Book a Consultation</Button>
+                  <Button onClick={() => setConsultOpen(true)} variant="outline" size="lg" className="w-full rounded-xl mt-auto">Book a Consultation</Button>
                 </CardContent>
               </Card>
             </Reveal>
@@ -686,6 +688,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Exit-intent email capture ─── */}
       <ExitIntentCapture />
+      <ConsultationDialog open={consultOpen} onOpenChange={setConsultOpen} />
 
       {/* ─── Footer ─── */}
       <footer className="py-12 bg-slate-900 text-slate-300">
