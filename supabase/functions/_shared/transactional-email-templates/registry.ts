@@ -18,6 +18,8 @@ import { template as day7Wrap } from './day-7-wrap.tsx'
 import { template as paywallAbandon } from './paywall-abandon.tsx'
 import { template as familyNotice } from './family-notice.tsx'
 import { template as schoolNotice } from './school-notice.tsx'
+import { template as consultationRequest } from './consultation-request.tsx'
+import { template as consultationReceived } from './consultation-received.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'welcome-day-0': welcomeDay0,
@@ -29,4 +31,6 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'paywall-abandon': paywallAbandon,
   'family-notice': familyNotice,
   'school-notice': schoolNotice,
+  'consultation-request': consultationRequest,
+  'consultation-received': consultationReceived,
 }
