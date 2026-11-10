@@ -65,9 +65,11 @@ const AdminAnalyticsLink: React.FC = () => {
   const returnBarShown = params.get('from') === 'school' || hasSchoolReturn();
   const showSchool = isSchoolStaff && !returnBarShown;
   if (!isAdmin && !showSchool) return null;
+  // Sit above the corner Return bar instead of covering it, and clear the iPhone home indicator.
+  const lift = returnBarShown && !params.get('activity') ? '4rem' : '1rem';
 
   return (
-    <div className="fixed bottom-4 right-4 z-50 flex flex-col gap-2 items-end print:hidden">
+    <div className="fixed right-4 z-50 flex flex-col gap-2 items-end print:hidden" style={{ bottom: `calc(${lift} + env(safe-area-inset-bottom))` }}>
       {showSchool && (
         <Link to="/school" aria-label="School Portal">
           <Button size="sm" className="shadow-lg">

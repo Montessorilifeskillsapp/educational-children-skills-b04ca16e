@@ -21,6 +21,8 @@ import ConsultationDialog from './ConsultationDialog';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
+import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
+import { schoolReturnTarget } from '@/components/school/navigation';
 import { Link, useNavigate } from 'react-router-dom';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -110,6 +112,8 @@ const Home: React.FC<HomeProps> = ({
 }) => {
   useSEO(SEO_CONFIG.home);
   const { user } = useAuthContext();
+  // Only server-verified school staff ever see the portal link; private families never do.
+  const isSchoolStaff = useIsSchoolStaff(user?.id) === true;
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
@@ -212,6 +216,13 @@ const Home: React.FC<HomeProps> = ({
               ))}
             </nav>
             <div className="flex items-center gap-3">
+              {isSchoolStaff && (
+                <Button onClick={() => navigate(schoolReturnTarget())} size="sm" variant="outline" className="rounded-full border-primary/40 text-primary hover:bg-primary/5 px-3">
+                  <School className="w-4 h-4 sm:mr-1.5" aria-hidden="true" />
+                  <span className="hidden sm:inline">School Portal</span>
+                  <span className="sr-only sm:hidden">School Portal</span>
+                </Button>
+              )}
               {!user && (
                 <Link to="/auth">
                   <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign In</Button>
@@ -248,6 +259,14 @@ const Home: React.FC<HomeProps> = ({
                       ))}
                     </nav>
                     <div className="flex flex-col gap-3 pt-4 border-t border-border">
+                      {isSchoolStaff && (
+                        <SheetClose asChild>
+                          <Button variant="outline" onClick={() => navigate(schoolReturnTarget())} className="w-full rounded-full border-primary/40 text-primary">
+                            <School className="w-4 h-4 mr-2" aria-hidden="true" />
+                            School Portal
+                          </Button>
+                        </SheetClose>
+                      )}
                       {!user && (
                         <SheetClose asChild>
                           <Link to="/auth">
