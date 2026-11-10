@@ -27,7 +27,8 @@ export default function SchoolReturnBar() {
   return (
     <div className={params.get('activity')
       ? 'sticky top-0 z-40 bg-background/95 backdrop-blur border-b border-border px-4 py-2 print:hidden'
-      : 'fixed bottom-4 right-4 z-50 bg-background border border-border rounded-md shadow-md p-1 print:hidden'}>
+      : 'fixed right-4 z-50 bg-background border border-border rounded-md shadow-md p-1 print:hidden'}
+      style={params.get('activity') ? undefined : { bottom: 'calc(1rem + env(safe-area-inset-bottom))' }}>
       <Button variant="ghost" size="sm" onClick={() => navigate(schoolReturnTarget())}>
         <ArrowLeft className="h-4 w-4 mr-2" />
         Return to School Portal
