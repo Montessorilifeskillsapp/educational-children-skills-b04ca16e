@@ -131,6 +131,7 @@ const AdminVerifyPage = () => {
     return <div className="flex items-center justify-center min-h-screen"><LoadingSpinner /></div>;
   }
   if (!user) return <Navigate to="/auth" replace />;
+  if (!checking && isAdmin) return <Navigate to="/admin" replace />;
 
   return (
     <div className="container mx-auto p-6 max-w-2xl space-y-6">
@@ -237,7 +238,7 @@ const AdminVerifyPage = () => {
         </Card>
       )}
 
-      <Card>
+      {!isAdmin && <Card>
         <CardHeader>
           <CardTitle className="text-base">Possible outcomes</CardTitle>
         </CardHeader>
@@ -249,7 +250,8 @@ const AdminVerifyPage = () => {
           <div><Badge variant="outline">403 admin_already_exists</Badge> — another user has already claimed admin.</div>
           <div><Badge variant="outline">500 internal_error</Badge> — see edge function logs.</div>
         </CardContent>
-      </Card>
+      </Card>}
+      <Link to="/" className="underline text-sm">Back to app</Link>
     </div>
   );
 };
