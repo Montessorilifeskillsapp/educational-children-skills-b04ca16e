@@ -26,7 +26,7 @@ const PrivacyPolicyPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardContent className="p-8 prose prose-gray max-w-none">
-              <p className="text-sm text-muted-foreground mb-6">Last updated: July 24, 2026</p>
+              <p className="text-sm text-muted-foreground mb-6">Last updated: November 14, 2026</p>
               
               <section className="mb-8">
                 <p>
@@ -250,6 +250,24 @@ const PrivacyPolicyPage: React.FC = () => {
                 <p className="mb-4">
                   You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
                 </p>
+              </section>
+
+              <section className="mb-8">
+                <h2 className="text-xl font-semibold mb-4">Schools and Student Records</h2>
+                <p className="mb-4">This section applies when a school uses the School Portal. It takes precedence over any other part of this policy for student records.</p>
+                <ul className="list-disc pl-6 mb-4 space-y-2">
+                  <li><strong>What is stored:</strong> the student's first name, surname and birth date; classroom assignment; parent or guardian names and email; health and allergy notes entered by the school; lesson plans, progress records, observations and parent reports written by school staff.</li>
+                  <li><strong>Who owns it:</strong> the school owns all student records. We act as a school official with a legitimate educational interest under FERPA and use the records only to provide the Service to that school.</li>
+                  <li><strong>Who can see it:</strong> only staff the school invites, limited to their assigned classrooms, and a child's own parents after the school confirms their email. Records are never shared with other families, schools, or anyone else.</li>
+                  <li><strong>No selling, ads or profiling:</strong> student records are never sold, never used for advertising, and never used to build profiles. Google Analytics is switched off inside the School Portal.</li>
+                  <li><strong>No AI:</strong> student records are not processed by artificial intelligence or used to train any model. Every record is written by a person.</li>
+                  <li><strong>Children's privacy (COPPA):</strong> children do not have accounts and do not use the School Portal. The school provides consent on behalf of parents for educational use.</li>
+                  <li><strong>Service providers:</strong> our hosting and database provider and our email provider process data only on our instructions. Data is stored in the United States.</li>
+                  <li><strong>Security breaches:</strong> if we confirm unauthorized access to student records, we will notify the affected school's administrators within 72 hours, describe what was affected and the steps taken, and support the school in notifying families.</li>
+                  <li><strong>Backups and leaving:</strong> School Admins receive automatic encrypted backups each quarter or semester. When a school ends its use of the Service, it may export its records, and all of its data is permanently deleted within 30 days of its written request, with written confirmation.</li>
+                  <li><strong>Major changes:</strong> we will tell School Admins by email at least 30 days before any change to how student records are collected or used.</li>
+                </ul>
+                <p>Schools that need a signed Student Data Privacy Agreement can request one at montessorilifeskills@gmail.com.</p>
               </section>
 
               <section className="mb-8">
