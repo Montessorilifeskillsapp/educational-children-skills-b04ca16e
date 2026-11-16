@@ -76,6 +76,7 @@ const TermsOfServicePage: React.FC = () => {
                   <li>Subscriptions <strong>automatically renew</strong> at the same price and duration unless auto-renew is turned off at least 24 hours before the end of the current period.</li>
                   <li>Your account will be charged for renewal within 24 hours prior to the end of the current period.</li>
                   <li>You can manage subscriptions and turn off auto-renewal in your account settings on the App Store, Google Play, or Stripe customer portal after purchase.</li>
+                  <li>For annual plans bought on our website, we email a reminder 15 to 30 days before each renewal with the renewal date, the amount and how to cancel.</li>
                 </ul>
 
                 <h3 className="text-lg font-medium mb-2">Free Trial (if offered)</h3>
@@ -88,7 +89,7 @@ const TermsOfServicePage: React.FC = () => {
                   <li>You may cancel your subscription at any time. Cancellation takes effect at the end of the current billing period; access continues until then.</li>
                   <li><strong>iOS:</strong> Manage or cancel in <em>Settings &gt; [your name] &gt; Subscriptions</em>.</li>
                   <li><strong>Android:</strong> Manage or cancel in the Google Play Store under <em>Payments &amp; subscriptions &gt; Subscriptions</em>.</li>
-                  <li><strong>Web (Stripe):</strong> Manage or cancel via the customer portal link in your receipt email or by contacting support.</li>
+                  <li><strong>Web (Stripe):</strong> Sign in, open the Plans page and choose <em>Manage or cancel</em>. You can also use the link in your receipt email or contact support.</li>
                   <li>Refund requests for App Store purchases are handled by Apple at <a className="underline" href="https://reportaproblem.apple.com" target="_blank" rel="noreferrer">reportaproblem.apple.com</a>. Web purchases are covered by our 30-day money-back guarantee — contact montessorilifeskills@gmail.com.</li>
                 </ul>
 

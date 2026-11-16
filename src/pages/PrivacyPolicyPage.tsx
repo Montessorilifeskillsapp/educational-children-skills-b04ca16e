@@ -4,6 +4,7 @@ import PageLayout from '@/components/PageLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { Card, CardContent } from '@/components/ui/card';
+import { openCookieSettings } from '@/components/consent/openCookieSettings';
 
 const PrivacyPolicyPage: React.FC = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const PrivacyPolicyPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardContent className="p-8 prose prose-gray max-w-none">
-              <p className="text-sm text-muted-foreground mb-6">Last updated: November 14, 2026</p>
+              <p className="text-sm text-muted-foreground mb-6">Last updated: November 16, 2026</p>
               
               <section className="mb-8">
                 <p>
@@ -230,6 +231,32 @@ const PrivacyPolicyPage: React.FC = () => {
                 <p className="mb-4">
                   If We need to rely on consent as a legal basis for processing information and Your country or region requires consent from a parent or guardian (for example under GDPR-K in the European Economic Area or the United Kingdom), We will obtain that verifiable parental consent before collecting or using such information.
                 </p>
+              </section>
+
+              <section className="mb-8">
+                <h2 className="text-xl font-semibold mb-4">Cookies, Visit Counting and Your Choices</h2>
+                <p className="mb-4">
+                  The first time You visit from the European Union, the European Economic Area, the United Kingdom, Switzerland or Canada (or from a place We cannot identify), We ask before using analytics. Everywhere else analytics is on unless You turn it off. You can change Your choice at any time with the <button type="button" onClick={openCookieSettings} className="text-primary underline">Cookie settings</button> link, which is also at the bottom of the home page. Your choice is saved in Your browser for up to 12 months. If Your browser sends a Global Privacy Control signal, We treat it as a refusal.
+                </p>
+                <h3 className="text-lg font-medium mb-2">Visit counting by Lovable (no cookies)</h3>
+                <p className="mb-4">
+                  Our hosting provider, Lovable, counts visits to the published website. It uses no cookies, stores nothing on Your device, does not keep IP addresses and does not identify visitors. It records the pages visited, where visitors came from, their country, browser, operating system and device type, how long they stay, how fast pages load, and errors. These are recorded for every visitor, without cookies and without identifying anyone, whatever You choose on the banner. Detailed data is kept for 90 days and daily summaries for a year. Lovable collects this data for us. <a href="https://lovable.dev/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Lovable's privacy policy</a> explains how it handles it.
+                </p>
+                <h3 className="text-lg font-medium mb-2">Google Analytics (cookies, only with consent where required)</h3>
+                <p className="mb-4">
+                  Google Analytics sets cookies (named <code>_ga</code>) to measure how the website is used, and sends that usage data to Google. Where consent is required it runs without cookies until You accept analytics; if You reject, it stays that way. It is switched off entirely in the School Portal and on admin pages.
+                </p>
+                <h3 className="text-lg font-medium mb-2">Our own usage records (only with consent where required)</h3>
+                <p className="mb-4">
+                  With Your consent where required, the app records which pages and activities are opened and steps such as starting a plan purchase, stored in our own database with a random visitor number kept in Your browser and, if You are signed in, Your account. We use this only to improve the app.
+                </p>
+                <h3 className="text-lg font-medium mb-2">Necessary storage (always on)</h3>
+                <ul className="list-disc pl-6 mb-4 space-y-2">
+                  <li><strong>Sign-in:</strong> our account provider, Supabase, keeps Your sign-in session in Your browser. If You sign in with Google or Apple, that company confirms Your identity to us.</li>
+                  <li><strong>Settings and offline use:</strong> Your app settings, unsaved drafts, Your cookie choices and saved lessons, photos, videos and songs for offline use are stored on Your device.</li>
+                  <li><strong>Payments:</strong> web payments happen on Stripe's own checkout page, which sets its own cookies under Stripe's privacy policy.</li>
+                  <li><strong>Lesson videos:</strong> some lesson videos play from YouTube, which may set its own cookies when a video is played, under Google's privacy policy.</li>
+                </ul>
               </section>
 
               <section className="mb-8">
