@@ -236,7 +236,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <section className="mb-8">
                 <h2 className="text-xl font-semibold mb-4">Cookies, Visit Counting and Your Choices</h2>
                 <p className="mb-4">
-                  The first time You visit from the European Union, the European Economic Area, the United Kingdom, Switzerland or Canada (or from a place We cannot identify), We ask before using analytics. Everywhere else analytics is on unless You turn it off. You can change Your choice at any time with the <button type="button" onClick={openCookieSettings} className="text-primary underline">Cookie settings</button> link, which is also at the bottom of the home page. Your choice is saved in Your browser for up to 12 months. If Your browser sends a Global Privacy Control signal, We treat it as a refusal.
+                  The first time You visit from the European Union, the European Economic Area, the United Kingdom, Switzerland or Canada (or from a place We cannot identify), We show a banner asking about analytics. Everywhere else analytics is on unless You turn it off. You can change Your choice at any time with the <button type="button" onClick={openCookieSettings} className="text-primary underline">Cookie settings</button> link, which is also at the bottom of the home page. Your choice is saved in Your browser for up to 12 months. If Your browser sends a Global Privacy Control signal, We treat it as a refusal.
                 </p>
                 <h3 className="text-lg font-medium mb-2">Visit counting by Lovable (no cookies)</h3>
                 <p className="mb-4">
@@ -244,7 +244,7 @@ const PrivacyPolicyPage: React.FC = () => {
                 </p>
                 <h3 className="text-lg font-medium mb-2">Google Analytics (cookies, only with consent where required)</h3>
                 <p className="mb-4">
-                  Google Analytics sets cookies (named <code>_ga</code>) to measure how the website is used, and sends that usage data to Google. Where consent is required it runs without cookies until You accept analytics; if You reject, it stays that way. It is switched off entirely in the School Portal and on admin pages.
+                  Google Analytics sets cookies (named <code>_ga</code>) to measure how the website is used, and sends that usage data to Google. For visitors in the European Union, the European Economic Area, the United Kingdom, Switzerland and Quebec it runs without cookies until You accept analytics. Elsewhere, including the rest of Canada, it runs until You reject. If You reject, it runs without cookies. It is switched off entirely in the School Portal and on admin pages.
                 </p>
                 <h3 className="text-lg font-medium mb-2">Our own usage records (only with consent where required)</h3>
                 <p className="mb-4">
