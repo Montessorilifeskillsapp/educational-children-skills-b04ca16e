@@ -40,7 +40,6 @@ const AccessibilityPage: React.FC = () => {
                   <li>Text descriptions for activity and material photos.</li>
                   <li>The app follows your device's reduced-motion and high-contrast settings.</li>
                   <li>Clear headings and step-by-step instructions written in plain language.</li>
-                  <li>Each new feature is checked for keyboard use and readable color contrast before release.</li>
                 </ul>
               </section>
 
