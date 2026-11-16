@@ -1,8 +1,8 @@
 ## Open tasks
-- [ ] Cookie consent banner (Accept all / Reject all / Cookie settings), Google Analytics and first-party usage events wait for consent where required; permanent Cookie settings link.
-- [ ] Accessibility statement page linked from the footer.
-- [ ] Annual renewal reminder email (Stripe web subscribers, 15–30 days before renewal, once per renewal) plus a Manage or cancel button on the Plans page.
-- [ ] Privacy Policy: describe cookies, visitor counting and choices.
+- [x] Cookie consent banner (Accept all / Reject all / Cookie settings) with footer and Privacy Policy links; Google Analytics and the app's own usage records follow the choice. Three tests pass; browser check of Reject, settings save and reload. Not verified from an EU location.
+- [x] Accessibility statement page at /accessibility, linked from the home footer.
+- [x] Annual renewal reminder email (Stripe web subscribers, 15–30 days before renewal, once per renewal) plus Manage or cancel on the Plans page; fixed a duplicate name that stopped the hourly email job from starting. Three tests pass, job deployed and starts. No real reminder sent or inbox checked; Manage or cancel not clicked with a real subscriber.
+- [x] Privacy Policy: cookies, visit counting and choices section.
 - [x] Provision four confirmed teacher accounts with all seven classrooms; activate Amber's existing School Admin membership without changing her login. Individual credential emails accepted by Gmail; database readback confirms roles, confirmation and invitation activation. One-time provisioning endpoint removed. Actual inbox receipt and shared-preview sign-in remain unverified.
 - [x] Tier B offline: full curriculum and photos saved for offline use in the published app; lesson videos and songs downloadable to the device from Family Settings and the portal Curriculum tab; saved copies play without internet; offline grades keep their recording time and every progress entry is preserved. Offline queue tests pass; build OK.
 - [ ] Show each teacher's preserved progress entries in the student record for School Admin reconciliation (data and `progress_history` read are in place; screen not yet built).

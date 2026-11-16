@@ -46,7 +46,7 @@ const AccessibilityPage: React.FC = () => {
               <section className="mb-8">
                 <h2 className="text-xl font-semibold mb-4">Known gaps we are working on</h2>
                 <ul className="list-disc pl-6 mb-4 space-y-2">
-                  <li><strong>Lesson video captions:</strong> lesson videos do not have captions yet. Captions are being added. Until then, every activity has written step-by-step instructions covering the same presentation.</li>
+                  <li><strong>Lesson video captions:</strong> lesson videos do not have captions yet. We plan to add them. Until then, every activity has written step-by-step instructions covering the same presentation.</li>
                   <li><strong>Full review:</strong> we have not yet completed a full WCAG 2.1 AA review of every page. If something does not work for you, please tell us.</li>
                 </ul>
               </section>
