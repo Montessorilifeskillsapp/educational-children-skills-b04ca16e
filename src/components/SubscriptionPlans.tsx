@@ -488,6 +488,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             <Zap className="w-4 h-4 text-primary" /> Cancel anytime
           </span>
         </div>
+        <p className="text-sm text-muted-foreground -mt-4 mb-8">
+          Authentic AMI presentations, suitable for AMI, AMS and independent Montessori schools.
+        </p>
 
         <div className="mb-8">
           <AccessCodeRedeem />

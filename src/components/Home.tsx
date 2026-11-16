@@ -620,7 +620,7 @@ const Home: React.FC<HomeProps> = ({
             {[
               { icon: RotateCcw, title: 'Continue the work', text: 'Return to each child’s profile, record progress, and choose the next appropriate activity.' },
               { icon: Share2, title: 'Share with others', text: 'Share Montessori Life Skills with another parent, teacher, caregiver, or classroom assistant.' },
-              { icon: School, title: 'For schools', text: 'Schools interested in wider access can contact us to discuss their needs.' },
+              { icon: School, title: 'For schools', text: 'Authentic AMI presentations, suitable for AMI, AMS and independent Montessori schools. Contact us to discuss your school’s needs.' },
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 100}>
                 <div className="text-center px-4">
