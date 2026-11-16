@@ -1,6 +1,6 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, Printer } from 'lucide-react';
+import { Search, ChevronRight, Printer, Download } from 'lucide-react';
 import { crosswalkHtml } from './crosswalkReport';
 import { Input } from '@/components/ui/input';
 import { areas, orderedSkills, skillLink } from './curriculum';
@@ -36,6 +36,9 @@ export default function CurriculumTab({ schoolName = '' }: { schoolName?: string
           <button type="button" onClick={printCrosswalk} className="mt-1 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
             <Printer className="h-4 w-4" /> Common Core standards crosswalk
           </button>
+          <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="mt-1 ml-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
+            <Download className="h-4 w-4" /> Compliance & privacy brief (PDF)
+          </a>
         </div>
         <div className="relative w-full sm:w-72">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />

@@ -264,6 +264,9 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <Section id="sec-compliance" title="Compliance & privacy" desc="A one-page brief for your board, district or legal counsel: student data ownership, no ads or tracking, breach notice and deletion commitments.">
+        <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">Download Compliance & Privacy Brief (PDF)</a>
+      </Section>
       <Section id="sec-backup" title="Backups" desc="Your school's records save to this device automatically, and a confirmation email goes to your school's primary email.">
         <BackupPanel schoolId={schoolId} schoolName={schoolName} frequency={backupFrequency} onSettingsSaved={onSettingsSaved} />
       </Section>
