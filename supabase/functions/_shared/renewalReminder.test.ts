@@ -12,7 +12,7 @@ Deno.test('reminder is due 15–30 days before renewal, not earlier or later', (
   assertFalse(isReminderDue(inDays(3), NOW))
 })
 
-const annual = (extra: Record<string, unknown> = {}, items = [{ price: { unit_amount: 19900, recurring: { interval: 'year' }, product: { name: 'Premium Annual' } }, quantity: 1 }]) =>
+const annual = (extra: Record<string, unknown> = {}, items: Record<string, unknown>[] = [{ price: { unit_amount: 19900, recurring: { interval: 'year' }, product: { name: 'Premium Annual' } }, quantity: 1 }]) =>
   ({ items: { data: items }, metadata: {}, ...extra })
 
 Deno.test('only annual plans that will renew get a reminder', () => {
