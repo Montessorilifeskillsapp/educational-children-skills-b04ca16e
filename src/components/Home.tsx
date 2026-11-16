@@ -325,7 +325,7 @@ const Home: React.FC<HomeProps> = ({
             <div className="text-center lg:text-left">
               <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
                 <Star className="w-3 h-3 text-accent fill-accent" />
-                Montessori guidance for the adult
+                Authentic AMI presentations
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 leading-[1.15] animate-reveal-delay-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
