@@ -4,6 +4,7 @@
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { sendPushToUser } from '../_shared/push.ts'
 import { buildWeeklyReport, startOfWeek } from '../_shared/weeklyReport.ts'
+import { sendRenewalReminders } from '../_shared/renewalReminder.ts'
 
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type, x-cron-secret' }
 const json = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { ...cors, 'Content-Type': 'application/json' } })
@@ -24,7 +25,7 @@ Deno.serve(async (req) => {
   const { data: secret } = await admin.rpc('internal_get_secret', { p_name: 'cron_secret' })
   if (!secret || req.headers.get('x-cron-secret') !== secret) return json({ error: 'forbidden' }, 403)
 
-  const stats = { daily: 0, activity: 0, goals: 0, weekly: 0 }
+  const stats = { daily: 0, activity: 0, goals: 0, weekly: 0, renewals: 0 }
   const { data: prefsRows } = await admin.from('notification_preferences').select('*').limit(1000)
   const prefsMap = new Map((prefsRows ?? []).map((p: any) => [p.user_id, p]))
   const defaults = { timezone: 'UTC', daily_reminder: true, daily_reminder_time: '09:00', weekly_report: true, weekly_report_day: 0,
@@ -130,9 +131,9 @@ Deno.serve(async (req) => {
   }
 
   // Safety net only: one email to School Admins when a whole backup period ended with no backup (~15:00 UTC).
-  const now = new Date()
-  if (now.getUTCHours() === 15) {
-    const y = now.getUTCFullYear(), mo = now.getUTCMonth()
+  const nowDate = new Date()
+  if (nowDate.getUTCHours() === 15) {
+    const y = nowDate.getUTCFullYear(), mo = nowDate.getUTCMonth()
     const { data: schools } = await admin.from('schools').select('id, name, created_at, backup_reminders_sent, backup_frequency').eq('active', true).limit(1000)
     for (const sc of schools ?? []) {
       const len = sc.backup_frequency === 'semester' ? 6 : 3
@@ -159,6 +160,11 @@ Deno.serve(async (req) => {
       }
       await admin.from('schools').update({ backup_reminders_sent: [...sent, stage].slice(-12) }).eq('id', sc.id)
     }
+  }
+
+  // Annual renewal reminders for web subscribers, once a day (~16:00 UTC).
+  if (nowDate.getUTCHours() === 16) {
+    try { stats.renewals = await sendRenewalReminders(admin) } catch (e) { console.error('renewal reminders', e) }
   }
 
   return json({ ok: true, stats })

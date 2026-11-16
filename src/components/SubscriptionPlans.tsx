@@ -405,6 +405,19 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     }
   };
 
+  const [openingBilling, setOpeningBilling] = useState(false);
+  const handleManageBilling = async () => {
+    setOpeningBilling(true);
+    try {
+      const { data, error } = await supabase.functions.invoke('customer-portal');
+      if (error || !data?.url) throw error ?? new Error('No billing link');
+      window.location.assign(data.url);
+    } catch {
+      toast({ title: 'Could not open billing', description: 'Please try again, or email montessorilifeskills@gmail.com and we will cancel or change it for you.', variant: 'destructive' });
+      setOpeningBilling(false);
+    }
+  };
+
   const handleManualRefresh = async () => {
     setSyncingStatus(true);
     try {
@@ -449,8 +462,9 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
               <div className="flex items-center gap-2"><Badge>Active</Badge><strong>{activePlanLabel}</strong></div>
               {renewalDate && <p className="text-sm text-muted-foreground mt-2">Renews or expires on {renewalDate}</p>}
               {provider === 'revenuecat' && <p className="text-xs text-muted-foreground mt-1">Managed through your App Store account.</p>}
+              {provider === 'stripe' && isNative && <p className="text-xs text-muted-foreground mt-1">Bought on our website. Manage or cancel it at montessorilifeskillsapp.com/plans.</p>}
             </div>
-            <div className="flex gap-2"><Button onClick={onBack}>Open dashboard</Button><Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>Sync plan</Button></div>
+            <div className="flex flex-wrap gap-2"><Button onClick={onBack}>Open dashboard</Button>{provider === 'stripe' && !isNative && <Button variant="outline" onClick={handleManageBilling} disabled={openingBilling}>Manage or cancel</Button>}<Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>Sync plan</Button></div>
           </CardContent>
         </Card>
       )}

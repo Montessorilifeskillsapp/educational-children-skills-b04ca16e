@@ -56,7 +56,7 @@ const HelpPage: React.FC = () => {
         },
         {
           question: "Can I cancel my subscription anytime?",
-          answer: "Yes! You can cancel your subscription at any time through your account settings or the Stripe customer portal. Your premium features will remain active until the end of your current billing period."
+          answer: "Yes! You can cancel your subscription at any time: on the website, open the Plans page and choose Manage or cancel; in the iPhone or Android app, use your App Store or Google Play subscriptions. Your premium features will remain active until the end of your current billing period."
         },
         {
           question: "What plans are available?",
