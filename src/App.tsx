@@ -33,10 +33,12 @@ const HelpPage = lazy(() => import("./pages/HelpPage"));
 const AboutPage = lazy(() => import("./pages/AboutPage"));
 const InstallPage = lazy(() => import("./pages/InstallPage"));
 const GuaranteePage = lazy(() => import("./pages/GuaranteePage"));
+const AccessibilityPage = lazy(() => import("./pages/AccessibilityPage"));
 const PreviewPouringWaterPage = lazy(() => import("./pages/PreviewPouringWaterPage"));
 const UnsubscribePage = lazy(() => import("./pages/UnsubscribePage"));
 import AppUpdateDialog from "@/components/AppUpdateDialog";
 import InstallBanner from "@/components/InstallBanner";
+import CookieConsent from "@/components/consent/CookieConsent";
 const NotFound = lazy(() => import("./pages/NotFound"));
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const ClassroomSetupPage = lazy(() => import("./pages/ClassroomSetupPage"));
@@ -106,6 +108,7 @@ const App = () => {
                         <SchoolReturnBar />
                         <ClassroomDrawer />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
+                        <CookieConsent />
                         <ErrorBoundary>
                         <Suspense fallback={null}>
                         <Routes>
@@ -138,6 +141,7 @@ const App = () => {
                           <Route path="/about" element={<AboutPage />} />
                           <Route path="/install" element={<InstallPage />} />
                           <Route path="/guarantee" element={<GuaranteePage />} />
+                          <Route path="/accessibility" element={<AccessibilityPage />} />
                           <Route path="/preview/pouring-water" element={<PreviewPouringWaterPage />} />
                           <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />

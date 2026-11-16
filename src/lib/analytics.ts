@@ -3,6 +3,7 @@
 // pre-signup funnel events can be tied to the eventual user.
 
 import { supabase } from '@/integrations/supabase/client';
+import { canTrack } from '@/lib/consent';
 
 const ANON_KEY = 'mlsa_anon_id';
 
@@ -31,6 +32,8 @@ class Analytics {
   async track(event: string, properties: Record<string, any> = {}): Promise<void> {
     try {
       if (typeof window === 'undefined') return;
+      // Usage events (and the random visitor ID) wait for analytics consent where it is required.
+      if (!(await canTrack('analytics'))) return;
       const payload = {
         event,
         user_id: this.userId,

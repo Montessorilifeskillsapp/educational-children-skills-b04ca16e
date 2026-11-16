@@ -18,6 +18,7 @@ import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
 import ExitIntentCapture from './ExitIntentCapture';
 import ConsultationDialog from './ConsultationDialog';
+import { openCookieSettings } from './consent/openCookieSettings';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -741,6 +742,8 @@ const Home: React.FC<HomeProps> = ({
                 <li><Link to="/guarantee" className="hover:text-white transition-colors">30-Day Guarantee</Link></li>
                 <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
                 <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
+                <li><Link to="/accessibility" className="hover:text-white transition-colors">Accessibility</Link></li>
+                <li><button type="button" onClick={openCookieSettings} className="hover:text-white transition-colors">Cookie settings</button></li>
               </ul>
             </div>
           </div>
