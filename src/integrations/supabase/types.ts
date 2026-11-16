@@ -1345,6 +1345,27 @@ export type Database = {
         }
         Relationships: []
       }
+      subscription_renewal_notices: {
+        Row: {
+          email: string
+          period_end: string
+          sent_at: string
+          stripe_subscription_id: string
+        }
+        Insert: {
+          email: string
+          period_end: string
+          sent_at?: string
+          stripe_subscription_id: string
+        }
+        Update: {
+          email?: string
+          period_end?: string
+          sent_at?: string
+          stripe_subscription_id?: string
+        }
+        Relationships: []
+      }
       user_profiles: {
         Row: {
           avatar_url: string | null
