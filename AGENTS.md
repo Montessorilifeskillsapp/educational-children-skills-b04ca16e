@@ -31,6 +31,6 @@
 - Subdirectories have their own `AGENTS.md`; read it before changing files there.- School staff without their own family children are sent to the School Portal from Start Free and family/child-setup screens; staff who also have children keep their Family Dashboard. Why: invited staff must not create family child profiles by accident.
 - Offline: `vite-plugin-pwa` precaches the built app, registered only via `src/lib/registerOffline.ts` (never dev/preview/iframes); videos/songs cached on demand by `src/lib/offlineMedia.ts`; Firebase messaging has its own worker scope. Why: classroom use without internet, no stale previews.
 - Vite splits stable vendor chunks; every <img> uses decoding="async"; photos never downscaled or recompressed. Why: fast start-up, full image quality.
-- Consultation bookings use the `book-consultation` function: save first, then email the owner. Why: no reliance on visitor mail apps.
+- Consultation bookings (`book-consultation`): save first, then email the owner. Why: no visitor mail app needed.
 - Consent: skill `src/lib/consent.ts` + `index.html` defaults before GA; `CookieConsent` only banner; `analytics.track` awaits `canTrack`. Why: one consent source.
 - Stripe annual renewal reminders: `_shared/renewalReminder.ts` in `family-notifications`, claimed in `subscription_renewal_notices` first. Why: one reminder per renewal.
