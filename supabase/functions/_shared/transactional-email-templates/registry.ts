@@ -20,6 +20,7 @@ import { template as familyNotice } from './family-notice.tsx'
 import { template as schoolNotice } from './school-notice.tsx'
 import { template as consultationRequest } from './consultation-request.tsx'
 import { template as consultationReceived } from './consultation-received.tsx'
+import { template as renewalReminder } from './renewal-reminder.tsx'
 
 export const TEMPLATES: Record<string, TemplateEntry> = {
   'welcome-day-0': welcomeDay0,
@@ -33,4 +34,5 @@ export const TEMPLATES: Record<string, TemplateEntry> = {
   'school-notice': schoolNotice,
   'consultation-request': consultationRequest,
   'consultation-received': consultationReceived,
+  'renewal-reminder': renewalReminder,
 }
