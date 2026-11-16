@@ -1,0 +1,1 @@
+CREATE POLICY "No client access to renewal notices" ON public.subscription_renewal_notices FOR SELECT TO authenticated USING (false);
