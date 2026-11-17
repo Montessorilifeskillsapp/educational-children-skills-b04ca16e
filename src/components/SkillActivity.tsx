@@ -36,6 +36,8 @@ import ActivityVideo from './ActivityVideo';
 import ActivityLayout from './activity/ActivityLayout';
 import ActivitySteps from './activity/ActivityStepGroup';
 import ActivityPage from './activity/ActivityPage';
+import UpgradeDialog from './upgrade/UpgradeDialog';
+import { useSubscription } from '@/contexts/SubscriptionContext';
 
 interface SkillActivityProps {
   skillId: string;
@@ -244,6 +246,9 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     };
   }, [skillId]);
 
+  const { isPremium: hasPremium } = useSubscription();
+  const [nextOpen, setNextOpen] = useState(false);
+
   if (!skill) {
     return (
       <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
@@ -269,13 +274,26 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
 
   const handleComplete = () => {
     onComplete(skillId);
+    // Free accounts finishing their starter activity see where the sequence goes next.
+    if (!hasPremium) { setNextOpen(true); return; }
     onBack();
   };
 
   const heroImage = getActivityImage(skillId, skill as { category?: string; image?: string; imageUrl?: string });
 
   const process = 'learningProcess' in skill ? skill.learningProcess : undefined;
-  return <ActivityPage
+  const sectionName = culturalSkill ? 'Science and Cultural Studies' : artSkill ? 'Art' : sensorialSkill ? 'Sensorial' : category.name;
+  return <>
+  <UpgradeDialog
+    open={nextOpen}
+    onOpenChange={(open) => { setNextOpen(open); if (!open) onBack(); }}
+    source="activity-complete"
+    meta="Activity complete"
+    title={`Lovely work on ${skill.title}.`}
+    description={`The next presentations in the ${sectionName} sequence build on what your child just practiced. Continue the full sequence with Premium.`}
+    dismissLabel="Back to activities"
+  />
+  <ActivityPage
     skillId={skillId}
     sectionLabel={culturalSkill ? 'Science & Cultural Studies' : artSkill ? 'Art' : sensorialSkill ? 'Sensorial' : category.name}
     title={skill.title}
@@ -294,7 +312,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       <ActivityNoteList title="Learning objectives" items={mathSkill?.objectives} />
       <ActivityNoteList title="Extensions" items={mathSkill?.extensions} />
     </> : undefined}
-  />;
+  />
+  </>;
 };
 
 export default SkillActivity;

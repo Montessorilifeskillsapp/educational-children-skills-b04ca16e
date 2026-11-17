@@ -474,8 +474,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
           Choose the plan that fits your family.
         </h1>
         <p className="text-lg text-muted-foreground mb-5">
-          Most Montessori material kits cost $400+ per year and arrive in boxes you have to store.
-          Our app costs less — and you reuse the household items you already own.
+          Premium Annual is about $16.58 a month: less than a month of typical Montessori preschool tuition,
+          for the complete 3–6 sequence at home. Homeschool families also get the standards guide and a printable portfolio.
         </p>
         <div className="flex justify-center items-center gap-5 text-sm text-muted-foreground flex-wrap mb-8">
           <span className="inline-flex items-center gap-1.5">

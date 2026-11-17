@@ -5,7 +5,10 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
-import { ArrowRight, ArrowLeft, Sparkles, Check, PartyPopper } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Sparkles, Check, PartyPopper, Shield } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { PREMIUM_BENEFITS } from './upgrade/UpgradeDialog';
 
 interface ChildProfile {
   id: string;
@@ -41,6 +44,8 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const [avatar, setAvatar] = useState(AVATARS[0]);
   const [focusAreas, setFocusAreas] = useState<string[]>([]);
   const [savedProfile, setSavedProfile] = useState<ChildProfile | null>(null);
+  const navigate = useNavigate();
+  const { isPremium } = useSubscription();
 
   const toggleFocus = (id: string) => {
     setFocusAreas(prev => {
@@ -70,6 +75,10 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
 
   const handleFinish = () => {
     if (savedProfile) onComplete([savedProfile]);
+  };
+  const handleFinishPremium = () => {
+    handleFinish();
+    navigate('/plans');
   };
 
   const totalSteps = 3;
@@ -307,15 +316,40 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             </div>
           )}
 
-          <DialogFooter>
+          {!isPremium && savedProfile && (
+            <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-2">
+              <p className="font-semibold text-foreground">{savedProfile.name}'s age {savedProfile.age} sequence is ready.</p>
+              <ul className="space-y-1.5">
+                {PREMIUM_BENEFITS.map(item => (
+                  <li key={item} className="flex gap-2 text-sm text-foreground">
+                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />{item}
+                  </li>
+                ))}
+              </ul>
+              <p className="text-sm text-muted-foreground">Premium from $16.58/month, billed $199/year.</p>
+            </div>
+          )}
+
+          <DialogFooter className="flex-col gap-2 sm:flex-col sm:space-x-0">
+            {!isPremium && (
+              <Button onClick={handleFinishPremium} className="w-full" size="lg">
+                Start the full sequence with Premium
+              </Button>
+            )}
             <Button
               onClick={handleFinish}
-              className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent"
+              variant={isPremium ? 'default' : 'outline'}
+              className="w-full"
               size="lg"
             >
-              Go to dashboard
+              {isPremium ? 'Go to dashboard' : 'Try the free starter activities'}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
+            {!isPremium && (
+              <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+                <Shield className="h-3.5 w-3.5" aria-hidden="true" /> 30-day money-back guarantee · Cancel anytime
+              </p>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>

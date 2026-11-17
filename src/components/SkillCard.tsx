@@ -3,6 +3,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Crown, Lock } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import CardStatus from './school/CardStatus';
+import UpgradeDialog from './upgrade/UpgradeDialog';
 
 interface Skill {
   id: string;
@@ -29,6 +30,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
   isPremium 
 }) => {
   const isLocked = skill.isPremium && !isPremium;
+  const [upgradeOpen, setUpgradeOpen] = React.useState(false);
 
   // Always open an activity from the very top of the page
   const handleSelect = () => {
@@ -111,14 +113,14 @@ const SkillCard: React.FC<SkillCardProps> = ({
         } relative ${
           isLocked ? 'opacity-60' : ''
         }`}
-        onClick={isLocked ? undefined : handleSelect}
+        onClick={isLocked ? () => setUpgradeOpen(true) : handleSelect}
         role="button"
-        tabIndex={isLocked ? -1 : 0}
-        aria-label={`${skill.title} - ${skill.difficulty} level ${skill.category} activity. ${isCompleted ? 'Completed' : 'Not completed'}. ${isLocked ? 'Premium required' : 'Click to start'}`}
+        tabIndex={0}
+        aria-label={`${skill.title} - ${skill.difficulty} level ${skill.category} activity. ${isCompleted ? 'Completed' : 'Not completed'}. ${isLocked ? 'Premium activity, open to see how to unlock' : 'Click to start'}`}
         onKeyDown={(e) => {
-          if (!isLocked && (e.key === 'Enter' || e.key === ' ')) {
+          if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
-            handleSelect();
+            if (isLocked) setUpgradeOpen(true); else handleSelect();
           }
         }}
       >
@@ -181,6 +183,18 @@ const SkillCard: React.FC<SkillCardProps> = ({
           )}
         </CardContent>
       </Card>
+      {isLocked && (
+        <UpgradeDialog
+          open={upgradeOpen}
+          onOpenChange={setUpgradeOpen}
+          source="locked-card"
+          meta={`${skill.category} · ${skill.difficulty}`}
+          title={`Unlock ${skill.title}`}
+          description="This presentation is part of the full Premium curriculum. Premium opens it along with every other activity in the sequence."
+          image={skill.image}
+          imageAlt={`${skill.title} Montessori material`}
+        />
+      )}
     </article>
   );
 };

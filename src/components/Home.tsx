@@ -555,7 +555,8 @@ const Home: React.FC<HomeProps> = ({
           <Reveal className="text-center mb-14">
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Premium access</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Continue through the full curriculum.</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence.</p>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence for less than a month of typical Montessori preschool tuition, with a homeschool standards guide and printable portfolio.</p>
+            <p className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground"><Check className="w-4 h-4 text-primary" aria-hidden="true" />30-day money-back guarantee · Cancel anytime</p>
           </Reveal>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             <Reveal>
