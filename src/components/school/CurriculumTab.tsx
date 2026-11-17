@@ -37,7 +37,7 @@ export default function CurriculumTab({ schoolName = '' }: { schoolName?: string
             <Printer className="h-4 w-4" /> Common Core standards crosswalk
           </button>
           <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="mt-1 ml-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
-            <Download className="h-4 w-4" /> Compliance & privacy brief (PDF)
+            <Download className="h-4 w-4" /> Compliance and Privacy Brief (PDF)
           </a>
         </div>
         <div className="relative w-full sm:w-72">

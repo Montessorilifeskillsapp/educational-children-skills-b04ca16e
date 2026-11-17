@@ -18,7 +18,7 @@ interface Props { schoolId: string; members: Member[]; invites: Invite[]; classr
 type Pending = { title: string; body: string; action: string; run: () => void } | null;
 const AGE_GROUPS = ['Nido (2 months–15 months)', 'Infant Community (15 months–3 years)', "Children's House (3–6 years)", 'Lower Elementary (6–9 years)', 'Upper Elementary (9–12 years)'];
 const initials = (s: string) => s.split(/[\s@.]+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
-const SECTIONS = [{ id: 'sec-staff', label: 'Staff' }, { id: 'sec-rooms', label: 'Classrooms' }, { id: 'sec-perms', label: 'Permissions' }, { id: 'sec-profile', label: 'School profile' }, { id: 'sec-backup', label: 'Backups' }];
+const SECTIONS = [{ id: 'sec-staff', label: 'Staff' }, { id: 'sec-rooms', label: 'Classrooms' }, { id: 'sec-perms', label: 'Permissions' }, { id: 'sec-profile', label: 'School profile' }, { id: 'sec-compliance', label: 'Compliance and Privacy' }, { id: 'sec-backup', label: 'Backups' }];
 
 function Section({ id, title, desc, children, extra }: { id: string; title: string; desc: string; children: ReactNode; extra?: ReactNode }) {
   return (
@@ -264,8 +264,8 @@ export default function StaffTab({ schoolId, members, invites, classrooms, staff
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <Section id="sec-compliance" title="Compliance & privacy" desc="A one-page brief for your board, district or legal counsel: student data ownership, no ads or tracking, breach notice and deletion commitments.">
-        <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">Download Compliance & Privacy Brief (PDF)</a>
+      <Section id="sec-compliance" title="Compliance and Privacy" desc="A one-page brief for your board, district or legal counsel: student data ownership, no ads or tracking, breach notice and deletion commitments.">
+        <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">Download Compliance and Privacy Brief (PDF)</a>
       </Section>
       <Section id="sec-backup" title="Backups" desc="Your school's records save to this device automatically, and a confirmation email goes to your school's primary email.">
         <BackupPanel schoolId={schoolId} schoolName={schoolName} frequency={backupFrequency} onSettingsSaved={onSettingsSaved} />
