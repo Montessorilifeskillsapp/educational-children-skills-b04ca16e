@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
+import LanguageSelector from './LanguageSelector';
 import { useAuthContext } from '@/components/AuthProvider';
 import { supabase } from '@/integrations/supabase/client';
 import { schoolCall } from '@/components/school/api';
@@ -116,6 +117,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
     <div className="relative">
       <div className="flex items-center space-x-2 mb-2">
         <ThemeToggle />
+        <LanguageSelector />
       </div>
       <Button
         onClick={() => setIsOpen(!isOpen)}

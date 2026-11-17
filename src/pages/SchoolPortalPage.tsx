@@ -28,6 +28,7 @@ import CurriculumTab from '@/components/school/CurriculumTab';
 import { rememberSchoolReturn } from '@/components/school/SchoolReturnBar';
 import { allowSchoolNavigation } from '@/components/school/navigation';
 import SyncStatus from '@/components/school/SyncStatus';
+import LanguageSelector from '@/components/LanguageSelector';
 import OfflineMediaPanel from '@/components/OfflineMediaPanel';
 
 export default function SchoolPortalPage() {
@@ -179,6 +180,7 @@ export default function SchoolPortalPage() {
             </div>
             <div className="ml-auto flex shrink-0 items-center gap-1">
               <SyncStatus />
+              <LanguageSelector />
               {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap text-foreground" onClick={() => go('staff')}>School settings</Button>}
               <Button variant="ghost" type="button" className="whitespace-nowrap rounded-full px-3 py-2 text-foreground hover:bg-card" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>Leave portal →</Button>
             </div>

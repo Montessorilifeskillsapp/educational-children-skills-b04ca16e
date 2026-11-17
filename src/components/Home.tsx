@@ -25,6 +25,8 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { schoolReturnTarget } from '@/components/school/navigation';
 import { Link, useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import LanguageSelector from '@/components/LanguageSelector';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -118,20 +120,21 @@ const Home: React.FC<HomeProps> = ({
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [consultOpen, setConsultOpen] = useState(false);
 
   const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
-    { label: 'Practical Life', onClick: onPracticalView },
-    { label: 'Sensorial', onClick: onSensorialView },
-    { label: 'Math', onClick: onMathView },
-    { label: 'Language', onClick: onLanguageView },
-    { label: 'Botany', onClick: onBotanyView },
-    { label: 'Geography', onClick: onGeographyView },
-    { label: 'Science', onClick: onCulturalView },
-    { label: 'Art', onClick: onArtView },
-    { label: 'Grace & Courtesy', onClick: onGraceCourtesyView },
-    { label: 'Shop', onClick: () => navigate('/shop') },
-    { label: 'Classroom Setup', onClick: () => navigate('/classroom-setup') },
+    { label: t('nav.practicalLife'), onClick: onPracticalView },
+    { label: t('nav.sensorial'), onClick: onSensorialView },
+    { label: t('nav.math'), onClick: onMathView },
+    { label: t('nav.language'), onClick: onLanguageView },
+    { label: t('nav.botany'), onClick: onBotanyView },
+    { label: t('nav.geography'), onClick: onGeographyView },
+    { label: t('nav.science'), onClick: onCulturalView },
+    { label: t('nav.art'), onClick: onArtView },
+    { label: t('nav.graceCourtesy'), onClick: onGraceCourtesyView },
+    { label: t('nav.shop'), onClick: () => navigate('/shop') },
+    { label: t('nav.classroomSetup'), onClick: () => navigate('/classroom-setup') },
   ];
 
   useEffect(() => {
@@ -220,13 +223,13 @@ const Home: React.FC<HomeProps> = ({
               {isSchoolStaff && (
                 <Button onClick={() => navigate(schoolReturnTarget())} size="sm" variant="outline" className="rounded-full border-primary/40 text-primary hover:bg-primary/5 px-3">
                   <School className="w-4 h-4 sm:mr-1.5" aria-hidden="true" />
-                  <span className="hidden sm:inline">School Portal</span>
-                  <span className="sr-only sm:hidden">School Portal</span>
+                  <span className="hidden sm:inline">{t('common.schoolPortal')}</span>
+                  <span className="sr-only sm:hidden">{t('common.schoolPortal')}</span>
                 </Button>
               )}
               {!user && (
                 <Link to="/auth">
-                  <Button variant="ghost" size="sm" className="hidden sm:inline-flex">Sign In</Button>
+                  <Button variant="ghost" size="sm" className="hidden sm:inline-flex">{t('common.signIn')}</Button>
                 </Link>
               )}
               <Button
@@ -234,8 +237,9 @@ const Home: React.FC<HomeProps> = ({
                 size="sm"
                 className="hidden sm:inline-flex bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full px-5"
               >
-                Start Free
+                {t('common.startFree')}
               </Button>
+              <LanguageSelector />
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
@@ -260,6 +264,7 @@ const Home: React.FC<HomeProps> = ({
                       ))}
                     </nav>
                     <div className="flex flex-col gap-3 pt-4 border-t border-border">
+                      <LanguageSelector showLabel className="self-start" />
                       {isSchoolStaff && (
                         <SheetClose asChild>
                           <Button variant="outline" onClick={() => navigate(schoolReturnTarget())} className="w-full rounded-full border-primary/40 text-primary">
@@ -271,7 +276,7 @@ const Home: React.FC<HomeProps> = ({
                       {!user && (
                         <SheetClose asChild>
                           <Link to="/auth">
-                            <Button variant="outline" className="w-full">Sign In</Button>
+                            <Button variant="outline" className="w-full">{t('common.signIn')}</Button>
                           </Link>
                         </SheetClose>
                       )}
@@ -757,6 +762,7 @@ const Home: React.FC<HomeProps> = ({
           </div>
 
           <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <LanguageSelector showLabel className="text-slate-400 hover:text-white hover:bg-slate-800" />
             <p className="text-sm text-slate-500">© {new Date().getFullYear()} Montessori Life Skills. All rights reserved.</p>
             <SocialLinks variant="light" />
           </div>

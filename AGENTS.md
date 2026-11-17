@@ -34,3 +34,4 @@
 - Consultation bookings (`book-consultation`): save first, then email the owner. Why: no visitor mail app needed.
 - Consent: skill `src/lib/consent.ts` + `index.html` defaults before GA; `CookieConsent` only banner; `analytics.track` awaits `canTrack`. Why: one consent source.
 - Stripe annual renewal reminders: `_shared/renewalReminder.ts` in `family-notifications`, claimed in `subscription_renewal_notices` first. Why: one reminder per renewal.
+- i18n: `src/i18n/`, unprefixed routes. Why: offline, links intact.
