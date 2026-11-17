@@ -5,6 +5,7 @@ import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { Card, CardContent } from '@/components/ui/card';
 import { openCookieSettings } from '@/components/consent/openCookieSettings';
+import { Download } from 'lucide-react';
 
 const PrivacyPolicyPage: React.FC = () => {
   const navigate = useNavigate();
@@ -28,6 +29,19 @@ const PrivacyPolicyPage: React.FC = () => {
           <Card>
             <CardContent className="p-8 prose prose-gray max-w-none">
               <p className="text-sm text-muted-foreground mb-6">Last updated: November 16, 2026</p>
+
+              <section id="compliance" aria-labelledby="compliance-heading" className="not-prose mb-8 rounded-lg border border-primary/30 bg-primary/5 p-5 scroll-mt-24">
+                <h2 id="compliance-heading" className="text-xl font-semibold text-foreground mb-2">School Compliance and Privacy</h2>
+                <p className="text-sm text-muted-foreground mb-4">
+                  For school boards, districts and legal counsel: how student records are owned, protected and deleted, including FERPA and COPPA, no ads or tracking in the School Portal, breach notice and deletion commitments.
+                </p>
+                <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
+                  <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline">
+                    <Download className="h-4 w-4" aria-hidden="true" /> Download the Compliance and Privacy Brief (PDF)
+                  </a>
+                  <a href="#schools-student-records" className="font-medium text-primary hover:underline">Read Schools and Student Records below</a>
+                </div>
+              </section>
               
               <section className="mb-8">
                 <p>
@@ -279,7 +293,7 @@ const PrivacyPolicyPage: React.FC = () => {
                 </p>
               </section>
 
-              <section className="mb-8">
+              <section id="schools-student-records" className="mb-8 scroll-mt-24">
                 <h2 className="text-xl font-semibold mb-4">Schools and Student Records</h2>
                 <p className="mb-4">This section applies when a school uses the School Portal. It takes precedence over any other part of this policy for student records.</p>
                 <ul className="list-disc pl-6 mb-4 space-y-2">
