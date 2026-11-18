@@ -1,7 +1,8 @@
 ## Open tasks
 - [x] Language Layer 1: homepage, sign-in, pricing/upgrade, pop-ups/cookie/consultation, menus, section titles, activity cards, readiness guide and public info pages switch to Spanish, German (formal Sie) and Chinese. Browser-checked signed out; first-time child setup after sign-in not checked.
 - [x] Language Layer 2: Family Dashboard, signed-in home, child profiles and every School Portal screen (Today, Children, Record, Plans, Reports, Curriculum, settings, staff, backups, review, history, Classroom button) switch language; Help offline answer corrected. Not browser-checked signed in (preview sign-in unavailable here).
-- [x] Show the child invitation ("Would you like to work with…?") prominently at the top of the steps on every activity that has one (about 19 activities have one; writing the rest awaits your answer).
+- [x] Show the child invitation ("Would you like to work with…?") prominently at the top of the steps on every activity that has one ; every activity now has one in all four languages.
+- [x] Show the guidance beside the invitation: invite only when presenting it as a new lesson (prepare first); once known, the child chooses and repeats it freely; present according to readiness and interest, not all at once — in all four languages.
 - [x] Language Layer 3: activity names, purposes, steps, notes, materials, section introductions and sequences in Spanish, German and Chinese with AMI terminology; a check fails if new lesson text lacks a translation.
 - [x] Cookie consent banner (Accept all / Reject all / Cookie settings) with footer and Privacy Policy links; Google Analytics and the app's own usage records follow the choice. Three tests pass; browser check of Reject, settings save and reload. Not verified from an EU location.
 - [x] Accessibility statement page at /accessibility, linked from the home footer.

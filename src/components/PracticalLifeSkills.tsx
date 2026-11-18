@@ -12,6 +12,7 @@ import ActivitySteps from './activity/ActivityStepGroup';
 import ActivityVideo from './ActivityVideo';
 import ActivityPage from './activity/ActivityPage';
 import ActivityTeachingNotes from './activity/ActivityTeachingNotes';
+import { invitationFor } from '@/data/activityInvitations';
 
 interface Step {
   id: string;
@@ -95,7 +96,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
       onToggle={toggleStep}
       onBack={onBack}
       onComplete={() => { onComplete(skillId); onBack(); }}
-      invitation={'learningProcess' in skill ? skill.learningProcess?.presentation?.invitation : undefined}
+      invitation={invitationFor(skillId, 'learningProcess' in skill ? skill.learningProcess?.presentation?.invitation : undefined)}
       notes={'learningProcess' in skill && skill.learningProcess ? <ActivityTeachingNotes process={skill.learningProcess} /> : undefined}
     />
   );

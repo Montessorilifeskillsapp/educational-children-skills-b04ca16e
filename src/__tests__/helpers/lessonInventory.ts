@@ -17,6 +17,7 @@ import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { activityMaterials } from '@/data/activityMaterials';
 import { getMaterialsForSkill } from '@/lib/materials';
+import { activityInvitations } from '@/data/activityInvitations';
 
 
 const FIELDS = new Set(['title', 'purpose', 'category', 'steps', 'detailedSteps', 'activities', 'instruction', 'learningProcess', 'presentation', 'guidedPractice', 'independentPractice', 'mastery', 'extensions', 'description', 'duration', 'invitation', 'keyPoints', 'supportStrategies', 'indicators', 'troubleshooting', 'assessmentCriteria', 'variations', 'directAims', 'materialsPurpose', 'objectives']);
@@ -39,6 +40,7 @@ export function lessonInventory(root = process.cwd()): string[] {
     walk(sk);
     for (const mat of getMaterialsForSkill(id, sk.materials)) add(mat.displayName);
   }
+  Object.values(activityInvitations).forEach(add);
   for (const list of Object.values(activityMaterials)) for (const m of list) add(m.name);
   for (const f of SECTION_FILES) {
     const s = readFileSync(`${root}/src/components/${f}.tsx`, 'utf8');

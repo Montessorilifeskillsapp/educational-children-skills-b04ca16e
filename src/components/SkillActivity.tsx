@@ -39,6 +39,7 @@ import ActivityPage from './activity/ActivityPage';
 import UpgradeDialog from './upgrade/UpgradeDialog';
 import i18n from '@/i18n';
 import { lessonText } from '@/i18n/lessonText';
+import { invitationFor } from '@/data/activityInvitations';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 
 interface SkillActivityProps {
@@ -306,7 +307,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onToggle={toggleStep}
     onBack={onBack}
     onComplete={handleComplete}
-    invitation={process?.presentation?.invitation}
+    invitation={invitationFor(skillId, process?.presentation?.invitation)}
     notes={(process || graceCourtesySkill?.directAims?.length || artSkill?.activities?.length || mathSkill) ? <>
       <ActivityTeachingNotes process={process} />
       <ActivityNoteList title={i18n.t('lesson.notes.directAims')} items={graceCourtesySkill?.directAims} />

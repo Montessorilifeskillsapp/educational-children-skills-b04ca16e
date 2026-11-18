@@ -42,6 +42,7 @@ export default function ActivityPage({ skillId, title, sectionLabel, purpose, im
       {invitation && <section className="mb-6 rounded-xl border-l-4 border-primary bg-primary/10 px-4 py-3" aria-label={t('lesson.page.invite')}>
         <h2 className="text-sm font-semibold uppercase tracking-wider text-primary">{t('lesson.page.invite')}</h2>
         <p className="mt-1 text-lg font-medium text-foreground">{lessonText(invitation)}</p>
+        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t('lesson.page.inviteGuide')}</p>
       </section>}
       <ActivitySteps steps={steps} onToggle={onToggle} />
       <details className="mb-8 border-t border-border pt-4">
