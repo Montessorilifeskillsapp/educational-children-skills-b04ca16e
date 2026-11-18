@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { z } from 'zod';
 import { useTranslation } from 'react-i18next';
@@ -16,10 +16,11 @@ const HOME = ['/', '/index', '/home'];
 const SECTIONS = ['/practical-life', '/sensorial', '/language', '/math', '/geography', '/botany', '/art', '/cultural', '/grace-courtesy'];
 const emailSchema = z.string().trim().email().max(255);
 
-function openGuide(age: GuideAge) {
+/** Opens the guide in a new tab. A blocked tab only falls back to this tab when asked, so the confirmation stays on screen after signup. */
+function openGuide(age: GuideAge, fallbackInSameTab = true) {
   const url = URL.createObjectURL(new Blob([readinessGuideHtml(age, window.location.origin)], { type: 'text/html' }));
   const w = window.open(url, '_blank');
-  if (!w) window.location.href = url;
+  if (!w && fallbackInSameTab) window.location.href = url;
 }
 
 /** Readiness Guide offer: on the homepage after scrolling ~35%, on activity sections after 20s. Shown once per visitor until dismissed or submitted. */
@@ -37,12 +38,17 @@ export default function ReadinessOffer() {
   const [consentAnswered, setConsentAnswered] = useState(() => readChoice('analytics') !== null);
   useEffect(() => onConsentChange(() => setConsentAnswered(readChoice('analytics') !== null)), []);
 
-  const eligible = !isPremium && (() => { try { return !localStorage.getItem(DISMISS_KEY); } catch { return false; } })();
+  // Read once: saving the signup must not hide the confirmation that follows it.
+  const [dismissed, setDismissed] = useState(() => { try { return !!localStorage.getItem(DISMISS_KEY); } catch { return true; } });
+  const doneRef = useRef(false);
+  const eligible = !isPremium && !dismissed;
   const isHome = HOME.includes(pathname);
   const isSection = SECTIONS.includes(pathname);
 
   useEffect(() => {
     setOpen(false);
+    // After a signup, leaving the page closes the confirmation for good.
+    if (doneRef.current) { setDismissed(true); return; }
     if (!eligible || (!isHome && !isSection)) return;
     if (isHome) {
       const onScroll = () => {
@@ -56,7 +62,7 @@ export default function ReadinessOffer() {
     return () => window.clearTimeout(timer);
   }, [pathname, eligible, isHome, isSection]);
 
-  const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, new Date().toISOString()); } catch { /* ignore */ } setOpen(false); };
+  const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, new Date().toISOString()); } catch { /* ignore */ } setDismissed(true); setOpen(false); };
 
   const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
@@ -69,8 +75,9 @@ export default function ReadinessOffer() {
       });
       if (err) throw err;
       try { localStorage.setItem(DISMISS_KEY, new Date().toISOString()); } catch { /* ignore */ }
+      doneRef.current = true;
       setDone(true);
-      openGuide(age);
+      openGuide(age, false);
     } catch { setError(t('growth.shared.genericError')); } finally { setBusy(false); }
   };
 
