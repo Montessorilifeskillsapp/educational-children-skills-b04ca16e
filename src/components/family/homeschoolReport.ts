@@ -7,7 +7,7 @@ export interface PortfolioRow { code: string; framework: string; summary: string
 
 /** Groups a child's completed activities (within the date range) under the standards they address. */
 export function portfolioRows(completions: Completion[], from: string, to: string): PortfolioRow[] {
-  const byId = new Map<string, { title: string }>();
+  const byId = new Map<string, { title: string; titleEn: string }>();
   for (const s of orderedSkills()) if (!byId.has(s.id)) byId.set(s.id, s);
   const rows = new Map<string, PortfolioRow>();
   const seen = new Set<string>();
@@ -17,7 +17,7 @@ export function portfolioRows(completions: Completion[], from: string, to: strin
     const sk = byId.get(c.skill_id);
     if (!sk || seen.has(c.skill_id)) continue;
     seen.add(c.skill_id);
-    for (const code of CROSSWALK[sk.title]?.codes ?? []) {
+    for (const code of CROSSWALK[sk.titleEn]?.codes ?? []) {
       const st = STANDARDS[code];
       if (!st) continue;
       const row = rows.get(code) ?? { code, framework: st.framework, summary: st.summary, activities: [] };

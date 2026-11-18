@@ -29,3 +29,4 @@
 - Consent: skill `src/lib/consent.ts` + `index.html` defaults before GA; `CookieConsent` only banner; `analytics.track` awaits `canTrack`. Why: one consent source.
 - Stripe annual renewal reminders: `_shared/renewalReminder.ts` in `family-notifications`, claimed in `subscription_renewal_notices` first. Why: one reminder per renewal.
 - i18n: `src/i18n/`, unprefixed routes; UI text lives in per-area namespace files under `src/i18n/locales/` (English source, other languages typed to its shape); curriculum data keeps English identifiers. Why: offline, links intact, stored data unchanged.
+- Lesson content translations live in `src/i18n/lessons/<lang>.json`, keyed by exact English text and applied only at display time (`lessonText`); material names, category keys and `SkillRef.titleEn` stay English. Why: photos, purchase links, standards and styling look up English identifiers.

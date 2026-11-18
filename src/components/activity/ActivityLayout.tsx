@@ -1,5 +1,6 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
+import i18n from '@/i18n';
 
 interface ActivityLayoutProps {
   sectionLabel: string;
@@ -44,7 +45,7 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
         <div className="mb-5 rounded-xl overflow-hidden border border-border shadow-sm">
           <img decoding="async"
             src={image}
-            alt={`Authentic Montessori materials for ${title}`}
+            alt={i18n.t('lesson.page.imageAlt', { title })}
             loading="lazy"
             width={800}
             height={450}

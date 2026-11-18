@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { lessonText } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { areaTitle, locale } from '@/i18n/format';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -78,7 +79,7 @@ export const ReportsTab = ({ childId, childName, reports, reload }: {
                   <h4 className="font-semibold mb-2">{t('family.rep.activities')}</h4>
                   {current.summary.activities.length === 0 ? <p className="text-sm text-muted-foreground">{t('family.rep.noActivities')}</p> : (
                     <ul className="text-sm space-y-1">
-                      {current.summary.activities.map((a, i) => <li key={i}>{a.title} <span className="text-muted-foreground">· {new Date(a.at).toLocaleDateString(locale(), { weekday: 'short' })}</span></li>)}
+                      {current.summary.activities.map((a, i) => <li key={i}>{lessonText(a.title)} <span className="text-muted-foreground">· {new Date(a.at).toLocaleDateString(locale(), { weekday: 'short' })}</span></li>)}
                     </ul>
                   )}
                 </section>

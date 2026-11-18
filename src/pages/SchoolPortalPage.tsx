@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLessonLanguage } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { locale } from '@/i18n/format';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
@@ -37,6 +38,7 @@ export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
   const navigate = useNavigate();
   const { t } = useTranslation();
+  useLessonLanguage();
   // Memberships already fetched by the corner School Portal button open the portal at once.
   const [memberships, setMemberships] = useState<Membership[] | null>(() => cachedMemberships(user?.id));
   const [schoolId, setSchoolId] = useState<string | null>(() => cachedMemberships(user?.id)?.[0]?.school_id ?? null);

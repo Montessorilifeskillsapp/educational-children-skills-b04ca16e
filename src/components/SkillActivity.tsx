@@ -38,6 +38,7 @@ import ActivitySteps from './activity/ActivityStepGroup';
 import ActivityPage from './activity/ActivityPage';
 import UpgradeDialog from './upgrade/UpgradeDialog';
 import i18n from '@/i18n';
+import { lessonText } from '@/i18n/lessonText';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 
 interface SkillActivityProps {
@@ -254,11 +255,11 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     return (
       <div className={`min-h-screen ${montessoriTheme.backgrounds.activity} p-6`}>
         <div className="max-w-xl mx-auto">
-          <BackButton onClick={onBack} label="Back to activities" />
+          <BackButton onClick={onBack} label={i18n.t('lesson.page.backToActivities')} />
           <Card className="mt-8">
             <CardContent className="py-8 text-center">
-              <p className="font-semibold text-foreground">This activity could not be loaded.</p>
-              <Button className="mt-4" onClick={onBack}>Return to activities</Button>
+              <p className="font-semibold text-foreground">{i18n.t('lesson.page.notFound')}</p>
+              <Button className="mt-4" onClick={onBack}>{i18n.t('lesson.page.returnToActivities')}</Button>
             </CardContent>
           </Card>
         </div>
@@ -290,8 +291,8 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onOpenChange={(open) => { setNextOpen(open); if (!open) onBack(); }}
     source="activity-complete"
     meta={i18n.t('pricing.upgrade.completeMeta')}
-    title={i18n.t('pricing.upgrade.completeTitle', { title: skill.title })}
-    description={i18n.t('pricing.upgrade.completeBody', { section: sectionName })}
+    title={i18n.t('pricing.upgrade.completeTitle', { title: lessonText(skill.title) })}
+    description={i18n.t('pricing.upgrade.completeBody', { section: i18n.t(`lesson.section.${sectionName.replace(' and ', ' & ')}`, { defaultValue: sectionName }) })}
     dismissLabel={i18n.t('pricing.upgrade.backToActivities')}
   />
   <ActivityPage
@@ -305,13 +306,14 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     onToggle={toggleStep}
     onBack={onBack}
     onComplete={handleComplete}
+    invitation={process?.presentation?.invitation}
     notes={(process || graceCourtesySkill?.directAims?.length || artSkill?.activities?.length || mathSkill) ? <>
       <ActivityTeachingNotes process={process} />
-      <ActivityNoteList title="Direct aims" items={graceCourtesySkill?.directAims} />
-      <ActivityNoteList title="Extension activities" items={artSkill?.activities} />
-      <ActivityNoteList title="Materials & their purpose" items={mathSkill?.materialsPurpose} />
-      <ActivityNoteList title="Learning objectives" items={mathSkill?.objectives} />
-      <ActivityNoteList title="Extensions" items={mathSkill?.extensions} />
+      <ActivityNoteList title={i18n.t('lesson.notes.directAims')} items={graceCourtesySkill?.directAims} />
+      <ActivityNoteList title={i18n.t('lesson.notes.extensionActivities')} items={artSkill?.activities} />
+      <ActivityNoteList title={i18n.t('lesson.notes.materialsPurpose')} items={mathSkill?.materialsPurpose} />
+      <ActivityNoteList title={i18n.t('lesson.notes.objectives')} items={mathSkill?.objectives} />
+      <ActivityNoteList title={i18n.t('lesson.notes.extensions')} items={mathSkill?.extensions} />
     </> : undefined}
   />
   </>;

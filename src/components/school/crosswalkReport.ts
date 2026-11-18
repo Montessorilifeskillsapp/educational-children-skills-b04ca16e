@@ -7,7 +7,7 @@ export function crosswalkHtml(schoolName: string): string {
   const all = orderedSkills();
   const sections = areas().map((a) => {
     const rows = all.filter((s) => s.areaKey === a.key).map((sk, n) => {
-      const c = CROSSWALK[sk.title];
+      const c = CROSSWALK[sk.titleEn];
       const codes = (c?.codes ?? []).map((code) => {
         const st = STANDARDS[code];
         return `<div><b>${e(code)}</b> <span class="fw">${e(st.framework)}</span> ${e(st.summary)}</div>`;

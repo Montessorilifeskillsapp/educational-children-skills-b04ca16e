@@ -5,6 +5,7 @@ import { montessoriTheme } from './ThemeConfig';
 import CardStatus from './school/CardStatus';
 import UpgradeDialog from './upgrade/UpgradeDialog';
 import { useTranslation } from 'react-i18next';
+import { lessonText, useLessonLanguage } from '@/i18n/lessonText';
 
 interface Skill {
   id: string;
@@ -31,6 +32,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
   isPremium 
 }) => {
   const { t } = useTranslation();
+  useLessonLanguage();
+  // Shown text follows the chosen language; the English category still drives colors.
+  const title = lessonText(skill.title);
+  const categoryLabel = skill.category ? lessonText(skill.category) : skill.category;
   const difficultyLabel = t(`chrome.card.difficulty.${skill.difficulty}`, { defaultValue: skill.difficulty });
   const isLocked = skill.isPremium && !isPremium;
   const [upgradeOpen, setUpgradeOpen] = React.useState(false);
@@ -119,7 +124,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         onClick={isLocked ? () => setUpgradeOpen(true) : handleSelect}
         role="button"
         tabIndex={0}
-        aria-label={t('chrome.card.aria', { title: skill.title, difficulty: difficultyLabel, category: skill.category, status: isCompleted ? t('chrome.card.done') : t('chrome.card.notDone'), action: isLocked ? t('chrome.card.lockedAction') : t('chrome.card.start') })}
+        aria-label={t('chrome.card.aria', { title, difficulty: difficultyLabel, category: categoryLabel, status: isCompleted ? t('chrome.card.done') : t('chrome.card.notDone'), action: isLocked ? t('chrome.card.lockedAction') : t('chrome.card.start') })}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -146,21 +151,21 @@ const SkillCard: React.FC<SkillCardProps> = ({
             <div className="mb-3">
               <img decoding="async"
                 src={skill.image}
-                alt={t('chrome.card.materialAlt', { title: skill.title })}
+                alt={t('chrome.card.materialAlt', { title })}
                 className="w-full h-32 object-cover rounded-lg"
                 loading="lazy"
               />
             </div>
           ) : (
             <div className="text-center mb-2 flex justify-center">
-              <div className="text-4xl" role="img" aria-label={t('chrome.card.iconAlt', { title: skill.title })}>
+              <div className="text-4xl" role="img" aria-label={t('chrome.card.iconAlt', { title })}>
                 {skill.icon}
               </div>
             </div>
           )}
           <div className="text-center">
             <CardTitle className={`text-lg ${getTitleColor(skill.color)}`}>
-              {skill.title}
+              {title}
             </CardTitle>
           </div>
         </CardHeader>
@@ -172,7 +177,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
               {difficultyLabel}
             </span>
             <span className={`text-xs ${montessoriTheme.text.muted}`}>
-              {skill.category}
+              {categoryLabel}
             </span>
           </div>
 
@@ -191,11 +196,11 @@ const SkillCard: React.FC<SkillCardProps> = ({
           open={upgradeOpen}
           onOpenChange={setUpgradeOpen}
           source="locked-card"
-          meta={`${skill.category} · ${difficultyLabel}`}
-          title={t('pricing.upgrade.lockedTitle', { title: skill.title })}
+          meta={`${categoryLabel} · ${difficultyLabel}`}
+          title={t('pricing.upgrade.lockedTitle', { title })}
           description={t('pricing.upgrade.lockedBody')}
           image={skill.image}
-          imageAlt={t('pricing.upgrade.lockedAlt', { title: skill.title })}
+          imageAlt={t('pricing.upgrade.lockedAlt', { title })}
         />
       )}
     </article>

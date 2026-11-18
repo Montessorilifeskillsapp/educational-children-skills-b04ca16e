@@ -4,6 +4,8 @@ import { Lock, PlayCircle } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { useActivityVideo } from '@/hooks/useActivityVideo';
+import i18n from '@/i18n';
+import { lessonText } from '@/i18n/lessonText';
 
 interface ActivityVideoProps {
   skillId: string;
@@ -15,10 +17,10 @@ export const ActivityVideo: React.FC<ActivityVideoProps> = ({ skillId, activityT
 
   if (loading || !exists) return null;
 
-  const heading = title || (activityTitle ? `${activityTitle} — presentation video` : 'Presentation video');
+  const heading = title ? lessonText(title) : activityTitle ? i18n.t('lesson.video.heading', { title: activityTitle }) : i18n.t('lesson.video.default');
 
   return (
-    <section aria-label="Presentation video" className="mb-6">
+    <section aria-label={i18n.t('lesson.video.default')} className="mb-6">
       <div className="flex items-center gap-2 mb-3">
         <PlayCircle className="w-5 h-5 text-primary" aria-hidden="true" />
         <h2 className="text-lg font-semibold">{heading}</h2>
@@ -31,7 +33,7 @@ export const ActivityVideo: React.FC<ActivityVideoProps> = ({ skillId, activityT
               {thumbnailUrl ? (
                 <img decoding="async"
                   src={thumbnailUrl}
-                  alt={`Preview image for ${heading}`}
+                  alt={i18n.t('lesson.video.preview', { title: heading })}
                   className="w-full aspect-video object-cover"
                   loading="lazy"
                 />
@@ -42,12 +44,12 @@ export const ActivityVideo: React.FC<ActivityVideoProps> = ({ skillId, activityT
                 <Lock className="w-7 h-7 text-background" aria-hidden="true" />
                 <p className="text-background font-medium max-w-sm">
                   {reason === 'signed_out'
-                    ? 'Sign in with a membership to watch this presentation.'
-                    : 'This presentation video is part of the membership.'}
+                    ? i18n.t('lesson.video.signIn')
+                    : i18n.t('lesson.video.members')}
                 </p>
                 <Button asChild size="sm">
                   <Link to={reason === 'signed_out' ? '/auth' : '/plans'}>
-                    {reason === 'signed_out' ? 'Sign in' : 'View plans'}
+                    {reason === 'signed_out' ? i18n.t('lesson.video.signInBtn') : i18n.t('lesson.video.plans')}
                   </Link>
                 </Button>
               </div>

@@ -1,4 +1,5 @@
 import { allPracticalLifeSkills } from '@/data/practicalLifeAll';
+import { lessonText, useLessonLanguage } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import React from 'react';
 import SkillCard from './SkillCard';
@@ -111,14 +112,15 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   isPremium
 }) => {
   const { t } = useTranslation();
+  useLessonLanguage();
   return (
     <PageLayout title={`🌱 ${t('chrome.titles.practicalLife')}`} onBack={onBack} className={montessoriTheme.backgrounds.practical} showSectionNav>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-          Practical Life is the heart of the Montessori method and is always introduced first. Children develop independence, concentration and coordination through purposeful, real-life activities.
+          {lessonText('Practical Life is the heart of the Montessori method and is always introduced first. Children develop independence, concentration and coordination through purposeful, real-life activities.')}
         </p>
         <p className="text-lg text-gray-500 mt-2">
-          Sequence: Beginning Activities → Care of Environment → Care of Self → Grace and Courtesy → Advanced Activities
+          {t('chrome.sequence', { sequence: lessonText('Beginning Activities → Care of Environment → Care of Self → Grace and Courtesy → Advanced Activities') })}
         </p>
       </div>
       <FocusBar />
@@ -127,10 +129,10 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
         skills.length > 0 ? (
           <div className="mb-12" key={category}>
             <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-              {categoryDetails[category].emoji} {category}
+              {categoryDetails[category].emoji} {lessonText(category)}
             </h2>
             <p className="text-gray-600 mb-6 max-w-3xl">
-              {categoryDetails[category].description}
+              {lessonText(categoryDetails[category].description)}
             </p>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {skills.map((skill) => (

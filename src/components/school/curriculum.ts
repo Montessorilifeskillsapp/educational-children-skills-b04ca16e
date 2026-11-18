@@ -1,7 +1,9 @@
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { areaTitle } from '@/i18n/format';
+import { lessonText } from '@/i18n/lessonText';
 
-export interface SkillRef { id: string; title: string; areaKey: string; areaTitle: string; route: string; order: number }
+/** `title` and `areaTitle` follow the chosen language; `titleEn` is the stable English title used for standards lookups. */
+export interface SkillRef { id: string; title: string; titleEn: string; areaKey: string; areaTitle: string; route: string; order: number }
 
 let cache: SkillRef[] | null = null;
 
@@ -15,7 +17,8 @@ export function orderedSkills(): SkillRef[] {
       // the stored skill id still identifies the same observation record.
       if (!sk?.title) continue;
       // Area titles follow the chosen language; keys and ids stay stable.
-      out.push({ id, title: sk.title, areaKey: s.key, get areaTitle() { return areaTitle(s.key, s.title); }, route: s.route, order: out.length });
+      const titleEn = sk.title;
+      out.push({ id, get title() { return lessonText(titleEn); }, titleEn, areaKey: s.key, get areaTitle() { return areaTitle(s.key, s.title); }, route: s.route, order: out.length });
     }
   }
   cache = out;

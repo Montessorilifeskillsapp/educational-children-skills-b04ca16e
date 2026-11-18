@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useLessonLanguage } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { ClipboardPen, Users, UsersRound } from 'lucide-react';
@@ -33,6 +34,7 @@ export default function ClassroomDrawer() {
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [open, setOpen] = useState(false);
   const { t } = useTranslation();
+  useLessonLanguage();
 
   useEffect(() => {
     if (!user) { setMemberships([]); return; }

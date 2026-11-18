@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { lessonText } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { areaTitle, locale } from '@/i18n/format';
 import { Card, CardContent } from '@/components/ui/card';
@@ -131,11 +132,11 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
                     <button key={e.id} type="button" onClick={(ev) => { ev.stopPropagation(); openEdit(e); }}
                       className={cn('block w-full truncate text-left text-[11px] rounded px-1 py-0.5',
                         e.completed ? 'bg-secondary/20 text-foreground line-through' : 'bg-primary/15 text-foreground')}>
-                      {new Date(e.starts_at).toLocaleTimeString(locale(), { hour: 'numeric', minute: '2-digit' })} {e.title}
+                      {new Date(e.starts_at).toLocaleTimeString(locale(), { hour: 'numeric', minute: '2-digit' })} {lessonText(e.title)}
                     </button>
                   ))}
                   {info?.done.map((c) => (
-                    <div key={c.skill_id} className="truncate text-[11px] rounded px-1 py-0.5 bg-accent/15 text-foreground">✓ {titleOfSkill(c.skill_id)}</div>
+                    <div key={c.skill_id} className="truncate text-[11px] rounded px-1 py-0.5 bg-accent/15 text-foreground">✓ {lessonText(titleOfSkill(c.skill_id))}</div>
                   ))}
                 </div>
               </div>
@@ -162,7 +163,7 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
                 <Select value={draft.skill_id} onValueChange={(v) => setDraft({ ...draft, skill_id: v })}>
                   <SelectTrigger><SelectValue placeholder={t('family.cal.chooseActivity')} /></SelectTrigger>
                   <SelectContent className="max-h-72">
-                    {section && Object.entries(section.skills).map(([id, s]) => <SelectItem key={id} value={id}>{s.title}</SelectItem>)}
+                    {section && Object.entries(section.skills).map(([id, s]) => <SelectItem key={id} value={id}>{lessonText(s.title)}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
@@ -194,7 +195,7 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
           <h4 className="font-semibold text-sm">{t('family.cal.upcoming')}</h4>
           {events.filter((e) => !e.completed && new Date(e.starts_at) >= new Date()).slice(0, 8).map((e) => (
             <div key={e.id} className="flex items-center justify-between gap-2 text-sm">
-              <label className="flex items-center gap-2"><Checkbox checked={e.completed} onCheckedChange={() => toggleDone(e)} aria-label={t('family.cal.markDone')} />{e.title}</label>
+              <label className="flex items-center gap-2"><Checkbox checked={e.completed} onCheckedChange={() => toggleDone(e)} aria-label={t('family.cal.markDone')} />{lessonText(e.title)}</label>
               <div className="flex items-center gap-2 text-muted-foreground">
                 {new Date(e.starts_at).toLocaleString(locale(), { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
                 <Button size="icon" variant="ghost" aria-label={t('family.cal.addToCalendar')} onClick={() => downloadIcs(e, childName)}><CalendarPlus className="h-4 w-4" /></Button>

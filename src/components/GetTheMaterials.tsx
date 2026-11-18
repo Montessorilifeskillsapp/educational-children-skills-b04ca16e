@@ -2,6 +2,7 @@ import React from 'react';
 import { getMaterialsForSkill } from '@/lib/materials';
 import { useMaterialLinks } from '@/hooks/useMaterialLinks';
 import { MaterialBundle, resolveMaterials } from './MaterialBundle';
+import i18n from '@/i18n';
 
 interface GetTheMaterialsProps {
   skillId: string;
@@ -13,7 +14,7 @@ interface GetTheMaterialsProps {
 export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({
   skillId,
   skillMaterials,
-  title = "What you'll need",
+  title,
 }) => {
   const materials = getMaterialsForSkill(skillId, skillMaterials);
   const { byKey } = useMaterialLinks();
@@ -25,7 +26,7 @@ export const GetTheMaterials: React.FC<GetTheMaterialsProps> = ({
   return (
     <div className="mb-6">
       <MaterialBundle
-        title={title}
+        title={title ?? i18n.t('lesson.mat.title')}
         materials={resolved}
       />
     </div>

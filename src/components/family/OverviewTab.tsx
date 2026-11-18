@@ -1,4 +1,5 @@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { lessonText } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { areaTitle, locale } from '@/i18n/format';
 import { Progress } from '@/components/ui/progress';
@@ -71,7 +72,7 @@ export const OverviewTab = ({ name, completions, goals, events }: {
                 <div key={g.id}>
                   <div className="flex justify-between text-sm"><span className="font-medium">{g.title}</span><span>{n}/{g.skill_ids.length}</span></div>
                   <Progress value={g.skill_ids.length ? (n / g.skill_ids.length) * 100 : 0} className="h-2 mt-1" />
-                  {next && <p className="text-xs text-muted-foreground mt-1">{t('family.ov.next', { title: titleOfSkill(next) })}</p>}
+                  {next && <p className="text-xs text-muted-foreground mt-1">{t('family.ov.next', { title: lessonText(titleOfSkill(next)) })}</p>}
                 </div>
               );
             })}
@@ -84,7 +85,7 @@ export const OverviewTab = ({ name, completions, goals, events }: {
             {upcoming.length === 0 && <p className="text-sm text-muted-foreground">{t('family.ov.nothingPlanned')}</p>}
             {upcoming.map((e) => (
               <div key={e.id} className="flex justify-between text-sm border-b border-border/60 pb-2">
-                <span>{e.title}</span>
+                <span>{lessonText(e.title)}</span>
                 <span className="text-muted-foreground">{new Date(e.starts_at).toLocaleString(locale(), { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}</span>
               </div>
             ))}
@@ -110,7 +111,7 @@ export const OverviewTab = ({ name, completions, goals, events }: {
           {recent.length === 0 && <p className="text-sm text-muted-foreground">{t('family.ov.noneCompleted')}</p>}
           {recent.map((c) => (
             <div key={c.skill_id} className="flex justify-between text-sm">
-              <span>{titleOfSkill(c.skill_id)} <span className="text-muted-foreground">· {areaTitle(areaOfSkill(c.skill_id), curriculumSectionsForMaterials.find((s) => s.key === areaOfSkill(c.skill_id))?.title ?? '')}</span></span>
+              <span>{lessonText(titleOfSkill(c.skill_id))} <span className="text-muted-foreground">· {areaTitle(areaOfSkill(c.skill_id), curriculumSectionsForMaterials.find((s) => s.key === areaOfSkill(c.skill_id))?.title ?? '')}</span></span>
               <span className="text-muted-foreground">{new Date(c.completed_at!).toLocaleDateString(locale())}</span>
             </div>
           ))}

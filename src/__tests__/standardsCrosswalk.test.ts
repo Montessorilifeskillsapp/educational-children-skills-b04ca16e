@@ -5,7 +5,7 @@ import { crosswalkHtml } from '@/components/school/crosswalkReport';
 
 describe('standards crosswalk', () => {
   it('covers every curriculum activity', () => {
-    const missing = orderedSkills().filter((s) => !CROSSWALK[s.title]).map((s) => s.title);
+    const missing = orderedSkills().filter((s) => !CROSSWALK[s.titleEn]).map((s) => s.titleEn);
     expect(missing).toEqual([]);
   });
   it('cites only standards defined in the catalog', () => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { lessonText, useLessonLanguage } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import SkillCard from './SkillCard';
 import { FocusBar } from './school/CardStatus';
@@ -59,14 +60,15 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
   isPremium,
 }) => {
   const { t } = useTranslation();
+  useLessonLanguage();
   const populated = groups.filter((group) => group.skills.length > 0);
 
   return (
     <PageLayout title={title} onBack={onBack} className={className} showSectionNav>
       <div className="text-center mb-8">
-        <p className="text-xl text-gray-600 max-w-3xl mx-auto">{intro}</p>
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto">{lessonText(intro)}</p>
         {sequence && (
-          <p className="text-lg text-gray-500 mt-2">{t('chrome.sequence', { sequence })}</p>
+          <p className="text-lg text-gray-500 mt-2">{t('chrome.sequence', { sequence: lessonText(sequence) })}</p>
         )}
       </div>
       <FocusBar />
@@ -74,9 +76,9 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
       {populated.map((group) => (
         <div className="mb-12" key={group.key}>
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            {group.emoji} {group.title}
+            {group.emoji} {lessonText(group.title)}
           </h2>
-          <p className="text-gray-600 mb-6 max-w-3xl">{group.description}</p>
+          <p className="text-gray-600 mb-6 max-w-3xl">{lessonText(group.description)}</p>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {group.skills.map((skill) => (
               <SkillCard

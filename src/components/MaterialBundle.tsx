@@ -1,4 +1,6 @@
 import React from 'react';
+import i18n from '@/i18n';
+import { lessonText, useLessonLanguage } from '@/i18n/lessonText';
 import { Link } from 'react-router-dom';
 import { ShoppingCart, ExternalLink, Package } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -69,6 +71,8 @@ export function resolveMaterials(
 }
 
 export function MaterialBundle({ title, materials, className, showDisclosure = true }: MaterialBundleProps) {
+  // Names stay English for photo, bundle and purchase-link lookups; only the shown text is translated.
+  useLessonLanguage();
   return (
     <Card className={className}>
       <CardHeader className="pb-3">
@@ -104,24 +108,24 @@ export function MaterialBundle({ title, materials, className, showDisclosure = t
                 )}
                 <div className="min-w-0">
                   <p className="text-sm font-medium leading-tight">
-                    {material.displayName}
+                    {lessonText(material.displayName)}
                     {material.essential && (
-                      <span className="sr-only"> (essential)</span>
+                      <span className="sr-only">{i18n.t('lesson.mat.essentialSr')}</span>
                     )}
                   </p>
                   {material.essential && (
-                    <p className="text-xs text-muted-foreground mt-0.5">Essential</p>
+                    <p className="text-xs text-muted-foreground mt-0.5">{i18n.t('lesson.mat.essential')}</p>
                   )}
                   {material.includedWith ? (
                     <p className="text-xs text-muted-foreground mt-0.5">
-                      Included with {material.includedWith}
+                      {i18n.t('lesson.mat.includedWith', { name: lessonText(material.includedWith) })}
                     </p>
                   ) : !material.amazonUrl ? (
                     <Link
                       to={`/materials/${material.key}`}
                       className="inline-block text-xs text-primary underline mt-0.5"
                     >
-                      Use what you have
+                      {i18n.t('lesson.mat.useWhatYouHave')}
                     </Link>
                   ) : null}
                 </div>
@@ -137,9 +141,9 @@ export function MaterialBundle({ title, materials, className, showDisclosure = t
                     href={material.amazonUrl}
                     target="_blank"
                     rel="sponsored noopener noreferrer"
-                    aria-label={`Buy ${material.inheritedFrom || material.displayName} on ${vendorLabel(material.amazonUrl, material.vendor)}`}
+                    aria-label={i18n.t('lesson.mat.buyOn', { name: lessonText(material.inheritedFrom || material.displayName), vendor: vendorLabel(material.amazonUrl, material.vendor) })}
                   >
-                    <span>{material.inheritedFrom ? `Buy ${material.inheritedFrom}` : 'Buy'}</span>
+                    <span>{material.inheritedFrom ? i18n.t('lesson.mat.buyX', { name: lessonText(material.inheritedFrom) }) : i18n.t('lesson.mat.buy')}</span>
                     <ExternalLink className="w-3.5 h-3.5 ml-2 shrink-0 text-primary" aria-hidden="true" />
                   </a>
                 </Button>

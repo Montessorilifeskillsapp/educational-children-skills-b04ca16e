@@ -95,6 +95,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
       onToggle={toggleStep}
       onBack={onBack}
       onComplete={() => { onComplete(skillId); onBack(); }}
+      invitation={'learningProcess' in skill ? skill.learningProcess?.presentation?.invitation : undefined}
       notes={'learningProcess' in skill && skill.learningProcess ? <ActivityTeachingNotes process={skill.learningProcess} /> : undefined}
     />
   );

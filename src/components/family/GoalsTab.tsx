@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { lessonText } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { areaTitle, locale } from '@/i18n/format';
 import { Card, CardContent } from '@/components/ui/card';
@@ -108,7 +109,7 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
               </div>
               <div className="flex justify-between text-sm"><span>{t('family.goals.nActivities', { n, total: g.skill_ids.length })}</span><span>{g.skill_ids.length ? Math.round((n / g.skill_ids.length) * 100) : 0}%</span></div>
               <Progress value={g.skill_ids.length ? (n / g.skill_ids.length) * 100 : 0} className="h-2" />
-              {next && <p className="text-sm text-muted-foreground">{t('family.goals.nextSeq')} <span className="text-foreground">{titleOfSkill(next)}</span></p>}
+              {next && <p className="text-sm text-muted-foreground">{t('family.goals.nextSeq')} <span className="text-foreground">{lessonText(titleOfSkill(next))}</span></p>}
             </CardContent>
           </Card>
         );
@@ -161,7 +162,7 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
                           const nextIds = c ? [...cur, id] : cur.filter((x) => x !== id);
                           return { ...p, skill_ids: order.filter((x) => nextIds.includes(x)) };
                         })} />
-                        <span>{s.title}</span>
+                        <span>{lessonText(s.title)}</span>
                         {done.has(id) && <Badge variant="outline" className="ml-auto text-xs">{t('shared.done')}</Badge>}
                       </label>
                     );

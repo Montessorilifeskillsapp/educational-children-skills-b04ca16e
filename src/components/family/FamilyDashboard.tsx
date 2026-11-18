@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useLessonLanguage } from '@/i18n/lessonText';
 import { useTranslation } from 'react-i18next';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Card, CardContent } from '@/components/ui/card';
@@ -22,6 +23,7 @@ const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
 const FamilyDashboard = ({ onBack, onManageProfiles }: { onBack: () => void; onManageProfiles: () => void }) => {
   useSEO(SEO_CONFIG.parentDashboard);
   const { t } = useTranslation();
+  useLessonLanguage();
   const { user } = useAuthContext();
   const { profiles, activeProfile } = useProfile();
   const children = profiles.filter((p) => UUID_RE.test(p.id) && p.covered !== false);
