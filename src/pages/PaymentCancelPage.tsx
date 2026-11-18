@@ -5,9 +5,11 @@ import { Button } from '@/components/ui/button';
 import { XCircle, ArrowLeft, RefreshCw } from 'lucide-react';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
+import { useTranslation } from 'react-i18next';
 
 const PaymentCancelPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // SEO optimization
   useSEO({
@@ -34,18 +36,18 @@ const PaymentCancelPage: React.FC = () => {
               <XCircle className="w-10 h-10 text-orange-600" />
             </div>
             <CardTitle className="text-2xl font-bold text-orange-800">
-              Payment Canceled
+              {t('pricing.cancel.title')}
             </CardTitle>
           </CardHeader>
           
           <CardContent className="text-center space-y-4">
             <p className="text-muted-foreground">
-              No worries! Your payment was canceled and no charges were made to your account.
+              {t('pricing.cancel.body')}
             </p>
             
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <p className="text-sm text-blue-700">
-                You can continue using our free Montessori activities, or upgrade anytime to unlock the full learning experience.
+                {t('pricing.cancel.note')}
               </p>
             </div>
             
@@ -55,7 +57,7 @@ const PaymentCancelPage: React.FC = () => {
                 className="flex-1 bg-primary hover:bg-primary/90"
               >
                 <RefreshCw className="w-4 h-4 mr-2" />
-                Try Again
+                {t('pricing.cancel.retry')}
               </Button>
               <Button 
                 onClick={handleBack}
@@ -63,7 +65,7 @@ const PaymentCancelPage: React.FC = () => {
                 className="flex-1"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Go Back
+                {t('pricing.cancel.back')}
               </Button>
             </div>
           </CardContent>

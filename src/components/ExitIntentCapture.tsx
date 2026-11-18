@@ -11,6 +11,7 @@ import { Input } from '@/components/ui/input';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
 import { Leaf } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const SHOWN_KEY = 'mls-exit-shown'; // sessionStorage: once per visit
 const DONE_KEY = 'mls-exit-done'; // localStorage: signed up or dismissed
@@ -29,6 +30,7 @@ function readUtm(): Record<string, string> | undefined {
 }
 
 const ExitIntentCapture: React.FC = () => {
+  const { t } = useTranslation();
   const { user, loading: authLoading } = useAuthContext();
   const [open, setOpen] = useState(false);
   const [email, setEmail] = useState('');
@@ -97,7 +99,7 @@ const ExitIntentCapture: React.FC = () => {
     event.preventDefault();
     const trimmed = email.trim();
     if (!EMAIL_RE.test(trimmed) || trimmed.length > 255) {
-      setError('Please enter a valid email address.');
+      setError(t('growth.shared.invalidEmail'));
       return;
     }
     setSubmitting(true);
@@ -110,7 +112,7 @@ const ExitIntentCapture: React.FC = () => {
       window.localStorage.setItem(DONE_KEY, '1');
       setDone(true);
     } catch {
-      setError('Something went wrong. Please try again.');
+      setError(t('growth.shared.genericError'));
     } finally {
       setSubmitting(false);
     }
@@ -130,22 +132,21 @@ const ExitIntentCapture: React.FC = () => {
               <Leaf className="w-6 h-6 text-primary" />
             </div>
             <DialogHeader>
-              <DialogTitle className="text-center">You're on the list</DialogTitle>
+              <DialogTitle className="text-center">{t('growth.exit.doneTitle')}</DialogTitle>
               <DialogDescription className="text-center">
-                Thank you — we'll be in touch with updates and early access.
+                {t('growth.exit.doneBody')}
               </DialogDescription>
             </DialogHeader>
             <Button onClick={dismiss} className="w-full sm:w-auto">
-              Back to the page
+              {t('growth.exit.back')}
             </Button>
           </div>
         ) : (
           <>
             <DialogHeader>
-              <DialogTitle>Before you go</DialogTitle>
+              <DialogTitle>{t('growth.exit.title')}</DialogTitle>
               <DialogDescription>
-                Join the list for early access to new activities and updates from Montessori Life
-                Skills. No spam — you can unsubscribe anytime.
+                {t('growth.exit.body')}
               </DialogDescription>
             </DialogHeader>
             <form onSubmit={submit} className="space-y-3 pt-2">
@@ -153,19 +154,19 @@ const ExitIntentCapture: React.FC = () => {
                 type="email"
                 inputMode="email"
                 autoComplete="email"
-                placeholder="Your email address"
+                placeholder={t('growth.exit.placeholder')}
                 value={email}
                 onChange={(event) => setEmail(event.target.value)}
                 maxLength={255}
                 required
-                aria-label="Email address"
+                aria-label={t('growth.exit.emailLabel')}
               />
               {error && <p className="text-sm text-destructive">{error}</p>}
               <Button type="submit" className="w-full" disabled={submitting}>
-                {submitting ? 'Signing you up…' : 'Keep me posted'}
+                {submitting ? t('growth.exit.submitting') : t('growth.exit.submit')}
               </Button>
               <p className="text-xs text-muted-foreground text-center">
-                Early access and occasional updates. Unsubscribe anytime.
+                {t('growth.exit.footnote')}
               </p>
             </form>
           </>

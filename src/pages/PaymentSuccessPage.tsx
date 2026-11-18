@@ -9,9 +9,11 @@ import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
 import { getStoredUtm } from '@/hooks/useUtmTracking';
+import { useTranslation } from 'react-i18next';
 
 const PaymentSuccessPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [searchParams] = useSearchParams();
   const { subscription_tier, subscribed, checkSubscription } = useSubscription();
   const [isRefreshing, setIsRefreshing] = useState(true);
@@ -100,15 +102,15 @@ const PaymentSuccessPage: React.FC = () => {
               {isRefreshing ? <Loader2 className="w-10 h-10 text-emerald-600 animate-spin" /> : <CheckCircle className="w-10 h-10 text-emerald-600" />}
             </div>
             <CardTitle className="text-2xl font-bold text-emerald-800">
-              {isRefreshing ? 'Finalizing Your Subscription…' : 'Payment Successful!'}
+              {isRefreshing ? t('pricing.success.finalizing') : t('pricing.success.title')}
             </CardTitle>
           </CardHeader>
           
           <CardContent className="text-center space-y-4">
             <p className="text-muted-foreground">
               {isRefreshing
-                ? 'We’re confirming your Stripe checkout and syncing your subscription access.'
-                : `Thanks for subscribing${sessionId ? ` with checkout ${sessionId.slice(0, 8)}…` : ''}. Your access is ready.`}
+                ? t('pricing.success.confirming')
+                : sessionId ? t('pricing.success.thanksWithId', { id: sessionId.slice(0, 8) }) : t('pricing.success.thanks')}
             </p>
             
             {subscribed || songsUnlocked ? (
@@ -116,26 +118,26 @@ const PaymentSuccessPage: React.FC = () => {
                 <div className="flex items-center justify-center gap-2 mb-2">
                   <Crown className="w-5 h-5 text-primary" />
                   <span className="font-semibold text-primary">
-                    {isSongsPurchase ? 'Songs collection unlocked!' : `Welcome to ${subscription_tier ?? planLabel}!`}
+                    {isSongsPurchase ? t('pricing.success.songsUnlocked') : t('pricing.success.welcome', { plan: subscription_tier ?? planLabel })}
                   </span>
                 </div>
                 <p className="text-sm text-primary">
                   {isSongsPurchase
-                    ? 'Every song now plays in full. Find the collection on your dashboard or in the Shop.'
-                    : 'You now have access to all premium Montessori activities and content.'}
+                    ? t('pricing.success.songsBody')
+                    : t('pricing.success.premiumBody')}
                 </p>
               </div>
             ) : (
               <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
                 <p className="text-sm text-amber-700">
-                  If premium access does not appear right away, refresh this page in a few seconds and we’ll sync it.
+                  {t('pricing.success.delay')}
                 </p>
               </div>
             )}
             
             <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
               <p className="text-sm text-blue-700">
-                Start exploring your enhanced learning journey with beautifully guided activities designed to nurture independence and confidence.
+                {t('pricing.success.explore')}
               </p>
             </div>
             
@@ -144,7 +146,7 @@ const PaymentSuccessPage: React.FC = () => {
               className="w-full bg-emerald-600 hover:bg-emerald-700 text-white"
               disabled={isRefreshing}
             >
-              Continue to Dashboard
+              {t('pricing.success.continue')}
               <ArrowRight className="w-4 h-4 ml-2" />
             </Button>
           </CardContent>

@@ -26,6 +26,14 @@ import {
 } from '@/lib/revenuecat';
 import { forceWebViewRepaint } from '@/hooks/useNativeWebViewRecovery';
 import ConsultationDialog from './ConsultationDialog';
+import { Trans, useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
+
+// Plan constants keep English copy as identifiers; screen text comes from pricing.plans.<key>.
+const PLAN_KEYS: Record<string, string> = {
+  free: 'free', 'premium-monthly': 'premiumMonthly', 'premium-yearly': 'premiumYearly',
+  'family-monthly': 'familyMonthly', 'family-yearly': 'familyYearly', consultation: 'consultation',
+};
 
 interface Plan {
   id: string;
@@ -155,14 +163,14 @@ const getCheckoutErrorDetail = (error: unknown) => {
     return context?.error || error.message;
   }
 
-  return 'Please try again.';
+  return i18n.t('pricing.toast.tryAgain');
 };
 
 const formatSubscriptionEnd = (value: string | null) => {
   if (!value) return null;
   const date = new Date(value);
   if (Number.isNaN(date.getTime())) return null;
-  return new Intl.DateTimeFormat(undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
+  return new Intl.DateTimeFormat(i18n.resolvedLanguage || undefined, { month: 'long', day: 'numeric', year: 'numeric' }).format(date);
 };
 
 const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
@@ -178,6 +186,16 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
   const pendingCheckoutStarted = useRef(false);
   const isNative = isNativePurchaseAvailable();
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const planText = (plan: Plan) => {
+    const key = `pricing.plans.${PLAN_KEYS[plan.id]}`;
+    return {
+      name: t(`${key}.name`),
+      description: t(`${key}.description`),
+      meta: plan.meta ? t(`${key}.meta`) : undefined,
+      features: t(`${key}.features`, { returnObjects: true }) as string[],
+    };
+  };
 
   const premiumPlan = billingCycle === 'yearly' ? PREMIUM_YEARLY : PREMIUM_MONTHLY;
   const familyPlan = billingCycle === 'yearly' ? FAMILY_YEARLY : FAMILY_MONTHLY;
@@ -208,7 +226,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       // The StoreKit sheet can leave the WKWebView with a stale (blank) layer.
       forceWebViewRepaint();
       await refreshSubscription();
-      toast({ title: 'Purchase complete', description: 'Your subscription is now active.' });
+      toast({ title: t('pricing.toast.purchaseDone'), description: t('pricing.toast.purchaseDoneBody') });
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : String(err);
       // RevenueCat throws { userCancelled: true } when user dismisses the sheet
@@ -216,7 +234,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       if (!cancelled) {
         console.error('Native purchase failed', err);
         toast({
-          title: 'Purchase failed',
+          title: t('pricing.toast.purchaseFailed'),
           description: msg.slice(0, 240),
           variant: 'destructive',
         });
@@ -232,10 +250,10 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       await restorePurchases();
       forceWebViewRepaint();
       await refreshSubscription();
-      toast({ title: 'Purchases restored', description: 'If you had an active subscription, it is now linked to this account.' });
+      toast({ title: t('pricing.toast.restored'), description: t('pricing.toast.restoredBody') });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      toast({ title: 'Restore failed', description: msg.slice(0, 240), variant: 'destructive' });
+      toast({ title: t('pricing.toast.restoreFailed'), description: msg.slice(0, 240), variant: 'destructive' });
     } finally {
       setRestoring(false);
     }
@@ -260,24 +278,24 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       if (checkoutData?.error) throw new Error(checkoutData.error);
       if (checkoutData?.scheduled) {
         toast({
-          title: 'Family Plan scheduled',
+          title: t('pricing.toast.familyScheduled'),
           description: checkoutData.effectiveAt
-            ? `Your Family Plan begins when your current plan renews on ${formatSubscriptionEnd(checkoutData.effectiveAt)}.`
-            : 'Your Family Plan begins at your next renewal.',
+            ? t('pricing.toast.familyScheduledOn', { date: formatSubscriptionEnd(checkoutData.effectiveAt) })
+            : t('pricing.toast.familyScheduledNext'),
         });
         return;
       }
       if (!data?.url) throw new Error('Stripe checkout URL was not returned');
       toast({
-        title: 'Redirecting to Checkout',
-        description: 'Taking you to Stripe’s secure payment page…',
+        title: t('pricing.toast.redirecting'),
+        description: t('pricing.toast.redirectingBody'),
       });
       window.location.assign(data.url);
     } catch (error: unknown) {
       console.error('Checkout error:', error);
       const detail = getCheckoutErrorDetail(error);
       toast({
-        title: 'Checkout Error',
+        title: t('pricing.toast.checkoutError'),
         description: String(detail).slice(0, 240),
         variant: 'destructive',
       });
@@ -341,11 +359,11 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     try {
       if (plan.id === 'free') {
         if (currentPlan?.id === 'free') {
-          toast({ title: "You're on the Explorer plan", description: 'Open the dashboard to start exploring.' });
+          toast({ title: t('pricing.toast.onExplorer'), description: t('pricing.toast.onExplorerBody') });
           onBack?.();
         } else {
           subscribe(plan);
-          toast({ title: 'Welcome to Explorer!', description: 'Your free starter activities are ready.' });
+          toast({ title: t('pricing.toast.welcomeExplorer'), description: t('pricing.toast.welcomeExplorerBody') });
           if (onBack) setTimeout(() => onBack(), 1500);
         }
         return;
@@ -361,8 +379,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       // Require explicit acceptance of Terms & Privacy for any paid or subscription flow
       if (!termsAccepted) {
         toast({
-          title: 'Please accept the Terms',
-          description: 'You must agree to the Terms of Service and Privacy Policy before purchasing.',
+          title: t('pricing.toast.acceptTerms'),
+          description: t('pricing.toast.acceptTermsBody'),
           variant: 'destructive',
         });
         return;
@@ -372,8 +390,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
       if (!user) {
         toast({
-          title: 'Sign in to continue',
-          description: 'Redirecting you to sign in so we can start checkout…',
+          title: t('pricing.toast.signIn'),
+          description: t('pricing.toast.signInBody'),
         });
         try {
           sessionStorage.setItem('post_auth_redirect', '/plans');
@@ -398,8 +416,8 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
     } catch (error) {
       console.error('Error in handleSubscribe:', error);
       toast({
-        title: 'Subscription Error',
-        description: 'There was an issue processing your request. Please try again.',
+        title: t('pricing.toast.subError'),
+        description: t('pricing.toast.subErrorBody'),
         variant: 'destructive',
       });
     }
@@ -413,7 +431,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       if (error || !data?.url) throw error ?? new Error('No billing link');
       window.location.assign(data.url);
     } catch {
-      toast({ title: 'Could not open billing', description: 'Please try again, or email montessorilifeskills@gmail.com and we will cancel or change it for you.', variant: 'destructive' });
+      toast({ title: t('pricing.toast.billingError'), description: t('pricing.toast.billingErrorBody'), variant: 'destructive' });
       setOpeningBilling(false);
     }
   };
@@ -425,26 +443,26 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         await syncCurrentRevenueCatStatus(user?.id ?? null);
       }
       await refreshSubscription?.();
-      toast({ title: 'Plan status synced', description: 'Your subscription status is up to date.' });
+      toast({ title: t('pricing.toast.synced'), description: t('pricing.toast.syncedBody') });
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      toast({ title: 'Sync failed', description: msg.slice(0, 180), variant: 'destructive' });
+      toast({ title: t('pricing.toast.syncFailed'), description: msg.slice(0, 180), variant: 'destructive' });
     } finally {
       setSyncingStatus(false);
     }
   };
 
-  const activePlanLabel = currentPlan?.name ?? 'Premium Plan';
+  const activePlanLabel = currentPlan?.id && PLAN_KEYS[currentPlan.id] ? t(`pricing.plans.${PLAN_KEYS[currentPlan.id]}.name`) : currentPlan?.name ?? t('pricing.page.premiumPlan');
   const renewalDate = formatSubscriptionEnd(subscriptionEnd);
 
   if (subscriptionLoading) {
     return (
       <div className="space-y-8">
-        {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
+        {onBack && <BackButton onClick={onBack} label={t('pricing.page.backToDashboard')} />}
         <Card className={`${montessoriTheme.card.base} max-w-xl mx-auto text-center`}>
           <CardContent className="py-10">
             <RefreshCw className="w-6 h-6 mx-auto mb-4 animate-spin text-primary" aria-hidden="true" />
-            <p className="font-semibold text-foreground">Checking your plan…</p>
+            <p className="font-semibold text-foreground">{t('pricing.page.checking')}</p>
           </CardContent>
         </Card>
       </div>
@@ -453,43 +471,42 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
 
   return (
     <div className="space-y-8">
-      {onBack && <BackButton onClick={onBack} label="Back to Dashboard" />}
+      {onBack && <BackButton onClick={onBack} label={t('pricing.page.backToDashboard')} />}
 
       {isPremium && (
         <Card className={`${montessoriTheme.card.base} max-w-3xl mx-auto ring-2 ring-primary/30`}>
           <CardContent className="p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2"><Badge>Active</Badge><strong>{activePlanLabel}</strong></div>
-              {renewalDate && <p className="text-sm text-muted-foreground mt-2">Renews or expires on {renewalDate}</p>}
-              {provider === 'revenuecat' && <p className="text-xs text-muted-foreground mt-1">Managed through your App Store account.</p>}
-              {provider === 'stripe' && isNative && <p className="text-xs text-muted-foreground mt-1">Bought on our website. Manage or cancel it at montessorilifeskillsapp.com/plans.</p>}
+              <div className="flex items-center gap-2"><Badge>{t('pricing.page.active')}</Badge><strong>{activePlanLabel}</strong></div>
+              {renewalDate && <p className="text-sm text-muted-foreground mt-2">{t('pricing.page.renews', { date: renewalDate })}</p>}
+              {provider === 'revenuecat' && <p className="text-xs text-muted-foreground mt-1">{t('pricing.page.appStore')}</p>}
+              {provider === 'stripe' && isNative && <p className="text-xs text-muted-foreground mt-1">{t('pricing.page.boughtOnWeb')}</p>}
             </div>
-            <div className="flex flex-wrap gap-2"><Button onClick={onBack}>Open dashboard</Button>{provider === 'stripe' && !isNative && <Button variant="outline" onClick={handleManageBilling} disabled={openingBilling}>Manage or cancel</Button>}<Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>Sync plan</Button></div>
+            <div className="flex flex-wrap gap-2"><Button onClick={onBack}>{t('pricing.page.openDashboard')}</Button>{provider === 'stripe' && !isNative && <Button variant="outline" onClick={handleManageBilling} disabled={openingBilling}>{t('pricing.page.manage')}</Button>}<Button variant="outline" onClick={handleManualRefresh} disabled={syncingStatus}>{t('pricing.page.sync')}</Button></div>
           </CardContent>
         </Card>
       )}
 
       <div className="text-center max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold text-foreground mb-3">
-          Choose the plan that fits your family.
+          {t('pricing.page.heading')}
         </h1>
         <p className="text-lg text-muted-foreground mb-5">
-          Premium Annual is about $16.58 a month: less than a month of typical Montessori preschool tuition,
-          for the complete 3–6 sequence at home. Homeschool families also get the standards guide and a printable portfolio.
+          {t('pricing.page.intro')}
         </p>
         <div className="flex justify-center items-center gap-5 text-sm text-muted-foreground flex-wrap mb-8">
           <span className="inline-flex items-center gap-1.5">
-            <Star className="w-4 h-4 fill-accent text-accent" /> AMI-aligned
+            <Star className="w-4 h-4 fill-accent text-accent" /> {t('pricing.page.amiAligned')}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Shield className="w-4 h-4 text-secondary" /> 30-day money-back guarantee
+            <Shield className="w-4 h-4 text-secondary" /> {t('pricing.page.guarantee')}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Zap className="w-4 h-4 text-primary" /> Cancel anytime
+            <Zap className="w-4 h-4 text-primary" /> {t('pricing.page.cancelAnytime')}
           </span>
         </div>
         <p className="text-sm text-muted-foreground -mt-4 mb-8">
-          Authentic AMI presentations, suitable for AMI, AMS and independent Montessori schools.
+          {t('pricing.page.schools')}
         </p>
 
         <div className="mb-8">
@@ -501,19 +518,19 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         {/* Comparison strip */}
         <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-2xl mx-auto mb-8 text-left">
           <div className="p-3 sm:p-4 rounded-xl border border-border/60 bg-muted/40">
-            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Material kits</p>
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">{t('pricing.page.kits')}</p>
             <p className="text-lg sm:text-2xl font-bold text-foreground">$400+</p>
-            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">Boxes to store</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">{t('pricing.page.kitsNote')}</p>
           </div>
           <div className="p-3 sm:p-4 rounded-xl border border-border/60 bg-muted/40">
-            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">Private school</p>
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-1">{t('pricing.page.privateSchool')}</p>
             <p className="text-lg sm:text-2xl font-bold text-foreground">$15k+</p>
-            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">Per child / year</p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">{t('pricing.page.privateSchoolNote')}</p>
           </div>
           <div className="p-3 sm:p-4 rounded-xl border-2 border-primary/40 bg-gradient-to-br from-primary/10 to-accent/10">
-            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-primary mb-1">This app</p>
-            <p className="text-lg sm:text-2xl font-bold text-foreground">$199<span className="text-sm font-medium text-muted-foreground">/yr</span></p>
-            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">One child</p>
+            <p className="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-primary mb-1">{t('pricing.page.thisApp')}</p>
+            <p className="text-lg sm:text-2xl font-bold text-foreground">$199<span className="text-sm font-medium text-muted-foreground">{t('pricing.page.perYearShort')}</span></p>
+            <p className="text-[11px] sm:text-xs text-muted-foreground mt-1">{t('pricing.page.oneChild')}</p>
           </div>
         </div>
 
@@ -527,7 +544,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            Monthly
+            {t('pricing.page.monthly')}
           </button>
           <button
             onClick={() => setBillingCycle('yearly')}
@@ -537,26 +554,26 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 : 'text-muted-foreground hover:text-foreground'
             }`}
           >
-            Annual
-            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0">Annual value</Badge>
+            {t('pricing.page.annual')}
+            <Badge className="bg-secondary text-secondary-foreground text-[10px] px-2 py-0">{t('pricing.page.annualValue')}</Badge>
           </button>
         </div>
       </div>
 
-      <section aria-label="Montessori learning subscription plans">
-        <h2 className="sr-only">Choose Your Plan</h2>
+      <section aria-label={t('pricing.page.sectionLabel')}>
+        <h2 className="sr-only">{t('pricing.page.title')}</h2>
 
         {/* Apple / Google Play required EULA & auto-renewal disclosure */}
         <div className="max-w-3xl mx-auto mb-6 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm text-foreground/90">
-          <p className="font-semibold mb-2">Subscription details</p>
+          <p className="font-semibold mb-2">{t('pricing.page.details')}</p>
           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
-            <li><strong>Premium Monthly</strong> — $29.99 USD per month, auto-renews monthly.</li>
-            <li><strong>Premium Annual</strong> — $199.00 USD per year, auto-renews yearly (~$16.58/month).</li>
-            <li><strong>Family Monthly</strong> — $49.00 USD per month for up to four children, auto-renews monthly.</li>
-            <li><strong>Family Annual</strong> — $349.00 USD per year for up to four children, auto-renews yearly (~$29.08/month).</li>
-            <li>Payment is charged to your Apple ID, Google Play, or web payment method at confirmation of purchase.</li>
-            <li>Subscription auto-renews unless auto-renew is turned off at least 24 hours before the end of the current period.</li>
-            <li>You can manage or cancel anytime in your App Store, Google Play, or Stripe account settings.</li>
+            <li><Trans i18nKey="pricing.page.d1" components={[<strong key="b" />]} /></li>
+            <li><Trans i18nKey="pricing.page.d2" components={[<strong key="b" />]} /></li>
+            <li><Trans i18nKey="pricing.page.d3" components={[<strong key="b" />]} /></li>
+            <li><Trans i18nKey="pricing.page.d4" components={[<strong key="b" />]} /></li>
+            <li>{t('pricing.page.d5')}</li>
+            <li>{t('pricing.page.d6')}</li>
+            <li>{t('pricing.page.d7')}</li>
           </ul>
           <label className="mt-4 flex items-start gap-2 cursor-pointer select-none">
             <input
@@ -564,14 +581,16 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
               className="mt-1 h-4 w-4 accent-primary"
               checked={termsAccepted}
               onChange={(e) => setTermsAccepted(e.target.checked)}
-              aria-label="Accept Terms of Service and Privacy Policy"
+              aria-label={t('pricing.page.acceptLabel')}
             />
             <span className="text-sm text-foreground">
-              I have read and agree to the{' '}
-              <a href="/terms-of-service" target="_blank" rel="noreferrer" className="underline text-primary">Terms of Use (EULA)</a>
-              {' '}and{' '}
-              <a href="/privacy-policy" target="_blank" rel="noreferrer" className="underline text-primary">Privacy Policy</a>,
-              including the auto-renewal terms above.
+              <Trans
+                i18nKey="pricing.page.agree"
+                components={{
+                  1: <a href="/terms-of-service" target="_blank" rel="noreferrer" className="underline text-primary" />,
+                  3: <a href="/privacy-policy" target="_blank" rel="noreferrer" className="underline text-primary" />,
+                }}
+              />
             </span>
           </label>
         </div>
@@ -590,7 +609,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
               >
                 {plan.popular && (
                   <Badge className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground inline-flex items-center gap-1">
-                    <Sparkles className="w-3 h-3" /> Best Value
+                    <Sparkles className="w-3 h-3" /> {t('pricing.page.bestValue')}
                   </Badge>
                 )}
                 {plan.premium && (
@@ -600,40 +619,39 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                 )}
 
                 <CardHeader className="text-center pb-4">
-                  <CardTitle className="text-2xl font-bold text-foreground">{plan.name}</CardTitle>
+                  <CardTitle className="text-2xl font-bold text-foreground">{planText(plan).name}</CardTitle>
                   <div className="mt-4">
                     {isNative && plan.id === 'consultation' ? (
                       <>
-                        <span className="text-3xl font-extrabold text-foreground">By request</span>
+                        <span className="text-3xl font-extrabold text-foreground">{t('pricing.page.byRequest')}</span>
                         <div className="text-xs text-muted-foreground mt-2">
-                          Arranged directly with our team — not sold in-app.
+                          {t('pricing.page.byRequestNote')}
                         </div>
                       </>
                     ) : (
                       <>
                         <span className="text-5xl font-extrabold text-foreground">${plan.price}</span>
-                        <span className="text-muted-foreground">/{plan.period}</span>
+                        <span className="text-muted-foreground">/{t(`pricing.period.${plan.period}`)}</span>
                         {plan.meta && (
-                          <div className="text-sm text-secondary font-semibold mt-2">{plan.meta}</div>
+                          <div className="text-sm text-secondary font-semibold mt-2">{planText(plan).meta}</div>
                         )}
                         {plan.id === 'premium-monthly' && (
                           <div className="text-xs text-muted-foreground mt-2">
-                            Switch to annual to save $160.88
+                            {t('pricing.page.switchAnnual')}
                           </div>
                         )}
                       </>
                     )}
                   </div>
 
-                  <p className="text-sm text-muted-foreground mt-3 px-2">{plan.description}</p>
+                  <p className="text-sm text-muted-foreground mt-3 px-2">{planText(plan).description}</p>
                 </CardHeader>
 
                 <CardContent className="flex-1 flex flex-col">
                   <ul className="space-y-3 mb-6 flex-1">
-                    {plan.features
+                    {planText(plan).features
                       .filter((f) => !(isNative && plan.id === 'consultation' && /\$/.test(f)))
                       // Store rules: no web add-on prices inside the native apps.
-                      .map((f) => (isNative && f.startsWith('Covers one child') ? 'Covers one child' : f))
                       .map((feature, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
@@ -645,14 +663,14 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                   {plan.id !== 'free' && plan.id !== 'consultation' && (
                     <div className="mb-6 rounded-lg border border-border bg-muted/40 p-3 text-sm">
                       <p className="font-medium text-foreground">
-                        Add a private consultation with Kerry{isNative ? '' : ' – $225'}
+                        {isNative ? t('pricing.page.addConsult') : t('pricing.page.addConsultPrice')}
                       </p>
                       <button
                         type="button"
                         onClick={() => handleSubscribe(CONSULTATION)}
                         className="mt-1 text-primary underline underline-offset-2 hover:text-primary/80"
                       >
-                        Book a consultation
+                        {t('pricing.page.bookConsult')}
                       </button>
                     </div>
                   )}
@@ -671,32 +689,32 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       variant={plan.id === 'free' || (!plan.popular && !plan.premium) ? 'outline' : 'default'}
                       onClick={() => handleSubscribe(plan)}
                       disabled={(currentPlan?.id === plan.id && plan.id !== 'free') || loading === plan.id || (plan.id !== 'free' && plan.id !== 'consultation' && !termsAccepted)}
-                      aria-label={`Choose ${plan.name} plan`}
+                      aria-label={t('pricing.page.choose', { name: planText(plan).name })}
                     >
                       {loading === plan.id ? (
-                        <>Processing… <ExternalLink className="w-4 h-4 ml-2" /></>
+                        <>{t('pricing.page.processing')} <ExternalLink className="w-4 h-4 ml-2" /></>
                       ) : currentPlan?.id === plan.id && plan.id === 'free' ? (
-                        'Open your activities'
+                        t('pricing.page.ctaOpen')
                       ) : currentPlan?.id === plan.id ? (
-                        'Current plan'
+                        t('pricing.page.ctaCurrent')
                       ) : plan.id === 'free' ? (
-                        'Start free — no card needed'
+                        t('pricing.page.ctaFree')
                       ) : plan.id === 'consultation' ? (
-                        'Book a consultation'
+                        t('pricing.page.bookConsult')
                       ) : plan.id === 'premium-yearly' ? (
-                        'Start annual — save $160.88'
+                        t('pricing.page.ctaAnnual')
                       ) : plan.id === 'family-yearly' ? (
-                        'Start Family Annual'
+                        t('pricing.page.ctaFamilyAnnual')
                       ) : plan.id === 'family-monthly' ? (
-                        'Start Family Monthly'
+                        t('pricing.page.ctaFamilyMonthly')
                       ) : (
-                        'Start monthly plan'
+                        t('pricing.page.ctaMonthly')
                       )}
                     </Button>
 
                     {plan.id !== 'free' && plan.id !== 'consultation' && (
                       <p className="text-xs text-muted-foreground text-center">
-                        30-day money-back guarantee · Cancel anytime
+                        {t('pricing.page.cardGuarantee')}
                       </p>
                     )}
                   </div>
@@ -717,12 +735,10 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
             className="text-muted-foreground"
           >
             <RefreshCw className={`w-4 h-4 mr-2 ${restoring ? 'animate-spin' : ''}`} />
-            {restoring ? 'Restoring…' : 'Restore Purchases'}
+            {restoring ? t('pricing.page.restoring') : t('pricing.page.restore')}
           </Button>
           <p className="text-xs text-muted-foreground mt-2 max-w-md mx-auto">
-            Subscriptions are billed through your {' '}
-            {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-            App Store / Google Play account and can be managed there at any time.
+            {t('pricing.page.storeNote')}
           </p>
         </div>
       )}

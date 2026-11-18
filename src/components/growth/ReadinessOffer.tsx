@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Download, Leaf, X } from 'lucide-react';
 import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/hooks/useAuth';
@@ -24,6 +25,7 @@ function openGuide(age: GuideAge) {
 /** Readiness Guide offer: on the homepage after scrolling ~35%, on activity sections after 20s. Shown once per visitor until dismissed or submitted. */
 export default function ReadinessOffer() {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const { user } = useAuth();
   const { isPremium } = useSubscription();
   const [open, setOpen] = useState(false);
@@ -50,8 +52,8 @@ export default function ReadinessOffer() {
       window.addEventListener('scroll', onScroll, { passive: true });
       return () => window.removeEventListener('scroll', onScroll);
     }
-    const t = window.setTimeout(() => setOpen(true), 20000);
-    return () => window.clearTimeout(t);
+    const timer = window.setTimeout(() => setOpen(true), 20000);
+    return () => window.clearTimeout(timer);
   }, [pathname, eligible, isHome, isSection]);
 
   const dismiss = () => { try { localStorage.setItem(DISMISS_KEY, new Date().toISOString()); } catch { /* ignore */ } setOpen(false); };
@@ -59,7 +61,7 @@ export default function ReadinessOffer() {
   const submit = async (ev: React.FormEvent) => {
     ev.preventDefault();
     const parsed = emailSchema.safeParse(email || user?.email || '');
-    if (!parsed.success) { setError('Please enter a valid email address.'); return; }
+    if (!parsed.success) { setError(t('growth.shared.invalidEmail')); return; }
     setBusy(true); setError(null);
     try {
       const { error: err } = await supabase.functions.invoke('capture-lead', {
@@ -69,7 +71,7 @@ export default function ReadinessOffer() {
       try { localStorage.setItem(DISMISS_KEY, new Date().toISOString()); } catch { /* ignore */ }
       setDone(true);
       openGuide(age);
-    } catch { setError('Something went wrong. Please try again.'); } finally { setBusy(false); }
+    } catch { setError(t('growth.shared.genericError')); } finally { setBusy(false); }
   };
 
   if (!open || !consentAnswered) return null;
@@ -77,31 +79,31 @@ export default function ReadinessOffer() {
   return (
     <div role="dialog" aria-modal="false" aria-labelledby="readiness-offer-title"
       className="fixed z-50 bottom-4 right-4 left-4 sm:left-auto sm:w-[380px] rounded-xl border border-border bg-card text-card-foreground shadow-lg p-5 animate-in slide-in-from-bottom-4 fade-in duration-300">
-      <button type="button" onClick={dismiss} aria-label="Close" className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"><X className="w-4 h-4" /></button>
+      <button type="button" onClick={dismiss} aria-label={t('growth.shared.close')} className="absolute top-3 right-3 text-muted-foreground hover:text-foreground"><X className="w-4 h-4" /></button>
       {done ? (
         <div className="space-y-3 text-center">
           <Leaf className="w-8 h-8 text-primary mx-auto" />
-          <p id="readiness-offer-title" className="font-semibold text-lg">Your guide is ready</p>
-          <p className="text-sm text-muted-foreground">It opened in a new tab. Use “Save as PDF” to keep a copy.</p>
-          <Button variant="outline" size="sm" className="w-full" onClick={() => openGuide(age)}><Download className="w-4 h-4 mr-2" />Open the guide again</Button>
-          <Button asChild size="sm" className="w-full"><Link to="/plans" onClick={() => setOpen(false)}>See the full sequence with Premium</Link></Button>
+          <p id="readiness-offer-title" className="font-semibold text-lg">{t('growth.readiness.readyTitle')}</p>
+          <p className="text-sm text-muted-foreground">{t('growth.readiness.readyBody')}</p>
+          <Button variant="outline" size="sm" className="w-full" onClick={() => openGuide(age)}><Download className="w-4 h-4 mr-2" />{t('growth.readiness.openAgain')}</Button>
+          <Button asChild size="sm" className="w-full"><Link to="/plans" onClick={() => setOpen(false)}>{t('growth.readiness.seePremium')}</Link></Button>
         </div>
       ) : (
         <form onSubmit={submit} className="space-y-3">
-          <p className="text-xs font-semibold uppercase tracking-wider text-primary">Free guide</p>
+          <p className="text-xs font-semibold uppercase tracking-wider text-primary">{t('growth.readiness.eyebrow')}</p>
           <p id="readiness-offer-title" className="font-semibold text-lg leading-snug pr-4">
-            {isHome ? 'Get your free Montessori Kindergarten Readiness Guide' : 'See where this lesson fits in your child’s sequence'}
+            {isHome ? t('growth.readiness.titleHome') : t('growth.readiness.titleActivity')}
           </p>
-          <p className="text-sm text-muted-foreground">An age-matched readiness checklist and a sample AMI week, with the U.S. standards each lesson supports.</p>
-          <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label="Child's age">
+          <p className="text-sm text-muted-foreground">{t('growth.readiness.body')}</p>
+          <div className="grid grid-cols-3 gap-2" role="radiogroup" aria-label={t('growth.readiness.ageGroup')}>
             {([3, 4, 5] as GuideAge[]).map((a) => (
-              <Button key={a} type="button" size="sm" role="radio" aria-checked={age === a} variant={age === a ? 'default' : 'outline'} onClick={() => setAge(a)}>{a} years</Button>
+              <Button key={a} type="button" size="sm" role="radio" aria-checked={age === a} variant={age === a ? 'default' : 'outline'} onClick={() => setAge(a)}>{t('growth.readiness.years', { age: a })}</Button>
             ))}
           </div>
-          <Input type="email" autoComplete="email" maxLength={255} aria-label="Email" placeholder={user?.email || 'you@example.com'} value={email} onChange={(e) => setEmail(e.target.value)} required={!user?.email} />
+          <Input type="email" autoComplete="email" maxLength={255} aria-label={t('growth.shared.email')} placeholder={user?.email || 'you@example.com'} value={email} onChange={(e) => setEmail(e.target.value)} required={!user?.email} />
           {error && <p className="text-sm text-destructive">{error}</p>}
-          <Button type="submit" className="w-full" disabled={busy}>{busy ? 'Preparing…' : 'Get my free guide'}</Button>
-          <p className="text-[11px] text-muted-foreground text-center">Occasional Montessori tips. Unsubscribe anytime. <Link to="/privacy-policy" className="underline">Privacy</Link></p>
+          <Button type="submit" className="w-full" disabled={busy}>{busy ? t('growth.readiness.preparing') : t('growth.readiness.submit')}</Button>
+          <p className="text-[11px] text-muted-foreground text-center">{t('growth.readiness.footnote')} <Link to="/privacy-policy" className="underline">{t('growth.readiness.privacy')}</Link></p>
         </form>
       )}
     </div>

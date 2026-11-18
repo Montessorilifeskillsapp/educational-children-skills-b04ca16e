@@ -37,6 +37,7 @@ import ActivityLayout from './activity/ActivityLayout';
 import ActivitySteps from './activity/ActivityStepGroup';
 import ActivityPage from './activity/ActivityPage';
 import UpgradeDialog from './upgrade/UpgradeDialog';
+import i18n from '@/i18n';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 
 interface SkillActivityProps {
@@ -288,10 +289,10 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     open={nextOpen}
     onOpenChange={(open) => { setNextOpen(open); if (!open) onBack(); }}
     source="activity-complete"
-    meta="Activity complete"
-    title={`Lovely work on ${skill.title}.`}
-    description={`The next presentations in the ${sectionName} sequence build on what your child just practiced. Continue the full sequence with Premium.`}
-    dismissLabel="Back to activities"
+    meta={i18n.t('pricing.upgrade.completeMeta')}
+    title={i18n.t('pricing.upgrade.completeTitle', { title: skill.title })}
+    description={i18n.t('pricing.upgrade.completeBody', { section: sectionName })}
+    dismissLabel={i18n.t('pricing.upgrade.backToActivities')}
   />
   <ActivityPage
     skillId={skillId}

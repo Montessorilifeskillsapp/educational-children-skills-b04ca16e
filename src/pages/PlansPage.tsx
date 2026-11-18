@@ -4,9 +4,11 @@ import SubscriptionPlans from '@/components/SubscriptionPlans';
 import PageLayout from '@/components/PageLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
+import { useTranslation } from 'react-i18next';
 
 const PlansPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   
   // SEO optimization for plans page
   useSEO({
@@ -22,7 +24,7 @@ const PlansPage: React.FC = () => {
 
   return (
     <SEOOptimizer>
-      <PageLayout title="Choose Your Plan" onBack={handleBack}>
+      <PageLayout title={t('pricing.page.title')} onBack={handleBack}>
         <SubscriptionPlans onBack={handleBack} />
       </PageLayout>
     </SEOOptimizer>

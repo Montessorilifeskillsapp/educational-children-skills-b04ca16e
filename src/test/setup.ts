@@ -1,5 +1,9 @@
 import '@testing-library/jest-dom';
 import { vi } from 'vitest';
+import i18n from '@/i18n';
+
+// Tests assert English copy; pin the language regardless of the runner's locale.
+void i18n.changeLanguage('en');
 
 // Mock intersection observer
 global.IntersectionObserver = class IntersectionObserver {

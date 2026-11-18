@@ -1,3 +1,10 @@
+import { home } from './locales/home';
+import { auth } from './locales/auth';
+import { pricing } from './locales/pricing';
+import { growth } from './locales/growth';
+import { chrome } from './locales/chrome';
+import { pages } from './locales/pages';
+
 // Montessori material and area names use established AMI terminology in each language.
 const en = {
   nav: { practicalLife: 'Practical Life', sensorial: 'Sensorial', math: 'Math', language: 'Language', botany: 'Botany', geography: 'Geography', science: 'Science', art: 'Art', graceCourtesy: 'Grace & Courtesy', shop: 'Shop', classroomSetup: 'Classroom Setup' },
@@ -16,4 +23,18 @@ const zh: typeof en = {
   common: { signIn: '登录', startFree: '免费开始', schoolPortal: '学校门户', language: '语言' },
 };
 
-export const resources = { en: { translation: en }, es: { translation: es }, de: { translation: de }, zh: { translation: zh } };
+
+const namespaces = { home, auth, pricing, growth, chrome, pages };
+type Lang = 'en' | 'es' | 'de' | 'zh';
+const build = (lng: Lang) => ({
+  ...{ en, es, de, zh }[lng],
+  ...Object.fromEntries(Object.entries(namespaces).map(([k, v]) => [k, v[lng]])),
+});
+
+export const resources = {
+  en: { translation: build('en') },
+  es: { translation: build('es') },
+  de: { translation: build('de') },
+  zh: { translation: build('zh') },
+};
+export const sourceNamespaces = namespaces;

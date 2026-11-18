@@ -25,7 +25,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { schoolReturnTarget } from '@/components/school/navigation';
 import { Link, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
+import { Trans, useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -84,26 +84,17 @@ const Reveal: React.FC<{ children: React.ReactNode; className?: string; delay?: 
 // Uniform badge styling across all curriculum areas for visual consistency
 const AREA_BADGE = 'from-primary to-accent';
 const curriculumAreas = [
-  { name: 'Practical Life', icon: Utensils, color: AREA_BADGE, image: montessoriImages['pouring-set'] },
-  { name: 'Sensorial', icon: Brain, color: AREA_BADGE, image: sensorialImages['pink-tower'] },
-  { name: 'Mathematics', icon: Target, color: AREA_BADGE, image: mathImages['golden-beads'] },
-  { name: 'Language', icon: BookOpen, color: AREA_BADGE, image: languageImages['sandpaper-letters'] },
-  { name: 'Geography', icon: Globe, color: AREA_BADGE, image: geographyImages['continents'] },
-  { name: 'Botany', icon: Leaf, color: AREA_BADGE, image: botanyImages['flower-parts'] },
-  { name: 'Art', icon: Palette, color: AREA_BADGE, image: sensorialImages['color-tablets'] },
-  { name: 'Grace & Courtesy', icon: HandHelping, color: AREA_BADGE, image: montessoriImages['grace-courtesy-table-setting'] },
+  { name: 'Practical Life', key: 'practicalLife', icon: Utensils, color: AREA_BADGE, image: montessoriImages['pouring-set'] },
+  { name: 'Sensorial', key: 'sensorial', icon: Brain, color: AREA_BADGE, image: sensorialImages['pink-tower'] },
+  { name: 'Mathematics', key: 'mathematics', icon: Target, color: AREA_BADGE, image: mathImages['golden-beads'] },
+  { name: 'Language', key: 'language', icon: BookOpen, color: AREA_BADGE, image: languageImages['sandpaper-letters'] },
+  { name: 'Geography', key: 'geography', icon: Globe, color: AREA_BADGE, image: geographyImages['continents'] },
+  { name: 'Botany', key: 'botany', icon: Leaf, color: AREA_BADGE, image: botanyImages['flower-parts'] },
+  { name: 'Art', key: 'art', icon: Palette, color: AREA_BADGE, image: sensorialImages['color-tablets'] },
+  { name: 'Grace & Courtesy', key: 'graceCourtesy', icon: HandHelping, color: AREA_BADGE, image: montessoriImages['grace-courtesy-table-setting'] },
 ];
 
-const faqs = [
-  { q: 'Do I need Montessori training to use this app?', a: 'No. Activities include written presentation steps and teaching notes for parents, caregivers, assistants, and teachers.' },
-  { q: 'What age range is this designed for?', a: 'The curriculum is designed for adults guiding children ages 3–6. Activities are organized by developmental readiness rather than a rigid age schedule.' },
-  { q: 'Can I use this for multiple children?', a: 'Yes. Premium covers one child, while Family covers up to four children with separate progress for each.' },
-  { q: 'Are Kerry\'s songs included with Premium?', a: 'No. The 10-song collection is a separate $99.99 one-time purchase with lifetime access and downloads for your household. Anyone can play the free 10-second samples.' },
-  { q: 'Does this work without internet?', a: 'An internet connection is needed for current activity content, purchase links, account features, and protected videos.' },
-  { q: 'How is the curriculum organized?', a: 'Activities are arranged from introductory to advanced work within each curriculum section, with materials and presentation guidance together in one place.' },
-  { q: 'What if I\'m not satisfied?', a: 'Premium plans include a 30-day money-back guarantee. See the guarantee page for details.' },
-  { q: 'Does my child use this app?', a: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.' },
-];
+const faqs = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({ q: `home.faq.q${n}`, a: `home.faq.a${n}` }));
 
 // Curriculum area nav links are built inside the component to access handlers
 
@@ -243,9 +234,9 @@ const Home: React.FC<HomeProps> = ({
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label="Open section menu">
+                  <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label={t('home.header.openSectionMenu')}>
                     <Menu className="w-5 h-5" />
-                    <span className="sr-only">Open menu</span>
+                    <span className="sr-only">{t('home.header.openMenu')}</span>
                   </Button>
                 </SheetTrigger>
                 <SheetContent side="right" className="z-[70] w-72 sm:w-80 overflow-y-auto">
@@ -269,7 +260,7 @@ const Home: React.FC<HomeProps> = ({
                         <SheetClose asChild>
                           <Button variant="outline" onClick={() => navigate(schoolReturnTarget())} className="w-full rounded-full border-primary/40 text-primary">
                             <School className="w-4 h-4 mr-2" aria-hidden="true" />
-                            School Portal
+                            {t('common.schoolPortal')}
                           </Button>
                         </SheetClose>
                       )}
@@ -285,7 +276,7 @@ const Home: React.FC<HomeProps> = ({
                           onClick={onGetStarted}
                           className="w-full bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white rounded-full"
                         >
-                          Start Free
+                          {t('common.startFree')}
                         </Button>
                       </SheetClose>
                     </div>
@@ -297,7 +288,7 @@ const Home: React.FC<HomeProps> = ({
         </div>
         {/* Section bar — visible at every width; scrolls horizontally on narrow screens */}
         <nav
-          aria-label="Curriculum sections"
+          aria-label={t('home.header.curriculumSections')}
           className="lg:hidden border-t border-border/40 overflow-x-auto"
         >
           <div className="flex items-center gap-1 px-3 py-1.5 w-max text-sm font-medium text-muted-foreground">
@@ -330,19 +321,19 @@ const Home: React.FC<HomeProps> = ({
             <div className="text-center lg:text-left">
               <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
                 <Star className="w-3 h-3 text-accent fill-accent" />
-                Authentic AMI presentations
+                {t('home.hero.badge')}
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 leading-[1.15] animate-reveal-delay-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                Know exactly what to teach — and how to present it.
+                {t('home.hero.title')}
               </h1>
 
               <div className="max-w-xl mx-auto lg:mx-0 mb-8 space-y-3 animate-reveal-delay-2">
                 <p className="text-lg sm:text-xl font-medium text-foreground leading-relaxed">
-                  Step-by-step Montessori activities for ages 2–6, built for parents, teachers and classroom assistants.
+                  {t('home.hero.subtitle')}
                 </p>
                 <p className="text-base sm:text-lg text-muted-foreground leading-relaxed">
-                  See what to prepare, how to present each activity, what to observe, and what comes next.
+                  {t('home.hero.body')}
                 </p>
               </div>
 
@@ -352,7 +343,7 @@ const Home: React.FC<HomeProps> = ({
                   size="lg"
                   className="w-full sm:w-auto bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-primary-foreground px-8 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5"
                 >
-                  Start Free <ArrowRight className="ml-2 h-5 w-5" />
+                  {t('common.startFree')} <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button
                   type="button"
@@ -361,18 +352,18 @@ const Home: React.FC<HomeProps> = ({
                   onClick={() => document.getElementById('how-it-works')?.scrollIntoView({ behavior: 'smooth' })}
                   className="w-full sm:w-auto px-8 py-6 text-base rounded-2xl bg-background/70 backdrop-blur-sm"
                 >
-                  See How It Works
+                  {t('home.hero.seeHow')}
                 </Button>
               </div>
 
               <div className="flex flex-wrap items-center justify-center lg:justify-start gap-x-3 gap-y-2 text-sm font-medium text-muted-foreground border-t border-border/60 pt-5 animate-reveal-delay-3">
-                <span>100+ activities</span>
+                <span>{t('home.hero.statActivities')}</span>
                 <span aria-hidden="true" className="text-primary">·</span>
-                <span>Ages 2–6</span>
+                <span>{t('home.hero.statAges')}</span>
                 <span aria-hidden="true" className="text-primary">·</span>
-                <span>9 curriculum areas</span>
+                <span>{t('home.hero.statAreas')}</span>
                 <span aria-hidden="true" className="text-primary">·</span>
-                <span>Step-by-step guidance</span>
+                <span>{t('home.hero.statGuidance')}</span>
               </div>
             </div>
 
@@ -386,24 +377,16 @@ const Home: React.FC<HomeProps> = ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-center">
             <Reveal>
-              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">A clearer starting point</p>
+              <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.problem.eyebrow')}</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5 leading-[1.15]">
-                Montessori shouldn't require hours of searching.
+                {t('home.problem.title')}
               </h2>
               <p className="text-lg text-muted-foreground leading-relaxed">
-                You want to give a child meaningful work, but scattered information makes it difficult to know what to prepare and when.
+                {t('home.problem.body')}
               </p>
             </Reveal>
             <div className="grid sm:grid-cols-2 gap-3">
-              {[
-                'Which activity comes next?',
-                'Is the child ready?',
-                'What materials are needed?',
-                'How is it presented correctly?',
-                'What should you say — or not say?',
-                'What do you observe?',
-                'When should you move on?',
-              ].map((question, index) => (
+              {[1, 2, 3, 4, 5, 6, 7].map((n) => t(`home.problem.q${n}`)).map((question, index) => (
                 <Reveal key={question} delay={index * 50}>
                   <div className="h-full flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm">
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
@@ -414,7 +397,7 @@ const Home: React.FC<HomeProps> = ({
             </div>
           </div>
           <Reveal className="mt-10 text-center">
-            <p className="text-xl sm:text-2xl font-bold text-primary">Montessori Life Skills puts those answers in your hand.</p>
+            <p className="text-xl sm:text-2xl font-bold text-primary">{t('home.problem.closing')}</p>
           </Reveal>
         </div>
       </section>
@@ -423,9 +406,9 @@ const Home: React.FC<HomeProps> = ({
       <section id="sample-activity" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">See a real activity</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">This is what you will use.</h2>
-            <p className="text-lg text-muted-foreground mt-3">Pouring Water · Purpose: coordination, concentration, and independence.</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.sample.eyebrow')}</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{t('home.sample.title')}</h2>
+            <p className="text-lg text-muted-foreground mt-3">{t('home.sample.subtitle')}</p>
           </Reveal>
           <div className="max-w-4xl mx-auto">
             <Reveal>
@@ -433,7 +416,7 @@ const Home: React.FC<HomeProps> = ({
                 <CardContent className="p-6 lg:p-8">
                   <img decoding="async"
                     src={heroChildPouring}
-                    alt="A child pours water from one small glass pitcher into another on a wooden tray, one hand on the handle and the other supporting the pitcher"
+                    alt={t('home.sample.imageAlt')}
                     width={1024}
                     height={1024}
                     className="w-full aspect-video object-cover rounded-xl mb-6"
@@ -441,10 +424,10 @@ const Home: React.FC<HomeProps> = ({
                   />
                   <div className="grid sm:grid-cols-2 gap-5">
                     {[
-                      { title: 'Materials', text: 'Two matching child-sized pitchers, water, a tray, sponge, and drying cloth.' },
-                      { title: 'Preparation', text: 'Arrange the complete activity before inviting the child.' },
-                      { title: 'Presentation', text: 'Demonstrate the grasp, lift, controlled pour, return, and clean-up slowly.' },
-                      { title: 'Observation', text: 'Notice control of movement, concentration, repetition, and independent clean-up.' },
+                      { title: t('home.sample.materialsTitle'), text: t('home.sample.materialsText') },
+                      { title: t('home.sample.preparationTitle'), text: t('home.sample.preparationText') },
+                      { title: t('home.sample.presentationTitle'), text: t('home.sample.presentationText') },
+                      { title: t('home.sample.observationTitle'), text: t('home.sample.observationText') },
                     ].map(item => (
                       <div key={item.title} className="border-l-2 border-primary/30 pl-4">
                         <h3 className="font-bold text-foreground mb-1">{item.title}</h3>
@@ -453,13 +436,13 @@ const Home: React.FC<HomeProps> = ({
                     ))}
                   </div>
                   <div className="mt-6 rounded-xl border border-border bg-muted/50 p-5">
-                    <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">Next activity</p>
+                    <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">{t('home.sample.nextLabel')}</p>
                     <div className="flex items-center justify-between gap-4">
-                      <p className="font-semibold text-foreground">The deeper progression continues with full access.</p>
+                      <p className="font-semibold text-foreground">{t('home.sample.nextText')}</p>
                       <Lock className="w-5 h-5 shrink-0 text-muted-foreground" />
                     </div>
                   </div>
-                   <Button onClick={onGetStarted} size="lg" className="mt-6 w-full rounded-xl">Start with a Free Activity <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                   <Button onClick={onGetStarted} size="lg" className="mt-6 w-full rounded-xl">{t('home.sample.cta')} <ArrowRight className="ml-2 h-4 w-4" /></Button>
                 </CardContent>
               </Card>
             </Reveal>
@@ -471,15 +454,15 @@ const Home: React.FC<HomeProps> = ({
       <section id="how-it-works" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Your first work cycle</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Start. Present. Observe.</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Use one free starter activity to experience the complete process before choosing Premium.</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.how.eyebrow')}</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t('home.how.title')}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t('home.how.body')}</p>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-6">
             {[
-              { icon: ClipboardCheck, number: '01', title: 'Prepare', text: 'Open the activity, gather the listed materials, and review the written presentation.' },
-              { icon: BookOpen, number: '02', title: 'Present', text: 'Work with the child off-screen, following the sequence slowly and clearly.' },
-              { icon: Eye, number: '03', title: 'Observe', text: 'Record the activity when complete and use the sequence to decide what comes next.' },
+              { icon: ClipboardCheck, number: '01', title: t('home.how.prepareTitle'), text: t('home.how.prepareText') },
+              { icon: BookOpen, number: '02', title: t('home.how.presentTitle'), text: t('home.how.presentText') },
+              { icon: Eye, number: '03', title: t('home.how.observeTitle'), text: t('home.how.observeText') },
             ].map((step, index) => (
               <Reveal key={step.title} delay={index * 100}>
                 <div className="h-full border-t-2 border-primary/30 pt-6">
@@ -493,9 +476,9 @@ const Home: React.FC<HomeProps> = ({
           </div>
           <Reveal className="mt-12 text-center">
             <p className="text-lg sm:text-xl text-muted-foreground mb-7">
-              Move from <span className="font-semibold text-foreground">searching for an activity</span> to <span className="font-semibold text-primary">knowing what to prepare and present.</span>
+              <Trans i18nKey="home.how.move" components={{ 1: <span className="font-semibold text-foreground" />, 3: <span className="font-semibold text-primary" /> }} />
             </p>
-            <Button onClick={onGetStarted} size="lg" className="rounded-xl px-8">Complete Your First Activity <ArrowRight className="ml-2 h-4 w-4" /></Button>
+            <Button onClick={onGetStarted} size="lg" className="rounded-xl px-8">{t('home.how.cta')} <ArrowRight className="ml-2 h-4 w-4" /></Button>
           </Reveal>
         </div>
       </section>
@@ -504,20 +487,20 @@ const Home: React.FC<HomeProps> = ({
       <section id="curriculum" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">A connected curriculum</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Stop collecting activities. Follow a sequence.</h2>
-            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">Individual ideas answer one question. Montessori Life Skills organizes the work from introductory to advanced, so the adult can see what belongs together and what comes next.</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.curriculum.eyebrow')}</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t('home.curriculum.title')}</h2>
+            <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{t('home.curriculum.body')}</p>
           </Reveal>
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
             {curriculumAreas.map((area, index) => (
               <Reveal key={area.name} delay={index * 60}>
                 <button onClick={() => handleCurriculumClick(area.name)} className="group w-full text-left rounded-2xl overflow-hidden border border-border/60 hover:border-primary/30 hover:shadow-xl transition-all duration-300 bg-card">
                   <div className="relative h-40 overflow-hidden">
-                    <img decoding="async" src={area.image} alt={`${area.name} Montessori materials`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none" loading="lazy" />
+                    <img decoding="async" src={area.image} alt={t('home.curriculum.imageAlt', { area: t(`home.areas.${area.key}`) })} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none" loading="lazy" />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">{area.name}</h3>
-                    <p className="text-sm text-muted-foreground mt-1">Explore the sequence →</p>
+                    <h3 className="font-bold text-foreground group-hover:text-primary transition-colors">{t(`home.areas.${area.key}`)}</h3>
+                    <p className="text-sm text-muted-foreground mt-1">{t('home.curriculum.explore')}</p>
                   </div>
                 </button>
               </Reveal>
@@ -532,17 +515,17 @@ const Home: React.FC<HomeProps> = ({
           <Reveal>
             <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
               <div className="md:col-span-2">
-                <img decoding="async" src={founderKerry} alt="Kerry Howard, AMI-trained Montessori guide and founder" className="rounded-2xl shadow-xl object-cover w-full aspect-square border-4 border-card" loading="lazy" />
+                <img decoding="async" src={founderKerry} alt={t('home.founder.imageAlt')} className="rounded-2xl shadow-xl object-cover w-full aspect-square border-4 border-card" loading="lazy" />
               </div>
               <div className="md:col-span-3">
-                <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Meet the founder</p>
+                <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.founder.eyebrow')}</p>
                 <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5">Kerry Howard</h2>
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-accent/15 border border-accent/30 rounded-full text-sm font-medium text-foreground mb-6">
-                  <Award className="w-4 h-4 text-accent" /> AMI-trained 3–6 Primary Guide
+                  <Award className="w-4 h-4 text-accent" /> {t('home.founder.badge')}
                 </div>
-                <p className="text-xl font-semibold text-foreground leading-relaxed mb-4">40+ years of Montessori classroom knowledge, organized so you can actually use it.</p>
-                <p className="text-muted-foreground leading-relaxed mb-6">The curriculum draws on Kerry's verified AMI training and experience guiding children in prepared environments.</p>
-                <Button variant="outline" onClick={() => navigate('/about')} className="rounded-xl">Read Kerry's biography</Button>
+                <p className="text-xl font-semibold text-foreground leading-relaxed mb-4">{t('home.founder.lead')}</p>
+                <p className="text-muted-foreground leading-relaxed mb-6">{t('home.founder.body')}</p>
+                <Button variant="outline" onClick={() => navigate('/about')} className="rounded-xl">{t('home.founder.cta')}</Button>
               </div>
             </div>
           </Reveal>
@@ -553,61 +536,61 @@ const Home: React.FC<HomeProps> = ({
       <section id="pricing" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Premium access</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">Continue through the full curriculum.</h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">After trying a starter activity, Premium opens the complete organized sequence for less than a month of typical Montessori preschool tuition, with a homeschool standards guide and printable portfolio.</p>
-            <p className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground"><Check className="w-4 h-4 text-primary" aria-hidden="true" />30-day money-back guarantee · Cancel anytime</p>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.pricing.eyebrow')}</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t('home.pricing.title')}</h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t('home.pricing.body')}</p>
+            <p className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-foreground"><Check className="w-4 h-4 text-primary" aria-hidden="true" />{t('home.pricing.guarantee')}</p>
           </Reveal>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             <Reveal>
               <Card className="relative h-full border-2 border-primary/40 shadow-xl overflow-hidden bg-card">
-                <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold text-center py-2 uppercase tracking-wider">Best value</div>
+                <div className="bg-gradient-to-r from-primary to-accent text-primary-foreground text-xs font-bold text-center py-2 uppercase tracking-wider">{t('home.pricing.bestValue')}</div>
                 <CardContent className="p-7">
-                  <h3 className="text-2xl font-bold text-foreground">Premium Annual</h3>
-                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$199</span><span className="text-muted-foreground">/year</span></div>
-                  <p className="font-semibold text-primary mb-1">Equivalent to $16.58/month</p>
-                  <p className="text-sm text-muted-foreground mb-6">One child. Save $160.88 compared with 12 monthly payments.</p>
+                  <h3 className="text-2xl font-bold text-foreground">{t('home.pricing.annualTitle')}</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$199</span><span className="text-muted-foreground">{t('home.pricing.perYear')}</span></div>
+                  <p className="font-semibold text-primary mb-1">{t('home.pricing.annualEquivalent')}</p>
+                  <p className="text-sm text-muted-foreground mb-6">{t('home.pricing.annualNote')}</p>
                   <ul className="space-y-3 mb-7">
-                    {['Full curriculum', '100+ activities', 'All curriculum areas', 'Progress tracking', 'Written presentations', 'Materials information', 'Instructional videos where available'].map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />{item}</li>)}
+                    {['fFullCurriculum', 'fActivities', 'fAllAreas', 'fProgress', 'fPresentations', 'fMaterials', 'fVideos'].map(k => t(`home.pricing.${k}`)).map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-primary mt-0.5 shrink-0" />{item}</li>)}
                   </ul>
-                  <Button onClick={onSubscriptionView} size="lg" className="w-full rounded-xl">Start Premium</Button>
+                  <Button onClick={onSubscriptionView} size="lg" className="w-full rounded-xl">{t('home.pricing.startPremium')}</Button>
                 </CardContent>
               </Card>
             </Reveal>
             <Reveal delay={100}>
               <Card className="h-full border-border/60 bg-card">
                 <CardContent className="p-7 flex flex-col h-full">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">Flexible</p>
-                  <h3 className="text-2xl font-bold text-foreground">Premium Monthly</h3>
-                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$29.99</span><span className="text-muted-foreground">/month</span></div>
-                  <p className="text-muted-foreground mb-6">The same premium access, billed monthly. Cancel anytime.</p>
-                  <Button onClick={onSubscriptionView} variant="outline" size="lg" className="w-full rounded-xl mt-auto">View Monthly Option</Button>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">{t('home.pricing.flexible')}</p>
+                  <h3 className="text-2xl font-bold text-foreground">{t('home.pricing.monthlyTitle')}</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$29.99</span><span className="text-muted-foreground">{t('home.pricing.perMonth')}</span></div>
+                  <p className="text-muted-foreground mb-6">{t('home.pricing.monthlyBody')}</p>
+                  <Button onClick={onSubscriptionView} variant="outline" size="lg" className="w-full rounded-xl mt-auto">{t('home.pricing.monthlyCta')}</Button>
                 </CardContent>
               </Card>
             </Reveal>
             <Reveal delay={200}>
               <Card className="h-full border-primary/40 bg-card">
                 <CardContent className="p-7 flex flex-col h-full">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">Up to four children</p>
-                  <h3 className="text-2xl font-bold text-foreground">Family Plan</h3>
-                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$349</span><span className="text-muted-foreground">/year</span></div>
-                  <p className="text-muted-foreground mb-6">Or $49/month. Separate profiles, goals, and progress for each child.</p>
-                  <Button onClick={onSubscriptionView} size="lg" className="w-full rounded-xl mt-auto">View Family Options</Button>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-primary mb-2">{t('home.pricing.familyEyebrow')}</p>
+                  <h3 className="text-2xl font-bold text-foreground">{t('home.pricing.familyTitle')}</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$349</span><span className="text-muted-foreground">{t('home.pricing.perYear')}</span></div>
+                  <p className="text-muted-foreground mb-6">{t('home.pricing.familyBody')}</p>
+                  <Button onClick={onSubscriptionView} size="lg" className="w-full rounded-xl mt-auto">{t('home.pricing.familyCta')}</Button>
                 </CardContent>
               </Card>
             </Reveal>
             <Reveal delay={300}>
               <Card className="h-full border-accent/40 bg-card">
                 <CardContent className="p-7 flex flex-col h-full">
-                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">One-to-one</p>
-                  <h3 className="text-2xl font-bold text-foreground">Private Consultation</h3>
-                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$225</span><span className="text-muted-foreground">/session</span></div>
-                  <p className="text-muted-foreground mb-5">A 60-minute video session with an AMI-trained guide, tailored to your child and your goals.</p>
+                  <p className="text-sm font-semibold uppercase tracking-wider text-muted-foreground mb-2">{t('home.pricing.consultEyebrow')}</p>
+                  <h3 className="text-2xl font-bold text-foreground">{t('home.pricing.consultTitle')}</h3>
+                  <div className="flex items-baseline gap-2 my-4"><span className="text-5xl font-extrabold text-foreground">$225</span><span className="text-muted-foreground">{t('home.pricing.perSession')}</span></div>
+                  <p className="text-muted-foreground mb-5">{t('home.pricing.consultBody')}</p>
                   <ul className="space-y-3 mb-7">
-                    {['Customized curriculum guidance', 'Family routine integration', 'Written action plan to follow', 'Two weeks of follow-up email'].map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />{item}</li>)}
-                    <li className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />3-session package: $600</li>
+                    {['cGuidance', 'cRoutine', 'cPlan', 'cFollowUp'].map(k => t(`home.pricing.${k}`)).map(item => <li key={item} className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />{item}</li>)}
+                    <li className="flex gap-2 text-sm text-foreground"><Check className="w-4 h-4 text-accent mt-0.5 shrink-0" />{t('home.pricing.cPackage')}</li>
                   </ul>
-                  <Button onClick={() => setConsultOpen(true)} variant="outline" size="lg" className="w-full rounded-xl mt-auto">Book a Consultation</Button>
+                  <Button onClick={() => setConsultOpen(true)} variant="outline" size="lg" className="w-full rounded-xl mt-auto">{t('home.pricing.consultCta')}</Button>
                 </CardContent>
               </Card>
             </Reveal>
@@ -619,14 +602,14 @@ const Home: React.FC<HomeProps> = ({
       <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Beyond the first activity</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Return to the sequence. Share what works.</h2>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.beyond.eyebrow')}</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{t('home.beyond.title')}</h2>
           </Reveal>
           <div className="grid md:grid-cols-3 gap-8">
             {[
-              { icon: RotateCcw, title: 'Continue the work', text: 'Return to each child’s profile, record progress, and choose the next appropriate activity.' },
-              { icon: Share2, title: 'Share with others', text: 'Share Montessori Life Skills with another parent, teacher, caregiver, or classroom assistant.' },
-              { icon: School, title: 'For schools', text: 'Authentic AMI presentations, suitable for AMI, AMS and independent Montessori schools. Contact us to discuss your school’s needs.' },
+              { icon: RotateCcw, id: 'continue', title: t('home.beyond.continueTitle'), text: t('home.beyond.continueText') },
+              { icon: Share2, id: 'share', title: t('home.beyond.shareTitle'), text: t('home.beyond.shareText') },
+              { icon: School, id: 'schools', title: t('home.beyond.schoolsTitle'), text: t('home.beyond.schoolsText') },
             ].map((item, index) => (
               <Reveal key={item.title} delay={index * 100}>
                 <div className="text-center px-4">
@@ -635,7 +618,7 @@ const Home: React.FC<HomeProps> = ({
                   </span>
                   <h3 className="text-xl font-bold text-foreground mb-3">{item.title}</h3>
                   <p className="text-muted-foreground leading-relaxed">{item.text}</p>
-                  {item.title === 'For schools' && <Button variant="outline" onClick={() => navigate('/contact')} className="mt-5 rounded-xl">Contact Us</Button>}
+                  {item.id === 'schools' && <Button variant="outline" onClick={() => navigate('/contact')} className="mt-5 rounded-xl">{t('home.beyond.contactUs')}</Button>}
                 </div>
               </Reveal>
             ))}
@@ -647,15 +630,15 @@ const Home: React.FC<HomeProps> = ({
       <section id="faq" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
-            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">Questions</p>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">Frequently Asked</h2>
+            <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.faq.eyebrow')}</p>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{t('home.faq.title')}</h2>
           </Reveal>
           <Reveal>
             <Accordion type="single" collapsible className="space-y-3">
               {faqs.map((faq, index) => (
                 <AccordionItem key={faq.q} value={`faq-${index}`} className="bg-card border border-border/60 rounded-xl px-5 data-[state=open]:border-primary/25 transition-colors">
-                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-4 text-base">{faq.q}</AccordionTrigger>
-                  <AccordionContent className="text-muted-foreground leading-relaxed pb-4">{faq.a}</AccordionContent>
+                  <AccordionTrigger className="text-left font-semibold text-foreground hover:no-underline py-4 text-base">{t(faq.q)}</AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground leading-relaxed pb-4">{t(faq.a)}</AccordionContent>
                 </AccordionItem>
               ))}
             </Accordion>
@@ -670,10 +653,10 @@ const Home: React.FC<HomeProps> = ({
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <Reveal>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-              Ready to Prepare Your Next Presentation?
+              {t('home.cta.title')}
             </h2>
             <p className="text-lg sm:text-xl text-white/90 mb-10 max-w-2xl mx-auto leading-relaxed">
-              Use the adult guide to choose an activity, gather the materials, and present the lesson clearly while the child learns through hands-on work.
+              {t('home.cta.body')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
               <Button
@@ -681,7 +664,7 @@ const Home: React.FC<HomeProps> = ({
                 size="lg"
                 className="bg-white text-primary hover:bg-gray-50 px-10 py-6 text-lg rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-0.5 font-bold"
               >
-                Explore Free Activities <ArrowRight className="ml-2 h-5 w-5" />
+                {t('home.cta.explore')} <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
                 onClick={onSubscriptionView}
@@ -689,18 +672,18 @@ const Home: React.FC<HomeProps> = ({
                 variant="outline"
                 className="bg-white/10 text-white border-white/30 hover:bg-white/20 px-10 py-6 text-lg rounded-2xl transition-all duration-300 backdrop-blur-sm font-semibold"
               >
-                View Plans & Pricing
+                {t('home.cta.viewPlans')}
               </Button>
             </div>
             <div className="flex flex-wrap items-center justify-center gap-6 text-white/80 text-sm mb-10">
-              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> No credit card</span>
-              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> Cancel anytime</span>
-              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> 30-day guarantee</span>
+              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> {t('home.cta.noCard')}</span>
+              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> {t('home.cta.cancelAnytime')}</span>
+              <span className="flex items-center gap-1.5"><CheckCircle className="w-4 h-4" /> {t('home.cta.guarantee')}</span>
             </div>
           </Reveal>
           <Reveal delay={200}>
             <div className="pt-8 border-t border-white/20">
-              <p className="text-white/80 text-sm font-medium mb-4">Connect with our community</p>
+              <p className="text-white/80 text-sm font-medium mb-4">{t('home.cta.community')}</p>
               <SocialLinks variant="light" />
             </div>
           </Reveal>
@@ -709,7 +692,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── AI Image Disclaimer ─── */}
       <div className="py-4 bg-slate-950 text-center border-t border-slate-800">
-        <p className="text-xs text-slate-500">Certain images have been modified using AI.</p>
+        <p className="text-xs text-slate-500">{t('home.aiDisclaimer')}</p>
       </div>
 
       {/* ─── Exit-intent email capture ─── */}
@@ -728,44 +711,44 @@ const Home: React.FC<HomeProps> = ({
                 <span className="font-bold text-white text-lg">Montessori Life Skills</span>
               </div>
               <p className="text-slate-400 text-sm leading-relaxed max-w-sm">
-                An adult preparation and presentation resource for parents, educators, caregivers, and classroom assistants guiding children ages 3–6.
+                {t('home.footer.tagline')}
               </p>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Product</h4>
+              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">{t('home.footer.product')}</h4>
               <ul className="space-y-2 text-sm">
-                <li><button onClick={onGetStarted} className="hover:text-white transition-colors">Activities</button></li>
-                <li><button onClick={onDashboardView} className="hover:text-white transition-colors">Progress Tracking</button></li>
-                <li><button onClick={onSubscriptionView} className="hover:text-white transition-colors">Pricing</button></li>
-                <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
-                <li><Link to="/readiness-guide" className="hover:text-white transition-colors">Free Readiness Guide</Link></li>
+                <li><button onClick={onGetStarted} className="hover:text-white transition-colors">{t('home.footer.activities')}</button></li>
+                <li><button onClick={onDashboardView} className="hover:text-white transition-colors">{t('home.footer.progress')}</button></li>
+                <li><button onClick={onSubscriptionView} className="hover:text-white transition-colors">{t('home.footer.pricing')}</button></li>
+                <li><Link to="/about" className="hover:text-white transition-colors">{t('home.footer.about')}</Link></li>
+                <li><Link to="/readiness-guide" className="hover:text-white transition-colors">{t('home.footer.readinessGuide')}</Link></li>
               </ul>
             </div>
             <div>
-              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">Support</h4>
+              <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">{t('home.footer.support')}</h4>
               <ul className="space-y-2 text-sm">
-                <li><Link to="/help" className="hover:text-white transition-colors">Help Center</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition-colors">Contact Us</Link></li>
-                <li><Link to="/guarantee" className="hover:text-white transition-colors">30-Day Guarantee</Link></li>
-                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">Privacy Policy</Link></li>
-                <li><Link to="/terms-of-service" className="hover:text-white transition-colors">Terms of Service</Link></li>
-                <li><Link to="/accessibility" className="hover:text-white transition-colors">Accessibility</Link></li>
-                <li><button type="button" onClick={openCookieSettings} className="hover:text-white transition-colors">Cookie settings</button></li>
+                <li><Link to="/help" className="hover:text-white transition-colors">{t('home.footer.help')}</Link></li>
+                <li><Link to="/contact" className="hover:text-white transition-colors">{t('home.footer.contact')}</Link></li>
+                <li><Link to="/guarantee" className="hover:text-white transition-colors">{t('home.footer.guarantee')}</Link></li>
+                <li><Link to="/privacy-policy" className="hover:text-white transition-colors">{t('home.footer.privacy')}</Link></li>
+                <li><Link to="/terms-of-service" className="hover:text-white transition-colors">{t('home.footer.terms')}</Link></li>
+                <li><Link to="/accessibility" className="hover:text-white transition-colors">{t('home.footer.accessibility')}</Link></li>
+                <li><button type="button" onClick={openCookieSettings} className="hover:text-white transition-colors">{t('home.footer.cookies')}</button></li>
               </ul>
             </div>
           </div>
 
           {/* Trust strip */}
           <div className="mb-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs text-slate-400 border-y border-slate-800 py-4">
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> 30-day refund</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Cancel anytime</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> No card for free tier</span>
-            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> Built by an AMI guide</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> {t('home.footer.trustRefund')}</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> {t('home.footer.trustCancel')}</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> {t('home.footer.trustNoCard')}</span>
+            <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> {t('home.footer.trustBuilt')}</span>
           </div>
 
           <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <LanguageSelector showLabel className="text-slate-400 hover:text-white hover:bg-slate-800" />
-            <p className="text-sm text-slate-500">© {new Date().getFullYear()} Montessori Life Skills. All rights reserved.</p>
+            <p className="text-sm text-slate-500">{t('home.footer.rights', { year: new Date().getFullYear() })}</p>
             <SocialLinks variant="light" />
           </div>
         </div>

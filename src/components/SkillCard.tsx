@@ -4,6 +4,7 @@ import { Crown, Lock } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import CardStatus from './school/CardStatus';
 import UpgradeDialog from './upgrade/UpgradeDialog';
+import i18n from '@/i18n';
 
 interface Skill {
   id: string;
@@ -189,10 +190,10 @@ const SkillCard: React.FC<SkillCardProps> = ({
           onOpenChange={setUpgradeOpen}
           source="locked-card"
           meta={`${skill.category} · ${skill.difficulty}`}
-          title={`Unlock ${skill.title}`}
-          description="This presentation is part of the full Premium curriculum. Premium opens it along with every other activity in the sequence."
+          title={i18n.t('pricing.upgrade.lockedTitle', { title: skill.title })}
+          description={i18n.t('pricing.upgrade.lockedBody')}
           image={skill.image}
-          imageAlt={`${skill.title} Montessori material`}
+          imageAlt={i18n.t('pricing.upgrade.lockedAlt', { title: skill.title })}
         />
       )}
     </article>

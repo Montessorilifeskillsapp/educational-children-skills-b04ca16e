@@ -8,7 +8,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, Di
 import { ArrowRight, ArrowLeft, Sparkles, Check, PartyPopper, Shield } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { useSubscription } from '@/contexts/SubscriptionContext';
-import { PREMIUM_BENEFITS } from './upgrade/UpgradeDialog';
+import { PREMIUM_BENEFIT_KEYS } from './upgrade/UpgradeDialog';
+import i18n from '@/i18n';
 
 interface ChildProfile {
   id: string;
@@ -320,9 +321,9 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-2">
               <p className="font-semibold text-foreground">{savedProfile.name}'s age {savedProfile.age} sequence is ready.</p>
               <ul className="space-y-1.5">
-                {PREMIUM_BENEFITS.map(item => (
-                  <li key={item} className="flex gap-2 text-sm text-foreground">
-                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />{item}
+                {PREMIUM_BENEFIT_KEYS.map(key => (
+                  <li key={key} className="flex gap-2 text-sm text-foreground">
+                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />{i18n.t(key)}
                   </li>
                 ))}
               </ul>

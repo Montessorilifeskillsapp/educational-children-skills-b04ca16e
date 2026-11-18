@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Trans, useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Switch } from '@/components/ui/switch';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -16,6 +17,7 @@ const gpcOn = () =>
 
 export default function CookieConsent() {
   const { pathname } = useLocation();
+  const { t } = useTranslation();
   const [showBanner, setShowBanner] = useState(false);
   const [settingsOpen, setSettingsOpen] = useState(false);
   const [analyticsOn, setAnalyticsOn] = useState(false);
@@ -69,53 +71,50 @@ export default function CookieConsent() {
           ref={panelRef}
           tabIndex={-1}
           role="region"
-          aria-label="Cookie choices"
+          aria-label={t('growth.cookies.region')}
           className="fixed inset-x-3 bottom-3 z-[60] mx-auto max-w-lg rounded-xl border border-border bg-card p-4 text-card-foreground shadow-lg outline-none sm:left-4 sm:right-auto sm:mx-0"
           style={{ marginBottom: 'env(safe-area-inset-bottom)' }}
         >
-          <p className="text-sm font-semibold text-foreground">Your privacy choices</p>
+          <p className="text-sm font-semibold text-foreground">{t('growth.cookies.title')}</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            We count visits without cookies. If you accept, we also use analytics cookies and record which pages and activities are
-            used, so we can improve the app. See our{' '}
-            <Link to="/privacy-policy" className="underline text-primary">Privacy Policy</Link>.
+            <Trans i18nKey="growth.cookies.body" components={{ 1: <Link to="/privacy-policy" className="underline text-primary" /> }} />
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2">
-            <Button onClick={() => answerAll('granted')}>Accept all</Button>
-            <Button onClick={() => answerAll('denied')}>Reject all</Button>
+            <Button onClick={() => answerAll('granted')}>{t('growth.cookies.acceptAll')}</Button>
+            <Button onClick={() => answerAll('denied')}>{t('growth.cookies.rejectAll')}</Button>
           </div>
-          <Button variant="link" className="mt-1 h-auto px-0 text-sm" onClick={openSettings}>Cookie settings</Button>
+          <Button variant="link" className="mt-1 h-auto px-0 text-sm" onClick={openSettings}>{t('growth.cookies.settings')}</Button>
         </div>
       )}
 
       <Dialog open={settingsOpen} onOpenChange={setSettingsOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Cookie settings</DialogTitle>
+            <DialogTitle>{t('growth.cookies.settings')}</DialogTitle>
             <DialogDescription>
-              Choose what this app may use on your device. You can change this at any time from the Cookie settings link.
+              {t('growth.cookies.dialogBody')}
             </DialogDescription>
           </DialogHeader>
 
           {gpc && (
             <p className="rounded-md border border-border bg-muted p-3 text-sm text-muted-foreground">
-              Your browser is sending a privacy signal (Global Privacy Control), so analytics stays off.
+              {t('growth.cookies.gpc')}
             </p>
           )}
 
           <div className="space-y-4">
             <div className="flex items-start justify-between gap-4">
               <div>
-                <p className="text-sm font-medium text-foreground">Necessary</p>
-                <p className="text-sm text-muted-foreground">Keeps you signed in, saves your settings and lessons for offline use. Always on.</p>
+                <p className="text-sm font-medium text-foreground">{t('growth.cookies.necessary')}</p>
+                <p className="text-sm text-muted-foreground">{t('growth.cookies.necessaryBody')}</p>
               </div>
-              <span className="shrink-0 text-xs font-medium text-muted-foreground">Always on</span>
+              <span className="shrink-0 text-xs font-medium text-muted-foreground">{t('growth.cookies.alwaysOn')}</span>
             </div>
             <div className="flex items-start justify-between gap-4">
               <div>
-                <label htmlFor="consent-analytics" className="text-sm font-medium text-foreground">Analytics</label>
+                <label htmlFor="consent-analytics" className="text-sm font-medium text-foreground">{t('growth.cookies.analytics')}</label>
                 <p className="text-sm text-muted-foreground">
-                  Provided by Google and by Montessori Life Skills. Analytics cookies and a record of which pages and activities are
-                  used. Visit counts without cookies, provided by Lovable, continue either way.
+                  {t('growth.cookies.analyticsBody')}
                 </p>
               </div>
               <Switch id="consent-analytics" checked={analyticsOn} onCheckedChange={setAnalyticsOn} disabled={gpc} />
@@ -123,7 +122,7 @@ export default function CookieConsent() {
           </div>
 
           <DialogFooter>
-            <Button onClick={saveSettings}>Save choices</Button>
+            <Button onClick={saveSettings}>{t('growth.cookies.save')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
