@@ -1,5 +1,6 @@
 import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
+import ReadinessOffer from "@/components/growth/ReadinessOffer";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -110,6 +111,7 @@ const App = () => {
                         <ClassroomDrawer />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <CookieConsent />
+                        <ReadinessOffer />
                         <ErrorBoundary>
                         <Suspense fallback={null}>
                         <Routes>
