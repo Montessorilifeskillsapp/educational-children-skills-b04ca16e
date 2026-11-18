@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useSearchParams } from 'react-router-dom';
 import { ClipboardPen, Users, UsersRound } from 'lucide-react';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -31,6 +32,7 @@ export default function ClassroomDrawer() {
   const skillId = params.get('activity') ?? '';
   const [memberships, setMemberships] = useState<Membership[]>([]);
   const [open, setOpen] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (!user) { setMemberships([]); return; }
@@ -45,8 +47,8 @@ export default function ClassroomDrawer() {
 
   return (
     <>
-      <Button onClick={() => setOpen(true)} className="fixed left-4 z-50 shadow-lg print:hidden rounded-full" style={{ bottom: 'calc(4.75rem + env(safe-area-inset-bottom))' }} aria-label="Open classroom record">
-        <Users className="h-4 w-4 mr-2" />Classroom
+      <Button onClick={() => setOpen(true)} className="fixed left-4 z-50 shadow-lg print:hidden rounded-full" style={{ bottom: 'calc(4.75rem + env(safe-area-inset-bottom))' }} aria-label={t('school.dr.open')}>
+        <Users className="h-4 w-4 mr-2" />{t('school.dr.classroom')}
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="school-theme school-scale w-[calc(100vw-2rem)] max-w-2xl max-h-[88vh] overflow-y-auto rounded-lg">
@@ -59,6 +61,7 @@ export default function ClassroomDrawer() {
 
 function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { memberships: Membership[]; skillId: string; skillTitle: string; areaTitle: string }) {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const { user } = useAuthContext();
   const me = memberships[0];
   const { data, loading, reload } = useSchoolData(me.school_id);
@@ -90,9 +93,9 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
     const failed = picked.filter((_, i) => results[i].status === 'rejected');
     const ok = picked.length - failed.length;
     setBusy(false); reload();
-    if (ok) toast({ title: `Recorded for ${ok} ${ok === 1 ? 'child' : 'children'}`, description: `${STATUS_LABEL[groupStatus]} · ${skillTitle}` });
+    if (ok) toast({ title: t('school.dr.recorded', { count: ok }), description: `${STATUS_LABEL[groupStatus]} · ${skillTitle}` });
     if (failed.length) {
-      toast({ title: `Not saved for ${failed.length}`, description: failed.map((id) => students.find((s) => s.id === id)?.name).join(', '), variant: 'destructive' });
+      toast({ title: t('school.dr.notSaved', { count: failed.length }), description: failed.map((id) => students.find((s) => s.id === id)?.name).join(', '), variant: 'destructive' });
       setPicked(failed);
     } else { setPicked([]); setGroupNote(''); setGroup(false); }
   };
@@ -106,12 +109,12 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
     if ((f.statuses[skillId] ?? null) !== (rec?.status ?? null)) updateFocusStatus(f.id, skillId, rec?.status ?? 'clear');
   }, [data.progress, skillId, loading]);
   const recordFor = (sid: string) => data.progress.find((p) => p.student_id === sid && p.skill_id === skillId);
-  const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : 'Former staff'; };
+  const nameOf = (uid: string | null) => { const m = data.members.find((x) => x.user_id === uid); return m ? (m.full_name || m.email) : t('school.p.formerStaff'); };
   const student = students.find((s) => s.id === studentId);
   const canRecord = can.recordProgress(role);
   const studentNotes = student ? data.observations.filter((o) => o.student_id === student.id).sort((a, b) => b.observed_at.localeCompare(a.observed_at)) : [];
   const pick = (id: string | null) => {
-    if (dirty && !window.confirm('Discard this unsaved observation?')) return;
+    if (dirty && !window.confirm(t('school.pc.discard'))) return;
     setDirty(false); setStudentId(id);
   };
   const addObservation = async () => {
@@ -120,9 +123,9 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
     try {
       const r = await schoolCall({ action: 'observation_add', student_id: student.id, body: `${skillTitle}: ${obs.trim()}` });
       clearObs();
-      toast(isQueued(r) ? { title: 'Saved on this device', description: 'No connection right now. It will sync automatically.' } : { title: 'Note saved' });
+      toast(isQueued(r) ? { title: t('school.sp.queued'), description: t('school.sp.queuedBody') } : { title: t('school.er.noteSaved') });
       reload();
-    } catch (e) { toast({ title: 'Could not save', description: (e as Error).message, variant: 'destructive' }); }
+    } catch (e) { toast({ title: t('shared.couldNotSave'), description: (e as Error).message, variant: 'destructive' }); }
     finally { setBusy(false); }
   };
 
@@ -130,19 +133,19 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
     <div className="space-y-4">
       <DialogHeader className="text-left">
         <DialogTitle className="font-display">{skillTitle}</DialogTitle>
-        <DialogDescription>{areaTitle} · {me.schools.name} · {ROLE_LABEL[role]}{!canRecord ? ' · View only' : ''}</DialogDescription>
+        <DialogDescription>{areaTitle} · {me.schools.name} · {ROLE_LABEL[role]}{!canRecord ? t('school.p.viewOnly') : ''}</DialogDescription>
       </DialogHeader>
       {rooms.length > 1 && (
         <Select value={roomId ?? ''} onValueChange={(v) => { pick(null); setPicked([]); setRoomId(v); }}>
-          <SelectTrigger><SelectValue placeholder="Classroom" /></SelectTrigger>
+          <SelectTrigger><SelectValue placeholder={t('school.dr.classroom')} /></SelectTrigger>
           <SelectContent>{rooms.map((r) => <SelectItem key={r.id} value={r.id}>{r.name}</SelectItem>)}</SelectContent>
         </Select>
       )}
-      {loading ? <p className="text-sm text-muted-foreground">Loading class…</p>
-        : !students.length ? <p className="text-sm text-muted-foreground">No students in this classroom yet.</p>
+      {loading ? <p className="text-sm text-muted-foreground">{t('school.dr.loading')}</p>
+        : !students.length ? <p className="text-sm text-muted-foreground">{t('school.dr.noStudents')}</p>
         : student ? (
           <div className="space-y-4">
-            <Button variant="ghost" size="sm" onClick={() => pick(null)}>← All students</Button>
+            <Button variant="ghost" size="sm" onClick={() => pick(null)}>{t('school.dr.all')}</Button>
             <h3 className="text-lg font-semibold text-foreground">{student.name}</h3>
             {canRecord ? (
               <ProgressChooser inline studentId={student.id} skillId={skillId} current={recordFor(student.id)} nameOf={nameOf} onSaved={reload} onDraftChange={onDraft} />
@@ -150,28 +153,28 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
               <p className="text-sm text-muted-foreground"><StatusBadge status={recordFor(student.id)?.status} /> · {lastUpdate(recordFor(student.id), nameOf)}</p>
             )}
             <div className="space-y-3 border-t border-border pt-4">
-              <h4 className="font-display text-base font-semibold text-foreground">Notes</h4>
+              <h4 className="font-display text-base font-semibold text-foreground">{t('school.sp.notes')}</h4>
               {canRecord && (
                 <div className="space-y-2">
-                  <Label htmlFor="drawer-obs" className="sr-only">New note</Label>
-                  <Textarea id="drawer-obs" rows={3} maxLength={1000} value={obs} onChange={(e) => setObs(e.target.value)} placeholder={`Anything noticed about ${student.name} during this activity…`} />
-                  <div className="flex justify-end"><Button size="sm" disabled={busy || !obs.trim()} onClick={addObservation}>{busy ? 'Saving…' : 'Save note'}</Button></div>
+                  <Label htmlFor="drawer-obs" className="sr-only">{t('school.dr.newNote')}</Label>
+                  <Textarea id="drawer-obs" rows={3} maxLength={1000} value={obs} onChange={(e) => setObs(e.target.value)} placeholder={t('school.dr.notePh', { name: student.name })} />
+                  <div className="flex justify-end"><Button size="sm" disabled={busy || !obs.trim()} onClick={addObservation}>{busy ? t('shared.saving') : t('school.sp.saveNote')}</Button></div>
                 </div>
               )}
               {studentNotes.length
                 ? <NoteList notes={studentNotes} role={role} userId={user?.id ?? ''} nameOf={nameOf} onChange={reload} />
-                : <p className="text-sm text-muted-foreground">No notes for {student.name} yet.</p>}
+                : <p className="text-sm text-muted-foreground">{t('school.dr.noNotes', { name: student.name })}</p>}
             </div>
           </div>
         ) : group ? (
           <div className="space-y-4">
             <div className="flex items-center justify-between gap-2">
-              <Button variant="ghost" size="sm" onClick={leaveGroup}>← One child at a time</Button>
+              <Button variant="ghost" size="sm" onClick={leaveGroup}>{t('school.dr.one')}</Button>
               <Button variant="outline" size="sm" onClick={() => setPicked(picked.length === students.length ? [] : students.map((s) => s.id))}>
-                {picked.length === students.length ? 'Clear all' : 'Select all'}
+                {picked.length === students.length ? t('school.dr.clearAll') : t('school.dr.selectAll')}
               </Button>
             </div>
-            <p className="text-sm text-muted-foreground">Tick each child who received this presentation together.</p>
+            <p className="text-sm text-muted-foreground">{t('school.dr.tick')}</p>
             <ul className="divide-y divide-border border border-border rounded-md">
               {students.map((s) => {
                 const on = picked.includes(s.id);
@@ -189,7 +192,7 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
               })}
             </ul>
             <div className="space-y-2">
-              <Label>Record as</Label>
+              <Label>{t('school.dr.recordAs')}</Label>
               <div className="grid grid-cols-1 gap-2">
                 {STATUSES.map((st) => (
                   <Button key={st} type="button" variant={groupStatus === st ? 'default' : 'outline'} aria-pressed={groupStatus === st} className="min-h-11 justify-start" onClick={() => setGroupStatus(st)}>{STATUS_LABEL[st]}</Button>
@@ -197,17 +200,17 @@ function DrawerBody({ memberships, skillId, skillTitle, areaTitle }: { membershi
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="group-note">Shared note (optional)</Label>
-              <Textarea id="group-note" rows={2} maxLength={1000} value={groupNote} onChange={(e) => setGroupNote(e.target.value)} placeholder="e.g. Small-group presentation, three-period lesson" />
+              <Label htmlFor="group-note">{t('school.dr.shared')}</Label>
+              <Textarea id="group-note" rows={2} maxLength={1000} value={groupNote} onChange={(e) => setGroupNote(e.target.value)} placeholder={t('school.dr.sharedPh')} />
             </div>
             <Button className="w-full min-h-12" disabled={busy || !picked.length} onClick={saveGroup}>
-              {busy ? 'Saving…' : picked.length ? `Save for ${picked.length} ${picked.length === 1 ? 'child' : 'children'}` : 'Select children first'}
+              {busy ? t('shared.saving') : picked.length ? t('school.dr.saveFor', { count: picked.length }) : t('school.dr.selectFirst')}
             </Button>
           </div>
         ) : (
           <div className="space-y-3">
           {canRecord && students.length > 1 && (
-            <Button variant="outline" className="w-full min-h-11" onClick={() => setGroup(true)}><UsersRound className="h-4 w-4 mr-2" />Record a group presentation</Button>
+            <Button variant="outline" className="w-full min-h-11" onClick={() => setGroup(true)}><UsersRound className="h-4 w-4 mr-2" />{t('school.dr.group')}</Button>
           )}
           <ul className="divide-y divide-border border border-border rounded-md">
             {students.map((s) => {

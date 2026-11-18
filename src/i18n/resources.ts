@@ -4,6 +4,7 @@ import { pricing } from './locales/pricing';
 import { growth } from './locales/growth';
 import { chrome } from './locales/chrome';
 import { pages } from './locales/pages';
+import { school } from './locales/school';
 import { dashboard } from './locales/dashboard';
 import { family } from './locales/family';
 import { shared } from './locales/shared';
@@ -27,7 +28,7 @@ const zh: typeof en = {
 };
 
 
-const namespaces = { home, auth, pricing, growth, chrome, pages, dashboard, family, shared };
+const namespaces = { home, auth, pricing, growth, chrome, pages, school, dashboard, family, shared };
 type Lang = 'en' | 'es' | 'de' | 'zh';
 const build = (lng: Lang) => ({
   ...{ en, es, de, zh }[lng],

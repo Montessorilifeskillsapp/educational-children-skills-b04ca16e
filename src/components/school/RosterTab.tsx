@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -17,7 +19,7 @@ function ageOf(dob: string | null) {
   let m = (n.getFullYear() - b.getFullYear()) * 12 + n.getMonth() - b.getMonth();
   if (n.getDate() < b.getDate()) m--;
   if (m < 0) return null;
-  return `${Math.floor(m / 12)} yrs ${m % 12} mo`;
+  return i18n.t('school.ro.age', { y: Math.floor(m / 12), m: m % 12 });
 }
 const initials = (name: string) => name.split(/\s+/).filter(Boolean).slice(0, 2).map((w) => w[0]?.toUpperCase()).join('');
 type NameParts = { first: string; surname: string };
@@ -33,6 +35,7 @@ interface Props { role: SchoolRole; classroom: Classroom; students: Student[]; s
 
 export default function RosterTab({ role, classroom, students, seatLimit, schoolName, progress = [], onChange, onOpenStudent, memberId }: Props) {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [editing, setEditing] = useState<ChildForm | null>(null);
   const [showArchived, setShowArchived] = useState(false);
   const [deleting, setDeleting] = useState<Student | null>(null);
@@ -55,20 +58,20 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
       setEditing(null); onChange();
     } catch (e) {
       const msg = (e as Error).message;
-      toast({ title: msg === 'CLASSROOM_FULL' ? 'This classroom is full' : 'Could not save', description: msg === 'CLASSROOM_FULL' ? 'Request more places to add another student.' : msg, variant: 'destructive' });
+      toast({ title: msg === 'CLASSROOM_FULL' ? t('school.ro.full') : t('shared.couldNotSave'), description: msg === 'CLASSROOM_FULL' ? t('school.ro.fullBody') : msg, variant: 'destructive' });
     } finally { setBusy(false); }
   };
   const archive = async (s: Student, archived: boolean) => {
     try {
       await schoolCall({ action: 'student_save', classroom_id: classroom.id, id: s.id, name: s.name, date_of_birth: s.date_of_birth, family_email: s.family_email, archived });
       onChange();
-    } catch (e) { toast({ title: (e as Error).message === 'CLASSROOM_FULL' ? 'This classroom is full' : 'Could not update', variant: 'destructive' }); }
+    } catch (e) { toast({ title: (e as Error).message === 'CLASSROOM_FULL' ? t('school.ro.full') : t('school.today.updateFailed'), variant: 'destructive' }); }
   };
   const remove = async () => {
     if (!deleting || confirmation !== 'DELETE' || busy) return;
     setBusy(true);
     try { await schoolCall({ action: 'student_delete', id: deleting.id, confirmation }); setDeleting(null); setConfirmation(''); onChange(); }
-    catch (e) { toast({ title: 'Could not delete', description: (e as Error).message, variant: 'destructive' }); }
+    catch (e) { toast({ title: t('school.ro.deleteFailed'), description: (e as Error).message, variant: 'destructive' }); }
     finally { setBusy(false); }
   };
   const requestMailto = `mailto:${KERRY_EMAIL}?subject=${encodeURIComponent(`More places for ${schoolName} – ${classroom.name}`)}&body=${encodeURIComponent(`Hello Kerry,\n\nWe would like more places in ${classroom.name} (currently ${seatLimit}).\n\nThank you.`)}`;
@@ -76,15 +79,15 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-2 flex-wrap space-y-0">
-        <CardTitle className="text-lg">{classroom.name} · {active.length} of {seatLimit} places</CardTitle>
+        <CardTitle className="text-lg">{t('school.ro.places', { name: classroom.name, n: active.length, total: seatLimit })}</CardTitle>
         <div className="flex gap-2 flex-wrap">
-          <Button variant="outline" size="sm" onClick={() => setShowArchived(!showArchived)}>{showArchived ? 'Show current' : 'Show archived'}</Button>
-          {edit && !full && <Button size="sm" onClick={() => setEditing(childForm({}))}>Add student</Button>}
-          {edit && full && <Button size="sm" asChild><a href={requestMailto}>Request more places</a></Button>}
+          <Button variant="outline" size="sm" onClick={() => setShowArchived(!showArchived)}>{showArchived ? t('school.ro.showCurrent') : t('school.ro.showArchived')}</Button>
+          {edit && !full && <Button size="sm" onClick={() => setEditing(childForm({}))}>{t('school.ro.add')}</Button>}
+          {edit && full && <Button size="sm" asChild><a href={requestMailto}>{t('school.ro.request')}</a></Button>}
         </div>
       </CardHeader>
       <CardContent>
-        {list.length === 0 ? <p className="text-sm text-muted-foreground">{showArchived ? 'No archived students.' : 'No students yet.'}</p> : (
+        {list.length === 0 ? <p className="text-sm text-muted-foreground">{showArchived ? t('school.ro.noArchived') : t('school.ro.none')}</p> : (
           <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {list.map((s) => {
               const mine = progress.filter((p) => p.student_id === s.id);
@@ -93,21 +96,21 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
               const age = ageOf(s.date_of_birth);
               return (
                 <li key={s.id} className="rounded-xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md flex flex-col">
-                  <button className="text-left p-4 flex gap-3 items-start flex-1 min-h-11" onClick={() => onOpenStudent(s.id)} aria-label={`Open ${s.name}`}>
+                  <button className="text-left p-4 flex gap-3 items-start flex-1 min-h-11" onClick={() => onOpenStudent(s.id)} aria-label={t('school.ro.open', { name: s.name })}>
                     <span aria-hidden className="h-12 w-12 shrink-0 rounded-full bg-accent text-accent-foreground flex items-center justify-center font-semibold text-lg">{initials(s.name)}</span>
                     <span className="min-w-0 space-y-1">
                       <span className="block font-semibold text-foreground text-base truncate">{s.name}</span>
-                      <span className="block text-sm text-muted-foreground">{age ?? 'No birth date'}{s.health_notes ? <span className="ml-2 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">Health note</span> : null}</span>
+                      <span className="block text-sm text-muted-foreground">{age ?? t('school.ro.noBirth')}{s.health_notes ? <span className="ml-2 rounded-full bg-destructive/10 px-2 py-0.5 text-xs font-medium text-destructive">{t('school.ro.healthNote')}</span> : null}</span>
                       <span className="block text-sm text-foreground">
-                        {latestSkill ? <>Latest work: <span className="font-medium">{latestSkill.title}</span> · {STATUS_LABEL[latest.status]}</> : <span className="text-muted-foreground">No work recorded yet</span>}
+                        {latestSkill ? <>{t('school.ro.latest')} <span className="font-medium">{latestSkill.title}</span> · {STATUS_LABEL[latest.status]}</> : <span className="text-muted-foreground">{t('school.ro.noWork')}</span>}
                       </span>
-                      <span className="block text-xs text-muted-foreground">{mine.length} {mine.length === 1 ? 'activity' : 'activities'} recorded · {s.family_email ? 'Parent email saved' : 'No parent email'}</span>
+                      <span className="block text-xs text-muted-foreground">{t('school.ro.recorded', { count: mine.length })} · {s.family_email ? t('school.ro.emailSaved') : t('school.ro.noEmail')}</span>
                     </span>
                   </button>
                     <div className="flex gap-1 border-t border-border px-2 py-1.5">
-                      <Button size="sm" variant="ghost" className="min-h-10" onClick={() => setEditing(childForm(s))}>{edit ? 'Edit' : 'Child information'}</Button>
-                      {edit && <Button size="sm" variant="ghost" className="min-h-10" onClick={() => archive(s, !s.archived)}>{s.archived ? 'Restore' : 'Archive'}</Button>}
-                      {canDelete && <Button size="sm" variant="ghost" className="min-h-10 ml-auto text-destructive" onClick={() => { setDeleting(s); setConfirmation(''); }}>Delete</Button>}
+                      <Button size="sm" variant="ghost" className="min-h-10" onClick={() => setEditing(childForm(s))}>{edit ? t('shared.edit') : t('school.ro.info')}</Button>
+                      {edit && <Button size="sm" variant="ghost" className="min-h-10" onClick={() => archive(s, !s.archived)}>{s.archived ? t('school.ro.restore') : t('school.ro.archive')}</Button>}
+                      {canDelete && <Button size="sm" variant="ghost" className="min-h-10 ml-auto text-destructive" onClick={() => { setDeleting(s); setConfirmation(''); }}>{t('shared.delete')}</Button>}
                     </div>
                 </li>
               );
@@ -118,36 +121,36 @@ export default function RosterTab({ role, classroom, students, seatLimit, school
 
       <AlertDialog open={!!deleting} onOpenChange={(open) => { if (!open && !busy) setDeleting(null); }}>
         <AlertDialogContent>
-          <AlertDialogHeader><AlertDialogTitle>Delete {deleting?.name} permanently?</AlertDialogTitle>
-            <AlertDialogDescription>This removes the student's profile, health notes, observations, progress and reports from the app, and removes them from lesson plans. It cannot be undone. Previously emailed reports and backup copies are not removed by this action.</AlertDialogDescription>
+          <AlertDialogHeader><AlertDialogTitle>{t('school.ro.delTitle', { name: deleting?.name })}</AlertDialogTitle>
+            <AlertDialogDescription>{t('school.ro.delBody')}</AlertDialogDescription>
           </AlertDialogHeader>
-          <div className="space-y-2"><Label htmlFor="delete-confirmation">Type DELETE to confirm</Label><Input id="delete-confirmation" autoComplete="off" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} /></div>
-          <AlertDialogFooter><AlertDialogCancel disabled={busy}>Cancel</AlertDialogCancel><Button variant="destructive" disabled={busy || confirmation !== 'DELETE'} onClick={() => void remove()}>{busy ? 'Deleting…' : 'Delete permanently'}</Button></AlertDialogFooter>
+          <div className="space-y-2"><Label htmlFor="delete-confirmation">{t('school.ro.typeDelete')}</Label><Input id="delete-confirmation" autoComplete="off" value={confirmation} onChange={(e) => setConfirmation(e.target.value)} /></div>
+          <AlertDialogFooter><AlertDialogCancel disabled={busy}>{t('shared.cancel')}</AlertDialogCancel><Button variant="destructive" disabled={busy || confirmation !== 'DELETE'} onClick={() => void remove()}>{busy ? t('school.ro.deleting') : t('school.ro.deleteForever')}</Button></AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
       <Dialog open={!!editing} onOpenChange={(o) => !o && !busy && setEditing(null)}>
         <DialogContent className="max-h-[90vh] overflow-y-auto" aria-describedby={undefined}>
-          <DialogHeader><DialogTitle>{!edit ? 'Child information' : editing?.id ? 'Edit student' : 'Add student'}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{!edit ? t('school.ro.info') : editing?.id ? t('school.ro.edit') : t('school.ro.add')}</DialogTitle></DialogHeader>
           <div className="space-y-3">
             {editing && <>
-              <fieldset className="space-y-2"><legend className="text-sm font-medium">Student</legend>
+              <fieldset className="space-y-2"><legend className="text-sm font-medium">{t('school.ro.student')}</legend>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><Label htmlFor="sn-first">First name</Label><Input id="sn-first" aria-label="Student first name" maxLength={120} readOnly={!edit} value={editing.studentName.first} onChange={(e) => setEditing({ ...editing, studentName: { ...editing.studentName, first: e.target.value } })} /></div>
-                  <div><Label htmlFor="sn-surname">Surname</Label><Input id="sn-surname" aria-label="Student surname" maxLength={120} readOnly={!edit} value={editing.studentName.surname} onChange={(e) => setEditing({ ...editing, studentName: { ...editing.studentName, surname: e.target.value } })} /></div>
+                  <div><Label htmlFor="sn-first">{t('school.ro.first')}</Label><Input id="sn-first" aria-label={t('school.ro.studentFirst')} maxLength={120} readOnly={!edit} value={editing.studentName.first} onChange={(e) => setEditing({ ...editing, studentName: { ...editing.studentName, first: e.target.value } })} /></div>
+                  <div><Label htmlFor="sn-surname">{t('school.ro.surname')}</Label><Input id="sn-surname" aria-label={t('school.ro.studentSurname')} maxLength={120} readOnly={!edit} value={editing.studentName.surname} onChange={(e) => setEditing({ ...editing, studentName: { ...editing.studentName, surname: e.target.value } })} /></div>
                 </div>
               </fieldset>
-              <div><Label htmlFor="sd">Birth date</Label><Input id="sd" readOnly={!edit} type="date" value={editing.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
-              {(['parentOne', 'parentTwo'] as const).map((key, index) => <fieldset key={key} className="space-y-2"><legend className="text-sm font-medium">Parent {index + 1}</legend>
+              <div><Label htmlFor="sd">{t('school.ro.birth')}</Label><Input id="sd" readOnly={!edit} type="date" value={editing.date_of_birth ?? ''} onChange={(e) => setEditing({ ...editing, date_of_birth: e.target.value })} /></div>
+              {(['parentOne', 'parentTwo'] as const).map((key, index) => <fieldset key={key} className="space-y-2"><legend className="text-sm font-medium">{t('school.ro.parent', { n: index + 1 })}</legend>
                 <div className="grid grid-cols-2 gap-3">
-                  <div><Label htmlFor={`${key}-first`}>First name</Label><Input id={`${key}-first`} aria-label={`Parent ${index + 1} first name`} maxLength={120} readOnly={!edit} value={editing[key].first} onChange={(e) => setEditing({ ...editing, [key]: { ...editing[key], first: e.target.value } })} /></div>
-                  <div><Label htmlFor={`${key}-surname`}>Surname</Label><Input id={`${key}-surname`} aria-label={`Parent ${index + 1} surname`} maxLength={120} readOnly={!edit} value={editing[key].surname} onChange={(e) => setEditing({ ...editing, [key]: { ...editing[key], surname: e.target.value } })} /></div>
+                  <div><Label htmlFor={`${key}-first`}>{t('school.ro.first')}</Label><Input id={`${key}-first`} aria-label={t('school.ro.parentFirst', { n: index + 1 })} maxLength={120} readOnly={!edit} value={editing[key].first} onChange={(e) => setEditing({ ...editing, [key]: { ...editing[key], first: e.target.value } })} /></div>
+                  <div><Label htmlFor={`${key}-surname`}>{t('school.ro.surname')}</Label><Input id={`${key}-surname`} aria-label={t('school.ro.parentSurname', { n: index + 1 })} maxLength={120} readOnly={!edit} value={editing[key].surname} onChange={(e) => setEditing({ ...editing, [key]: { ...editing[key], surname: e.target.value } })} /></div>
                 </div>
               </fieldset>)}
-              <div><Label htmlFor="se">Family email (for reports)</Label><Input id="se" readOnly={!edit} type="email" value={editing.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
-              <div><Label htmlFor="sh">Health and allergies (staff only)</Label><Textarea id="sh" readOnly={!edit} rows={2} placeholder="e.g. Nut allergy, carries an inhaler" value={editing.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
+              <div><Label htmlFor="se">{t('school.ro.familyEmail')}</Label><Input id="se" readOnly={!edit} type="email" value={editing.family_email ?? ''} onChange={(e) => setEditing({ ...editing, family_email: e.target.value })} /></div>
+              <div><Label htmlFor="sh">{t('school.ro.health')}</Label><Textarea id="sh" readOnly={!edit} rows={2} placeholder={t('school.ro.healthPh')} value={editing.health_notes ?? ''} onChange={(e) => setEditing({ ...editing, health_notes: e.target.value })} /></div>
             </>}
           </div>
-          <DialogFooter>{edit ? <Button disabled={busy || !editing?.studentName.first.trim()} onClick={save}>{busy ? 'Saving…' : 'Save'}</Button> : <Button variant="outline" onClick={() => setEditing(null)}>Close</Button>}</DialogFooter>
+          <DialogFooter>{edit ? <Button disabled={busy || !editing?.studentName.first.trim()} onClick={save}>{busy ? t('shared.saving') : t('shared.save')}</Button> : <Button variant="outline" onClick={() => setEditing(null)}>{t('shared.close')}</Button>}</DialogFooter>
         </DialogContent>
       </Dialog>
     </Card>

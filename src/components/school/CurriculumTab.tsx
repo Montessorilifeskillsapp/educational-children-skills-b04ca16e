@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Search, ChevronRight, Printer, Download } from 'lucide-react';
 import { crosswalkHtml } from './crosswalkReport';
@@ -9,6 +10,7 @@ import { allowSchoolNavigation } from './navigation';
 /** Browse every curriculum activity from inside the portal; opening one keeps the "Return to School Portal" bar. */
 export default function CurriculumTab({ schoolName = '' }: { schoolName?: string }) {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const all = orderedSkills();
   const list = areas();
   const [area, setArea] = useState(list[0]?.key ?? '');
@@ -31,23 +33,23 @@ export default function CurriculumTab({ schoolName = '' }: { schoolName?: string
     <section className="space-y-5">
       <header className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <h2 className="font-display text-3xl text-foreground">Curriculum</h2>
-          <p className="text-muted-foreground">Every presentation, in order from first to most advanced.</p>
+          <h2 className="font-display text-3xl text-foreground">{t('school.cu.title')}</h2>
+          <p className="text-muted-foreground">{t('school.cu.sub')}</p>
           <button type="button" onClick={printCrosswalk} className="mt-1 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
-            <Printer className="h-4 w-4" /> Common Core standards crosswalk
+            <Printer className="h-4 w-4" /> {t('school.cu.crosswalk')}
           </button>
           <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="mt-1 ml-4 inline-flex items-center gap-1.5 text-sm text-primary hover:underline">
-            <Download className="h-4 w-4" /> Compliance and Privacy Brief (PDF)
+            <Download className="h-4 w-4" /> {t('school.cu.brief')}
           </a>
         </div>
         <div className="relative w-full sm:w-72">
           <Search className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-          <Input aria-label="Search all activities" className="pl-9" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search all activities" />
+          <Input aria-label={t('school.cu.search')} className="pl-9" value={query} onChange={(e) => setQuery(e.target.value)} placeholder={t('school.cu.search')} />
         </div>
       </header>
 
       {!q && (
-        <div className="flex flex-wrap gap-2" role="tablist" aria-label="Curriculum areas">
+        <div className="flex flex-wrap gap-2" role="tablist" aria-label={t('school.cu.areas')}>
           {list.map((a) => (
             <button key={a.key} type="button" role="tab" aria-selected={area === a.key} onClick={() => setArea(a.key)}
               className={`rounded-full px-4 py-2 text-sm transition-colors ${area === a.key ? 'bg-primary text-primary-foreground font-medium' : 'bg-card text-muted-foreground hover:text-foreground'}`}>
@@ -58,7 +60,7 @@ export default function CurriculumTab({ schoolName = '' }: { schoolName?: string
       )}
 
       <ul className="school-card divide-y divide-border">
-        {visible.length === 0 && <li className="p-6 text-muted-foreground">No activities match “{query}”.</li>}
+        {visible.length === 0 && <li className="p-6 text-muted-foreground">{t('school.cu.noMatch', { q: query })}</li>}
         {visible.map((sk, i) => (
           <li key={`${sk.areaKey}:${sk.id}`}>
             <button type="button" onClick={() => { if (allowSchoolNavigation()) navigate(skillLink(sk)); }}

@@ -1,3 +1,6 @@
+import i18n from '@/i18n';
+import { locale } from '@/i18n/format';
+
 /** Formal, printable parent-conference report built from the editable plain-text report. */
 export interface ConferenceInput {
   schoolName: string; schoolEmail: string | null; studentName: string;
@@ -8,7 +11,7 @@ export const escapeHtml = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&
 
 const fmt = (d: string) => {
   const t = new Date(`${d}T00:00:00`);
-  return Number.isFinite(t.getTime()) ? t.toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' }) : d;
+  return Number.isFinite(t.getTime()) ? t.toLocaleDateString(locale(), { day: 'numeric', month: 'long', year: 'numeric' }) : d;
 };
 
 /** Lines ending in ":" become section headings, "•" lines become lists, everything else becomes paragraphs. */
@@ -30,7 +33,7 @@ export function conferenceBodyHtml(body: string): string {
 
 export function conferenceHtml(r: ConferenceInput): string {
   const e = escapeHtml;
-  return `<!doctype html><html><head><meta charset="utf-8"><title>${e(r.title)}</title><style>
+  return `<!doctype html><html lang="${i18n.resolvedLanguage || 'en'}"><head><meta charset="utf-8"><title>${e(r.title)}</title><style>
 @page{size:A4;margin:18mm}
 body{font-family:Georgia,'Times New Roman',serif;color:#2b2622;line-height:1.55;max-width:720px;margin:0 auto;padding:24px}
 header{border-bottom:2px solid #8a6d4b;padding-bottom:12px;margin-bottom:20px;display:flex;justify-content:space-between;align-items:flex-end;gap:16px}
@@ -49,8 +52,8 @@ footer{margin-top:28px;font-size:11px;color:#8b827a;text-align:center}
 <h1>${e(r.title)}</h1>
 <div class="meta">${e(r.studentName)} · ${e(fmt(r.periodStart))} – ${e(fmt(r.periodEnd))}</div>
 ${conferenceBodyHtml(r.body)}
-<p class="signoff">${e(r.signoff || 'With warm regards,')}<br>${e(r.schoolName)}</p>
-<div class="sign"><div>Guide signature &amp; date</div><div>Family signature &amp; date</div></div>
-<footer>Confidential · prepared for the family of ${e(r.studentName)}</footer>
+<p class="signoff">${e(r.signoff || i18n.t('school.rp.regards'))}<br>${e(r.schoolName)}</p>
+<div class="sign"><div>${i18n.t('school.conf.guideSign')}</div><div>${i18n.t('school.conf.familySign')}</div></div>
+<footer>${e(i18n.t('school.conf.footer', { name: r.studentName }))}</footer>
 </body></html>`;
 }

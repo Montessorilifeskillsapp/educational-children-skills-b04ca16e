@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +31,7 @@ const iso = (d: Date) => d.toISOString().slice(0, 10);
 
 export default function StudentPanel({ role, userId, student, progress, observations, reports, onClose, onChange, onPlan, onRecord, schoolName, schoolEmail, classmates, onSelect, nameOf }: Props) {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [area, setArea] = useState(areas()[0].key);
   const areaRecords = useMemo(() => progress.filter((p) => p.student_id === student?.id && skillById(p.skill_id)?.areaKey === area).sort((a, b) => b.updated_at.localeCompare(a.updated_at)), [area, progress, student?.id]);
   const editable = can.recordProgress(role);
@@ -70,16 +72,16 @@ export default function StudentPanel({ role, userId, student, progress, observat
     try {
       const r = await schoolCall({ action: 'observation_add', student_id: student.id, body: note.trim() });
       clearNote();
-      if (isQueued(r)) toast({ title: 'Saved on this device', description: 'No connection right now. It will sync automatically.' });
+      if (isQueued(r)) toast({ title: t('school.sp.queued'), description: t('school.sp.queuedBody') });
       onChange();
     }
-    catch (e) { toast({ title: 'Could not save note', description: (e as Error).message, variant: 'destructive' }); }
+    catch (e) { toast({ title: t('school.er.noteFailed'), description: (e as Error).message, variant: 'destructive' }); }
     finally { setSavingNote(false); }
   };
 
   const buildReport = () => {
     const inRange = (d: string) => d.slice(0, 10) >= from && d.slice(0, 10) <= to;
-    const lines: string[] = [`Progress summary for ${student.name}, ${from} to ${to}.`, ''];
+    const lines: string[] = [t('school.sp.summary', { name: student.name, from, to }), ''];
     for (const a of areas()) {
       const items = mine.filter((p) => inRange(p.updated_at) && skillById(p.skill_id)?.areaKey === a.key);
       if (!items.length) continue;
@@ -88,33 +90,33 @@ export default function StudentPanel({ role, userId, student, progress, observat
       lines.push('');
     }
     const notes = obs.filter((o) => inRange(o.observed_at));
-    if (notes.length) { lines.push('Observations:'); notes.slice().reverse().forEach((o) => lines.push(`• ${o.observed_at.slice(0, 10)}: ${o.body}`)); lines.push(''); }
-    if (suggestions.length) { lines.push('Coming next:'); suggestions.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
-    setPreview({ title: `Progress report for ${student.name}`, body: lines.join('\n').trim() });
+    if (notes.length) { lines.push(t('school.rp.observations')); notes.slice().reverse().forEach((o) => lines.push(`• ${o.observed_at.slice(0, 10)}: ${o.body}`)); lines.push(''); }
+    if (suggestions.length) { lines.push(t('school.rp.next')); suggestions.forEach((s) => lines.push(`• ${s.title} (${s.areaTitle})`)); }
+    setPreview({ title: t('school.sp.reportFor', { name: student.name }), body: lines.join('\n').trim() });
   };
   // One tap: opens the teacher's school email app with the parent, subject and report filled in, then records it.
   const send = () => {
     if (!preview || sending || !student.family_email) return;
     const subject = `${schoolName} · ${preview.title}`;
-    const body = `${preview.body}\n\nWith warm regards,\n${schoolName}${schoolEmail ? `\n${schoolEmail}` : ''}`;
+    const body = `${preview.body}\n\n${t('school.rp.regards')}\n${schoolName}${schoolEmail ? `\n${schoolEmail}` : ''}`;
     window.location.href = `mailto:${encodeURIComponent(student.family_email)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSending(true);
     schoolCall({ action: 'report_record', student_id: student.id, period_start: from, period_end: to, title: preview.title, body: preview.body })
-      .then(() => { toast({ title: 'Report opened in your school email', description: `Press Send in your email app to deliver it to ${student.family_email}.` }); clearPreview(); onChange(); })
-      .catch((e) => toast({ title: 'Email opened, but the record was not saved', description: (e as Error).message, variant: 'destructive' }))
+      .then(() => { toast({ title: t('school.rp.opened'), description: t('school.rp.pressSend', { email: student.family_email }) }); clearPreview(); onChange(); })
+      .catch((e) => toast({ title: t('school.rp.notSaved'), description: (e as Error).message, variant: 'destructive' }))
       .finally(() => setSending(false));
   };
 
   const i = classmates.findIndex((c) => c.id === student.id);
   const changeParentAccess = async () => {
     if (!student.family_email || savingAccess) return;
-    if (!student.parent_access_enabled && !window.confirm(`Have you verified that ${student.family_email} belongs to ${student.name}’s parent? This gives that confirmed account access to every note, progress record, health note and report for this child.`)) return;
+    if (!student.parent_access_enabled && !window.confirm(t('school.sp.verify', { email: student.family_email, name: student.name }))) return;
     setSavingAccess(true);
     try {
       await schoolCall({ action: 'parent_access', student_id: student.id, approved: !student.parent_access_enabled });
       onChange();
-      toast({ title: student.parent_access_enabled ? 'Parent access revoked' : 'Parent access enabled' });
-    } catch (e) { toast({ title: 'Could not update parent access', description: (e as Error).message, variant: 'destructive' }); }
+      toast({ title: student.parent_access_enabled ? t('school.sp.revoked') : t('school.sp.enabled') });
+    } catch (e) { toast({ title: t('school.sp.accessFailed'), description: (e as Error).message, variant: 'destructive' }); }
     finally { setSavingAccess(false); }
   };
   const showReports = can.sendReport(role) || sent.length > 0;
@@ -129,49 +131,49 @@ export default function StudentPanel({ role, userId, student, progress, observat
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))).map((b) => b.toString(16).padStart(2, '0')).join('');
       const blob = new Blob([JSON.stringify({ ...record, sha256_of_record: digest }, null, 2)], { type: 'application/json' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `student-record-${student.id.slice(0, 8)}.json`; a.click(); URL.revokeObjectURL(a.href);
-      toast({ title: 'Full record downloaded', description: 'The export was logged in your school change history.' });
-    } catch (e) { toast({ title: 'Export failed', description: (e as Error).message, variant: 'destructive' }); }
+      toast({ title: t('school.sp.downloaded'), description: t('school.sp.logged') });
+    } catch (e) { toast({ title: t('school.sp.exportFailed'), description: (e as Error).message, variant: 'destructive' }); }
   };
   return (
     <Dialog open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
       <DialogContent className="school-theme school-scale max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl" aria-describedby={undefined}>
         <div className="border-b border-border px-6 pt-6 pb-4 space-y-3">
           <DialogHeader className="text-left pr-8">
-            <DialogTitle className="font-display text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">View only</span>}</DialogTitle>
+            <DialogTitle className="font-display text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">{t('school.pt.viewOnly')}</span>}</DialogTitle>
           </DialogHeader>
           {student.health_notes && (
             <div className="space-y-1 rounded-lg border border-destructive/40 bg-destructive/5 p-3 text-sm" role="note">
-              {student.health_notes && <p><span className="font-semibold">Health and allergies: </span>{student.health_notes}</p>}
+              {student.health_notes && <p><span className="font-semibold">{t('school.sp.health')}</span>{student.health_notes}</p>}
             </div>
           )}
           {classmates.length > 1 && (
             <div className="flex items-center gap-2">
-              <Button size="icon" variant="outline" aria-label="Previous child" disabled={i <= 0} onClick={() => switchStudent(classmates[i - 1].id)}><ChevronLeft className="h-4 w-4" /></Button>
+              <Button size="icon" variant="outline" aria-label={t('school.sp.prev')} disabled={i <= 0} onClick={() => switchStudent(classmates[i - 1].id)}><ChevronLeft className="h-4 w-4" /></Button>
               <Select value={student.id} onValueChange={switchStudent}>
-                <SelectTrigger aria-label="Child" className="flex-1 max-w-xs"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label={t('school.sp.child')} className="flex-1 max-w-xs"><SelectValue /></SelectTrigger>
                 <SelectContent>{classmates.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
               </Select>
-              <Button size="icon" variant="outline" aria-label="Next child" disabled={i < 0 || i >= classmates.length - 1} onClick={() => switchStudent(classmates[i + 1].id)}><ChevronRight className="h-4 w-4" /></Button>
-              <span className="text-sm text-muted-foreground">{i + 1} of {classmates.length}</span>
+              <Button size="icon" variant="outline" aria-label={t('school.sp.next')} disabled={i < 0 || i >= classmates.length - 1} onClick={() => switchStudent(classmates[i + 1].id)}><ChevronRight className="h-4 w-4" /></Button>
+              <span className="text-sm text-muted-foreground">{t('school.sp.of', { n: i + 1, total: classmates.length })}</span>
             </div>
           )}
         </div>
         <div className="flex-1 overflow-y-auto px-6 py-5">
         <Tabs defaultValue="notes">
           <TabsList className="mb-5">
-            <TabsTrigger value="notes">Notes</TabsTrigger>
-            <TabsTrigger value="progress">Progress</TabsTrigger>
-            {showReports && <TabsTrigger value="reports">Parent report</TabsTrigger>}
+            <TabsTrigger value="notes">{t('school.sp.notes')}</TabsTrigger>
+            <TabsTrigger value="progress">{t('school.sp.progress')}</TabsTrigger>
+            {showReports && <TabsTrigger value="reports">{t('school.sp.parentReport')}</TabsTrigger>}
           </TabsList>
           <TabsContent value="progress" className="mt-0 space-y-6">
           <section>
-            <h3 className="font-semibold mb-2">Ready for next</h3>
-            {suggestions.length === 0 ? <p className="text-sm text-muted-foreground">No next activity suggested yet.</p> : (
+            <h3 className="font-semibold mb-2">{t('school.sp.readyNext')}</h3>
+            {suggestions.length === 0 ? <p className="text-sm text-muted-foreground">{t('school.sp.noSuggest')}</p> : (
               <ul className="space-y-1">
                 {suggestions.map((s) => (
                   <li key={s.id} className="flex items-center justify-between text-sm gap-2">
                     <span><Link to={skillLink(s)} onClick={(event) => { if (!allowSchoolNavigation()) event.preventDefault(); }} className="font-medium hover:underline">{s.title}</Link> <span className="text-muted-foreground">· {s.areaTitle}</span></span>
-                    {can.plan(role) && <Button size="sm" variant="outline" onClick={() => onPlan(s.id, student.id)}>Plan</Button>}
+                    {can.plan(role) && <Button size="sm" variant="outline" onClick={() => onPlan(s.id, student.id)}>{t('school.sp.plan')}</Button>}
                   </li>
                 ))}
               </ul>
@@ -180,17 +182,17 @@ export default function StudentPanel({ role, userId, student, progress, observat
 
           <section>
             <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-              <h3 className="font-semibold">Progress</h3>
+              <h3 className="font-semibold">{t('school.sp.progress')}</h3>
               <Select value={area} onValueChange={setArea}>
-                <SelectTrigger aria-label="Progress area" className="w-56"><SelectValue /></SelectTrigger>
+                <SelectTrigger aria-label={t('school.sp.progressArea')} className="w-56"><SelectValue /></SelectTrigger>
                 <SelectContent>{areas().map((a) => <SelectItem key={a.key} value={a.key}>{a.title}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             {editable && <Button className="mb-4" onClick={() => {
               const skill = orderedSkills().find((s) => s.areaKey === area);
               if (skill && allowSchoolNavigation()) onRecord(student.id, skill);
-            }}>Record observation</Button>}
-            {areaRecords.length === 0 && <p className="text-muted-foreground">No observations in this area yet.</p>}
+            }}>{t('school.pc.record')}</Button>}
+            {areaRecords.length === 0 && <p className="text-muted-foreground">{t('school.sp.noAreaObs')}</p>}
             <ul className="divide-y divide-border">
               {areaRecords.map((p) => {
                 const sk = skillById(p.skill_id);
@@ -198,7 +200,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
                 return (
                   <li key={p.id} className="py-3 space-y-1">
                     <Link to={skillLink(sk)} onClick={(event) => { if (!allowSchoolNavigation()) event.preventDefault(); }} className="block text-sm font-medium mb-1 hover:underline">{sk.title}</Link>
-                    <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p.status} />{editable && <Button variant="link" className="h-auto px-0" onClick={() => { if (allowSchoolNavigation()) onRecord(student.id, sk); }}>Edit observation</Button>}</div>
+                    <div className="flex flex-wrap items-center justify-between gap-2"><StatusBadge status={p.status} />{editable && <Button variant="link" className="h-auto px-0" onClick={() => { if (allowSchoolNavigation()) onRecord(student.id, sk); }}>{t('school.sp.editObs')}</Button>}</div>
                     <p className="text-xs text-muted-foreground">{lastUpdate(p, nameOf)}</p>
                     {p.note && <p className="text-sm whitespace-pre-wrap break-words">{p.note}</p>}
                   </li>
@@ -210,19 +212,19 @@ export default function StudentPanel({ role, userId, student, progress, observat
           <TabsContent value="notes" className="mt-0">
           <section>
             {editable && <div className="mb-6">
-              <Label htmlFor="student-note" className="text-base font-semibold">New observation</Label>
-              <Textarea id="student-note" rows={4} maxLength={2000} disabled={savingNote} className="mt-2 text-base" value={note} onChange={(e) => setNote(e.target.value)} placeholder={`What did you observe about ${student.name} today?`} />
-              <div className="flex justify-end mt-3"><Button onClick={addNote} disabled={!note.trim() || savingNote}>{savingNote ? 'Saving…' : 'Save note'}</Button></div>
+              <Label htmlFor="student-note" className="text-base font-semibold">{t('school.sp.newObs')}</Label>
+              <Textarea id="student-note" rows={4} maxLength={2000} disabled={savingNote} className="mt-2 text-base" value={note} onChange={(e) => setNote(e.target.value)} placeholder={t('school.sp.obsPh', { name: student.name })} />
+              <div className="flex justify-end mt-3"><Button onClick={addNote} disabled={!note.trim() || savingNote}>{savingNote ? t('shared.saving') : t('school.sp.saveNote')}</Button></div>
             </div>}
-            <h3 className="text-lg font-semibold mb-2">Earlier notes</h3>
+            <h3 className="text-lg font-semibold mb-2">{t('school.sp.earlier')}</h3>
             <NoteList notes={obs} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
             {role === 'school_admin' && <details className="mt-6 border-t border-border pt-4">
-              <summary className="cursor-pointer font-medium text-foreground">Parent access & full record</summary>
+              <summary className="cursor-pointer font-medium text-foreground">{t('school.sp.parentAccess')}</summary>
               <div className="mt-4 space-y-3">
-                <p className="text-sm text-muted-foreground">{student.family_email || 'Add the parent email in the child’s details.'}</p>
+                <p className="text-sm text-muted-foreground">{student.family_email || t('school.sp.addParentEmail')}</p>
                 <div className="flex flex-wrap gap-2">
-                  <Button variant="outline" className="h-auto min-h-11 whitespace-normal" onClick={changeParentAccess} disabled={!student.family_email || savingAccess}>{savingAccess ? 'Saving…' : student.parent_access_enabled ? 'Revoke parent access' : 'Verify parent and enable access'}</Button>
-                  <Button variant="ghost" onClick={exportRecord}>Download full record</Button>
+                  <Button variant="outline" className="h-auto min-h-11 whitespace-normal" onClick={changeParentAccess} disabled={!student.family_email || savingAccess}>{savingAccess ? t('shared.saving') : student.parent_access_enabled ? t('school.sp.revoke') : t('school.sp.enable')}</Button>
+                  <Button variant="ghost" onClick={exportRecord}>{t('school.sp.download')}</Button>
                 </div>
               </div>
             </details>}
@@ -231,36 +233,36 @@ export default function StudentPanel({ role, userId, student, progress, observat
           <TabsContent value="reports" className="mt-0 space-y-6">
           {!can.sendReport(role) && sent.length > 0 && (
             <section>
-              <h3 className="font-semibold mb-2">Past parent reports</h3>
+              <h3 className="font-semibold mb-2">{t('school.sp.pastParent')}</h3>
               <ReportList reports={sent} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
             </section>
           )}
           {can.sendReport(role) && (
             <section>
-              <h3 className="font-semibold mb-2">Parent report</h3>
+              <h3 className="font-semibold mb-2">{t('school.sp.parentReport')}</h3>
               <div className="grid grid-cols-2 gap-2">
-                <div><Label>From</Label><Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} /></div>
-                <div><Label>To</Label><Input type="date" value={to} onChange={(e) => setTo(e.target.value)} /></div>
+                <div><Label>{t('school.rp.from')}</Label><Input type="date" value={from} onChange={(e) => setFrom(e.target.value)} /></div>
+                <div><Label>{t('school.rp.to')}</Label><Input type="date" value={to} onChange={(e) => setTo(e.target.value)} /></div>
               </div>
-              <Button size="sm" className="mt-2" variant="outline" onClick={buildReport}>Preview report</Button>
+              <Button size="sm" className="mt-2" variant="outline" onClick={buildReport}>{t('school.sp.preview')}</Button>
               {preview && (
                 <div className="mt-3 space-y-2">
                   <Input value={preview.title} onChange={(e) => setPreview({ ...preview, title: e.target.value })} />
                   <Textarea rows={12} value={preview.body} onChange={(e) => setPreview({ ...preview, body: e.target.value })} />
                   <div className="flex gap-2">
-                    <Button size="sm" onClick={send} disabled={sending || !student.family_email}>{student.family_email ? `Send from school email to ${student.family_email}` : 'Add a family email first'}</Button>
+                    <Button size="sm" onClick={send} disabled={sending || !student.family_email}>{student.family_email ? t('school.sp.sendTo', { email: student.family_email }) : t('school.sp.addFamily')}</Button>
                     <Button size="sm" variant="outline" onClick={() => {
                       const w = window.open('', '_blank'); if (!w) return;
                       w.document.title = preview.title;
                       const pre = w.document.createElement('pre'); pre.style.cssText = 'font-family:Georgia,serif;white-space:pre-wrap;font-size:14px;padding:24px';
                       pre.textContent = `${preview.title}\n\n${preview.body}`; w.document.body.appendChild(pre); w.print();
-                    }}>Print</Button>
+                    }}>{t('school.rp.print')}</Button>
                   </div>
                 </div>
               )}
               {sent.length > 0 && (
                 <div className="mt-4">
-                  <p className="text-sm font-medium mb-2">Past parent reports</p>
+                  <p className="text-sm font-medium mb-2">{t('school.sp.pastParent')}</p>
                   <ReportList reports={sent} role={role} userId={userId} nameOf={nameOf} onChange={onChange} />
                 </div>
               )}

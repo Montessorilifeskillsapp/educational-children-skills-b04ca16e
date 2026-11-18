@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { locale } from '@/i18n/format';
 import { Link } from 'react-router-dom';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
@@ -11,6 +13,7 @@ interface Props { data: SchoolData; nameOf: (userId: string | null) => string; o
 
 /** School Admin view of what each staff member has recorded (progress and observation notes). */
 export default function StaffActivity({ data, nameOf, onOpenStudent }: Props) {
+  const { t } = useTranslation();
   const [who, setWho] = useState<string>('all');
   const student = (id: string) => data.students.find((s) => s.id === id);
   const room = (id?: string) => data.classrooms.find((c) => c.id === id)?.name ?? '';
@@ -26,29 +29,29 @@ export default function StaffActivity({ data, nameOf, onOpenStudent }: Props) {
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between gap-3 flex-wrap space-y-0">
-        <CardTitle className="text-lg">Staff activity</CardTitle>
+        <CardTitle className="text-lg">{t('school.sa.title')}</CardTitle>
         <Select value={who} onValueChange={setWho}>
           <SelectTrigger className="w-64"><SelectValue /></SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All staff</SelectItem>
+            <SelectItem value="all">{t('school.rv.allStaff')}</SelectItem>
             {data.members.map((m) => <SelectItem key={m.id} value={m.user_id}>{m.full_name || m.email} · {ROLE_LABEL[m.role]}</SelectItem>)}
           </SelectContent>
         </Select>
       </CardHeader>
       <CardContent>
-        {items.length === 0 ? <p className="text-sm text-muted-foreground">Nothing recorded yet.</p> : (
+        {items.length === 0 ? <p className="text-sm text-muted-foreground">{t('school.sa.nothing')}</p> : (
           <ul className="divide-y divide-border">
             {items.map((r) => {
               const st = student(r.studentId);
               const skill = r.kind === 'progress' ? skillById(r.p.skill_id) : undefined;
               return (
                 <li key={`${r.kind}-${r.id}`} className="py-2 text-sm flex flex-wrap items-center gap-2">
-                  <span className="text-xs text-muted-foreground w-28">{new Date(r.at).toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} · {nameOf(r.by)}</span>
-                  <button className="font-medium hover:underline" onClick={() => st && onOpenStudent(st.id)}>{st?.name ?? 'Student'}</button>
+                  <span className="text-xs text-muted-foreground w-28">{new Date(r.at).toLocaleDateString(locale(), { month: 'short', day: 'numeric' })} · {nameOf(r.by)}</span>
+                  <button className="font-medium hover:underline" onClick={() => st && onOpenStudent(st.id)}>{st?.name ?? t('school.sa.student')}</button>
                   <span className="text-xs text-muted-foreground">{room(st?.classroom_id)}</span>
                   {r.kind === 'progress'
                     ? <>{skill ? <Link to={skillLink(skill)} className="font-medium hover:underline">{skill.title}</Link> : <span>{r.p.skill_id}</span>}<StatusBadge status={r.p.status} />{r.p.note && <span className="text-muted-foreground">· {r.p.note}</span>}</>
-                    : <span className="text-muted-foreground">Note: {r.o.body.length > 140 ? `${r.o.body.slice(0, 140)}…` : r.o.body}</span>}
+                    : <span className="text-muted-foreground">{t('school.sa.note', { body: r.o.body.length > 140 ? `${r.o.body.slice(0, 140)}…` : r.o.body })}</span>}
                 </li>
               );
             })}

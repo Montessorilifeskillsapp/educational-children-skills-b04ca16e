@@ -1,4 +1,5 @@
 import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
+import { areaTitle } from '@/i18n/format';
 
 export interface SkillRef { id: string; title: string; areaKey: string; areaTitle: string; route: string; order: number }
 
@@ -13,14 +14,15 @@ export function orderedSkills(): SkillRef[] {
       // An activity can belong to more than one area. Keep each area's entry;
       // the stored skill id still identifies the same observation record.
       if (!sk?.title) continue;
-      out.push({ id, title: sk.title, areaKey: s.key, areaTitle: s.title, route: s.route, order: out.length });
+      // Area titles follow the chosen language; keys and ids stay stable.
+      out.push({ id, title: sk.title, areaKey: s.key, get areaTitle() { return areaTitle(s.key, s.title); }, route: s.route, order: out.length });
     }
   }
   cache = out;
   return out;
 }
 
-export const areas = () => curriculumSectionsForMaterials.map((s) => ({ key: s.key, title: s.title }));
+export const areas = () => curriculumSectionsForMaterials.map((s) => ({ key: s.key, title: areaTitle(s.key, s.title) }));
 
 export function skillById(id: string): SkillRef | undefined {
   return orderedSkills().find((s) => s.id === id);

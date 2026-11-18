@@ -1,4 +1,5 @@
 import { supabase } from '@/integrations/supabase/client';
+import i18n from '@/i18n';
 import { FunctionsFetchError, FunctionsHttpError } from '@supabase/supabase-js';
 import { configureQueue, enqueue, isConnectionError, QUEUEABLE, withdraw } from './offlineQueue';
 import { applySavedSchoolChange, sharedPortalRead, setPortalOwner } from './portalCache';
@@ -6,7 +7,12 @@ import { DEFAULT_POLICIES, resolvePolicies, roleAllows, type SchoolPolicies } fr
 export { CAPABILITIES, DEFAULT_POLICIES, resolvePolicies, type Capability, type SchoolPolicies } from '../../../supabase/functions/school-portal/rules';
 
 export type SchoolRole = 'school_admin' | 'teacher' | 'assistant';
-export const ROLE_LABEL: Record<SchoolRole, string> = { school_admin: 'School Admin', teacher: 'Teacher', assistant: 'Assistant' };
+// Labels follow the language chosen in the app; role identifiers stay stable.
+export const ROLE_LABEL: Record<SchoolRole, string> = {
+  get school_admin() { return i18n.t('school.roles.school_admin'); },
+  get teacher() { return i18n.t('school.roles.teacher'); },
+  get assistant() { return i18n.t('school.roles.assistant'); },
+};
 
 export interface Membership { id: string; role: SchoolRole; school_id: string; schools: { id: string; name: string; seat_limit: number; contact_email: string | null; policies?: unknown; backup_frequency?: 'quarterly' | 'semester' } }
 export interface Classroom { id: string; school_id: string; name: string; seat_limit: number | null; age_group?: string | null; lead_member_id?: string | null }

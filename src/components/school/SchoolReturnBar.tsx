@@ -1,4 +1,5 @@
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowLeft } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { SCHOOL_RETURN_KEY, hasSchoolReturn, schoolReturnTarget } from './navigation';
@@ -19,6 +20,7 @@ export function rememberSchoolReturn(url: string) {
  */
 export default function SchoolReturnBar() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const location = useLocation();
   const [params] = useSearchParams();
   if (location.pathname.startsWith('/school') || location.pathname.startsWith('/admin') || location.pathname.startsWith('/auth')) return null;
@@ -31,7 +33,7 @@ export default function SchoolReturnBar() {
       style={params.get('activity') ? undefined : { bottom: 'calc(1rem + env(safe-area-inset-bottom))' }}>
       <Button variant="ghost" size="sm" onClick={() => navigate(schoolReturnTarget())}>
         <ArrowLeft className="h-4 w-4 mr-2" />
-        Return to School Portal
+        {t('school.ret')}
       </Button>
     </div>
   );
