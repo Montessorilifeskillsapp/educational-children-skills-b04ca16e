@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { areaTitle } from '@/i18n/format';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
@@ -83,6 +85,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   activeProfile
 }) => {
   const { user, signOut } = useAuthContext();
+  const { t } = useTranslation();
   const { profiles, activeProfile: ctxActiveProfile, setActiveProfile } = useProfile();
   const currentProfile = ctxActiveProfile || activeProfile;
   
@@ -98,7 +101,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   return (
     <div className={`min-h-screen ${montessoriTheme.backgrounds.dashboard} p-4`}>
       <div className="max-w-6xl mx-auto">
-        {onBack && <BackButton onClick={onBack} label="Back to Home" />}
+        {onBack && <BackButton onClick={onBack} label={t('dashboard.back')} />}
         
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
           <div className="flex items-center gap-4">
@@ -113,12 +116,12 @@ const Dashboard: React.FC<DashboardProps> = ({
               {activeProfile && (
                 <p className={`${montessoriTheme.text.muted} flex items-center gap-2 mt-1`}>
                   <span className="text-xl">{activeProfile.avatar}</span>
-                  Welcome back, {activeProfile.name}!
+                  {t('dashboard.welcome', { name: activeProfile.name })}
                 </p>
               )}
               {user && (
                 <p className="text-sm text-gray-600 mt-1">
-                  Logged in as: {user.email}
+                  {t('dashboard.loggedIn', { email: user.email })}
                 </p>
               )}
             </div>
@@ -133,8 +136,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                   if (next) setActiveProfile(next);
                 }}
               >
-                <SelectTrigger className="w-[200px]" aria-label="Select child profile">
-                  <SelectValue placeholder="Select child" />
+                <SelectTrigger className="w-[200px]" aria-label={t('dashboard.selectAria')}>
+                  <SelectValue placeholder={t('dashboard.selectPh')} />
                 </SelectTrigger>
                 <SelectContent>
                   {profiles.map(p => (
@@ -150,31 +153,31 @@ const Dashboard: React.FC<DashboardProps> = ({
               <Link to="/auth">
                 <Button variant="outline">
                   <User className="mr-2 h-4 w-4" />
-                  Sign In
+                  {t('dashboard.signIn')}
                 </Button>
               </Link>
             ) : (
               <Button variant="outline" onClick={() => signOut()}>
-                Sign Out
+                {t('dashboard.signOut')}
               </Button>
             )}
           </div>
         </div>
 
-        <nav className="mb-6 grid gap-3 sm:grid-cols-3" aria-label="Account pages">
+        <nav className="mb-6 grid gap-3 sm:grid-cols-3" aria-label={t('dashboard.nav')}>
           {onProfilesView && (
             <Button variant="default" onClick={onProfilesView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
               <Users className="h-6 w-6 shrink-0" aria-hidden="true" />
-              <span className="min-w-0"><span className="block font-semibold">Manage Child Profiles</span><span className="block text-xs font-normal opacity-90">Choose or edit a child</span></span>
+              <span className="min-w-0"><span className="block font-semibold">{t('dashboard.profiles')}</span><span className="block text-xs font-normal opacity-90">{t('dashboard.profilesSub')}</span></span>
             </Button>
           )}
           <Button variant="outline" onClick={onParentView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
             <User className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
-            <span className="min-w-0"><span className="block font-semibold">Family Dashboard</span><span className="block text-xs font-normal text-muted-foreground">View learning progress</span></span>
+            <span className="min-w-0"><span className="block font-semibold">{t('dashboard.family')}</span><span className="block text-xs font-normal text-muted-foreground">{t('dashboard.familySub')}</span></span>
           </Button>
           <Button variant="outline" onClick={onSubscriptionView} className="h-auto min-h-20 justify-start gap-3 whitespace-normal px-4 py-3 text-left">
             <Crown className="h-6 w-6 shrink-0 text-primary" aria-hidden="true" />
-            <span className="min-w-0"><span className="block font-semibold">Premium Plans</span><span className="block text-xs font-normal text-muted-foreground">Plans &amp; pricing, plus a private consultation with Kerry</span></span>
+            <span className="min-w-0"><span className="block font-semibold">{t('dashboard.plans')}</span><span className="block text-xs font-normal text-muted-foreground">{t('dashboard.plansSub')}</span></span>
           </Button>
         </nav>
 
@@ -183,14 +186,13 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="rounded-2xl border-2 border-primary/30 bg-gradient-to-br from-primary/10 via-background to-accent/10 p-5 sm:p-6 flex items-center justify-between gap-4 transition-colors group-hover:border-primary/50">
             <div>
               <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
-                Start here · AMI
+                {t('dashboard.setupEyebrow')}
               </p>
               <h2 className="text-xl font-bold text-foreground">
-                Set Up Your Montessori Classroom
+                {t('dashboard.setupTitle')}
               </h2>
               <p className="text-sm text-muted-foreground mt-1 max-w-xl">
-                Before any activity, the environment itself must be prepared. The AMI guide
-                to the prepared environment, the five curriculum areas, and the role of the adult.
+                {t('dashboard.setupBody')}
               </p>
             </div>
             <ArrowRight className="h-6 w-6 text-primary flex-shrink-0 transition-transform group-hover:translate-x-1" />
@@ -217,12 +219,12 @@ const Dashboard: React.FC<DashboardProps> = ({
             return ids.length > 0 && ids.every(id => completedSkills.includes(id));
           });
           const badges = [
-            { id: 'first-step',   label: 'First Step',     desc: 'Complete 1 activity',     icon: Sparkles, earned: totalDone >= 1,  color: 'from-yellow-400 to-amber-500' },
-            { id: 'five-strong',  label: 'Five Strong',    desc: 'Complete 5 activities',   icon: Star,     earned: totalDone >= 5,  color: 'from-blue-400 to-primary/200' },
-            { id: 'ten-explorer', label: 'Ten Explorer',   desc: 'Complete 10 activities',  icon: Medal,    earned: totalDone >= 10, color: 'from-primary to-accent/200' },
-            { id: 'streak-3',     label: '3-Day Streak',   desc: 'Practice 3 days in a row', icon: Flame,   earned: streak >= 3,     color: 'from-orange-400 to-red-500' },
-            { id: 'streak-7',     label: 'Week Streak',    desc: 'Practice 7 days in a row', icon: Flame,   earned: streak >= 7,     color: 'from-red-500 to-accent' },
-            { id: 'area-master',  label: 'Focus Master',   desc: 'Complete a full focus area', icon: Trophy, earned: masteredAreas.length >= 1, color: 'from-emerald-400 to-green-600' },
+            { id: 'first-step',   label: t('dashboard.b.first'), desc: t('dashboard.b.firstD'),     icon: Sparkles, earned: totalDone >= 1,  color: 'from-yellow-400 to-amber-500' },
+            { id: 'five-strong',  label: t('dashboard.b.five'), desc: t('dashboard.b.fiveD'),   icon: Star,     earned: totalDone >= 5,  color: 'from-blue-400 to-primary/200' },
+            { id: 'ten-explorer', label: t('dashboard.b.ten'), desc: t('dashboard.b.tenD'),  icon: Medal,    earned: totalDone >= 10, color: 'from-primary to-accent/200' },
+            { id: 'streak-3',     label: t('dashboard.b.s3'), desc: t('dashboard.b.s3D'), icon: Flame,   earned: streak >= 3,     color: 'from-orange-400 to-red-500' },
+            { id: 'streak-7',     label: t('dashboard.b.s7'), desc: t('dashboard.b.s7D'), icon: Flame,   earned: streak >= 7,     color: 'from-red-500 to-accent' },
+            { id: 'area-master',  label: t('dashboard.b.area'), desc: t('dashboard.b.areaD'), icon: Trophy, earned: masteredAreas.length >= 1, color: 'from-emerald-400 to-green-600' },
           ];
           const earnedCount = badges.filter(b => b.earned).length;
 
@@ -237,10 +239,10 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </div>
                     <div>
                       <div className="text-3xl font-bold text-orange-700 leading-none">
-                        {streak} <span className="text-base font-medium text-orange-600">day{streak === 1 ? '' : 's'}</span>
+                        {streak} <span className="text-base font-medium text-orange-600">{t('dashboard.days', { count: streak })}</span>
                       </div>
                       <div className="text-xs text-orange-700/80 mt-1">
-                        {streak === 0 ? 'Start a streak today!' : 'Current learning streak'}
+                        {streak === 0 ? t('dashboard.streakStart') : t('dashboard.streakCurrent')}
                       </div>
                     </div>
                   </CardContent>
@@ -252,7 +254,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <CardTitle className="flex items-center justify-between text-base">
                       <span className="flex items-center gap-2 text-primary">
                         <Award className="h-5 w-5" />
-                        Achievements
+                        {t('dashboard.achievements')}
                       </span>
                       <span className="text-xs font-mono text-primary">
                         {earnedCount} / {badges.length}
@@ -296,7 +298,7 @@ const Dashboard: React.FC<DashboardProps> = ({
             <div className="flex items-center gap-2 mb-4">
               <Target className="h-5 w-5 text-primary" />
               <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary}`}>
-                {activeProfile.name}'s Focus Plan
+                {t('dashboard.focusPlan', { name: activeProfile.name })}
               </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -322,7 +324,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                       <CardTitle className="flex items-center justify-between text-base">
                         <span className="flex items-center gap-2">
                           <span className="text-2xl">{meta.emoji}</span>
-                          <span className={meta.text}>{meta.label}</span>
+                          <span className={meta.text}>{areaTitle(areaId, meta.label)}</span>
                         </span>
                         <span className={`text-sm font-mono ${meta.pct}`}>{pct}%</span>
                       </CardTitle>
@@ -330,7 +332,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <CardContent className="pt-0">
                       <Progress value={pct} className="h-2 mb-2" />
                       <p className="text-xs text-gray-600">
-                        {done} of {total} activities completed
+                        {t('dashboard.nCompleted', { done, total })}
                       </p>
                     </CardContent>
                   </Card>
@@ -345,7 +347,7 @@ const Dashboard: React.FC<DashboardProps> = ({
           <div className="flex items-center gap-2 mb-4">
             <BookOpen className="h-5 w-5 text-blue-600" />
             <h2 className={`text-xl font-semibold ${montessoriTheme.text.secondary}`}>
-              Progress Across All Areas
+              {t('dashboard.allAreas')}
             </h2>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -369,7 +371,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <div className="flex items-center justify-between mb-1.5">
                       <span className="flex items-center gap-1.5 min-w-0">
                         <span className="text-lg leading-none">{meta.emoji}</span>
-                        <span className={`text-xs font-semibold truncate ${meta.text}`}>{meta.label}</span>
+                        <span className={`text-xs font-semibold truncate ${meta.text}`}>{areaTitle(areaId, meta.label)}</span>
                       </span>
                       <span className={`text-xs font-mono ${meta.pct}`}>{pct}%</span>
                     </div>
@@ -387,7 +389,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         {/* Skill Categories Navigation */}
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-blue-300 mb-4 text-center">
-            Explore Skill Categories
+            {t('dashboard.explore')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {onPracticalLifeView && (
@@ -399,16 +401,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🏠</span>
                     <div>
-                      <h3 className="text-amber-800 font-semibold">Practical Life Skills</h3>
-                      <p className="text-sm text-gray-700">Daily living activities</p>
+                      <h3 className="text-amber-800 font-semibold">{t('dashboard.pl.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.pl.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-amber-100/50 rounded-lg p-3 border border-amber-200">
-                    <p className="text-xs font-semibold text-amber-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-amber-900 mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-amber-800 leading-relaxed">
-                      <strong>Why:</strong> Practical Life is the foundation of Montessori education. These activities develop concentration, coordination, independence, and order—the four pillars of learning. Children gain confidence through meaningful work that mirrors real adult tasks, satisfying their innate desire to contribute to family and community life.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.pl.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -424,16 +426,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">👁️</span>
                     <div>
-                      <h3 className="text-accent">Sensorial Skills</h3>
-                      <p className="text-sm text-gray-700">Refine the senses</p>
+                      <h3 className="text-accent">{t('dashboard.se.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.se.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-accent/15/50 rounded-lg p-3 border border-accent/25">
-                    <p className="text-xs font-semibold text-accent mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-accent mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-accent leading-relaxed">
-                      <strong>Why:</strong> Dr. Maria Montessori believed the senses are the gateway to intelligence. Sensorial materials isolate specific qualities (size, color, texture, sound, weight) to sharpen perception and develop powers of observation. This refined sensory awareness forms the foundation for mathematical thinking, scientific exploration, and artistic expression.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.se.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -449,16 +451,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">📚</span>
                     <div>
-                      <h3 className="text-yellow-700">Language Skills</h3>
-                      <p className="text-sm text-gray-600">Reading and writing</p>
+                      <h3 className="text-yellow-700">{t('dashboard.la.t')}</h3>
+                      <p className="text-sm text-gray-600">{t('dashboard.la.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-yellow-100/50 rounded-lg p-3 border border-yellow-200">
-                    <p className="text-xs font-semibold text-yellow-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-yellow-900 mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-yellow-800 leading-relaxed">
-                      <strong>Why:</strong> Language development follows the child's sensitive period for oral and written communication. Montessori's phonetic approach with tactile sandpaper letters engages multiple senses, making abstract symbols concrete. Children naturally progress from spoken language to writing (encoding) before reading (decoding), respecting natural developmental stages.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.la.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -474,16 +476,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🔢</span>
                     <div>
-                      <h3 className="text-red-700">Mathematics Skills</h3>
-                      <p className="text-sm text-gray-700">Numbers and counting</p>
+                      <h3 className="text-red-700">{t('dashboard.ma.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.ma.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-red-100/50 rounded-lg p-3 border border-red-200">
-                    <p className="text-xs font-semibold text-red-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-red-900 mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-red-800 leading-relaxed">
-                      <strong>Why:</strong> Mathematics is presented as concrete experiences before abstract concepts. The child manipulates physical materials (Golden Beads, Number Rods) to internalize quantity, sequence, and operations. This hands-on approach builds the "mathematical mind"—understanding relationships, patterns, and logic that extend far beyond arithmetic.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.ma.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -499,16 +501,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🌍</span>
                     <div>
-                      <h3 className="text-blue-700">Geography Skills</h3>
-                      <p className="text-sm text-gray-700">Explore our world</p>
+                      <h3 className="text-blue-700">{t('dashboard.ge.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.ge.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-blue-100/50 rounded-lg p-3 border border-blue-200">
-                    <p className="text-xs font-semibold text-blue-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-blue-900 mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-blue-800 leading-relaxed">
-                      <strong>Why:</strong> Geography cultivates cosmic education—the child's place within the larger world. Through tactile puzzle maps and cultural studies, children develop spatial awareness, respect for diversity, and interconnectedness. This fosters global citizenship and environmental stewardship from an early age.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.ge.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -524,16 +526,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🌱</span>
                     <div>
-                      <h3 className="text-green-700">Botany Skills</h3>
-                      <p className="text-sm text-gray-700">Learn about plants</p>
+                      <h3 className="text-green-700">{t('dashboard.bo.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.bo.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-green-100/50 rounded-lg p-3 border border-green-200">
-                    <p className="text-xs font-semibold text-green-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-green-900 mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-green-800 leading-relaxed">
-                      <strong>Why:</strong> Botany connects children to the natural world through direct observation and care. Understanding plant life cycles, structure, and needs teaches responsibility, patience, and scientific inquiry. Children develop reverence for life and ecological awareness while practicing categorization and nomenclature skills.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.bo.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -548,16 +550,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🎨</span>
                     <div>
-                      <h3 className="text-orange-800">Art Skills</h3>
-                      <p className="text-sm text-gray-700">Creative expression</p>
+                      <h3 className="text-orange-800">{t('dashboard.ar.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.ar.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-orange-100/50 rounded-lg p-3 border border-orange-200">
-                    <p className="text-xs font-semibold text-orange-900 mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-orange-900 mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-orange-800 leading-relaxed">
-                      <strong>Why:</strong> Art in Montessori is process-oriented, not product-focused. Children explore materials freely to express inner creativity, refine fine motor control, and develop aesthetic sensibility. Open-ended art experiences build confidence in self-expression while respecting each child's unique creative voice and developmental readiness.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.ar.w')}
                     </p>
                   </div>
                 </CardContent>
@@ -572,16 +574,16 @@ const Dashboard: React.FC<DashboardProps> = ({
                   <CardTitle className="flex items-center gap-3">
                     <span className="text-2xl">🏛️</span>
                     <div>
-                      <h3 className="text-primary">Cultural Studies</h3>
-                      <p className="text-sm text-gray-700">History, music, science & world cultures</p>
+                      <h3 className="text-primary">{t('dashboard.cu.t')}</h3>
+                      <p className="text-sm text-gray-700">{t('dashboard.cu.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="pt-0">
                   <div className="bg-primary/15/50 rounded-lg p-3 border border-primary/25">
-                    <p className="text-xs font-semibold text-primary mb-1">Montessori Principle:</p>
+                    <p className="text-xs font-semibold text-primary mb-1">{t('dashboard.principle')}</p>
                     <p className="text-xs text-primary leading-relaxed">
-                      <strong>Why:</strong> Cultural studies unite all areas of knowledge into Montessori's vision of cosmic education. Through history, music, science, and world cultures, children discover their place in the universe and develop respect for human achievement and diversity across time and place.
+                      <strong>{t('dashboard.why')}</strong> {t('dashboard.cu.w')}
                     </p>
                   </div>
                 </CardContent>

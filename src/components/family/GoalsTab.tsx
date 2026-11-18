@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { areaTitle, locale } from '@/i18n/format';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -15,12 +17,13 @@ import { curriculumSectionsForMaterials } from '@/data/curriculumSections';
 import { titleOfSkill } from '@/lib/skillArea';
 import { call, Completion, Goal } from './api';
 
-const PRIORITY = { 1: 'High', 2: 'Medium', 3: 'Low' } as Record<number, string>;
 
 export const GoalsTab = ({ childId, goals, completions, reload }: {
   childId: string; goals: Goal[]; completions: Completion[]; reload: () => void;
 }) => {
   const { toast } = useToast();
+  const { t } = useTranslation();
+  const PRIORITY: Record<number, string> = { 1: t('family.goals.p1'), 2: t('family.goals.p2'), 3: t('family.goals.p3') };
   const done = useMemo(() => new Set(completions.map((c) => c.skill_id)), [completions]);
   const [editing, setEditing] = useState<Partial<Goal> | null>(null);
   const [saving, setSaving] = useState(false);
@@ -30,7 +33,7 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
 
   const save = async () => {
     if (!editing?.title || !editing.skill_ids?.length) {
-      toast({ title: 'Add a title and choose at least one activity', variant: 'destructive' });
+      toast({ title: t('family.goals.needTitle'), variant: 'destructive' });
       return;
     }
     setSaving(true);
@@ -43,7 +46,7 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
       setEditing(null);
       reload();
     } catch (e) {
-      toast({ title: 'Could not save goal', description: String(e), variant: 'destructive' });
+      toast({ title: t('family.goals.saveFailed'), description: String(e), variant: 'destructive' });
     } finally { setSaving(false); }
   };
 
@@ -66,12 +69,12 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3 flex-wrap">
-        <p className="text-sm text-muted-foreground">Goals follow the curriculum sequence. Progress updates as activities are completed. Use the arrows to set priority order.</p>
-        <Button onClick={() => setEditing({ priority: 2, skill_ids: [] })}><Plus className="h-4 w-4 mr-1" />New goal</Button>
+        <p className="text-sm text-muted-foreground">{t('family.goals.intro')}</p>
+        <Button onClick={() => setEditing({ priority: 2, skill_ids: [] })}><Plus className="h-4 w-4 mr-1" />{t('family.goals.new')}</Button>
       </div>
 
       {sorted.length === 0 && (
-        <Card><CardContent className="py-10 text-center text-muted-foreground">No goals yet. Create one from any curriculum area.</CardContent></Card>
+        <Card><CardContent className="py-10 text-center text-muted-foreground">{t('family.goals.empty')}</CardContent></Card>
       )}
 
       {sorted.map((g) => {
@@ -88,24 +91,24 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
                     {g.status === 'active' && <span className="text-xs font-semibold text-muted-foreground">#{idx + 1}</span>}
                     <h3 className="font-semibold text-foreground">{g.title}</h3>
                     <Badge variant={g.priority === 1 ? 'default' : 'secondary'}>{PRIORITY[g.priority]}</Badge>
-                    {g.status === 'done' && <Badge variant="outline">Reached</Badge>}
+                    {g.status === 'done' && <Badge variant="outline">{t('family.goals.reached')}</Badge>}
                   </div>
                   <p className="text-xs text-muted-foreground mt-1">
-                    {area ? `${area.emoji} ${area.title}` : ''}{g.target_date ? ` · by ${new Date(g.target_date + 'T00:00').toLocaleDateString()}` : ''}
+                    {area ? `${area.emoji} ${areaTitle(area.key, area.title)}` : ''}{g.target_date ? t('family.goals.by', { date: new Date(g.target_date + 'T00:00').toLocaleDateString(locale()) }) : ''}
                   </p>
                 </div>
                 <div className="flex gap-1 shrink-0">
                   {g.status === 'active' && <>
-                    <Button size="icon" variant="ghost" aria-label="Move up" onClick={() => move(idx, -1)} disabled={idx === 0}><ArrowUp className="h-4 w-4" /></Button>
-                    <Button size="icon" variant="ghost" aria-label="Move down" onClick={() => move(idx, 1)} disabled={idx === activeGoals.length - 1}><ArrowDown className="h-4 w-4" /></Button>
+                    <Button size="icon" variant="ghost" aria-label={t('family.goals.up')} onClick={() => move(idx, -1)} disabled={idx === 0}><ArrowUp className="h-4 w-4" /></Button>
+                    <Button size="icon" variant="ghost" aria-label={t('family.goals.down')} onClick={() => move(idx, 1)} disabled={idx === activeGoals.length - 1}><ArrowDown className="h-4 w-4" /></Button>
                   </>}
-                  <Button size="icon" variant="ghost" aria-label="Edit goal" onClick={() => setEditing(g)}><Pencil className="h-4 w-4" /></Button>
-                  <Button size="icon" variant="ghost" aria-label="Delete goal" onClick={() => remove(g.id)}><Trash2 className="h-4 w-4" /></Button>
+                  <Button size="icon" variant="ghost" aria-label={t('family.goals.edit')} onClick={() => setEditing(g)}><Pencil className="h-4 w-4" /></Button>
+                  <Button size="icon" variant="ghost" aria-label={t('family.goals.delete')} onClick={() => remove(g.id)}><Trash2 className="h-4 w-4" /></Button>
                 </div>
               </div>
-              <div className="flex justify-between text-sm"><span>{n} of {g.skill_ids.length} activities</span><span>{g.skill_ids.length ? Math.round((n / g.skill_ids.length) * 100) : 0}%</span></div>
+              <div className="flex justify-between text-sm"><span>{t('family.goals.nActivities', { n, total: g.skill_ids.length })}</span><span>{g.skill_ids.length ? Math.round((n / g.skill_ids.length) * 100) : 0}%</span></div>
               <Progress value={g.skill_ids.length ? (n / g.skill_ids.length) * 100 : 0} className="h-2" />
-              {next && <p className="text-sm text-muted-foreground">Next in sequence: <span className="text-foreground">{titleOfSkill(next)}</span></p>}
+              {next && <p className="text-sm text-muted-foreground">{t('family.goals.nextSeq')} <span className="text-foreground">{titleOfSkill(next)}</span></p>}
             </CardContent>
           </Card>
         );
@@ -113,39 +116,39 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
 
       <Dialog open={!!editing} onOpenChange={(o) => !o && setEditing(null)}>
         <DialogContent className="max-w-lg">
-          <DialogHeader><DialogTitle>{editing?.id ? 'Edit goal' : 'New goal'}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{editing?.id ? t('family.goals.edit') : t('family.goals.new')}</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <div>
-              <Label htmlFor="goal-title">Goal</Label>
-              <Input id="goal-title" value={editing?.title ?? ''} maxLength={200} placeholder="e.g. Independent pouring"
+              <Label htmlFor="goal-title">{t('family.goals.goal')}</Label>
+              <Input id="goal-title" value={editing?.title ?? ''} maxLength={200} placeholder={t('family.goals.placeholder')}
                 onChange={(e) => setEditing((p) => ({ ...p, title: e.target.value }))} />
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <Label>Priority</Label>
+                <Label>{t('family.goals.priority')}</Label>
                 <Select value={String(editing?.priority ?? 2)} onValueChange={(v) => setEditing((p) => ({ ...p, priority: Number(v) }))}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
                   <SelectContent>{[1, 2, 3].map((p) => <SelectItem key={p} value={String(p)}>{PRIORITY[p]}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div>
-                <Label htmlFor="goal-date">Target date (optional)</Label>
+                <Label htmlFor="goal-date">{t('family.goals.target')}</Label>
                 <Input id="goal-date" type="date" value={editing?.target_date ?? ''} onChange={(e) => setEditing((p) => ({ ...p, target_date: e.target.value }))} />
               </div>
             </div>
             <div>
-              <Label>Curriculum area</Label>
+              <Label>{t('family.goals.area')}</Label>
               <Select value={editing?.area ?? ''} onValueChange={(v) => setEditing((p) => ({ ...p, area: v, skill_ids: [] }))}>
-                <SelectTrigger><SelectValue placeholder="Choose an area" /></SelectTrigger>
-                <SelectContent>{curriculumSectionsForMaterials.map((s) => <SelectItem key={s.key} value={s.key}>{s.emoji} {s.title}</SelectItem>)}</SelectContent>
+                <SelectTrigger><SelectValue placeholder={t('family.goals.chooseArea')} /></SelectTrigger>
+                <SelectContent>{curriculumSectionsForMaterials.map((s) => <SelectItem key={s.key} value={s.key}>{s.emoji} {areaTitle(s.key, s.title)}</SelectItem>)}</SelectContent>
               </Select>
             </div>
             {section && (
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <Label>Activities (in sequence order)</Label>
+                  <Label>{t('family.goals.activities')}</Label>
                   <Button type="button" variant="link" size="sm" className="h-auto p-0"
-                    onClick={() => setEditing((p) => ({ ...p, skill_ids: Object.keys(section.skills) }))}>Select all</Button>
+                    onClick={() => setEditing((p) => ({ ...p, skill_ids: Object.keys(section.skills) }))}>{t('family.goals.selectAll')}</Button>
                 </div>
                 <ScrollArea className="h-56 border rounded-md p-2">
                   {Object.entries(section.skills).map(([id, s]) => {
@@ -159,7 +162,7 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
                           return { ...p, skill_ids: order.filter((x) => nextIds.includes(x)) };
                         })} />
                         <span>{s.title}</span>
-                        {done.has(id) && <Badge variant="outline" className="ml-auto text-xs">Done</Badge>}
+                        {done.has(id) && <Badge variant="outline" className="ml-auto text-xs">{t('shared.done')}</Badge>}
                       </label>
                     );
                   })}
@@ -168,8 +171,8 @@ export const GoalsTab = ({ childId, goals, completions, reload }: {
             )}
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setEditing(null)}>Cancel</Button>
-            <Button onClick={save} disabled={saving}>{saving ? 'Saving…' : 'Save goal'}</Button>
+            <Button variant="outline" onClick={() => setEditing(null)}>{t('shared.cancel')}</Button>
+            <Button onClick={save} disabled={saving}>{saving ? t('shared.saving') : t('family.goals.save')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>

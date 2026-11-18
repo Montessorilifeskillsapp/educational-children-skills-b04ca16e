@@ -103,7 +103,7 @@ const en = {
         },
         {
           "q": "Can I use the app offline?",
-          "a": "Currently, the app requires an internet connection for full functionality. However, you can download and print activity guides to use offline with your child."
+          "a": "Yes. After you open the app once with an internet connection, every activity guide, materials list and photo works offline. Lesson videos and any songs you own can be downloaded to your device from Settings in the Family Dashboard (school staff use the Curriculum tab in the School Portal), and then play without internet."
         },
         {
           "q": "How often are new activities added?",
@@ -307,11 +307,11 @@ const es: typeof en = {
         },
         {
           "q": "¿Qué planes hay disponibles?",
-          "a": "Premium cubre a un niño por $29.99/mes o $199/año. Family cubre hasta cuatro niños por $49/mes o $349/año."
+          "a": "Premium cubre a un niño por $29.99/mes o $199/año. Familia cubre hasta cuatro niños por $49/mes o $349/año."
         },
         {
           "q": "¿Las canciones de Kerry están incluidas en mi suscripción?",
-          "a": "No. La colección de 10 canciones es una compra única aparte de $99.99, con acceso de por vida y descargas para tu hogar. No está incluida en Premium ni en Family. Cualquiera puede escuchar las muestras gratuitas de 10 segundos."
+          "a": "No. La colección de 10 canciones es una compra única aparte de $99.99, con acceso de por vida y descargas para tu hogar. No está incluida en Premium ni en Familia. Cualquiera puede escuchar las muestras gratuitas de 10 segundos."
         }
       ],
       "using": [
@@ -321,7 +321,7 @@ const es: typeof en = {
         },
         {
           "q": "¿Puedo usar la app sin conexión?",
-          "a": "Actualmente, la app requiere conexión a internet para funcionar por completo. Sin embargo, puedes descargar e imprimir las guías de actividades para usarlas sin conexión con tu hijo."
+          "a": "Sí. Después de abrir la app una vez con conexión a internet, todas las guías de actividades, listas de materiales y fotos funcionan sin conexión. Los videos de las lecciones y las canciones que hayas comprado se pueden descargar en tu dispositivo desde Ajustes en el Panel familiar (el personal escolar usa la pestaña Currículo del Portal escolar) y luego se reproducen sin internet."
         },
         {
           "q": "¿Con qué frecuencia se añaden actividades nuevas?",
@@ -331,7 +331,7 @@ const es: typeof en = {
       "family": [
         {
           "q": "¿Puedo crear perfiles para varios niños?",
-          "a": "Sí. Explorer y Premium incluyen un perfil infantil cada uno. Family incluye hasta cuatro perfiles infantiles. Añade y gestiona a los niños normalmente en Gestionar perfiles infantiles. Las familias que necesiten más de cuatro perfiles deben contactar con soporte."
+          "a": "Sí. Explorador y Premium incluyen un perfil infantil cada uno. Familia incluye hasta cuatro perfiles infantiles. Añade y gestiona a los niños normalmente en Gestionar perfiles infantiles. Las familias que necesiten más de cuatro perfiles deben contactar con soporte."
         },
         {
           "q": "¿Es la app segura para los niños?",
@@ -339,7 +339,7 @@ const es: typeof en = {
         },
         {
           "q": "¿Pueden otros miembros de la familia acceder a la cuenta?",
-          "a": "Tu suscripción cubre el uso de tu hogar. Premium incluye un perfil infantil; Family incluye hasta cuatro. Te recomendamos mantener seguras las credenciales de tu cuenta."
+          "a": "Tu suscripción cubre el uso de tu hogar. Premium incluye un perfil infantil; Familia incluye hasta cuatro. Te recomendamos mantener seguras las credenciales de tu cuenta."
         }
       ]
     }
@@ -360,7 +360,7 @@ const es: typeof en = {
       },
       {
         "title": "Sin tarjeta para el plan gratuito",
-        "body": "El plan gratuito Explorer — una actividad inicial por área de aprendizaje — nunca pide una tarjeta."
+        "body": "El plan gratuito Explorador — una actividad inicial por área de aprendizaje — nunca pide una tarjeta."
       },
       {
         "title": "Una persona real lee cada correo",
@@ -525,11 +525,11 @@ const de: typeof en = {
         },
         {
           "q": "Welche Pläne gibt es?",
-          "a": "Premium gilt für ein Kind und kostet $29.99/Monat oder $199/Jahr. Family gilt für bis zu vier Kinder und kostet $49/Monat oder $349/Jahr."
+          "a": "Premium gilt für ein Kind und kostet $29.99/Monat oder $199/Jahr. Familie gilt für bis zu vier Kinder und kostet $49/Monat oder $349/Jahr."
         },
         {
           "q": "Sind Kerrys Lieder in meinem Abonnement enthalten?",
-          "a": "Nein. Die Sammlung mit 10 Liedern ist ein separater Einmalkauf für $99.99 mit lebenslangem Zugang und Downloads für Ihren Haushalt. Sie ist weder in Premium noch in Family enthalten. Die kostenlosen 10-Sekunden-Hörproben kann jeder abspielen."
+          "a": "Nein. Die Sammlung mit 10 Liedern ist ein separater Einmalkauf für $99.99 mit lebenslangem Zugang und Downloads für Ihren Haushalt. Sie ist weder in Premium noch in Familie enthalten. Die kostenlosen 10-Sekunden-Hörproben kann jeder abspielen."
         }
       ],
       "using": [
@@ -539,7 +539,7 @@ const de: typeof en = {
         },
         {
           "q": "Kann ich die App offline nutzen?",
-          "a": "Derzeit benötigt die App für den vollen Funktionsumfang eine Internetverbindung. Sie können jedoch Aktivitätsanleitungen herunterladen und ausdrucken, um sie offline mit Ihrem Kind zu nutzen."
+          "a": "Ja. Nachdem Sie die App einmal mit Internetverbindung geöffnet haben, funktionieren alle Aktivitätsanleitungen, Materiallisten und Fotos offline. Lektionsvideos und von Ihnen gekaufte Lieder können Sie unter „Einstellungen“ im Familien-Dashboard auf Ihr Gerät herunterladen (Schulpersonal nutzt den Tab „Lehrplan“ im Schulportal); danach laufen sie ohne Internet."
         },
         {
           "q": "Wie oft kommen neue Aktivitäten hinzu?",
@@ -549,7 +549,7 @@ const de: typeof en = {
       "family": [
         {
           "q": "Kann ich Profile für mehrere Kinder anlegen?",
-          "a": "Ja. Explorer und Premium enthalten jeweils ein Kinderprofil. Family enthält bis zu vier Kinderprofile. Kinder fügen Sie wie gewohnt unter „Kinderprofile verwalten“ hinzu. Familien, die mehr als vier Profile benötigen, wenden sich bitte an den Support."
+          "a": "Ja. Entdecker und Premium enthalten jeweils ein Kinderprofil. Familie enthält bis zu vier Kinderprofile. Kinder fügen Sie wie gewohnt unter „Kinderprofile verwalten“ hinzu. Familien, die mehr als vier Profile benötigen, wenden sich bitte an den Support."
         },
         {
           "q": "Ist die App für Kinder sicher?",
@@ -557,7 +557,7 @@ const de: typeof en = {
         },
         {
           "q": "Können andere Familienmitglieder auf das Konto zugreifen?",
-          "a": "Ihr Abonnement gilt für die Nutzung in Ihrem Haushalt. Premium enthält ein Kinderprofil, Family bis zu vier. Wir empfehlen, Ihre Zugangsdaten sicher aufzubewahren."
+          "a": "Ihr Abonnement gilt für die Nutzung in Ihrem Haushalt. Premium enthält ein Kinderprofil, Familie bis zu vier. Wir empfehlen, Ihre Zugangsdaten sicher aufzubewahren."
         }
       ]
     }
@@ -578,7 +578,7 @@ const de: typeof en = {
       },
       {
         "title": "Keine Kreditkarte für den kostenlosen Plan",
-        "body": "Der kostenlose Explorer-Plan – eine Einstiegsaktivität pro Lernbereich – fragt nie nach einer Karte."
+        "body": "Der kostenlose Entdecker-Plan – eine Einstiegsaktivität pro Lernbereich – fragt nie nach einer Karte."
       },
       {
         "title": "Jede E-Mail liest ein echter Mensch",
@@ -757,7 +757,7 @@ const zh: typeof en = {
         },
         {
           "q": "可以离线使用应用吗？",
-          "a": "目前，应用需要联网才能使用全部功能。不过，您可以下载并打印活动指南，与孩子离线使用。"
+          "a": "可以。只要联网打开过一次应用，所有活动指南、教具清单和照片都可以离线使用。课程视频和您已购买的歌曲可以在家庭面板的“设置”中下载到设备（学校员工请使用学校门户的“课程”选项卡），之后无需联网即可播放。"
         },
         {
           "q": "多久添加一次新活动？",
@@ -767,7 +767,7 @@ const zh: typeof en = {
       "family": [
         {
           "q": "可以为多个孩子创建档案吗？",
-          "a": "可以。Explorer 和高级版各包含一个儿童档案。家庭版最多包含四个儿童档案。请在“管理儿童档案”中照常添加和管理孩子。需要超过四个档案的家庭请联系支持。"
+          "a": "可以。探索版和高级版各包含一个儿童档案。家庭版最多包含四个儿童档案。请在“管理儿童档案”中照常添加和管理孩子。需要超过四个档案的家庭请联系支持。"
         },
         {
           "q": "这个应用对孩子安全吗？",
@@ -796,7 +796,7 @@ const zh: typeof en = {
       },
       {
         "title": "免费方案无需信用卡",
-        "body": "免费的 Explorer 方案——每个学习领域一项入门活动——从不要求绑卡。"
+        "body": "免费的探索版方案——每个学习领域一项入门活动——从不要求绑卡。"
       },
       {
         "title": "每封邮件都由真人阅读",

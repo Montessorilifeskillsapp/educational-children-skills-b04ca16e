@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -32,6 +33,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
   profile,
   purchase
 }) => {
+  const { t } = useTranslation();
   const [paying, setPaying] = useState(false);
   const [formData, setFormData] = useState({
     name: profile?.name || '',
@@ -81,14 +83,14 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <User className="h-5 w-5" />
-            {profile ? 'Edit' : 'Create'} Child Profile
+            {profile ? t('family.prof.edit') : t('family.prof.create')}
           </DialogTitle>
         </DialogHeader>
         
         <div className="space-y-4">
           {/* Avatar Selection */}
           <div className="text-center">
-            <Label>Choose Avatar</Label>
+            <Label>{t('family.prof.avatar')}</Label>
             <div className="flex flex-wrap justify-center gap-2 mt-2">
               {avatarOptions.map((emoji) => (
                 <button
@@ -106,18 +108,18 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
 
           {/* Name */}
           <div>
-            <Label htmlFor="name">Child's Name</Label>
+            <Label htmlFor="name">{t('family.prof.childName')}</Label>
             <Input
               id="name"
               value={formData.name}
               onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))}
-              placeholder="Enter child's name"
+              placeholder={t('family.prof.namePh')}
             />
           </div>
 
           {/* Age */}
           <div>
-            <Label htmlFor="age">Age</Label>
+            <Label htmlFor="age">{t('family.prof.age')}</Label>
             <Select
               value={formData.age.toString()}
               onValueChange={(value) => setFormData(prev => ({ ...prev, age: parseInt(value) }))}
@@ -127,7 +129,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
               </SelectTrigger>
               <SelectContent>
                 {[2, 3, 4, 5, 6, 7, 8].map(age => (
-                  <SelectItem key={age} value={age.toString()}>{age} years old</SelectItem>
+                  <SelectItem key={age} value={age.toString()}>{t('family.prof.yearsOld', { age })}</SelectItem>
                 ))}
               </SelectContent>
             </Select>
@@ -135,7 +137,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
 
           {/* Interests */}
           <div>
-            <Label>Interests (select all that apply)</Label>
+            <Label>{t('family.prof.interests')}</Label>
             <div className="flex flex-wrap gap-2 mt-2">
               {interestOptions.map(interest => (
                 <button
@@ -147,7 +149,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                   }`}
                 >
-                  {interest}
+                  {t(`family.prof.int.${interest}`, { defaultValue: interest })}
                 </button>
               ))}
             </div>
@@ -155,7 +157,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
 
           {/* Learning Style */}
           <div>
-            <Label>Learning Style</Label>
+            <Label>{t('family.prof.style')}</Label>
             <Select
               value={formData.learningStyle}
               onValueChange={(value) => setFormData(prev => ({ ...prev, learningStyle: value }))}
@@ -164,17 +166,17 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="visual">Visual Learner</SelectItem>
-                <SelectItem value="auditory">Auditory Learner</SelectItem>
-                <SelectItem value="kinesthetic">Hands-on Learner</SelectItem>
-                <SelectItem value="mixed">Mixed Learning Style</SelectItem>
+                <SelectItem value="visual">{t('family.prof.visual')}</SelectItem>
+                <SelectItem value="auditory">{t('family.prof.auditory')}</SelectItem>
+                <SelectItem value="kinesthetic">{t('family.prof.kinesthetic')}</SelectItem>
+                <SelectItem value="mixed">{t('family.prof.mixed')}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="flex gap-2 pt-4">
             <Button variant="outline" onClick={onClose} className="flex-1">
-              Cancel
+              {t('shared.cancel')}
             </Button>
             <Button 
               onClick={handleSave} 
@@ -182,12 +184,12 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
               disabled={!formData.name.trim() || paying}
             >
               {paying
-                ? 'Waiting for payment…'
+                ? t('family.prof.waiting')
                 : profile
-                  ? 'Update Profile'
+                  ? t('family.prof.update')
                   : purchase
-                    ? `Add ${formData.name.trim() || 'child'}${purchase.label ? ` — ${purchase.label}` : ''}`
-                    : 'Create Profile'}
+                    ? `${t('family.prof.addNamed', { name: formData.name.trim() || t('family.prof.child') })}${purchase.label ? ` — ${purchase.label}` : ''}`
+                    : t('family.prof.createBtn')}
             </Button>
           </div>
         </div>

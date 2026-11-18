@@ -1,10 +1,12 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import founderKerry from '@/assets/founder-kerry-howard.png';
 import { Calendar } from 'lucide-react';
 import { getCurrentWeeklyNote } from '@/data/weeklyNotes';
 
 /** Weekly note from the founder — rotates automatically through 52 focuses each Monday. */
 const FounderWeeklyNote: React.FC = () => {
+  const { t } = useTranslation();
   const currentNote = { ...getCurrentWeeklyNote(), signoff: 'Kerry' };
   return (
     <section className="rounded-2xl border border-primary/15 bg-gradient-to-br from-card via-background to-primary/5 p-5 sm:p-6">
@@ -17,7 +19,7 @@ const FounderWeeklyNote: React.FC = () => {
           loading="lazy"
         />
         <div>
-          <p className="text-sm font-semibold text-foreground">A note from Kerry</p>
+          <p className="text-sm font-semibold text-foreground">{t('dashboard.noteFrom')}</p>
           <p className="text-xs text-muted-foreground flex items-center gap-1">
             <Calendar className="w-3 h-3" /> {currentNote.weekOf} · Focus: {currentNote.focus}
           </p>

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -40,6 +41,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
   totalSkills = 15,
   onBack
 }) => {
+  const { t } = useTranslation();
   const [showModal, setShowModal] = useState(false);
   const [editingProfile, setEditingProfile] = useState<ChildProfile | undefined>();
   const [hoveredProfile, setHoveredProfile] = useState<string | null>(null);
@@ -81,10 +83,10 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
 
   // Mock achievements data
   const achievements = [
-    { icon: "🌟", title: "First Steps", description: "Completed first activity", unlocked: true },
-    { icon: "🏆", title: "Week Warrior", description: "7 days in a row", unlocked: completedSkills.length >= 5 },
-    { icon: "🎯", title: "Skill Master", description: "Master 10 skills", unlocked: completedSkills.length >= 10 },
-    { icon: "📚", title: "Learning Champion", description: "Complete all activities", unlocked: completedSkills.length >= totalSkills }
+    { icon: "🌟", title: t('family.prof.a1t'), description: t('family.prof.a1d'), unlocked: true },
+    { icon: "🏆", title: t('family.prof.a2t'), description: t('family.prof.a2d'), unlocked: completedSkills.length >= 5 },
+    { icon: "🎯", title: t('family.prof.a3t'), description: t('family.prof.a3d'), unlocked: completedSkills.length >= 10 },
+    { icon: "📚", title: t('family.prof.a4t'), description: t('family.prof.a4d'), unlocked: completedSkills.length >= totalSkills }
   ];
 
   return (
@@ -92,14 +94,14 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
       {onBack && (
         <BackButton 
           onClick={onBack}
-          label="Back to Dashboard"
+          label={t('family.dash.back')}
         />
 
       )}
 
       <ChildCoveragePanel highlight={limitHit} />
       {limitHit && !user && (
-        <p className="text-sm rounded-md border p-3">Explorer includes one child. Sign in and choose Family to add up to four children.</p>
+        <p className="text-sm rounded-md border p-3">{t('family.prof.limitGuest')}</p>
       )}
 
       {/* Interactive Progress Dashboard for Active Child */}
@@ -111,13 +113,13 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                 <div className="animate-pulse">
                   <Star className="h-5 w-5 text-blue-500" />
                 </div>
-                {activeProfile.name}'s Learning Journey
+                {t('family.prof.journey', { name: activeProfile.name })}
               </CardTitle>
             </CardHeader>
             <CardContent>
               <div className="flex justify-between text-sm mb-2">
-                <span className="font-medium">Practical Life Skills Progress</span>
-                <span className="text-primary font-semibold">{completedSkills.length} of {totalSkills} completed</span>
+                <span className="font-medium">{t('family.prof.plProgress')}</span>
+                <span className="text-primary font-semibold">{t('family.prof.completedOf', { n: completedSkills.length, total: totalSkills })}</span>
               </div>
               <div className="relative">
                 <Progress value={completionRate} className="h-4 mb-4 bg-gray-200" />
@@ -129,10 +131,10 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
               {/* Interactive Stats Grid */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 {[
-                  { value: completedSkills.length, label: "Skills Mastered", color: "text-blue-600", icon: "🎯", bg: "bg-blue-50" },
-                  { value: `${Math.round(completionRate)}%`, label: "Progress", color: "text-green-600", icon: "📈", bg: "bg-green-50" },
-                  { value: "7", label: "Day Streak", color: "text-primary", icon: "📅", bg: "bg-primary/10" },
-                  { value: "45m", label: "Today", color: "text-orange-600", icon: "📚", bg: "bg-orange-50" }
+                  { value: completedSkills.length, label: t('family.prof.mastered'), color: "text-blue-600", icon: "🎯", bg: "bg-blue-50" },
+                  { value: `${Math.round(completionRate)}%`, label: t('family.prof.progress'), color: "text-green-600", icon: "📈", bg: "bg-green-50" },
+                  { value: "7", label: t('family.prof.streak'), color: "text-primary", icon: "📅", bg: "bg-primary/10" },
+                  { value: "45m", label: t('family.prof.today'), color: "text-orange-600", icon: "📚", bg: "bg-orange-50" }
                 ].map((stat, index) => (
                   <div key={index} className={`${stat.bg} p-4 rounded-lg text-center hover:scale-105 transition-transform duration-200 cursor-pointer`}>
                     <div className={`text-2xl mb-2 ${stat.color}`}>{stat.icon}</div>
@@ -149,7 +151,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Trophy className="h-5 w-5 text-blue-500" />
-                Achievements
+                {t('family.prof.achievements')}
               </CardTitle>
             </CardHeader>
             <CardContent>
@@ -179,7 +181,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
       <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold flex items-center gap-2">
           <User className="h-5 w-5" />
-          Select Child Profile
+          {t('family.prof.select')}
         </h2>
         <Button
           onClick={handleAddProfile}
@@ -188,7 +190,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
           className="flex items-center gap-2 hover:scale-105 transition-transform duration-200"
         >
           <Plus className="h-4 w-4" />
-          Add Child
+          {t('family.prof.add')}
         </Button>
       </div>
 
@@ -214,14 +216,14 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-lg">{profile.name}</h3>
-                  <p className="text-sm text-gray-600">{profile.age} years old</p>
+                  <p className="text-sm text-gray-600">{t('family.prof.yearsOld', { age: profile.age })}</p>
                   {profile.covered === false && (
-                    <Badge variant="outline" className="mt-1 text-xs">Not included in current plan</Badge>
+                    <Badge variant="outline" className="mt-1 text-xs">{t('family.prof.notIncluded')}</Badge>
                   )}
                   <div className="flex flex-wrap gap-1 mt-2">
                     {profile.interests.slice(0, 2).map(interest => (
                       <Badge key={interest} variant="secondary" className="text-xs hover:bg-primary/25 transition-colors">
-                        {interest}
+                        {t(`family.prof.int.${interest}`, { defaultValue: interest })}
                       </Badge>
                     ))}
                     {profile.interests.length > 2 && (

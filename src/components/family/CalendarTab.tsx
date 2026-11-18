@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { areaTitle, locale } from '@/i18n/format';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -24,6 +26,7 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
   childId: string; childName: string; events: CalEvent[]; completions: Completion[]; reload: () => void;
 }) => {
   const { toast } = useToast();
+  const { t } = useTranslation();
   const [view, setView] = useState<'month' | 'week'>('month');
   const [cursor, setCursor] = useState(new Date());
   const [draft, setDraft] = useState<Draft | null>(null);
@@ -64,7 +67,7 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
 
   const save = async (override?: Partial<Draft>) => {
     const d = { ...draft!, ...override };
-    if (!d.skill_id) { toast({ title: 'Choose an activity', variant: 'destructive' }); return; }
+    if (!d.skill_id) { toast({ title: t('family.cal.chooseActivity'), variant: 'destructive' }); return; }
     setSaving(true);
     try {
       await call({ action: 'event_save', event: {
@@ -75,7 +78,7 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
       setDraft(null);
       reload();
     } catch (e) {
-      toast({ title: 'Could not save', description: String(e), variant: 'destructive' });
+      toast({ title: t('shared.couldNotSave'), description: String(e), variant: 'destructive' });
     } finally { setSaving(false); }
   };
 
@@ -88,30 +91,30 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
   const today = ymd(new Date());
   const section = curriculumSectionsForMaterials.find((s) => s.key === draft?.area);
   const label = view === 'week'
-    ? `${days[0].toLocaleDateString(undefined, { month: 'short', day: 'numeric' })} – ${days[6].toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}`
-    : cursor.toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
+    ? `${days[0].toLocaleDateString(locale(), { month: 'short', day: 'numeric' })} – ${days[6].toLocaleDateString(locale(), { month: 'short', day: 'numeric', year: 'numeric' })}`
+    : cursor.toLocaleDateString(locale(), { month: 'long', year: 'numeric' });
 
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between gap-3 flex-wrap">
         <div className="flex items-center gap-2">
-          <Button size="icon" variant="outline" aria-label="Previous" onClick={() => shift(-1)}><ChevronLeft className="h-4 w-4" /></Button>
-          <Button variant="outline" onClick={() => setCursor(new Date())}>Today</Button>
-          <Button size="icon" variant="outline" aria-label="Next" onClick={() => shift(1)}><ChevronRight className="h-4 w-4" /></Button>
+          <Button size="icon" variant="outline" aria-label={t('shared.previous')} onClick={() => shift(-1)}><ChevronLeft className="h-4 w-4" /></Button>
+          <Button variant="outline" onClick={() => setCursor(new Date())}>{t('shared.today')}</Button>
+          <Button size="icon" variant="outline" aria-label={t('shared.next')} onClick={() => shift(1)}><ChevronRight className="h-4 w-4" /></Button>
           <h3 className="font-semibold ml-2">{label}</h3>
         </div>
         <div className="flex items-center gap-2">
           <ToggleGroup type="single" value={view} onValueChange={(v) => v && setView(v as 'month' | 'week')}>
-            <ToggleGroupItem value="month">Month</ToggleGroupItem>
-            <ToggleGroupItem value="week">Week</ToggleGroupItem>
+            <ToggleGroupItem value="month">{t('shared.month')}</ToggleGroupItem>
+            <ToggleGroupItem value="week">{t('shared.week')}</ToggleGroupItem>
           </ToggleGroup>
-          <Button onClick={() => openNew(new Date())}><Plus className="h-4 w-4 mr-1" />Plan activity</Button>
+          <Button onClick={() => openNew(new Date())}><Plus className="h-4 w-4 mr-1" />{t('family.cal.plan')}</Button>
         </div>
       </div>
 
       <Card><CardContent className="p-2">
         <div className="grid grid-cols-7 text-xs text-muted-foreground text-center py-1">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((d) => <div key={d}>{d}</div>)}
+          {[0, 1, 2, 3, 4, 5, 6].map((d) => <div key={d}>{t(`shared.dayShort.${d}`)}</div>)}
         </div>
         <div className="grid grid-cols-7 gap-1">
           {days.map((d) => {
@@ -128,7 +131,7 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
                     <button key={e.id} type="button" onClick={(ev) => { ev.stopPropagation(); openEdit(e); }}
                       className={cn('block w-full truncate text-left text-[11px] rounded px-1 py-0.5',
                         e.completed ? 'bg-secondary/20 text-foreground line-through' : 'bg-primary/15 text-foreground')}>
-                      {new Date(e.starts_at).toLocaleTimeString(undefined, { hour: 'numeric', minute: '2-digit' })} {e.title}
+                      {new Date(e.starts_at).toLocaleTimeString(locale(), { hour: 'numeric', minute: '2-digit' })} {e.title}
                     </button>
                   ))}
                   {info?.done.map((c) => (
@@ -140,61 +143,61 @@ export const CalendarTab = ({ childId, childName, events, completions, reload }:
           })}
         </div>
       </CardContent></Card>
-      <p className="text-xs text-muted-foreground">Planned activities are shaded; ✓ marks activities completed in the app on that day.</p>
+      <p className="text-xs text-muted-foreground">{t('family.cal.legend')}</p>
 
       <Dialog open={!!draft} onOpenChange={(o) => !o && setDraft(null)}>
         <DialogContent className="max-w-md">
-          <DialogHeader><DialogTitle>{draft?.id ? 'Planned activity' : `Plan an activity for ${childName}`}</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle>{draft?.id ? t('family.cal.planned') : t('family.cal.planFor', { name: childName })}</DialogTitle></DialogHeader>
           {draft && (
             <div className="space-y-3">
               <div>
-                <Label>Area</Label>
+                <Label>{t('family.cal.area')}</Label>
                 <Select value={draft.area} onValueChange={(v) => setDraft({ ...draft, area: v, skill_id: '' })}>
                   <SelectTrigger><SelectValue /></SelectTrigger>
-                  <SelectContent>{curriculumSectionsForMaterials.map((s) => <SelectItem key={s.key} value={s.key}>{s.emoji} {s.title}</SelectItem>)}</SelectContent>
+                  <SelectContent>{curriculumSectionsForMaterials.map((s) => <SelectItem key={s.key} value={s.key}>{s.emoji} {areaTitle(s.key, s.title)}</SelectItem>)}</SelectContent>
                 </Select>
               </div>
               <div>
-                <Label>Activity</Label>
+                <Label>{t('family.cal.activity')}</Label>
                 <Select value={draft.skill_id} onValueChange={(v) => setDraft({ ...draft, skill_id: v })}>
-                  <SelectTrigger><SelectValue placeholder="Choose an activity" /></SelectTrigger>
+                  <SelectTrigger><SelectValue placeholder={t('family.cal.chooseActivity')} /></SelectTrigger>
                   <SelectContent className="max-h-72">
                     {section && Object.entries(section.skills).map(([id, s]) => <SelectItem key={id} value={id}>{s.title}</SelectItem>)}
                   </SelectContent>
                 </Select>
               </div>
               <div className="grid grid-cols-3 gap-2">
-                <div><Label htmlFor="ev-date">Date</Label><Input id="ev-date" type="date" value={draft.date} onChange={(e) => setDraft({ ...draft, date: e.target.value })} /></div>
-                <div><Label htmlFor="ev-time">Time</Label><Input id="ev-time" type="time" value={draft.time} onChange={(e) => setDraft({ ...draft, time: e.target.value })} /></div>
-                <div><Label htmlFor="ev-dur">Minutes</Label><Input id="ev-dur" type="number" min={5} max={240} value={draft.duration_minutes} onChange={(e) => setDraft({ ...draft, duration_minutes: Math.max(5, Math.min(240, Number(e.target.value) || 5)) })} /></div>
+                <div><Label htmlFor="ev-date">{t('shared.date')}</Label><Input id="ev-date" type="date" value={draft.date} onChange={(e) => setDraft({ ...draft, date: e.target.value })} /></div>
+                <div><Label htmlFor="ev-time">{t('shared.time')}</Label><Input id="ev-time" type="time" value={draft.time} onChange={(e) => setDraft({ ...draft, time: e.target.value })} /></div>
+                <div><Label htmlFor="ev-dur">{t('family.cal.minutes')}</Label><Input id="ev-dur" type="number" min={5} max={240} value={draft.duration_minutes} onChange={(e) => setDraft({ ...draft, duration_minutes: Math.max(5, Math.min(240, Number(e.target.value) || 5)) })} /></div>
               </div>
-              <div><Label htmlFor="ev-notes">Notes</Label><Textarea id="ev-notes" maxLength={1000} value={draft.notes} onChange={(e) => setDraft({ ...draft, notes: e.target.value })} /></div>
-              <label className="flex items-center gap-2 text-sm"><Checkbox checked={draft.completed} onCheckedChange={(c) => setDraft({ ...draft, completed: !!c })} />Done</label>
+              <div><Label htmlFor="ev-notes">{t('shared.notes')}</Label><Textarea id="ev-notes" maxLength={1000} value={draft.notes} onChange={(e) => setDraft({ ...draft, notes: e.target.value })} /></div>
+              <label className="flex items-center gap-2 text-sm"><Checkbox checked={draft.completed} onCheckedChange={(c) => setDraft({ ...draft, completed: !!c })} />{t('shared.done')}</label>
             </div>
           )}
           <DialogFooter className="gap-2 sm:justify-between">
             <div className="flex gap-2">
-              {draft?.id && <Button variant="ghost" size="icon" aria-label="Delete" onClick={() => remove(draft.id!)}><Trash2 className="h-4 w-4" /></Button>}
+              {draft?.id && <Button variant="ghost" size="icon" aria-label={t('shared.delete')} onClick={() => remove(draft.id!)}><Trash2 className="h-4 w-4" /></Button>}
               {draft?.id && (
                 <Button variant="outline" onClick={() => { const e = events.find((x) => x.id === draft.id); if (e) downloadIcs(e, childName); }}>
-                  <CalendarPlus className="h-4 w-4 mr-1" />Add to my calendar
+                  <CalendarPlus className="h-4 w-4 mr-1" />{t('family.cal.addToCalendar')}
                 </Button>
               )}
             </div>
-            <Button onClick={() => save()} disabled={saving}>{saving ? 'Saving…' : 'Save'}</Button>
+            <Button onClick={() => save()} disabled={saving}>{saving ? t('shared.saving') : t('shared.save')}</Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       {events.filter((e) => !e.completed && new Date(e.starts_at) >= new Date()).length > 0 && (
         <Card><CardContent className="p-4 space-y-2">
-          <h4 className="font-semibold text-sm">Upcoming</h4>
+          <h4 className="font-semibold text-sm">{t('family.cal.upcoming')}</h4>
           {events.filter((e) => !e.completed && new Date(e.starts_at) >= new Date()).slice(0, 8).map((e) => (
             <div key={e.id} className="flex items-center justify-between gap-2 text-sm">
-              <label className="flex items-center gap-2"><Checkbox checked={e.completed} onCheckedChange={() => toggleDone(e)} aria-label="Mark done" />{e.title}</label>
+              <label className="flex items-center gap-2"><Checkbox checked={e.completed} onCheckedChange={() => toggleDone(e)} aria-label={t('family.cal.markDone')} />{e.title}</label>
               <div className="flex items-center gap-2 text-muted-foreground">
-                {new Date(e.starts_at).toLocaleString(undefined, { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
-                <Button size="icon" variant="ghost" aria-label="Add to my calendar" onClick={() => downloadIcs(e, childName)}><CalendarPlus className="h-4 w-4" /></Button>
+                {new Date(e.starts_at).toLocaleString(locale(), { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' })}
+                <Button size="icon" variant="ghost" aria-label={t('family.cal.addToCalendar')} onClick={() => downloadIcs(e, childName)}><CalendarPlus className="h-4 w-4" /></Button>
               </div>
             </div>
           ))}

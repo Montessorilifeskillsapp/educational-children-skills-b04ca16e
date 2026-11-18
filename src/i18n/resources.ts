@@ -4,6 +4,9 @@ import { pricing } from './locales/pricing';
 import { growth } from './locales/growth';
 import { chrome } from './locales/chrome';
 import { pages } from './locales/pages';
+import { dashboard } from './locales/dashboard';
+import { family } from './locales/family';
+import { shared } from './locales/shared';
 
 // Montessori material and area names use established AMI terminology in each language.
 const en = {
@@ -24,7 +27,7 @@ const zh: typeof en = {
 };
 
 
-const namespaces = { home, auth, pricing, growth, chrome, pages };
+const namespaces = { home, auth, pricing, growth, chrome, pages, dashboard, family, shared };
 type Lang = 'en' | 'es' | 'de' | 'zh';
 const build = (lng: Lang) => ({
   ...{ en, es, de, zh }[lng],

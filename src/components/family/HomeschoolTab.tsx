@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -25,6 +26,7 @@ const openPrint = (html: string) => {
 };
 
 export const HomeschoolTab = ({ childName, completions }: { childName: string; completions: Completion[] }) => {
+  const { t } = useTranslation();
   const [from, setFrom] = useState(schoolYearStart);
   const [to, setTo] = useState(() => iso(new Date()));
   const count = portfolioRows(completions, from, to).length;
@@ -32,25 +34,25 @@ export const HomeschoolTab = ({ childName, completions }: { childName: string; c
   return (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Many states ask homeschooling families to show that their curriculum covers state standards. These documents show how the Montessori lessons line up with Common Core and other U.S. standards. Requirements vary by state.
+        {t('family.hs.intro')}
       </p>
       <Card>
-        <CardHeader><CardTitle>Curriculum alignment guide</CardTitle></CardHeader>
+        <CardHeader><CardTitle>{t('family.hs.guide')}</CardTitle></CardHeader>
         <CardContent className="space-y-3">
-          <p className="text-sm text-muted-foreground">Every lesson in the curriculum with the standards it covers. Useful when your district asks you to describe your curriculum.</p>
-          <Button variant="outline" onClick={() => openPrint(crosswalkHtml('Prepared for homeschool curriculum review'))}><Printer className="h-4 w-4 mr-1" />Print or save as PDF</Button>
+          <p className="text-sm text-muted-foreground">{t('family.hs.guideBody')}</p>
+          <Button variant="outline" onClick={() => openPrint(crosswalkHtml('Prepared for homeschool curriculum review'))}><Printer className="h-4 w-4 mr-1" />{t('shared.printPdf')}</Button>
         </CardContent>
       </Card>
       <Card>
-        <CardHeader><CardTitle>{childName}'s progress portfolio</CardTitle></CardHeader>
+        <CardHeader><CardTitle>{t('family.hs.portfolio', { name: childName })}</CardTitle></CardHeader>
         <CardContent className="space-y-3">
-          <p className="text-sm text-muted-foreground">The activities {childName} completed, grouped by the standards they cover, with lines for you and an evaluator to sign.</p>
+          <p className="text-sm text-muted-foreground">{t('family.hs.portfolioBody', { name: childName })}</p>
           <div className="flex flex-wrap gap-3 items-end">
-            <div><Label htmlFor="hs-from">From</Label><Input id="hs-from" type="date" value={from} max={to} onChange={(ev) => ev.target.value && setFrom(ev.target.value)} /></div>
-            <div><Label htmlFor="hs-to">To</Label><Input id="hs-to" type="date" value={to} min={from} onChange={(ev) => ev.target.value && setTo(ev.target.value)} /></div>
-            <Button onClick={() => openPrint(portfolioHtml(childName, completions, from, to))}><Printer className="h-4 w-4 mr-1" />Print or save as PDF</Button>
+            <div><Label htmlFor="hs-from">{t('shared.from')}</Label><Input id="hs-from" type="date" value={from} max={to} onChange={(ev) => ev.target.value && setFrom(ev.target.value)} /></div>
+            <div><Label htmlFor="hs-to">{t('shared.to')}</Label><Input id="hs-to" type="date" value={to} min={from} onChange={(ev) => ev.target.value && setTo(ev.target.value)} /></div>
+            <Button onClick={() => openPrint(portfolioHtml(childName, completions, from, to))}><Printer className="h-4 w-4 mr-1" />{t('shared.printPdf')}</Button>
           </div>
-          <p className="text-sm text-muted-foreground">{count} standard{count === 1 ? '' : 's'} with evidence in this period.</p>
+          <p className="text-sm text-muted-foreground">{t('family.hs.count', { count })}</p>
         </CardContent>
       </Card>
     </div>
