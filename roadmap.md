@@ -1,6 +1,6 @@
 ## Open tasks
 - [x] Language Layer 1: homepage, sign-in, pricing/upgrade, pop-ups/cookie/consultation, menus, section titles, activity cards, readiness guide and public info pages switch to Spanish, German (formal Sie) and Chinese. Browser-checked signed out; first-time child setup after sign-in not checked.
-- [ ] Language Layer 2: Family Dashboard and School Portal screens.
+- [x] Language Layer 2: Family Dashboard, signed-in home, child profiles and every School Portal screen (Today, Children, Record, Plans, Reports, Curriculum, settings, staff, backups, review, history, Classroom button) switch language; Help offline answer corrected. Not browser-checked signed in (preview sign-in unavailable here).
 - [ ] Language Layer 3: curriculum content (activity guides, section introductions, sequences, activity names) with AMI terminology.
 - [x] Cookie consent banner (Accept all / Reject all / Cookie settings) with footer and Privacy Policy links; Google Analytics and the app's own usage records follow the choice. Three tests pass; browser check of Reject, settings save and reload. Not verified from an EU location.
 - [x] Accessibility statement page at /accessibility, linked from the home footer.
