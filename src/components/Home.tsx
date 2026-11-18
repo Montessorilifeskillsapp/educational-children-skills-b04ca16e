@@ -738,6 +738,7 @@ const Home: React.FC<HomeProps> = ({
                 <li><button onClick={onDashboardView} className="hover:text-white transition-colors">Progress Tracking</button></li>
                 <li><button onClick={onSubscriptionView} className="hover:text-white transition-colors">Pricing</button></li>
                 <li><Link to="/about" className="hover:text-white transition-colors">About</Link></li>
+                <li><Link to="/readiness-guide" className="hover:text-white transition-colors">Free Readiness Guide</Link></li>
               </ul>
             </div>
             <div>

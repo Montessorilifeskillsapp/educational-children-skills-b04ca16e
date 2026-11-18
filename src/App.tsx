@@ -34,6 +34,7 @@ const AboutPage = lazy(() => import("./pages/AboutPage"));
 const InstallPage = lazy(() => import("./pages/InstallPage"));
 const GuaranteePage = lazy(() => import("./pages/GuaranteePage"));
 const AccessibilityPage = lazy(() => import("./pages/AccessibilityPage"));
+const ReadinessGuidePage = lazy(() => import("./pages/ReadinessGuidePage"));
 const PreviewPouringWaterPage = lazy(() => import("./pages/PreviewPouringWaterPage"));
 const UnsubscribePage = lazy(() => import("./pages/UnsubscribePage"));
 import AppUpdateDialog from "@/components/AppUpdateDialog";
@@ -142,6 +143,7 @@ const App = () => {
                           <Route path="/install" element={<InstallPage />} />
                           <Route path="/guarantee" element={<GuaranteePage />} />
                           <Route path="/accessibility" element={<AccessibilityPage />} />
+                          <Route path="/readiness-guide" element={<ReadinessGuidePage />} />
                           <Route path="/preview/pouring-water" element={<PreviewPouringWaterPage />} />
                           <Route path="/unsubscribe" element={<UnsubscribePage />} />
                           <Route path="/welcome" element={<LandingPage />} />
