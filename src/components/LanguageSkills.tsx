@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { montessoriTheme } from './ThemeConfig';
 import { languageSkillsData } from '@/data/languageSkills';
@@ -122,6 +123,7 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
+  const { t } = useTranslation();
   const skills = applyFirstFreeItemLimit(
     orderBySequence(
       Object.keys(languageSkillsData).map((skillId) => ({
@@ -140,7 +142,7 @@ const LanguageSkills: React.FC<LanguageSkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="📚 Language"
+      title={`📚 ${t('chrome.titles.language')}`}
       intro="Language unfolds from the spoken word. The child hears sounds, then writes with the moveable alphabet, and only afterwards reads — each stage prepared long before it is presented."
       sequence="Oral Language → Phonemic Awareness → Writing Preparation → Sandpaper Letters → Moveable Alphabet → Pink, Blue and Green Series → Grammar → Creative Writing"
       groups={groups}

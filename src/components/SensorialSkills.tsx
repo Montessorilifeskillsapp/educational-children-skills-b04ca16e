@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { montessoriTheme } from './ThemeConfig';
 import { sensorialSkills } from '@/data/sensorialSkills';
@@ -85,6 +86,7 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
+  const { t } = useTranslation();
   useSEO({
     title: 'Montessori Sensorial Skills - Visual, Auditory & Tactile Learning',
     description:
@@ -119,7 +121,7 @@ const SensorialSkills: React.FC<SensorialSkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="👁️ Sensorial Development"
+      title={`👁️ ${t('chrome.titles.sensorial')}`}
       intro="Sensorial materials refine and classify what the child has already absorbed through the senses. Each material isolates one quality, moves from simple to complex, and carries its own control of error."
       sequence="Dimension → Color → Form → Tactile → Auditory → Olfactory & Gustatory → Stereognostic"
       groups={groups}

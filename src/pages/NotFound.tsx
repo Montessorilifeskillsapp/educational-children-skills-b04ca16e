@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Home, ArrowLeft, Search } from 'lucide-react';
@@ -7,6 +8,7 @@ import { useSEO } from '@/hooks/useSEO';
 
 const NotFound: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // SEO optimization for 404 page
   useSEO({
@@ -35,12 +37,11 @@ const NotFound: React.FC = () => {
             </div>
             
             <h1 className="text-3xl font-bold text-gray-800 mb-4">
-              Oops! Page Not Found
+              {t('chrome.notFound.title')}
             </h1>
             
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              The page you're looking for seems to have wandered off on its own learning adventure. 
-              Let's get you back to exploring!
+              {t('chrome.notFound.body')}
             </p>
 
             {/* Action Buttons */}
@@ -51,7 +52,7 @@ const NotFound: React.FC = () => {
                 className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <Home className="w-5 h-5 mr-2" />
-                Go Home
+                {t('chrome.notFound.goHome')}
               </Button>
               
               <Button 
@@ -61,7 +62,7 @@ const NotFound: React.FC = () => {
                 className="border-2 border-primary/25 text-primary hover:bg-primary/10 px-8 py-3 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
               >
                 <ArrowLeft className="w-5 h-5 mr-2" />
-                Go Back
+                {t('chrome.notFound.goBack')}
               </Button>
             </div>
 
@@ -69,13 +70,13 @@ const NotFound: React.FC = () => {
             <div className="mt-8 p-6 bg-gradient-to-r from-blue-50 to-primary/20 rounded-2xl">
               <div className="flex items-center justify-center mb-3">
                 <Search className="w-5 h-5 text-primary mr-2" />
-                <span className="font-semibold text-primary">What you might be looking for:</span>
+                <span className="font-semibold text-primary">{t('chrome.notFound.looking')}</span>
               </div>
               <div className="grid grid-cols-2 gap-2 text-sm text-primary">
-                <span>• Practical Life Skills</span>
-                <span>• Learning Activities</span>
-                <span>• Progress Dashboard</span>
-                <span>• Premium Plans</span>
+                <span>{t('chrome.notFound.s1')}</span>
+                <span>{t('chrome.notFound.s2')}</span>
+                <span>{t('chrome.notFound.s3')}</span>
+                <span>{t('chrome.notFound.s4')}</span>
               </div>
             </div>
           </div>

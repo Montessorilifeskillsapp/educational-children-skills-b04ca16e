@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '@/components/PageLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -13,6 +14,7 @@ import { useToast } from '@/hooks/use-toast';
 
 const ContactPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: '',
@@ -36,13 +38,13 @@ const ContactPage: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Opens the visitor's email app with the message addressed to the support inbox.
-    const subject = formData.subject || 'Question from the website';
+    const subject = formData.subject || t('pages.contact.defaultSubject');
     const body = `${formData.message}\n\n— ${formData.name} (${formData.email})`;
     const url = `mailto:montessorilifeskills@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     try { (window.top ?? window).location.href = url; } catch { window.location.href = url; }
     toast({
-      title: "Your email app is opening",
-      description: "Press send there to deliver your message to montessorilifeskills@gmail.com.",
+      title: t('pages.contact.toastTitle'),
+      description: t('pages.contact.toastBody', { email: 'montessorilifeskills@gmail.com' }),
     });
   };
 
@@ -55,27 +57,22 @@ const ContactPage: React.FC = () => {
 
   return (
     <SEOOptimizer>
-      <PageLayout title="Contact Us" onBack={handleBack}>
+      <PageLayout title={t('pages.contact.title')} onBack={handleBack}>
         <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Contact Information */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <MessageSquare className="w-5 h-5" />
-                Get in Touch
-              </CardTitle>
+                <MessageSquare className="w-5 h-5" />{t('pages.contact.getInTouch')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
-              <p className="text-muted-foreground">
-                We'd love to hear from you! Whether you have questions about our Montessori activities, 
-                need technical support, or want to share feedback, we're here to help.
-              </p>
+              <p className="text-muted-foreground">{t('pages.contact.intro')}</p>
               
               <div className="space-y-4">
                 <div className="flex items-center gap-3">
                   <Mail className="w-5 h-5 text-primary" />
                   <div>
-                    <p className="font-medium">Email</p>
+                    <p className="font-medium">{t('pages.contact.email')}</p>
                     <p className="text-sm text-muted-foreground">montessorilifeskills@gmail.com</p>
                   </div>
                 </div>
@@ -84,7 +81,7 @@ const ContactPage: React.FC = () => {
               
               <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
                 <p className="text-sm text-blue-700">
-                  <strong>Response Time:</strong> We typically respond to all inquiries within 24 hours during business days.
+                  <strong>{t('pages.contact.responseLabel')}</strong> {t('pages.contact.response')}
                 </p>
               </div>
             </CardContent>
@@ -93,13 +90,13 @@ const ContactPage: React.FC = () => {
           {/* Contact Form */}
           <Card>
             <CardHeader>
-              <CardTitle>Send us a Message</CardTitle>
+              <CardTitle>{t('pages.contact.sendTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="name">Name</Label>
+                    <Label htmlFor="name">{t('pages.contact.name')}</Label>
                     <Input
                       id="name"
                       name="name"
@@ -110,7 +107,7 @@ const ContactPage: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t('pages.contact.email')}</Label>
                     <Input
                       id="email"
                       name="email"
@@ -123,7 +120,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 
                 <div>
-                  <Label htmlFor="subject">Subject</Label>
+                  <Label htmlFor="subject">{t('pages.contact.subject')}</Label>
                   <Input
                     id="subject"
                     name="subject"
@@ -135,7 +132,7 @@ const ContactPage: React.FC = () => {
                 </div>
                 
                 <div>
-                  <Label htmlFor="message">Message</Label>
+                  <Label htmlFor="message">{t('pages.contact.message')}</Label>
                   <Textarea
                     id="message"
                     name="message"
@@ -146,9 +143,7 @@ const ContactPage: React.FC = () => {
                   />
                 </div>
                 
-                <Button type="submit" className="w-full">
-                  Send Message
-                </Button>
+                <Button type="submit" className="w-full">{t('pages.contact.send')}</Button>
               </form>
             </CardContent>
           </Card>

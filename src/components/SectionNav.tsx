@@ -1,17 +1,18 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Link, useLocation } from 'react-router-dom';
 import { Home } from 'lucide-react';
 
 const SECTION_LINKS: { label: string; path: string }[] = [
-  { label: 'Practical Life', path: '/practical-life' },
-  { label: 'Sensorial', path: '/sensorial' },
-  { label: 'Math', path: '/math' },
-  { label: 'Language', path: '/language' },
-  { label: 'Botany', path: '/botany' },
-  { label: 'Geography', path: '/geography' },
-  { label: 'Science', path: '/cultural' },
-  { label: 'Art', path: '/art' },
-  { label: 'Grace & Courtesy', path: '/grace-courtesy' },
+  { label: 'nav.practicalLife', path: '/practical-life' },
+  { label: 'nav.sensorial', path: '/sensorial' },
+  { label: 'nav.math', path: '/math' },
+  { label: 'nav.language', path: '/language' },
+  { label: 'nav.botany', path: '/botany' },
+  { label: 'nav.geography', path: '/geography' },
+  { label: 'nav.science', path: '/cultural' },
+  { label: 'nav.art', path: '/art' },
+  { label: 'nav.graceCourtesy', path: '/grace-courtesy' },
 ];
 
 /**
@@ -21,10 +22,11 @@ const SECTION_LINKS: { label: string; path: string }[] = [
  */
 const SectionNav: React.FC = () => {
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <nav
-      aria-label="Curriculum sections"
+      aria-label={t('chrome.curriculumSections')}
       className="mb-6 -mx-1 overflow-x-auto"
     >
       <div className="flex items-center gap-1 px-1 pb-1 w-max mx-auto">
@@ -33,7 +35,7 @@ const SectionNav: React.FC = () => {
           className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-md text-sm font-medium text-muted-foreground hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
         >
           <Home className="w-4 h-4" />
-          Home
+          {t('chrome.home')}
         </Link>
         {SECTION_LINKS.map((link) => {
           const active = location.pathname === link.path;
@@ -48,7 +50,7 @@ const SectionNav: React.FC = () => {
                   : 'text-muted-foreground hover:text-primary hover:bg-primary/5'
               }`}
             >
-              {link.label}
+              {t(link.label)}
             </Link>
           );
         })}

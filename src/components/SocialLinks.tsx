@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Instagram, Facebook, Youtube } from 'lucide-react';
 
 interface SocialLinksProps {
@@ -28,13 +29,14 @@ const socials = [
 ];
 
 const SocialLinks: React.FC<SocialLinksProps> = ({ variant = 'dark', className = '' }) => {
+  const { t } = useTranslation();
   const base =
     variant === 'light'
       ? 'bg-white/20 text-white hover:bg-white/30 border-white/30'
       : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200 hover:text-primary';
 
   return (
-    <nav aria-label="Social media links" className={`flex items-center justify-center gap-3 ${className}`}>
+    <nav aria-label={t('pages.social.nav')} className={`flex items-center justify-center gap-3 ${className}`}>
       {socials.map(({ name, handle, href, Icon }) => (
         <a
           key={name}

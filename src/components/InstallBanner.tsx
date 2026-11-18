@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 import { Download, Leaf, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -13,6 +14,7 @@ const INSTALL_BANNER_DISMISSED_KEY = "pwa-install-banner-dismissed";
 const PWA_INSTALLED_KEY = "pwa-installed";
 
 const InstallBanner = () => {
+  const { t } = useTranslation();
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null);
   const [isVisible, setIsVisible] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
@@ -142,15 +144,13 @@ const InstallBanner = () => {
 
   if (!isVisible || blocked) return null;
 
-  const description = isIOS
-    ? "Install for quick access like a real app"
-    : "Install app for offline access";
+  const description = isIOS ? t('pages.banner.descIOS') : t('pages.banner.descOther');
 
   return (
     <div
       ref={bannerRef}
       role="region"
-      aria-label="Install app banner"
+      aria-label={t('pages.banner.region')}
       aria-live="polite"
       className="fixed top-0 left-0 right-0 z-[60] p-3 animate-fade-in pointer-events-none"
       style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
@@ -164,7 +164,7 @@ const InstallBanner = () => {
         </div>
         <div className="flex-1 min-w-0">
           <p id="install-banner-title" className="text-sm font-semibold text-slate-800 truncate">
-            Add to Home Screen
+            {t('pages.banner.title')}
           </p>
           <p id="install-banner-desc" className="text-xs text-slate-500 truncate">
             {description}
@@ -174,19 +174,19 @@ const InstallBanner = () => {
           ref={installButtonRef}
           size="sm"
           onClick={handleInstall}
-          aria-label={`Install app: ${description}`}
+          aria-label={t('pages.banner.installAria', { description })}
           aria-describedby="install-banner-desc"
           className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent text-white shrink-0 rounded-xl gap-1 focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
         >
           <Download aria-hidden="true" className="w-3.5 h-3.5" />
-          <span className="hidden sm:inline">Install</span>
+          <span className="hidden sm:inline">{t('pages.banner.install')}</span>
         </Button>
         <Button
           type="button"
           variant="ghost"
           size="icon"
           onClick={handleDismiss}
-          aria-label="Dismiss install banner (Escape)"
+          aria-label={t('pages.banner.dismiss')}
           className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
           <X aria-hidden="true" className="w-4 h-4 text-slate-400" />

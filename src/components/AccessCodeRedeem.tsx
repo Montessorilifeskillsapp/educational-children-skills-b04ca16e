@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { KeyRound } from 'lucide-react';
@@ -12,6 +13,7 @@ const AccessCodeRedeem: React.FC = () => {
   const [code, setCode] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const { toast } = useToast();
+  const { t } = useTranslation();
   const { user } = useAuthContext();
   const { refreshSubscription } = useSubscription();
 
@@ -20,8 +22,8 @@ const AccessCodeRedeem: React.FC = () => {
 
     if (!user) {
       toast({
-        title: 'Sign in first',
-        description: 'Create an account or sign in, then redeem your access code.',
+        title: t('pricing.access.signInTitle'),
+        description: t('pricing.access.signInBody'),
         variant: 'destructive',
       });
       return;
@@ -36,9 +38,9 @@ const AccessCodeRedeem: React.FC = () => {
       if (error || (data as { error?: string })?.error) {
         const message =
           (data as { error?: string })?.error ??
-          (error?.message ?? 'That access code could not be redeemed.');
+          t('pricing.access.rejectedBody');
         toast({
-          title: 'Code not accepted',
+          title: t('pricing.access.rejected'),
           description: message,
           variant: 'destructive',
         });
@@ -49,13 +51,13 @@ const AccessCodeRedeem: React.FC = () => {
       setOpen(false);
       await refreshSubscription?.();
       toast({
-        title: 'Full access unlocked',
-        description: 'Your access code has been applied to this account.',
+        title: t('pricing.access.okTitle'),
+        description: t('pricing.access.okBody'),
       });
-    } catch (error) {
+    } catch {
       toast({
-        title: 'Something went wrong',
-        description: error instanceof Error ? error.message.slice(0, 180) : 'Please try again.',
+        title: t('pricing.access.errTitle'),
+        description: t('pricing.access.errBody'),
         variant: 'destructive',
       });
     } finally {
@@ -72,12 +74,12 @@ const AccessCodeRedeem: React.FC = () => {
           className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground underline underline-offset-4"
         >
           <KeyRound className="w-4 h-4" aria-hidden="true" />
-          Have an access code?
+          {t('pricing.access.open')}
         </button>
       ) : (
         <div className="rounded-xl border border-border bg-muted/30 p-4 space-y-3 text-left">
           <label htmlFor="access-code" className="text-sm font-medium text-foreground">
-            Enter your access code
+            {t('pricing.access.label')}
           </label>
           <div className="flex flex-col sm:flex-row gap-2">
             <Input
@@ -91,11 +93,11 @@ const AccessCodeRedeem: React.FC = () => {
               }}
             />
             <Button onClick={() => void handleRedeem()} disabled={submitting || !code.trim()}>
-              {submitting ? 'Checking…' : 'Redeem'}
+              {submitting ? t('pricing.access.checking') : t('pricing.access.redeem')}
             </Button>
           </div>
           <p className="text-xs text-muted-foreground">
-            Access codes unlock the full curriculum at no charge. No payment details required.
+            {t('pricing.access.note')}
           </p>
         </div>
       )}

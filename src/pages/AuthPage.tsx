@@ -11,10 +11,11 @@ import { toast } from '@/hooks/use-toast';
 import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { supabase } from '@/integrations/supabase/client';
-
-const EXISTING_ACCOUNT_MESSAGE = 'This email already has an account, so no new account was created and no email was sent. Sign in below — if it was made with Google or Apple, use that button. Or tap "Forgot password?" to set a password.';
+import { Trans, useTranslation } from 'react-i18next';
 
 const AuthPage = () => {
+  const { t } = useTranslation();
+  const EXISTING_ACCOUNT_MESSAGE = t('auth.errors.existing');
   const [mode, setMode] = useState<'signin' | 'signup'>('signin');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -34,7 +35,7 @@ const AuthPage = () => {
 
   const sendResetEmail = async () => {
     setFormError('');
-    if (!email.trim()) { setFormError('Enter your email above, then tap "Forgot password?" again.'); return; }
+    if (!email.trim()) { setFormError(t('auth.errors.enterEmailFirst')); return; }
     setIsSubmitting(true);
     const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${window.location.origin}/auth?reset=1` });
     setIsSubmitting(false);
@@ -45,23 +46,23 @@ const AuthPage = () => {
   const saveNewPassword = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError('');
-    if (newPassword.length < 6) { setFormError('Your password needs at least 6 characters.'); return; }
+    if (newPassword.length < 6) { setFormError(t('auth.errors.min6')); return; }
     setIsSubmitting(true);
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     setIsSubmitting(false);
     if (error) { setFormError(describeAuthError(error.message)); return; }
-    toast({ title: 'Password updated', description: 'You are signed in with your new password.' });
+    toast({ title: t('auth.toast.passwordUpdated'), description: t('auth.toast.passwordUpdatedBody') });
     navigate('/', { replace: true });
   };
 
   const describeAuthError = (message: string) => {
     if (/already registered|already exists|user already/i.test(message)) return EXISTING_ACCOUNT_MESSAGE;
-    if (/invalid login credentials/i.test(message)) return 'That email and password don\'t match. If you first signed up with Google or Apple, use those buttons below — or tap "Forgot password?" to set a password for this email.';
-    if (/rate limit|too many requests|email rate/i.test(message)) return 'Too many attempts right now. Please wait a little while and try again.';
-    if (/known to be weak|easy to guess/i.test(message)) return 'That password has appeared in a known data leak, so it can\'t be used. Please choose a different, less common password.';
-    if (/password.*weak|password.*short/i.test(message)) return 'Please choose a stronger password with at least 6 characters.';
-    if (/invalid.*email/i.test(message)) return 'Please enter a valid email address.';
-    if (/network|fetch failed|failed to fetch/i.test(message)) return 'We could not connect right now. Check your connection and try again.';
+    if (/invalid login credentials/i.test(message)) return t('auth.errors.invalidLogin');
+    if (/rate limit|too many requests|email rate/i.test(message)) return t('auth.errors.rateLimit');
+    if (/known to be weak|easy to guess/i.test(message)) return t('auth.errors.leaked');
+    if (/password.*weak|password.*short/i.test(message)) return t('auth.errors.weak');
+    if (/invalid.*email/i.test(message)) return t('auth.errors.invalidEmail');
+    if (/network|fetch failed|failed to fetch/i.test(message)) return t('auth.errors.network');
     return message;
   };
 
@@ -112,7 +113,7 @@ const AuthPage = () => {
     e.preventDefault();
     setFormError('');
     if (!email || !password) {
-      setFormError('Enter your email and password.');
+      setFormError(t('auth.errors.enterBoth'));
       return;
     }
 
@@ -123,8 +124,8 @@ const AuthPage = () => {
         setFormError(describeAuthError(error.message));
       } else {
         toast({
-          title: "Welcome back!",
-          description: "You have successfully signed in.",
+          title: t('auth.toast.welcomeBack'),
+          description: t('auth.toast.welcomeBackBody'),
         });
         const postAuthRedirect = getPostAuthRedirect();
         if (postAuthRedirect) {
@@ -137,7 +138,7 @@ const AuthPage = () => {
         navigate(postAuthRedirect || '/');
       }
     } catch (error) {
-      setFormError('We could not sign you in. Please try again.');
+      setFormError(t('auth.errors.signInFailed'));
     } finally {
       setIsSubmitting(false);
     }
@@ -147,17 +148,17 @@ const AuthPage = () => {
     e.preventDefault();
     setFormError('');
     if (!email || !password || !confirmPassword) {
-      setFormError('Complete all three fields to create your account.');
+      setFormError(t('auth.errors.completeAll'));
       return;
     }
 
     if (password !== confirmPassword) {
-      setFormError('The passwords do not match. Please try again.');
+      setFormError(t('auth.errors.mismatch'));
       return;
     }
 
     if (password.length < 6) {
-      setFormError('Your password needs at least 6 characters.');
+      setFormError(t('auth.errors.min6'));
       return;
     }
 
@@ -177,7 +178,7 @@ const AuthPage = () => {
         setConfirmPassword('');
       }
     } catch (error) {
-      setFormError('We could not create your account. Please try again.');
+      setFormError(t('auth.errors.signUpFailed'));
     } finally {
       setIsSubmitting(false);
     }
@@ -200,52 +201,52 @@ const AuthPage = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Montessori Life Skills</CardTitle>
-          <CardDescription>{confirmationEmail ? 'One more step to get started' : 'Your guide to Montessori activities'}</CardDescription>
+          <CardDescription>{confirmationEmail ? t('auth.page.oneMoreStep') : t('auth.page.tagline')}</CardDescription>
         </CardHeader>
         <CardContent>
           {isResetLink ? (
             user ? (
               <form onSubmit={saveNewPassword} className="space-y-4 py-2">
-                <h2 className="text-xl font-semibold text-center">Choose a new password</h2>
+                <h2 className="text-xl font-semibold text-center">{t('auth.page.chooseNew')}</h2>
                 {formError && <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
-                <Label htmlFor="new-password">New password</Label>
-                <Input id="new-password" type="password" autoComplete="new-password" minLength={6} placeholder="At least 6 characters" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
-                <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? 'Saving…' : 'Save new password'}</Button>
+                <Label htmlFor="new-password">{t('auth.page.newPassword')}</Label>
+                <Input id="new-password" type="password" autoComplete="new-password" minLength={6} placeholder={t('auth.page.atLeast6')} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
+                <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? t('auth.page.saving') : t('auth.page.saveNew')}</Button>
               </form>
             ) : (
               <div className="space-y-4 py-5 text-center">
-                <p className="text-sm text-muted-foreground">{loading ? 'Checking your reset link…' : 'This reset link has expired or was already used. Request a new one from Sign In.'}</p>
-                {!loading && <Button variant="outline" className="w-full" onClick={() => navigate('/auth', { replace: true })}>Back to sign in</Button>}
+                <p className="text-sm text-muted-foreground">{loading ? t('auth.page.checkingLink') : t('auth.page.expiredLink')}</p>
+                {!loading && <Button variant="outline" className="w-full" onClick={() => navigate('/auth', { replace: true })}>{t('auth.page.backToSignIn')}</Button>}
               </div>
             )
           ) : resetSent ? (
             <div role="status" className="space-y-4 py-5 text-center">
-              <h2 className="text-xl font-semibold">Check your email</h2>
-              <p className="text-sm text-muted-foreground">If an account exists for <strong className="text-foreground break-all">{resetSent}</strong>, we sent a link to reset your password. Check your spam folder if you don't see it.</p>
-              <Button variant="outline" className="w-full" onClick={() => { setResetSent(''); setForgotOpen(false); }}>Back to sign in</Button>
+              <h2 className="text-xl font-semibold">{t('auth.page.checkEmail')}</h2>
+              <p className="text-sm text-muted-foreground"><Trans i18nKey="auth.page.resetSent" values={{ email: resetSent }} components={{ 1: <strong className="text-foreground break-all" /> }} /></p>
+              <Button variant="outline" className="w-full" onClick={() => { setResetSent(''); setForgotOpen(false); }}>{t('auth.page.backToSignIn')}</Button>
             </div>
           ) : confirmationEmail ? (
             <div role="status" className="space-y-4 py-5 text-center">
-              <h2 className="text-xl font-semibold">Check your email</h2>
-              <p className="text-sm text-muted-foreground">We sent a confirmation link to <strong className="text-foreground break-all">{confirmationEmail}</strong>. Open it to finish creating your account. Check your spam folder if you don't see it.</p>
-              <Button variant="outline" className="w-full" onClick={() => { setConfirmationEmail(''); setMode('signin'); }}>Back to sign in</Button>
+              <h2 className="text-xl font-semibold">{t('auth.page.checkEmail')}</h2>
+              <p className="text-sm text-muted-foreground"><Trans i18nKey="auth.page.confirmSent" values={{ email: confirmationEmail }} components={{ 1: <strong className="text-foreground break-all" /> }} /></p>
+              <Button variant="outline" className="w-full" onClick={() => { setConfirmationEmail(''); setMode('signin'); }}>{t('auth.page.backToSignIn')}</Button>
             </div>
           ) : <Tabs value={mode} onValueChange={(value) => { setMode(value as 'signin' | 'signup'); setFormError(''); setShowPassword(false); }} className="w-full">
             <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="signin">Sign In</TabsTrigger>
-              <TabsTrigger value="signup">Create Account</TabsTrigger>
+              <TabsTrigger value="signin">{t('auth.page.signIn')}</TabsTrigger>
+              <TabsTrigger value="signup">{t('auth.page.createAccount')}</TabsTrigger>
             </TabsList>
 
             {formError && <p role="alert" className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
             {mode === 'signin' ? (
               <form onSubmit={handleSignIn} className="space-y-4 pt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signin-email">Email</Label>
+                  <Label htmlFor="signin-email">{t('auth.page.email')}</Label>
                   <Input
                     id="signin-email"
                     type="email"
                      autoComplete="email"
-                    placeholder="Enter your email"
+                    placeholder={t('auth.page.emailPlaceholder')}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={isSubmitting}
@@ -253,33 +254,33 @@ const AuthPage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signin-password">Password</Label>
+                  <Label htmlFor="signin-password">{t('auth.page.password')}</Label>
                    <div className="relative">
-                     <Input id="signin-password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" placeholder="Enter your password" value={password} onChange={(e) => setPassword(e.target.value)} disabled={isSubmitting} required className="pr-12" />
-                     <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0" >{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
+                     <Input id="signin-password" type={showPassword ? 'text' : 'password'} autoComplete="current-password" placeholder={t('auth.page.passwordPlaceholder')} value={password} onChange={(e) => setPassword(e.target.value)} disabled={isSubmitting} required className="pr-12" />
+                     <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? t('auth.page.hidePassword') : t('auth.page.showPassword')} title={showPassword ? t('auth.page.hidePassword') : t('auth.page.showPassword')} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0" >{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
                    </div>
                 </div>
-                <button type="button" onClick={sendResetEmail} disabled={isSubmitting} className="text-sm text-primary underline">Forgot password?</button>
+                <button type="button" onClick={sendResetEmail} disabled={isSubmitting} className="text-sm text-primary underline">{t('auth.page.forgot')}</button>
                 <Button type="submit" className="w-full" disabled={isSubmitting}>
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Signing In...
+                      {t('auth.page.signingIn')}
                     </>
                   ) : (
-                    'Sign In'
+                    t('auth.page.signIn')
                   )}
                 </Button>
               </form>
             ) : (
               <form onSubmit={handleSignUp} className="space-y-4 pt-4">
                 <div className="space-y-2">
-                  <Label htmlFor="signup-email">Email</Label>
+                  <Label htmlFor="signup-email">{t('auth.page.email')}</Label>
                   <Input
                     id="signup-email"
                     type="email"
                      autoComplete="email"
-                    placeholder="Enter your email"
+                    placeholder={t('auth.page.emailPlaceholder')}
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     disabled={isSubmitting}
@@ -287,19 +288,19 @@ const AuthPage = () => {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="signup-password">Password</Label>
+                  <Label htmlFor="signup-password">{t('auth.page.password')}</Label>
                    <div className="relative">
-                     <Input id="signup-password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" minLength={6} placeholder="At least 6 characters" value={password} onChange={(e) => setPassword(e.target.value)} disabled={isSubmitting} required className="pr-12" />
-                     <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? 'Hide password' : 'Show password'} title={showPassword ? 'Hide password' : 'Show password'} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0">{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
+                     <Input id="signup-password" type={showPassword ? 'text' : 'password'} autoComplete="new-password" minLength={6} placeholder={t('auth.page.atLeast6')} value={password} onChange={(e) => setPassword(e.target.value)} disabled={isSubmitting} required className="pr-12" />
+                     <Button type="button" variant="ghost" size="icon" aria-label={showPassword ? t('auth.page.hidePassword') : t('auth.page.showPassword')} title={showPassword ? t('auth.page.hidePassword') : t('auth.page.showPassword')} onClick={() => setShowPassword(!showPassword)} className="absolute right-0 top-0">{showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}</Button>
                    </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="confirm-password">Confirm Password</Label>
+                  <Label htmlFor="confirm-password">{t('auth.page.confirmPassword')}</Label>
                   <Input
                     id="confirm-password"
                     type="password"
                     autoComplete="new-password"
-                    placeholder="Confirm your password"
+                    placeholder={t('auth.page.confirmPlaceholder')}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     disabled={isSubmitting}
@@ -310,10 +311,10 @@ const AuthPage = () => {
                   {isSubmitting ? (
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Creating Account...
+                      {t('auth.page.creating')}
                     </>
                   ) : (
-                    'Create Account'
+                    t('auth.page.createAccount')
                   )}
                 </Button>
               </form>
@@ -323,7 +324,7 @@ const AuthPage = () => {
           <div className="mt-6 pt-4 border-t space-y-3">
             {!Capacitor.isNativePlatform() && (
               <>
-                <p className="text-center text-sm text-muted-foreground">Or continue with</p>
+                <p className="text-center text-sm text-muted-foreground">{t('auth.page.orContinue')}</p>
                 <Button 
                   variant="outline" 
                   className="w-full"
@@ -331,7 +332,7 @@ const AuthPage = () => {
                     const { error } = await signInWithGoogle();
                     if (error) {
                       toast({
-                        title: "Google Sign In Failed",
+                        title: t('auth.page.googleFailed'),
                         description: error.message,
                         variant: "destructive",
                       });
@@ -345,7 +346,7 @@ const AuthPage = () => {
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
                   </svg>
-                  Continue with Google
+                  {t('auth.page.google')}
                 </Button>
 
                 <Button 
@@ -355,7 +356,7 @@ const AuthPage = () => {
                     const { error } = await signInWithApple();
                     if (error) {
                       toast({
-                        title: "Apple Sign In Failed",
+                        title: t('auth.page.appleFailed'),
                         description: error.message,
                         variant: "destructive",
                       });
@@ -366,7 +367,7 @@ const AuthPage = () => {
                   <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.05 20.28c-.98.95-2.05.88-3.08.4-1.09-.5-2.08-.48-3.24 0-1.44.62-2.2.44-3.06-.4C2.79 15.25 3.51 7.59 9.05 7.31c1.35.07 2.29.74 3.08.8 1.18-.24 2.31-.93 3.57-.84 1.51.12 2.65.72 3.4 1.8-3.12 1.87-2.38 5.98.48 7.13-.57 1.5-1.31 2.99-2.54 4.09zM12.03 7.25c-.15-2.23 1.66-4.07 3.74-4.25.29 2.58-2.34 4.5-3.74 4.25z"/>
                   </svg>
-                  Continue with Apple
+                  {t('auth.page.apple')}
                 </Button>
               </>
             )}
@@ -380,7 +381,7 @@ const AuthPage = () => {
               }}
             >
               <Sparkles className="mr-2 h-4 w-4" />
-              Explore Free Activities
+              {t('auth.page.exploreFree')}
             </Button>
           </div>
         </CardContent>

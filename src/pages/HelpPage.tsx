@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import PageLayout from '@/components/PageLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
@@ -10,6 +11,7 @@ import { HelpCircle, Book, Settings, CreditCard, Users } from 'lucide-react';
 
 const HelpPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   // SEO optimization
   useSEO({
@@ -27,105 +29,35 @@ const HelpPage: React.FC = () => {
     navigate('/contact');
   };
 
+  type Faq = { q: string; a: string };
+  const faqList = (key: string): Faq[] => {
+    const v = t(`pages.help.faq.${key}`, { returnObjects: true }) as unknown;
+    return Array.isArray(v) ? (v as Faq[]) : [];
+  };
   const faqData = [
-    {
-      category: "Getting Started",
-      icon: <Book className="w-5 h-5" />,
-      questions: [
-        {
-          question: "What is the Montessori approach?",
-          answer: "The Montessori method is an educational approach that emphasizes hands-on learning, self-directed activity, and collaborative play. Our app brings these principles to digital practical life skills, helping children develop independence, confidence, and real-world capabilities."
-        },
-        {
-          question: "What age group is this app designed for?",
-          answer: "Our app is designed for children aged 2-6 years, covering the primary Montessori age range. Activities are carefully crafted to match developmental stages and can be adapted based on your child's individual progress."
-        },
-        {
-          question: "Do I need any special materials?",
-          answer: "Many activities can be done with common household items. Our app includes detailed material lists and suggests alternatives when special items are needed. Premium subscribers get the full curriculum with material recommendations for every activity."
-        }
-      ]
-    },
-    {
-      category: "Subscriptions & Billing",
-      icon: <CreditCard className="w-5 h-5" />,
-      questions: [
-        {
-          question: "What's included in the free plan?",
-          answer: "The free plan includes one starter activity in each curriculum area, the Classroom Setup Guide, and the Family Dashboard. It's a simple way to begin Montessori learning at home or in the classroom."
-        },
-        {
-          question: "Can I cancel my subscription anytime?",
-          answer: "Yes! You can cancel your subscription at any time: on the website, open the Plans page and choose Manage or cancel; in the iPhone or Android app, use your App Store or Google Play subscriptions. Your premium features will remain active until the end of your current billing period."
-        },
-        {
-          question: "What plans are available?",
-          answer: "Premium covers one child at $29.99/month or $199/year. Family covers up to four children at $49/month or $349/year."
-        },
-        {
-          question: "Are Kerry's songs included with my subscription?",
-          answer: "No. The 10-song collection is a separate $99.99 one-time purchase with lifetime access and downloads for your household. It is not included with Premium or Family. Anyone can play the free 10-second samples."
-        }
-      ]
-    },
-    {
-      category: "Using the App",
-      icon: <Settings className="w-5 h-5" />,
-      questions: [
-        {
-          question: "How do I track my child's progress?",
-          answer: "Premium subscribers have access to a detailed parent dashboard showing completed activities, skill development, and personalized recommendations. You can also generate progress reports and certificates."
-        },
-        {
-          question: "Can I use the app offline?",
-          answer: "Currently, the app requires an internet connection for full functionality. However, you can download and print activity guides to use offline with your child."
-        },
-        {
-          question: "How often are new activities added?",
-          answer: "We add new activities monthly for premium subscribers. Free users receive occasional new content and updates to existing activities."
-        }
-      ]
-    },
-    {
-      category: "Family & Profiles",
-      icon: <Users className="w-5 h-5" />,
-      questions: [
-        {
-          question: "Can I create profiles for multiple children?",
-          answer: "Yes. Explorer and Premium each include one child profile. Family includes up to four child profiles. Add and manage children normally in Manage Child Profiles. Families needing more than four profiles should contact support."
-        },
-        {
-          question: "Is the app safe for children?",
-          answer: "Absolutely. We prioritize child safety with no external links, ads, or social features. All content is created by certified Montessori educators and reviewed for age-appropriateness."
-        },
-        {
-          question: "Can other family members access the account?",
-          answer: "Your subscription covers your household's use. Premium includes one child profile; Family includes up to four. We recommend keeping account credentials secure."
-        }
-      ]
-    }
-  ];
+    { key: 'start', icon: <Book className="w-5 h-5" /> },
+    { key: 'billing', icon: <CreditCard className="w-5 h-5" /> },
+    { key: 'using', icon: <Settings className="w-5 h-5" /> },
+    { key: 'family', icon: <Users className="w-5 h-5" /> },
+  ].map(({ key, icon }) => ({
+    category: t(`pages.help.cats.${key}`),
+    icon,
+    questions: faqList(key).map(({ q, a }) => ({ question: q, answer: a })),
+  }));
 
   return (
     <SEOOptimizer>
-      <PageLayout title="Help & FAQ" onBack={handleBack}>
+      <PageLayout title={t('pages.help.title')} onBack={handleBack}>
         <div className="max-w-4xl mx-auto space-y-8">
           {/* Introduction */}
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <HelpCircle className="w-6 h-6" />
-                How can we help you?
-              </CardTitle>
+                <HelpCircle className="w-6 h-6" />{t('pages.help.introTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-muted-foreground mb-4">
-                Find answers to common questions about our Montessori learning app. 
-                If you can't find what you're looking for, don't hesitate to contact our support team.
-              </p>
-              <Button onClick={handleContactUs} variant="outline">
-                Contact Support
-              </Button>
+              <p className="text-muted-foreground mb-4">{t('pages.help.intro')}</p>
+              <Button onClick={handleContactUs} variant="outline">{t('pages.help.contactSupport')}</Button>
             </CardContent>
           </Card>
 
@@ -158,13 +90,9 @@ const HelpPage: React.FC = () => {
           {/* Still Need Help */}
           <Card>
             <CardContent className="p-6 text-center">
-              <h3 className="text-lg font-semibold mb-2">Still need help?</h3>
-              <p className="text-muted-foreground mb-4">
-                Can't find the answer you're looking for? Our support team is here to help.
-              </p>
-              <Button onClick={handleContactUs}>
-                Contact Us
-              </Button>
+              <h3 className="text-lg font-semibold mb-2">{t('pages.help.stillTitle')}</h3>
+              <p className="text-muted-foreground mb-4">{t('pages.help.still')}</p>
+              <Button onClick={handleContactUs}>{t('pages.help.contactUs')}</Button>
             </CardContent>
           </Card>
         </div>

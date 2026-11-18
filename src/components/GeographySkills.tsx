@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { geographySkillsData } from '@/data/geographySkills';
 import SkillActivity from './SkillActivity';
@@ -58,6 +59,7 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
   isPremium,
   selectedSkill,
 }) => {
+  const { t } = useTranslation();
   const skills = applyFirstFreeItemLimit(
     orderBySequence(
       Object.entries(geographySkillsData).map(([skillId, skill]) => ({
@@ -88,7 +90,7 @@ const GeographySkills: React.FC<GeographySkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="🌍 Geography"
+      title={`🌍 ${t('chrome.titles.geography')}`}
       intro="Montessori geography moves from the concrete earth to the abstract map. The child first handles land and water, then the globes, and only later names countries and flags."
       sequence="Land and Water → Globes and Continents → Maps and Orientation → Countries, Flags and Climate"
       groups={groups}

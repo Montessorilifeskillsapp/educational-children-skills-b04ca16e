@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Trans, useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Leaf, Share, X } from 'lucide-react';
 
@@ -17,6 +18,7 @@ interface BeforeInstallPromptEvent extends Event {
  *   - Hidden if already installed, or dismissed within last 14 days
  */
 const PWAInstallPrompt: React.FC = () => {
+  const { t } = useTranslation();
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [show, setShow] = useState(false);
   const [iosCoach, setIosCoach] = useState(false);
@@ -71,12 +73,12 @@ const PWAInstallPrompt: React.FC = () => {
   return (
     <div
       role="dialog"
-      aria-label="Install app"
+      aria-label={t('pages.pwa.dialog')}
       className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-4 sm:w-[360px] z-50 rounded-2xl bg-card border border-border shadow-2xl p-4 animate-fade-in"
     >
       <button
         onClick={dismiss}
-        aria-label="Dismiss install prompt"
+        aria-label={t('pages.pwa.dismiss')}
         className="absolute top-2 right-2 p-1 text-muted-foreground hover:text-foreground"
       >
         <X className="w-4 h-4" />
@@ -86,20 +88,17 @@ const PWAInstallPrompt: React.FC = () => {
           <Leaf className="w-5 h-5 text-primary-foreground" aria-hidden="true" />
         </div>
         <div className="flex-1">
-          <p className="font-semibold text-foreground text-sm">Install for one-tap access</p>
+          <p className="font-semibold text-foreground text-sm">{t('pages.pwa.title')}</p>
           {iosCoach ? (
             <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-              Tap <Share className="inline w-3.5 h-3.5 align-text-bottom" /> in Safari, then{' '}
-              <span className="font-medium text-foreground">Add to Home Screen</span>.
+              <Trans i18nKey="pages.pwa.ios" components={{ icon: <Share className="inline w-3.5 h-3.5 align-text-bottom" />, b: <span className="font-medium text-foreground" /> }} />
             </p>
           ) : (
             <>
-              <p className="text-xs text-muted-foreground mt-1 leading-relaxed">
-                Open Montessori Life Skills from your home screen — no browser, faster start.
-              </p>
+              <p className="text-xs text-muted-foreground mt-1 leading-relaxed">{t('pages.pwa.body')}</p>
               <div className="mt-3 flex gap-2">
-                <Button size="sm" onClick={install} className="bg-primary text-primary-foreground">Install</Button>
-                <Button size="sm" variant="ghost" onClick={dismiss}>Not now</Button>
+                <Button size="sm" onClick={install} className="bg-primary text-primary-foreground">{t('pages.pwa.install')}</Button>
+                <Button size="sm" variant="ghost" onClick={dismiss}>{t('pages.pwa.notNow')}</Button>
               </div>
             </>
           )}

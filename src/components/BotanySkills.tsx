@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { botanySkillsData } from '@/data/botanySkills';
 import { montessoriTheme } from './ThemeConfig';
@@ -47,6 +48,7 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
+  const { t } = useTranslation();
   const skills = applyFirstFreeItemLimit(
     orderBySequence(
       Object.entries(botanySkillsData).map(([skillId, skill]) => ({
@@ -65,7 +67,7 @@ const BotanySkills: React.FC<BotanySkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="🌿 Botany"
+      title={`🌿 ${t('chrome.titles.botany')}`}
       intro="Botany begins with the living plant itself. The child observes, names and cares for real specimens, moving from the whole to its parts and then to the cycle of life."
       sequence="Parts of the Plant → Growth and Life Cycle → Caring for Living Things"
       groups={groups}

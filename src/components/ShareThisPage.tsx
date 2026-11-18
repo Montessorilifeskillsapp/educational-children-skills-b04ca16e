@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { Facebook, Instagram, Check, Copy, Share2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useToast } from '@/hooks/use-toast';
@@ -31,6 +32,7 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
   title,
   text,
 }) => {
+  const { t } = useTranslation();
   const { toast } = useToast();
   const [copied, setCopied] = React.useState(false);
   const [nativeCopied, setNativeCopied] = React.useState(false);
@@ -68,8 +70,8 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
         copied_url: INSTAGRAM_URL,
       });
       toast({
-        title: 'Instagram link copied!',
-        description: 'Paste it anywhere to share @montessoristorybooks.',
+        title: t('pages.share.igToastTitle'),
+        description: t('pages.share.igToastBody'),
       });
       setTimeout(() => setCopied(false), 2500);
     } catch (err) {
@@ -78,7 +80,7 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
         error: err instanceof Error ? err.message : 'unknown',
       });
       toast({
-        title: 'Could not copy',
+        title: t('pages.share.copyFailed'),
         description: INSTAGRAM_URL,
         variant: 'destructive',
       });
@@ -94,13 +96,13 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
         page_path: getPagePath(),
       });
       toast({
-        title: 'Link copied!',
-        description: 'Share it anywhere you like.',
+        title: t('pages.share.linkCopied'),
+        description: t('pages.share.linkToastBody'),
       });
       setTimeout(() => setNativeCopied(false), 2500);
     } catch {
       toast({
-        title: 'Could not copy link',
+        title: t('pages.share.linkFailed'),
         description: url,
         variant: 'destructive',
       });
@@ -111,7 +113,7 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
     const url = typeof window !== 'undefined' ? window.location.href : '';
     const shareTitle = title ?? document.title;
     const shareText =
-      text ?? 'Authentic Montessori activities for children ages 2–6.';
+      text ?? t('pages.share.defaultText');
 
     analytics.trackInteraction('click', SHARE_EVENTS.NATIVE_SHARE_CLICK, {
       shared_url: url,
@@ -147,12 +149,12 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
   return (
     <div className={`flex flex-col items-center gap-3 ${className}`}>
       <p className={`text-sm font-medium ${isLight ? 'text-white/90' : 'text-slate-600'}`}>
-        Share this page
+        {t('pages.share.heading')}
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">
         <Button
           onClick={handleNativeShare}
-          aria-label={canNativeShare ? 'Share this page' : 'Copy link to this page'}
+          aria-label={canNativeShare ? t('pages.share.shareAria') : t('pages.share.copyAria')}
           className="bg-slate-900 hover:bg-slate-800 text-white rounded-full px-5"
         >
           {nativeCopied ? (
@@ -160,19 +162,19 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
           ) : (
             <Share2 className="w-4 h-4 mr-2" aria-hidden="true" />
           )}
-          {nativeCopied ? 'Link copied!' : canNativeShare ? 'Share…' : 'Copy link'}
+          {nativeCopied ? t('pages.share.linkCopied') : canNativeShare ? t('pages.share.share') : t('pages.share.copyLink')}
         </Button>
         <Button
           onClick={handleFacebookShare}
-          aria-label="Share this page on Facebook"
+          aria-label={t('pages.share.fbAria')}
           className="bg-[#1877F2] hover:bg-[#166FE5] text-white rounded-full px-5"
         >
           <Facebook className="w-4 h-4 mr-2" aria-hidden="true" />
-          Share on Facebook
+          {t('pages.share.fb')}
         </Button>
         <Button
           onClick={handleInstagramCopy}
-          aria-label="Copy Instagram link for @montessoristorybooks"
+          aria-label={t('pages.share.igAria')}
           className="bg-gradient-to-r from-[#E1306C] via-[#C13584] to-[#833AB4] hover:opacity-90 text-white rounded-full px-5"
         >
           {copied ? (
@@ -180,7 +182,7 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
           ) : (
             <Instagram className="w-4 h-4 mr-2" aria-hidden="true" />
           )}
-          {copied ? 'Copied!' : 'Copy Instagram link'}
+          {copied ? t('pages.share.igCopied') : t('pages.share.igCopy')}
           <Copy className="w-3.5 h-3.5 ml-2 opacity-70" aria-hidden="true" />
         </Button>
       </div>

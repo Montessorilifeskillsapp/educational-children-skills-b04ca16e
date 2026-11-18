@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { CurriculumGroup } from './CurriculumSection';
 import { culturalSkillsData } from '@/data/culturalSkills';
 import { montessoriTheme } from './ThemeConfig';
@@ -67,6 +68,7 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
+  const { t } = useTranslation();
   const rank = new Map(SEQUENCE_IDS.map((id, index) => [id, index]));
 
   const skills = applyFirstFreeItemLimit(
@@ -88,7 +90,7 @@ const CulturalSkills: React.FC<CulturalSkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="🌏 Cultural Studies"
+      title={`🌏 ${t('chrome.titles.cultural')}`}
       intro="Cultural studies open the child to the wider world — time, sound, matter and people. Each area starts with something the child can handle directly before moving to the abstract."
       sequence="History and Time → Music → Science → Planets → World Cultures"
       groups={groups}

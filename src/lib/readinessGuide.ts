@@ -1,4 +1,5 @@
 import { CROSSWALK, STANDARDS } from '@/components/school/standardsCrosswalk';
+import i18n from '@/i18n';
 
 export type GuideAge = 3 | 4 | 5;
 
@@ -41,14 +42,29 @@ export function standardsFor(title: string): string[] {
   return (CROSSWALK[title]?.codes ?? []).filter((c) => STANDARDS[c]);
 }
 
-/** Print-ready guide; the visitor saves it as a PDF from the print dialog. */
+/** Lesson title in the current language; English titles stay the lookup key for standards. */
+export function lessonTitle(title: string): string {
+  return i18n.t(`growth.guide.titles.${title}`, { defaultValue: title });
+}
+
+/** Print-ready guide in the current language; the visitor saves it as a PDF from the print dialog. */
 export function readinessGuideHtml(age: GuideAge, origin: string): string {
+  const t = (k: string, o?: Record<string, unknown>) => i18n.t(`growth.guide.${k}`, o) as string;
+  const list = (k: string, fallback: string[]) => {
+    const v = i18n.t(`growth.guide.${k}`, { returnObjects: true }) as unknown;
+    return Array.isArray(v) && v.length === fallback.length ? (v as string[]) : fallback;
+  };
+  const days = list('days', ['Mon', 'Tue', 'Wed', 'Thu', 'Fri']);
+  const purposes = list(`purposes.${age}`, SAMPLE_LESSONS[age].map((l) => l.purpose));
+  const checklist = list(`checks.${age}`, READINESS_CHECKLIST[age]);
   const lessons = SAMPLE_LESSONS[age].map((l, i) => {
     const codes = standardsFor(l.title).map((c) => `<span class="code">${e(c)}</span>`).join(' ');
-    return `<tr><td class="n">${['Mon', 'Tue', 'Wed', 'Thu', 'Fri'][i]}</td><td><b>${e(l.title)}</b><div class="area">${e(l.area)}</div></td><td>${e(l.purpose)}</td><td>${codes || '<span class="area">Indirect preparation</span>'}</td></tr>`;
+    const area = i18n.t(`growth.guide.areas.${l.area}`, { defaultValue: l.area }) as string;
+    return `<tr><td class="n">${e(days[i])}</td><td><b>${e(lessonTitle(l.title))}</b><div class="area">${e(area)}</div></td><td>${e(purposes[i])}</td><td>${codes || `<span class="area">${e(t('indirect'))}</span>`}</td></tr>`;
   }).join('');
-  const checks = READINESS_CHECKLIST[age].map((c) => `<li><span class="box"></span>${e(c)}</li>`).join('');
-  return `<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Montessori Readiness Guide – Age ${age}</title><style>
+  const checks = checklist.map((c) => `<li><span class="box"></span>${e(c)}</li>`).join('');
+  const lang = (i18n.resolvedLanguage || 'en').startsWith('zh') ? 'zh-Hans' : (i18n.resolvedLanguage || 'en');
+  return `<!doctype html><html lang="${e(lang)}"><head><meta charset="utf-8"><title>${e(t('docTitle', { age }))}</title><style>
 @page{size:Letter;margin:16mm}
 body{font-family:Georgia,'Times New Roman',serif;color:#2b2622;font-size:13px;line-height:1.5;max-width:760px;margin:0 auto;padding:24px}
 header{border-bottom:2px solid #59A680;padding-bottom:10px;margin-bottom:16px}h1{font-size:24px;margin:0}.sub{color:#6b625a}
@@ -59,12 +75,12 @@ ul{list-style:none;padding:0;columns:2}li{margin:6px 0;break-inside:avoid}.box{d
 .cta{margin-top:26px;border:1px solid #59A680;border-radius:8px;padding:14px;background:#f3faf6}footer{margin-top:20px;font-size:10.5px;color:#8b827a}
 .print{margin:0 0 16px;padding:8px 14px;border:0;border-radius:6px;background:#59A680;color:#fff;font:inherit;cursor:pointer}@media print{.print{display:none}}
 </style></head><body>
-<button class="print" onclick="window.print()">Save as PDF</button>
-<header><h1>Montessori Readiness Guide – Age ${age}</h1><div class="sub">A sample AMI Primary week with U.S. standards alignment · Montessori Life Skills</div></header>
-<p>As Dr. Maria Montessori observed, the hand is the instrument of the mind. This guide shows one sample week from the AMI Primary sequence for a ${age}-year-old, with the U.S. standards each lesson supports.</p>
-<h2>Readiness checklist</h2><p class="area">Observe, don’t test. Each child follows their own timeline.</p><ul>${checks}</ul>
-<h2>Sample week</h2><table><thead><tr><th>Day</th><th>Lesson</th><th>What the child gains</th><th>Standards</th></tr></thead><tbody>${lessons}</tbody></table>
-<div class="cta"><b>The complete sequence.</b> Premium includes every AMI Primary presentation in order, step-by-step guides, lesson videos and printable homeschool portfolios. Premium Annual is $199/year or $29.99/month, with a 30-day guarantee.<br>${e(origin)}/plans</div>
-<footer>Standard codes: Common Core (CCSS), NGSS, NCSS and National Core Arts Standards. This is an alignment map, not a certification. © ${new Date().getFullYear()} Montessori Life Skills.</footer>
+<button class="print" onclick="window.print()">${e(t('save'))}</button>
+<header><h1>${e(t('docTitle', { age }))}</h1><div class="sub">${e(t('sub'))}</div></header>
+<p>${e(t('intro', { age }))}</p>
+<h2>${e(t('checklist'))}</h2><p class="area">${e(t('observe'))}</p><ul>${checks}</ul>
+<h2>${e(t('week'))}</h2><table><thead><tr><th>${e(t('day'))}</th><th>${e(t('lesson'))}</th><th>${e(t('gains'))}</th><th>${e(t('standards'))}</th></tr></thead><tbody>${lessons}</tbody></table>
+<div class="cta"><b>${e(t('ctaTitle'))}</b> ${e(t('cta'))}<br>${e(origin)}/plans</div>
+<footer>${e(t('footer', { year: new Date().getFullYear() }))}</footer>
 </body></html>`;
 }

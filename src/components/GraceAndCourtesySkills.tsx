@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 import { applyFirstFreeItemLimit } from '@/lib/freeTierAccess';
@@ -46,6 +47,7 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
+  const { t } = useTranslation();
   const skills = applyFirstFreeItemLimit(
     orderBySequence(Object.values(graceAndCourtesySkills), SEQUENCE_IDS),
   );
@@ -54,12 +56,12 @@ const GraceAndCourtesySkills: React.FC<GraceAndCourtesySkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="🤝 Grace and Courtesy"
+      title={`🤝 ${t('chrome.titles.graceCourtesy')}`}
       intro="Grace and Courtesy lessons are short, precise demonstrations of how to live alongside others. They are given from the child's first days in the environment and grow in social complexity."
       sequence="First Social Gestures → Moving Within the Community → Caring for Others"
       groups={groups}
       shopCategory="Practical Life"
-      shopLabel="Shop Grace & Courtesy Materials"
+      shopLabel={t('chrome.shop.graceTitle')}
       className={montessoriTheme.backgrounds.graceCourtesy}
       onBack={onBack}
       onSkillSelect={onSkillSelect}

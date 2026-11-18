@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import ThemeToggle from './ThemeToggle';
@@ -40,6 +41,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   const [isAdmin, setIsAdmin] = useState(false);
   const [isSchoolStaff, setIsSchoolStaff] = useState(false);
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const { user } = useAuthContext();
 
   useEffect(() => {
@@ -88,29 +90,29 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
   }, [user]);
 
   const navigationItems = [
-    ...(!user ? [{ label: 'Login', icon: LogIn, onClick: () => navigate('/auth'), color: 'border-primary/30' }] : []),
-    { label: 'Dashboard', icon: Home, onClick: onDashboardView, color: 'border-border' },
-    { label: 'Practical Life', icon: Heart, onClick: () => { onPracticalView?.(); navigate('/practical-life'); }, color: 'border-primary/40' },
-    { label: 'Sensorial', icon: Brain, onClick: onSensorialView, color: 'border-primary/40' },
-    { label: 'Language', icon: BookOpen, onClick: onLanguageView, color: 'border-primary/40' },
-    { label: 'Math', icon: Calculator, onClick: onMathView, color: 'border-primary/40' },
-    { label: 'Geography', icon: Globe, onClick: onGeographyView, color: 'border-primary/40' },
-    { label: 'Botany', icon: Leaf, onClick: onBotanyView, color: 'border-primary/40' },
-    { label: 'Art', icon: Palette, onClick: onArtView, color: 'border-primary/40' },
-    { label: 'Cultural', icon: Globe, onClick: onCulturalView, color: 'border-primary/40' },
-    { label: 'Grace & Courtesy', icon: Heart, onClick: onGraceCourtesyView, color: 'border-primary/40' },
-    { label: 'Shop', icon: ShoppingBag, onClick: () => navigate('/shop'), color: 'border-primary/30' },
-    { label: 'Classroom Setup', icon: School, onClick: () => { onClassroomSetupView?.(); navigate('/classroom-setup'); }, color: 'border-primary/30' },
-    { label: 'Plans', icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
-    { label: 'Family Dashboard', icon: User, onClick: onParentView, color: 'border-border' },
-    { label: 'Profiles', icon: Users, onClick: onProfilesView, color: 'border-border' },
-    ...(isSchoolStaff ? [{ label: 'School Administration', icon: School, onClick: () => navigate('/school'), color: 'border-primary/30' }] : []),
+    ...(!user ? [{ label: t('chrome.menu.login'), icon: LogIn, onClick: () => navigate('/auth'), color: 'border-primary/30' }] : []),
+    { label: t('chrome.menu.dashboard'), icon: Home, onClick: onDashboardView, color: 'border-border' },
+    { label: t('nav.practicalLife'), icon: Heart, onClick: () => { onPracticalView?.(); navigate('/practical-life'); }, color: 'border-primary/40' },
+    { label: t('nav.sensorial'), icon: Brain, onClick: onSensorialView, color: 'border-primary/40' },
+    { label: t('nav.language'), icon: BookOpen, onClick: onLanguageView, color: 'border-primary/40' },
+    { label: t('nav.math'), icon: Calculator, onClick: onMathView, color: 'border-primary/40' },
+    { label: t('nav.geography'), icon: Globe, onClick: onGeographyView, color: 'border-primary/40' },
+    { label: t('nav.botany'), icon: Leaf, onClick: onBotanyView, color: 'border-primary/40' },
+    { label: t('nav.art'), icon: Palette, onClick: onArtView, color: 'border-primary/40' },
+    { label: t('chrome.menu.cultural'), icon: Globe, onClick: onCulturalView, color: 'border-primary/40' },
+    { label: t('nav.graceCourtesy'), icon: Heart, onClick: onGraceCourtesyView, color: 'border-primary/40' },
+    { label: t('nav.shop'), icon: ShoppingBag, onClick: () => navigate('/shop'), color: 'border-primary/30' },
+    { label: t('nav.classroomSetup'), icon: School, onClick: () => { onClassroomSetupView?.(); navigate('/classroom-setup'); }, color: 'border-primary/30' },
+    { label: t('chrome.menu.plans'), icon: Settings, onClick: () => { onSubscriptionView?.(); navigate('/plans'); }, color: 'border-border' },
+    { label: t('chrome.menu.familyDashboard'), icon: User, onClick: onParentView, color: 'border-border' },
+    { label: t('chrome.menu.profiles'), icon: Users, onClick: onProfilesView, color: 'border-border' },
+    ...(isSchoolStaff ? [{ label: t('chrome.menu.schoolAdmin'), icon: School, onClick: () => navigate('/school'), color: 'border-primary/30' }] : []),
     ...(isAdmin ? [
-      { label: 'App Admin', icon: BarChart3, onClick: () => navigate('/admin'), color: 'border-destructive/40' },
-      { label: 'Access Codes', icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
+      { label: t('chrome.menu.appAdmin'), icon: BarChart3, onClick: () => navigate('/admin'), color: 'border-destructive/40' },
+      { label: t('chrome.menu.accessCodes'), icon: KeyRound, onClick: () => navigate('/admin/access-codes'), color: 'border-destructive/40' },
     ] : []),
-    { label: 'Terms of Service', icon: BookOpen, onClick: () => navigate('/terms-of-service'), color: 'border-border' },
-    { label: 'Privacy Policy', icon: BookOpen, onClick: () => navigate('/privacy-policy'), color: 'border-border' },
+    { label: t('chrome.menu.terms'), icon: BookOpen, onClick: () => navigate('/terms-of-service'), color: 'border-border' },
+    { label: t('chrome.menu.privacy'), icon: BookOpen, onClick: () => navigate('/privacy-policy'), color: 'border-border' },
   ];
 
   return (
@@ -126,7 +128,7 @@ const NavigationMenu: React.FC<NavigationMenuProps> = ({
         className="bg-background/80 backdrop-blur-sm border-border hover:bg-accent"
       >
         <Menu className="w-4 h-4 mr-2" />
-        Menu
+        {t('chrome.menu.menu')}
         {isOpen ? <ChevronUp className="w-4 h-4 ml-2" /> : <ChevronDown className="w-4 h-4 ml-2" />}
       </Button>
       

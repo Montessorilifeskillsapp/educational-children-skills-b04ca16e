@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Home } from 'lucide-react';
 
@@ -10,6 +11,7 @@ const HIDDEN_PREFIXES = ['/auth', '/admin', '/school'];
 
 const HomeFab: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const location = useLocation();
 
   const isRoot = location.pathname === '/' || location.pathname === '/index' || location.pathname === '/home';
@@ -21,13 +23,13 @@ const HomeFab: React.FC = () => {
   return (
     <button
       type="button"
-      aria-label="Go to home screen"
+      aria-label={t('chrome.goHome')}
       onClick={() => navigate('/')}
       className="fixed left-4 z-50 flex items-center gap-2 rounded-full bg-primary px-4 py-3 text-primary-foreground shadow-lg transition-transform active:scale-95 hover:opacity-90"
       style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom))' }}
     >
       <Home className="h-5 w-5" />
-      <span className="text-sm font-semibold">Home</span>
+      <span className="text-sm font-semibold">{t('chrome.home')}</span>
     </button>
   );
 };

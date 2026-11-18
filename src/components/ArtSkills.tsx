@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { artSkillsEnhanced } from '../data/artSkillsEnhanced';
 import SkillActivity from './SkillActivity';
@@ -42,6 +43,7 @@ const ART_GROUPS = [
 const SEQUENCE_IDS = ART_GROUPS.flatMap((group) => group.skillIds);
 
 export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSelect, onBack }) => {
+  const { t } = useTranslation();
   const { isPremium } = useSubscription();
 
   const skills = applyFirstFreeItemLimit(
@@ -59,7 +61,7 @@ export const ArtSkills: React.FC<ArtSkillsProps> = ({ selectedSkill, onSkillSele
 
   return (
     <CurriculumSection
-      title="🎨 Art"
+      title={`🎨 ${t('chrome.titles.art')}`}
       intro="Montessori art gives the child real tools and real technique. Each activity isolates one skill — line, color or brushwork — so creative expression rests on genuine ability."
       sequence="First Marks and Drawing → Exploring Color → Painting"
       groups={groups}

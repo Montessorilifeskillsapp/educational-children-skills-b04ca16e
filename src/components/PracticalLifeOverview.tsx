@@ -1,4 +1,5 @@
 import { allPracticalLifeSkills } from '@/data/practicalLifeAll';
+import { useTranslation } from 'react-i18next';
 import React from 'react';
 import SkillCard from './SkillCard';
 import { FocusBar } from './school/CardStatus';
@@ -109,8 +110,9 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
   completedSkills,
   isPremium
 }) => {
+  const { t } = useTranslation();
   return (
-    <PageLayout title="🌱 Practical Life" onBack={onBack} className={montessoriTheme.backgrounds.practical} showSectionNav>
+    <PageLayout title={`🌱 ${t('chrome.titles.practicalLife')}`} onBack={onBack} className={montessoriTheme.backgrounds.practical} showSectionNav>
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">
           Practical Life is the heart of the Montessori method and is always introduced first. Children develop independence, concentration and coordination through purposeful, real-life activities.
@@ -148,7 +150,7 @@ export const PracticalLifeOverview: React.FC<PracticalLifeOverviewProps> = ({
       {skillsByCategory.every(({ skills }) => skills.length === 0) && (
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
-            🌟 All Practical Life Skills
+            🌟 {t('chrome.titles.allPracticalLife')}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {allSkillsFormatted.map((skill) => (

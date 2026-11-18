@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import CurriculumSection, { buildOrderedGroups, orderBySequence } from './CurriculumSection';
 import { montessoriTheme } from './ThemeConfig';
 import { mathSkillsData } from '@/data/mathSkills';
@@ -81,6 +82,7 @@ const MathSkills: React.FC<MathSkillsProps> = ({
   completedSkills,
   isPremium,
 }) => {
+  const { t } = useTranslation();
   const skills = applyFirstFreeItemLimit(
     orderBySequence(
       Object.keys(mathSkillsData).map((skillId) => ({
@@ -99,7 +101,7 @@ const MathSkills: React.FC<MathSkillsProps> = ({
 
   return (
     <CurriculumSection
-      title="🧮 Mathematics"
+      title={`🧮 ${t('chrome.titles.mathematics')}`}
       intro="The mathematical mind is built through materialized abstraction. Each material prepares the next indirectly, so the child moves from quantity to symbol to operation without ever being rushed."
       sequence="Numbers 1–10 → Decimal System → Linear Counting → Snake Games → Stamp Game → Memorization → Abstraction → Fractions"
       groups={groups}

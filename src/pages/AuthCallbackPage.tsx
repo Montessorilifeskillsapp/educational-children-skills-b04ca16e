@@ -4,11 +4,14 @@ import { CheckCircle2, Loader2, XCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { supabase } from '@/integrations/supabase/client';
+import { useTranslation } from 'react-i18next';
+import i18n from '@/i18n';
 
 const AuthCallbackPage = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
-  const [message, setMessage] = useState('Confirming your email...');
+  const [message, setMessage] = useState(() => i18n.t('auth.callback.confirming'));
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   useEffect(() => {
     // If this callback was triggered from the native app (in-app browser),
@@ -21,7 +24,7 @@ const AuthCallbackPage = () => {
         'com.montessorilifeskills.app://auth-callback' +
         window.location.search +
         window.location.hash;
-      setMessage('Returning you to the app...');
+      setMessage(i18n.t('auth.callback.returning'));
       window.location.replace(deepLink);
       return;
     }
@@ -52,17 +55,17 @@ const AuthCallbackPage = () => {
 
         if (!data.session) {
           setStatus('error');
-          setMessage('This confirmation link could not be completed. Please request a fresh sign-up email.');
+          setMessage(i18n.t('auth.callback.failedFresh'));
           return;
         }
 
         window.history.replaceState({}, document.title, '/auth/callback');
         setStatus('success');
-        setMessage('Your email is confirmed. Taking you to your dashboard...');
+        setMessage(i18n.t('auth.callback.confirmed'));
         window.setTimeout(() => navigate('/?view=dashboard', { replace: true }), 1200);
       } catch (error) {
         setStatus('error');
-        setMessage(error instanceof Error ? error.message : 'This confirmation link could not be completed. Please try signing up again.');
+        setMessage(error instanceof Error ? error.message : i18n.t('auth.callback.failedRetry'));
       }
     };
 
@@ -78,16 +81,16 @@ const AuthCallbackPage = () => {
             {status === 'success' && <CheckCircle2 className="h-6 w-6" />}
             {status === 'error' && <XCircle className="h-6 w-6" />}
           </div>
-          <CardTitle>{status === 'error' ? 'Confirmation needs a new link' : 'Email confirmation'}</CardTitle>
+          <CardTitle>{status === 'error' ? t('auth.callback.errorTitle') : t('auth.callback.title')}</CardTitle>
           <CardDescription>{message}</CardDescription>
         </CardHeader>
         {status === 'error' && (
           <CardContent className="space-y-3">
             <Button asChild className="w-full">
-              <Link to="/auth">Return to sign up</Link>
+              <Link to="/auth">{t('auth.callback.returnSignUp')}</Link>
             </Button>
             <Button asChild variant="outline" className="w-full">
-              <Link to="/help">Get help</Link>
+              <Link to="/help">{t('auth.callback.help')}</Link>
             </Button>
           </CardContent>
         )}

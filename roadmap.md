@@ -1,5 +1,7 @@
 ## Open tasks
-- [ ] Language Layer 1: homepage, sign-in, pricing/upgrade, pop-ups/cookie/consultation, menus/back/search chrome and public info pages fully switch to Spanish, German (formal Sie) and Chinese.
+- [x] Language Layer 1: homepage, sign-in, pricing/upgrade, pop-ups/cookie/consultation, menus, section titles, activity cards, readiness guide and public info pages switch to Spanish, German (formal Sie) and Chinese. Browser-checked signed out; first-time child setup after sign-in not checked.
+- [ ] Language Layer 2: Family Dashboard and School Portal screens.
+- [ ] Language Layer 3: curriculum content (activity guides, section introductions, sequences, activity names) with AMI terminology.
 - [x] Cookie consent banner (Accept all / Reject all / Cookie settings) with footer and Privacy Policy links; Google Analytics and the app's own usage records follow the choice. Three tests pass; browser check of Reject, settings save and reload. Not verified from an EU location.
 - [x] Accessibility statement page at /accessibility, linked from the home footer.
 - [x] Annual renewal reminder email (Stripe web subscribers, 15–30 days before renewal, once per renewal) plus Manage or cancel on the Plans page; fixed a duplicate name that stopped the hourly email job from starting. Three tests pass, job deployed and starts. No real reminder sent or inbox checked; Manage or cancel not clicked with a real subscriber.

@@ -85,6 +85,7 @@ const en = {
     note: 'You can continue using our free Montessori activities, or upgrade anytime to unlock the full learning experience.',
     retry: 'Try Again', back: 'Go Back',
   },
+  access: {"open": "Have an access code?", "label": "Enter your access code", "checking": "Checking…", "redeem": "Redeem", "note": "Access codes unlock the full curriculum at no charge. No payment details required.", "signInTitle": "Sign in first", "signInBody": "Create an account or sign in, then redeem your access code.", "rejected": "Code not accepted", "rejectedBody": "That access code could not be redeemed.", "okTitle": "Full access unlocked", "okBody": "Your access code has been applied to this account.", "errTitle": "Something went wrong", "errBody": "Please try again."},
 };
 
 const es: typeof en = {
@@ -172,6 +173,7 @@ const es: typeof en = {
     note: 'Puedes seguir usando nuestras actividades Montessori gratuitas o mejorar tu plan cuando quieras para desbloquear la experiencia completa.',
     retry: 'Intentar de nuevo', back: 'Volver',
   },
+  access: {"open": "¿Tienes un código de acceso?", "label": "Introduce tu código de acceso", "checking": "Comprobando…", "redeem": "Canjear", "note": "Los códigos de acceso desbloquean el currículo completo sin costo. No se requieren datos de pago.", "signInTitle": "Primero inicia sesión", "signInBody": "Crea una cuenta o inicia sesión y luego canjea tu código de acceso.", "rejected": "Código no aceptado", "rejectedBody": "No se pudo canjear ese código de acceso.", "okTitle": "Acceso completo desbloqueado", "okBody": "Tu código de acceso se ha aplicado a esta cuenta.", "errTitle": "Algo salió mal", "errBody": "Inténtalo de nuevo."},
 };
 
 const de: typeof en = {
@@ -259,6 +261,7 @@ const de: typeof en = {
     note: 'Sie können unsere kostenlosen Montessori-Aktivitäten weiter nutzen oder jederzeit upgraden, um das volle Angebot freizuschalten.',
     retry: 'Erneut versuchen', back: 'Zurück',
   },
+  access: {"open": "Haben Sie einen Zugangscode?", "label": "Geben Sie Ihren Zugangscode ein", "checking": "Wird geprüft…", "redeem": "Einlösen", "note": "Zugangscodes schalten den vollständigen Lehrplan kostenlos frei. Keine Zahlungsdaten erforderlich.", "signInTitle": "Bitte zuerst anmelden", "signInBody": "Erstellen Sie ein Konto oder melden Sie sich an und lösen Sie dann Ihren Zugangscode ein.", "rejected": "Code nicht akzeptiert", "rejectedBody": "Dieser Zugangscode konnte nicht eingelöst werden.", "okTitle": "Voller Zugang freigeschaltet", "okBody": "Ihr Zugangscode wurde auf dieses Konto angewendet.", "errTitle": "Etwas ist schiefgelaufen", "errBody": "Bitte versuchen Sie es erneut."},
 };
 
 const zh: typeof en = {
@@ -346,6 +349,7 @@ const zh: typeof en = {
     note: '您可以继续使用我们的免费蒙台梭利活动，或随时升级以解锁完整学习体验。',
     retry: '重试', back: '返回',
   },
+  access: {"open": "有访问码？", "label": "输入您的访问码", "checking": "正在验证…", "redeem": "兑换", "note": "访问码可免费解锁完整课程，无需付款信息。", "signInTitle": "请先登录", "signInBody": "请创建账户或登录，然后兑换您的访问码。", "rejected": "访问码未被接受", "rejectedBody": "无法兑换该访问码。", "okTitle": "已解锁全部内容", "okBody": "您的访问码已应用到此账户。", "errTitle": "出了点问题", "errBody": "请重试。"},
 };
 
 export const pricing = { en, es, de, zh };

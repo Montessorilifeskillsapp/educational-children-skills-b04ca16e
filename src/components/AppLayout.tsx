@@ -14,6 +14,7 @@ import CulturalSkills from './CulturalSkills';
 import GraceAndCourtesySkills from './GraceAndCourtesySkills';
 
 import Home from './Home';
+import i18n from '@/i18n';
 import SubscriptionPlans from './SubscriptionPlans';
 import FamilyDashboard from './family/FamilyDashboard';
 import OnboardingFlow from './OnboardingFlow';
@@ -343,7 +344,7 @@ const AppLayout: React.FC = () => {
             onBack={handleBackToDashboard}
           />
           <div className="mt-6">
-            <BackButton onClick={handleBack} label="Continue to Learning" variant="default" />
+            <BackButton onClick={handleBack} label={i18n.t('chrome.continueLearning')} variant="default" />
           </div>
         </div>
       </div>

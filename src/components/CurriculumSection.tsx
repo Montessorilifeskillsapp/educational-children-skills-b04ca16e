@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import SkillCard from './SkillCard';
 import { FocusBar } from './school/CardStatus';
 import ShopSectionCTA from './ShopSectionCTA';
@@ -57,6 +58,7 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
   completedSkills = [],
   isPremium,
 }) => {
+  const { t } = useTranslation();
   const populated = groups.filter((group) => group.skills.length > 0);
 
   return (
@@ -64,7 +66,7 @@ const CurriculumSection: React.FC<CurriculumSectionProps> = ({
       <div className="text-center mb-8">
         <p className="text-xl text-gray-600 max-w-3xl mx-auto">{intro}</p>
         {sequence && (
-          <p className="text-lg text-gray-500 mt-2">Sequence: {sequence}</p>
+          <p className="text-lg text-gray-500 mt-2">{t('chrome.sequence', { sequence })}</p>
         )}
       </div>
       <FocusBar />

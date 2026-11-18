@@ -38,6 +38,115 @@ const en = {
     placeholder: 'Your email address', emailLabel: 'Email address', submitting: 'Signing you up…', submit: 'Keep me posted',
     footnote: 'Early access and occasional updates. Unsubscribe anytime.',
   },
+  guidePage: {
+  "title": "Montessori Kindergarten Readiness Guide",
+  "body": "A readiness checklist and a sample AMI Primary week for your child’s age, with the U.S. standards each lesson supports.",
+  "b1": "Age-matched readiness checklist",
+  "b2": "Five sample lessons from the AMI sequence",
+  "b3": "Common Core and NGSS alignment for each lesson",
+  "b4": "Printable – save it as a PDF",
+  "childAge": "Your child’s age",
+  "included": "Included for age {{age}}:",
+  "points": "+ {{count}}-point readiness checklist",
+  "footnote": "We’ll email you occasional Montessori tips. Unsubscribe anytime.",
+  "privacy": "Privacy Policy"
+},
+  guide: {
+  "docTitle": "Montessori Readiness Guide – Age {{age}}",
+  "save": "Save as PDF",
+  "sub": "A sample AMI Primary week with U.S. standards alignment · Montessori Life Skills",
+  "intro": "As Dr. Maria Montessori observed, the hand is the instrument of the mind. This guide shows one sample week from the AMI Primary sequence for a {{age}}-year-old, with the U.S. standards each lesson supports.",
+  "checklist": "Readiness checklist",
+  "observe": "Observe, don’t test. Each child follows their own timeline.",
+  "week": "Sample week",
+  "day": "Day",
+  "lesson": "Lesson",
+  "gains": "What the child gains",
+  "standards": "Standards",
+  "days": [
+    "Mon",
+    "Tue",
+    "Wed",
+    "Thu",
+    "Fri"
+  ],
+  "indirect": "Indirect preparation",
+  "ctaTitle": "The complete sequence.",
+  "cta": "Premium includes every AMI Primary presentation in order, step-by-step guides, lesson videos and printable homeschool portfolios. Premium Annual is $199/year or $29.99/month, with a 30-day guarantee.",
+  "footer": "Standard codes: Common Core (CCSS), NGSS, NCSS and National Core Arts Standards. This is an alignment map, not a certification. © {{year}} Montessori Life Skills.",
+  "titles": {
+    "Dry Pouring": "Dry Pouring",
+    "Greeting Others": "Greeting Others",
+    "Knobbed Cylinders": "Knobbed Cylinders",
+    "Pink Tower": "Pink Tower",
+    "Sandpaper Letters": "Sandpaper Letters",
+    "Red Rods": "Red Rods",
+    "Number Rods": "Number Rods",
+    "Spindle Box": "Spindle Box",
+    "Land and Water Forms": "Land and Water Forms",
+    "Golden Beads": "Golden Beads",
+    "Moveable Alphabet": "Moveable Alphabet",
+    "Parts of a Plant": "Parts of a Plant"
+  },
+  "areas": {
+    "Practical Life": "Practical Life",
+    "Grace and Courtesy": "Grace and Courtesy",
+    "Sensorial": "Sensorial",
+    "Language": "Language",
+    "Math": "Math",
+    "Geography": "Geography",
+    "Botany": "Botany"
+  },
+  "purposes": {
+    "3": [
+      "Coordination of movement, concentration and independence.",
+      "Confidence and respectful social language.",
+      "Visual discrimination of size; the pincer grip that prepares the hand for writing.",
+      "Visual discrimination of graded size in three dimensions.",
+      "Linking each sound to its written symbol through touch."
+    ],
+    "4": [
+      "Graded length; direct preparation for the Number Rods.",
+      "Quantity and symbol 1–10 as single, countable lengths.",
+      "Counting loose quantities and the concept of zero.",
+      "Sound–symbol association for early reading and writing.",
+      "Concrete understanding of the Earth’s land and water."
+    ],
+    "5": [
+      "The decimal system: units, tens, hundreds and thousands.",
+      "Building words phonetically before the hand can write them.",
+      "Confirming quantity, symbol and zero.",
+      "Naming and observing the parts of living plants.",
+      "Paired land and water forms through touch and naming."
+    ]
+  },
+  "checks": {
+    "3": [
+      "Carries a tray or chair with care",
+      "Pours dry materials with some spilling",
+      "Follows a two-step request",
+      "Greets familiar adults",
+      "Sorts objects by size or color",
+      "Shows interest in letter sounds"
+    ],
+    "4": [
+      "Pours water with few spills",
+      "Works on one activity for 10+ minutes",
+      "Grades objects by size",
+      "Recognizes several letter sounds",
+      "Counts objects to 10 with one-to-one correspondence",
+      "Uses please, thank you and excuse me"
+    ],
+    "5": [
+      "Completes a multi-step activity and puts it away",
+      "Names most letter sounds",
+      "Builds simple words by sound",
+      "Counts and matches quantity to numerals beyond 10",
+      "Holds a pencil with a tripod grip",
+      "Takes turns speaking in a group"
+    ]
+  }
+},
 };
 
 const es: typeof en = {
@@ -79,6 +188,115 @@ const es: typeof en = {
     placeholder: 'Tu correo electrónico', emailLabel: 'Correo electrónico', submitting: 'Registrándote…', submit: 'Mantenme informado',
     footnote: 'Acceso anticipado y novedades ocasionales. Date de baja cuando quieras.',
   },
+  guidePage: {
+  "title": "Guía Montessori de preparación para el kínder",
+  "body": "Una lista de preparación y una semana AMI de Casa de Niños de ejemplo para la edad de tu hijo, con los estándares de EE. UU. que apoya cada lección.",
+  "b1": "Lista de preparación adaptada a la edad",
+  "b2": "Cinco lecciones de ejemplo de la secuencia AMI",
+  "b3": "Alineación con Common Core y NGSS para cada lección",
+  "b4": "Imprimible: guárdala como PDF",
+  "childAge": "Edad de tu hijo",
+  "included": "Incluido para {{age}} años:",
+  "points": "+ lista de preparación de {{count}} puntos",
+  "footnote": "Te enviaremos consejos Montessori ocasionales. Date de baja cuando quieras.",
+  "privacy": "Política de privacidad"
+},
+  guide: {
+  "docTitle": "Guía Montessori de preparación – {{age}} años",
+  "save": "Guardar como PDF",
+  "sub": "Una semana AMI de Casa de Niños de ejemplo, alineada con los estándares de EE. UU. · Montessori Life Skills",
+  "intro": "Como observó la Dra. Maria Montessori, la mano es el instrumento de la mente. Esta guía muestra una semana de ejemplo de la secuencia AMI de Casa de Niños para un niño de {{age}} años, con los estándares de EE. UU. que apoya cada lección.",
+  "checklist": "Lista de preparación",
+  "observe": "Observa, no evalúes. Cada niño sigue su propio ritmo.",
+  "week": "Semana de ejemplo",
+  "day": "Día",
+  "lesson": "Lección",
+  "gains": "Lo que gana el niño",
+  "standards": "Estándares",
+  "days": [
+    "Lun",
+    "Mar",
+    "Mié",
+    "Jue",
+    "Vie"
+  ],
+  "indirect": "Preparación indirecta",
+  "ctaTitle": "La secuencia completa.",
+  "cta": "Premium incluye todas las presentaciones AMI de Casa de Niños en orden, guías paso a paso, videos de las lecciones y portafolios imprimibles para la educación en casa. Premium Anual cuesta $199/año o $29.99/mes, con garantía de 30 días.",
+  "footer": "Códigos de estándares: Common Core (CCSS), NGSS, NCSS y National Core Arts Standards. Es un mapa de alineación, no una certificación. © {{year}} Montessori Life Skills.",
+  "titles": {
+    "Dry Pouring": "Trasvase de sólidos",
+    "Greeting Others": "Saludar a los demás",
+    "Knobbed Cylinders": "Cilindros con botón",
+    "Pink Tower": "Torre rosa",
+    "Sandpaper Letters": "Letras de lija",
+    "Red Rods": "Barras rojas",
+    "Number Rods": "Barras numéricas",
+    "Spindle Box": "Caja de husos",
+    "Land and Water Forms": "Formas de tierra y agua",
+    "Golden Beads": "Perlas doradas",
+    "Moveable Alphabet": "Alfabeto móvil",
+    "Parts of a Plant": "Partes de la planta"
+  },
+  "areas": {
+    "Practical Life": "Vida Práctica",
+    "Grace and Courtesy": "Gracia y Cortesía",
+    "Sensorial": "Sensorial",
+    "Language": "Lenguaje",
+    "Math": "Matemáticas",
+    "Geography": "Geografía",
+    "Botany": "Botánica"
+  },
+  "purposes": {
+    "3": [
+      "Coordinación del movimiento, concentración e independencia.",
+      "Confianza y lenguaje social respetuoso.",
+      "Discriminación visual del tamaño; la pinza que prepara la mano para la escritura.",
+      "Discriminación visual del tamaño graduado en tres dimensiones.",
+      "Unir cada sonido con su símbolo escrito mediante el tacto."
+    ],
+    "4": [
+      "Longitud graduada; preparación directa para las barras numéricas.",
+      "Cantidad y símbolo del 1 al 10 como longitudes únicas y contables.",
+      "Contar cantidades sueltas y el concepto de cero.",
+      "Asociación sonido–símbolo para la lectura y escritura iniciales.",
+      "Comprensión concreta de la tierra y el agua de nuestro planeta."
+    ],
+    "5": [
+      "El sistema decimal: unidades, decenas, centenas y millares.",
+      "Formar palabras fonéticamente antes de que la mano pueda escribirlas.",
+      "Afianzar cantidad, símbolo y cero.",
+      "Nombrar y observar las partes de las plantas vivas.",
+      "Formas de tierra y agua en pares, mediante el tacto y la nomenclatura."
+    ]
+  },
+  "checks": {
+    "3": [
+      "Transporta una bandeja o una silla con cuidado",
+      "Trasvasa materiales secos derramando un poco",
+      "Sigue una indicación de dos pasos",
+      "Saluda a los adultos conocidos",
+      "Clasifica objetos por tamaño o color",
+      "Muestra interés por los sonidos de las letras"
+    ],
+    "4": [
+      "Trasvasa agua con pocos derrames",
+      "Trabaja en una actividad durante más de 10 minutos",
+      "Gradúa objetos por tamaño",
+      "Reconoce varios sonidos de letras",
+      "Cuenta objetos hasta 10 con correspondencia uno a uno",
+      "Dice por favor, gracias y disculpa"
+    ],
+    "5": [
+      "Completa una actividad de varios pasos y la guarda",
+      "Nombra la mayoría de los sonidos de las letras",
+      "Forma palabras sencillas por sonidos",
+      "Cuenta y asocia cantidades con numerales mayores que 10",
+      "Sostiene el lápiz con pinza trípode",
+      "Respeta los turnos de palabra en grupo"
+    ]
+  }
+},
 };
 
 const de: typeof en = {
@@ -120,6 +338,115 @@ const de: typeof en = {
     placeholder: 'Ihre E-Mail-Adresse', emailLabel: 'E-Mail-Adresse', submitting: 'Wird eingetragen…', submit: 'Auf dem Laufenden bleiben',
     footnote: 'Früher Zugang und gelegentliche Neuigkeiten. Jederzeit abbestellbar.',
   },
+  guidePage: {
+  "title": "Montessori-Leitfaden zur Schulreife",
+  "body": "Eine Checkliste zur Schulreife und eine AMI-Kinderhaus-Beispielwoche für das Alter Ihres Kindes, mit den US-Bildungsstandards, die jede Lektion unterstützt.",
+  "b1": "Altersgerechte Checkliste zur Schulreife",
+  "b2": "Fünf Beispiellektionen aus der AMI-Abfolge",
+  "b3": "Zuordnung zu Common Core und NGSS für jede Lektion",
+  "b4": "Druckbar – als PDF speichern",
+  "childAge": "Alter Ihres Kindes",
+  "included": "Enthalten für {{age}} Jahre:",
+  "points": "+ Checkliste zur Schulreife mit {{count}} Punkten",
+  "footnote": "Wir senden Ihnen gelegentlich Montessori-Tipps. Jederzeit abbestellbar.",
+  "privacy": "Datenschutzerklärung"
+},
+  guide: {
+  "docTitle": "Montessori-Leitfaden zur Schulreife – {{age}} Jahre",
+  "save": "Als PDF speichern",
+  "sub": "Eine AMI-Kinderhaus-Beispielwoche mit Zuordnung zu US-Bildungsstandards · Montessori Life Skills",
+  "intro": "Wie Dr. Maria Montessori beobachtete, ist die Hand das Werkzeug des Geistes. Dieser Leitfaden zeigt eine Beispielwoche aus der AMI-Kinderhaus-Abfolge für ein {{age}}-jähriges Kind, mit den US-Bildungsstandards, die jede Lektion unterstützt.",
+  "checklist": "Checkliste zur Schulreife",
+  "observe": "Beobachten, nicht testen. Jedes Kind folgt seinem eigenen Tempo.",
+  "week": "Beispielwoche",
+  "day": "Tag",
+  "lesson": "Lektion",
+  "gains": "Was das Kind gewinnt",
+  "standards": "Standards",
+  "days": [
+    "Mo",
+    "Di",
+    "Mi",
+    "Do",
+    "Fr"
+  ],
+  "indirect": "Indirekte Vorbereitung",
+  "ctaTitle": "Die vollständige Abfolge.",
+  "cta": "Premium enthält jede AMI-Kinderhaus-Darbietung in der richtigen Reihenfolge, Anleitungen Schritt für Schritt, Lektionsvideos und druckbare Portfolios für den Heimunterricht. Premium Jährlich kostet $199/Jahr oder $29.99/Monat, mit 30 Tagen Garantie.",
+  "footer": "Standardcodes: Common Core (CCSS), NGSS, NCSS und National Core Arts Standards. Dies ist eine Zuordnungsübersicht, keine Zertifizierung. © {{year}} Montessori Life Skills.",
+  "titles": {
+    "Dry Pouring": "Trockenes Schütten",
+    "Greeting Others": "Andere begrüßen",
+    "Knobbed Cylinders": "Einsatzzylinder",
+    "Pink Tower": "Rosa Turm",
+    "Sandpaper Letters": "Sandpapierbuchstaben",
+    "Red Rods": "Rote Stangen",
+    "Number Rods": "Numerische Stangen",
+    "Spindle Box": "Spindelkasten",
+    "Land and Water Forms": "Land- und Wasserformen",
+    "Golden Beads": "Goldenes Perlenmaterial",
+    "Moveable Alphabet": "Bewegliches Alphabet",
+    "Parts of a Plant": "Teile der Pflanze"
+  },
+  "areas": {
+    "Practical Life": "Übungen des täglichen Lebens",
+    "Grace and Courtesy": "Anmut und Höflichkeit",
+    "Sensorial": "Sinnesmaterial",
+    "Language": "Sprache",
+    "Math": "Mathematik",
+    "Geography": "Geographie",
+    "Botany": "Botanik"
+  },
+  "purposes": {
+    "3": [
+      "Bewegungskoordination, Konzentration und Selbstständigkeit.",
+      "Selbstvertrauen und respektvolle soziale Sprache.",
+      "Visuelle Unterscheidung von Größen; der Pinzettengriff als Vorbereitung der Hand auf das Schreiben.",
+      "Visuelle Unterscheidung abgestufter Größen in drei Dimensionen.",
+      "Jeden Laut über den Tastsinn mit seinem Schriftzeichen verbinden."
+    ],
+    "4": [
+      "Abgestufte Länge; direkte Vorbereitung auf die Numerischen Stangen.",
+      "Menge und Ziffer 1–10 als einzelne, zählbare Längen.",
+      "Lose Mengen zählen und der Begriff der Null.",
+      "Laut-Zeichen-Zuordnung für erstes Lesen und Schreiben.",
+      "Konkretes Verständnis von Land und Wasser auf der Erde."
+    ],
+    "5": [
+      "Das Dezimalsystem: Einer, Zehner, Hunderter und Tausender.",
+      "Wörter lautgetreu legen, bevor die Hand sie schreiben kann.",
+      "Menge, Ziffer und Null festigen.",
+      "Die Teile lebender Pflanzen benennen und beobachten.",
+      "Paarige Land- und Wasserformen durch Tasten und Benennen."
+    ]
+  },
+  "checks": {
+    "3": [
+      "Trägt ein Tablett oder einen Stuhl sorgfältig",
+      "Schüttet trockene Materialien mit etwas Verschütten",
+      "Folgt einer Bitte mit zwei Schritten",
+      "Begrüßt vertraute Erwachsene",
+      "Sortiert Gegenstände nach Größe oder Farbe",
+      "Zeigt Interesse an Buchstabenlauten"
+    ],
+    "4": [
+      "Gießt Wasser mit wenig Verschütten",
+      "Arbeitet 10 Minuten und länger an einer Aktivität",
+      "Ordnet Gegenstände nach Größe",
+      "Erkennt mehrere Buchstabenlaute",
+      "Zählt Gegenstände bis 10 mit Eins-zu-eins-Zuordnung",
+      "Sagt bitte, danke und Entschuldigung"
+    ],
+    "5": [
+      "Schließt eine Aktivität mit mehreren Schritten ab und räumt sie weg",
+      "Benennt die meisten Buchstabenlaute",
+      "Legt einfache Wörter nach Lauten",
+      "Zählt Mengen über 10 und ordnet sie Ziffern zu",
+      "Hält den Stift im Dreipunktgriff",
+      "Wartet in der Gruppe, bis es an der Reihe ist zu sprechen"
+    ]
+  }
+},
 };
 
 const zh: typeof en = {
@@ -161,6 +488,115 @@ const zh: typeof en = {
     placeholder: '您的电子邮件地址', emailLabel: '电子邮件地址', submitting: '正在登记…', submit: '通知我',
     footnote: '抢先体验和不定期更新，可随时退订。',
   },
+  guidePage: {
+  "title": "蒙台梭利幼小衔接准备指南",
+  "body": "根据孩子年龄提供的入学准备清单和一周 AMI 初级示例课程，并标注每节课对应的美国教育标准。",
+  "b1": "按年龄匹配的入学准备清单",
+  "b2": "AMI 序列中的五节示例课",
+  "b3": "每节课对应的 Common Core 与 NGSS 标准",
+  "b4": "可打印——可保存为 PDF",
+  "childAge": "孩子的年龄",
+  "included": "{{age}} 岁包含：",
+  "points": "+ {{count}} 项入学准备清单",
+  "footnote": "我们会偶尔发送蒙台梭利小贴士，可随时退订。",
+  "privacy": "隐私政策"
+},
+  guide: {
+  "docTitle": "蒙台梭利入学准备指南——{{age}} 岁",
+  "save": "另存为 PDF",
+  "sub": "一周 AMI 初级示例课程，对应美国教育标准 · Montessori Life Skills",
+  "intro": "正如玛利亚·蒙台梭利博士所观察到的，手是心智的工具。本指南展示了 AMI 初级序列中适合 {{age}} 岁孩子的一周示例课程，并标注每节课对应的美国教育标准。",
+  "checklist": "入学准备清单",
+  "observe": "观察，而非测试。每个孩子都有自己的节奏。",
+  "week": "示例一周",
+  "day": "日",
+  "lesson": "课程",
+  "gains": "孩子的收获",
+  "standards": "标准",
+  "days": [
+    "周一",
+    "周二",
+    "周三",
+    "周四",
+    "周五"
+  ],
+  "indirect": "间接预备",
+  "ctaTitle": "完整序列。",
+  "cta": "高级版按顺序包含所有 AMI 初级示范、分步指南、课程视频和可打印的家庭教育档案。高级版年付 $199/年，或 $29.99/月，享 30 天保证。",
+  "footer": "标准代码：Common Core（CCSS）、NGSS、NCSS 和美国国家核心艺术标准。本文件为对照图，并非认证。© {{year}} Montessori Life Skills。",
+  "titles": {
+    "Dry Pouring": "干物倒取",
+    "Greeting Others": "问候他人",
+    "Knobbed Cylinders": "带插座圆柱体",
+    "Pink Tower": "粉红塔",
+    "Sandpaper Letters": "砂纸字母",
+    "Red Rods": "红棒",
+    "Number Rods": "数棒",
+    "Spindle Box": "纺锤棒箱",
+    "Land and Water Forms": "陆地与水域模型",
+    "Golden Beads": "金色串珠",
+    "Moveable Alphabet": "活动字母",
+    "Parts of a Plant": "植物的部分"
+  },
+  "areas": {
+    "Practical Life": "日常生活",
+    "Grace and Courtesy": "优雅与礼仪",
+    "Sensorial": "感官",
+    "Language": "语言",
+    "Math": "数学",
+    "Geography": "地理",
+    "Botany": "植物学"
+  },
+  "purposes": {
+    "3": [
+      "动作协调、专注与独立。",
+      "自信与得体的社交语言。",
+      "大小的视觉辨别；为书写做准备的三指抓握。",
+      "三维渐变大小的视觉辨别。",
+      "通过触觉将每个音与其书写符号联系起来。"
+    ],
+    "4": [
+      "渐变长度；数棒的直接预备。",
+      "把 1–10 的数量与符号理解为单一、可数的长度。",
+      "数散放的数量以及零的概念。",
+      "为早期阅读和书写建立音与符号的联系。",
+      "具体理解地球上的陆地与水域。"
+    ],
+    "5": [
+      "十进制：个、十、百、千。",
+      "在手能书写之前，按发音拼出单词。",
+      "巩固数量、符号与零。",
+      "说出并观察活体植物的各部分。",
+      "通过触摸和命名认识成对的陆地与水域形态。"
+    ]
+  },
+  "checks": {
+    "3": [
+      "小心地搬托盘或椅子",
+      "倒取干物，偶有洒落",
+      "能听从两步指令",
+      "向熟悉的成人问好",
+      "按大小或颜色分类物品",
+      "对字母发音感兴趣"
+    ],
+    "4": [
+      "倒水时很少洒出",
+      "专注于一项活动 10 分钟以上",
+      "按大小排序物品",
+      "认识几个字母的发音",
+      "一一对应地数到 10",
+      "会说请、谢谢和对不起"
+    ],
+    "5": [
+      "完成多步骤活动并归位",
+      "能说出大多数字母的发音",
+      "按发音拼出简单单词",
+      "数 10 以上的数量并与数字对应",
+      "用三指握笔",
+      "在小组中轮流发言"
+    ]
+  }
+},
 };
 
 export const growth = { en, es, de, zh };

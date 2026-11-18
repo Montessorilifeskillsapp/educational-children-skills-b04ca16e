@@ -4,7 +4,7 @@ import { Crown, Lock } from 'lucide-react';
 import { montessoriTheme } from './ThemeConfig';
 import CardStatus from './school/CardStatus';
 import UpgradeDialog from './upgrade/UpgradeDialog';
-import i18n from '@/i18n';
+import { useTranslation } from 'react-i18next';
 
 interface Skill {
   id: string;
@@ -30,6 +30,8 @@ const SkillCard: React.FC<SkillCardProps> = ({
   onSelect, 
   isPremium 
 }) => {
+  const { t } = useTranslation();
+  const difficultyLabel = t(`chrome.card.difficulty.${skill.difficulty}`, { defaultValue: skill.difficulty });
   const isLocked = skill.isPremium && !isPremium;
   const [upgradeOpen, setUpgradeOpen] = React.useState(false);
 
@@ -117,7 +119,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         onClick={isLocked ? () => setUpgradeOpen(true) : handleSelect}
         role="button"
         tabIndex={0}
-        aria-label={`${skill.title} - ${skill.difficulty} level ${skill.category} activity. ${isCompleted ? 'Completed' : 'Not completed'}. ${isLocked ? 'Premium activity, open to see how to unlock' : 'Click to start'}`}
+        aria-label={t('chrome.card.aria', { title: skill.title, difficulty: difficultyLabel, category: skill.category, status: isCompleted ? t('chrome.card.done') : t('chrome.card.notDone'), action: isLocked ? t('chrome.card.lockedAction') : t('chrome.card.start') })}
         onKeyDown={(e) => {
           if (e.key === 'Enter' || e.key === ' ') {
             e.preventDefault();
@@ -126,7 +128,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         }}
       >
         {skill.isPremium && (
-          <div className="absolute -top-2 -right-2 bg-blue-500 rounded-full p-1" aria-label="Premium activity">
+          <div className="absolute -top-2 -right-2 bg-blue-500 rounded-full p-1" aria-label={t('chrome.card.premium')}>
             <Crown className="w-4 h-4 text-white" aria-hidden="true" />
           </div>
         )}
@@ -144,14 +146,14 @@ const SkillCard: React.FC<SkillCardProps> = ({
             <div className="mb-3">
               <img decoding="async"
                 src={skill.image}
-                alt={`${skill.title} Montessori material`}
+                alt={t('chrome.card.materialAlt', { title: skill.title })}
                 className="w-full h-32 object-cover rounded-lg"
                 loading="lazy"
               />
             </div>
           ) : (
             <div className="text-center mb-2 flex justify-center">
-              <div className="text-4xl" role="img" aria-label={`${skill.title} activity icon`}>
+              <div className="text-4xl" role="img" aria-label={t('chrome.card.iconAlt', { title: skill.title })}>
                 {skill.icon}
               </div>
             </div>
@@ -167,7 +169,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
         <CardContent className="pt-0 text-center">
           <div className="flex justify-between items-center mb-3">
             <span className={`text-xs px-2 py-1 rounded-full ${getDifficultyColor(skill.difficulty)}`}>
-              {skill.difficulty}
+              {difficultyLabel}
             </span>
             <span className={`text-xs ${montessoriTheme.text.muted}`}>
               {skill.category}
@@ -178,7 +180,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
           {isCompleted && (
             <div className="flex justify-center mb-2">
               <div className={`text-white px-3 py-1 rounded-full text-sm font-medium ${montessoriTheme.button.secondary}`}>
-                ✓ Completed
+                {t('chrome.card.completed')}
               </div>
             </div>
           )}
@@ -189,11 +191,11 @@ const SkillCard: React.FC<SkillCardProps> = ({
           open={upgradeOpen}
           onOpenChange={setUpgradeOpen}
           source="locked-card"
-          meta={`${skill.category} · ${skill.difficulty}`}
-          title={i18n.t('pricing.upgrade.lockedTitle', { title: skill.title })}
-          description={i18n.t('pricing.upgrade.lockedBody')}
+          meta={`${skill.category} · ${difficultyLabel}`}
+          title={t('pricing.upgrade.lockedTitle', { title: skill.title })}
+          description={t('pricing.upgrade.lockedBody')}
           image={skill.image}
-          imageAlt={i18n.t('pricing.upgrade.lockedAlt', { title: skill.title })}
+          imageAlt={t('pricing.upgrade.lockedAlt', { title: skill.title })}
         />
       )}
     </article>

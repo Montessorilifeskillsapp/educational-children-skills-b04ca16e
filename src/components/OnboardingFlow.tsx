@@ -9,7 +9,7 @@ import { ArrowRight, ArrowLeft, Sparkles, Check, PartyPopper, Shield } from 'luc
 import { useNavigate } from 'react-router-dom';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { PREMIUM_BENEFIT_KEYS } from './upgrade/UpgradeDialog';
-import i18n from '@/i18n';
+import { Trans, useTranslation } from 'react-i18next';
 
 interface ChildProfile {
   id: string;
@@ -47,6 +47,8 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
   const [savedProfile, setSavedProfile] = useState<ChildProfile | null>(null);
   const navigate = useNavigate();
   const { isPremium } = useSubscription();
+  const { t } = useTranslation();
+  const areaLabel = (id: string) => t(`auth.onboarding.areas.${id}.label`);
 
   const toggleFocus = (id: string) => {
     setFocusAreas(prev => {
@@ -94,18 +96,18 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             </div>
           </div>
           <CardTitle className="text-2xl">
-            {currentStep === 0 && "Tell us about your child"}
-            {currentStep === 1 && "Pick 2–3 focus areas"}
-            {currentStep === 2 && "Your skills plan is ready"}
+            {currentStep === 0 && t('auth.onboarding.step0Title')}
+            {currentStep === 1 && t('auth.onboarding.step1Title')}
+            {currentStep === 2 && t('auth.onboarding.step2Title')}
           </CardTitle>
           <p className="text-gray-600 text-sm">
-            {currentStep === 0 && "We'll personalize the plan to their age."}
-            {currentStep === 1 && "These shape their starting Montessori plan."}
-            {currentStep === 2 && "Start with the first activity any time."}
+            {currentStep === 0 && t('auth.onboarding.step0Body')}
+            {currentStep === 1 && t('auth.onboarding.step1Body')}
+            {currentStep === 2 && t('auth.onboarding.step2Body')}
           </p>
           <div className="mt-4">
             <Progress value={((currentStep + 1) / totalSteps) * 100} className="h-2" />
-            <p className="text-xs text-gray-500 mt-2">Step {currentStep + 1} of {totalSteps}</p>
+            <p className="text-xs text-gray-500 mt-2">{t('auth.onboarding.stepOf', { current: currentStep + 1, total: totalSteps })}</p>
           </div>
         </CardHeader>
 
@@ -113,17 +115,17 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
           {currentStep === 0 && (
             <div className="space-y-4">
               <div>
-                <Label htmlFor="child-name">Child's name</Label>
+                <Label htmlFor="child-name">{t('auth.onboarding.childName')}</Label>
                 <Input
                   id="child-name"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="e.g. Emma"
+                  placeholder={t('auth.onboarding.namePlaceholder')}
                   autoFocus
                 />
               </div>
               <div>
-                <Label htmlFor="child-age">Age</Label>
+                <Label htmlFor="child-age">{t('auth.onboarding.age')}</Label>
                 <Input
                   id="child-age"
                   type="number"
@@ -134,7 +136,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                 />
               </div>
               <div>
-                <Label>Pick an avatar</Label>
+                <Label>{t('auth.onboarding.avatar')}</Label>
                 <div className="flex gap-2 mt-2 flex-wrap">
                   {AVATARS.map(a => (
                     <button
@@ -144,7 +146,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                       className={`text-3xl p-2 rounded-lg border-2 transition ${
                         avatar === a ? 'border-primary/100 bg-primary/10' : 'border-transparent hover:bg-gray-50'
                       }`}
-                      aria-label={`Avatar ${a}`}
+                      aria-label={t('auth.onboarding.avatarLabel', { avatar: a })}
                     >
                       {a}
                     </button>
@@ -157,7 +159,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
           {currentStep === 1 && (
             <div className="space-y-3">
               <p className="text-xs text-gray-500 text-center">
-                Selected {focusAreas.length} of 3 (minimum 2)
+                {t('auth.onboarding.selected', { count: focusAreas.length })}
               </p>
               <div className="grid grid-cols-2 gap-3">
                 {FOCUS_AREAS.map(area => {
@@ -183,8 +185,8 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                         </div>
                       )}
                       <div className="text-2xl mb-1">{area.emoji}</div>
-                      <div className="font-semibold text-sm">{area.label}</div>
-                      <div className="text-xs text-gray-500">{area.desc}</div>
+                      <div className="font-semibold text-sm">{areaLabel(area.id)}</div>
+                      <div className="text-xs text-gray-500">{t(`auth.onboarding.areas.${area.id}.desc`)}</div>
                     </button>
                   );
                 })}
@@ -197,25 +199,25 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               <div className="text-5xl">{avatar}</div>
               <div className="flex items-center justify-center gap-2">
                 <p className="text-gray-700">
-                  <span className="font-semibold">{name}</span>, age {age}
+                  <Trans i18nKey="auth.onboarding.nameAge" values={{ name, age }} components={[<span key="n" className="font-semibold" />]} />
                 </p>
                 <button
                   type="button"
                   onClick={() => setCurrentStep(0)}
                   className="text-xs text-primary hover:text-primary underline font-medium"
                 >
-                  Edit
+                  {t('auth.onboarding.edit')}
                 </button>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-center gap-2">
-                  <p className="text-sm text-gray-600">Focus areas:</p>
+                  <p className="text-sm text-gray-600">{t('auth.onboarding.focusAreas')}</p>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
                     className="text-xs text-primary hover:text-primary underline font-medium"
                   >
-                    Edit
+                    {t('auth.onboarding.edit')}
                   </button>
                 </div>
                 <div className="flex flex-wrap gap-2 justify-center">
@@ -223,18 +225,18 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                     const area = FOCUS_AREAS.find(a => a.id === id);
                     return (
                       <span key={id} className="px-3 py-1 bg-primary/15 text-primary rounded-full text-sm font-medium">
-                        {area?.emoji} {area?.label}
+                        {area?.emoji} {areaLabel(id)}
                       </span>
                     );
                   })}
                 </div>
               </div>
               <div className="bg-green-50 p-4 rounded-lg text-left">
-                <h3 className="font-semibold text-green-800 mb-2 text-sm">What's next</h3>
+                <h3 className="font-semibold text-green-800 mb-2 text-sm">{t('auth.onboarding.nextTitle')}</h3>
                 <ul className="text-sm text-green-700 space-y-1">
-                  <li>• Open the dashboard to start the first activity</li>
-                  <li>• Add more focus areas any time from the dashboard</li>
-                  <li>• Track progress in the Family Dashboard</li>
+                  <li>{t('auth.onboarding.next1')}</li>
+                  <li>{t('auth.onboarding.next2')}</li>
+                  <li>{t('auth.onboarding.next3')}</li>
                 </ul>
               </div>
             </div>
@@ -247,18 +249,18 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               disabled={currentStep === 0}
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
+              {t('auth.onboarding.back')}
             </Button>
 
             {currentStep < totalSteps - 1 ? (
               <Button onClick={() => setCurrentStep(prev => prev + 1)} disabled={!canProceed()}>
-                Next
+                {t('auth.onboarding.next')}
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             ) : (
               <Button onClick={handleComplete} size="lg" className="bg-gradient-to-r from-primary to-accent hover:from-primary hover:to-accent font-semibold shadow-lg">
                 <Check className="h-4 w-4 mr-2" />
-                Save plan
+                {t('auth.onboarding.save')}
               </Button>
             )}
           </div>
@@ -270,7 +272,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                 onClick={() => onComplete([])}
                 className="text-sm text-muted-foreground hover:text-primary underline-offset-4 hover:underline transition-colors"
               >
-                Skip setup — take me to the first activity →
+                {t('auth.onboarding.skip')}
               </button>
             </div>
           )}
@@ -283,9 +285,9 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             <div className="mx-auto mb-2 bg-gradient-to-br from-green-400 to-emerald-500 p-3 rounded-full text-white w-fit">
               <PartyPopper className="h-7 w-7" />
             </div>
-            <DialogTitle className="text-center text-2xl">Plan saved!</DialogTitle>
+            <DialogTitle className="text-center text-2xl">{t('auth.onboarding.savedTitle')}</DialogTitle>
             <DialogDescription className="text-center">
-              Your child's Montessori plan is ready to begin.
+              {t('auth.onboarding.savedBody')}
             </DialogDescription>
           </DialogHeader>
 
@@ -295,20 +297,20 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                 <span className="text-4xl">{savedProfile.avatar}</span>
                 <div>
                   <div className="font-semibold text-primary">{savedProfile.name}</div>
-                  <div className="text-sm text-primary">Age {savedProfile.age}</div>
+                  <div className="text-sm text-primary">{t('auth.onboarding.ageN', { age: savedProfile.age })}</div>
                 </div>
               </div>
 
               <div>
                 <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
-                  Focus areas ({savedProfile.interests.length})
+                  {t('auth.onboarding.focusCount', { count: savedProfile.interests.length })}
                 </p>
                 <div className="flex flex-wrap gap-2">
                   {savedProfile.interests.map(id => {
                     const area = FOCUS_AREAS.find(a => a.id === id);
                     return (
                       <span key={id} className="px-3 py-1 bg-primary/15 text-primary rounded-full text-sm font-medium">
-                        {area?.emoji} {area?.label}
+                        {area?.emoji} {areaLabel(id)}
                       </span>
                     );
                   })}
@@ -319,22 +321,22 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
 
           {!isPremium && savedProfile && (
             <div className="rounded-xl border border-primary/30 bg-primary/5 p-4 space-y-2">
-              <p className="font-semibold text-foreground">{savedProfile.name}'s age {savedProfile.age} sequence is ready.</p>
+              <p className="font-semibold text-foreground">{t('auth.onboarding.sequenceReady', { name: savedProfile.name, age: savedProfile.age })}</p>
               <ul className="space-y-1.5">
                 {PREMIUM_BENEFIT_KEYS.map(key => (
                   <li key={key} className="flex gap-2 text-sm text-foreground">
-                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />{i18n.t(key)}
+                    <Check className="h-4 w-4 text-primary mt-0.5 shrink-0" aria-hidden="true" />{t(key)}
                   </li>
                 ))}
               </ul>
-              <p className="text-sm text-muted-foreground">Premium from $16.58/month, billed $199/year.</p>
+              <p className="text-sm text-muted-foreground">{t('auth.onboarding.premiumFrom')}</p>
             </div>
           )}
 
           <DialogFooter className="flex-col gap-2 sm:flex-col sm:space-x-0">
             {!isPremium && (
               <Button onClick={handleFinishPremium} className="w-full" size="lg">
-                Start the full sequence with Premium
+                {t('auth.onboarding.startPremium')}
               </Button>
             )}
             <Button
@@ -343,12 +345,12 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               className="w-full"
               size="lg"
             >
-              {isPremium ? 'Go to dashboard' : 'Try the free starter activities'}
+              {isPremium ? t('auth.onboarding.goDashboard') : t('auth.onboarding.tryFree')}
               <ArrowRight className="h-4 w-4 ml-2" />
             </Button>
             {!isPremium && (
               <p className="flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
-                <Shield className="h-3.5 w-3.5" aria-hidden="true" /> 30-day money-back guarantee · Cancel anytime
+                <Shield className="h-3.5 w-3.5" aria-hidden="true" /> {t('auth.onboarding.guarantee')}
               </p>
             )}
           </DialogFooter>
