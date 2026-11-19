@@ -213,7 +213,7 @@ const de: typeof en = {
   header: { curriculumSections: 'Lehrplanbereiche', openSectionMenu: 'Bereichsmenü öffnen', openMenu: 'Menü öffnen' },
   hero: {
     badge: 'Authentische AMI-Darbietungen',
-    title: 'Wissen Sie genau, was Sie anbieten – und wie Sie es darbieten.',
+    title: 'Wissen Sie genau, was Sie vermitteln – und wie Sie es darbieten.',
     subtitle: 'Montessori-Aktivitäten Schritt für Schritt für Kinder von 2 bis 6 Jahren – für Eltern, Pädagogen und Assistenzkräfte.',
     body: 'Sehen Sie, was vorzubereiten ist, wie jede Aktivität dargeboten wird, worauf Sie achten sollten und was als Nächstes kommt.',
     seeHow: 'So funktioniert es',
@@ -229,7 +229,7 @@ const de: typeof en = {
   },
   sample: {
     eyebrow: 'Eine echte Aktivität', title: 'Damit arbeiten Sie.',
-    subtitle: 'Wasser gießen · Ziel: Koordination, Konzentration und Selbstständigkeit.',
+    subtitle: 'Wasser umgießen · Ziel: Koordination, Konzentration und Selbstständigkeit.',
     imageAlt: 'Ein Kind gießt auf einem Holztablett Wasser aus einem kleinen Glaskännchen in ein anderes, eine Hand am Griff, die andere stützt das Kännchen',
     materialsTitle: 'Materialien', materialsText: 'Zwei gleiche kindgerechte Kännchen, Wasser, ein Tablett, ein Schwamm und ein Trockentuch.',
     preparationTitle: 'Vorbereitung', preparationText: 'Richten Sie die vollständige Aktivität her, bevor Sie das Kind einladen.',
