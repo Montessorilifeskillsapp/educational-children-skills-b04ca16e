@@ -37,7 +37,7 @@ export default function ActivityPage({ skillId, title, sectionLabel, purpose, ai
   const shownTitle = lessonText(title);
   const complete = steps.length > 0 && steps.every(step => step.completed);
   return (
-    <ActivityLayout sectionLabel={sectionLabelText(t, sectionLabel, (k) => i18n.exists(k))} title={shownTitle} purpose={purpose ? lessonText(purpose) : purpose} aims={aims && { direct: aims.direct.map(lessonText), indirect: aims.indirect.map(lessonText) }} image={image} onBack={onBack} background={montessoriTheme.backgrounds.practical}>
+    <ActivityLayout sectionLabel={sectionLabelText(t, sectionLabel, (k) => i18n.exists(k))} title={shownTitle} purpose={purpose ? lessonText(purpose) : purpose} aims={aims && { direct: aims.direct.map((s) => lessonText(s)), indirect: aims.indirect.map((s) => lessonText(s)) }} image={image} onBack={onBack} background={montessoriTheme.backgrounds.practical}>
       <GetTheMaterials skillId={skillId} skillMaterials={materials} />
       <ActivityVideo skillId={skillId} activityTitle={shownTitle} />
       {invitation && <section className="mb-6 rounded-xl border-l-4 border-primary bg-primary/10 px-4 py-3" aria-label={t('lesson.page.invite')}>
