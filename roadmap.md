@@ -6,5 +6,9 @@
 - [x] Translation review sheets for native-speaking Montessori teachers
 - [x] Add Swahili and Hindi languages (app screens + lessons)
 - [x] Spanish review fixes: sentence-case activity names, unambiguous tú hero line, neutral Latin American vocabulary
+- [x] Practical Life "Easy"/"Medium" card labels translated in every language
+- [x] Pouring Water sample lesson page translated into all five languages
+- [x] Hindi tidy-ups: English names on 6 older activities, Montessori/Sarah in Hindi script, one spelling of साफ़
+- [x] Hindi invitations speak to girls too (चाहोगे/चाहोगी)
 - [ ] Native Swahili- and Hindi-speaking Montessori reviewers check translations (owner action)
 - [ ] Legal review of policy wording; signed SCCs/DPAs with providers (owner action)

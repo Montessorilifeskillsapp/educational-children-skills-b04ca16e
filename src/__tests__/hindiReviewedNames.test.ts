@@ -34,3 +34,22 @@ describe('Hindi activity names (review 2026-11-19)', () => {
     for (const [, v] of frameLines) expect(v).toContain('ड्रेसिंग फ्रेम');
   });
 });
+
+describe('Hindi tidy-ups (2026-11-19)', () => {
+  it('invitations speak to girls and boys: चाहोगे/चाहोगी', () => {
+    const invitations = Object.entries(dict).filter(([en]) => en.startsWith('Would you like'));
+    expect(invitations.length).toBeGreaterThan(200);
+    const boysOnly = Object.values(dict).filter((v) => /चाहोगे(?!\/चाहोगी)/.test(v));
+    expect(boysOnly).toEqual([]);
+  });
+
+  it('spells साफ़ with the nukta everywhere', () => {
+    expect(Object.values(dict).filter((v) => /साफ(?!़)/.test(v))).toEqual([]);
+  });
+
+  it('older activity names also show the English name in brackets', () => {
+    for (const en of ['Brushing Teeth', 'Washing Hands', 'Making Bed', 'Setting Table', 'Tying Shoes', 'Spooning']) {
+      expect(dict[en].endsWith(` (${en})`)).toBe(true);
+    }
+  });
+});

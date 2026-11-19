@@ -18,7 +18,7 @@ const en = {
     premium: 'Premium activity', completed: '✓ Completed', materialAlt: '{{title}} Montessori material', iconAlt: '{{title}} activity icon',
     aria: '{{title}} - {{difficulty}} level {{category}} activity. {{status}}. {{action}}',
     done: 'Completed', notDone: 'Not completed', lockedAction: 'Premium activity, open to see how to unlock', start: 'Click to start',
-    difficulty: { Beginner: 'Beginner', Intermediate: 'Intermediate', Advanced: 'Advanced' },
+    difficulty: { Beginner: 'Beginner', Intermediate: 'Intermediate', Advanced: 'Advanced', Easy: 'Easy', Medium: 'Medium' },
   },
   notFound: {
     title: 'Oops! Page Not Found', body: "The page you're looking for seems to have wandered off on its own learning adventure. Let's get you back to exploring!",
@@ -46,7 +46,7 @@ const es: typeof en = {
     premium: 'Actividad Premium', completed: '✓ Completada', materialAlt: 'Material Montessori: {{title}}', iconAlt: 'Icono de la actividad {{title}}',
     aria: '{{title}}: actividad de {{category}}, nivel {{difficulty}}. {{status}}. {{action}}',
     done: 'Completada', notDone: 'Sin completar', lockedAction: 'Actividad Premium, ábrela para ver cómo desbloquearla', start: 'Haz clic para empezar',
-    difficulty: { Beginner: 'Inicial', Intermediate: 'Intermedio', Advanced: 'Avanzado' },
+    difficulty: { Beginner: 'Inicial', Intermediate: 'Intermedio', Advanced: 'Avanzado', Easy: 'Fácil', Medium: 'Medio' },
   },
   notFound: {
     title: '¡Vaya! Página no encontrada', body: 'Parece que la página que buscas se fue a su propia aventura de aprendizaje. ¡Volvamos a explorar!',
@@ -74,7 +74,7 @@ const de: typeof en = {
     premium: 'Premium-Aktivität', completed: '✓ Abgeschlossen', materialAlt: 'Montessori-Material: {{title}}', iconAlt: 'Symbol der Aktivität {{title}}',
     aria: '{{title}} – Aktivität im Bereich {{category}}, Stufe {{difficulty}}. {{status}}. {{action}}',
     done: 'Abgeschlossen', notDone: 'Nicht abgeschlossen', lockedAction: 'Premium-Aktivität – öffnen, um zu sehen, wie sie freigeschaltet wird', start: 'Zum Starten klicken',
-    difficulty: { Beginner: 'Einstieg', Intermediate: 'Mittelstufe', Advanced: 'Fortgeschritten' },
+    difficulty: { Beginner: 'Einstieg', Intermediate: 'Mittelstufe', Advanced: 'Fortgeschritten', Easy: 'Leicht', Medium: 'Mittel' },
   },
   notFound: {
     title: 'Hoppla! Seite nicht gefunden', body: 'Die gesuchte Seite ist wohl zu ihrem eigenen Lernabenteuer aufgebrochen. Lassen Sie uns weiter entdecken!',
@@ -102,7 +102,7 @@ const zh: typeof en = {
     premium: '高级版活动', completed: '✓ 已完成', materialAlt: '{{title}}蒙台梭利教具', iconAlt: '{{title}}活动图标',
     aria: '{{title}}——{{category}}活动，{{difficulty}}级别。{{status}}。{{action}}',
     done: '已完成', notDone: '未完成', lockedAction: '高级版活动，打开查看解锁方式', start: '点击开始',
-    difficulty: { Beginner: '入门', Intermediate: '中级', Advanced: '进阶' },
+    difficulty: { Beginner: '入门', Intermediate: '中级', Advanced: '进阶', Easy: '简单', Medium: '中等' },
   },
   notFound: {
     title: '哎呀！页面未找到', body: '您要找的页面似乎自己去探险学习了。我们带您回去继续探索吧！',
@@ -164,7 +164,9 @@ const sw: typeof en = {
     "difficulty": {
       "Beginner": "Mwanzo",
       "Intermediate": "Kati",
-      "Advanced": "Juu"
+      "Advanced": "Juu",
+      "Easy": "Rahisi",
+      "Medium": "Wastani"
     }
   },
   "notFound": {
@@ -232,7 +234,9 @@ const hi: typeof en = {
     "difficulty": {
       "Beginner": "शुरुआती",
       "Intermediate": "मध्यम",
-      "Advanced": "उन्नत"
+      "Advanced": "उन्नत",
+      "Easy": "आसान",
+      "Medium": "मध्यम"
     }
   },
   "notFound": {
