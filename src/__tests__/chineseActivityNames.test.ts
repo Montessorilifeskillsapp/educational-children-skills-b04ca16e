@@ -16,6 +16,8 @@ describe('Chinese activity names', () => {
     expect(dict['Geometric Cabinet']).toBe('几何嵌板橱');
     expect(dict['Saying Please and Thank You']).toBe('说“请”和“谢谢”');
     expect(dict['Celebrations & Traditions']).toBe('庆祝活动与传统习俗');
+    expect(dict['Rolling and Unrolling a Mat']).toBe('卷起和展开工作毯');
+    expect(dict['Opening and Closing Containers']).toBe('打开和关闭容器');
   });
 
   it('never uses "&"', () => {
