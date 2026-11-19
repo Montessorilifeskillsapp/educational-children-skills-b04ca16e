@@ -18,9 +18,10 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 import { activityMaterials } from '@/data/activityMaterials';
 import { getMaterialsForSkill } from '@/lib/materials';
 import { activityInvitations } from '@/data/activityInvitations';
+import { activityAims } from '@/data/activityAims';
 
 
-const FIELDS = new Set(['title', 'purpose', 'category', 'steps', 'detailedSteps', 'activities', 'instruction', 'learningProcess', 'presentation', 'guidedPractice', 'independentPractice', 'mastery', 'extensions', 'description', 'duration', 'invitation', 'keyPoints', 'supportStrategies', 'indicators', 'troubleshooting', 'assessmentCriteria', 'variations', 'directAims', 'materialsPurpose', 'objectives']);
+const FIELDS = new Set(['title', 'purpose', 'category', 'steps', 'detailedSteps', 'activities', 'instruction', 'learningProcess', 'presentation', 'guidedPractice', 'independentPractice', 'mastery', 'extensions', 'description', 'duration', 'invitation', 'keyPoints', 'supportStrategies', 'indicators', 'troubleshooting', 'assessmentCriteria', 'variations', 'directAims', 'indirectAims', 'materialsPurpose', 'objectives']);
 const SECTION_FILES = ['SensorialSkills', 'MathSkills', 'LanguageSkills', 'GeographySkills', 'BotanySkills', 'ArtSkills', 'CulturalSkills', 'GraceAndCourtesySkills', 'PracticalLifeOverview'];
 
 /** Every English lesson string the app shows: activity text, material names and section introductions. */
@@ -41,6 +42,7 @@ export function lessonInventory(root = process.cwd()): string[] {
     for (const mat of getMaterialsForSkill(id, sk.materials)) add(mat.displayName);
   }
   Object.values(activityInvitations).forEach(add);
+  for (const a of Object.values(activityAims)) [...a.direct, ...a.indirect].forEach(add);
   for (const list of Object.values(activityMaterials)) for (const m of list) add(m.name);
   for (const f of SECTION_FILES) {
     const s = readFileSync(`${root}/src/components/${f}.tsx`, 'utf8');

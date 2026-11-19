@@ -6,6 +6,8 @@ interface ActivityLayoutProps {
   sectionLabel: string;
   title: string;
   purpose?: string;
+  /** AMI aims, already localized. */
+  aims?: { direct: string[]; indirect: string[] };
   image?: string | null;
   onBack: () => void;
   background: string;
@@ -21,6 +23,7 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
   sectionLabel,
   title,
   purpose,
+  aims,
   image,
   onBack,
   background,
@@ -55,7 +58,22 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
       )}
 
       {purpose && (
-        <p className="mb-6 text-base leading-relaxed text-muted-foreground">{purpose}</p>
+        <p className="mb-4 text-base leading-relaxed text-muted-foreground">{purpose}</p>
+      )}
+
+      {aims && (aims.direct.length > 0 || aims.indirect.length > 0) && (
+        <section className="mb-6 rounded-xl border border-border bg-card px-4 py-3" aria-label={i18n.t('lesson.page.aims')}>
+          {([['direct', aims.direct], ['indirect', aims.indirect]] as const).map(([kind, items]) => items.length > 0 && (
+            <div key={kind} className="py-2 first:pt-0 last:pb-0 [&+&]:border-t [&+&]:border-border">
+              <h2 className="text-xs font-semibold uppercase tracking-wider text-primary">
+                {i18n.t(kind === 'direct' ? 'lesson.page.directAim' : 'lesson.page.indirectAim')}
+              </h2>
+              <ul className="mt-1 list-disc space-y-1 pl-5 text-sm leading-relaxed text-foreground">
+                {items.map((item) => <li key={item}>{item}</li>)}
+              </ul>
+            </div>
+          ))}
+        </section>
       )}
 
       {children}

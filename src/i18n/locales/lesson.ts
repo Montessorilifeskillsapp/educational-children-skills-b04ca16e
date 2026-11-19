@@ -30,6 +30,9 @@ const en = {
     "imageAlt": "Authentic Montessori materials for {{title}}",
     "inviteGuide": "Offer this invitation when you are ready to present the activity as a new lesson, with the materials prepared. Once the child knows it, no new invitation is needed: they may choose it on their own and repeat it as often as they like. Present only what suits the child's readiness and interest, never every activity in one sitting.",
     "invite": "Invite the child",
+    "aims": "AMI aims",
+    "directAim": "Direct aim",
+    "indirectAim": "Indirect aim",
     "notFound": "This activity could not be loaded.",
     "backToActivities": "Back to activities",
     "returnToActivities": "Return to activities"
@@ -102,6 +105,9 @@ const es: typeof en = {
     "imageAlt": "Materiales Montessori auténticos para {{title}}",
     "inviteGuide": "Ofrece esta invitación cuando estés listo para presentar la actividad como una lección nueva, con los materiales ya preparados. Cuando el niño ya la conoce, no necesita una nueva invitación: puede elegirla por su cuenta y repetirla tantas veces como quiera. Presenta solo lo que corresponda a la preparación y el interés del niño, nunca todas las actividades en una sola sesión.",
     "invite": "Invita al niño",
+    "aims": "Objetivos AMI",
+    "directAim": "Objetivo directo",
+    "indirectAim": "Objetivo indirecto",
     "notFound": "No se pudo cargar esta actividad.",
     "backToActivities": "Volver a las actividades",
     "returnToActivities": "Volver a las actividades"
@@ -174,6 +180,9 @@ const de: typeof en = {
     "imageAlt": "Authentisches Montessori-Material für {{title}}",
     "inviteGuide": "Sprechen Sie diese Einladung aus, wenn Sie bereit sind, die Aktivität als neue Lektion darzubieten, und die Materialien vorbereitet haben. Kennt das Kind die Aktivität bereits, braucht es keine neue Einladung: Es darf sie selbst wählen und so oft wiederholen, wie es möchte. Bieten Sie nur dar, was der Bereitschaft und dem Interesse des Kindes entspricht, niemals alle Aktivitäten in einer Sitzung.",
     "invite": "Das Kind einladen",
+    "aims": "AMI-Ziele",
+    "directAim": "Direktes Ziel",
+    "indirectAim": "Indirektes Ziel",
     "notFound": "Diese Aktivität konnte nicht geladen werden.",
     "backToActivities": "Zurück zu den Aktivitäten",
     "returnToActivities": "Zurück zu den Aktivitäten"
@@ -246,6 +255,9 @@ const zh: typeof en = {
     "imageAlt": "{{title}}所用的正宗蒙特梭利教具",
     "inviteGuide": "当您准备好把这项活动作为新课展示、并已备好教具时，再向孩子发出这句邀请。孩子掌握这项活动后，就不需要再次邀请：他可以自己选择，并随心反复练习。请根据孩子的准备程度和兴趣进行展示，不要一次展示所有活动。",
     "invite": "邀请孩子",
+    "aims": "AMI 目标",
+    "directAim": "直接目的",
+    "indirectAim": "间接目的",
     "notFound": "无法加载此活动。",
     "backToActivities": "返回活动",
     "returnToActivities": "返回活动"

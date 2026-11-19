@@ -40,6 +40,7 @@ import UpgradeDialog from './upgrade/UpgradeDialog';
 import i18n from '@/i18n';
 import { lessonText } from '@/i18n/lessonText';
 import { invitationFor } from '@/data/activityInvitations';
+import { aimsFor } from '@/data/activityAims';
 import { useSubscription } from '@/contexts/SubscriptionContext';
 
 interface SkillActivityProps {
@@ -301,6 +302,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
     sectionLabel={culturalSkill ? 'Science & Cultural Studies' : artSkill ? 'Art' : sensorialSkill ? 'Sensorial' : category.name}
     title={skill.title}
     purpose={skill.purpose}
+    aims={aimsFor(skillId, skill as any)}
     image={heroImage}
     materials={skill.materials}
     steps={steps}

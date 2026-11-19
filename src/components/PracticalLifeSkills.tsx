@@ -13,6 +13,7 @@ import ActivityVideo from './ActivityVideo';
 import ActivityPage from './activity/ActivityPage';
 import ActivityTeachingNotes from './activity/ActivityTeachingNotes';
 import { invitationFor } from '@/data/activityInvitations';
+import { aimsFor } from '@/data/activityAims';
 
 interface Step {
   id: string;
@@ -90,6 +91,7 @@ const PracticalLifeSkills: React.FC<PracticalLifeSkillsProps> = ({ skillId, onBa
       sectionLabel="Practical Life"
       title={skill.title}
       purpose={skill.purpose}
+      aims={aimsFor(skillId, skill as any)}
       image={getPracticalLifeImage(skillId, skill.image)}
       materials={skill.materials}
       steps={steps}
