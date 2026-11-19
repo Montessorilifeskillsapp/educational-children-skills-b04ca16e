@@ -1,368 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import PageLayout from '@/components/PageLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { Card, CardContent } from '@/components/ui/card';
 import { openCookieSettings } from '@/components/consent/openCookieSettings';
 import { Download } from 'lucide-react';
+import { policyEn, type PolicyBlock, type PrivacyPolicy } from '@/content/privacy/policy.en';
+import { hasPolicyTranslation, loadPolicy } from '@/content/privacy/loadPolicy';
+
+const LINK = 'text-primary hover:underline';
+
+/** Renders the policy's small inline markup: **bold**, [text](link), `code` and [[cookies|text]]. */
+function Inline({ text }: { text: string }) {
+  const parts = text.split(/(\*\*[^*]+\*\*|\[\[cookies\|[^\]]+\]\]|\[[^\]]+\]\([^)]+\)|`[^`]+`)/g);
+  return <>{parts.map((part, i) => {
+    if (part.startsWith('**') && part.endsWith('**')) return <strong key={i}>{part.slice(2, -2)}</strong>;
+    const cookie = part.match(/^\[\[cookies\|(.+)\]\]$/);
+    if (cookie) return <button key={i} type="button" onClick={openCookieSettings} className="text-primary underline">{cookie[1]}</button>;
+    const link = part.match(/^\[(.+)\]\((.+)\)$/);
+    if (link) {
+      const external = /^https?:/.test(link[2]);
+      return <a key={i} href={link[2]} className={LINK} {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}>{link[1]}</a>;
+    }
+    if (part.startsWith('`') && part.endsWith('`')) return <code key={i}>{part.slice(1, -1)}</code>;
+    return <React.Fragment key={i}>{part}</React.Fragment>;
+  })}</>;
+}
+
+function Block({ block, lang }: { block: PolicyBlock; lang: string }) {
+  if ('h3' in block) return <h3 className="text-lg font-medium mb-2">{block.h3}</h3>;
+  if ('h4' in block) return <h4 className="text-base font-medium mb-2">{block.h4}</h4>;
+  if ('ul' in block) return <ul className="list-disc pl-6 mb-4 space-y-1">{block.ul.map((item, i) => <li key={i}><Inline text={item} /></li>)}</ul>;
+  if (block.hideIn?.includes(lang)) return null;
+  return <p className="mb-4" lang={block.lang}><Inline text={block.p} /></p>;
+}
 
 const PrivacyPolicyPage: React.FC = () => {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
+  const lang = (i18n.resolvedLanguage || i18n.language || 'en').slice(0, 2);
+  const [policy, setPolicy] = useState<PrivacyPolicy>(policyEn);
+  const [shownLang, setShownLang] = useState('en');
 
-  // SEO optimization
+  useEffect(() => {
+    let alive = true;
+    if (!hasPolicyTranslation(lang)) { setPolicy(policyEn); setShownLang('en'); return; }
+    void loadPolicy(lang).then((p) => { if (alive) { setPolicy(p); setShownLang(p === policyEn ? 'en' : lang); } });
+    return () => { alive = false; };
+  }, [lang]);
+
   useSEO({
-    title: "Privacy Policy - Montessori Life Skills",
-    description: "Our privacy policy describes how Montessori Life Skills collects, uses, and protects your personal information when you use our service.",
+    title: policy.seoTitle,
+    description: policy.seoDescription,
     keywords: "privacy policy, data protection, montessori app privacy, user data, children's privacy",
     canonical: "/privacy-policy"
   });
 
-  const handleBack = () => {
-    navigate(-1);
-  };
-
   return (
     <SEOOptimizer>
-      <PageLayout title="Privacy Policy" onBack={handleBack}>
+      <PageLayout title={policy.pageTitle} onBack={() => navigate(-1)}>
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardContent className="p-8 prose prose-gray max-w-none">
-              <p className="text-sm text-muted-foreground mb-6">Last updated: November 19, 2026</p>
+              <p className="text-sm text-muted-foreground mb-2">{policy.updated}</p>
+              {shownLang !== 'en' && <p className="text-sm text-muted-foreground mb-6 italic">{policy.translationNote}</p>}
 
-              <section id="compliance" aria-labelledby="compliance-heading" className="not-prose mb-8 rounded-lg border border-primary/30 bg-primary/5 p-5 scroll-mt-24">
-                <h2 id="compliance-heading" className="text-xl font-semibold text-foreground mb-2">School Compliance and Privacy</h2>
-                <p className="text-sm text-muted-foreground mb-4">
-                  For school boards, districts and legal counsel: how student records are owned, protected and deleted, including FERPA and COPPA, no ads or tracking in the School Portal, breach notice and deletion commitments.
-                </p>
+              <section id="compliance" aria-labelledby="compliance-heading" className="not-prose mt-6 mb-8 rounded-lg border border-primary/30 bg-primary/5 p-5 scroll-mt-24">
+                <h2 id="compliance-heading" className="text-xl font-semibold text-foreground mb-2">{policy.compliance.title}</h2>
+                <p className="text-sm text-muted-foreground mb-4">{policy.compliance.intro}</p>
                 <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
                   <a href="/downloads/School_Compliance_Privacy_Brief.pdf" download="School_Compliance_Privacy_Brief.pdf" className="inline-flex items-center gap-1.5 font-medium text-primary hover:underline">
-                    <Download className="h-4 w-4" aria-hidden="true" /> Download the Compliance and Privacy Brief (PDF)
+                    <Download className="h-4 w-4" aria-hidden="true" /> {policy.compliance.pdf}
                   </a>
-                  <a href="#schools-student-records" className="font-medium text-primary hover:underline">Read Schools and Student Records below</a>
+                  <a href="#schools-student-records" className="font-medium text-primary hover:underline">{policy.compliance.readBelow}</a>
                 </div>
               </section>
-              
-              <section className="mb-8">
-                <p>
-                  This Privacy Policy describes Our policies and procedures on the collection, use and disclosure of Your information when You use the Service and tells You about Your privacy rights and how the law protects You.
-                </p>
-                <p>
-                  We use Your Personal Data to provide and improve the Service. By using the Service, You agree to the collection and use of information in accordance with this Privacy Policy. This Privacy Policy has been created with the help of the TermsFeed Privacy Policy Generator.
-                </p>
-              </section>
 
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Interpretation and Definitions</h2>
-                <h3 className="text-lg font-medium mb-2">Interpretation</h3>
-                <p className="mb-4">
-                  The words whose initial letters are capitalized have meanings defined under the following conditions. The following definitions shall have the same meaning regardless of whether they appear in singular or in plural.
-                </p>
-                <h3 className="text-lg font-medium mb-2">Definitions</h3>
-                <p className="mb-2">For the purposes of this Privacy Policy:</p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li><strong>Account</strong> means a unique account created for You to access our Service or parts of our Service.</li>
-                  <li><strong>Affiliate</strong> means an entity that controls, is controlled by, or is under common control with a party, where &quot;control&quot; means ownership of 50% or more of the shares, equity interest or other securities entitled to vote for election of directors or other managing authority.</li>
-                  <li><strong>Application</strong> refers to Montessori Life Skills, the software program provided by the Company.</li>
-                  <li><strong>Company</strong> (referred to as either &quot;the Company&quot;, &quot;We&quot;, &quot;Us&quot; or &quot;Our&quot; in this Privacy Policy) refers to Montessori Life Skills.</li>
-                  <li><strong>Country</strong> refers to: United States.</li>
-                  <li><strong>Device</strong> means any device that can access the Service such as a computer, a cell phone or a digital tablet.</li>
-                  <li><strong>Personal Data</strong> (or &quot;Personal Information&quot;) is any information that relates to an identified or identifiable individual. We use &quot;Personal Data&quot; and &quot;Personal Information&quot; interchangeably unless a law uses a specific term.</li>
-                  <li><strong>Service</strong> refers to the Application.</li>
-                  <li><strong>Service Provider</strong> means any natural or legal person who processes the data on behalf of the Company. It refers to third-party companies or individuals employed by the Company to facilitate the Service, to provide the Service on behalf of the Company, to perform services related to the Service or to assist the Company in analyzing how the Service is used.</li>
-                  <li><strong>Usage Data</strong> refers to data collected automatically, either generated by the use of the Service or from the Service infrastructure itself (for example, the duration of a page visit).</li>
-                  <li><strong>You</strong> means the individual accessing or using the Service, or the company, or other legal entity on behalf of which such individual is accessing or using the Service, as applicable.</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Collecting and Using Your Personal Data</h2>
-                <h3 className="text-lg font-medium mb-2">Types of Data Collected</h3>
-                <h4 className="text-base font-medium mb-2">Personal Data</h4>
-                <p className="mb-2">
-                  We collect only the minimum information needed to operate the Service. All personal information is provided by the Adult User (parent, guardian, teacher, or caregiver) who creates and manages the account — never directly by a child. Categories of personal information We may collect include:
-                </p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li><strong>Account information:</strong> email address and password (password is hashed and never stored in plain text) used to create and secure Your account.</li>
-                  <li><strong>Optional profile information:</strong> a display name and, for child profiles created inside the Service, a first name or nickname and an age or age range used only to personalize the recommended activities.</li>
-                  <li><strong>Subscription and billing information:</strong> Your subscription tier and status. Payments are processed by <strong>Stripe</strong> (web), <strong>Apple App Store</strong> (iOS), and <strong>Google Play Billing</strong> (Android) via RevenueCat. We do not receive or store full payment card numbers, CVV codes, or bank account details — only a subscription identifier and status returned by the payment processor.</li>
-                  <li><strong>Learning activity data:</strong> which activities have been viewed, started, or marked complete, so We can maintain progress across sessions and improve the curriculum.</li>
-                  <li><strong>Support communications:</strong> messages and attachments You send to us at our support email, so we can respond to Your request.</li>
-                  <li><strong>Usage Data</strong> (described below).</li>
-                </ul>
-                <p className="mb-4">
-                  We do <strong>not</strong> ask for or collect phone numbers, postal addresses, government identifiers, precise geolocation, contacts, microphone, or camera data as part of the standard Service.
-                </p>
-
-                <h4 className="text-base font-medium mb-2">Usage Data</h4>
-                <p className="mb-2">
-                  Usage Data is collected automatically when using the Service. Usage Data may include Your Device's Internet Protocol (IP) address (anonymized where technically feasible), browser type and version, the pages of the Service that You visit, the time and date of Your visit, the time spent on those pages, unique device identifiers, operating system, and other diagnostic data used for security, troubleshooting, and aggregate analytics.
-                </p>
-                <p className="mb-4">
-                  When You access the Service through a mobile device, We may collect the type of mobile device You use, its operating system version, and non-advertising device identifiers used solely for delivering and securing the Service and for validating Your subscription. We do not use the Apple IDFA or Android Advertising ID for advertising purposes.
-                </p>
-
-                <h4 className="text-base font-medium mb-2">Information Collected While Using the Application</h4>
-                <p className="mb-4">
-                  The Application itself does not request access to Your camera, microphone, contacts, photos, or precise location. If a future feature requires any such permission, You will be asked to grant it through Your device's standard permission prompt and You may enable or disable it at any time through Your device settings.
-                </p>
-
-
-                <h3 className="text-lg font-medium mb-2">Use of Your Personal Data</h3>
-                <p className="mb-2">The Company may use Personal Data for the following purposes:</p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li>To provide and maintain our Service, including to monitor the usage of our Service.</li>
-                  <li>To manage Your Account: to manage Your registration as a user of the Service. The Personal Data You provide can give You access to different functionalities of the Service that are available to You as a registered user.</li>
-                  <li>For the performance of a contract: the development, compliance and undertaking of the purchase contract for the products, items or services You have purchased or of any other contract with Us through the Service.</li>
-                  <li>To contact You: To contact You by email, telephone calls, SMS, or other equivalent forms of electronic communication, such as a mobile application's push notifications regarding updates or informative communications related to the functionalities, products or contracted services, including the security updates, when necessary or reasonable for their implementation.</li>
-                  <li>To provide You with news, special offers, and general information about other goods, services and events which We offer that are similar to those that you have already purchased or inquired about unless You have opted not to receive such information.</li>
-                  <li>To manage Your requests: To attend and manage Your requests to Us.</li>
-                  <li>For business transfers: We may use Your Personal Data to evaluate or conduct a merger, divestiture, restructuring, reorganization, dissolution, or other sale or transfer of some or all of Our assets, whether as a going concern or as part of bankruptcy, liquidation, or similar proceeding, in which Personal Data held by Us about our Service users is among the assets transferred.</li>
-                  <li>For other purposes: We may use Your information for other purposes, such as data analysis, identifying usage trends, determining the effectiveness of our promotional campaigns and to evaluate and improve our Service, products, services, marketing and your experience.</li>
-                </ul>
-
-                <p className="mb-2">We may share Your Personal Data in the following situations:</p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li><strong>With Service Providers:</strong> We may share Your Personal Data with Service Providers to monitor and analyze the use of our Service, to contact You.</li>
-                  <li><strong>For business transfers:</strong> We may share or transfer Your Personal Data in connection with, or during negotiations of, any merger, sale of Company assets, financing, or acquisition of all or a portion of Our business to another company.</li>
-                  <li><strong>With Affiliates:</strong> We may share Your Personal Data with Our affiliates, in which case we will require those affiliates to honor this Privacy Policy. Affiliates include Our parent company and any other subsidiaries, joint venture partners or other companies that We control or that are under common control with Us.</li>
-                  <li><strong>With business partners:</strong> We may share Your Personal Data with Our business partners to offer You certain products, services or promotions.</li>
-                  <li><strong>With other users:</strong> If Our Service offers public areas, when You share Personal Data or otherwise interact in the public areas with other users, such information may be viewed by all users and may be publicly distributed outside.</li>
-                  <li><strong>With Your consent:</strong> We may disclose Your Personal Data for any other purpose with Your consent.</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Retention of Your Personal Data</h2>
-                <p className="mb-4">
-                  The Company will retain Your Personal Data only for as long as is necessary for the purposes set out in this Privacy Policy. We will retain and use Your Personal Data to the extent necessary to comply with our legal obligations (for example, if We are required to retain Your data to comply with applicable laws), resolve disputes, and enforce our legal agreements and policies.
-                </p>
-                <p className="mb-4">
-                  Where possible, We apply shorter retention periods and/or reduce identifiability by deleting, aggregating, or anonymizing data. Unless otherwise stated, the retention periods below are maximum periods (&quot;up to&quot;) and We may delete or anonymize data sooner when it is no longer needed for the relevant purpose. We apply different retention periods to different categories of Personal Data based on the purpose of processing and legal obligations:
-                </p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li><strong>Account Information:</strong> User Accounts are retained for the duration of your account relationship plus up to 24 months after account closure to handle any post-termination issues or resolve disputes.</li>
-                  <li><strong>Customer Support Data:</strong> Support tickets and correspondence are retained up to 24 months from the date of ticket closure to resolve follow-up inquiries, track service quality, and defend against potential legal claims. Chat transcripts are retained up to 24 months for quality assurance and staff training purposes.</li>
-                  <li><strong>Usage Data:</strong> Application usage statistics are retained up to 24 months to understand feature adoption and service improvements. Server logs (IP addresses, access times) are retained up to 24 months for security monitoring and troubleshooting purposes.</li>
-                </ul>
-                <p className="mb-4">
-                  Usage Data is retained in accordance with the retention periods described above, and may be retained longer only where necessary for security, fraud prevention, or legal compliance. We may retain Personal Data beyond the periods stated above for different reasons: legal obligation, legal claims, your explicit request, or technical limitations. When retention periods expire, We securely delete or anonymize Personal Data according to our procedures.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Transfer of Your Personal Data</h2>
-                <p className="mb-4">
-                  Your information, including Personal Data, is processed at the Company's operating offices and in any other places where the parties involved in the processing are located. It means that this information may be transferred to — and maintained on — computers located outside of Your state, province, country or other governmental jurisdiction where the data protection laws may differ from those from Your jurisdiction.
-                </p>
-                <p className="mb-4">
-                  Where required by applicable law, We will ensure that international transfers of Your Personal Data are subject to appropriate safeguards and supplementary measures where appropriate. The Company will take all steps reasonably necessary to ensure that Your data is treated securely and in accordance with this Privacy Policy and no transfer of Your Personal Data will take place to an organization or a country unless there are adequate controls in place including the security of Your data and other personal information.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Delete Your Personal Data</h2>
-                <p className="mb-4">
-                  You have the right to delete or request that We assist in deleting the Personal Data that We have collected about You. Our Service may give You the ability to delete certain information about You from within the Service. You may update, amend, or delete Your information at any time by signing in to Your Account, if you have one, and visiting the account settings section that allows you to manage Your personal information. You may also contact Us to request access to, correct, or delete any Personal Data that You have provided to Us.
-                </p>
-                <p className="mb-4">
-                  Please note, however, that We may need to retain certain information when we have a legal obligation or lawful basis to do so.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Disclosure of Your Personal Data</h2>
-                <h3 className="text-lg font-medium mb-2">Business Transactions</h3>
-                <p className="mb-4">
-                  If the Company is involved in a merger, acquisition or asset sale, Your Personal Data may be transferred. We will provide notice before Your Personal Data is transferred and becomes subject to a different Privacy Policy.
-                </p>
-                <h3 className="text-lg font-medium mb-2">Law enforcement</h3>
-                <p className="mb-4">
-                  Under certain circumstances, the Company may be required to disclose Your Personal Data if required to do so by law or in response to valid requests by public authorities (e.g. a court or a government agency).
-                </p>
-                <h3 className="text-lg font-medium mb-2">Other legal requirements</h3>
-                <p className="mb-2">
-                  The Company may disclose Your Personal Data in the good faith belief that such action is necessary to:
-                </p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li>Comply with a legal obligation</li>
-                  <li>Protect and defend the rights or property of the Company</li>
-                  <li>Prevent or investigate possible wrongdoing in connection with the Service</li>
-                  <li>Protect the personal safety of Users of the Service or the public</li>
-                  <li>Protect against legal liability</li>
-                </ul>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Security of Your Personal Data</h2>
-                <p className="mb-4">
-                  The security of Your Personal Data is important to Us, but remember that no method of transmission over the Internet, or method of electronic storage is 100% secure. While We strive to use commercially reasonable means to protect Your Personal Data, We cannot guarantee its absolute security.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Children's Privacy and Families Policy Compliance</h2>
-                <p className="mb-4">
-                  Montessori Life Skills is a family-oriented learning application designed to be used by parents, guardians, teachers, and caregivers ("Adult Users") together with children between the ages of approximately 2 and 12 as part of a guided Montessori learning experience. The Service is intended to be operated by an Adult User. Accounts, subscriptions, and payments are created and managed exclusively by Adult Users who are at least 18 years old.
-                </p>
-                <p className="mb-4">
-                  We designed our Service to comply with the U.S. Children's Online Privacy Protection Act ("COPPA"), the EU General Data Protection Regulation ("GDPR" and "GDPR-K"), Google Play's Families Policy, and Apple's Kids Category requirements.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">What We Collect From Children</h3>
-                <p className="mb-4">
-                  <strong>We do not knowingly collect personal information directly from children.</strong> Children do not create accounts, do not enter personal information, and are not asked to provide names, email addresses, phone numbers, photos, precise location, contacts, or any other personally identifiable information in order to use the learning activities. Child profiles created by an Adult User inside the Service (for example a first name or age range used to personalize activities) are stored locally on the device or under the Adult User's account and are not used to contact the child, build a profile for advertising, or shared with third parties for their own purposes.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">No Behavioral Advertising or Third-Party Ad Networks</h3>
-                <p className="mb-4">
-                  The Service does not display third-party advertisements to children, does not participate in behavioral or interest-based advertising directed at children, and does not use advertising identifiers (such as IDFA or Android Advertising ID) for advertising purposes. We do not sell or "share" (as those terms are defined under applicable privacy laws) any personal information of children.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">Third-Party Services Used in the Children's Experience</h3>
-                <p className="mb-2">
-                  The child-facing portions of our Service use only a limited set of service providers, each of which has been reviewed for compliance with Google Play's Families Policy and Apple's Kids Category requirements. These providers process data solely to provide the Service and are contractually prohibited from using it for their own purposes, including advertising:
-                </p>
-                <ul className="list-disc list-inside mb-4 space-y-1">
-                  <li><strong>Supabase</strong> — secure account authentication and storage of learning progress for Adult Users.</li>
-                  <li><strong>Stripe</strong> (web) and <strong>Apple App Store / Google Play Billing via RevenueCat</strong> (mobile) — payment and subscription management for Adult Users only. Children do not interact with these services.</li>
-                  <li><strong>Google Analytics for Firebase / Google Analytics</strong> — configured with IP anonymization and advertising features disabled; used only to understand aggregate, non-personal usage of the Service.</li>
-                </ul>
-                <p className="mb-4">
-                  A complete, current list of Software Development Kits ("SDKs") used in the Service and their purposes is available upon request at <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">Parental Consent and Controls</h3>
-                <p className="mb-4">
-                  Because the Service is intended to be operated by an Adult User, the account creation flow constitutes verifiable parental involvement: an Adult User must register with a valid email address, agree to this Privacy Policy and our Terms of Service, and — for paid features — complete a payment through Stripe, Apple, or Google, all of which independently verify the adult account holder. Adult Users can at any time review, edit, or delete any child profile from within the Service, disable notifications, and cancel their subscription.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">Parental Rights and How to Contact Us</h3>
-                <p className="mb-4">
-                  If You are a parent or guardian and believe that a child has provided us with personal information without Your consent, or if You would like to review, delete, or refuse further collection or use of any information associated with Your child or Your account, please contact us immediately at <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>. We will verify Your identity as the parent or guardian and then honor Your request within 30 days, subject to any legal retention obligations. You may also delete Your account at any time from the Family Dashboard, which will remove associated child profiles and learning data.
-                </p>
-
-                <p className="mb-4">
-                  If We need to rely on consent as a legal basis for processing information and Your country or region requires consent from a parent or guardian (for example under GDPR-K in the European Economic Area or the United Kingdom), We will obtain that verifiable parental consent before collecting or using such information.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Cookies, Visit Counting and Your Choices</h2>
-                <p className="mb-4">
-                  The first time You visit from the European Union, the European Economic Area, the United Kingdom, Switzerland, Canada, China, Brazil, India, Kenya or South Korea (or from a place We cannot identify), We show a banner asking about analytics. Everywhere else analytics is on unless You turn it off. You can change Your choice at any time with the <button type="button" onClick={openCookieSettings} className="text-primary underline">Cookie settings</button> link, which is also at the bottom of the home page. Your choice is saved in Your browser for up to 12 months. If Your browser sends a Global Privacy Control signal, We treat it as a refusal.
-                </p>
-                <h3 className="text-lg font-medium mb-2">Visit counting by Lovable (no cookies)</h3>
-                <p className="mb-4">
-                  Our hosting provider, Lovable, counts visits to the published website. It uses no cookies, stores nothing on Your device, does not keep IP addresses and does not identify visitors. It records the pages visited, where visitors came from, their country, browser, operating system and device type, how long they stay, how fast pages load, and errors. These are recorded for every visitor, without cookies and without identifying anyone, whatever You choose on the banner. Detailed data is kept for 90 days and daily summaries for a year. Lovable collects this data for us. <a href="https://lovable.dev/privacy" target="_blank" rel="noreferrer" className="text-primary hover:underline">Lovable's privacy policy</a> explains how it handles it.
-                </p>
-                <h3 className="text-lg font-medium mb-2">Google Analytics (cookies, only with consent where required)</h3>
-                <p className="mb-4">
-                  Google Analytics sets cookies (named <code>_ga</code>) to measure how the website is used, and sends that usage data to Google. For visitors in the European Union, the European Economic Area, the United Kingdom, Switzerland, Quebec, China, Brazil, India, Kenya and South Korea it runs without cookies until You accept analytics. Elsewhere, including the rest of Canada, it runs until You reject. If You reject, it runs without cookies. It is switched off entirely in the School Portal and on admin pages.
-                </p>
-                <h3 className="text-lg font-medium mb-2">Our own usage records (only with consent where required)</h3>
-                <p className="mb-4">
-                  With Your consent where required, the app records which pages and activities are opened and steps such as starting a plan purchase, stored in our own database with a random visitor number kept in Your browser and, if You are signed in, Your account. We use this only to improve the app.
-                </p>
-                <h3 className="text-lg font-medium mb-2">Necessary storage (always on)</h3>
-                <ul className="list-disc pl-6 mb-4 space-y-2">
-                  <li><strong>Sign-in:</strong> our account provider, Supabase, keeps Your sign-in session in Your browser. If You sign in with Google or Apple, that company confirms Your identity to us.</li>
-                  <li><strong>Settings and offline use:</strong> Your app settings, unsaved drafts, Your cookie choices and saved lessons, photos, videos and songs for offline use are stored on Your device.</li>
-                  <li><strong>Payments:</strong> web payments happen on Stripe's own checkout page, which sets its own cookies under Stripe's privacy policy.</li>
-                  <li><strong>Lesson videos:</strong> some lesson videos play from YouTube, which may set its own cookies when a video is played, under Google's privacy policy.</li>
-                </ul>
-              </section>
-
-              <section id="your-rights" className="mb-8 scroll-mt-24">
-                <h2 className="text-xl font-semibold mb-4">Your Rights and Regional Notices</h2>
-                <h3 className="text-lg font-medium mb-2">Self-serve access, download and deletion</h3>
-                <p className="mb-4">
-                  Signed-in families can open Family Dashboard, then Settings, then <strong>Your data and privacy rights</strong> to download a complete copy of their account data (a machine-readable JSON file) or permanently delete their account, child profiles, progress, goals, plans, reports and notification settings. Deletion takes effect immediately; residual copies in encrypted infrastructure backups are overwritten within 30 days. An active subscription must be cancelled first so You are not charged again. Records held by a school belong to that school and are exported or deleted by the School Admin. You may also email <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a> to access, correct, restrict, object to, or delete Your data; We respond within 30 days (15 working days where PIPL applies).
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">Legal bases for processing (GDPR / UK GDPR Article 6)</h3>
-                <ul className="list-disc pl-6 mb-4 space-y-1">
-                  <li><strong>Contract:</strong> account, curriculum access, child profiles, progress, subscriptions and billing.</li>
-                  <li><strong>Consent:</strong> analytics cookies, our own usage records in consent regions, marketing emails and the free guide. You can withdraw consent at any time through Cookie settings or the unsubscribe link.</li>
-                  <li><strong>Legitimate interests:</strong> security, fraud prevention, troubleshooting and cookie-free visit counting.</li>
-                  <li><strong>Legal obligation:</strong> tax, accounting and responses to lawful requests.</li>
-                </ul>
-                <p className="mb-4">We do not process special-category data for families. Health and allergy notes in the School Portal are entered by schools, who act as controller; We process them only on the school's instructions.</p>
-
-                <h3 className="text-lg font-medium mb-2">International transfers</h3>
-                <p className="mb-4">
-                  Our service providers store data in the United States. For personal data from the EEA, the UK and Switzerland, transfers rely on the European Commission's Standard Contractual Clauses (and the UK Addendum) with our providers, or on a provider's certification under the EU-U.S. Data Privacy Framework where applicable. You may request a copy of the relevant safeguards by email.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">Children</h3>
-                <p className="mb-4">
-                  Accounts are created only by adults aged 18 or over. By adding a child profile, the parent or guardian gives the separate consent required for processing a child's information under GDPR Article 8, China's PIPL Article 31, Brazil's LGPD Article 14, India's DPDP Act Section 9 and Kenya's Data Protection Act Section 33. We never track, profile or target advertising at children, and child data is never sold.
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">China (PIPL) / 中国用户（《个人信息保护法》）</h3>
-                <p className="mb-2">
-                  Children under 14 are treated as sensitive personal information. The overseas recipient of Your data is Montessori Life Skills (United States, montessorilifeskills@gmail.com), which processes it only to provide the Service as described here. By creating an account or child profile You give separate consent to this cross-border transfer; You may withdraw it at any time by deleting Your account.
-                </p>
-                <p className="mb-4" lang="zh-Hans">
-                  不满十四周岁儿童的个人信息属于敏感个人信息。您的个人信息的境外接收方为 Montessori Life Skills（美国，联系邮箱 montessorilifeskills@gmail.com），仅为提供本服务而处理。创建账户或孩子档案即表示您单独同意上述跨境传输；您可随时通过删除账户撤回同意，并可通过上述邮箱行使查阅、复制、更正、删除等权利。我们不会将儿童信息用于广告或画像。
-                </p>
-
-                <h3 className="text-lg font-medium mb-2">Other regions</h3>
-                <ul className="list-disc pl-6 mb-4 space-y-1">
-                  <li><strong>California (CCPA/CPRA):</strong> We do not sell or share personal information and do not use it for cross-context behavioral advertising. You will not be treated differently for exercising Your rights.</li>
-                  <li><strong>Canada (PIPEDA, Quebec Law 25), Brazil (LGPD), India (DPDP Act), Kenya, South Korea and Australia:</strong> You have the rights described above. Complaints may be sent to us first and to Your local data-protection authority.</li>
-                  <li><strong>EU/UK supervisory authority:</strong> You may lodge a complaint with the data-protection authority where You live or work.</li>
-                </ul>
-                <p className="mb-4">Privacy contact (including for EU, UK and China data subjects): <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>.</p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Links to Other Websites</h2>
-                <p className="mb-4">
-                  Our Service may contain links to other websites that are not operated by Us. If You click on a third party link, You will be directed to that third party's site. We strongly advise You to review the Privacy Policy of every site You visit.
-                </p>
-                <p className="mb-4">
-                  We have no control over and assume no responsibility for the content, privacy policies or practices of any third party sites or services.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Changes to this Privacy Policy</h2>
-                <p className="mb-4">
-                  We may update Our Privacy Policy from time to time. We will notify You of any changes by posting the new Privacy Policy on this page. We will let You know via email and/or a prominent notice on Our Service, prior to the change becoming effective and update the &quot;Last updated&quot; date at the top of this Privacy Policy.
-                </p>
-                <p className="mb-4">
-                  You are advised to review this Privacy Policy periodically for any changes. Changes to this Privacy Policy are effective when they are posted on this page.
-                </p>
-              </section>
-
-              <section id="schools-student-records" className="mb-8 scroll-mt-24">
-                <h2 className="text-xl font-semibold mb-4">Schools and Student Records</h2>
-                <p className="mb-4">This section applies when a school uses the School Portal. It takes precedence over any other part of this policy for student records.</p>
-                <ul className="list-disc pl-6 mb-4 space-y-2">
-                  <li><strong>What is stored:</strong> the student's first name, surname and birth date; classroom assignment; parent or guardian names and email; health and allergy notes entered by the school; lesson plans, progress records, observations and parent reports written by school staff.</li>
-                  <li><strong>Who owns it:</strong> the school owns all student records. We act as a school official with a legitimate educational interest under FERPA and use the records only to provide the Service to that school.</li>
-                  <li><strong>Who can see it:</strong> only staff the school invites, limited to their assigned classrooms, and a child's own parents after the school confirms their email. Records are never shared with other families, schools, or anyone else.</li>
-                  <li><strong>No selling, ads or profiling:</strong> student records are never sold, never used for advertising, and never used to build profiles. Google Analytics is switched off inside the School Portal.</li>
-                  <li><strong>No AI:</strong> student records are not processed by artificial intelligence or used to train any model. Every record is written by a person.</li>
-                  <li><strong>Children's privacy (COPPA):</strong> children do not have accounts and do not use the School Portal. The school provides consent on behalf of parents for educational use.</li>
-                  <li><strong>Service providers:</strong> our hosting and database provider and our email provider process data only on our instructions. Data is stored in the United States.</li>
-                  <li><strong>Security breaches:</strong> if we confirm unauthorized access to student records, we will notify the affected school's administrators within 72 hours, describe what was affected and the steps taken, and support the school in notifying families.</li>
-                  <li><strong>Backups and leaving:</strong> School Admins receive automatic encrypted backups each quarter or semester. When a school ends its use of the Service, it may export its records, and all of its data is permanently deleted within 30 days of its written request, with written confirmation.</li>
-                  <li><strong>Major changes:</strong> we will tell School Admins by email at least 30 days before any change to how student records are collected or used.</li>
-                </ul>
-                <p>Schools that need a signed Student Data Privacy Agreement can request one at montessorilifeskills@gmail.com.</p>
-              </section>
-
-              <section className="mb-8">
-                <h2 className="text-xl font-semibold mb-4">Contact Us</h2>
-                <p className="mb-2">
-                  If you have any questions about this Privacy Policy, You can contact us:
-                </p>
-                <p className="mt-2">
-                  By email: <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>
-                </p>
-              </section>
+              {policy.sections.map((section, i) => (
+                <section key={i} id={section.id} className={`mb-8${section.id ? ' scroll-mt-24' : ''}`}>
+                  {section.title && <h2 className="text-xl font-semibold mb-4">{section.title}</h2>}
+                  {section.blocks.map((block, j) => <Block key={j} block={block} lang={shownLang} />)}
+                </section>
+              ))}
             </CardContent>
           </Card>
         </div>

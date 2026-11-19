@@ -1,0 +1,428 @@
+{
+ "seoTitle": "Política de Privacidad - Montessori Life Skills",
+ "seoDescription": "Nuestra política de privacidad describe cómo Montessori Life Skills recopila, utiliza y protege tu información personal cuando utilizas nuestro servicio.",
+ "pageTitle": "Política de Privacidad",
+ "updated": "Última actualización: 19 de noviembre de 2026",
+ "translationNote": "Esta traducción se proporciona para tu comodidad. Si difiere de la versión en inglés, prevalece la versión en inglés.",
+ "compliance": {
+  "title": "Cumplimiento normativo y privacidad en las escuelas",
+  "intro": "Para juntas escolares, distritos escolares y asesores jurídicos: la titularidad, protección y eliminación de los expedientes de los estudiantes, incluida la Ley de Derechos Educativos y Privacidad de la Familia (FERPA) y la Ley de Protección de la Privacidad Infantil en Línea (COPPA), la ausencia de anuncios y seguimiento en el Portal Escolar, y los compromisos de notificación de violaciones de seguridad y eliminación.",
+  "pdf": "Descarga el informe de cumplimiento normativo y privacidad (PDF)",
+  "readBelow": "Lee la sección Escuelas y expedientes de los estudiantes a continuación"
+ },
+ "sections": [
+  {
+   "blocks": [
+    {
+     "p": "Esta Política de Privacidad describe Nuestras políticas y procedimientos sobre la recopilación, el uso y la divulgación de Tu información cuando Tú utilizas el Servicio, y te informa sobre Tus derechos de privacidad y cómo te protege la ley."
+    },
+    {
+     "p": "Utilizamos Tus Datos Personales para prestar y mejorar el Servicio. Al utilizar el Servicio, Tú aceptas la recopilación y el uso de información de conformidad con esta Política de Privacidad. Esta Política de Privacidad se ha creado con la ayuda del Generador de Políticas de Privacidad de TermsFeed."
+    }
+   ]
+  },
+  {
+   "title": "Interpretación y definiciones",
+   "blocks": [
+    {
+     "h3": "Interpretación"
+    },
+    {
+     "p": "Las palabras cuyas letras iniciales están en mayúscula tienen los significados definidos en las condiciones siguientes. Las siguientes definiciones tendrán el mismo significado independientemente de que aparezcan en singular o en plural."
+    },
+    {
+     "h3": "Definiciones"
+    },
+    {
+     "p": "A los efectos de esta Política de Privacidad:"
+    },
+    {
+     "ul": [
+      "**Cuenta** significa una cuenta única creada para que Tú accedas a nuestro Servicio o a partes de nuestro Servicio.",
+      "**Entidad Afiliada** significa una entidad que controla a una parte, es controlada por ella o está bajo control común con ella, donde «control» significa la titularidad del 50% o más de las acciones, participaciones en el capital u otros valores con derecho a voto para elegir a los miembros del órgano de administración u otra autoridad de gestión.",
+      "**Aplicación** se refiere a Montessori Life Skills, el programa informático proporcionado por la Empresa.",
+      "**Empresa** (denominada «la Empresa», «Nosotros», «Nos» o «Nuestro» en esta Política de Privacidad) se refiere a Montessori Life Skills.",
+      "**País** se refiere a: Estados Unidos.",
+      "**Dispositivo** significa cualquier dispositivo que pueda acceder al Servicio, como una computadora, un teléfono celular o una tableta digital.",
+      "**Datos Personales** (o «Información Personal») es cualquier información relacionada con una persona física identificada o identificable. Utilizamos «Datos Personales» e «Información Personal» indistintamente, salvo que una ley utilice un término específico.",
+      "**Servicio** se refiere a la Aplicación.",
+      "**Proveedor de Servicios** significa cualquier persona física o jurídica que trate los datos en nombre de la Empresa. Se refiere a empresas o personas externas contratadas por la Empresa para facilitar el Servicio, prestar el Servicio en nombre de la Empresa, realizar servicios relacionados con el Servicio o ayudar a la Empresa a analizar cómo se utiliza el Servicio.",
+      "**Datos de Uso** se refiere a los datos recopilados automáticamente, ya sea generados por el uso del Servicio o provenientes de la propia infraestructura del Servicio (por ejemplo, la duración de una visita a una página).",
+      "**Tú** significa la persona que accede al Servicio o lo utiliza, o la empresa u otra entidad jurídica en cuyo nombre dicha persona accede al Servicio o lo utiliza, según corresponda."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Recopilación y uso de Tus Datos Personales",
+   "blocks": [
+    {
+     "h3": "Tipos de datos recopilados"
+    },
+    {
+     "h4": "Datos Personales"
+    },
+    {
+     "p": "Recopilamos únicamente la información mínima necesaria para operar el Servicio. Toda la información personal la proporciona el Usuario Adulto (padre, madre, tutor legal, docente o cuidador) que crea y administra la cuenta, nunca directamente un niño. Las categorías de información personal que Nosotros podemos recopilar incluyen:"
+    },
+    {
+     "ul": [
+      "**Información de la Cuenta:** dirección de correo electrónico y contraseña (la contraseña se transforma mediante una función hash y nunca se almacena en texto sin formato) utilizadas para crear y proteger Tu cuenta.",
+      "**Información opcional del perfil:** un nombre para mostrar y, para los perfiles infantiles creados dentro del Servicio, un nombre de pila o apodo y una edad o rango de edad que se utilizan únicamente para personalizar las actividades recomendadas.",
+      "**Información de suscripción y facturación:** el nivel y el estado de Tu suscripción. Los pagos son procesados por **Stripe** (web), **Apple App Store** (iOS) y **Google Play Billing** (Android) a través de RevenueCat. No recibimos ni almacenamos números completos de tarjetas de pago, códigos CVV ni datos de cuentas bancarias, sino únicamente un identificador y un estado de suscripción devueltos por el procesador de pagos.",
+      "**Datos de actividades de aprendizaje:** qué actividades se han visto, iniciado o marcado como completadas, para que Nosotros podamos mantener el progreso entre sesiones y mejorar el programa educativo.",
+      "**Comunicaciones de soporte:** los mensajes y archivos adjuntos que Tú nos envías a nuestro correo electrónico de soporte, para que podamos responder a Tu solicitud.",
+      "**Datos de Uso** (descritos a continuación)."
+     ]
+    },
+    {
+     "p": "**No** solicitamos ni recopilamos números de teléfono, direcciones postales, identificadores oficiales, geolocalización precisa, contactos ni datos del micrófono o de la cámara como parte del Servicio estándar."
+    },
+    {
+     "h4": "Datos de Uso"
+    },
+    {
+     "p": "Los Datos de Uso se recopilan automáticamente al utilizar el Servicio. Los Datos de Uso pueden incluir la dirección de Protocolo de Internet (IP) de Tu Dispositivo (anonimizada cuando sea técnicamente viable), el tipo y la versión del navegador, las páginas del Servicio que Tú visitas, la hora y la fecha de Tu visita, el tiempo que pasas en esas páginas, identificadores únicos del dispositivo, el sistema operativo y otros datos de diagnóstico utilizados para la seguridad, la resolución de problemas y el análisis agregado."
+    },
+    {
+     "p": "Cuando Tú accedes al Servicio mediante un dispositivo móvil, Nosotros podemos recopilar el tipo de dispositivo móvil que utilizas, la versión de su sistema operativo e identificadores no publicitarios del dispositivo utilizados exclusivamente para prestar y proteger el Servicio y para validar Tu suscripción. No utilizamos el IDFA de Apple ni el identificador de publicidad de Android con fines publicitarios."
+    },
+    {
+     "h4": "Información recopilada durante el uso de la Aplicación"
+    },
+    {
+     "p": "La propia Aplicación no solicita acceso a Tu cámara, micrófono, contactos, fotos ni ubicación precisa. Si una función futura requiere alguno de estos permisos, se te pedirá que lo concedas mediante la solicitud de permisos estándar de Tu dispositivo y Tú podrás activarlo o desactivarlo en cualquier momento desde la configuración de Tu dispositivo."
+    },
+    {
+     "h3": "Uso de Tus Datos Personales"
+    },
+    {
+     "p": "La Empresa puede utilizar Datos Personales para los siguientes fines:"
+    },
+    {
+     "ul": [
+      "Para prestar y mantener nuestro Servicio, incluido el seguimiento del uso de nuestro Servicio.",
+      "Para administrar Tu Cuenta: para gestionar Tu registro como usuario del Servicio. Los Datos Personales que Tú proporcionas pueden darte acceso a distintas funcionalidades del Servicio que están disponibles para Ti como usuario registrado.",
+      "Para la ejecución de un contrato: el desarrollo, cumplimiento y ejecución del contrato de compra de los productos, artículos o servicios que Tú hayas adquirido, o de cualquier otro contrato con Nosotros a través del Servicio.",
+      "Para contactarte: para contactarte por correo electrónico, llamadas telefónicas, SMS u otras formas equivalentes de comunicación electrónica, como las notificaciones push de una aplicación móvil sobre actualizaciones o comunicaciones informativas relacionadas con las funcionalidades, los productos o los servicios contratados, incluidas las actualizaciones de seguridad, cuando sea necesario o razonable para su implementación.",
+      "Para proporcionarte noticias, ofertas especiales e información general sobre otros bienes, servicios y eventos que ofrecemos y que son similares a aquellos que ya has adquirido o sobre los que has consultado, salvo que hayas optado por no recibir dicha información.",
+      "Para gestionar Tus solicitudes: Para atender y gestionar Tus solicitudes dirigidas a Nosotros.",
+      "Para transferencias empresariales: Podemos utilizar Tus Datos Personales para evaluar o llevar a cabo una fusión, desinversión, reestructuración, reorganización, disolución u otra venta o transferencia de parte o de la totalidad de Nuestros activos, ya sea como empresa en funcionamiento o como parte de un procedimiento de quiebra, liquidación o similar, en el que los Datos Personales que obran en Nuestro poder sobre los usuarios de Nuestro Servicio se encuentren entre los activos transferidos.",
+      "Para otros fines: Podemos utilizar Tu información para otros fines, como el análisis de datos, la identificación de tendencias de uso, la determinación de la eficacia de nuestras campañas promocionales y la evaluación y mejora de Nuestro Servicio, productos, servicios, marketing y Tu experiencia."
+     ]
+    },
+    {
+     "p": "Podemos compartir Tus Datos Personales en las siguientes situaciones:"
+    },
+    {
+     "ul": [
+      "**Con Proveedores de Servicios:** Podemos compartir Tus Datos Personales con Proveedores de Servicios para supervisar y analizar el uso de Nuestro Servicio y para ponernos en contacto contigo.",
+      "**Para transferencias empresariales:** Podemos compartir o transferir Tus Datos Personales en relación con cualquier fusión, venta de activos de la Empresa, financiación o adquisición de la totalidad o de una parte de Nuestro negocio por otra empresa, o durante las negociaciones correspondientes.",
+      "**Con Entidades Afiliadas:** Podemos compartir Tus Datos Personales con Nuestras entidades afiliadas, en cuyo caso exigiremos que dichas entidades cumplan esta Política de Privacidad. Las Entidades Afiliadas incluyen Nuestra empresa matriz y cualquier otra filial, socio de una empresa conjunta u otra empresa que controlemos o que esté bajo control común con Nosotros.",
+      "**Con socios comerciales:** Podemos compartir Tus Datos Personales con Nuestros socios comerciales para ofrecerte determinados productos, servicios o promociones.",
+      "**Con otros usuarios:** Si Nuestro Servicio ofrece áreas públicas, cuando compartes Datos Personales o interactúas de otro modo con otros usuarios en dichas áreas públicas, todos los usuarios pueden ver esa información y esta puede difundirse públicamente fuera del Servicio.",
+      "**Con Tu consentimiento:** Podemos divulgar Tus Datos Personales para cualquier otro fin con Tu consentimiento."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Conservación de Tus Datos Personales",
+   "blocks": [
+    {
+     "p": "La Empresa conservará Tus Datos Personales únicamente durante el tiempo necesario para los fines establecidos en esta Política de Privacidad. Conservaremos y utilizaremos Tus Datos Personales en la medida necesaria para cumplir nuestras obligaciones legales (por ejemplo, si estamos obligados a conservar Tus datos para cumplir las leyes aplicables), resolver controversias y hacer cumplir nuestros acuerdos legales y políticas."
+    },
+    {
+     "p": "Cuando es posible, aplicamos plazos de conservación más cortos y/o reducimos la posibilidad de identificación mediante la eliminación, agregación o anonimización de los datos. Salvo que se indique lo contrario, los plazos de conservación que figuran a continuación son plazos máximos («hasta»), y podemos eliminar o anonimizar los datos antes cuando ya no sean necesarios para el fin correspondiente. Aplicamos diferentes plazos de conservación a las distintas categorías de Datos Personales en función de la finalidad del tratamiento y de las obligaciones legales:"
+    },
+    {
+     "ul": [
+      "**Información de la Cuenta:** Las Cuentas de usuario se conservan durante el tiempo que mantengas Tu relación de cuenta, más un máximo de 24 meses después del cierre de la Cuenta, para atender cualquier cuestión posterior a la terminación o resolver controversias.",
+      "**Datos de Atención al Cliente:** Las solicitudes de asistencia y la correspondencia se conservan hasta 24 meses desde la fecha de cierre de la solicitud para resolver consultas de seguimiento, supervisar la calidad del servicio y defendernos frente a posibles reclamaciones legales. Las transcripciones de chat se conservan hasta 24 meses para fines de garantía de calidad y formación del personal.",
+      "**Datos de Uso:** Las estadísticas de uso de la aplicación se conservan hasta 24 meses para comprender la adopción de funcionalidades y las mejoras del servicio. Los registros del servidor (direcciones IP, horas de acceso) se conservan hasta 24 meses para fines de supervisión de la seguridad y resolución de problemas."
+     ]
+    },
+    {
+     "p": "Los Datos de Uso se conservan de acuerdo con los plazos de conservación descritos anteriormente y solo podrán conservarse durante más tiempo cuando sea necesario por motivos de seguridad, prevención del fraude o cumplimiento legal. Podemos conservar los Datos Personales más allá de los plazos indicados anteriormente por distintos motivos: obligación legal, reclamaciones legales, Tu solicitud explícita o limitaciones técnicas. Cuando vencen los plazos de conservación, eliminamos de forma segura o anonimizamos los Datos Personales conforme a nuestros procedimientos."
+    }
+   ]
+  },
+  {
+   "title": "Transferencia de Tus Datos Personales",
+   "blocks": [
+    {
+     "p": "Tu información, incluidos los Datos Personales, se trata en las oficinas operativas de la Empresa y en cualquier otro lugar donde se encuentren las partes que intervienen en el tratamiento. Esto significa que dicha información puede transferirse a equipos informáticos ubicados fuera de Tu estado, provincia, país u otra jurisdicción gubernamental, y conservarse en ellos, donde las leyes de protección de datos pueden diferir de las de Tu jurisdicción."
+    },
+    {
+     "p": "Cuando lo exija la legislación aplicable, garantizaremos que las transferencias internacionales de Tus Datos Personales estén sujetas a garantías adecuadas y, cuando corresponda, a medidas complementarias. La Empresa adoptará todas las medidas razonablemente necesarias para garantizar que Tus datos se traten de forma segura y de acuerdo con esta Política de Privacidad, y no se realizará ninguna transferencia de Tus Datos Personales a una organización o a un país a menos que existan controles adecuados, incluidos los relativos a la seguridad de Tus datos y otra información personal."
+    }
+   ]
+  },
+  {
+   "title": "Eliminación de Tus Datos Personales",
+   "blocks": [
+    {
+     "p": "Tienes derecho a eliminar o solicitar que te ayudemos a eliminar los Datos Personales que hemos recopilado sobre Ti. Nuestro Servicio puede ofrecerte la posibilidad de eliminar cierta información sobre Ti desde el propio Servicio. Puedes actualizar, modificar o eliminar Tu información en cualquier momento iniciando sesión en Tu Cuenta, si tienes una, y accediendo a la sección de configuración de la Cuenta que te permite gestionar Tu información personal. También puedes ponerte en contacto con Nosotros para solicitar el acceso, la rectificación o la eliminación de cualquier Dato Personal que nos hayas proporcionado."
+    },
+    {
+     "p": "Sin embargo, ten en cuenta que es posible que debamos conservar cierta información cuando tengamos una obligación legal o una base jurídica para hacerlo."
+    }
+   ]
+  },
+  {
+   "title": "Divulgación de Tus Datos Personales",
+   "blocks": [
+    {
+     "h3": "Operaciones empresariales"
+    },
+    {
+     "p": "Si la Empresa participa en una fusión, adquisición o venta de activos, Tus Datos Personales podrán transferirse. Te notificaremos antes de que Tus Datos Personales se transfieran y queden sujetos a una Política de Privacidad diferente."
+    },
+    {
+     "h3": "Cumplimiento de la ley"
+    },
+    {
+     "p": "En determinadas circunstancias, la Empresa puede estar obligada a divulgar Tus Datos Personales si así lo exige la ley o en respuesta a solicitudes válidas de autoridades públicas (por ejemplo, un tribunal o un organismo gubernamental)."
+    },
+    {
+     "h3": "Otros requisitos legales"
+    },
+    {
+     "p": "La Empresa puede divulgar Tus Datos Personales si considera de buena fe que dicha acción es necesaria para:"
+    },
+    {
+     "ul": [
+      "Cumplir una obligación legal",
+      "Proteger y defender los derechos o los bienes de la Empresa",
+      "Prevenir o investigar posibles actos ilícitos relacionados con el Servicio",
+      "Proteger la seguridad personal de los Usuarios del Servicio o del público",
+      "Protegerse frente a la responsabilidad legal"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Seguridad de Tus Datos Personales",
+   "blocks": [
+    {
+     "p": "La seguridad de Tus Datos Personales es importante para Nosotros, pero recuerda que ningún método de transmisión por Internet ni de almacenamiento electrónico es 100% seguro. Aunque Nos esforzamos por utilizar medios comercialmente razonables para proteger Tus Datos Personales, no podemos garantizar su seguridad absoluta."
+    }
+   ]
+  },
+  {
+   "title": "Privacidad infantil y cumplimiento de la Política de Familias",
+   "blocks": [
+    {
+     "p": "Montessori Life Skills es una aplicación de aprendizaje orientada a las familias, diseñada para que padres, tutores, docentes y cuidadores (\"Usuarios Adultos\") la utilicen junto con niños de entre aproximadamente 2 y 12 años como parte de una experiencia de aprendizaje Montessori guiada. El Servicio está concebido para ser manejado por un Usuario Adulto. Las Cuentas, las suscripciones y los pagos son creados y gestionados exclusivamente por Usuarios Adultos que tienen al menos 18 años."
+    },
+    {
+     "p": "Diseñamos nuestro Servicio para cumplir con la Ley de Protección de la Privacidad Infantil en Línea de Estados Unidos (\"COPPA\"), el Reglamento General de Protección de Datos de la UE (\"GDPR\" y \"GDPR-K\"), la Política de Familias de Google Play y los requisitos de la categoría Infantil de Apple."
+    },
+    {
+     "h3": "Qué recopilamos de los niños"
+    },
+    {
+     "p": "**No recopilamos deliberadamente información personal directamente de los niños.** Los niños no crean cuentas, no introducen información personal y no se les pide que proporcionen nombres, direcciones de correo electrónico, números de teléfono, fotos, ubicación precisa, contactos ni ninguna otra información que permita identificarlos personalmente para utilizar las actividades de aprendizaje. Los perfiles infantiles creados por un Usuario Adulto dentro del Servicio (por ejemplo, un nombre de pila o un rango de edad utilizado para personalizar las actividades) se almacenan localmente en el dispositivo o en la cuenta del Usuario Adulto y no se utilizan para contactar al niño ni para crear un perfil con fines publicitarios, ni se comparten con terceros para sus propios fines."
+    },
+    {
+     "h3": "Sin publicidad conductual ni redes publicitarias de terceros"
+    },
+    {
+     "p": "El Servicio no muestra anuncios de terceros a los niños, no participa en publicidad conductual o basada en intereses dirigida a niños y no utiliza identificadores publicitarios (como IDFA o el ID de publicidad de Android) con fines publicitarios. No vendemos ni \"compartimos\" (según se definen esos términos en las leyes de privacidad aplicables) ninguna información personal de niños."
+    },
+    {
+     "h3": "Servicios de terceros utilizados en la experiencia infantil"
+    },
+    {
+     "p": "Las partes de nuestro Servicio dirigidas a los niños utilizan únicamente un conjunto limitado de proveedores de servicios, cada uno de los cuales ha sido evaluado para comprobar su cumplimiento de la Política de Familias de Google Play y de los requisitos de la categoría Infantil de Apple. Estos proveedores tratan los datos exclusivamente para prestar el Servicio y tienen prohibido contractualmente utilizarlos para sus propios fines, incluida la publicidad:"
+    },
+    {
+     "ul": [
+      "**Supabase** — autenticación segura de cuentas y almacenamiento del progreso de aprendizaje para Usuarios Adultos.",
+      "**Stripe** (web) y **Apple App Store / facturación de Google Play a través de RevenueCat** (móvil) — gestión de pagos y suscripciones únicamente para Usuarios Adultos. Los niños no interactúan con estos servicios.",
+      "**Google Analytics for Firebase / Google Analytics** — configurados con anonimización de IP y funciones publicitarias desactivadas; se utilizan únicamente para comprender el uso agregado y no personal del Servicio."
+     ]
+    },
+    {
+     "p": "Puedes solicitar una lista completa y actualizada de los kits de desarrollo de software (\"SDKs\") utilizados en el Servicio y sus fines escribiendo a [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    },
+    {
+     "h3": "Consentimiento y controles parentales"
+    },
+    {
+     "p": "Dado que el Servicio está concebido para ser manejado por un Usuario Adulto, el proceso de creación de cuentas constituye una participación parental verificable: un Usuario Adulto debe registrarse con una dirección de correo electrónico válida, aceptar esta Política de Privacidad y nuestros Términos del Servicio y, para las funciones de pago, completar un pago a través de Stripe, Apple o Google, que verifican de forma independiente al titular adulto de la cuenta. Los Usuarios Adultos pueden, en cualquier momento, revisar, editar o eliminar cualquier perfil infantil desde el Servicio, desactivar las notificaciones y cancelar su suscripción."
+    },
+    {
+     "h3": "Derechos de los padres y cómo contactarnos"
+    },
+    {
+     "p": "Si eres padre, madre o tutor y crees que un niño nos ha proporcionado información personal sin Tu consentimiento, o si deseas revisar, eliminar o rechazar la recopilación o el uso posterior de cualquier información asociada con Tu hijo o Tu cuenta, contáctanos inmediatamente en [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com). Verificaremos Tu identidad como padre, madre o tutor y luego atenderemos Tu solicitud en un plazo de 30 días, con sujeción a cualquier obligación legal de conservación. También puedes eliminar Tu cuenta en cualquier momento desde el Panel Familiar, lo que eliminará los perfiles infantiles y los datos de aprendizaje asociados."
+    },
+    {
+     "p": "Si necesitamos basarnos en el consentimiento como fundamento jurídico para tratar información y Tu país o región exige el consentimiento de un padre, una madre o un tutor (por ejemplo, en virtud del GDPR-K en el Espacio Económico Europeo o el Reino Unido), obtendremos ese consentimiento parental verificable antes de recopilar o utilizar dicha información."
+    }
+   ]
+  },
+  {
+   "title": "Cookies, recuento de visitas y Tus opciones",
+   "blocks": [
+    {
+     "p": "La primera vez que visitas el sitio desde la Unión Europea, el Espacio Económico Europeo, el Reino Unido, Suiza, Canadá, China, Brasil, India, Kenia o Corea del Sur (o desde un lugar que no podemos identificar), mostramos un banner que te pregunta sobre la analítica. En todos los demás lugares, la analítica está activada a menos que la desactives. Puedes cambiar Tu elección en cualquier momento mediante el enlace [[cookies|Configuración de cookies]], que también se encuentra al final de la página de inicio. Tu elección se guarda en Tu navegador durante un máximo de 12 meses. Si Tu navegador envía una señal de Control Global de Privacidad, la tratamos como un rechazo."
+    },
+    {
+     "h3": "Recuento de visitas de Lovable (sin cookies)"
+    },
+    {
+     "p": "Nuestro proveedor de alojamiento, Lovable, cuenta las visitas al sitio web publicado. No utiliza cookies, no almacena nada en Tu dispositivo, no conserva direcciones IP y no identifica a los visitantes. Registra las páginas visitadas, de dónde proceden los visitantes, su país, navegador, sistema operativo y tipo de dispositivo, cuánto tiempo permanecen, la rapidez con que se cargan las páginas y los errores. Estos datos se registran para cada visitante, sin cookies y sin identificar a nadie, independientemente de lo que elijas en el banner. Los datos detallados se conservan durante 90 días y los resúmenes diarios durante un año. Lovable recopila estos datos para nosotros. La [política de privacidad de Lovable](https://lovable.dev/privacy) explica cómo los trata."
+    },
+    {
+     "h3": "Google Analytics (cookies, solo con consentimiento cuando sea obligatorio)"
+    },
+    {
+     "p": "Google Analytics instala cookies (denominadas `_ga`) para medir cómo se utiliza el sitio web y envía esos datos de uso a Google. Para los visitantes de la Unión Europea, el Espacio Económico Europeo, el Reino Unido, Suiza, Quebec, China, Brasil, India, Kenia y Corea del Sur, funciona sin cookies hasta que aceptes la analítica. En otros lugares, incluido el resto de Canadá, funciona hasta que la rechaces. Si la rechazas, funciona sin cookies. Está completamente desactivado en el Portal Escolar y en las páginas de administración."
+    },
+    {
+     "h3": "Nuestros propios registros de uso (solo con consentimiento cuando sea obligatorio)"
+    },
+    {
+     "p": "Con Tu consentimiento cuando sea obligatorio, la aplicación registra qué páginas y actividades se abren y pasos como iniciar la compra de un plan. Estos registros se almacenan en nuestra propia base de datos junto con un número aleatorio de visitante que se guarda en Tu navegador y, si has iniciado sesión, Tu cuenta. Utilizamos esto únicamente para mejorar la aplicación."
+    },
+    {
+     "h3": "Almacenamiento necesario (siempre activado)"
+    },
+    {
+     "ul": [
+      "**Inicio de sesión:** nuestro proveedor de cuentas, Supabase, mantiene Tu sesión iniciada en Tu navegador. Si inicias sesión con Google o Apple, esa empresa nos confirma Tu identidad.",
+      "**Configuración y uso sin conexión:** la configuración de Tu aplicación, los borradores no guardados, Tus preferencias de cookies y las lecciones, fotos, videos y canciones guardados para su uso sin conexión se almacenan en Tu dispositivo.",
+      "**Pagos:** los pagos en la web se realizan en la página de pago propia de Stripe, que instala sus propias cookies conforme a la política de privacidad de Stripe.",
+      "**Videos de las lecciones:** algunos videos de las lecciones se reproducen desde YouTube, que puede instalar sus propias cookies cuando se reproduce un video, conforme a la política de privacidad de Google."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "your-rights",
+   "title": "Tus derechos y avisos regionales",
+   "blocks": [
+    {
+     "h3": "Acceso, descarga y eliminación por tu cuenta"
+    },
+    {
+     "p": "Las familias que hayan iniciado sesión pueden abrir el Panel familiar, luego Configuración y después **Tus datos y derechos de privacidad** para descargar una copia completa de los datos de su cuenta (un archivo JSON legible por máquina) o eliminar permanentemente su cuenta, los perfiles de los niños, el progreso, los objetivos, los planes, los informes y la configuración de notificaciones. La eliminación surte efecto inmediatamente; las copias residuales en las copias de seguridad cifradas de la infraestructura se sobrescriben en un plazo de 30 días. Si tienes una suscripción activa, debes cancelarla primero para que no se te vuelva a cobrar. Los registros que conserva una escuela pertenecen a esa escuela y los exporta o elimina el Administrador de la escuela. También puedes enviar un correo electrónico a [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com) para acceder a Tus datos, rectificarlos, limitar su tratamiento, oponerte a su tratamiento o eliminarlos; Nosotros respondemos en un plazo de 30 días (15 días hábiles cuando se aplica la PIPL)."
+    },
+    {
+     "h3": "Bases jurídicas del tratamiento (artículo 6 del Reglamento general de protección de datos (GDPR) / Reglamento general de protección de datos del Reino Unido (UK GDPR))"
+    },
+    {
+     "ul": [
+      "**Contrato:** cuenta, acceso al currículo, perfiles de los niños, progreso, suscripciones y facturación.",
+      "**Consentimiento:** cookies de análisis, nuestros propios registros de uso en las regiones donde se requiere consentimiento, correos electrónicos de marketing y la guía gratuita. Puedes retirar tu consentimiento en cualquier momento mediante la Configuración de cookies o el enlace para cancelar la suscripción.",
+      "**Intereses legítimos:** seguridad, prevención del fraude, resolución de problemas y recuento de visitas sin cookies.",
+      "**Obligación legal:** impuestos, contabilidad y respuestas a solicitudes lícitas."
+     ]
+    },
+    {
+     "p": "No tratamos datos de categorías especiales para las familias. Las notas sobre salud y alergias del Portal escolar son introducidas por las escuelas, que actúan como responsables del tratamiento; Nosotros las tratamos únicamente siguiendo las instrucciones de la escuela."
+    },
+    {
+     "h3": "Transferencias internacionales"
+    },
+    {
+     "p": "Nuestros proveedores de servicios almacenan los datos en Estados Unidos. En el caso de los datos personales procedentes del EEE, el Reino Unido y Suiza, las transferencias se basan en las cláusulas contractuales tipo de la Comisión Europea (y la Adenda del Reino Unido) acordadas con nuestros proveedores, o en la certificación de un proveedor conforme al Marco de Privacidad de Datos UE-EE. UU., cuando corresponda. Puedes solicitar por correo electrónico una copia de las garantías pertinentes."
+    },
+    {
+     "h3": "Niños"
+    },
+    {
+     "p": "Solo los adultos de 18 años o más pueden crear Cuentas. Al añadir un perfil de un niño, el padre, la madre o el tutor otorga el consentimiento separado que se exige para tratar la información de un niño conforme al artículo 8 del Reglamento general de protección de datos (GDPR), el artículo 31 de la Ley de Protección de la Información Personal de China (PIPL), el artículo 14 de la Ley General de Protección de Datos Personales de Brasil (LGPD), la sección 9 de la Ley de Protección de Datos Personales Digitales de la India (DPDP) y la sección 33 de la Ley de Protección de Datos de Kenia. Nunca rastreamos a los niños, elaboramos perfiles sobre ellos ni les dirigimos publicidad, y los datos de los niños nunca se venden."
+    },
+    {
+     "h3": "China (Ley de Protección de la Información Personal, PIPL) / 中国用户（《个人信息保护法》）"
+    },
+    {
+     "p": "La información personal de los menores de 14 años se considera información personal sensible. El destinatario en el extranjero de Tus datos es Montessori Life Skills (Estados Unidos, montessorilifeskills@gmail.com), que los trata únicamente para prestar el Servicio según lo descrito aquí. Al crear una cuenta o un perfil de un niño, otorgas un consentimiento separado para esta transferencia transfronteriza; puedes retirarlo en cualquier momento eliminando Tu cuenta.",
+     "hideIn": [
+      "zh"
+     ]
+    },
+    {
+     "p": "不满十四周岁儿童的个人信息属于敏感个人信息。您的个人信息的境外接收方为 Montessori Life Skills（美国，联系邮箱 montessorilifeskills@gmail.com），仅为提供本服务而处理。创建账户或孩子档案即表示您单独同意上述跨境传输；您可随时通过删除账户撤回同意，并可通过上述邮箱行使查阅、复制、更正、删除等权利。我们不会将儿童信息用于广告或画像。",
+     "lang": "zh-Hans",
+     "keep": true
+    },
+    {
+     "h3": "Otras regiones"
+    },
+    {
+     "ul": [
+      "**California (Ley de Privacidad del Consumidor de California / Ley de Derechos de Privacidad de California (CCPA/CPRA)):** Nosotros no vendemos ni compartimos información personal y no la utilizamos para publicidad conductual entre distintos contextos. No recibirás un trato diferente por ejercer Tus derechos.",
+      "**Canadá (Ley de Protección de la Información Personal y Documentos Electrónicos (PIPEDA), Ley 25 de Quebec), Brasil (Ley General de Protección de Datos Personales (LGPD)), India (Ley de Protección de Datos Personales Digitales (DPDP)), Kenia, Corea del Sur y Australia:** tienes los derechos descritos anteriormente. Puedes presentar reclamaciones primero ante nosotros y también ante Tu autoridad local de protección de datos.",
+      "**Autoridad de control de la UE/el Reino Unido:** puedes presentar una reclamación ante la autoridad de protección de datos del lugar donde vives o trabajas."
+     ]
+    },
+    {
+     "p": "Contacto de privacidad (también para los interesados de la UE, el Reino Unido y China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    }
+   ]
+  },
+  {
+   "title": "Enlaces a otros sitios web",
+   "blocks": [
+    {
+     "p": "Nuestro Servicio puede contener enlaces a otros sitios web que no son operados por Nosotros. Si haces clic en un enlace de un tercero, se te dirigirá al sitio de ese tercero. Te recomendamos encarecidamente que revises la Política de Privacidad de cada sitio que visites."
+    },
+    {
+     "p": "No tenemos control sobre el contenido, las políticas de privacidad ni las prácticas de los sitios o servicios de terceros, ni asumimos responsabilidad alguna por ellos."
+    }
+   ]
+  },
+  {
+   "title": "Cambios en esta Política de Privacidad",
+   "blocks": [
+    {
+     "p": "Podemos actualizar Nuestra Política de Privacidad de vez en cuando. Te notificaremos cualquier cambio publicando la nueva Política de Privacidad en esta página. Te informaremos por correo electrónico y/o mediante un aviso destacado en Nuestro Servicio antes de que el cambio entre en vigor y actualizaremos la fecha de \"Última actualización\" en la parte superior de esta Política de Privacidad."
+    },
+    {
+     "p": "Te recomendamos que revises periódicamente esta Política de Privacidad para conocer cualquier cambio. Los cambios en esta Política de Privacidad entran en vigor cuando se publican en esta página."
+    }
+   ]
+  },
+  {
+   "id": "schools-student-records",
+   "title": "Escuelas y registros de estudiantes",
+   "blocks": [
+    {
+     "p": "Esta sección se aplica cuando una escuela utiliza el Portal escolar. En lo relativo a los registros de estudiantes, prevalece sobre cualquier otra parte de esta política."
+    },
+    {
+     "ul": [
+      "**Qué se almacena:** el nombre, los apellidos y la fecha de nacimiento del estudiante; el aula asignada; los nombres y el correo electrónico de los padres o tutores; las notas sobre salud y alergias introducidas por la escuela; los planes de lecciones, los registros de progreso, las observaciones y los informes para los padres redactados por el personal de la escuela.",
+      "**A quién pertenecen:** la escuela es propietaria de todos los registros de estudiantes. Nosotros actuamos como funcionario escolar con un interés educativo legítimo conforme a la Ley de Derechos Educativos y Privacidad de la Familia (FERPA) y utilizamos los registros únicamente para prestar el Servicio a esa escuela.",
+      "**Quién puede verlos:** únicamente el personal al que la escuela invita, con acceso limitado a las aulas que tiene asignadas, y los propios padres de cada niño una vez que la escuela confirma su correo electrónico. Los registros nunca se comparten con otras familias, escuelas ni con ninguna otra persona.",
+      "**Sin ventas, publicidad ni elaboración de perfiles:** los registros de estudiantes nunca se venden, nunca se utilizan para publicidad y nunca se utilizan para elaborar perfiles. Google Analytics está desactivado dentro del Portal escolar.",
+      "**Sin IA:** los registros de estudiantes no se tratan mediante inteligencia artificial ni se utilizan para entrenar ningún modelo. Cada registro lo redacta una persona.",
+      "**Privacidad de los niños (Ley de Protección de la Privacidad Infantil en Línea (COPPA)):** los niños no tienen cuentas ni utilizan el Portal escolar. La escuela otorga el consentimiento en nombre de los padres para el uso educativo.",
+      "**Proveedores de servicios:** nuestro proveedor de alojamiento y base de datos y nuestro proveedor de correo electrónico tratan los datos únicamente siguiendo nuestras instrucciones. Los datos se almacenan en Estados Unidos.",
+      "**Brechas de seguridad:** si confirmamos un acceso no autorizado a los registros de estudiantes, notificaremos a los administradores de la escuela afectada en un plazo de 72 horas, describiremos qué se vio afectado y las medidas adoptadas, y apoyaremos a la escuela en la notificación a las familias.",
+      "**Copias de seguridad y cese del uso:** Los Administradores Escolares reciben copias de seguridad automáticas y cifradas cada trimestre o semestre. Cuando una escuela deja de utilizar el Servicio, puede exportar sus registros, y todos sus datos se eliminan de forma permanente dentro de los 30 días siguientes a su solicitud por escrito, con confirmación por escrito.",
+      "**Cambios importantes:** informaremos a los Administradores Escolares por correo electrónico con al menos 30 días de antelación sobre cualquier cambio en la forma en que se recopilan o utilizan los registros de los estudiantes."
+     ]
+    },
+    {
+     "p": "Las escuelas que necesiten un Acuerdo de Privacidad de Datos de los Estudiantes firmado pueden solicitarlo en montessorilifeskills@gmail.com."
+    }
+   ]
+  },
+  {
+   "title": "Contáctanos",
+   "blocks": [
+    {
+     "p": "Si tienes alguna pregunta sobre esta Política de Privacidad, Tú puedes contactarnos:"
+    },
+    {
+     "p": "Por correo electrónico: [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)"
+    }
+   ]
+  }
+ ]
+}

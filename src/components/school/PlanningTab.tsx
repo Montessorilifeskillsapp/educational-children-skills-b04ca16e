@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { areaTitle, dateLocale } from '@/i18n/format';
+import { areaTitle, formatDate, formatDateRange } from '@/i18n/format';
 import { Link } from 'react-router-dom';
-import { addDays, format, isSameMonth, isWeekend } from 'date-fns';
+import { addDays, isSameMonth, isWeekend } from 'date-fns';
 import { CalendarDays, ChevronLeft, ChevronRight, CheckCircle2, Circle, Pencil, Plus, Printer, Search, Trash2, Users, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -22,7 +22,7 @@ type Draft = Partial<PlanItem> & { area?: string };
 export default function PlanningTab({ role, classroom, students, plans, onChange, initial, onInitialUsed }: Props) {
   const { toast } = useToast();
   const { t } = useTranslation();
-  const fmt = (date: Date, pattern: string) => format(date, pattern, { locale: dateLocale() });
+  const fullDay = (date: Date) => formatDate(date, { weekday: 'long', month: 'long', day: 'numeric' });
   const [view, setView] = useState<'week' | 'month'>('week');
   const [anchor, setAnchor] = useState(() => new Date());
   const [selectedDay, setSelectedDay] = useState(() => new Date());
@@ -93,7 +93,7 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
     <div className="flex flex-wrap justify-between items-center gap-4">
       <div>
         <p className="school-label">{classroom.name}</p>
-        <h2 className="font-display text-2xl mt-1">{view === 'month' ? fmt(anchor, 'LLLL yyyy') : `${fmt(days[0], 'MMM d')} – ${fmt(addDays(days[0], 4), 'MMM d, yyyy')}`}</h2>
+        <h2 className="font-display text-2xl mt-1">{view === 'month' ? formatDate(anchor, { month: 'long', year: 'numeric' }) : formatDateRange(days[0], addDays(days[0], 4), { month: 'short', day: 'numeric', year: 'numeric' })}</h2>
         <p className="text-sm text-muted-foreground mt-1">{t('school.pl.lessons', { count: visiblePlans.length })} <span aria-hidden="true">·</span> {t('school.pl.given', { count: complete })}</p>
       </div>
       <div className="flex flex-wrap items-center gap-3 print:hidden">
@@ -110,29 +110,29 @@ export default function PlanningTab({ role, classroom, students, plans, onChange
     </div>
 
     {view === 'week' ? <div className="grid grid-cols-1 gap-3 md:grid-cols-5 print:grid-cols-5" aria-label={t('school.pl.schoolWeek')}>
-      {days.map((date) => { const items = dayPlans(date); const current = planDate(date) === today; return <section key={planDate(date)} aria-label={fmt(date, 'EEEE, MMMM d')} className={`min-w-0 border-t-2 ${current ? 'border-primary' : 'border-border'}`}>
+      {days.map((date) => { const items = dayPlans(date); const current = planDate(date) === today; return <section key={planDate(date)} aria-label={fullDay(date)} className={`min-w-0 border-t-2 ${current ? 'border-primary' : 'border-border'}`}>
         <div className={`flex items-center justify-between gap-1 px-2 py-3 ${current ? 'bg-primary/10' : 'bg-muted/50'}`}>
-          <div><p className="text-xs font-medium text-muted-foreground">{fmt(date, 'EEEE')}</p><div className="flex items-baseline gap-2"><span className="font-display text-2xl">{fmt(date, 'd')}</span>{current && <span className="text-xs font-medium text-primary">{t('school.pl.today')}</span>}</div></div>
+          <div><p className="text-xs font-medium text-muted-foreground">{formatDate(date, { weekday: 'long' })}</p><div className="flex items-baseline gap-2"><span className="font-display text-2xl">{date.getDate()}</span>{current && <span className="text-xs font-medium text-primary">{t('school.pl.today')}</span>}</div></div>
           <span className="text-xs text-muted-foreground">{items.length}</span>
         </div>
         <ul className="space-y-3 py-3">{items.map(lesson)}</ul>
         {!items.length && <div className="py-6 text-center text-sm text-muted-foreground"><CalendarDays className="mx-auto mb-2 h-6 w-6 opacity-50" />{t('school.pl.none')}</div>}
-        {edit && <Button variant="ghost" className="w-full justify-center gap-1.5 border border-dashed border-border text-muted-foreground hover:text-primary print:hidden" onClick={() => open(date)} aria-label={t('school.pl.addFor', { date: fmt(date, 'EEEE, MMMM d') })}><Plus className="h-4 w-4" />{t('school.pl.add')}</Button>}
+        {edit && <Button variant="ghost" className="w-full justify-center gap-1.5 border border-dashed border-border text-muted-foreground hover:text-primary print:hidden" onClick={() => open(date)} aria-label={t('school.pl.addFor', { date: fullDay(date) })}><Plus className="h-4 w-4" />{t('school.pl.add')}</Button>}
       </section>; })}
     </div> : <>
       <div className="overflow-x-auto rounded-lg border border-border">
         <div className="min-w-[840px]">
-          <div className="grid grid-cols-7 border-b border-border bg-muted/60">{days.slice(0, 7).map((d) => fmt(d, 'EEE')).map((day) => <p key={day} className="p-3 text-xs font-medium text-muted-foreground text-center">{day}</p>)}</div>
+          <div className="grid grid-cols-7 border-b border-border bg-muted/60">{days.slice(0, 7).map((d) => formatDate(d, { weekday: 'short' })).map((day) => <p key={day} className="p-3 text-xs font-medium text-muted-foreground text-center">{day}</p>)}</div>
           <div className="grid grid-cols-7">
             {days.map((date) => { const items = dayPlans(date); const current = planDate(date) === today; const selected = planDate(date) === planDate(selectedDay); return <div key={planDate(date)} className={`min-w-0 min-h-[140px] border-b border-r border-border p-2 ${selected ? 'bg-primary/10 ring-1 ring-inset ring-primary' : isWeekend(date) ? 'bg-muted/50' : 'bg-card/70'} ${!isSameMonth(date, anchor) ? 'opacity-50' : ''}`}>
-              <Button variant={current ? 'default' : 'ghost'} className="h-8 w-full justify-between rounded-md px-2" aria-label={t('school.pl.showFor', { date: fmt(date, 'EEEE, MMMM d') })} aria-pressed={selected} onClick={() => setSelectedDay(date)}><span>{fmt(date, 'd')}</span>{current && <span className="text-xs">{t('school.pl.today')}</span>}</Button>
+              <Button variant={current ? 'default' : 'ghost'} className="h-8 w-full justify-between rounded-md px-2" aria-label={t('school.pl.showFor', { date: fullDay(date) })} aria-pressed={selected} onClick={() => setSelectedDay(date)}><span>{date.getDate()}</span>{current && <span className="text-xs">{t('school.pl.today')}</span>}</Button>
               <div className="mt-2 space-y-1">{items.slice(0, 2).map((p) => { const sk = skillById(p.skill_id); return <Button key={p.id} variant="ghost" className={`h-auto w-full justify-start whitespace-normal text-left rounded-md px-2 py-1.5 text-xs border ${planAreaStyle(sk?.areaKey)} ${p.done ? 'line-through opacity-65' : ''}`} onClick={() => setSelectedDay(date)} title={`${sk?.title ?? p.skill_id} · ${audience(p)}`}><span className="min-w-0"><span className="line-clamp-2 break-words">{sk?.title ?? p.skill_id}</span><span className="flex items-center gap-1 mt-1 text-muted-foreground"><Users className="h-3 w-3" />{p.student_ids.length || t('school.pl.all')}</span></span></Button>; })}{items.length > 2 && <Button variant="link" className="h-auto px-1 py-0 text-xs" onClick={() => setSelectedDay(date)}>{t('school.pl.more', { count: items.length - 2 })}</Button>}</div>
             </div>; })}
           </div>
         </div>
       </div>
       <section aria-label={t('school.pl.selected')} className="border-t border-border pt-5 space-y-4">
-        <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="font-display text-xl">{fmt(selectedDay, 'EEEE, MMMM d')}</h3>{edit && <Button onClick={() => open(selectedDay)} className="gap-2 print:hidden"><Plus className="h-4 w-4" />{t('school.pl.add')}</Button>}</div>
+        <div className="flex flex-wrap items-center justify-between gap-3"><h3 className="font-display text-xl">{fullDay(selectedDay)}</h3>{edit && <Button onClick={() => open(selectedDay)} className="gap-2 print:hidden"><Plus className="h-4 w-4" />{t('school.pl.add')}</Button>}</div>
         {dayPlans(selectedDay).length ? <ul className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">{dayPlans(selectedDay).map(lesson)}</ul> : <p className="text-sm text-muted-foreground py-4">{t('school.pl.noneDot')}</p>}
       </section>
     </>}

@@ -1,0 +1,428 @@
+{
+ "seoTitle": "Datenschutzerklärung – Montessori Life Skills",
+ "seoDescription": "Unsere Datenschutzerklärung beschreibt, wie Montessori Life Skills Ihre personenbezogenen Informationen erhebt, verwendet und schützt, wenn Sie unseren Dienst nutzen.",
+ "pageTitle": "Datenschutzerklärung",
+ "updated": "Zuletzt aktualisiert: 19. November 2026",
+ "translationNote": "Diese Übersetzung wird zu Ihrer Information bereitgestellt. Bei Abweichungen von der englischen Fassung ist die englische Fassung maßgeblich.",
+ "compliance": {
+  "title": "Compliance und Datenschutz für Schulen",
+  "intro": "Für Schulbehörden, Schulbezirke und Rechtsberater: wem Schülerunterlagen gehören, wie sie geschützt und gelöscht werden, einschließlich der Anforderungen des Family Educational Rights and Privacy Act (FERPA) und des Children's Online Privacy Protection Act (COPPA), des Verzichts auf Werbung und Tracking im Schulportal sowie der Zusagen zur Benachrichtigung bei Datenschutzverletzungen und zur Löschung.",
+  "pdf": "Kurzbericht zu Compliance und Datenschutz herunterladen (PDF)",
+  "readBelow": "Lesen Sie unten den Abschnitt „Schulen und Schülerunterlagen“"
+ },
+ "sections": [
+  {
+   "blocks": [
+    {
+     "p": "Diese Datenschutzerklärung beschreibt Unsere Richtlinien und Verfahren zur Erhebung, Verwendung und Offenlegung Ihrer Informationen bei der Nutzung des Dienstes und informiert Sie über Ihre Datenschutzrechte und darüber, wie Sie durch das Gesetz geschützt werden."
+    },
+    {
+     "p": "Wir verwenden Ihre Personenbezogenen Daten, um den Dienst bereitzustellen und zu verbessern. Durch die Nutzung des Dienstes stimmen Sie der Erhebung und Verwendung von Informationen gemäß dieser Datenschutzerklärung zu. Diese Datenschutzerklärung wurde mithilfe des Datenschutzerklärungs-Generators von TermsFeed erstellt."
+    }
+   ]
+  },
+  {
+   "title": "Auslegung und Begriffsbestimmungen",
+   "blocks": [
+    {
+     "h3": "Auslegung"
+    },
+    {
+     "p": "Die Wörter mit großgeschriebenen Anfangsbuchstaben haben die unter den folgenden Bedingungen festgelegten Bedeutungen. Die folgenden Begriffsbestimmungen haben dieselbe Bedeutung, unabhängig davon, ob sie im Singular oder im Plural erscheinen."
+    },
+    {
+     "h3": "Begriffsbestimmungen"
+    },
+    {
+     "p": "Für die Zwecke dieser Datenschutzerklärung gilt:"
+    },
+    {
+     "ul": [
+      "**Konto** bezeichnet ein eindeutiges Konto, das für Sie erstellt wird, um auf Unseren Dienst oder Teile Unseres Dienstes zuzugreifen.",
+      "**Verbundenes Unternehmen** bezeichnet eine Rechtseinheit, die eine Partei kontrolliert, von einer Partei kontrolliert wird oder mit einer Partei unter gemeinsamer Kontrolle steht, wobei „Kontrolle“ das Eigentum an 50 % oder mehr der Aktien, Kapitalanteile oder sonstigen Wertpapiere bedeutet, die zur Stimmabgabe bei der Wahl von Mitgliedern des Leitungsorgans oder einer anderen geschäftsführenden Instanz berechtigen.",
+      "**Anwendung** bezeichnet Montessori Life Skills, das vom Unternehmen bereitgestellte Softwareprogramm.",
+      "**Unternehmen** (in dieser Datenschutzerklärung als „das Unternehmen“, „Wir“, „Uns“ oder „Unser“ bezeichnet) bezeichnet Montessori Life Skills.",
+      "**Land** bezeichnet: Vereinigte Staaten.",
+      "**Gerät** bezeichnet jedes Gerät, das auf den Dienst zugreifen kann, beispielsweise einen Computer, ein Mobiltelefon oder ein digitales Tablet.",
+      "**Personenbezogene Daten** (oder „Personenbezogene Informationen“) sind alle Informationen, die sich auf eine identifizierte oder identifizierbare natürliche Person beziehen. Wir verwenden „Personenbezogene Daten“ und „Personenbezogene Informationen“ synonym, sofern ein Gesetz nicht einen bestimmten Begriff verwendet.",
+      "**Dienst** bezeichnet die Anwendung.",
+      "**Dienstleister** bezeichnet jede natürliche oder juristische Person, die Daten im Auftrag des Unternehmens verarbeitet. Der Begriff bezeichnet Drittunternehmen oder Einzelpersonen, die vom Unternehmen beauftragt werden, um die Bereitstellung des Dienstes zu erleichtern, den Dienst im Auftrag des Unternehmens bereitzustellen, mit dem Dienst zusammenhängende Leistungen zu erbringen oder das Unternehmen bei der Analyse der Nutzung des Dienstes zu unterstützen.",
+      "**Nutzungsdaten** bezeichnet automatisch erhobene Daten, die entweder durch die Nutzung des Dienstes oder durch die Infrastruktur des Dienstes selbst erzeugt werden (beispielsweise die Dauer eines Seitenbesuchs).",
+      "**Sie** bezeichnet die natürliche Person, die auf den Dienst zugreift oder ihn nutzt, oder gegebenenfalls das Unternehmen oder die sonstige juristische Person, in deren Namen diese natürliche Person auf den Dienst zugreift oder ihn nutzt."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Erhebung und Verwendung Ihrer Personenbezogenen Daten",
+   "blocks": [
+    {
+     "h3": "Arten der erhobenen Daten"
+    },
+    {
+     "h4": "Personenbezogene Daten"
+    },
+    {
+     "p": "Wir erheben nur die Mindestinformationen, die für den Betrieb des Dienstes erforderlich sind. Sämtliche Personenbezogenen Informationen werden vom erwachsenen Nutzer (Elternteil, Sorgeberechtigten, Lehrer oder einer Betreuungsperson) bereitgestellt, der das Konto erstellt und verwaltet – niemals direkt von einem Kind. Zu den Kategorien Personenbezogener Informationen, die Wir erheben können, gehören:"
+    },
+    {
+     "ul": [
+      "**Kontoinformationen:** E-Mail-Adresse und Passwort (das Passwort wird gehasht und niemals im Klartext gespeichert), die zur Erstellung und Absicherung Ihres Kontos verwendet werden.",
+      "**Optionale Profilinformationen:** ein Anzeigename und bei innerhalb des Dienstes erstellten Kinderprofilen ein Vorname oder Spitzname sowie ein Alter oder eine Altersspanne, die ausschließlich zur Personalisierung der empfohlenen Aktivitäten verwendet werden.",
+      "**Abonnement- und Abrechnungsinformationen:** Ihre Abonnementstufe und Ihr Abonnementstatus. Zahlungen werden über RevenueCat durch **Stripe** (Web), den **Apple App Store** (iOS) und **Google Play Billing** (Android) abgewickelt. Wir erhalten oder speichern keine vollständigen Zahlungskartennummern, CVV-Codes oder Bankverbindungsdaten – lediglich eine vom Zahlungsabwickler zurückgemeldete Abonnementkennung und einen Abonnementstatus.",
+      "**Daten zu Lernaktivitäten:** welche Aktivitäten angesehen, begonnen oder als abgeschlossen markiert wurden, damit Wir den Fortschritt über mehrere Sitzungen hinweg festhalten und den Lehrplan verbessern können.",
+      "**Supportkommunikation:** Nachrichten und Anhänge, die Sie an Unsere Support-E-Mail-Adresse senden, damit Wir Ihre Anfrage beantworten können.",
+      "**Nutzungsdaten** (nachstehend beschrieben)."
+     ]
+    },
+    {
+     "p": "Wir fragen im Rahmen des standardmäßigen Dienstes **keine** Telefonnummern, Postanschriften, amtlichen Identifikationskennungen, präzisen Geolokalisierungsdaten, Kontakte, Mikrofon- oder Kameradaten ab und erheben diese auch nicht."
+    },
+    {
+     "h4": "Nutzungsdaten"
+    },
+    {
+     "p": "Nutzungsdaten werden bei der Nutzung des Dienstes automatisch erhoben. Nutzungsdaten können die Internetprotokoll-Adresse (IP-Adresse) Ihres Geräts (soweit technisch möglich anonymisiert), den Browsertyp und die Browserversion, die von Ihnen besuchten Seiten des Dienstes, Uhrzeit und Datum Ihres Besuchs, die auf diesen Seiten verbrachte Zeit, eindeutige Gerätekennungen, das Betriebssystem und weitere Diagnosedaten umfassen, die für die Sicherheit, Fehlerbehebung und aggregierte Analysen verwendet werden."
+    },
+    {
+     "p": "Wenn Sie über ein Mobilgerät auf den Dienst zugreifen, können Wir den Typ des von Ihnen verwendeten Mobilgeräts, dessen Betriebssystemversion und nicht für Werbezwecke bestimmte Gerätekennungen erheben, die ausschließlich zur Bereitstellung und Absicherung des Dienstes sowie zur Validierung Ihres Abonnements verwendet werden. Wir verwenden weder die Apple IDFA noch die Android Advertising ID für Werbezwecke."
+    },
+    {
+     "h4": "Während der Nutzung der Anwendung erhobene Informationen"
+    },
+    {
+     "p": "Die Anwendung selbst fordert keinen Zugriff auf Ihre Kamera, Ihr Mikrofon, Ihre Kontakte, Ihre Fotos oder Ihren präzisen Standort an. Falls eine künftige Funktion eine solche Berechtigung erfordert, werden Sie über die standardmäßige Berechtigungsabfrage Ihres Geräts um deren Erteilung gebeten. Sie können diese Berechtigung jederzeit über Ihre Geräteeinstellungen aktivieren oder deaktivieren."
+    },
+    {
+     "h3": "Verwendung Ihrer Personenbezogenen Daten"
+    },
+    {
+     "p": "Das Unternehmen kann Personenbezogene Daten für folgende Zwecke verwenden:"
+    },
+    {
+     "ul": [
+      "Zur Bereitstellung und Aufrechterhaltung Unseres Dienstes, einschließlich der Überwachung der Nutzung Unseres Dienstes.",
+      "Zur Verwaltung Ihres Kontos: zur Verwaltung Ihrer Registrierung als Nutzer des Dienstes. Die von Ihnen bereitgestellten Personenbezogenen Daten können Ihnen Zugang zu verschiedenen Funktionen des Dienstes ermöglichen, die Ihnen als registriertem Nutzer zur Verfügung stehen.",
+      "Zur Erfüllung eines Vertrags: zur Ausarbeitung, Einhaltung und Durchführung des Kaufvertrags über die von Ihnen erworbenen Produkte, Artikel oder Dienstleistungen oder eines anderen Vertrags mit Uns über den Dienst.",
+      "Zur Kontaktaufnahme mit Ihnen: um Sie per E-Mail, Telefonanruf, SMS oder über andere gleichwertige Formen elektronischer Kommunikation zu kontaktieren, beispielsweise über Push-Benachrichtigungen einer mobilen Anwendung zu Aktualisierungen oder mit informativen Mitteilungen zu den Funktionen, Produkten oder vertraglich vereinbarten Dienstleistungen, einschließlich Sicherheitsaktualisierungen, sofern dies für deren Umsetzung erforderlich oder angemessen ist.",
+      "Um Ihnen Neuigkeiten, Sonderangebote und allgemeine Informationen über andere von Uns angebotene Waren, Dienstleistungen und Veranstaltungen bereitzustellen, die denen ähneln, die Sie bereits erworben oder zu denen Sie bereits Anfragen gestellt haben, sofern Sie sich nicht gegen den Erhalt solcher Informationen entschieden haben.",
+      "Zur Bearbeitung Ihrer Anfragen: Um Ihre an Uns gerichteten Anfragen zu behandeln und zu bearbeiten.",
+      "Für Unternehmensübertragungen: Wir können Ihre personenbezogenen Daten verwenden, um eine Fusion, Veräußerung, Umstrukturierung, Reorganisation, Auflösung oder einen sonstigen Verkauf oder eine sonstige Übertragung einiger oder aller Unserer Vermögenswerte zu bewerten oder durchzuführen, sei es im Rahmen einer Unternehmensfortführung oder als Teil eines Insolvenz-, Liquidations- oder ähnlichen Verfahrens, bei dem die von Uns über die Nutzer Unseres Dienstes gespeicherten personenbezogenen Daten zu den übertragenen Vermögenswerten gehören.",
+      "Für andere Zwecke: Wir können Ihre Informationen für andere Zwecke verwenden, beispielsweise zur Datenanalyse, zur Ermittlung von Nutzungstrends, zur Bestimmung der Wirksamkeit Unserer Werbekampagnen sowie zur Bewertung und Verbesserung Unseres Dienstes, Unserer Produkte, Dienstleistungen und Marketingmaßnahmen sowie Ihres Nutzungserlebnisses."
+     ]
+    },
+    {
+     "p": "Wir können Ihre personenbezogenen Daten in den folgenden Situationen weitergeben:"
+    },
+    {
+     "ul": [
+      "**An Dienstleister:** Wir können Ihre personenbezogenen Daten an Dienstleister weitergeben, um die Nutzung Unseres Dienstes zu überwachen und zu analysieren und um Sie zu kontaktieren.",
+      "**Für Unternehmensübertragungen:** Wir können Ihre personenbezogenen Daten im Zusammenhang mit oder während der Verhandlungen über eine Fusion, einen Verkauf von Vermögenswerten des Unternehmens, eine Finanzierung oder eine Übernahme Unseres gesamten Unternehmens oder eines Teils davon durch ein anderes Unternehmen weitergeben oder übertragen.",
+      "**An verbundene Unternehmen:** Wir können Ihre personenbezogenen Daten an Unsere verbundenen Unternehmen weitergeben. In diesem Fall werden Wir diese verbundenen Unternehmen verpflichten, diese Datenschutzerklärung einzuhalten. Zu den verbundenen Unternehmen gehören Unsere Muttergesellschaft sowie alle weiteren Tochtergesellschaften, Joint-Venture-Partner oder sonstigen Unternehmen, die Wir kontrollieren oder die mit Uns unter gemeinsamer Kontrolle stehen.",
+      "**An Geschäftspartner:** Wir können Ihre personenbezogenen Daten an Unsere Geschäftspartner weitergeben, um Ihnen bestimmte Produkte, Dienstleistungen oder Werbeangebote anzubieten.",
+      "**An andere Nutzer:** Falls Unser Dienst öffentliche Bereiche anbietet, können Informationen, die Sie als personenbezogene Daten teilen oder anderweitig bei der Interaktion mit anderen Nutzern in den öffentlichen Bereichen bereitstellen, von allen Nutzern eingesehen und außerhalb des Dienstes öffentlich verbreitet werden.",
+      "**Mit Ihrer Einwilligung:** Wir können Ihre personenbezogenen Daten mit Ihrer Einwilligung für jeden anderen Zweck offenlegen."
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Aufbewahrung Ihrer personenbezogenen Daten",
+   "blocks": [
+    {
+     "p": "Das Unternehmen wird Ihre personenbezogenen Daten nur so lange aufbewahren, wie dies für die in dieser Datenschutzerklärung dargelegten Zwecke erforderlich ist. Wir werden Ihre personenbezogenen Daten in dem Umfang aufbewahren und verwenden, der erforderlich ist, um Unsere gesetzlichen Verpflichtungen zu erfüllen (beispielsweise, wenn Wir zur Aufbewahrung Ihrer Daten verpflichtet sind, um geltende Gesetze einzuhalten), Streitigkeiten beizulegen und Unsere rechtlichen Vereinbarungen und Richtlinien durchzusetzen."
+    },
+    {
+     "p": "Soweit möglich, wenden Wir kürzere Aufbewahrungsfristen an und/oder verringern die Identifizierbarkeit durch Löschung, Aggregation oder Anonymisierung von Daten. Sofern nicht anders angegeben, sind die nachstehenden Aufbewahrungsfristen Höchstfristen („bis zu“), und Wir können Daten früher löschen oder anonymisieren, wenn sie für den jeweiligen Zweck nicht mehr benötigt werden. Je nach Verarbeitungszweck und gesetzlichen Verpflichtungen wenden Wir unterschiedliche Aufbewahrungsfristen auf unterschiedliche Kategorien personenbezogener Daten an:"
+    },
+    {
+     "ul": [
+      "**Kontoinformationen:** Nutzerkonten werden für die Dauer Ihrer Kontobeziehung zuzüglich bis zu 24 Monaten nach Schließung des Kontos aufbewahrt, um etwaige nach Beendigung auftretende Angelegenheiten zu bearbeiten oder Streitigkeiten beizulegen.",
+      "**Kundensupportdaten:** Support-Tickets und Korrespondenz werden bis zu 24 Monate ab dem Datum des Abschlusses des Tickets aufbewahrt, um Folgeanfragen zu bearbeiten, die Servicequalität zu verfolgen und mögliche Rechtsansprüche abzuwehren. Chatprotokolle werden bis zu 24 Monate zu Zwecken der Qualitätssicherung und Mitarbeiterschulung aufbewahrt.",
+      "**Nutzungsdaten:** Statistiken zur Anwendungsnutzung werden bis zu 24 Monate aufbewahrt, um die Nutzung von Funktionen nachzuvollziehen und Verbesserungen des Dienstes zu ermöglichen. Serverprotokolle (IP-Adressen, Zugriffszeiten) werden bis zu 24 Monate zu Zwecken der Sicherheitsüberwachung und Fehlerbehebung aufbewahrt."
+     ]
+    },
+    {
+     "p": "Nutzungsdaten werden gemäß den oben beschriebenen Aufbewahrungsfristen aufbewahrt und dürfen nur dann länger aufbewahrt werden, wenn dies für die Sicherheit, die Betrugsprävention oder die Einhaltung gesetzlicher Vorschriften erforderlich ist. Wir können personenbezogene Daten aus verschiedenen Gründen über die oben genannten Fristen hinaus aufbewahren: aufgrund einer gesetzlichen Verpflichtung, wegen Rechtsansprüchen, auf Ihren ausdrücklichen Wunsch oder aufgrund technischer Einschränkungen. Nach Ablauf der Aufbewahrungsfristen löschen oder anonymisieren Wir personenbezogene Daten auf sichere Weise gemäß Unseren Verfahren."
+    }
+   ]
+  },
+  {
+   "title": "Übermittlung Ihrer personenbezogenen Daten",
+   "blocks": [
+    {
+     "p": "Ihre Informationen, einschließlich personenbezogener Daten, werden an den Betriebsstandorten des Unternehmens und an allen anderen Orten verarbeitet, an denen sich die an der Verarbeitung beteiligten Parteien befinden. Dies bedeutet, dass diese Informationen auf Computer übermittelt und dort gespeichert werden können, die sich außerhalb Ihres Bundesstaates, Ihrer Provinz, Ihres Landes oder eines anderen für Sie zuständigen staatlichen Hoheitsgebiets befinden, wo die Datenschutzgesetze von denen Ihres Hoheitsgebiets abweichen können."
+    },
+    {
+     "p": "Soweit dies nach geltendem Recht erforderlich ist, werden Wir sicherstellen, dass internationale Übermittlungen Ihrer personenbezogenen Daten geeigneten Garantien und gegebenenfalls ergänzenden Maßnahmen unterliegen. Das Unternehmen wird alle nach vernünftigem Ermessen erforderlichen Maßnahmen ergreifen, um sicherzustellen, dass Ihre Daten sicher und im Einklang mit dieser Datenschutzerklärung behandelt werden. Eine Übermittlung Ihrer personenbezogenen Daten an eine Organisation oder ein Land erfolgt nur, wenn angemessene Kontrollmaßnahmen bestehen, einschließlich solcher zur Sicherheit Ihrer Daten und anderer personenbezogener Informationen."
+    }
+   ]
+  },
+  {
+   "title": "Löschung Ihrer personenbezogenen Daten",
+   "blocks": [
+    {
+     "p": "Sie haben das Recht, die personenbezogenen Daten, die Wir über Sie erhoben haben, zu löschen oder Uns um Unterstützung bei deren Löschung zu bitten. Unser Dienst bietet Ihnen möglicherweise die Möglichkeit, bestimmte Informationen über Sie innerhalb des Dienstes zu löschen. Sie können Ihre Informationen jederzeit aktualisieren, ändern oder löschen, indem Sie sich bei Ihrem Konto anmelden, sofern Sie eines haben, und den Bereich mit den Kontoeinstellungen aufrufen, in dem Sie Ihre personenbezogenen Informationen verwalten können. Sie können Uns auch kontaktieren, um Zugang zu den personenbezogenen Daten, die Sie Uns bereitgestellt haben, oder deren Berichtigung oder Löschung zu verlangen."
+    },
+    {
+     "p": "Bitte beachten Sie jedoch, dass Wir bestimmte Informationen möglicherweise aufbewahren müssen, wenn Wir hierzu gesetzlich verpflichtet sind oder eine rechtmäßige Grundlage dafür haben."
+    }
+   ]
+  },
+  {
+   "title": "Offenlegung Ihrer personenbezogenen Daten",
+   "blocks": [
+    {
+     "h3": "Unternehmenstransaktionen"
+    },
+    {
+     "p": "Wenn das Unternehmen an einer Fusion, Übernahme oder einem Verkauf von Vermögenswerten beteiligt ist, können Ihre personenbezogenen Daten übertragen werden. Wir werden Sie benachrichtigen, bevor Ihre personenbezogenen Daten übertragen werden und einer anderen Datenschutzerklärung unterliegen."
+    },
+    {
+     "h3": "Strafverfolgung"
+    },
+    {
+     "p": "Unter bestimmten Umständen kann das Unternehmen verpflichtet sein, Ihre personenbezogenen Daten offenzulegen, wenn dies gesetzlich vorgeschrieben ist oder als Reaktion auf gültige Anfragen öffentlicher Stellen (z. B. eines Gerichts oder einer Regierungsbehörde)."
+    },
+    {
+     "h3": "Sonstige rechtliche Anforderungen"
+    },
+    {
+     "p": "Das Unternehmen kann Ihre personenbezogenen Daten offenlegen, wenn es in gutem Glauben davon ausgeht, dass eine solche Maßnahme erforderlich ist, um:"
+    },
+    {
+     "ul": [
+      "Eine gesetzliche Verpflichtung zu erfüllen",
+      "Die Rechte oder das Eigentum des Unternehmens zu schützen und zu verteidigen",
+      "Mögliches Fehlverhalten im Zusammenhang mit dem Dienst zu verhindern oder zu untersuchen",
+      "Die persönliche Sicherheit der Nutzer des Dienstes oder der Öffentlichkeit zu schützen",
+      "Sich gegen rechtliche Haftung zu schützen"
+     ]
+    }
+   ]
+  },
+  {
+   "title": "Sicherheit Ihrer personenbezogenen Daten",
+   "blocks": [
+    {
+     "p": "Die Sicherheit Ihrer Personenbezogenen Daten ist Uns wichtig. Bedenken Sie jedoch, dass keine Methode der Übertragung über das Internet und keine Methode der elektronischen Speicherung zu 100 % sicher ist. Obwohl Wir Uns bemühen, wirtschaftlich angemessene Mittel zum Schutz Ihrer Personenbezogenen Daten einzusetzen, können Wir deren absolute Sicherheit nicht garantieren."
+    }
+   ]
+  },
+  {
+   "title": "Datenschutz für Kinder und Einhaltung der Familienrichtlinien",
+   "blocks": [
+    {
+     "p": "Montessori Life Skills ist eine familienorientierte Lernanwendung, die dafür entwickelt wurde, von Eltern, Erziehungsberechtigten, Lehrkräften und Betreuungspersonen („Erwachsene Nutzer“) gemeinsam mit Kindern im Alter von etwa 2 bis 12 Jahren im Rahmen eines angeleiteten Montessori-Lernerlebnisses genutzt zu werden. Der Dienst ist für die Bedienung durch einen Erwachsenen Nutzer bestimmt. Konten, Abonnements und Zahlungen werden ausschließlich von Erwachsenen Nutzern erstellt und verwaltet, die mindestens 18 Jahre alt sind."
+    },
+    {
+     "p": "Wir haben Unseren Dienst so gestaltet, dass er dem US-amerikanischen Children's Online Privacy Protection Act („COPPA“), der Datenschutz-Grundverordnung der EU („GDPR“ und „GDPR-K“), der Familienrichtlinie von Google Play und den Anforderungen der Kategorie „Kinder“ von Apple entspricht."
+    },
+    {
+     "h3": "Welche Daten Wir von Kindern erheben"
+    },
+    {
+     "p": "**Wir erheben wissentlich keine personenbezogenen Informationen direkt von Kindern.** Kinder erstellen keine Konten, geben keine personenbezogenen Informationen ein und werden nicht aufgefordert, Namen, E-Mail-Adressen, Telefonnummern, Fotos, genaue Standortdaten, Kontakte oder andere Informationen, anhand derer sie persönlich identifiziert werden können, anzugeben, um die Lernaktivitäten zu nutzen. Kinderprofile, die ein Erwachsener Nutzer innerhalb des Dienstes erstellt (beispielsweise ein Vorname oder eine Altersgruppe zur Personalisierung von Aktivitäten), werden lokal auf dem Gerät oder unter dem Konto des Erwachsenen Nutzers gespeichert und werden weder zur Kontaktaufnahme mit dem Kind noch zur Erstellung eines Werbeprofils verwendet oder an Dritte für deren eigene Zwecke weitergegeben."
+    },
+    {
+     "h3": "Keine verhaltensbezogene Werbung oder Werbenetzwerke Dritter"
+    },
+    {
+     "p": "Der Dienst zeigt Kindern keine Werbung Dritter an, beteiligt sich nicht an verhaltens- oder interessenbezogener Werbung, die sich an Kinder richtet, und verwendet keine Werbekennungen (wie IDFA oder Android Advertising ID) zu Werbezwecken. Wir verkaufen keine personenbezogenen Informationen von Kindern und „teilen“ diese auch nicht (im Sinne der Definitionen dieser Begriffe in den geltenden Datenschutzgesetzen)."
+    },
+    {
+     "h3": "Dienste Dritter, die im Nutzungserlebnis für Kinder eingesetzt werden"
+    },
+    {
+     "p": "Die an Kinder gerichteten Bereiche Unseres Dienstes nutzen nur eine begrenzte Anzahl von Dienstleistern, die jeweils auf die Einhaltung der Familienrichtlinie von Google Play und der Anforderungen der Kategorie „Kinder“ von Apple geprüft wurden. Diese Anbieter verarbeiten Daten ausschließlich zur Bereitstellung des Dienstes und sind vertraglich daran gehindert, diese für eigene Zwecke, einschließlich Werbung, zu verwenden:"
+    },
+    {
+     "ul": [
+      "**Supabase** — sichere Kontoauthentifizierung und Speicherung des Lernfortschritts für Erwachsene Nutzer.",
+      "**Stripe** (Web) und **Apple App Store / Google Play Billing über RevenueCat** (Mobilgeräte) — Zahlungs- und Abonnementverwaltung ausschließlich für Erwachsene Nutzer. Kinder interagieren nicht mit diesen Diensten.",
+      "**Google Analytics for Firebase / Google Analytics** — mit IP-Anonymisierung und deaktivierten Werbefunktionen konfiguriert; ausschließlich dazu verwendet, die aggregierte, nicht personenbezogene Nutzung des Dienstes zu verstehen."
+     ]
+    },
+    {
+     "p": "Eine vollständige, aktuelle Liste der im Dienst verwendeten Softwareentwicklungskits („SDKs“) und ihrer Zwecke ist auf Anfrage unter [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com) erhältlich."
+    },
+    {
+     "h3": "Einwilligung und Kontrollmöglichkeiten der Eltern"
+    },
+    {
+     "p": "Da der Dienst für die Bedienung durch einen Erwachsenen Nutzer bestimmt ist, stellt der Ablauf der Kontoerstellung eine überprüfbare Beteiligung der Eltern dar: Ein Erwachsener Nutzer muss sich mit einer gültigen E-Mail-Adresse registrieren, dieser Datenschutzerklärung und Unseren Nutzungsbedingungen zustimmen und — für kostenpflichtige Funktionen — eine Zahlung über Stripe, Apple oder Google abschließen, die alle den erwachsenen Kontoinhaber unabhängig überprüfen. Erwachsene Nutzer können jederzeit innerhalb des Dienstes jedes Kinderprofil überprüfen, bearbeiten oder löschen, Benachrichtigungen deaktivieren und ihr Abonnement kündigen."
+    },
+    {
+     "h3": "Rechte der Eltern und Kontaktaufnahme mit Uns"
+    },
+    {
+     "p": "Wenn Sie ein Elternteil oder eine erziehungsberechtigte Person sind und glauben, dass ein Kind Uns ohne Ihre Einwilligung personenbezogene Informationen bereitgestellt hat, oder wenn Sie Informationen, die mit Ihrem Kind oder Ihrem Konto verknüpft sind, überprüfen, löschen oder deren weitere Erhebung oder Nutzung ablehnen möchten, kontaktieren Sie Uns bitte unverzüglich unter [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com). Wir werden Ihre Identität als Elternteil oder erziehungsberechtigte Person überprüfen und Ihrem Anliegen anschließend innerhalb von 30 Tagen nachkommen, vorbehaltlich etwaiger gesetzlicher Aufbewahrungspflichten. Sie können Ihr Konto außerdem jederzeit über die Familienübersicht löschen; dadurch werden die zugehörigen Kinderprofile und Lerndaten entfernt."
+    },
+    {
+     "p": "Wenn Wir Uns bei der Verarbeitung von Informationen auf eine Einwilligung als Rechtsgrundlage stützen müssen und Ihr Land oder Ihre Region die Einwilligung eines Elternteils oder einer erziehungsberechtigten Person verlangt (beispielsweise gemäß GDPR-K im Europäischen Wirtschaftsraum oder im Vereinigten Königreich), werden Wir diese überprüfbare elterliche Einwilligung einholen, bevor Wir solche Informationen erheben oder verwenden."
+    }
+   ]
+  },
+  {
+   "title": "Cookies, Besuchszählung und Ihre Wahlmöglichkeiten",
+   "blocks": [
+    {
+     "p": "Wenn Sie zum ersten Mal aus der Europäischen Union, dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich, der Schweiz, Kanada, China, Brasilien, Indien, Kenia oder Südkorea (oder von einem Ort, den Wir nicht identifizieren können) auf die Website zugreifen, zeigen Wir ein Banner an, das nach Ihrer Entscheidung zu Analysefunktionen fragt. Überall sonst sind Analysefunktionen aktiviert, sofern Sie diese nicht deaktivieren. Sie können Ihre Entscheidung jederzeit über den Link [[cookies|Cookie-Einstellungen]] ändern, der sich auch am unteren Rand der Startseite befindet. Ihre Entscheidung wird bis zu 12 Monate lang in Ihrem Browser gespeichert. Wenn Ihr Browser ein Global-Privacy-Control-Signal sendet, behandeln Wir dies als Ablehnung."
+    },
+    {
+     "h3": "Besuchszählung durch Lovable (ohne Cookies)"
+    },
+    {
+     "p": "Unser Hosting-Anbieter Lovable zählt Besuche auf der veröffentlichten Website. Dabei verwendet er keine Cookies, speichert nichts auf Ihrem Gerät, bewahrt keine IP-Adressen auf und identifiziert keine Besucher. Er erfasst die besuchten Seiten, die Herkunft der Besucher, deren Land, Browser, Betriebssystem und Gerätetyp, die Verweildauer, die Ladegeschwindigkeit der Seiten sowie Fehler. Diese Angaben werden für jeden Besucher erfasst, ohne Cookies und ohne jemanden zu identifizieren, unabhängig davon, welche Entscheidung Sie im Banner treffen. Detaillierte Daten werden 90 Tage lang und tägliche Zusammenfassungen ein Jahr lang aufbewahrt. Lovable erhebt diese Daten für Uns. Die [Datenschutzerklärung von Lovable](https://lovable.dev/privacy) erläutert, wie Lovable mit diesen Daten umgeht."
+    },
+    {
+     "h3": "Google Analytics (Cookies, nur mit Einwilligung, soweit erforderlich)"
+    },
+    {
+     "p": "Google Analytics setzt Cookies (mit dem Namen `_ga`), um zu messen, wie die Website genutzt wird, und übermittelt diese Nutzungsdaten an Google. Für Besucher in der Europäischen Union, dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich, der Schweiz, Quebec, China, Brasilien, Indien, Kenia und Südkorea wird es ohne Cookies ausgeführt, bis Sie den Analysefunktionen zustimmen. Andernorts, einschließlich des übrigen Kanadas, wird es ausgeführt, bis Sie diese ablehnen. Wenn Sie diese ablehnen, wird es ohne Cookies ausgeführt. Im Schulportal und auf Verwaltungsseiten ist es vollständig deaktiviert."
+    },
+    {
+     "h3": "Unsere eigenen Nutzungsaufzeichnungen (nur mit Einwilligung, soweit erforderlich)"
+    },
+    {
+     "p": "Mit Ihrer Einwilligung, soweit erforderlich, erfasst die App, welche Seiten und Aktivitäten geöffnet werden, sowie Schritte wie das Beginnen des Kaufs eines Tarifs. Diese Angaben werden in Unserer eigenen Datenbank zusammen mit einer zufälligen Besuchernummer, die in Ihrem Browser gespeichert wird, und, sofern Sie angemeldet sind, Ihrem Konto gespeichert. Wir verwenden dies ausschließlich zur Verbesserung der App."
+    },
+    {
+     "h3": "Notwendige Speicherung (immer aktiviert)"
+    },
+    {
+     "ul": [
+      "**Anmeldung:** Unser Kontoanbieter Supabase speichert Ihre Anmeldesitzung in Ihrem Browser. Wenn Sie sich mit Google oder Apple anmelden, bestätigt das jeweilige Unternehmen uns gegenüber Ihre Identität.",
+      "**Einstellungen und Offline-Nutzung:** Ihre App-Einstellungen, nicht gespeicherten Entwürfe, Cookie-Auswahl sowie die für die Offline-Nutzung gespeicherten Lektionen, Fotos, Videos und Lieder werden auf Ihrem Gerät gespeichert.",
+      "**Zahlungen:** Zahlungen im Web erfolgen auf der eigenen Zahlungsseite von Stripe, die gemäß der Datenschutzerklärung von Stripe eigene Cookies setzt.",
+      "**Lektionsvideos:** Einige Lektionsvideos werden über YouTube abgespielt, das beim Abspielen eines Videos gemäß der Datenschutzerklärung von Google eigene Cookies setzen kann."
+     ]
+    }
+   ]
+  },
+  {
+   "id": "your-rights",
+   "title": "Ihre Rechte und regionale Hinweise",
+   "blocks": [
+    {
+     "h3": "Zugriff, Download und Löschung in Selbstbedienung"
+    },
+    {
+     "p": "Angemeldete Familien können die Familienübersicht, dann die Einstellungen und anschließend **Ihre Daten und Datenschutzrechte** öffnen, um eine vollständige Kopie ihrer Kontodaten (eine maschinenlesbare JSON-Datei) herunterzuladen oder ihr Konto, die Kinderprofile, Fortschritte, Ziele, Pläne, Berichte und Benachrichtigungseinstellungen dauerhaft zu löschen. Die Löschung wird sofort wirksam; verbleibende Kopien in verschlüsselten Sicherungen der Infrastruktur werden innerhalb von 30 Tagen überschrieben. Ein aktives Abonnement muss zuvor gekündigt werden, damit Ihnen keine weiteren Gebühren berechnet werden. Von einer Schule verwaltete Aufzeichnungen gehören dieser Schule und werden vom Schuladministrator exportiert oder gelöscht. Sie können auch eine E-Mail an [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com) senden, um Zugang zu Ihren Daten, deren Berichtigung, die Einschränkung ihrer Verarbeitung oder deren Löschung zu verlangen oder ihrer Verarbeitung zu widersprechen; Wir antworten innerhalb von 30 Tagen (15 Arbeitstagen, sofern das Personal Information Protection Law (PIPL) Anwendung findet)."
+    },
+    {
+     "h3": "Rechtsgrundlagen der Verarbeitung (Artikel 6 der Datenschutz-Grundverordnung (GDPR) / der britischen Datenschutz-Grundverordnung (UK GDPR))"
+    },
+    {
+     "ul": [
+      "**Vertrag:** Konto, Zugriff auf den Lehrplan, Kinderprofile, Fortschritte, Abonnements und Abrechnung.",
+      "**Einwilligung:** Analyse-Cookies, Unsere eigenen Nutzungsaufzeichnungen in Regionen, in denen eine Einwilligung erforderlich ist, Marketing-E-Mails und der kostenlose Leitfaden. Sie können Ihre Einwilligung jederzeit über die Cookie-Einstellungen oder den Abmeldelink widerrufen.",
+      "**Berechtigte Interessen:** Sicherheit, Betrugsprävention, Fehlerbehebung und Zählung von Besuchen ohne Cookies.",
+      "**Rechtliche Verpflichtung:** Steuern, Buchführung und Beantwortung rechtmäßiger Anfragen."
+     ]
+    },
+    {
+     "p": "Wir verarbeiten für Familien keine besonderen Kategorien personenbezogener Daten. Gesundheits- und Allergiehinweise im Schulportal werden von Schulen eingegeben, die als Verantwortliche handeln; Wir verarbeiten diese ausschließlich auf Weisung der jeweiligen Schule."
+    },
+    {
+     "h3": "Internationale Übermittlungen"
+    },
+    {
+     "p": "Unsere Dienstleister speichern Daten in den Vereinigten Staaten. Bei personenbezogenen Daten aus dem EWR, dem Vereinigten Königreich und der Schweiz beruhen Übermittlungen auf den mit Unseren Dienstleistern vereinbarten Standardvertragsklauseln der Europäischen Kommission (und dem britischen Zusatz) oder, soweit anwendbar, auf der Zertifizierung eines Dienstleisters nach dem Datenschutzrahmen EU–USA (EU-U.S. Data Privacy Framework). Sie können per E-Mail eine Kopie der einschlägigen Garantien anfordern."
+    },
+    {
+     "h3": "Kinder"
+    },
+    {
+     "p": "Konten werden ausschließlich von Erwachsenen im Alter von mindestens 18 Jahren erstellt. Durch das Hinzufügen eines Kinderprofils erteilt der Elternteil oder Sorgeberechtigte die gesonderte Einwilligung, die für die Verarbeitung der Informationen eines Kindes gemäß Artikel 8 der Datenschutz-Grundverordnung (GDPR), Artikel 31 des chinesischen Personal Information Protection Law (PIPL), Artikel 14 der brasilianischen Lei Geral de Proteção de Dados (LGPD), Abschnitt 9 des indischen Digital Personal Data Protection Act (DPDP) und Abschnitt 33 des kenianischen Data Protection Act erforderlich ist. Wir verfolgen niemals die Aktivitäten von Kindern, erstellen keine Profile von Kindern und richten keine gezielte Werbung an Kinder; Daten von Kindern werden niemals verkauft."
+    },
+    {
+     "h3": "China (Gesetz zum Schutz personenbezogener Informationen, PIPL) / 中国用户（《个人信息保护法》）"
+    },
+    {
+     "p": "Kinder unter 14 Jahren werden als sensible personenbezogene Informationen behandelt. Empfänger Ihrer Daten im Ausland ist Montessori Life Skills (Vereinigte Staaten, montessorilifeskills@gmail.com), das diese ausschließlich zur Bereitstellung des Dienstes wie hier beschrieben verarbeitet. Durch die Erstellung eines Kontos oder Kinderprofils erteilen Sie Ihre gesonderte Einwilligung in diese grenzüberschreitende Übermittlung; Sie können diese jederzeit durch Löschung Ihres Kontos widerrufen.",
+     "hideIn": [
+      "zh"
+     ]
+    },
+    {
+     "p": "不满十四周岁儿童的个人信息属于敏感个人信息。您的个人信息的境外接收方为 Montessori Life Skills（美国，联系邮箱 montessorilifeskills@gmail.com），仅为提供本服务而处理。创建账户或孩子档案即表示您单独同意上述跨境传输；您可随时通过删除账户撤回同意，并可通过上述邮箱行使查阅、复制、更正、删除等权利。我们不会将儿童信息用于广告或画像。",
+     "lang": "zh-Hans",
+     "keep": true
+    },
+    {
+     "h3": "Weitere Regionen"
+    },
+    {
+     "ul": [
+      "**Kalifornien (California Consumer Privacy Act/California Privacy Rights Act (CCPA/CPRA)):** Wir verkaufen oder teilen keine personenbezogenen Informationen und verwenden sie nicht für kontextübergreifende verhaltensbasierte Werbung. Sie werden nicht anders behandelt, weil Sie Ihre Rechte ausüben.",
+      "**Kanada (Personal Information Protection and Electronic Documents Act (PIPEDA), Gesetz 25 von Québec), Brasilien (Lei Geral de Proteção de Dados (LGPD)), Indien (Digital Personal Data Protection Act (DPDP)), Kenia, Südkorea und Australien:** Sie haben die oben beschriebenen Rechte. Beschwerden können zunächst an Uns sowie an Ihre örtliche Datenschutzbehörde gerichtet werden.",
+      "**Aufsichtsbehörde in der EU/im Vereinigten Königreich:** Sie können bei der Datenschutzbehörde an Ihrem Wohn- oder Arbeitsort Beschwerde einlegen."
+     ]
+    },
+    {
+     "p": "Datenschutzkontakt (auch für betroffene Personen in der EU, im Vereinigten Königreich und in China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    }
+   ]
+  },
+  {
+   "title": "Links zu anderen Websites",
+   "blocks": [
+    {
+     "p": "Unser Dienst kann Links zu anderen Websites enthalten, die nicht von Uns betrieben werden. Wenn Sie auf einen Link eines Dritten klicken, werden Sie auf die Website dieses Dritten weitergeleitet. Wir empfehlen Ihnen dringend, die Datenschutzerklärung jeder Website zu lesen, die Sie besuchen."
+    },
+    {
+     "p": "Wir haben keine Kontrolle über die Inhalte, Datenschutzerklärungen oder Praktiken von Websites oder Diensten Dritter und übernehmen dafür keine Verantwortung."
+    }
+   ]
+  },
+  {
+   "title": "Änderungen dieser Datenschutzerklärung",
+   "blocks": [
+    {
+     "p": "Wir können Unsere Datenschutzerklärung von Zeit zu Zeit aktualisieren. Wir werden Sie über Änderungen informieren, indem Wir die neue Datenschutzerklärung auf dieser Seite veröffentlichen. Bevor die Änderung wirksam wird, werden Wir Sie per E-Mail und/oder durch einen deutlich sichtbaren Hinweis in Unserem Dienst informieren und das Datum „Zuletzt aktualisiert“ am Anfang dieser Datenschutzerklärung aktualisieren."
+    },
+    {
+     "p": "Es wird Ihnen empfohlen, diese Datenschutzerklärung regelmäßig auf Änderungen zu prüfen. Änderungen dieser Datenschutzerklärung werden mit ihrer Veröffentlichung auf dieser Seite wirksam."
+    }
+   ]
+  },
+  {
+   "id": "schools-student-records",
+   "title": "Schulen und Schülerunterlagen",
+   "blocks": [
+    {
+     "p": "Dieser Abschnitt gilt, wenn eine Schule das Schulportal nutzt. In Bezug auf Schülerunterlagen hat er Vorrang vor allen anderen Teilen dieser Datenschutzerklärung."
+    },
+    {
+     "ul": [
+      "**Was gespeichert wird:** Vorname, Nachname und Geburtsdatum des Schülers; Klassenzuordnung; Namen und E-Mail-Adressen der Eltern oder Sorgeberechtigten; von der Schule eingegebene Gesundheits- und Allergiehinweise; von Schulmitarbeitern verfasste Unterrichtspläne, Fortschrittsaufzeichnungen, Beobachtungen und Berichte für Eltern.",
+      "**Wem die Unterlagen gehören:** Alle Schülerunterlagen gehören der Schule. Wir handeln als Schulbeauftragter mit einem berechtigten pädagogischen Interesse im Sinne des Family Educational Rights and Privacy Act (FERPA) und verwenden die Unterlagen ausschließlich, um dieser Schule den Dienst bereitzustellen.",
+      "**Wer die Unterlagen einsehen kann:** ausschließlich von der Schule eingeladene Mitarbeiter, beschränkt auf die ihnen zugewiesenen Klassen, sowie die Eltern des jeweiligen Kindes, nachdem die Schule deren E-Mail-Adresse bestätigt hat. Die Unterlagen werden niemals an andere Familien, Schulen oder sonstige Personen weitergegeben.",
+      "**Kein Verkauf, keine Werbung und keine Profilerstellung:** Schülerunterlagen werden niemals verkauft, niemals für Werbung und niemals zur Erstellung von Profilen verwendet. Google Analytics ist innerhalb des Schulportals deaktiviert.",
+      "**Keine KI:** Schülerunterlagen werden weder durch künstliche Intelligenz verarbeitet noch zum Trainieren eines Modells verwendet. Jede Aufzeichnung wird von einer Person verfasst.",
+      "**Datenschutz für Kinder (Children’s Online Privacy Protection Act (COPPA)):** Kinder haben keine Konten und nutzen das Schulportal nicht. Die Schule erteilt im Namen der Eltern die Einwilligung zur Nutzung für Bildungszwecke.",
+      "**Dienstleister:** Unser Hosting- und Datenbankanbieter sowie Unser E-Mail-Anbieter verarbeiten Daten ausschließlich auf Unsere Weisung. Die Daten werden in den Vereinigten Staaten gespeichert.",
+      "**Sicherheitsverletzungen:** Wenn Wir einen unbefugten Zugriff auf Schülerunterlagen bestätigen, werden Wir die Administratoren der betroffenen Schule innerhalb von 72 Stunden benachrichtigen, beschreiben, was betroffen war und welche Maßnahmen ergriffen wurden, und die Schule bei der Benachrichtigung der Familien unterstützen.",
+      "**Sicherungskopien und Beendigung der Nutzung:** Schuladministratoren erhalten jedes Quartal oder Semester automatisch verschlüsselte Sicherungskopien. Wenn eine Schule ihre Nutzung des Dienstes beendet, kann sie ihre Unterlagen exportieren, und alle ihre Daten werden innerhalb von 30 Tagen nach ihrem schriftlichen Antrag dauerhaft gelöscht; die Löschung wird schriftlich bestätigt.",
+      "**Wesentliche Änderungen:** Wir werden Schuladministratoren mindestens 30 Tage vor jeder Änderung der Art und Weise, wie Schülerunterlagen erhoben oder verwendet werden, per E-Mail informieren."
+     ]
+    },
+    {
+     "p": "Schulen, die eine unterzeichnete Vereinbarung zum Schutz von Schülerdaten benötigen, können diese unter montessorilifeskills@gmail.com anfordern."
+    }
+   ]
+  },
+  {
+   "title": "Kontaktieren Sie uns",
+   "blocks": [
+    {
+     "p": "Wenn Sie Fragen zu dieser Datenschutzerklärung haben, können Sie uns kontaktieren:"
+    },
+    {
+     "p": "Per E-Mail: [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)"
+    }
+   ]
+  }
+ ]
+}
