@@ -1,5 +1,6 @@
 // "family" namespace: Family Dashboard, child profiles, notifications and offline downloads. English is the source; other languages must match its shape.
 const en = {
+  "rights": {"title": "Your data and privacy rights", "intro": "Download a copy of everything your account holds, or permanently delete your account, child profiles and progress.", "download": "Download my data", "delete": "Delete my account", "schoolNote": "Records kept by a child's school belong to that school; ask the school to export or delete them.", "policy": "Privacy Policy", "confirmTitle": "Delete your account permanently?", "confirmBody": "This erases your account, every child profile, progress, goals, plans, reports and notification settings. It cannot be undone.", "typeDelete": "Type DELETE to confirm", "deleteForever": "Delete forever", "cancelFirst": "Please cancel your subscription first, then delete your account.", "schoolAdmin": "You are a School Admin. Hand over or close the school before deleting your account.", "failed": "Something went wrong. Please try again or email montessorilifeskills@gmail.com."},
   "dash": {
     "back": "Back to Dashboard",
     "title": "Family Dashboard",
@@ -244,6 +245,7 @@ const en = {
 };
 
 const es: typeof en = {
+  "rights": {"title": "Tus datos y derechos de privacidad", "intro": "Descarga una copia de todo lo que guarda tu cuenta, o elimina para siempre tu cuenta, los perfiles de tus hijos y su progreso.", "download": "Descargar mis datos", "delete": "Eliminar mi cuenta", "schoolNote": "Los registros que guarda la escuela de un niño pertenecen a esa escuela; pídele a la escuela que los exporte o elimine.", "policy": "Política de privacidad", "confirmTitle": "¿Eliminar tu cuenta para siempre?", "confirmBody": "Se borrarán tu cuenta, todos los perfiles de niños, el progreso, las metas, los planes, los informes y los ajustes de notificaciones. No se puede deshacer.", "typeDelete": "Escribe DELETE para confirmar", "deleteForever": "Eliminar para siempre", "cancelFirst": "Primero cancela tu suscripción y luego elimina tu cuenta.", "schoolAdmin": "Eres administrador escolar. Transfiere o cierra la escuela antes de eliminar tu cuenta.", "failed": "Algo salió mal. Inténtalo de nuevo o escribe a montessorilifeskills@gmail.com."},
   "dash": {
     "back": "Volver al panel",
     "title": "Panel familiar",
@@ -488,6 +490,7 @@ const es: typeof en = {
 };
 
 const de: typeof en = {
+  "rights": {"title": "Ihre Daten und Datenschutzrechte", "intro": "Laden Sie eine Kopie aller Daten Ihres Kontos herunter oder löschen Sie Ihr Konto, die Kinderprofile und den Fortschritt dauerhaft.", "download": "Meine Daten herunterladen", "delete": "Mein Konto löschen", "schoolNote": "Aufzeichnungen der Schule eines Kindes gehören der Schule; bitten Sie die Schule, sie zu exportieren oder zu löschen.", "policy": "Datenschutzerklärung", "confirmTitle": "Konto dauerhaft löschen?", "confirmBody": "Dadurch werden Ihr Konto, alle Kinderprofile, Fortschritte, Ziele, Pläne, Berichte und Benachrichtigungseinstellungen gelöscht. Dies kann nicht rückgängig gemacht werden.", "typeDelete": "Geben Sie DELETE zur Bestätigung ein", "deleteForever": "Endgültig löschen", "cancelFirst": "Bitte kündigen Sie zuerst Ihr Abonnement und löschen Sie dann Ihr Konto.", "schoolAdmin": "Sie sind Schuladministrator. Übergeben oder schließen Sie die Schule, bevor Sie Ihr Konto löschen.", "failed": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut oder schreiben Sie an montessorilifeskills@gmail.com."},
   "dash": {
     "back": "Zurück zum Dashboard",
     "title": "Familien-Dashboard",
@@ -732,6 +735,7 @@ const de: typeof en = {
 };
 
 const zh: typeof en = {
+  "rights": {"title": "您的数据与隐私权利", "intro": "下载您账户中保存的全部数据副本，或永久删除您的账户、孩子档案和学习进度。", "download": "下载我的数据", "delete": "删除我的账户", "schoolNote": "孩子所在学校保存的记录归该学校所有；请联系学校导出或删除。", "policy": "隐私政策", "confirmTitle": "永久删除您的账户？", "confirmBody": "这将删除您的账户、所有孩子档案、进度、目标、计划、报告和通知设置，且无法恢复。", "typeDelete": "输入 DELETE 以确认", "deleteForever": "永久删除", "cancelFirst": "请先取消订阅，再删除账户。", "schoolAdmin": "您是学校管理员。请先移交或关闭学校，再删除账户。", "failed": "出现问题。请重试或发送邮件至 montessorilifeskills@gmail.com。"},
   "dash": {
     "back": "返回面板",
     "title": "家庭面板",

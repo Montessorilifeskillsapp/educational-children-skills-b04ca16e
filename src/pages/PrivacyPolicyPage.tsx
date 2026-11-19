@@ -28,7 +28,7 @@ const PrivacyPolicyPage: React.FC = () => {
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardContent className="p-8 prose prose-gray max-w-none">
-              <p className="text-sm text-muted-foreground mb-6">Last updated: November 16, 2026</p>
+              <p className="text-sm text-muted-foreground mb-6">Last updated: November 19, 2026</p>
 
               <section id="compliance" aria-labelledby="compliance-heading" className="not-prose mb-8 rounded-lg border border-primary/30 bg-primary/5 p-5 scroll-mt-24">
                 <h2 id="compliance-heading" className="text-xl font-semibold text-foreground mb-2">School Compliance and Privacy</h2>
@@ -250,7 +250,7 @@ const PrivacyPolicyPage: React.FC = () => {
               <section className="mb-8">
                 <h2 className="text-xl font-semibold mb-4">Cookies, Visit Counting and Your Choices</h2>
                 <p className="mb-4">
-                  The first time You visit from the European Union, the European Economic Area, the United Kingdom, Switzerland or Canada (or from a place We cannot identify), We show a banner asking about analytics. Everywhere else analytics is on unless You turn it off. You can change Your choice at any time with the <button type="button" onClick={openCookieSettings} className="text-primary underline">Cookie settings</button> link, which is also at the bottom of the home page. Your choice is saved in Your browser for up to 12 months. If Your browser sends a Global Privacy Control signal, We treat it as a refusal.
+                  The first time You visit from the European Union, the European Economic Area, the United Kingdom, Switzerland, Canada, China, Brazil, India, Kenya or South Korea (or from a place We cannot identify), We show a banner asking about analytics. Everywhere else analytics is on unless You turn it off. You can change Your choice at any time with the <button type="button" onClick={openCookieSettings} className="text-primary underline">Cookie settings</button> link, which is also at the bottom of the home page. Your choice is saved in Your browser for up to 12 months. If Your browser sends a Global Privacy Control signal, We treat it as a refusal.
                 </p>
                 <h3 className="text-lg font-medium mb-2">Visit counting by Lovable (no cookies)</h3>
                 <p className="mb-4">
@@ -258,7 +258,7 @@ const PrivacyPolicyPage: React.FC = () => {
                 </p>
                 <h3 className="text-lg font-medium mb-2">Google Analytics (cookies, only with consent where required)</h3>
                 <p className="mb-4">
-                  Google Analytics sets cookies (named <code>_ga</code>) to measure how the website is used, and sends that usage data to Google. For visitors in the European Union, the European Economic Area, the United Kingdom, Switzerland and Quebec it runs without cookies until You accept analytics. Elsewhere, including the rest of Canada, it runs until You reject. If You reject, it runs without cookies. It is switched off entirely in the School Portal and on admin pages.
+                  Google Analytics sets cookies (named <code>_ga</code>) to measure how the website is used, and sends that usage data to Google. For visitors in the European Union, the European Economic Area, the United Kingdom, Switzerland, Quebec, China, Brazil, India, Kenya and South Korea it runs without cookies until You accept analytics. Elsewhere, including the rest of Canada, it runs until You reject. If You reject, it runs without cookies. It is switched off entirely in the School Portal and on admin pages.
                 </p>
                 <h3 className="text-lg font-medium mb-2">Our own usage records (only with consent where required)</h3>
                 <p className="mb-4">
@@ -271,6 +271,49 @@ const PrivacyPolicyPage: React.FC = () => {
                   <li><strong>Payments:</strong> web payments happen on Stripe's own checkout page, which sets its own cookies under Stripe's privacy policy.</li>
                   <li><strong>Lesson videos:</strong> some lesson videos play from YouTube, which may set its own cookies when a video is played, under Google's privacy policy.</li>
                 </ul>
+              </section>
+
+              <section id="your-rights" className="mb-8 scroll-mt-24">
+                <h2 className="text-xl font-semibold mb-4">Your Rights and Regional Notices</h2>
+                <h3 className="text-lg font-medium mb-2">Self-serve access, download and deletion</h3>
+                <p className="mb-4">
+                  Signed-in families can open Family Dashboard, then Settings, then <strong>Your data and privacy rights</strong> to download a complete copy of their account data (a machine-readable JSON file) or permanently delete their account, child profiles, progress, goals, plans, reports and notification settings. Deletion takes effect immediately; residual copies in encrypted infrastructure backups are overwritten within 30 days. An active subscription must be cancelled first so You are not charged again. Records held by a school belong to that school and are exported or deleted by the School Admin. You may also email <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a> to access, correct, restrict, object to, or delete Your data; We respond within 30 days (15 working days where PIPL applies).
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Legal bases for processing (GDPR / UK GDPR Article 6)</h3>
+                <ul className="list-disc pl-6 mb-4 space-y-1">
+                  <li><strong>Contract:</strong> account, curriculum access, child profiles, progress, subscriptions and billing.</li>
+                  <li><strong>Consent:</strong> analytics cookies, our own usage records in consent regions, marketing emails and the free guide. You can withdraw consent at any time through Cookie settings or the unsubscribe link.</li>
+                  <li><strong>Legitimate interests:</strong> security, fraud prevention, troubleshooting and cookie-free visit counting.</li>
+                  <li><strong>Legal obligation:</strong> tax, accounting and responses to lawful requests.</li>
+                </ul>
+                <p className="mb-4">We do not process special-category data for families. Health and allergy notes in the School Portal are entered by schools, who act as controller; We process them only on the school's instructions.</p>
+
+                <h3 className="text-lg font-medium mb-2">International transfers</h3>
+                <p className="mb-4">
+                  Our service providers store data in the United States. For personal data from the EEA, the UK and Switzerland, transfers rely on the European Commission's Standard Contractual Clauses (and the UK Addendum) with our providers, or on a provider's certification under the EU-U.S. Data Privacy Framework where applicable. You may request a copy of the relevant safeguards by email.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Children</h3>
+                <p className="mb-4">
+                  Accounts are created only by adults aged 18 or over. By adding a child profile, the parent or guardian gives the separate consent required for processing a child's information under GDPR Article 8, China's PIPL Article 31, Brazil's LGPD Article 14, India's DPDP Act Section 9 and Kenya's Data Protection Act Section 33. We never track, profile or target advertising at children, and child data is never sold.
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">China (PIPL) / 中国用户（《个人信息保护法》）</h3>
+                <p className="mb-2">
+                  Children under 14 are treated as sensitive personal information. The overseas recipient of Your data is Montessori Life Skills (United States, montessorilifeskills@gmail.com), which processes it only to provide the Service as described here. By creating an account or child profile You give separate consent to this cross-border transfer; You may withdraw it at any time by deleting Your account.
+                </p>
+                <p className="mb-4" lang="zh-Hans">
+                  不满十四周岁儿童的个人信息属于敏感个人信息。您的个人信息的境外接收方为 Montessori Life Skills（美国，联系邮箱 montessorilifeskills@gmail.com），仅为提供本服务而处理。创建账户或孩子档案即表示您单独同意上述跨境传输；您可随时通过删除账户撤回同意，并可通过上述邮箱行使查阅、复制、更正、删除等权利。我们不会将儿童信息用于广告或画像。
+                </p>
+
+                <h3 className="text-lg font-medium mb-2">Other regions</h3>
+                <ul className="list-disc pl-6 mb-4 space-y-1">
+                  <li><strong>California (CCPA/CPRA):</strong> We do not sell or share personal information and do not use it for cross-context behavioral advertising. You will not be treated differently for exercising Your rights.</li>
+                  <li><strong>Canada (PIPEDA, Quebec Law 25), Brazil (LGPD), India (DPDP Act), Kenya, South Korea and Australia:</strong> You have the rights described above. Complaints may be sent to us first and to Your local data-protection authority.</li>
+                  <li><strong>EU/UK supervisory authority:</strong> You may lodge a complaint with the data-protection authority where You live or work.</li>
+                </ul>
+                <p className="mb-4">Privacy contact (including for EU, UK and China data subjects): <a href="mailto:montessorilifeskills@gmail.com" className="text-primary hover:underline">montessorilifeskills@gmail.com</a>.</p>
               </section>
 
               <section className="mb-8">

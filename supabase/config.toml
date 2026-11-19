@@ -56,3 +56,6 @@ verify_jwt = false
 
 [functions.book-consultation]
 verify_jwt = false
+
+[functions.account-data]
+verify_jwt = false

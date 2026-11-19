@@ -12,6 +12,7 @@ import { useAuthContext } from '@/components/AuthProvider';
 import { enablePush, pushMessage } from '@/lib/push';
 import { call, db, DEFAULT_PREFS, Prefs } from './api';
 import OfflineMediaPanel from '@/components/OfflineMediaPanel';
+import { DataRightsCard } from './DataRightsCard';
 
 const DAYS = [0, 1, 2, 3, 4, 5, 6];
 
@@ -120,6 +121,7 @@ export const SettingsTab = ({ onManageProfiles }: { onManageProfiles: () => void
           </CardContent>
         </Card>
         <OfflineMediaPanel />
+        <DataRightsCard />
       </div>
     </div>
   );

@@ -35,3 +35,21 @@ describe('usage records follow the visitor\'s analytics choice', () => {
     expect(insert).toHaveBeenCalledTimes(1);
   });
 });
+
+describe('consent regions', () => {
+  const trace = (loc: string) => vi.fn().mockResolvedValue({ ok: true, text: async () => `h=${location.hostname}\nloc=${loc}\n` });
+  beforeEach(() => { localStorage.clear(); vi.resetModules(); });
+
+  it.each(['CN', 'BR', 'IN', 'KE', 'KR', 'DE'])('asks visitors from %s before analytics', async (loc) => {
+    vi.stubGlobal('fetch', trace(loc));
+    const { needsAnswer, canTrack } = await import('@/lib/consent');
+    expect(await needsAnswer(['analytics'])).toBe(true);
+    expect(await canTrack('analytics')).toBe(false);
+  });
+
+  it('does not ask visitors from the United States', async () => {
+    vi.stubGlobal('fetch', trace('US'));
+    const { needsAnswer } = await import('@/lib/consent');
+    expect(await needsAnswer(['analytics'])).toBe(false);
+  });
+});
