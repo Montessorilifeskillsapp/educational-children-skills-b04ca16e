@@ -151,7 +151,7 @@ const es: typeof en = {
     redirecting: 'Redirigiendo al pago', redirectingBody: 'Te llevamos a la página de pago segura de Stripe…', checkoutError: 'Error en el pago', tryAgain: 'Inténtalo de nuevo.',
     onExplorer: 'Ya tienes el plan Explorador', onExplorerBody: 'Abre el panel para empezar a explorar.',
     welcomeExplorer: '¡Bienvenido a Explorador!', welcomeExplorerBody: 'Tus actividades iniciales gratuitas están listas.',
-    acceptTerms: 'Acepta los Términos', acceptTermsBody: 'Debes aceptar los Términos del servicio y la Política de privacidad antes de comprar.',
+    acceptTerms: 'Acepta los términos', acceptTermsBody: 'Debes aceptar los Términos del servicio y la Política de privacidad antes de comprar.',
     signIn: 'Inicia sesión para continuar', signInBody: 'Te llevamos a iniciar sesión para comenzar el pago…',
     subError: 'Error de suscripción', subErrorBody: 'Hubo un problema al procesar tu solicitud. Inténtalo de nuevo.',
     billingError: 'No se pudo abrir la facturación', billingErrorBody: 'Inténtalo de nuevo o escribe a montessorilifeskills@gmail.com y la cancelaremos o cambiaremos por ti.',

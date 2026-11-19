@@ -108,7 +108,7 @@ const es: typeof en = {
   header: { curriculumSections: 'Áreas del currículo', openSectionMenu: 'Abrir menú de áreas', openMenu: 'Abrir menú' },
   hero: {
     badge: 'Presentaciones AMI auténticas',
-    title: 'Sabe exactamente qué enseñar y cómo presentarlo.',
+    title: 'Sabrás exactamente qué enseñar y cómo presentarlo.',
     subtitle: 'Actividades Montessori paso a paso para niños de 2 a 6 años, creadas para madres, padres, guías y asistentes de aula.',
     body: 'Descubre qué preparar, cómo presentar cada actividad, qué observar y qué viene después.',
     seeHow: 'Ver cómo funciona',
