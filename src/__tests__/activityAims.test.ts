@@ -4,6 +4,8 @@ import { aimsFor } from '@/data/activityAims';
 import es from '@/i18n/lessons/es.json';
 import de from '@/i18n/lessons/de.json';
 import zh from '@/i18n/lessons/zh.json';
+import sw from '@/i18n/lessons/sw.json';
+import hi from '@/i18n/lessons/hi.json';
 
 const all = curriculumSectionsForMaterials.flatMap((s) => Object.entries(s.skills as Record<string, any>));
 
@@ -12,9 +14,9 @@ describe('AMI aims', () => {
     const missing = all.filter(([id, k]) => { const a = aimsFor(id, k); return !a.direct.length || !a.indirect.length; }).map(([id]) => id);
     expect(missing).toEqual([]);
   });
-  it('every aim reads in Spanish, German and Chinese', () => {
+  it('every aim reads in Spanish, German, Chinese, Swahili and Hindi', () => {
     const missing: string[] = [];
-    for (const [id, k] of all) { const a = aimsFor(id, k); for (const s of [...a.direct, ...a.indirect]) for (const d of [es, de, zh] as Record<string, string>[]) if (!d[s.trim()]) missing.push(`${id}: ${s}`); }
+    for (const [id, k] of all) { const a = aimsFor(id, k); for (const s of [...a.direct, ...a.indirect]) for (const d of [es, de, zh, sw, hi] as Record<string, string>[]) if (!d[s.trim()]) missing.push(`${id}: ${s}`); }
     expect(missing).toEqual([]);
   });
 });

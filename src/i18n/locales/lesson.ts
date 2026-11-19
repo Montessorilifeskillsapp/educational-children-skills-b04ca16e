@@ -299,4 +299,152 @@ const zh: typeof en = {
   }
 };
 
-export const lesson = { en, es, de, zh };
+const sw: typeof en = {
+  "phase": {
+    "presentation": "Mwonyeshe mtoto",
+    "presentationHint": "Wasilisha polepole na kimya, mwendo mmoja kwa wakati.",
+    "guided": "Ongoza mazoezi yake",
+    "guidedHint": "Mpe nafasi na usaidie tu inapohitajika.",
+    "independent": "Dalili za umahiri",
+    "independentHint": "Utakachotambua mtoto anapoweza kufanya kazi mwenyewe kwa umahiri."
+  },
+  "notes": {
+    "keyPoints": "Mambo muhimu ya kufundishia",
+    "support": "Mikakati ya usaidizi",
+    "troubleshooting": "Utatuzi wa matatizo",
+    "assessment": "Vigezo vya tathmini",
+    "mastery": "Viashiria vya umahiri",
+    "extensionActivities": "Shughuli za kuendeleza ujifunzaji",
+    "variations": "Tofauti za shughuli",
+    "directAims": "Malengo ya moja kwa moja",
+    "materialsPurpose": "Vifaa na madhumuni yake",
+    "objectives": "Malengo ya ujifunzaji",
+    "extensions": "Shughuli za kuendeleza ujifunzaji"
+  },
+  "page": {
+    "extensions": "Shughuli za Kuendeleza Ujifunzaji na Tofauti Zake",
+    "noExtensions": "Shughuli za kuendeleza ujifunzaji na tofauti zake kwa shughuli hii bado hazipatikani.",
+    "excellent": "Kazi Bora Sana!",
+    "mastered": "Umeimudu {{title}}!",
+    "markComplete": "Weka Alama ya Kukamilika",
+    "imageAlt": "Vifaa halisi vya Montessori kwa {{title}}",
+    "inviteGuide": "Toa mwaliko huu ukiwa tayari kuwasilisha shughuli kama somo jipya, vifaa vikiwa vimeandaliwa. Mtoto akishaijua, hahitaji mwaliko mpya: anaweza kuichagua mwenyewe na kuirudia mara nyingi apendavyo. Wasilisha tu kinachoendana na utayari na shauku ya mtoto, si shughuli zote kwa kikao kimoja.",
+    "invite": "Mwalike mtoto",
+    "aims": "Malengo ya AMI",
+    "directAim": "Lengo la moja kwa moja",
+    "indirectAim": "Lengo lisilo la moja kwa moja",
+    "notFound": "Shughuli hii haikuweza kupakiwa.",
+    "backToActivities": "Rudi kwenye shughuli",
+    "returnToActivities": "Rejea kwenye shughuli"
+  },
+  "mat": {
+    "title": "Vitu utakavyohitaji",
+    "essential": "Muhimu",
+    "essentialSr": " (muhimu)",
+    "includedWith": "Imejumuishwa katika {{name}}",
+    "disclosure": "Tunaweza kupata kamisheni ukinunua kupitia viungo kwenye ukurasa huu, bila gharama ya ziada kwako.",
+    "useWhatYouHave": "Tumia ulicho nacho",
+    "buy": "Nunua",
+    "buyX": "Nunua {{name}}",
+    "buyOn": "Nunua {{name}} kupitia {{vendor}}"
+  },
+  "video": {
+    "heading": "{{title}} — video ya uwasilishaji",
+    "default": "Video ya uwasilishaji",
+    "preview": "Picha ya hakikisho ya {{title}}",
+    "signIn": "Ingia kwa akaunti yenye uanachama ili kutazama uwasilishaji huu.",
+    "members": "Video hii ya uwasilishaji imejumuishwa katika uanachama.",
+    "signInBtn": "Ingia",
+    "plans": "Angalia mipango"
+  },
+  "section": {
+    "practical-life": "Maisha ya vitendo",
+    "Mathematics": "Hisabati",
+    "Botany": "Botania",
+    "Grace & Courtesy": "Uungwana na adabu",
+    "Art": "Sanaa",
+    "Geography": "Jiografia",
+    "Science & Cultural Studies": "Sayansi na masomo ya utamaduni",
+    "Language": "Lugha",
+    "Sensorial": "Ukuzaji wa hisi",
+    "Practical Life": "Maisha ya vitendo",
+    "Skills": "Ujuzi",
+    "Art Skills": "Sanaa",
+    "Cultural Studies": "Masomo ya utamaduni"
+  }
+};
+const hi: typeof en = {
+  "phase": {
+    "presentation": "बच्चे को दिखाएँ",
+    "presentationHint": "धीरे और बिना बोले प्रस्तुत करें, एक बार में एक ही क्रिया दिखाएँ।",
+    "guided": "बच्चे के अभ्यास में मार्गदर्शन दें",
+    "guidedHint": "पीछे हटें और केवल ज़रूरत होने पर मदद दें।",
+    "independent": "दक्षता के संकेत",
+    "independentHint": "जब बच्चा कार्य पूरी तरह अपने दम पर करने लगेगा, तो आपको क्या नज़र आएगा।"
+  },
+  "notes": {
+    "keyPoints": "शिक्षण के मुख्य बिंदु",
+    "support": "सहयोग की रणनीतियाँ",
+    "troubleshooting": "समस्याओं का समाधान",
+    "assessment": "आकलन के मानदंड",
+    "mastery": "दक्षता के संकेतक",
+    "extensionActivities": "विस्तार गतिविधियाँ",
+    "variations": "विविध रूप",
+    "directAims": "प्रत्यक्ष उद्देश्य",
+    "materialsPurpose": "सामग्री और उसका उद्देश्य",
+    "objectives": "सीखने के उद्देश्य",
+    "extensions": "विस्तार"
+  },
+  "page": {
+    "extensions": "विस्तार और विविध रूप",
+    "noExtensions": "इस गतिविधि के विशेष विस्तार और विविध रूप अभी उपलब्ध नहीं हैं।",
+    "excellent": "बेहतरीन कार्य!",
+    "mastered": "आपने {{title}} में दक्षता हासिल कर ली है!",
+    "markComplete": "पूर्ण चिह्नित करें",
+    "imageAlt": "{{title}} के लिए प्रामाणिक मोंटेसरी सामग्री",
+    "inviteGuide": "बच्चे को यह आमंत्रण तब दें जब सामग्री तैयार हो और आप गतिविधि को नए पाठ के रूप में प्रस्तुत करने के लिए तैयार हों। जब बच्चा इसे सीख ले, तो दोबारा आमंत्रण की ज़रूरत नहीं है: वह खुद इसे चुन सकता है और जितनी बार चाहे दोहरा सकता है। केवल वही प्रस्तुत करें जो बच्चे की तैयारी और रुचि के अनुकूल हो। सभी गतिविधियाँ कभी भी एक ही बार में प्रस्तुत न करें।",
+    "invite": "बच्चे को आमंत्रित करें",
+    "aims": "AMI उद्देश्य",
+    "directAim": "प्रत्यक्ष उद्देश्य",
+    "indirectAim": "अप्रत्यक्ष उद्देश्य",
+    "notFound": "यह गतिविधि लोड नहीं हो सकी।",
+    "backToActivities": "गतिविधियों पर वापस जाएँ",
+    "returnToActivities": "गतिविधियों पर लौटें"
+  },
+  "mat": {
+    "title": "आपको क्या चाहिए",
+    "essential": "आवश्यक",
+    "essentialSr": " (ज़रूरी)",
+    "includedWith": "{{name}} के साथ शामिल",
+    "disclosure": "इस पेज के लिंक से खरीदारी करने पर हमें कमीशन मिल सकता है। इसके लिए आपको कोई अतिरिक्त शुल्क नहीं देना होगा।",
+    "useWhatYouHave": "आपके पास जो है, उसका उपयोग करें",
+    "buy": "खरीदें",
+    "buyX": "{{name}} खरीदें",
+    "buyOn": "{{vendor}} पर {{name}} खरीदें"
+  },
+  "video": {
+    "heading": "{{title}} — प्रस्तुतीकरण वीडियो",
+    "default": "प्रस्तुतीकरण वीडियो",
+    "preview": "{{title}} की प्रीव्यू छवि",
+    "signIn": "यह प्रस्तुतीकरण देखने के लिए सदस्यता वाले खाते से साइन इन करें।",
+    "members": "यह प्रस्तुतीकरण वीडियो सदस्यता में शामिल है।",
+    "signInBtn": "साइन इन करें",
+    "plans": "प्लान देखें"
+  },
+  "section": {
+    "practical-life": "व्यावहारिक जीवन",
+    "Mathematics": "गणित",
+    "Botany": "वनस्पति विज्ञान",
+    "Grace & Courtesy": "शालीनता और शिष्टाचार",
+    "Art": "कला",
+    "Geography": "भूगोल",
+    "Science & Cultural Studies": "विज्ञान और सांस्कृतिक अध्ययन",
+    "Language": "भाषा",
+    "Sensorial": "इंद्रिय विकास",
+    "Practical Life": "व्यावहारिक जीवन",
+    "Skills": "कौशल",
+    "Art Skills": "कला",
+    "Cultural Studies": "सांस्कृतिक अध्ययन"
+  }
+};
+export const lesson = { en, es, de, zh, sw, hi };

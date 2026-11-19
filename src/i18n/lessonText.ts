@@ -12,6 +12,8 @@ const loaders: Record<string, () => Promise<{ default: Dict }>> = {
   es: () => import('./lessons/es.json'),
   de: () => import('./lessons/de.json'),
   zh: () => import('./lessons/zh.json'),
+  sw: () => import('./lessons/sw.json'),
+  hi: () => import('./lessons/hi.json'),
 };
 const cache: Record<string, Dict> = {};
 const pending: Record<string, Promise<void>> = {};

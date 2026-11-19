@@ -227,4 +227,290 @@ const zh: typeof en = {
   },
 };
 
-export const auth = { en, es, de, zh };
+const sw: typeof en = {
+  "page": {
+    "tagline": "Mwongozo wako wa shughuli za Montessori",
+    "oneMoreStep": "Hatua moja zaidi ili kuanza",
+    "chooseNew": "Chagua nenosiri jipya",
+    "newPassword": "Nenosiri jipya",
+    "atLeast6": "Angalau vibambo 6",
+    "saving": "Inahifadhi…",
+    "saveNew": "Hifadhi nenosiri jipya",
+    "checkingLink": "Inakagua kiungo chako cha kuweka upya nenosiri…",
+    "expiredLink": "Kiungo hiki cha kuweka upya nenosiri kimeisha muda au tayari kimetumika. Omba kingine kwenye Ingia.",
+    "backToSignIn": "Rudi kwenye kuingia",
+    "checkEmail": "Angalia barua pepe yako",
+    "resetSent": "Ikiwa kuna akaunti ya <1>{{email}}</1>, tumetuma kiungo cha kuweka upya nenosiri lako. Angalia folda ya barua taka ikiwa hukioni.",
+    "confirmSent": "Tumetuma kiungo cha uthibitisho kwa <1>{{email}}</1>. Kifungue ili kukamilisha kufungua akaunti yako. Angalia folda ya barua taka ikiwa hukioni.",
+    "signIn": "Ingia",
+    "createAccount": "Fungua akaunti",
+    "email": "Barua pepe",
+    "emailPlaceholder": "Weka barua pepe yako",
+    "password": "Nenosiri",
+    "passwordPlaceholder": "Weka nenosiri lako",
+    "hidePassword": "Ficha nenosiri",
+    "showPassword": "Onyesha nenosiri",
+    "forgot": "Umesahau nenosiri?",
+    "signingIn": "Inaingia...",
+    "confirmPassword": "Thibitisha nenosiri",
+    "confirmPlaceholder": "Thibitisha nenosiri lako",
+    "creating": "Inafungua akaunti...",
+    "orContinue": "Au endelea kwa",
+    "google": "Endelea kwa Google",
+    "apple": "Endelea kwa Apple",
+    "googleFailed": "Kuingia kwa Google kumeshindikana",
+    "appleFailed": "Kuingia kwa Apple kumeshindikana",
+    "exploreFree": "Gundua shughuli za bure"
+  },
+  "errors": {
+    "existing": "Barua pepe hii tayari ina akaunti, kwa hivyo hakuna akaunti mpya iliyofunguliwa wala barua pepe iliyotumwa. Ingia hapa chini — ikiwa akaunti ilifunguliwa kwa Google au Apple, tumia kitufe hicho. Au gusa \"Umesahau nenosiri?\" ili kuweka nenosiri.",
+    "enterEmailFirst": "Weka barua pepe yako hapo juu, kisha gusa \"Umesahau nenosiri?\" tena.",
+    "min6": "Nenosiri lako linahitaji angalau vibambo 6.",
+    "invalidLogin": "Barua pepe na nenosiri hilo havilingani. Ikiwa ulijisajili kwanza kwa Google au Apple, tumia vitufe hivyo hapa chini — au gusa \"Umesahau nenosiri?\" ili kuweka nenosiri la barua pepe hii.",
+    "rateLimit": "Umejaribu mara nyingi mno kwa sasa. Tafadhali subiri kidogo kisha ujaribu tena.",
+    "leaked": "Nenosiri hilo limeonekana katika uvujaji wa data unaojulikana, kwa hivyo haliwezi kutumika. Tafadhali chagua nenosiri tofauti lisilotumiwa sana.",
+    "weak": "Tafadhali chagua nenosiri imara zaidi lenye angalau vibambo 6.",
+    "invalidEmail": "Tafadhali weka anwani halali ya barua pepe.",
+    "network": "Hatukuweza kuunganisha kwa sasa. Angalia muunganisho wako kisha ujaribu tena.",
+    "enterBoth": "Weka barua pepe na nenosiri lako.",
+    "signInFailed": "Hatukuweza kukuingiza. Tafadhali jaribu tena.",
+    "completeAll": "Jaza sehemu zote tatu ili kufungua akaunti yako.",
+    "mismatch": "Manenosiri hayalingani. Tafadhali jaribu tena.",
+    "signUpFailed": "Hatukuweza kufungua akaunti yako. Tafadhali jaribu tena."
+  },
+  "toast": {
+    "passwordUpdated": "Nenosiri limesasishwa",
+    "passwordUpdatedBody": "Umeingia kwa nenosiri lako jipya.",
+    "welcomeBack": "Karibu tena!",
+    "welcomeBackBody": "Umeingia kwa mafanikio."
+  },
+  "callback": {
+    "confirming": "Inathibitisha barua pepe yako...",
+    "returning": "Inakurudisha kwenye programu...",
+    "failedFresh": "Uthibitisho kupitia kiungo hiki haukuweza kukamilishwa. Tafadhali omba barua pepe mpya ya kujisajili.",
+    "confirmed": "Barua pepe yako imethibitishwa. Inakupeleka kwenye dashibodi yako...",
+    "failedRetry": "Uthibitisho kupitia kiungo hiki haukuweza kukamilishwa. Tafadhali jaribu kujisajili tena.",
+    "errorTitle": "Uthibitisho unahitaji kiungo kipya",
+    "title": "Uthibitisho wa barua pepe",
+    "returnSignUp": "Rudi kwenye kujisajili",
+    "help": "Pata msaada"
+  },
+  "onboarding": {
+    "step0Title": "Tuambie kuhusu mtoto wako",
+    "step1Title": "Chagua maeneo 2–3 ya kuzingatia",
+    "step2Title": "Mpango wako wa ujuzi uko tayari",
+    "step0Body": "Tutarekebisha mpango kulingana na umri wa mtoto.",
+    "step1Body": "Haya yanaelekeza mpango wake wa awali wa Montessori.",
+    "step2Body": "Anza shughuli ya kwanza wakati wowote.",
+    "stepOf": "Hatua ya {{current}} kati ya {{total}}",
+    "childName": "Jina la mtoto",
+    "namePlaceholder": "k.m. Emma",
+    "age": "Umri",
+    "avatar": "Chagua picha ya wasifu",
+    "avatarLabel": "Picha ya wasifu {{avatar}}",
+    "selected": "Umechagua {{count}} kati ya 3 (angalau 2)",
+    "nameAge": "<0>{{name}}</0>, umri {{age}}",
+    "edit": "Hariri",
+    "focusAreas": "Maeneo ya kuzingatia:",
+    "nextTitle": "Kinachofuata",
+    "next1": "• Fungua dashibodi ili kuanza shughuli ya kwanza",
+    "next2": "• Ongeza maeneo zaidi ya kuzingatia wakati wowote kwenye dashibodi",
+    "next3": "• Fuatilia maendeleo kwenye Dashibodi ya Familia",
+    "back": "Rudi",
+    "next": "Inayofuata",
+    "save": "Hifadhi mpango",
+    "skip": "Ruka usanidi — nipeleke kwenye shughuli ya kwanza →",
+    "savedTitle": "Mpango umehifadhiwa!",
+    "savedBody": "Mpango wa Montessori wa mtoto wako uko tayari kuanza.",
+    "ageN": "Umri {{age}}",
+    "focusCount": "Maeneo ya kuzingatia ({{count}})",
+    "sequenceReady": "Mfuatano wa shughuli za {{name}} mwenye umri wa {{age}} uko tayari.",
+    "premiumFrom": "Premium kuanzia $16.58/mwezi, ukitozwa $199/mwaka.",
+    "startPremium": "Anza mfuatano kamili kwa Premium",
+    "goDashboard": "Nenda kwenye dashibodi",
+    "tryFree": "Jaribu shughuli za kuanzia bila malipo",
+    "guarantee": "Dhamana ya kurejeshewa fedha ndani ya siku 30 · Ghairi wakati wowote",
+    "areas": {
+      "practical-life": {
+        "label": "Maisha ya vitendo",
+        "desc": "Kujitunza na kujitegemea"
+      },
+      "sensorial": {
+        "label": "Ukuzaji wa hisi",
+        "desc": "Kuboresha hisi"
+      },
+      "language": {
+        "label": "Lugha",
+        "desc": "Kusoma na kuandika"
+      },
+      "math": {
+        "label": "Hisabati",
+        "desc": "Nambari na kiasi"
+      },
+      "geography": {
+        "label": "Jiografia",
+        "desc": "Dunia na utamaduni"
+      },
+      "botany": {
+        "label": "Botania",
+        "desc": "Mimea na mazingira asilia"
+      },
+      "art": {
+        "label": "Sanaa",
+        "desc": "Kujieleza kwa ubunifu"
+      },
+      "cultural": {
+        "label": "Masomo ya utamaduni",
+        "desc": "Sayansi na utamaduni wa binadamu"
+      },
+      "grace-courtesy": {
+        "label": "Uungwana na adabu",
+        "desc": "Stadi za kijamii"
+      }
+    }
+  }
+};
+const hi: typeof en = {
+  "page": {
+    "tagline": "मोंटेसरी गतिविधियों के लिए आपकी गाइड",
+    "oneMoreStep": "शुरू करने के लिए बस एक और कदम",
+    "chooseNew": "नया पासवर्ड चुनें",
+    "newPassword": "नया पासवर्ड",
+    "atLeast6": "कम से कम 6 अक्षर",
+    "saving": "सहेजा जा रहा है…",
+    "saveNew": "नया पासवर्ड सहेजें",
+    "checkingLink": "आपका रीसेट लिंक जाँचा जा रहा है…",
+    "expiredLink": "इस रीसेट लिंक की समय-सीमा समाप्त हो गई है या इसका पहले ही इस्तेमाल हो चुका है। साइन इन पेज से नया लिंक माँगें।",
+    "backToSignIn": "साइन इन पर वापस जाएँ",
+    "checkEmail": "अपना ईमेल देखें",
+    "resetSent": "अगर <1>{{email}}</1> से जुड़ा खाता मौजूद है, तो हमने आपका पासवर्ड रीसेट करने के लिए एक लिंक भेजा है। ईमेल न दिखे तो अपना स्पैम फ़ोल्डर देखें।",
+    "confirmSent": "हमने <1>{{email}}</1> पर पुष्टि का लिंक भेजा है। अपना खाता बनाना पूरा करने के लिए उसे खोलें। ईमेल न दिखे तो अपना स्पैम फ़ोल्डर देखें।",
+    "signIn": "साइन इन करें",
+    "createAccount": "खाता बनाएँ",
+    "email": "ईमेल",
+    "emailPlaceholder": "अपना ईमेल दर्ज करें",
+    "password": "पासवर्ड",
+    "passwordPlaceholder": "अपना पासवर्ड दर्ज करें",
+    "hidePassword": "पासवर्ड छिपाएँ",
+    "showPassword": "पासवर्ड दिखाएँ",
+    "forgot": "पासवर्ड भूल गए?",
+    "signingIn": "साइन इन हो रहा है...",
+    "confirmPassword": "पासवर्ड की पुष्टि करें",
+    "confirmPlaceholder": "अपना पासवर्ड फिर से दर्ज करें",
+    "creating": "खाता बनाया जा रहा है...",
+    "orContinue": "या इसके साथ आगे बढ़ें",
+    "google": "Google के साथ आगे बढ़ें",
+    "apple": "Apple के साथ आगे बढ़ें",
+    "googleFailed": "Google से साइन इन नहीं हुआ",
+    "appleFailed": "Apple से साइन इन नहीं हुआ",
+    "exploreFree": "मुफ़्त गतिविधियाँ देखें"
+  },
+  "errors": {
+    "existing": "इस ईमेल से पहले से एक खाता जुड़ा है, इसलिए न नया खाता बनाया गया और न कोई ईमेल भेजा गया। नीचे साइन इन करें — अगर खाता Google या Apple से बनाया था, तो उसी बटन का इस्तेमाल करें। या पासवर्ड सेट करने के लिए \"पासवर्ड भूल गए?\" पर टैप करें।",
+    "enterEmailFirst": "ऊपर अपना ईमेल दर्ज करें, फिर \"पासवर्ड भूल गए?\" पर दोबारा टैप करें।",
+    "min6": "आपके पासवर्ड में कम से कम 6 अक्षर होने चाहिए।",
+    "invalidLogin": "यह ईमेल और पासवर्ड मेल नहीं खाते। अगर आपने पहली बार Google या Apple से खाता बनाया था, तो नीचे दिए गए उन्हीं बटनों का इस्तेमाल करें — या इस ईमेल के लिए पासवर्ड सेट करने हेतु \"पासवर्ड भूल गए?\" पर टैप करें।",
+    "rateLimit": "अभी बहुत ज़्यादा प्रयास किए गए हैं। कृपया थोड़ी देर रुककर दोबारा कोशिश करें।",
+    "leaked": "यह पासवर्ड एक ज्ञात डेटा लीक में पाया गया है, इसलिए इसका इस्तेमाल नहीं किया जा सकता। कृपया कोई अलग, कम प्रचलित पासवर्ड चुनें।",
+    "weak": "कृपया कम से कम 6 अक्षरों वाला अधिक सुरक्षित पासवर्ड चुनें।",
+    "invalidEmail": "कृपया मान्य ईमेल पता दर्ज करें।",
+    "network": "अभी कनेक्ट नहीं हो सका। अपना इंटरनेट कनेक्शन जाँचें और दोबारा कोशिश करें।",
+    "enterBoth": "अपना ईमेल और पासवर्ड दर्ज करें।",
+    "signInFailed": "हम आपको साइन इन नहीं कर सके। कृपया दोबारा कोशिश करें।",
+    "completeAll": "अपना खाता बनाने के लिए तीनों फ़ील्ड भरें।",
+    "mismatch": "पासवर्ड मेल नहीं खाते। कृपया दोबारा कोशिश करें।",
+    "signUpFailed": "हम आपका खाता नहीं बना सके। कृपया दोबारा कोशिश करें।"
+  },
+  "toast": {
+    "passwordUpdated": "पासवर्ड अपडेट हो गया",
+    "passwordUpdatedBody": "आप अपने नए पासवर्ड से साइन इन हो गए हैं।",
+    "welcomeBack": "आपका फिर से स्वागत है!",
+    "welcomeBackBody": "आपने सफलतापूर्वक साइन इन कर लिया है।"
+  },
+  "callback": {
+    "confirming": "आपके ईमेल की पुष्टि की जा रही है...",
+    "returning": "आपको ऐप पर वापस ले जा रहे हैं...",
+    "failedFresh": "इस लिंक से पुष्टि नहीं हो सकी। कृपया खाता बनाने के लिए नया ईमेल माँगें।",
+    "confirmed": "आपके ईमेल की पुष्टि हो गई है। आपको आपके डैशबोर्ड पर ले जा रहे हैं...",
+    "failedRetry": "इस लिंक से पुष्टि नहीं हो सकी। कृपया दोबारा खाता बनाने की कोशिश करें।",
+    "errorTitle": "पुष्टि के लिए नया लिंक चाहिए",
+    "title": "ईमेल की पुष्टि",
+    "returnSignUp": "खाता बनाने पर वापस जाएँ",
+    "help": "मदद लें"
+  },
+  "onboarding": {
+    "step0Title": "अपने बच्चे के बारे में बताएँ",
+    "step1Title": "ध्यान देने के लिए 2–3 क्षेत्र चुनें",
+    "step2Title": "आपकी कौशल योजना तैयार है",
+    "step0Body": "हम बच्चे की उम्र के हिसाब से योजना बनाएँगे।",
+    "step1Body": "इनसे बच्चे की शुरुआती मोंटेसरी योजना बनेगी।",
+    "step2Body": "पहली गतिविधि कभी भी शुरू करें।",
+    "stepOf": "चरण {{current}} / {{total}}",
+    "childName": "बच्चे का नाम",
+    "namePlaceholder": "जैसे, एम्मा",
+    "age": "उम्र",
+    "avatar": "अवतार चुनें",
+    "avatarLabel": "अवतार {{avatar}}",
+    "selected": "3 में से {{count}} चुने गए (कम से कम 2)",
+    "nameAge": "<0>{{name}}</0>, उम्र {{age}}",
+    "edit": "बदलें",
+    "focusAreas": "ध्यान देने के क्षेत्र:",
+    "nextTitle": "आगे क्या करें",
+    "next1": "• पहली गतिविधि शुरू करने के लिए डैशबोर्ड खोलें",
+    "next2": "• डैशबोर्ड से कभी भी ध्यान देने के और क्षेत्र जोड़ें",
+    "next3": "• परिवार डैशबोर्ड में प्रगति देखें",
+    "back": "वापस",
+    "next": "आगे",
+    "save": "योजना सहेजें",
+    "skip": "सेटअप छोड़ें — पहली गतिविधि पर जाएँ →",
+    "savedTitle": "योजना सहेज ली गई!",
+    "savedBody": "आपके बच्चे की मोंटेसरी योजना शुरू करने के लिए तैयार है।",
+    "ageN": "उम्र {{age}}",
+    "focusCount": "प्राथमिकता वाले क्षेत्र ({{count}})",
+    "sequenceReady": "{{name}} के लिए उम्र {{age}} का गतिविधि क्रम तैयार है।",
+    "premiumFrom": "प्रीमियम $16.58/माह से, बिलिंग $199/वर्ष।",
+    "startPremium": "प्रीमियम के साथ पूरा गतिविधि क्रम शुरू करें",
+    "goDashboard": "डैशबोर्ड पर जाएँ",
+    "tryFree": "मुफ़्त शुरुआती गतिविधियाँ आज़माएँ",
+    "guarantee": "30 दिन की मनी-बैक गारंटी · कभी भी रद्द करें",
+    "areas": {
+      "practical-life": {
+        "label": "व्यावहारिक जीवन",
+        "desc": "स्वयं की देखभाल और आत्मनिर्भरता"
+      },
+      "sensorial": {
+        "label": "इंद्रिय विकास",
+        "desc": "इंद्रियों को निखारना"
+      },
+      "language": {
+        "label": "भाषा",
+        "desc": "पढ़ना और लिखना"
+      },
+      "math": {
+        "label": "गणित",
+        "desc": "संख्याएँ और मात्रा"
+      },
+      "geography": {
+        "label": "भूगोल",
+        "desc": "विश्व और संस्कृति"
+      },
+      "botany": {
+        "label": "वनस्पति विज्ञान",
+        "desc": "पौधे और प्रकृति"
+      },
+      "art": {
+        "label": "कला",
+        "desc": "रचनात्मक अभिव्यक्ति"
+      },
+      "cultural": {
+        "label": "सांस्कृतिक अध्ययन",
+        "desc": "विज्ञान और मानव संस्कृति"
+      },
+      "grace-courtesy": {
+        "label": "शालीनता और शिष्टाचार",
+        "desc": "सामाजिक कौशल"
+      }
+    }
+  }
+};
+export const auth = { en, es, de, zh, sw, hi };

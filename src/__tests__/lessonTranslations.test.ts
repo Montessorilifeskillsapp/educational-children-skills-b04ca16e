@@ -3,9 +3,11 @@ import { writeFileSync } from 'fs';
 import es from '@/i18n/lessons/es.json';
 import de from '@/i18n/lessons/de.json';
 import zh from '@/i18n/lessons/zh.json';
+import sw from '@/i18n/lessons/sw.json';
+import hi from '@/i18n/lessons/hi.json';
 import { lessonInventory } from './helpers/lessonInventory';
 
-const DICTS: Record<string, Record<string, string>> = { es, de, zh };
+const DICTS: Record<string, Record<string, string>> = { es, de, zh, sw, hi };
 const inventory = lessonInventory();
 
 describe('lesson content translations', () => {

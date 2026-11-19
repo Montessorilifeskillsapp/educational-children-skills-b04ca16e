@@ -1,13 +1,16 @@
 """Fills missing lesson translations.
 1. Run the lesson translation test; it lists missing strings in /tmp/lesson-missing-<lang>.json.
-2. python3 scripts/translate-lessons.py <es|de|zh>  (needs LOVABLE_API_KEY in the environment)
+2. python3 scripts/translate-lessons.py <es|de|zh|sw|hi>  (needs LOVABLE_API_KEY in the environment)
 Translations are merged into src/i18n/lessons/<lang>.json, keyed by the exact English text."""
 import json, os, sys, threading, time, requests
 from concurrent.futures import ThreadPoolExecutor
 KEY=os.environ['LOVABLE_API_KEY']; URL='https://ai.gateway.lovable.dev/v1/responses'; MODEL='openai/gpt-6.1-sol'
-LANG={'es':'Spanish (Latin-American neutral, address the adult reader informally with "tú")','de':'German (address the adult reader formally with "Sie")','zh':'Simplified Chinese (Mainland usage)'}
+LANG={'es':'Spanish (Latin-American neutral, address the adult reader informally with "tú")','de':'German (address the adult reader formally with "Sie")','zh':'Simplified Chinese (Mainland usage)',
+  'sw':'Swahili (standard Kiswahili sanifu, understood in Kenya and Tanzania; address the adult reader respectfully; sentences starting "Would you like to" are spoken to a young child, e.g. "Je, ungependa...?")',
+  'hi':'Hindi (Devanagari script, natural modern Hindi as used by Indian Montessori teachers; address the adult reader with आप; sentences starting "Would you like to" are spoken to a young child with तुम, e.g. "क्या तुम ... करना चाहोगे?")'}
 ROOT=os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 GLOSS=open(os.path.join(ROOT,'scripts','lesson-glossary.txt')).read()
+GLOSS_SWHI=open(os.path.join(ROOT,'scripts','lesson-glossary-sw-hi.txt')).read()
 lock=threading.Lock()
 def schema():
     return {"type":"object","additionalProperties":False,"required":["items"],"properties":{"items":{"type":"array","items":{"type":"object","additionalProperties":False,"required":["k","v"],"properties":{"k":{"type":"string"},"v":{"type":"string"}}}}}}
@@ -17,7 +20,8 @@ def call(lang, batch):
       "This is a 3-6 Montessori curriculum guide for parents and teachers. Use established AMI Montessori terminology in the target language (see glossary), "
       "precise and warm, never literal word-by-word. Keep the same meaning, sentence count and formatting (line breaks, bullet characters, numbers, emoji). "
       "Keep placeholders like {child} or {{name}} unchanged. Child names in examples may stay as is. Always write 'Dr. Maria Montessori' as her name. "
-      "Do not name any brand or supplier. Return every k exactly once with its translation.\n\nGLOSSARY (English = Spanish | German | Chinese):\n"+GLOSS)
+      "Do not name any brand or supplier. Return every k exactly once with its translation.\n\n"+(
+      "GLOSSARY (English = Swahili | Hindi):\n"+GLOSS_SWHI if lang in ('sw','hi') else "GLOSSARY (English = Spanish | German | Chinese):\n"+GLOSS))
     body={"model":MODEL,"stream":True,"store":False,"reasoning":{"effort":"low"},"instructions":instr,
       "input":[{"role":"user","content":json.dumps(src,ensure_ascii=False)}],
       "text":{"format":{"type":"json_schema","name":"translations","strict":True,"schema":schema()}}}

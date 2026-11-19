@@ -343,4 +343,174 @@ const zh: typeof en = {
   }
 };
 
-export const dashboard = { en, es, de, zh };
+const sw: typeof en = {
+  "back": "Rudi mwanzo",
+  "welcome": "Karibu tena, {{name}}!",
+  "loggedIn": "Umeingia kama: {{email}}",
+  "selectAria": "Chagua wasifu wa mtoto",
+  "selectPh": "Chagua mtoto",
+  "signIn": "Ingia",
+  "signOut": "Ondoka",
+  "nav": "Kurasa za akaunti",
+  "profiles": "Dhibiti wasifu wa watoto",
+  "profilesSub": "Chagua mtoto au hariri wasifu wake",
+  "family": "Dashibodi ya familia",
+  "familySub": "Angalia maendeleo ya kujifunza",
+  "plans": "Mipango ya kulipia",
+  "plansSub": "Mipango na bei, pamoja na ushauri wa faragha na Kerry",
+  "setupEyebrow": "Anza hapa · AMI",
+  "setupTitle": "Andaa darasa lako la Montessori",
+  "setupBody": "Kabla ya shughuli yoyote, mazingira yenyewe lazima yaandaliwe. Mwongozo wa AMI kuhusu mazingira yaliyoandaliwa, maeneo matano ya mtaala, na jukumu la mtu mzima.",
+  "noteFrom": "Ujumbe kutoka kwa Kerry",
+  "b": {
+    "first": "Hatua ya kwanza",
+    "firstD": "Kamilisha shughuli 1",
+    "five": "Tano imara",
+    "fiveD": "Kamilisha shughuli 5",
+    "ten": "Mgunduzi wa kumi",
+    "tenD": "Kamilisha shughuli 10",
+    "s3": "Mfululizo wa siku 3",
+    "s3D": "Fanya mazoezi kwa siku 3 mfululizo",
+    "s7": "Mfululizo wa wiki",
+    "s7D": "Fanya mazoezi kwa siku 7 mfululizo",
+    "area": "Bingwa wa eneo lengwa",
+    "areaD": "Kamilisha eneo lengwa lote"
+  },
+  "days_one": "siku",
+  "days_other": "siku",
+  "streakStart": "Anza mfululizo leo!",
+  "streakCurrent": "Mfululizo wa sasa wa kujifunza",
+  "achievements": "Mafanikio",
+  "focusPlan": "Mpango wa maeneo lengwa wa {{name}}",
+  "nCompleted": "Shughuli {{done}} kati ya {{total}} zimekamilika",
+  "allAreas": "Maendeleo katika maeneo yote",
+  "explore": "Gundua makundi ya stadi",
+  "principle": "Kanuni ya Montessori:",
+  "why": "Kwa nini:",
+  "pl": {
+    "t": "Stadi za maisha ya vitendo",
+    "s": "Shughuli za maisha ya kila siku",
+    "w": "Maisha ya vitendo ni msingi wa elimu ya Montessori. Shughuli hizi hukuza umakinifu, uratibu, kujitegemea na utaratibu—nguzo nne za kujifunza. Watoto hujenga kujiamini kupitia kazi zenye maana zinazoakisi majukumu halisi ya watu wazima, na kutosheleza hamu yao ya asili ya kuchangia maisha ya familia na jamii."
+  },
+  "se": {
+    "t": "Stadi za ukuzaji wa hisi",
+    "s": "Noa hisi",
+    "w": "Dr. Maria Montessori aliamini kuwa hisi ni lango la akili. Vifaa vya ukuzaji wa hisi hutenga sifa mahususi (ukubwa, rangi, umbile la uso, sauti, uzito) ili kunoa utambuzi na kukuza uwezo wa kuchunguza. Utambuzi huu wa hisi ulioboreshwa huweka msingi wa fikra za kihisabati, uchunguzi wa kisayansi na kujieleza kisanaa."
+  },
+  "la": {
+    "t": "Stadi za lugha",
+    "s": "Kusoma na kuandika",
+    "w": "Ukuaji wa lugha hufuata kipindi nyeti cha mtoto kwa mawasiliano ya mdomo na maandishi. Mbinu ya Montessori inayotumia sauti za herufi pamoja na herufi za msasa zinazoguswa hushirikisha hisi nyingi, na kufanya alama dhahania zieleweke kwa vitu halisi. Kwa kawaida watoto husonga kutoka lugha ya mazungumzo hadi kuandika (kugeuza sauti kuwa maandishi) kabla ya kusoma (kutafsiri maandishi kuwa sauti), kwa kuheshimu hatua za asili za ukuaji."
+  },
+  "ma": {
+    "t": "Stadi za hisabati",
+    "s": "Nambari na kuhesabu",
+    "w": "Hisabati huwasilishwa kupitia uzoefu wa vitu halisi kabla ya dhana dhahania. Mtoto hutumia vifaa halisi (shanga za dhahabu, fimbo za nambari) ili kuelewa kiasi, mfuatano na matendo ya kihisabati. Mbinu hii ya vitendo hujenga \"akili ya kihisabati\"—uelewa wa mahusiano, mifumo na mantiki unaozidi kwa mbali hesabu za kawaida."
+  },
+  "ge": {
+    "t": "Stadi za jiografia",
+    "s": "Gundua dunia yetu",
+    "w": "Jiografia hukuza elimu ya ulimwengu—nafasi ya mtoto katika dunia pana. Kupitia ramani za vipande vinavyounganishwa zinazoguswa na masomo ya utamaduni, watoto hukuza uelewa wa nafasi, heshima kwa utofauti na uhusiano kati ya vitu. Hii hujenga uraia wa kimataifa na utunzaji wa mazingira tangu umri mdogo."
+  },
+  "bo": {
+    "t": "Stadi za botania",
+    "s": "Jifunze kuhusu mimea",
+    "w": "Botania huwaunganisha watoto na ulimwengu wa asili kupitia uchunguzi na utunzaji wa moja kwa moja. Kuelewa mizunguko ya maisha, muundo na mahitaji ya mimea hufundisha uwajibikaji, subira na uchunguzi wa kisayansi. Watoto hukuza heshima kwa uhai na uelewa wa ikolojia huku wakifanya mazoezi ya stadi za kuainisha na kutaja majina."
+  },
+  "ar": {
+    "t": "Stadi za sanaa",
+    "s": "Kujieleza kwa ubunifu",
+    "w": "Sanaa katika Montessori huzingatia mchakato, si matokeo ya mwisho. Watoto huchunguza vifaa kwa uhuru ili kuonyesha ubunifu wao wa ndani, kuboresha udhibiti wa misuli midogo na kukuza utambuzi wa uzuri. Shughuli za sanaa zisizo na matokeo yaliyoamuliwa mapema hujenga kujiamini katika kujieleza huku zikiheshimu ubunifu wa kipekee na utayari wa ukuaji wa kila mtoto."
+  },
+  "cu": {
+    "t": "Masomo ya utamaduni",
+    "s": "Historia, muziki, sayansi na tamaduni za dunia",
+    "w": "Masomo ya utamaduni huunganisha maeneo yote ya maarifa katika maono ya Montessori ya elimu ya ulimwengu. Kupitia historia, muziki, sayansi na tamaduni za dunia, watoto hugundua nafasi yao katika ulimwengu na kukuza heshima kwa mafanikio na utofauti wa wanadamu katika nyakati na maeneo mbalimbali."
+  }
+};
+const hi: typeof en = {
+  "back": "होम पर वापस जाएँ",
+  "welcome": "फिर से स्वागत है, {{name}}!",
+  "loggedIn": "इस खाते से लॉग इन हैं: {{email}}",
+  "selectAria": "बच्चे की प्रोफ़ाइल चुनें",
+  "selectPh": "बच्चा चुनें",
+  "signIn": "साइन इन करें",
+  "signOut": "साइन आउट करें",
+  "nav": "खाते के पेज",
+  "profiles": "बच्चों की प्रोफ़ाइल प्रबंधित करें",
+  "profilesSub": "बच्चा चुनें या उसकी जानकारी बदलें",
+  "family": "परिवार डैशबोर्ड",
+  "familySub": "सीखने की प्रगति देखें",
+  "plans": "प्रीमियम प्लान",
+  "plansSub": "प्लान और कीमतें, साथ में केरी से निजी परामर्श",
+  "setupEyebrow": "यहाँ से शुरू करें · AMI",
+  "setupTitle": "अपनी मोंटेसरी कक्षा तैयार करें",
+  "setupBody": "किसी भी गतिविधि से पहले वातावरण तैयार करना ज़रूरी है। तैयार किया गया वातावरण, पाठ्यक्रम के पाँच क्षेत्रों और वयस्क की भूमिका पर AMI की मार्गदर्शिका।",
+  "noteFrom": "केरी का संदेश",
+  "b": {
+    "first": "पहला कदम",
+    "firstD": "1 गतिविधि पूरी करें",
+    "five": "पाँच की उपलब्धि",
+    "fiveD": "5 गतिविधियाँ पूरी करें",
+    "ten": "दस का खोजकर्ता",
+    "tenD": "10 गतिविधियाँ पूरी करें",
+    "s3": "लगातार 3 दिन",
+    "s3D": "लगातार 3 दिन अभ्यास करें",
+    "s7": "लगातार एक सप्ताह",
+    "s7D": "लगातार 7 दिन अभ्यास करें",
+    "area": "कौशल क्षेत्र में महारत",
+    "areaD": "एक पूरा केंद्रित क्षेत्र पूरा करें"
+  },
+  "days_one": "दिन",
+  "days_other": "दिन",
+  "streakStart": "आज से रोज़ सीखने का सिलसिला शुरू करें!",
+  "streakCurrent": "लगातार सीखने का मौजूदा सिलसिला",
+  "achievements": "उपलब्धियाँ",
+  "focusPlan": "{{name}} की केंद्रित सीखने की योजना",
+  "nCompleted": "{{total}} में से {{done}} गतिविधियाँ पूरी हुईं",
+  "allAreas": "सभी क्षेत्रों में प्रगति",
+  "explore": "कौशल श्रेणियाँ देखें",
+  "principle": "मोंटेसरी सिद्धांत:",
+  "why": "क्यों:",
+  "pl": {
+    "t": "व्यावहारिक जीवन कौशल",
+    "s": "दैनिक जीवन की गतिविधियाँ",
+    "w": "व्यावहारिक जीवन मोंटेसरी शिक्षा की नींव है। ये गतिविधियाँ सीखने के चार स्तंभों—एकाग्रता, समन्वय, आत्मनिर्भरता और सुव्यवस्था—को विकसित करती हैं। वयस्कों के असली कामों जैसे सार्थक कार्य करके बच्चों का आत्मविश्वास बढ़ता है और परिवार व समुदाय में योगदान देने की उनकी सहज इच्छा पूरी होती है।"
+  },
+  "se": {
+    "t": "इंद्रिय विकास कौशल",
+    "s": "इंद्रियों को निखारें",
+    "w": "Dr. Maria Montessori का मानना था कि इंद्रियाँ बुद्धि का प्रवेश द्वार हैं। इंद्रिय विकास की सामग्री विशिष्ट गुणों (आकार, रंग, बनावट, ध्वनि, भार) को अलग करके बोध को पैना करती है और अवलोकन क्षमता विकसित करती है। यह निखरी हुई इंद्रिय जागरूकता गणितीय सोच, वैज्ञानिक खोज और कलात्मक अभिव्यक्ति की नींव बनती है।"
+  },
+  "la": {
+    "t": "भाषा कौशल",
+    "s": "पढ़ना और लिखना",
+    "w": "भाषा का विकास मौखिक और लिखित संवाद के लिए बच्चे की संवेदनशील अवधि के अनुरूप होता है। स्पर्श किए जा सकने वाले रेगमाल के अक्षरों के साथ मोंटेसरी की ध्वनि-आधारित पद्धति कई इंद्रियों को सक्रिय करती है और अमूर्त प्रतीकों को ठोस अनुभव देती है। विकास के स्वाभाविक चरणों के अनुसार बच्चे बोलने से लिखने (ध्वनियों को अक्षरों में बदलने) की ओर बढ़ते हैं, और उसके बाद पढ़ना (अक्षरों से ध्वनियाँ पहचानना) सीखते हैं।"
+  },
+  "ma": {
+    "t": "गणित कौशल",
+    "s": "संख्याएँ और गिनती",
+    "w": "गणित में अमूर्त अवधारणाओं से पहले ठोस अनुभव दिए जाते हैं। बच्चा सुनहरे मनकों और संख्या छड़ों जैसी सामग्री का इस्तेमाल करके मात्रा, क्रम और गणितीय संक्रियाओं को आत्मसात करता है। स्वयं करके सीखने की यह पद्धति “गणितीय मन” विकसित करती है—संबंधों, पैटर्न और तर्क की ऐसी समझ जो अंकगणित से कहीं आगे जाती है।"
+  },
+  "ge": {
+    "t": "भूगोल कौशल",
+    "s": "हमारी दुनिया को जानें",
+    "w": "भूगोल ब्रह्मांडीय शिक्षा को बढ़ावा देता है—बच्चे को व्यापक दुनिया में अपना स्थान समझने में मदद करता है। स्पर्श किए जा सकने वाले पहेली मानचित्रों और सांस्कृतिक अध्ययन से बच्चे स्थानिक समझ, विविधता के प्रति सम्मान और आपसी जुड़ाव की भावना विकसित करते हैं। इससे कम उम्र से ही वैश्विक नागरिकता और पर्यावरण की देखभाल का भाव पनपता है।"
+  },
+  "bo": {
+    "t": "वनस्पति विज्ञान कौशल",
+    "s": "पौधों के बारे में जानें",
+    "w": "वनस्पति विज्ञान सीधे अवलोकन और देखभाल के ज़रिए बच्चों को प्राकृतिक दुनिया से जोड़ता है। पौधों के जीवन चक्र, संरचना और ज़रूरतों को समझने से ज़िम्मेदारी, धैर्य और वैज्ञानिक खोज की प्रवृत्ति विकसित होती है। वर्गीकरण और नामकरण के कौशल का अभ्यास करते हुए बच्चे जीवन के प्रति सम्मान और पारिस्थितिक जागरूकता विकसित करते हैं।"
+  },
+  "ar": {
+    "t": "कला कौशल",
+    "s": "रचनात्मक अभिव्यक्ति",
+    "w": "मोंटेसरी में कला का ज़ोर प्रक्रिया पर होता है, अंतिम रचना पर नहीं। बच्चे अपनी रचनात्मकता व्यक्त करने, हाथों और उँगलियों के सूक्ष्म नियंत्रण को निखारने और सौंदर्यबोध विकसित करने के लिए सामग्री को स्वतंत्र रूप से आज़माते हैं। खुले विकल्पों वाले कला अनुभव हर बच्चे की अनूठी रचनात्मक अभिव्यक्ति और विकास की तैयारी का सम्मान करते हुए आत्म-अभिव्यक्ति का आत्मविश्वास बढ़ाते हैं।"
+  },
+  "cu": {
+    "t": "सांस्कृतिक अध्ययन",
+    "s": "इतिहास, संगीत, विज्ञान और विश्व की संस्कृतियाँ",
+    "w": "सांस्कृतिक अध्ययन ज्ञान के सभी क्षेत्रों को मोंटेसरी की ब्रह्मांडीय शिक्षा की दृष्टि से जोड़ता है। इतिहास, संगीत, विज्ञान और विश्व की संस्कृतियों के माध्यम से बच्चे ब्रह्मांड में अपना स्थान पहचानते हैं और अलग-अलग समय व स्थान की मानवीय उपलब्धियों तथा विविधता के प्रति सम्मान विकसित करते हैं।"
+  }
+};
+export const dashboard = { en, es, de, zh, sw, hi };

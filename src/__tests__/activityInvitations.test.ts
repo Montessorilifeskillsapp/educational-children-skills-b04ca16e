@@ -9,6 +9,8 @@ import { tactileSensorialSkills } from '@/data/tactileSensorialSkills';
 import es from '@/i18n/lessons/es.json';
 import de from '@/i18n/lessons/de.json';
 import zh from '@/i18n/lessons/zh.json';
+import sw from '@/i18n/lessons/sw.json';
+import hi from '@/i18n/lessons/hi.json';
 
 const dataMaps = [allPracticalLifeSkills, sensorialSkills, additionalSensorialSkills, tactileSensorialSkills, completeSensorialSkills] as Record<string, any>[];
 const fromData = (id: string): string | undefined => {
@@ -27,10 +29,10 @@ describe('AMI invitation to the child', () => {
     for (const s of all) expect(invitationFor(s.id, fromData(s.id))).toMatch(/^Would you like to [^?]+\?$/);
   });
 
-  it('every invitation reads in Spanish, German and Chinese', () => {
+  it('every invitation reads in Spanish, German, Chinese, Swahili and Hindi', () => {
     for (const s of all) {
       const en = invitationFor(s.id, fromData(s.id))!;
-      for (const dict of [es, de, zh] as Record<string, string>[]) expect(dict[en], `${s.id}: ${en}`).toBeTruthy();
+      for (const dict of [es, de, zh, sw, hi] as Record<string, string>[]) expect(dict[en], `${s.id}: ${en}`).toBeTruthy();
     }
   });
 
@@ -40,7 +42,7 @@ describe('AMI invitation to the child', () => {
   });
 
   it('names the material with the activity\'s own title in all four languages', () => {
-    const dicts = { es, de, zh } as Record<string, Record<string, string>>;
+    const dicts = { es, de, zh, sw, hi } as Record<string, Record<string, string>>;
     const words = (t: string) => t.replace(/Montessori-?|蒙台梭利/g, '').replace(/[(（].*?[)）]/g, '').split(/\s+[-–]\s+|[\s,&]+/).map((w) => w.toLowerCase()).filter((w) => w.length > 1 || /[\u4e00-\u9fff]/.test(w));
     const mismatches: string[] = [];
     for (const s of all) {

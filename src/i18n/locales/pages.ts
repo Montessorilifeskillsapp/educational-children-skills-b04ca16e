@@ -871,4 +871,438 @@ const zh: typeof en = {
   }
 };
 
-export const pages = { en, es, de, zh };
+const sw: typeof en = {
+  "about": {
+    "title": "Kuhusu sisi",
+    "missionTitle": "Dhamira yetu",
+    "mission": "Tunaamini kila mtoto anastahili kukuza uwezo wa kujitegemea, kujiamini na kupenda kujifunza kupitia uzoefu wa vitendo. Programu yetu inaleta mbinu ya Montessori iliyothibitishwa kwa muda katika enzi ya kidijitali, na kufanya kanuni hizi za elimu zinazoleta mabadiliko zipatikane kwa familia duniani kote.",
+    "diffTitle": "Kinachotutofautisha",
+    "d1t": "Mbinu halisi ya Montessori",
+    "d1": "Kila shughuli imeandaliwa na waelimishaji wa Montessori walioidhinishwa na inafuata kanuni za jadi za kujifunza kwa kujiongoza na uchunguzi wa vitendo.",
+    "d2t": "Ujuzi wa maisha halisi",
+    "d2": "Tunazingatia ujuzi wa maisha ya vitendo ambao watoto wanaweza kutumia katika maisha yao ya kila siku, wakijenga kujiamini na uwezo wa kujitegemea.",
+    "d3t": "Muundo maridadi",
+    "d3": "Vielelezo vyetu vilivyoundwa kwa uangalifu na kiolesura chetu tulivu huunda mazingira ya kujifunzia yenye utulivu yanayosaidia umakini.",
+    "d4t": "Familia ndiyo kiini",
+    "d4": "Tunaimarisha mahusiano ya kifamilia na yale kati ya waelimishaji na watoto kwa zana za kufuatilia maendeleo na kusherehekea mafanikio pamoja.",
+    "teamTitle": "Timu yetu",
+    "team": "Timu yetu yenye watu wa nyanja mbalimbali inajumuisha utaalamu wa elimu ya Montessori, ukuaji wa watoto, usanifu wa kidijitali na usaidizi wa familia.",
+    "t1t": "Waelimishaji wa Montessori",
+    "t1": "Walimu walioidhinishwa wenye uzoefu wa miongo kadhaa darasani wanaongoza mbinu yetu ya elimu.",
+    "t2t": "Wataalamu wa ukuaji wa watoto",
+    "t2": "Wataalamu wanahakikisha shughuli zetu zinaendana na hatua muhimu za ukuaji na mbinu bora.",
+    "t3t": "Wataalamu wa ubunifu",
+    "t3": "Wachoraji wa vielelezo na wasanifu huunda maudhui maridadi na ya kuvutia yanayosaidia kujifunza.",
+    "commitTitle": "Ahadi yetu",
+    "c1t": "Ubora kuliko wingi",
+    "c1": "Tunachagua na kuandaa kila shughuli kwa uangalifu ili kuhakikisha inakidhi viwango vya juu zaidi vya elimu na kutoa uzoefu wa kujifunza wenye maana.",
+    "c2t": "Uboreshaji endelevu",
+    "c2": "Tunasikiliza familia na waelimishaji ili kuendelea kuboresha na kupanua tunachotoa kulingana na mahitaji halisi na maoni yao.",
+    "c3t": "Elimu inayofikika",
+    "c3": "Tunaamini elimu bora ya Montessori inapaswa kupatikana kwa familia zote, bila kujali mahali zilipo au asili zao.",
+    "qTitle": "Maswali au maoni?",
+    "q": "Tungependa kusikia kutoka kwako! Shiriki uzoefu wako, uliza maswali au pendekeza vipengele vipya.",
+    "contact": "Wasiliana nasi",
+    "faq": "Angalia maswali yanayoulizwa mara kwa mara"
+  },
+  "contact": {
+    "title": "Wasiliana nasi",
+    "toastTitle": "Programu yako ya barua pepe inafunguka",
+    "toastBody": "Bonyeza tuma humo ili kupeleka ujumbe wako kwa {{email}}.",
+    "defaultSubject": "Swali kutoka kwenye tovuti",
+    "getInTouch": "Wasiliana nasi",
+    "intro": "Tungependa kusikia kutoka kwako! Iwe una maswali kuhusu shughuli zetu za Montessori, unahitaji usaidizi wa kiufundi au unataka kutoa maoni, tuko hapa kukusaidia.",
+    "email": "Barua pepe",
+    "responseLabel": "Muda wa kujibu:",
+    "response": "Kwa kawaida tunajibu maswali yote ndani ya saa 24 katika siku za kazi.",
+    "sendTitle": "Tutumie ujumbe",
+    "name": "Jina",
+    "subject": "Mada",
+    "message": "Ujumbe",
+    "send": "Tuma ujumbe"
+  },
+  "help": {
+    "title": "Msaada na maswali yanayoulizwa mara kwa mara",
+    "introTitle": "Tunawezaje kukusaidia?",
+    "intro": "Pata majibu ya maswali yanayoulizwa mara kwa mara kuhusu programu yetu ya kujifunza kwa Montessori. Usipopata unachotafuta, usisite kuwasiliana na timu yetu ya usaidizi.",
+    "contactSupport": "Wasiliana na usaidizi",
+    "stillTitle": "Bado unahitaji msaada?",
+    "still": "Hupati jibu unalotafuta? Timu yetu ya usaidizi iko hapa kukusaidia.",
+    "contactUs": "Wasiliana nasi",
+    "cats": {
+      "start": "Kuanza",
+      "billing": "Usajili na malipo",
+      "using": "Kutumia programu",
+      "family": "Familia na wasifu"
+    },
+    "faq": {
+      "start": [
+        {
+          "q": "Mbinu ya Montessori ni nini?",
+          "a": "Mbinu ya Montessori ni njia ya elimu inayosisitiza kujifunza kwa vitendo, shughuli zinazoongozwa na mtoto mwenyewe, na michezo ya ushirikiano. Programu yetu hutumia kanuni hizi kufundisha stadi za Maisha ya vitendo kidijitali, ikiwasaidia watoto kukuza kujitegemea, kujiamini, na uwezo wa kukabiliana na maisha halisi."
+        },
+        {
+          "q": "Programu hii imeundwa kwa watoto wa umri gani?",
+          "a": "Programu yetu imeundwa kwa watoto wenye umri wa miaka 2-6, ambao ni umri wa ngazi ya awali ya Montessori. Shughuli zimeandaliwa kwa makini kulingana na hatua za ukuaji na zinaweza kubadilishwa kulingana na maendeleo ya mtoto wako."
+        },
+        {
+          "q": "Je, ninahitaji vifaa maalumu?",
+          "a": "Shughuli nyingi zinaweza kufanywa kwa vitu vya kawaida vya nyumbani. Programu yetu ina orodha za kina za vifaa na inapendekeza mbadala pale vifaa maalumu vinapohitajika. Wanaojisajili kwenye Premium hupata mtaala kamili wenye mapendekezo ya vifaa kwa kila shughuli."
+        }
+      ],
+      "billing": [
+        {
+          "q": "Mpango wa bila malipo unajumuisha nini?",
+          "a": "Mpango wa bila malipo unajumuisha shughuli moja ya kuanzia katika kila eneo la mtaala, Mwongozo wa kuandaa darasa, na Dashibodi ya familia. Ni njia rahisi ya kuanza kujifunza kwa Montessori nyumbani au darasani."
+        },
+        {
+          "q": "Je, ninaweza kughairi usajili wangu wakati wowote?",
+          "a": "Ndiyo! Unaweza kughairi usajili wako wakati wowote: kwenye tovuti, fungua ukurasa wa Mipango na uchague Dhibiti au ghairi; kwenye programu ya iPhone au Android, tumia sehemu ya usajili ya App Store au Google Play. Vipengele vyako vya Premium vitaendelea kupatikana hadi mwisho wa kipindi chako cha sasa cha malipo."
+        },
+        {
+          "q": "Ni mipango gani inayopatikana?",
+          "a": "Premium inajumuisha mtoto mmoja kwa $29.99/mwezi au $199/mwaka. Family inajumuisha hadi watoto wanne kwa $49/mwezi au $349/mwaka."
+        },
+        {
+          "q": "Je, nyimbo za Kerry zimejumuishwa katika usajili wangu?",
+          "a": "Hapana. Mkusanyiko wa nyimbo 10 hununuliwa kando kwa malipo ya mara moja ya $99.99, na familia yako hupata ufikiaji wa maisha yote na uwezo wa kuzipakua. Haujajumuishwa katika Premium au Family. Mtu yeyote anaweza kucheza sampuli za bila malipo za sekunde 10."
+        }
+      ],
+      "using": [
+        {
+          "q": "Ninawezaje kufuatilia maendeleo ya mtoto wangu?",
+          "a": "Wanaojisajili kwenye Premium wanaweza kufikia dashibodi ya kina ya mzazi inayoonyesha shughuli zilizokamilishwa, ukuaji wa stadi, na mapendekezo yanayomfaa mtoto. Unaweza pia kutengeneza ripoti za maendeleo na vyeti."
+        },
+        {
+          "q": "Je, ninaweza kutumia programu bila intaneti?",
+          "a": "Ndiyo. Baada ya kufungua programu mara moja ukiwa na intaneti, kila mwongozo wa shughuli, orodha ya vifaa na picha hupatikana bila intaneti. Video za masomo na nyimbo zozote ulizonunua zinaweza kupakuliwa kwenye kifaa chako kupitia Mipangilio katika Dashibodi ya familia (wafanyakazi wa shule hutumia kichupo cha Mtaala katika Tovuti ya shule), kisha kuchezwa bila intaneti."
+        },
+        {
+          "q": "Shughuli mpya huongezwa mara ngapi?",
+          "a": "Tunaongeza shughuli mpya kila mwezi kwa wanaojisajili kwenye Premium. Watumiaji wa bila malipo hupata maudhui mapya mara kwa mara pamoja na masasisho ya shughuli zilizopo."
+        }
+      ],
+      "family": [
+        {
+          "q": "Je, ninaweza kuunda wasifu wa watoto wengi?",
+          "a": "Ndiyo. Explorer na Premium kila moja inajumuisha wasifu wa mtoto mmoja. Family inajumuisha hadi wasifu wa watoto wanne. Ongeza na dhibiti watoto kama kawaida katika Dhibiti wasifu wa watoto. Familia zinazohitaji zaidi ya wasifu wanne zinapaswa kuwasiliana na huduma ya usaidizi."
+        },
+        {
+          "q": "Je, programu ni salama kwa watoto?",
+          "a": "Bila shaka. Tunatanguliza usalama wa watoto kwa kutokuwa na viungo vya nje, matangazo, au vipengele vya mitandao ya kijamii. Maudhui yote huundwa na waelimishaji wa Montessori walioidhinishwa na hukaguliwa ili kuhakikisha yanafaa kwa umri wa watoto."
+        },
+        {
+          "q": "Je, wanafamilia wengine wanaweza kufikia akaunti?",
+          "a": "Usajili wako unaruhusu matumizi ya familia yako. Premium inajumuisha wasifu wa mtoto mmoja; Family inajumuisha hadi wanne. Tunapendekeza uhifadhi taarifa za kuingia kwenye akaunti kwa usalama."
+        }
+      ]
+    }
+  },
+  "guarantee": {
+    "back": "← Rudi ukurasa wa mwanzo",
+    "badge": "Ahadi isiyo na hatari",
+    "title": "Dhamana ya siku 30, bila kuulizwa maswali.",
+    "intro": "Tuliunda programu hii kwa sababu tunaamini kila mtoto anastahili Montessori halisi nyumbani. Ikiwa haifai kwa familia yako, hupaswi kulipa hata senti moja.",
+    "items": [
+      {
+        "title": "Marejesho kamili ndani ya siku 30",
+        "body": "Tutumie barua pepe ndani ya siku 30 baada ya ununuzi wowote wa kulipia na tutakurudishia 100% — bila dodoso la kufuatilia wala simu ya kukushawishi ubaki."
+      },
+      {
+        "title": "Ghairi wakati wowote, bila kufungwa",
+        "body": "Ghairi kupitia akaunti yako kwa mibofyo miwili. Utaendelea kupata huduma hadi mwisho wa kipindi chako cha malipo."
+      },
+      {
+        "title": "Hakuna kadi ya mkopo inayohitajika kwa mpango wa bila malipo",
+        "body": "Mpango wa Explorer wa bila malipo — shughuli moja ya kuanzia kwa kila eneo la kujifunza — hauombi kadi kamwe."
+      },
+      {
+        "title": "Mtu halisi husoma kila barua pepe",
+        "body": "Maombi ya kurejeshewa fedha humfikia moja kwa moja mwanzilishi, Mwelekezi wa ngazi ya awali ya miaka 3–6 aliyefunzwa na AMI. Majibu mengi hutolewa ndani ya saa 24."
+      }
+    ],
+    "howTitle": "Jinsi ya kuomba kurejeshewa fedha",
+    "how": "Tuma barua pepe kwa <1>{{email}}</1> ukitaja anwani ya barua pepe ya akaunti yako na neno \"marejesho\" katika kichwa cha ujumbe. Tunashughulikia maombi ndani ya siku mbili za kazi."
+  },
+  "install": {
+    "installedTitle": "Programu imesakinishwa!",
+    "installedBody": "Montessori Life Skills sasa iko kwenye skrini yako ya mwanzo. Ifungue wakati wowote kama programu ya kawaida.",
+    "title": "Sakinisha programu yetu",
+    "body": "Ongeza Montessori Life Skills kwenye skrini yako ya mwanzo kwa matumizi bora zaidi — inafanya kazi bila intaneti na hufunguka papo hapo.",
+    "installNow": "Sakinisha sasa",
+    "iosTitle": "Sakinisha kwenye iPhone / iPad",
+    "ios1": "Gusa kitufe cha <icon></icon> <b>Shiriki</b> katika Safari",
+    "ios2": "Sogeza chini na uguse <icon></icon> <b>Ongeza kwenye skrini ya mwanzo</b>",
+    "ios3": "Gusa <b>Ongeza</b> ili kuthibitisha",
+    "androidTitle": "Sakinisha kwenye Android",
+    "and1": "Gusa <icon></icon> <b>menyu</b> katika Chrome",
+    "and2": "Gusa <b>Sakinisha programu</b> au <b>Ongeza kwenye skrini ya mwanzo</b>",
+    "and3": "Gusa <b>Sakinisha</b> ili kuthibitisha",
+    "footer": "Inafanya kazi bila intaneti · Haihitaji duka la programu · Husasishwa daima"
+  },
+  "banner": {
+    "region": "Bango la kusakinisha programu",
+    "title": "Ongeza kwenye skrini ya mwanzo",
+    "descIOS": "Sakinisha kwa ufikiaji wa haraka kama programu halisi",
+    "descOther": "Sakinisha programu ili kuitumia bila intaneti",
+    "installAria": "Sakinisha programu: {{description}}",
+    "install": "Sakinisha",
+    "dismiss": "Funga bango la usakinishaji (Escape)"
+  },
+  "pwa": {
+    "dialog": "Sakinisha programu",
+    "dismiss": "Funga ujumbe wa usakinishaji",
+    "title": "Sakinisha ili kufungua kwa mguso mmoja",
+    "ios": "Gusa <icon></icon> katika Safari, kisha <b>Ongeza kwenye skrini ya mwanzo</b>.",
+    "body": "Fungua Montessori Life Skills kutoka kwenye skrini yako ya mwanzo — bila kivinjari, kwa haraka zaidi.",
+    "install": "Sakinisha",
+    "notNow": "Si sasa"
+  },
+  "share": {
+    "heading": "Shiriki ukurasa huu",
+    "shareAria": "Shiriki ukurasa huu",
+    "copyAria": "Nakili kiungo cha ukurasa huu",
+    "linkCopied": "Kiungo kimenakiliwa!",
+    "share": "Shiriki…",
+    "copyLink": "Nakili kiungo",
+    "fbAria": "Shiriki ukurasa huu kwenye Facebook",
+    "fb": "Shiriki kwenye Facebook",
+    "igAria": "Nakili kiungo cha Instagram cha @montessoristorybooks",
+    "igCopied": "Imenakiliwa!",
+    "igCopy": "Nakili kiungo cha Instagram",
+    "igToastTitle": "Kiungo cha Instagram kimenakiliwa!",
+    "igToastBody": "Kibandike popote ili kushiriki @montessoristorybooks.",
+    "copyFailed": "Imeshindwa kunakili",
+    "linkToastBody": "Shiriki popote unapopenda.",
+    "linkFailed": "Imeshindwa kunakili kiungo",
+    "defaultText": "Shughuli halisi za Montessori kwa watoto wa miaka 2–6."
+  },
+  "social": {
+    "nav": "Viungo vya mitandao ya kijamii"
+  },
+  "update": {
+    "title": "Toleo jipya linapatikana",
+    "bodyVersion": "Toleo {{version}} la Montessori Life Skills liko tayari kusakinishwa, likiwa na shughuli na maboresho ya hivi karibuni.",
+    "body": "Toleo jipya zaidi la Montessori Life Skills liko tayari kusakinishwa.",
+    "now": "Sasisha sasa",
+    "later": "Baadaye"
+  }
+};
+const hi: typeof en = {
+  "about": {
+    "title": "हमारे बारे में",
+    "missionTitle": "हमारा उद्देश्य",
+    "mission": "हम मानते हैं कि हर बच्चे को खुद करके सीखने के अनुभवों से स्वतंत्रता, आत्मविश्वास और सीखने के प्रति लगाव विकसित करने का अवसर मिलना चाहिए। हमारा ऐप समय की कसौटी पर खरी उतरी मोंटेसरी पद्धति को डिजिटल युग में लाता है, ताकि दुनिया भर के परिवार इन बदलाव लाने वाले शैक्षिक सिद्धांतों का लाभ उठा सकें।",
+    "diffTitle": "हम क्यों अलग हैं",
+    "d1t": "प्रामाणिक मोंटेसरी दृष्टिकोण",
+    "d1": "हर गतिविधि प्रमाणित मोंटेसरी शिक्षकों द्वारा तैयार की गई है और स्वयं निर्देशित सीखने व खुद करके खोजने के पारंपरिक सिद्धांतों पर आधारित है।",
+    "d2t": "रोज़मर्रा के जीवन के कौशल",
+    "d2": "हम व्यावहारिक जीवन के ऐसे कौशलों पर ध्यान देते हैं जिन्हें बच्चे अपने दैनिक जीवन में इस्तेमाल कर सकें और आत्मविश्वास व स्वतंत्रता विकसित कर सकें।",
+    "d3t": "सुंदर डिज़ाइन",
+    "d3": "हमारे ध्यान से बनाए गए चित्र और सहज इंटरफ़ेस सीखने का शांत, केंद्रित वातावरण बनाते हैं, जो एकाग्रता में मदद करता है।",
+    "d4t": "परिवार-केंद्रित",
+    "d4": "प्रगति पर नज़र रखने और उपलब्धियों का मिलकर जश्न मनाने के साधनों से हम परिवार के रिश्तों और शिक्षक-बच्चे के संबंधों को मज़बूत बनाते हैं।",
+    "teamTitle": "हमारी टीम",
+    "team": "हमारी विविध टीम में मोंटेसरी शिक्षा, बाल विकास, डिजिटल डिज़ाइन और पारिवारिक सहायता के विशेषज्ञ शामिल हैं।",
+    "t1t": "मोंटेसरी शिक्षक",
+    "t1": "कक्षा में दशकों के अनुभव वाले प्रमाणित शिक्षक हमारे शैक्षिक दृष्टिकोण का मार्गदर्शन करते हैं।",
+    "t2t": "बाल विकास विशेषज्ञ",
+    "t2": "विशेषज्ञ सुनिश्चित करते हैं कि हमारी गतिविधियाँ विकास के पड़ावों और सर्वोत्तम पद्धतियों के अनुरूप हों।",
+    "t3t": "रचनात्मक पेशेवर",
+    "t3": "चित्रकार और डिज़ाइनर सीखने में मदद करने वाली सुंदर, रोचक सामग्री बनाते हैं।",
+    "commitTitle": "हमारी प्रतिबद्धता",
+    "c1t": "संख्या से बढ़कर गुणवत्ता",
+    "c1": "हम हर गतिविधि को सावधानी से चुनते हैं, ताकि वह उच्चतम शैक्षिक मानकों पर खरी उतरे और सीखने के सार्थक अनुभव दे।",
+    "c2t": "निरंतर सुधार",
+    "c2": "हम परिवारों और शिक्षकों की बात सुनते हैं, ताकि वास्तविक ज़रूरतों और सुझावों के आधार पर अपनी सेवाओं को लगातार बेहतर और विस्तृत बना सकें।",
+    "c3t": "सबके लिए सुलभ शिक्षा",
+    "c3": "हम मानते हैं कि गुणवत्तापूर्ण मोंटेसरी शिक्षा सभी परिवारों के लिए सुलभ होनी चाहिए, चाहे वे कहीं भी रहते हों या किसी भी पृष्ठभूमि से हों।",
+    "qTitle": "सवाल या सुझाव?",
+    "q": "हम आपकी राय जानना चाहेंगे! अपने अनुभव साझा करें, सवाल पूछें या नई सुविधाओं के सुझाव दें।",
+    "contact": "संपर्क करें",
+    "faq": "अक्सर पूछे जाने वाले सवाल देखें"
+  },
+  "contact": {
+    "title": "संपर्क करें",
+    "toastTitle": "आपका ईमेल ऐप खुल रहा है",
+    "toastBody": "{{email}} पर अपना संदेश भेजने के लिए वहाँ भेजें बटन दबाएँ।",
+    "defaultSubject": "वेबसाइट से सवाल",
+    "getInTouch": "हमसे जुड़ें",
+    "intro": "हम आपकी राय जानना चाहेंगे! हमारी मोंटेसरी गतिविधियों के बारे में सवाल हों, तकनीकी सहायता चाहिए हो या आप सुझाव देना चाहें—हम मदद के लिए यहाँ हैं।",
+    "email": "ईमेल",
+    "responseLabel": "जवाब देने का समय:",
+    "response": "हम आम तौर पर कार्यदिवसों में सभी पूछताछ का जवाब 24 घंटों के भीतर देते हैं।",
+    "sendTitle": "हमें संदेश भेजें",
+    "name": "नाम",
+    "subject": "विषय",
+    "message": "संदेश",
+    "send": "संदेश भेजें"
+  },
+  "help": {
+    "title": "सहायता और अक्सर पूछे जाने वाले सवाल",
+    "introTitle": "हम आपकी कैसे मदद कर सकते हैं?",
+    "intro": "हमारे मोंटेसरी लर्निंग ऐप के बारे में आम सवालों के जवाब पाएँ। अगर आपको अपना जवाब न मिले, तो बेझिझक हमारी सहायता टीम से संपर्क करें।",
+    "contactSupport": "सहायता टीम से संपर्क करें",
+    "stillTitle": "अभी भी मदद चाहिए?",
+    "still": "आपके सवाल का जवाब नहीं मिला? हमारी सहायता टीम आपकी मदद के लिए यहाँ है।",
+    "contactUs": "संपर्क करें",
+    "cats": {
+      "start": "शुरुआत करें",
+      "billing": "सदस्यता और बिलिंग",
+      "using": "ऐप का उपयोग",
+      "family": "परिवार और प्रोफ़ाइल"
+    },
+    "faq": {
+      "start": [
+        {
+          "q": "मोंटेसरी दृष्टिकोण क्या है?",
+          "a": "मोंटेसरी पद्धति एक शैक्षिक दृष्टिकोण है जो करके सीखने, स्वयं निर्देशित गतिविधियों और मिलकर खेलने पर ज़ोर देता है। हमारा ऐप इन सिद्धांतों को व्यावहारिक जीवन के कौशलों की डिजिटल शिक्षा में लाता है, जिससे बच्चों में आत्मनिर्भरता, आत्मविश्वास और वास्तविक जीवन की क्षमताएँ विकसित होती हैं।"
+        },
+        {
+          "q": "यह ऐप किस आयु वर्ग के लिए बनाया गया है?",
+          "a": "हमारा ऐप 2-6 वर्ष के बच्चों के लिए बनाया गया है, जो मोंटेसरी की प्राथमिक आयु सीमा है। गतिविधियाँ विकास के चरणों के अनुरूप सावधानी से तैयार की गई हैं और आपके बच्चे की व्यक्तिगत प्रगति के अनुसार ढाली जा सकती हैं।"
+        },
+        {
+          "q": "क्या मुझे किसी विशेष सामग्री की ज़रूरत है?",
+          "a": "कई गतिविधियाँ घर में उपलब्ध सामान्य चीज़ों से की जा सकती हैं। हमारे ऐप में सामग्री की विस्तृत सूचियाँ हैं और विशेष चीज़ों की ज़रूरत होने पर विकल्प भी सुझाए जाते हैं। प्रीमियम सदस्यों को हर गतिविधि के लिए सामग्री के सुझावों सहित पूरा पाठ्यक्रम मिलता है।"
+        }
+      ],
+      "billing": [
+        {
+          "q": "मुफ़्त प्लान में क्या शामिल है?",
+          "a": "मुफ़्त प्लान में पाठ्यक्रम के हर क्षेत्र की एक शुरुआती गतिविधि, कक्षा तैयार करने की मार्गदर्शिका और परिवार डैशबोर्ड शामिल हैं। घर या कक्षा में मोंटेसरी शिक्षा शुरू करने का यह एक आसान तरीका है।"
+        },
+        {
+          "q": "क्या मैं अपनी सदस्यता कभी भी रद्द कर सकता/सकती हूँ?",
+          "a": "हाँ! आप अपनी सदस्यता कभी भी रद्द कर सकते हैं: वेबसाइट पर प्लान पेज खोलें और प्रबंधित करें या रद्द करें चुनें; iPhone या Android ऐप में, App Store या Google Play की सदस्यताओं का उपयोग करें। आपकी प्रीमियम सुविधाएँ मौजूदा बिलिंग अवधि के अंत तक सक्रिय रहेंगी।"
+        },
+        {
+          "q": "कौन से प्लान उपलब्ध हैं?",
+          "a": "प्रीमियम में एक बच्चा शामिल है, $29.99/माह या $199/वर्ष में। परिवार प्लान में अधिकतम चार बच्चे शामिल हैं, $49/माह या $349/वर्ष में।"
+        },
+        {
+          "q": "क्या मेरी सदस्यता में केरी के गाने शामिल हैं?",
+          "a": "नहीं। 10 गानों का संग्रह $99.99 की अलग एकमुश्त खरीद है, जिसमें आपके परिवार को आजीवन ऐक्सेस और डाउनलोड मिलते हैं। यह प्रीमियम या परिवार प्लान में शामिल नहीं है। कोई भी 10-सेकंड के मुफ़्त नमूने सुन सकता है।"
+        }
+      ],
+      "using": [
+        {
+          "q": "मैं अपने बच्चे की प्रगति कैसे देखूँ?",
+          "a": "प्रीमियम सदस्यों को अभिभावकों के लिए एक विस्तृत डैशबोर्ड मिलता है, जिसमें पूरी की गई गतिविधियाँ, कौशल विकास और व्यक्तिगत सुझाव दिखते हैं। आप प्रगति रिपोर्ट और प्रमाणपत्र भी बना सकते हैं।"
+        },
+        {
+          "q": "क्या मैं ऐप का उपयोग ऑफ़लाइन कर सकता/सकती हूँ?",
+          "a": "हाँ। इंटरनेट कनेक्शन के साथ एक बार ऐप खोलने के बाद, हर गतिविधि की मार्गदर्शिका, सामग्री सूची और फ़ोटो ऑफ़लाइन उपलब्ध रहती है। पाठों के वीडियो और आपके खरीदे हुए गाने परिवार डैशबोर्ड की सेटिंग्स से अपने डिवाइस पर डाउनलोड किए जा सकते हैं (स्कूल कर्मचारी स्कूल पोर्टल के पाठ्यक्रम टैब का उपयोग करें), और फिर बिना इंटरनेट चलाए जा सकते हैं।"
+        },
+        {
+          "q": "नई गतिविधियाँ कितनी बार जोड़ी जाती हैं?",
+          "a": "हम प्रीमियम सदस्यों के लिए हर महीने नई गतिविधियाँ जोड़ते हैं। मुफ़्त उपयोगकर्ताओं को समय-समय पर नई सामग्री और मौजूदा गतिविधियों के अपडेट मिलते हैं।"
+        }
+      ],
+      "family": [
+        {
+          "q": "क्या मैं एक से अधिक बच्चों की प्रोफ़ाइल बना सकता/सकती हूँ?",
+          "a": "हाँ। एक्सप्लोरर और प्रीमियम में एक-एक बच्चे की प्रोफ़ाइल शामिल है। परिवार प्लान में अधिकतम चार बच्चों की प्रोफ़ाइल शामिल हैं। बच्चों की प्रोफ़ाइल प्रबंधित करें में बच्चों को जोड़ें और उनकी प्रोफ़ाइल प्रबंधित करें। चार से अधिक प्रोफ़ाइल की ज़रूरत वाले परिवार सहायता टीम से संपर्क करें।"
+        },
+        {
+          "q": "क्या ऐप बच्चों के लिए सुरक्षित है?",
+          "a": "बिल्कुल। हम बच्चों की सुरक्षा को प्राथमिकता देते हैं—इसमें बाहरी लिंक, विज्ञापन या सोशल सुविधाएँ नहीं हैं। सारी सामग्री प्रमाणित मोंटेसरी शिक्षकों द्वारा तैयार की जाती है और उम्र के अनुरूप होने की जाँच की जाती है।"
+        },
+        {
+          "q": "क्या परिवार के अन्य सदस्य खाते का उपयोग कर सकते हैं?",
+          "a": "आपकी सदस्यता में आपके पूरे परिवार का उपयोग शामिल है। प्रीमियम में एक बच्चे की प्रोफ़ाइल है; परिवार प्लान में अधिकतम चार। हम आपके खाते की लॉगिन जानकारी सुरक्षित रखने की सलाह देते हैं।"
+        }
+      ]
+    }
+  },
+  "guarantee": {
+    "back": "← होम पर वापस जाएँ",
+    "badge": "बिना जोखिम का वादा",
+    "title": "30-दिन की गारंटी, बिना कोई सवाल पूछे।",
+    "intro": "हमने यह ऐप इसलिए बनाया क्योंकि हम मानते हैं कि हर बच्चे को घर पर प्रामाणिक मोंटेसरी शिक्षा मिलनी चाहिए। अगर यह आपके परिवार के लिए सही नहीं है, तो आपको कुछ भी भुगतान नहीं करना चाहिए।",
+    "items": [
+      {
+        "title": "30 दिनों के भीतर पूरा रिफ़ंड",
+        "body": "किसी भी सशुल्क खरीद के 30 दिनों के भीतर हमें ईमेल करें और हम 100% राशि वापस करेंगे—न कोई अतिरिक्त सर्वे, न आपको रोकने के लिए कॉल।"
+      },
+      {
+        "title": "कभी भी रद्द करें, कोई बाध्यता नहीं",
+        "body": "अपने खाते से दो क्लिक में रद्द करें। आपका ऐक्सेस बिलिंग अवधि के अंत तक जारी रहेगा।"
+      },
+      {
+        "title": "मुफ़्त प्लान के लिए क्रेडिट कार्ड की ज़रूरत नहीं",
+        "body": "मुफ़्त एक्सप्लोरर प्लान—सीखने के हर क्षेत्र की एक शुरुआती गतिविधि—कभी कार्ड नहीं माँगता।"
+      },
+      {
+        "title": "हर ईमेल एक वास्तविक व्यक्ति पढ़ता है",
+        "body": "रिफ़ंड अनुरोध सीधे संस्थापक को जाते हैं, जो AMI-प्रशिक्षित 3–6 आयु वर्ग के प्राथमिक मार्गदर्शक हैं। अधिकतर जवाब 24 घंटों के भीतर मिलते हैं।"
+      }
+    ],
+    "howTitle": "रिफ़ंड का अनुरोध कैसे करें",
+    "how": "<1>{{email}}</1> पर ईमेल करें। उसमें अपने खाते का ईमेल पता लिखें और विषय पंक्ति में \"refund\" शब्द डालें। हम दो कार्यदिवसों के भीतर अनुरोधों पर कार्रवाई करते हैं।"
+  },
+  "install": {
+    "installedTitle": "ऐप इंस्टॉल हो गया!",
+    "installedBody": "Montessori Life Skills अब आपकी होम स्क्रीन पर है। इसे किसी सामान्य ऐप की तरह कभी भी खोलें।",
+    "title": "हमारा ऐप इंस्टॉल करें",
+    "body": "बेहतर अनुभव के लिए Montessori Life Skills को अपनी होम स्क्रीन पर जोड़ें—यह ऑफ़लाइन काम करता है और तुरंत खुलता है।",
+    "installNow": "अभी इंस्टॉल करें",
+    "iosTitle": "iPhone / iPad पर इंस्टॉल करें",
+    "ios1": "Safari में <icon></icon> <b>शेयर करें</b> बटन पर टैप करें",
+    "ios2": "नीचे स्क्रॉल करें और <icon></icon> <b>होम स्क्रीन पर जोड़ें</b> पर टैप करें",
+    "ios3": "पुष्टि करने के लिए <b>जोड़ें</b> पर टैप करें",
+    "androidTitle": "Android पर इंस्टॉल करें",
+    "and1": "Chrome में <icon></icon> <b>मेन्यू</b> पर टैप करें",
+    "and2": "<b>ऐप इंस्टॉल करें</b> या <b>होम स्क्रीन पर जोड़ें</b> पर टैप करें",
+    "and3": "पुष्टि करने के लिए <b>इंस्टॉल करें</b> पर टैप करें",
+    "footer": "ऑफ़लाइन काम करता है · ऐप स्टोर की ज़रूरत नहीं · हमेशा अपडेटेड"
+  },
+  "banner": {
+    "region": "ऐप इंस्टॉल करने का बैनर",
+    "title": "होम स्क्रीन पर जोड़ें",
+    "descIOS": "असली ऐप की तरह तुरंत खोलने के लिए इंस्टॉल करें",
+    "descOther": "ऑफ़लाइन ऐक्सेस के लिए ऐप इंस्टॉल करें",
+    "installAria": "ऐप इंस्टॉल करें: {{description}}",
+    "install": "इंस्टॉल करें",
+    "dismiss": "इंस्टॉल बैनर बंद करें (Escape)"
+  },
+  "pwa": {
+    "dialog": "ऐप इंस्टॉल करें",
+    "dismiss": "इंस्टॉल करने का संदेश बंद करें",
+    "title": "एक टैप में खोलने के लिए इंस्टॉल करें",
+    "ios": "Safari में <icon></icon> पर टैप करें, फिर <b>होम स्क्रीन पर जोड़ें</b> पर।",
+    "body": "अपनी होम स्क्रीन से Montessori Life Skills खोलें—ब्राउज़र की ज़रूरत नहीं, ऐप जल्दी खुलता है।",
+    "install": "इंस्टॉल करें",
+    "notNow": "अभी नहीं"
+  },
+  "share": {
+    "heading": "यह पेज शेयर करें",
+    "shareAria": "यह पेज शेयर करें",
+    "copyAria": "इस पेज का लिंक कॉपी करें",
+    "linkCopied": "लिंक कॉपी हो गया!",
+    "share": "शेयर करें…",
+    "copyLink": "लिंक कॉपी करें",
+    "fbAria": "यह पेज Facebook पर शेयर करें",
+    "fb": "Facebook पर शेयर करें",
+    "igAria": "@montessoristorybooks का Instagram लिंक कॉपी करें",
+    "igCopied": "कॉपी हो गया!",
+    "igCopy": "Instagram लिंक कॉपी करें",
+    "igToastTitle": "Instagram लिंक कॉपी हो गया!",
+    "igToastBody": "@montessoristorybooks शेयर करने के लिए इसे कहीं भी पेस्ट करें।",
+    "copyFailed": "कॉपी नहीं हो सका",
+    "linkToastBody": "आप जहाँ चाहें, शेयर करें।",
+    "linkFailed": "लिंक कॉपी नहीं हो सका",
+    "defaultText": "2–6 वर्ष के बच्चों के लिए प्रामाणिक मोंटेसरी गतिविधियाँ।"
+  },
+  "social": {
+    "nav": "सोशल मीडिया लिंक"
+  },
+  "update": {
+    "title": "नया संस्करण उपलब्ध है",
+    "bodyVersion": "Montessori Life Skills का संस्करण {{version}} नई गतिविधियों और सुधारों के साथ इंस्टॉल करने के लिए तैयार है।",
+    "body": "Montessori Life Skills का नया संस्करण इंस्टॉल करने के लिए तैयार है।",
+    "now": "अभी अपडेट करें",
+    "later": "बाद में"
+  }
+};
+export const pages = { en, es, de, zh, sw, hi };

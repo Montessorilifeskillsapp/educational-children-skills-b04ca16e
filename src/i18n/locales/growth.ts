@@ -599,4 +599,382 @@ const zh: typeof en = {
 },
 };
 
-export const growth = { en, es, de, zh };
+const sw: typeof en = {
+  "shared": {
+    "invalidEmail": "Tafadhali weka anwani halali ya barua pepe.",
+    "genericError": "Hitilafu imetokea. Tafadhali jaribu tena.",
+    "close": "Funga",
+    "email": "Barua pepe"
+  },
+  "readiness": {
+    "readyTitle": "Mwongozo wako uko tayari",
+    "readyBody": "Umefunguliwa kwenye kichupo kipya. Tumia “Hifadhi kama PDF” ili kuhifadhi nakala.",
+    "openAgain": "Fungua mwongozo tena",
+    "seePremium": "Angalia mfuatano kamili kwa Premium",
+    "eyebrow": "Mwongozo wa bure",
+    "titleHome": "Pata mwongozo wako wa bure wa Montessori wa utayari wa kuanza chekechea",
+    "titleActivity": "Angalia nafasi ya somo hili katika mfuatano wa kujifunza wa mtoto wako",
+    "body": "Orodha ya kukagua utayari kulingana na umri na mfano wa wiki ya AMI, pamoja na viwango vya Marekani vinavyoungwa mkono na kila somo.",
+    "ageGroup": "Umri wa mtoto",
+    "years": "Miaka {{age}}",
+    "preparing": "Inaandaa…",
+    "submit": "Pata mwongozo wangu wa bure",
+    "footnote": "Vidokezo vya Montessori mara kwa mara. Jiondoe wakati wowote.",
+    "privacy": "Faragha"
+  },
+  "cookies": {
+    "region": "Chaguo za vidakuzi",
+    "title": "Chaguo zako za faragha",
+    "body": "Tunahesabu ziara bila vidakuzi. Ukikubali, tunatumia pia vidakuzi vya uchanganuzi na kurekodi kurasa na shughuli zinazotumiwa ili tuboreshe programu. Angalia <1>Sera yetu ya Faragha</1>.",
+    "acceptAll": "Kubali vyote",
+    "rejectAll": "Kataa vyote",
+    "settings": "Mipangilio ya vidakuzi",
+    "dialogBody": "Chagua kile ambacho programu hii inaweza kutumia kwenye kifaa chako. Unaweza kubadilisha hili wakati wowote kupitia kiungo cha mipangilio ya vidakuzi.",
+    "gpc": "Kivinjari chako kinatuma ishara ya faragha (Global Privacy Control), kwa hivyo uchanganuzi unabaki umezimwa.",
+    "necessary": "Muhimu",
+    "necessaryBody": "Hukuweka ukiwa umeingia, huhifadhi mipangilio na masomo yako kwa matumizi bila mtandao. Huwashwa daima.",
+    "alwaysOn": "Huwashwa daima",
+    "analytics": "Uchanganuzi",
+    "analyticsBody": "Hutolewa na Google na Montessori Life Skills. Vidakuzi vya uchanganuzi na rekodi ya kurasa na shughuli zinazotumiwa. Uhesabuji wa ziara bila vidakuzi, unaotolewa na Lovable, huendelea bila kujali chaguo lako.",
+    "save": "Hifadhi machaguo"
+  },
+  "consult": {
+    "errName": "Tafadhali weka jina lako",
+    "errNameLong": "Jina lazima liwe na vibambo chini ya 100",
+    "errEmail": "Tafadhali weka anwani halali ya barua pepe",
+    "errAge": "Umri wa mtoto lazima uwe na vibambo chini ya 60",
+    "errTopics": "Tafadhali tuambie ungependa kujadili nini",
+    "errTopicsLong": "Mada lazima ziwe na vibambo chini ya 2000",
+    "errTimes": "Nyakati unazopendelea lazima ziwe na vibambo chini ya 500",
+    "sendFailed": "Hatukuweza kutuma ombi lako. Tafadhali jaribu tena.",
+    "sentTitle": "Ombi limetumwa",
+    "sentBody": "Asante. Ombi lako limemfikia Kerry, ambaye atajibu kupitia <1>{{email}}</1> ili kupanga muda.",
+    "title": "Weka nafasi ya ushauri wa faragha",
+    "body": "Tuambie kidogo kuhusu mtoto wako na jambo ambalo ungependa kusaidiwa. Kerry atajibu kwa barua pepe ili kupanga muda.",
+    "name": "Jina lako",
+    "childAge": "Umri wa mtoto",
+    "optional": "(si lazima)",
+    "agePlaceholder": "k.m. miaka 4",
+    "package": "Kifurushi",
+    "single": "Kikao kimoja",
+    "bundle": "Vikao vitatu",
+    "topics": "Ungependa kujadili nini?",
+    "topicsPlaceholder": "Malengo, ratiba za kila siku, kuandaa mazingira yako, maswali kuhusu mtaala…",
+    "times": "Tarehe na nyakati unazopendelea",
+    "timesPlaceholder": "k.m. Asubuhi za siku za kazi, saa za eneo la Kati la Marekani",
+    "cancel": "Ghairi",
+    "sending": "Inatuma…",
+    "send": "Tuma ombi"
+  },
+  "exit": {
+    "doneTitle": "Umejiunga na orodha",
+    "doneBody": "Asante — tutawasiliana nawe kuhusu taarifa mpya na ufikiaji wa mapema.",
+    "back": "Rudi kwenye ukurasa",
+    "title": "Kabla hujaondoka",
+    "body": "Jiunge na orodha ili kupata ufikiaji wa mapema wa shughuli mpya na taarifa kutoka Montessori Life Skills. Hakuna barua taka — unaweza kujiondoa wakati wowote.",
+    "placeholder": "Anwani yako ya barua pepe",
+    "emailLabel": "Anwani ya barua pepe",
+    "submitting": "Tunakusajili…",
+    "submit": "Nijulishe",
+    "footnote": "Ufikiaji wa mapema na taarifa za mara kwa mara. Jiondoe wakati wowote."
+  },
+  "guidePage": {
+    "title": "Mwongozo wa Montessori wa Utayari kwa Chekechea",
+    "body": "Orodha ya kukagua utayari na mfano wa wiki ya AMI Primary unaolingana na umri wa mtoto wako, pamoja na viwango vya Marekani vinavyoungwa mkono na kila somo.",
+    "b1": "Orodha ya kukagua utayari kulingana na umri",
+    "b2": "Masomo matano ya mfano kutoka mfuatano wa AMI",
+    "b3": "Ulinganifu wa kila somo na Common Core na NGSS",
+    "b4": "Inaweza kuchapishwa – ihifadhi kama PDF",
+    "childAge": "Umri wa mtoto wako",
+    "included": "Yaliyomo kwa umri wa miaka {{age}}:",
+    "points": "+ Orodha ya kukagua utayari yenye vipengele {{count}}",
+    "footnote": "Tutakutumia vidokezo vya Montessori kwa barua pepe mara kwa mara. Jiondoe wakati wowote.",
+    "privacy": "Sera ya Faragha"
+  },
+  "guide": {
+    "docTitle": "Mwongozo wa Utayari wa Montessori – Umri wa miaka {{age}}",
+    "save": "Hifadhi kama PDF",
+    "sub": "Mfano wa wiki ya AMI Primary unaolingana na viwango vya Marekani · Montessori Life Skills",
+    "intro": "Kama Dr. Maria Montessori alivyoona, mkono ni chombo cha akili. Mwongozo huu unaonyesha mfano wa wiki moja kutoka mfuatano wa AMI Primary kwa mtoto wa miaka {{age}}, pamoja na viwango vya Marekani vinavyoungwa mkono na kila somo.",
+    "checklist": "Orodha ya kukagua utayari",
+    "observe": "Angalia, usipime. Kila mtoto hukua kwa kasi yake mwenyewe.",
+    "week": "Wiki ya mfano",
+    "day": "Siku",
+    "lesson": "Somo",
+    "gains": "Anachopata mtoto",
+    "standards": "Viwango",
+    "days": [
+      "Jumatatu",
+      "Jumanne",
+      "Jumatano",
+      "Alhamisi",
+      "Ijumaa"
+    ],
+    "indirect": "Maandalizi yasiyo ya moja kwa moja",
+    "ctaTitle": "Mfuatano kamili.",
+    "cta": "Premium inajumuisha kila uwasilishaji wa AMI Primary kwa mpangilio, miongozo ya hatua kwa hatua, video za masomo na jalada za masomo ya nyumbani zinazoweza kuchapishwa. Premium ya Mwaka ni $199/mwaka au $29.99/mwezi, pamoja na dhamana ya siku 30.",
+    "footer": "Misimbo ya viwango: Common Core (CCSS), NGSS, NCSS na National Core Arts Standards. Huu ni mwongozo wa ulinganifu, si uthibitisho. © {{year}} Montessori Life Skills.",
+    "titles": {
+      "Dry Pouring": "Kumimina vitu vikavu",
+      "Greeting Others": "Kuwasalimu wengine",
+      "Knobbed Cylinders": "Silinda zenye vishikio",
+      "Pink Tower": "Mnara wa waridi",
+      "Sandpaper Letters": "Herufi za msasa",
+      "Red Rods": "Fimbo nyekundu",
+      "Number Rods": "Fimbo za nambari",
+      "Spindle Box": "Sanduku la vijiti",
+      "Land and Water Forms": "Maumbo ya nchi kavu na maji",
+      "Golden Beads": "Shanga za dhahabu",
+      "Moveable Alphabet": "Herufi zinazohamishika",
+      "Parts of a Plant": "Sehemu za mmea"
+    },
+    "areas": {
+      "Practical Life": "Maisha ya vitendo",
+      "Grace and Courtesy": "Uungwana na adabu",
+      "Sensorial": "Ukuzaji wa hisi",
+      "Language": "Lugha",
+      "Math": "Hisabati",
+      "Geography": "Jiografia",
+      "Botany": "Botania"
+    },
+    "purposes": {
+      "3": [
+        "Uratibu wa mienendo, umakini na kujitegemea.",
+        "Kujiamini na lugha ya heshima katika mahusiano.",
+        "Kutofautisha ukubwa kwa kuona; kushika kwa kidole gumba na cha shahada ili kuandaa mkono kwa kuandika.",
+        "Kutofautisha kwa kuona ukubwa unaoongezeka hatua kwa hatua katika vipimo vitatu.",
+        "Kuhusianisha kila sauti na alama yake iliyoandikwa kwa kugusa."
+      ],
+      "4": [
+        "Urefu unaoongezeka hatua kwa hatua; maandalizi ya moja kwa moja kwa Fimbo za nambari.",
+        "Kiasi na alama za 1–10 kwa kutumia fimbo moja moja zenye urefu unaoweza kuhesabiwa.",
+        "Kuhesabu vitu visivyofungamanishwa na kuelewa dhana ya sifuri.",
+        "Kuhusianisha sauti na alama kwa hatua za awali za kusoma na kuandika.",
+        "Kuelewa nchi kavu na maji ya dunia kwa kutumia vitu halisi."
+      ],
+      "5": [
+        "Mfumo wa desimali: mamoja, makumi, mamia na maelfu.",
+        "Kuunda maneno kwa sauti kabla mkono haujaweza kuyaandika.",
+        "Kuthibitisha uelewa wa kiasi, alama na sifuri.",
+        "Kutaja na kuchunguza sehemu za mimea hai.",
+        "Maumbo ya nchi kavu na maji yaliyo katika jozi, kwa kugusa na kutaja."
+      ]
+    },
+    "checks": {
+      "3": [
+        "Hubeba sinia au kiti kwa uangalifu",
+        "Humimina vitu vikavu huku kiasi fulani kikimwagika",
+        "Hufuata ombi lenye hatua mbili",
+        "Huwasalimia watu wazima anaowafahamu",
+        "Hupanga vitu kwa ukubwa au rangi",
+        "Huonyesha hamu ya kujifunza sauti za herufi"
+      ],
+      "4": [
+        "Humimina maji huku kiasi kidogo kikimwagika",
+        "Hufanya shughuli moja kwa dakika 10+",
+        "Hupanga vitu kwa mfuatano wa ukubwa",
+        "Hutambua sauti kadhaa za herufi",
+        "Huhesabu vitu hadi 10 akihusianisha kila kitu na nambari moja",
+        "Hutumia tafadhali, asante na samahani"
+      ],
+      "5": [
+        "Hukamilisha shughuli yenye hatua nyingi na kurudisha vifaa mahali pake",
+        "Hutaja sauti za herufi nyingi",
+        "Huunda maneno rahisi kwa sauti",
+        "Huhesabu na kuoanisha kiasi na tarakimu zaidi ya 10",
+        "Hushika penseli kwa vidole vitatu",
+        "Huzungumza kwa zamu katika kikundi"
+      ]
+    }
+  }
+};
+const hi: typeof en = {
+  "shared": {
+    "invalidEmail": "कृपया मान्य ईमेल पता दर्ज करें।",
+    "genericError": "कुछ गलत हो गया। कृपया फिर कोशिश करें।",
+    "close": "बंद करें",
+    "email": "ईमेल"
+  },
+  "readiness": {
+    "readyTitle": "आपकी मार्गदर्शिका तैयार है",
+    "readyBody": "यह नए टैब में खुल गई है। एक प्रति रखने के लिए “PDF के रूप में सहेजें” का उपयोग करें।",
+    "openAgain": "मार्गदर्शिका फिर खोलें",
+    "seePremium": "प्रीमियम के साथ पूरा क्रम देखें",
+    "eyebrow": "मुफ़्त मार्गदर्शिका",
+    "titleHome": "किंडरगार्टन की तैयारी के लिए अपनी मुफ़्त मोंटेसरी मार्गदर्शिका पाएँ",
+    "titleActivity": "देखें कि आपके बच्चे के सीखने के क्रम में यह पाठ कहाँ आता है",
+    "body": "उम्र के अनुसार तैयारी की चेकलिस्ट और एक नमूना AMI सप्ताह, साथ में हर पाठ से जुड़े अमेरिकी मानक।",
+    "ageGroup": "बच्चे की उम्र",
+    "years": "{{age}} साल",
+    "preparing": "तैयार हो रहा है…",
+    "submit": "मुफ़्त मार्गदर्शिका पाएँ",
+    "footnote": "समय-समय पर मोंटेसरी सुझाव। कभी भी सदस्यता छोड़ें।",
+    "privacy": "गोपनीयता"
+  },
+  "cookies": {
+    "region": "कुकी विकल्प",
+    "title": "आपके गोपनीयता विकल्प",
+    "body": "हम बिना कुकी के विज़िट गिनते हैं। अगर आप स्वीकार करते हैं, तो हम ऐप को बेहतर बनाने के लिए एनालिटिक्स कुकी भी इस्तेमाल करते हैं और रिकॉर्ड करते हैं कि किन पेजों और गतिविधियों का उपयोग किया जाता है। हमारी <1>गोपनीयता नीति</1> देखें।",
+    "acceptAll": "सभी स्वीकार करें",
+    "rejectAll": "सभी अस्वीकार करें",
+    "settings": "कुकी सेटिंग्स",
+    "dialogBody": "चुनें कि यह ऐप आपके डिवाइस पर क्या इस्तेमाल कर सकता है। आप कुकी सेटिंग्स लिंक से इसे कभी भी बदल सकते हैं।",
+    "gpc": "आपका ब्राउज़र गोपनीयता संकेत (Global Privacy Control) भेज रहा है, इसलिए एनालिटिक्स बंद रहेगा।",
+    "necessary": "ज़रूरी",
+    "necessaryBody": "आपको साइन इन रखता है और ऑफ़लाइन इस्तेमाल के लिए आपकी सेटिंग्स और पाठ सहेजता है। हमेशा चालू।",
+    "alwaysOn": "हमेशा चालू",
+    "analytics": "एनालिटिक्स",
+    "analyticsBody": "Google और Montessori Life Skills द्वारा प्रदान किया जाता है। इसमें एनालिटिक्स कुकीज़ और इस्तेमाल किए गए पेजों व गतिविधियों का रिकॉर्ड शामिल है। Lovable द्वारा बिना कुकीज़ के की जाने वाली विज़िट की गिनती दोनों स्थितियों में जारी रहती है।",
+    "save": "विकल्प सहेजें"
+  },
+  "consult": {
+    "errName": "कृपया अपना नाम दर्ज करें",
+    "errNameLong": "नाम 100 अक्षरों से कम होना चाहिए",
+    "errEmail": "कृपया मान्य ईमेल पता दर्ज करें",
+    "errAge": "बच्चे की उम्र 60 अक्षरों से कम होनी चाहिए",
+    "errTopics": "कृपया बताएं कि आप किस बारे में चर्चा करना चाहते हैं",
+    "errTopicsLong": "विषय 2000 अक्षरों से कम होने चाहिए",
+    "errTimes": "पसंदीदा समय 500 अक्षरों से कम होने चाहिए",
+    "sendFailed": "हम आपका अनुरोध नहीं भेज सके। कृपया फिर कोशिश करें।",
+    "sentTitle": "अनुरोध भेज दिया गया",
+    "sentBody": "धन्यवाद। आपका अनुरोध केरी तक पहुँच गया है। समय तय करने के लिए वे <1>{{email}}</1> पर जवाब देंगी।",
+    "title": "निजी परामर्श बुक करें",
+    "body": "अपने बच्चे के बारे में थोड़ा बताएं और बताएं कि आपको किस चीज़ में मदद चाहिए। समय तय करने के लिए केरी ईमेल से जवाब देंगी।",
+    "name": "आपका नाम",
+    "childAge": "बच्चे की उम्र",
+    "optional": "(वैकल्पिक)",
+    "agePlaceholder": "जैसे, 4 साल",
+    "package": "पैकेज",
+    "single": "एक सत्र",
+    "bundle": "तीन सत्र",
+    "topics": "आप किस बारे में चर्चा करना चाहते हैं?",
+    "topicsPlaceholder": "लक्ष्य, दिनचर्या, अपनी जगह तैयार करना, पाठ्यक्रम से जुड़े सवाल…",
+    "times": "पसंदीदा तारीखें और समय",
+    "timesPlaceholder": "जैसे, कार्यदिवसों की सुबह, सेंट्रल समय",
+    "cancel": "रद्द करें",
+    "sending": "भेजा जा रहा है…",
+    "send": "अनुरोध भेजें"
+  },
+  "exit": {
+    "doneTitle": "आप सूची में जुड़ गए हैं",
+    "doneBody": "धन्यवाद — हम अपडेट और शुरुआती एक्सेस के बारे में आपसे संपर्क करेंगे।",
+    "back": "पेज पर वापस जाएं",
+    "title": "जाने से पहले",
+    "body": "Montessori Life Skills की नई गतिविधियों का शुरुआती एक्सेस और अपडेट पाने के लिए सूची से जुड़ें। कोई स्पैम नहीं — आप कभी भी सदस्यता छोड़ सकते हैं।",
+    "placeholder": "आपका ईमेल पता",
+    "emailLabel": "ईमेल पता",
+    "submitting": "आपको जोड़ा जा रहा है…",
+    "submit": "मुझे अपडेट भेजें",
+    "footnote": "शुरुआती एक्सेस और समय-समय पर अपडेट। कभी भी सदस्यता छोड़ें।"
+  },
+  "guidePage": {
+    "title": "मोंटेसरी किंडरगार्टन तैयारी मार्गदर्शिका",
+    "body": "आपके बच्चे की उम्र के अनुसार तैयारी की चेकलिस्ट और AMI प्राइमरी के एक सप्ताह का नमूना, जिसमें हर पाठ से जुड़े अमेरिकी मानक दिए गए हैं।",
+    "b1": "उम्र के अनुसार तैयारी की चेकलिस्ट",
+    "b2": "AMI क्रम से पाँच नमूना पाठ",
+    "b3": "हर पाठ का Common Core और NGSS मानकों से मेल",
+    "b4": "प्रिंट करने योग्य – PDF के रूप में सहेजें",
+    "childAge": "आपके बच्चे की उम्र",
+    "included": "{{age}} साल की उम्र के लिए शामिल:",
+    "points": "+ {{count}} बिंदुओं वाली तैयारी की चेकलिस्ट",
+    "footnote": "हम समय-समय पर आपको मोंटेसरी सुझाव ईमेल करेंगे। कभी भी सदस्यता छोड़ें।",
+    "privacy": "गोपनीयता नीति"
+  },
+  "guide": {
+    "docTitle": "मोंटेसरी तैयारी मार्गदर्शिका – उम्र {{age}} साल",
+    "save": "PDF के रूप में सहेजें",
+    "sub": "अमेरिकी मानकों से मेल के साथ AMI प्राइमरी के एक सप्ताह का नमूना · Montessori Life Skills",
+    "intro": "जैसा कि Dr. Maria Montessori ने कहा था, हाथ मन का उपकरण है। यह मार्गदर्शिका {{age}} साल के बच्चे के लिए AMI प्राइमरी क्रम के एक सप्ताह का नमूना दिखाती है, साथ ही हर पाठ से जुड़े अमेरिकी मानक भी बताती है।",
+    "checklist": "तैयारी की चेकलिस्ट",
+    "observe": "अवलोकन करें, परीक्षा न लें। हर बच्चा अपनी गति से आगे बढ़ता है।",
+    "week": "एक सप्ताह का नमूना",
+    "day": "दिन",
+    "lesson": "पाठ",
+    "gains": "बच्चा क्या सीखता है",
+    "standards": "मानक",
+    "days": [
+      "सोम",
+      "मंगल",
+      "बुध",
+      "गुरु",
+      "शुक्र"
+    ],
+    "indirect": "अप्रत्यक्ष तैयारी",
+    "ctaTitle": "पूरा क्रम।",
+    "cta": "प्रीमियम में AMI प्राइमरी के सभी प्रस्तुतीकरण क्रम से, चरण-दर-चरण मार्गदर्शिकाएँ, पाठ के वीडियो और प्रिंट करने योग्य होमस्कूल पोर्टफ़ोलियो शामिल हैं। प्रीमियम वार्षिक $199/वर्ष या $29.99/माह है, 30 दिनों की गारंटी के साथ।",
+    "footer": "मानक कोड: Common Core (CCSS), NGSS, NCSS और National Core Arts Standards। यह मानकों से मेल का मानचित्र है, प्रमाणन नहीं। © {{year}} Montessori Life Skills.",
+    "titles": {
+      "Dry Pouring": "सूखी सामग्री उँडेलना",
+      "Greeting Others": "दूसरों का अभिवादन करना",
+      "Knobbed Cylinders": "घुंडी वाले बेलन [Knobbed Cylinders / Cylinder Blocks]",
+      "Pink Tower": "गुलाबी मीनार [Pink Tower]",
+      "Sandpaper Letters": "रेगमाल के अक्षर [Sandpaper Letters]",
+      "Red Rods": "लाल छड़ें [Red Rods]",
+      "Number Rods": "संख्या छड़ें [Number Rods]",
+      "Spindle Box": "स्पिंडल बॉक्स [Spindle Box]",
+      "Land and Water Forms": "स्थल और जल की आकृतियाँ [Land and Water Forms]",
+      "Golden Beads": "सुनहरे मनके [Golden Beads]",
+      "Moveable Alphabet": "चल वर्णमाला [Moveable Alphabet]",
+      "Parts of a Plant": "पौधे के भाग"
+    },
+    "areas": {
+      "Practical Life": "व्यावहारिक जीवन",
+      "Grace and Courtesy": "शालीनता और शिष्टाचार",
+      "Sensorial": "इंद्रिय विकास",
+      "Language": "भाषा",
+      "Math": "गणित",
+      "Geography": "भूगोल",
+      "Botany": "वनस्पति विज्ञान"
+    },
+    "purposes": {
+      "3": [
+        "शारीरिक गतिविधियों का समन्वय, एकाग्रता और स्वतंत्रता।",
+        "आत्मविश्वास और सम्मानपूर्ण सामाजिक संवाद।",
+        "आकारों का अंतर देखकर पहचानना; अंगूठे और तर्जनी की पकड़, जो हाथ को लिखने के लिए तैयार करती है।",
+        "तीन आयामों में क्रमिक आकारों का अंतर देखकर पहचानना।",
+        "स्पर्श के माध्यम से हर ध्वनि को उसके लिखित प्रतीक से जोड़ना।"
+      ],
+      "4": [
+        "लंबाई का क्रमिक अंतर; संख्या छड़ों [Number Rods] के लिए प्रत्यक्ष तैयारी।",
+        "अलग-अलग गिनी जा सकने वाली लंबाइयों के रूप में 1–10 की मात्रा और प्रतीक।",
+        "अलग-अलग वस्तुओं को गिनना और शून्य की अवधारणा समझना।",
+        "शुरुआती पढ़ने और लिखने के लिए ध्वनि और प्रतीक का संबंध।",
+        "पृथ्वी के स्थल और जल की ठोस समझ।"
+      ],
+      "5": [
+        "दशमलव प्रणाली: इकाई, दहाई, सैकड़ा और हज़ार।",
+        "हाथ से लिखने में सक्षम होने से पहले ध्वनियों के आधार पर शब्द बनाना।",
+        "मात्रा, प्रतीक और शून्य की समझ पक्की करना।",
+        "जीवित पौधों के भागों के नाम जानना और उनका अवलोकन करना।",
+        "स्पर्श और नामकरण के माध्यम से स्थल और जल की जोड़ीदार आकृतियाँ समझना।"
+      ]
+    },
+    "checks": {
+      "3": [
+        "ट्रे या कुर्सी सावधानी से उठाकर ले जाता है",
+        "सूखी सामग्री उँडेलता है, थोड़ी सामग्री गिरती है",
+        "दो चरणों वाले निर्देश का पालन करता है",
+        "परिचित वयस्कों का अभिवादन करता है",
+        "वस्तुओं को आकार या रंग के अनुसार छाँटता है",
+        "अक्षरों की ध्वनियों में रुचि दिखाता है"
+      ],
+      "4": [
+        "पानी उँडेलता है, बहुत कम पानी छलकता है",
+        "एक गतिविधि पर 10+ मिनट तक कार्य करता है",
+        "वस्तुओं को आकार के क्रम में रखता है",
+        "कई अक्षरों की ध्वनियाँ पहचानता है",
+        "हर वस्तु के लिए एक संख्या बोलते हुए 10 तक वस्तुएँ गिनता है",
+        "कृपया, धन्यवाद और माफ़ कीजिए कहता है"
+      ],
+      "5": [
+        "कई चरणों वाली गतिविधि पूरी करके सामग्री वापस रखता है",
+        "अधिकांश अक्षरों की ध्वनियाँ बताता है",
+        "ध्वनियों के आधार पर सरल शब्द बनाता है",
+        "10 से आगे गिनता है और मात्रा को अंकों से मिलाता है",
+        "पेंसिल को तीन उँगलियों की पकड़ से पकड़ता है",
+        "समूह में अपनी बारी आने पर बोलता है"
+      ]
+    }
+  }
+};
+export const growth = { en, es, de, zh, sw, hi };

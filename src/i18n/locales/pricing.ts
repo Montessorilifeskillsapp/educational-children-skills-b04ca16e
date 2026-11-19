@@ -352,4 +352,442 @@ const zh: typeof en = {
   access: {"open": "有访问码？", "label": "输入您的访问码", "checking": "正在验证…", "redeem": "兑换", "note": "访问码可免费解锁完整课程，无需付款信息。", "signInTitle": "请先登录", "signInBody": "请创建账户或登录，然后兑换您的访问码。", "rejected": "访问码未被接受", "rejectedBody": "无法兑换该访问码。", "okTitle": "已解锁全部内容", "okBody": "您的访问码已应用到此账户。", "errTitle": "出了点问题", "errBody": "请重试。"},
 };
 
-export const pricing = { en, es, de, zh };
+const sw: typeof en = {
+  "upgrade": {
+    "benefit1": "Kila uwasilishaji katika maeneo yote ya mtaala, kwa mfuatano wa AMI",
+    "benefit2": "Uwasilishaji ulioandikwa hatua kwa hatua na video za masomo",
+    "benefit3": "Mwongozo wa viwango vya elimu ya nyumbani na jalada la kazi linaloweza kuchapishwa",
+    "notNow": "Si sasa",
+    "price": "<0>$199/mwaka</0> (takriban $16.58/mwezi) au $29.99/mwezi. Chini ya ada ya mwezi mmoja ya shule ya awali ya Montessori ya kawaida.",
+    "seePlans": "Angalia mipango ya Premium",
+    "guarantee": "Dhamana ya kurejeshewa fedha ndani ya siku 30 · Ghairi wakati wowote",
+    "lockedTitle": "Fungua {{title}}",
+    "lockedBody": "Uwasilishaji huu ni sehemu ya mtaala kamili wa Premium. Premium unaufungua pamoja na kila shughuli nyingine katika mfuatano.",
+    "lockedAlt": "Nyenzo ya Montessori ya {{title}}",
+    "completeMeta": "Shughuli imekamilika",
+    "completeTitle": "Kazi nzuri katika {{title}}.",
+    "completeBody": "Uwasilishaji unaofuata katika mfuatano wa {{section}} unaendeleza yale ambayo mtoto wako ameyafanyia mazoezi sasa hivi. Endelea na mfuatano kamili kwa Premium.",
+    "backToActivities": "Rudi kwenye shughuli"
+  },
+  "plans": {
+    "free": {
+      "name": "Mvumbuzi",
+      "description": "Onja mtaala halisi — hakuna kadi inayohitajika.",
+      "features": [
+        "Shughuli 1 ya kuanzia katika kila eneo kati ya maeneo 9 ya mtaala",
+        "Mwongozo wa kupanga darasa la Montessori (mtandaoni)",
+        "Dashibodi ya Familia kwa mtoto mmoja",
+        "Matumizi bila matangazo wala usumbufu"
+      ]
+    },
+    "premiumMonthly": {
+      "name": "Premium",
+      "description": "Mtaala kamili, malipo kila mwezi. Ghairi wakati wowote.",
+      "features": [
+        "Shughuli 100+ zinazolingana na AMI katika maeneo yote 9",
+        "Hatua za uwasilishaji zilizoandikwa kwa kila shughuli",
+        "Shughuli mpya zinaongezwa kila mwezi",
+        "Inahusisha mtoto mmoja",
+        "Usaidizi wa kipaumbele"
+      ]
+    },
+    "premiumYearly": {
+      "name": "Premium",
+      "description": "Thamani bora zaidi — okoa $160.88 ukilinganisha na malipo ya kila mwezi.",
+      "meta": "$16.58/mwezi tu, malipo kila mwaka",
+      "features": [
+        "Shughuli 100+ zinazolingana na AMI katika maeneo yote 9",
+        "Hatua za uwasilishaji zilizoandikwa kwa kila shughuli",
+        "Shughuli mpya zinaongezwa kila mwezi",
+        "Inahusisha mtoto mmoja",
+        "Usaidizi wa kipaumbele"
+      ]
+    },
+    "familyMonthly": {
+      "name": "Familia",
+      "description": "Mtaala kamili kwa hadi watoto wanne, malipo kila mwezi.",
+      "features": [
+        "Kila kitu kilicho katika Premium",
+        "Hadi wasifu wa watoto wanne",
+        "Malengo, maendeleo na kalenda tofauti kwa kila mtoto",
+        "Usaidizi wa kipaumbele"
+      ]
+    },
+    "familyYearly": {
+      "name": "Familia",
+      "description": "Mtaala kamili kwa hadi watoto wanne, malipo kila mwaka.",
+      "meta": "$29.08/mwezi tu, malipo kila mwaka",
+      "features": [
+        "Kila kitu kilicho katika Premium",
+        "Hadi wasifu wa watoto wanne",
+        "Malengo, maendeleo na kalenda tofauti kwa kila mtoto",
+        "Usaidizi wa kipaumbele"
+      ]
+    },
+    "consultation": {
+      "name": "Ushauri wa faragha",
+      "description": "Ushauri wa ana kwa ana na mwelekezi wa Montessori kwa malengo mahususi ya familia yako.",
+      "features": [
+        "Kikao cha video cha dakika 60 na mwelekezi aliyefunzwa na AMI",
+        "Mtaala uliobinafsishwa kulingana na mtoto wako",
+        "Ujumuishaji katika ratiba na mtindo wa maisha wa familia",
+        "Mapendekezo ya nyenzo kulingana na mahitaji yako",
+        "Mpango wa utekelezaji wa elimu ya nyumbani ulioandikwa",
+        "Wiki 2 za usaidizi wa ufuatiliaji kwa barua pepe",
+        "Kifurushi cha vikao 3 kwa $600 (okoa $75)"
+      ]
+    }
+  },
+  "period": {
+    "forever": "milele",
+    "month": "mwezi",
+    "year": "mwaka",
+    "session": "kikao"
+  },
+  "page": {
+    "title": "Chagua mpango wako",
+    "backToDashboard": "Rudi kwenye dashibodi",
+    "checking": "Tunakagua mpango wako…",
+    "active": "Unatumika",
+    "premiumPlan": "Mpango wa Premium",
+    "renews": "Inasasishwa au inaisha tarehe {{date}}",
+    "appStore": "Inasimamiwa kupitia akaunti yako ya App Store.",
+    "boughtOnWeb": "Imenunuliwa kwenye tovuti yetu. Isimamie au uighairi kwenye montessorilifeskillsapp.com/plans.",
+    "openDashboard": "Fungua dashibodi",
+    "manage": "Simamia au ghairi",
+    "sync": "Sawazisha mpango",
+    "heading": "Chagua mpango unaofaa familia yako.",
+    "intro": "Premium ya Mwaka ni takriban $16.58 kwa mwezi: chini ya ada ya mwezi mmoja ya shule ya awali ya Montessori kwa kawaida, kwa mfululizo kamili wa masomo ya umri wa miaka 3–6 nyumbani. Familia zinazofundisha nyumbani pia hupata mwongozo wa viwango na jalada la kazi linaloweza kuchapishwa.",
+    "amiAligned": "Inalingana na AMI",
+    "guarantee": "Dhamana ya kurejeshewa pesa ndani ya siku 30",
+    "cancelAnytime": "Ghairi wakati wowote",
+    "schools": "Uwasilishaji halisi wa AMI, unaofaa shule za Montessori za AMI, AMS na zinazojitegemea.",
+    "kits": "Seti za vifaa",
+    "kitsNote": "Masanduku ya kuhifadhi",
+    "privateSchool": "Shule binafsi",
+    "privateSchoolNote": "Kwa mtoto / mwaka",
+    "thisApp": "Programu hii",
+    "perYearShort": "/mwaka",
+    "oneChild": "Mtoto mmoja",
+    "monthly": "Kila mwezi",
+    "annual": "Kila mwaka",
+    "annualValue": "Thamani ya mwaka",
+    "sectionLabel": "Mipango ya usajili wa kujifunza Montessori",
+    "details": "Maelezo ya usajili",
+    "d1": "<0>Premium ya Mwezi</0> — $29.99 USD kwa mwezi, inasasishwa kiotomatiki kila mwezi.",
+    "d2": "<0>Premium ya Mwaka</0> — $199.00 USD kwa mwaka, inasasishwa kiotomatiki kila mwaka (~$16.58/mwezi).",
+    "d3": "<0>Familia ya Mwezi</0> — $49.00 USD kwa mwezi kwa hadi watoto wanne, inasasishwa kiotomatiki kila mwezi.",
+    "d4": "<0>Familia ya Mwaka</0> — $349.00 USD kwa mwaka kwa hadi watoto wanne, inasasishwa kiotomatiki kila mwaka (~$29.08/mwezi).",
+    "d5": "Malipo yanatozwa kupitia Apple ID, Google Play, au njia yako ya malipo ya mtandaoni unapotibitisha ununuzi.",
+    "d6": "Usajili unasasishwa kiotomatiki isipokuwa usasishaji wa kiotomatiki uzimwe angalau saa 24 kabla ya kipindi cha sasa kuisha.",
+    "d7": "Unaweza kusimamia au kughairi wakati wowote katika mipangilio ya akaunti yako ya App Store, Google Play, au Stripe.",
+    "acceptLabel": "Kubali Masharti ya Huduma na Sera ya Faragha",
+    "agree": "Nimesoma na kukubali <1>Masharti ya Matumizi (EULA)</1> na <3>Sera ya Faragha</3>, yakiwemo masharti ya usasishaji wa kiotomatiki yaliyo hapo juu.",
+    "bestValue": "Thamani Bora Zaidi",
+    "byRequest": "Kwa ombi",
+    "byRequestNote": "Hupangwa moja kwa moja na timu yetu — haiuzwi ndani ya programu.",
+    "switchAnnual": "Badili hadi mpango wa mwaka uokoe $160.88",
+    "addConsult": "Ongeza ushauri wa faragha na Kerry",
+    "addConsultPrice": "Ongeza ushauri wa faragha na Kerry – $225",
+    "bookConsult": "Weka miadi ya ushauri",
+    "choose": "Chagua mpango wa {{name}}",
+    "processing": "Inachakatwa…",
+    "ctaOpen": "Fungua shughuli zako",
+    "ctaCurrent": "Mpango wa sasa",
+    "ctaFree": "Anza bila malipo — kadi haihitajiki",
+    "ctaAnnual": "Anza mpango wa mwaka — okoa $160.88",
+    "ctaFamilyAnnual": "Anza Familia ya Mwaka",
+    "ctaFamilyMonthly": "Anza Familia ya Mwezi",
+    "ctaMonthly": "Anza mpango wa mwezi",
+    "cardGuarantee": "Dhamana ya kurejeshewa pesa ndani ya siku 30 · Ghairi wakati wowote",
+    "restoring": "Inarejeshwa…",
+    "restore": "Rejesha Manunuzi",
+    "storeNote": "Usajili unatozwa kupitia akaunti yako ya App Store / Google Play na unaweza kusimamiwa huko wakati wowote."
+  },
+  "toast": {
+    "purchaseDone": "Ununuzi umekamilika",
+    "purchaseDoneBody": "Usajili wako sasa unatumika.",
+    "purchaseFailed": "Ununuzi umeshindikana",
+    "restored": "Manunuzi yamerejeshwa",
+    "restoredBody": "Ikiwa ulikuwa na usajili unaotumika, sasa umeunganishwa na akaunti hii.",
+    "restoreFailed": "Urejeshaji umeshindikana",
+    "familyScheduled": "Mpango wa Familia umepangiwa kuanza",
+    "familyScheduledOn": "Mpango wako wa Familia unaanza mpango wako wa sasa unaposasishwa tarehe {{date}}.",
+    "familyScheduledNext": "Mpango wako wa Familia unaanza wakati wa usasishaji wako unaofuata.",
+    "redirecting": "Unaelekezwa kwenye Malipo",
+    "redirectingBody": "Tunakupeleka kwenye ukurasa salama wa malipo wa Stripe…",
+    "checkoutError": "Hitilafu ya Malipo",
+    "tryAgain": "Tafadhali jaribu tena.",
+    "onExplorer": "Unatumia mpango wa Explorer",
+    "onExplorerBody": "Fungua dashibodi ili uanze kuchunguza.",
+    "welcomeExplorer": "Karibu kwenye Explorer!",
+    "welcomeExplorerBody": "Shughuli zako za kuanzia bila malipo ziko tayari.",
+    "acceptTerms": "Tafadhali kubali Masharti",
+    "acceptTermsBody": "Lazima ukubali Masharti ya Huduma na Sera ya Faragha kabla ya kununua.",
+    "signIn": "Ingia ili uendelee",
+    "signInBody": "Tunakupeleka uingie ili tuanze mchakato wa malipo…",
+    "subError": "Hitilafu ya Usajili",
+    "subErrorBody": "Kulikuwa na tatizo wakati wa kuchakata ombi lako. Tafadhali jaribu tena.",
+    "billingError": "Imeshindikana kufungua sehemu ya malipo",
+    "billingErrorBody": "Tafadhali jaribu tena, au tuma barua pepe kwa montessorilifeskills@gmail.com nasi tutaughairi au kuubadilisha kwa niaba yako.",
+    "synced": "Hali ya mpango imesawazishwa",
+    "syncedBody": "Hali ya usajili wako imesasishwa.",
+    "syncFailed": "Usawazishaji umeshindikana"
+  },
+  "success": {
+    "finalizing": "Tunakamilisha Usajili Wako…",
+    "title": "Malipo Yamefanikiwa!",
+    "confirming": "Tunathibitisha malipo yako ya Stripe na kusawazisha ufikiaji wa usajili wako.",
+    "thanks": "Asante kwa kujisajili. Ufikiaji wako uko tayari.",
+    "thanksWithId": "Asante kwa kujisajili kupitia malipo {{id}}…. Ufikiaji wako uko tayari.",
+    "songsUnlocked": "Mkusanyiko wa nyimbo umefunguliwa!",
+    "welcome": "Karibu kwenye {{plan}}!",
+    "songsBody": "Sasa kila wimbo unachezwa kikamilifu. Pata mkusanyiko kwenye dashibodi yako au kwenye Duka.",
+    "premiumBody": "Sasa unaweza kufikia shughuli na maudhui yote ya Montessori ya kulipia.",
+    "delay": "Ikiwa ufikiaji wa maudhui ya kulipia hauonekani mara moja, pakia upya ukurasa huu baada ya sekunde chache nasi tutausawazisha.",
+    "explore": "Anza kuchunguza safari yako iliyoboreshwa ya kujifunza kupitia shughuli zenye mwongozo mzuri zilizoundwa kukuza kujitegemea na kujiamini.",
+    "continue": "Endelea kwenye Dashibodi"
+  },
+  "cancel": {
+    "title": "Malipo Yameghairiwa",
+    "body": "Usiwe na wasiwasi! Malipo yako yameghairiwa na hakuna kiasi kilichotozwa kwenye akaunti yako.",
+    "note": "Unaweza kuendelea kutumia shughuli zetu za Montessori bila malipo, au kuboresha usajili wakati wowote ili kufungua uzoefu kamili wa kujifunza.",
+    "retry": "Jaribu Tena",
+    "back": "Rudi Nyuma"
+  },
+  "access": {
+    "open": "Una msimbo wa ufikiaji?",
+    "label": "Weka msimbo wako wa ufikiaji",
+    "checking": "Tunakagua…",
+    "redeem": "Tumia Msimbo",
+    "note": "Misimbo ya ufikiaji hufungua mtaala mzima bila malipo. Hakuna taarifa za malipo zinazohitajika.",
+    "signInTitle": "Ingia kwanza",
+    "signInBody": "Fungua akaunti au ingia, kisha utumie msimbo wako wa ufikiaji.",
+    "rejected": "Msimbo haujakubaliwa",
+    "rejectedBody": "Msimbo huo wa ufikiaji haukuweza kutumika.",
+    "okTitle": "Ufikiaji kamili umefunguliwa",
+    "okBody": "Msimbo wako wa ufikiaji umetumika kwenye akaunti hii.",
+    "errTitle": "Hitilafu imetokea",
+    "errBody": "Tafadhali jaribu tena."
+  }
+};
+const hi: typeof en = {
+  "upgrade": {
+    "benefit1": "सभी पाठ्यक्रम क्षेत्रों का हर प्रस्तुतीकरण, AMI क्रम में",
+    "benefit2": "चरण-दर-चरण लिखित प्रस्तुतीकरण और पाठ के वीडियो",
+    "benefit3": "होमस्कूल मानकों की मार्गदर्शिका और प्रिंट करने योग्य पोर्टफोलियो",
+    "notNow": "अभी नहीं",
+    "price": "<0>$199/वर्ष</0> (लगभग $16.58/माह) या $29.99/माह। सामान्य मोंटेसरी प्रीस्कूल की एक महीने की फीस से भी कम।",
+    "seePlans": "प्रीमियम प्लान देखें",
+    "guarantee": "30 दिन की मनी-बैक गारंटी · कभी भी रद्द करें",
+    "lockedTitle": "{{title}} अनलॉक करें",
+    "lockedBody": "यह प्रस्तुतीकरण पूरे प्रीमियम पाठ्यक्रम का हिस्सा है। प्रीमियम से यह और क्रम की हर दूसरी गतिविधि उपलब्ध हो जाती है।",
+    "lockedAlt": "{{title}} मोंटेसरी सामग्री",
+    "completeMeta": "गतिविधि पूरी हुई",
+    "completeTitle": "{{title}} पर बहुत अच्छा कार्य किया।",
+    "completeBody": "{{section}} क्रम के अगले प्रस्तुतीकरण आपके बच्चे के अभी किए गए अभ्यास को आगे बढ़ाते हैं। प्रीमियम के साथ पूरा क्रम जारी रखें।",
+    "backToActivities": "गतिविधियों पर वापस जाएँ"
+  },
+  "plans": {
+    "free": {
+      "name": "एक्सप्लोरर",
+      "description": "पाठ्यक्रम की असली झलक — कार्ड की ज़रूरत नहीं।",
+      "features": [
+        "9 पाठ्यक्रम क्षेत्रों में से हर एक में 1 शुरुआती गतिविधि",
+        "मोंटेसरी कक्षा तैयार करने की मार्गदर्शिका (ऑनलाइन)",
+        "एक बच्चे के लिए परिवार डैशबोर्ड",
+        "विज्ञापन और ध्यान भटकाने वाली चीज़ों से मुक्त अनुभव"
+      ]
+    },
+    "premiumMonthly": {
+      "name": "प्रीमियम",
+      "description": "पूरा पाठ्यक्रम, मासिक बिलिंग। कभी भी रद्द करें।",
+      "features": [
+        "सभी 9 क्षेत्रों में AMI के अनुरूप 100+ गतिविधियाँ",
+        "हर गतिविधि के लिए प्रस्तुतीकरण के लिखित चरण",
+        "हर महीने नई गतिविधियाँ जोड़ी जाती हैं",
+        "एक बच्चे के लिए",
+        "प्राथमिकता सहायता"
+      ]
+    },
+    "premiumYearly": {
+      "name": "प्रीमियम",
+      "description": "सबसे किफ़ायती — मासिक प्लान के मुकाबले $160.88 बचाएँ।",
+      "meta": "सिर्फ़ $16.58/माह, सालाना बिलिंग",
+      "features": [
+        "सभी 9 क्षेत्रों में AMI के अनुरूप 100+ गतिविधियाँ",
+        "हर गतिविधि के लिए प्रस्तुतीकरण के लिखित चरण",
+        "हर महीने नई गतिविधियाँ जोड़ी जाती हैं",
+        "एक बच्चे के लिए",
+        "प्राथमिकता सहायता"
+      ]
+    },
+    "familyMonthly": {
+      "name": "परिवार",
+      "description": "चार बच्चों तक के लिए पूरा पाठ्यक्रम, मासिक बिलिंग।",
+      "features": [
+        "प्रीमियम की सभी सुविधाएँ",
+        "चार बच्चों तक की प्रोफ़ाइल",
+        "हर बच्चे के लिए अलग लक्ष्य, प्रगति और कैलेंडर",
+        "प्राथमिकता सहायता"
+      ]
+    },
+    "familyYearly": {
+      "name": "परिवार",
+      "description": "चार बच्चों तक के लिए पूरा पाठ्यक्रम, सालाना बिलिंग।",
+      "meta": "सिर्फ़ $29.08/माह, सालाना बिलिंग",
+      "features": [
+        "प्रीमियम की सभी सुविधाएँ",
+        "चार बच्चों तक की प्रोफ़ाइल",
+        "हर बच्चे के लिए अलग लक्ष्य, प्रगति और कैलेंडर",
+        "प्राथमिकता सहायता"
+      ]
+    },
+    "consultation": {
+      "name": "निजी परामर्श",
+      "description": "आपके परिवार के खास लक्ष्यों के लिए मोंटेसरी मार्गदर्शक के साथ 1-on-1 परामर्श।",
+      "features": [
+        "AMI-प्रशिक्षित मार्गदर्शक के साथ 60 मिनट का वीडियो सत्र",
+        "आपके बच्चे के अनुरूप बनाया गया पाठ्यक्रम",
+        "परिवार की दिनचर्या और जीवनशैली में समावेश",
+        "आपकी ज़रूरतों के अनुसार सामग्री के सुझाव",
+        "होमस्कूल के लिए लिखित कार्ययोजना",
+        "2 सप्ताह तक फ़ॉलो-अप ईमेल सहायता",
+        "3 सत्रों का पैकेज $600 ($75 बचाएँ)"
+      ]
+    }
+  },
+  "period": {
+    "forever": "हमेशा के लिए",
+    "month": "माह",
+    "year": "वर्ष",
+    "session": "सत्र"
+  },
+  "page": {
+    "title": "अपना प्लान चुनें",
+    "backToDashboard": "डैशबोर्ड पर वापस जाएँ",
+    "checking": "आपका प्लान जाँचा जा रहा है…",
+    "active": "सक्रिय",
+    "premiumPlan": "प्रीमियम प्लान",
+    "renews": "{{date}} को नवीनीकृत होगा या समाप्त होगा",
+    "appStore": "आपके App Store खाते से प्रबंधित होता है।",
+    "boughtOnWeb": "हमारी वेबसाइट से खरीदा गया है। montessorilifeskillsapp.com/plans पर इसे प्रबंधित या रद्द करें।",
+    "openDashboard": "डैशबोर्ड खोलें",
+    "manage": "प्रबंधित या रद्द करें",
+    "sync": "प्लान सिंक करें",
+    "heading": "अपने परिवार के लिए सही प्लान चुनें।",
+    "intro": "प्रीमियम वार्षिक की लागत लगभग $16.58 प्रति माह है: आम मॉन्टेसरी प्रीस्कूल की एक महीने की फीस से भी कम में घर पर पूरा 3–6 शिक्षण क्रम। घर पर पढ़ाने वाले परिवारों को शैक्षिक मानकों की मार्गदर्शिका और प्रिंट करने योग्य पोर्टफोलियो भी मिलता है।",
+    "amiAligned": "AMI के अनुरूप",
+    "guarantee": "30-दिन की मनी-बैक गारंटी",
+    "cancelAnytime": "कभी भी रद्द करें",
+    "schools": "प्रामाणिक AMI प्रस्तुतीकरण, AMI, AMS और स्वतंत्र मॉन्टेसरी स्कूलों के लिए उपयुक्त।",
+    "kits": "सामग्री किट",
+    "kitsNote": "रखने के लिए डिब्बे",
+    "privateSchool": "निजी स्कूल",
+    "privateSchoolNote": "प्रति बच्चा / वर्ष",
+    "thisApp": "यह ऐप",
+    "perYearShort": "/वर्ष",
+    "oneChild": "एक बच्चा",
+    "monthly": "मासिक",
+    "annual": "वार्षिक",
+    "annualValue": "वार्षिक लागत",
+    "sectionLabel": "मॉन्टेसरी सीखने के सब्सक्रिप्शन प्लान",
+    "details": "सब्सक्रिप्शन का विवरण",
+    "d1": "<0>प्रीमियम मासिक</0> — $29.99 USD प्रति माह, हर महीने अपने आप नवीनीकृत होता है।",
+    "d2": "<0>प्रीमियम वार्षिक</0> — $199.00 USD प्रति वर्ष, हर साल अपने आप नवीनीकृत होता है (~$16.58/माह)।",
+    "d3": "<0>परिवार मासिक</0> — अधिकतम चार बच्चों के लिए $49.00 USD प्रति माह, हर महीने अपने आप नवीनीकृत होता है।",
+    "d4": "<0>परिवार वार्षिक</0> — अधिकतम चार बच्चों के लिए $349.00 USD प्रति वर्ष, हर साल अपने आप नवीनीकृत होता है (~$29.08/माह)।",
+    "d5": "खरीद की पुष्टि होने पर आपके Apple ID, Google Play या वेब भुगतान माध्यम से शुल्क लिया जाता है।",
+    "d6": "सब्सक्रिप्शन अपने आप नवीनीकृत होता है, जब तक मौजूदा अवधि समाप्त होने से कम से कम 24 घंटे पहले ऑटो-रिन्यू बंद न किया जाए।",
+    "d7": "आप अपने App Store, Google Play या Stripe खाते की सेटिंग में कभी भी इसे प्रबंधित या रद्द कर सकते हैं।",
+    "acceptLabel": "सेवा की शर्तें और गोपनीयता नीति स्वीकार करें",
+    "agree": "मैंने <1>उपयोग की शर्तें (EULA)</1> और <3>गोपनीयता नीति</3> पढ़ ली हैं और उनसे सहमत हूँ, जिनमें ऊपर दी गई ऑटो-रिन्यू की शर्तें भी शामिल हैं।",
+    "bestValue": "सबसे किफ़ायती",
+    "byRequest": "अनुरोध पर",
+    "byRequestNote": "हमारी टीम से सीधे व्यवस्था की जाती है — ऐप में नहीं बेचा जाता।",
+    "switchAnnual": "वार्षिक प्लान अपनाएँ और $160.88 बचाएँ",
+    "addConsult": "केरी के साथ निजी परामर्श जोड़ें",
+    "addConsultPrice": "केरी के साथ निजी परामर्श जोड़ें – $225",
+    "bookConsult": "परामर्श बुक करें",
+    "choose": "{{name}} प्लान चुनें",
+    "processing": "प्रक्रिया जारी है…",
+    "ctaOpen": "अपनी गतिविधियाँ खोलें",
+    "ctaCurrent": "मौजूदा प्लान",
+    "ctaFree": "मुफ़्त शुरू करें — कार्ड की ज़रूरत नहीं",
+    "ctaAnnual": "वार्षिक प्लान शुरू करें — $160.88 बचाएँ",
+    "ctaFamilyAnnual": "परिवार वार्षिक शुरू करें",
+    "ctaFamilyMonthly": "परिवार मासिक शुरू करें",
+    "ctaMonthly": "मासिक प्लान शुरू करें",
+    "cardGuarantee": "30-दिन की मनी-बैक गारंटी · कभी भी रद्द करें",
+    "restoring": "बहाल किया जा रहा है…",
+    "restore": "खरीदारी बहाल करें",
+    "storeNote": "सब्सक्रिप्शन का भुगतान आपके App Store / Google Play खाते से होता है और आप वहीं कभी भी इसे प्रबंधित कर सकते हैं।"
+  },
+  "toast": {
+    "purchaseDone": "खरीद पूरी हुई",
+    "purchaseDoneBody": "आपका सब्सक्रिप्शन अब सक्रिय है।",
+    "purchaseFailed": "खरीद विफल हुई",
+    "restored": "खरीदारी बहाल की गई",
+    "restoredBody": "अगर आपका कोई सक्रिय सब्सक्रिप्शन था, तो वह अब इस खाते से जुड़ गया है।",
+    "restoreFailed": "बहाल नहीं हो सका",
+    "familyScheduled": "परिवार प्लान की शुरुआत तय है",
+    "familyScheduledOn": "आपका परिवार प्लान {{date}} को शुरू होगा, जब आपका मौजूदा प्लान नवीनीकृत होगा।",
+    "familyScheduledNext": "आपका परिवार प्लान अगले नवीनीकरण पर शुरू होगा।",
+    "redirecting": "चेकआउट पर ले जा रहे हैं",
+    "redirectingBody": "आपको Stripe के सुरक्षित भुगतान पेज पर ले जा रहे हैं…",
+    "checkoutError": "चेकआउट में त्रुटि",
+    "tryAgain": "कृपया फिर से कोशिश करें।",
+    "onExplorer": "आप एक्सप्लोरर प्लान पर हैं",
+    "onExplorerBody": "खोजना शुरू करने के लिए डैशबोर्ड खोलें।",
+    "welcomeExplorer": "एक्सप्लोरर में आपका स्वागत है!",
+    "welcomeExplorerBody": "आपकी मुफ़्त शुरुआती गतिविधियाँ तैयार हैं।",
+    "acceptTerms": "कृपया शर्तें स्वीकार करें",
+    "acceptTermsBody": "खरीदने से पहले आपको सेवा की शर्तों और गोपनीयता नीति से सहमत होना होगा।",
+    "signIn": "जारी रखने के लिए साइन इन करें",
+    "signInBody": "चेकआउट शुरू करने के लिए आपको साइन इन पेज पर ले जा रहे हैं…",
+    "subError": "सब्सक्रिप्शन में त्रुटि",
+    "subErrorBody": "आपके अनुरोध पर कार्रवाई करते समय समस्या हुई। कृपया फिर से कोशिश करें।",
+    "billingError": "बिलिंग नहीं खुल सकी",
+    "billingErrorBody": "कृपया फिर से कोशिश करें या montessorilifeskills@gmail.com पर ईमेल करें। हम आपके लिए इसे रद्द या बदल देंगे।",
+    "synced": "प्लान की स्थिति सिंक हो गई",
+    "syncedBody": "आपके सब्सक्रिप्शन की स्थिति अपडेट है।",
+    "syncFailed": "सिंक नहीं हो सका"
+  },
+  "success": {
+    "finalizing": "आपकी सदस्यता सक्रिय की जा रही है…",
+    "title": "भुगतान सफल!",
+    "confirming": "हम आपके Stripe चेकआउट की पुष्टि करके आपकी सदस्यता का ऐक्सेस सिंक कर रहे हैं।",
+    "thanks": "सदस्यता लेने के लिए धन्यवाद। आपका ऐक्सेस तैयार है।",
+    "thanksWithId": "चेकआउट {{id}}… से सदस्यता लेने के लिए धन्यवाद। आपका ऐक्सेस तैयार है।",
+    "songsUnlocked": "गीतों का संग्रह अनलॉक हो गया!",
+    "welcome": "{{plan}} में आपका स्वागत है!",
+    "songsBody": "अब हर गीत पूरा सुन सकते हैं। संग्रह आपके डैशबोर्ड या शॉप में उपलब्ध है।",
+    "premiumBody": "अब आप सभी प्रीमियम मोंटेसरी गतिविधियों और सामग्री का उपयोग कर सकते हैं।",
+    "delay": "यदि प्रीमियम ऐक्सेस तुरंत न दिखे, तो कुछ सेकंड बाद यह पेज रीफ़्रेश करें। हम इसे सिंक कर देंगे।",
+    "explore": "आत्मनिर्भरता और आत्मविश्वास बढ़ाने के लिए बनाई गई सुंदर, निर्देशित गतिविधियों के साथ सीखने की अपनी समृद्ध यात्रा शुरू करें।",
+    "continue": "डैशबोर्ड पर जाएँ"
+  },
+  "cancel": {
+    "title": "भुगतान रद्द हुआ",
+    "body": "चिंता न करें! आपका भुगतान रद्द हो गया और आपके खाते से कोई शुल्क नहीं लिया गया।",
+    "note": "आप हमारी मुफ़्त मोंटेसरी गतिविधियों का उपयोग जारी रख सकते हैं या सीखने का पूरा अनुभव पाने के लिए कभी भी अपग्रेड कर सकते हैं।",
+    "retry": "फिर कोशिश करें",
+    "back": "वापस जाएँ"
+  },
+  "access": {
+    "open": "क्या आपके पास ऐक्सेस कोड है?",
+    "label": "अपना ऐक्सेस कोड दर्ज करें",
+    "checking": "जाँच हो रही है…",
+    "redeem": "कोड लागू करें",
+    "note": "ऐक्सेस कोड से पूरा पाठ्यक्रम मुफ़्त में उपलब्ध होता है। भुगतान विवरण की ज़रूरत नहीं है।",
+    "signInTitle": "पहले साइन इन करें",
+    "signInBody": "खाता बनाएँ या साइन इन करें, फिर अपना ऐक्सेस कोड लागू करें।",
+    "rejected": "कोड स्वीकार नहीं हुआ",
+    "rejectedBody": "यह ऐक्सेस कोड लागू नहीं हो सका।",
+    "okTitle": "पूरा ऐक्सेस अनलॉक हो गया",
+    "okBody": "आपका ऐक्सेस कोड इस खाते पर लागू कर दिया गया है।",
+    "errTitle": "कुछ गड़बड़ हो गई",
+    "errBody": "कृपया फिर कोशिश करें।"
+  }
+};
+export const pricing = { en, es, de, zh, sw, hi };

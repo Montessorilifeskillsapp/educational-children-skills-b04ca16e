@@ -8,6 +8,8 @@ export const LANGUAGES = [
   { code: 'es', label: 'Español', short: 'ES' },
   { code: 'de', label: 'Deutsch', short: 'DE' },
   { code: 'zh', label: '简体中文', short: '中文' },
+  { code: 'sw', label: 'Kiswahili', short: 'SW' },
+  { code: 'hi', label: 'हिन्दी', short: 'हि' },
 ] as const;
 
 void i18n
