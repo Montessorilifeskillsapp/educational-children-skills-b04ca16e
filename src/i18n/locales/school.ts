@@ -2420,8 +2420,8 @@ const sw: typeof en = {
     "past": "Ripoti za awali za {{name}}"
   },
   "conf": {
-    "guideSign": "Sahihi ya mwelekezi &amp; tarehe",
-    "familySign": "Sahihi ya familia &amp; tarehe",
+    "guideSign": "Sahihi ya mwelekezi na tarehe",
+    "familySign": "Sahihi ya familia na tarehe",
     "footer": "Ya siri · imeandaliwa kwa ajili ya familia ya {{name}}"
   },
   "sp": {
@@ -2955,8 +2955,8 @@ const hi: typeof en = {
     "past": "{{name}} की पिछली रिपोर्ट"
   },
   "conf": {
-    "guideSign": "मार्गदर्शक के हस्ताक्षर &amp; तारीख",
-    "familySign": "परिवार के हस्ताक्षर &amp; तारीख",
+    "guideSign": "मार्गदर्शक के हस्ताक्षर और तारीख",
+    "familySign": "परिवार के हस्ताक्षर और तारीख",
     "footer": "गोपनीय · {{name}} के परिवार के लिए तैयार"
   },
   "sp": {
