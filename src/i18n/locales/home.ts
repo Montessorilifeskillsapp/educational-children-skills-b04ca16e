@@ -2,7 +2,7 @@
 const en = {
   header: { curriculumSections: 'Curriculum sections', openSectionMenu: 'Open section menu', openMenu: 'Open menu' },
   hero: {
-    badge: 'Authentic AMI presentations',
+    badge: 'Authentic AMI/AMS Presentations',
     title: 'Know exactly what to teach — and how to present it.',
     subtitle: 'Step-by-step Montessori activities for ages 2–6, built for parents, teachers and classroom assistants.',
     body: 'See what to prepare, how to present each activity, what to observe, and what comes next.',
@@ -73,7 +73,7 @@ const en = {
     eyebrow: 'Beyond the first activity', title: 'Return to the sequence. Share what works.',
     continueTitle: 'Continue the work', continueText: 'Return to each child’s profile, record progress, and choose the next appropriate activity.',
     shareTitle: 'Share with others', shareText: 'Share Montessori Life Skills with another parent, teacher, caregiver, or classroom assistant.',
-    schoolsTitle: 'For schools', schoolsText: 'Authentic AMI presentations, suitable for AMI, AMS and independent Montessori schools. Contact us to discuss your school’s needs.',
+    schoolsTitle: 'For schools', schoolsText: 'Authentic AMI/AMS presentations, suitable for AMI, AMS and independent Montessori schools. Contact us to discuss your school’s needs.',
     contactUs: 'Contact Us',
   },
   faq: {
@@ -107,7 +107,7 @@ const en = {
 const es: typeof en = {
   header: { curriculumSections: 'Áreas del currículo', openSectionMenu: 'Abrir menú de áreas', openMenu: 'Abrir menú' },
   hero: {
-    badge: 'Presentaciones AMI auténticas',
+    badge: 'Presentaciones auténticas AMI/AMS',
     title: 'Sabrás exactamente qué enseñar y cómo presentarlo.',
     subtitle: 'Actividades Montessori paso a paso para niños de 2 a 6 años, creadas para madres, padres, guías y asistentes de aula.',
     body: 'Descubre qué preparar, cómo presentar cada actividad, qué observar y qué viene después.',
@@ -178,7 +178,7 @@ const es: typeof en = {
     eyebrow: 'Más allá de la primera actividad', title: 'Vuelve a la secuencia. Comparte lo que funciona.',
     continueTitle: 'Continúa el trabajo', continueText: 'Vuelve al perfil de cada niño, registra su progreso y elige la siguiente actividad adecuada.',
     shareTitle: 'Comparte con otros', shareText: 'Comparte Montessori Life Skills con otra madre o padre, guía, cuidador o asistente de aula.',
-    schoolsTitle: 'Para escuelas', schoolsText: 'Presentaciones AMI auténticas, adecuadas para escuelas AMI, AMS y Montessori independientes. Contáctanos para hablar de las necesidades de tu escuela.',
+    schoolsTitle: 'Para escuelas', schoolsText: 'Presentaciones auténticas AMI/AMS, adecuadas para escuelas AMI, AMS y Montessori independientes. Contáctanos para hablar de las necesidades de tu escuela.',
     contactUs: 'Contáctanos',
   },
   faq: {
@@ -212,7 +212,7 @@ const es: typeof en = {
 const de: typeof en = {
   header: { curriculumSections: 'Lehrplanbereiche', openSectionMenu: 'Bereichsmenü öffnen', openMenu: 'Menü öffnen' },
   hero: {
-    badge: 'Authentische AMI-Darbietungen',
+    badge: 'Authentische AMI/AMS-Darbietungen',
     title: 'Wissen Sie genau, was Sie vermitteln – und wie Sie es darbieten.',
     subtitle: 'Montessori-Aktivitäten Schritt für Schritt für Kinder von 2 bis 6 Jahren – für Eltern, Pädagogen und Assistenzkräfte.',
     body: 'Sehen Sie, was vorzubereiten ist, wie jede Aktivität dargeboten wird, worauf Sie achten sollten und was als Nächstes kommt.',
@@ -283,7 +283,7 @@ const de: typeof en = {
     eyebrow: 'Über die erste Aktivität hinaus', title: 'Zur Abfolge zurückkehren. Teilen, was funktioniert.',
     continueTitle: 'Die Arbeit fortsetzen', continueText: 'Kehren Sie zum Profil jedes Kindes zurück, halten Sie Fortschritte fest und wählen Sie die nächste passende Aktivität.',
     shareTitle: 'Mit anderen teilen', shareText: 'Teilen Sie Montessori Life Skills mit anderen Eltern, Pädagogen, Betreuungspersonen oder Assistenzkräften.',
-    schoolsTitle: 'Für Schulen', schoolsText: 'Authentische AMI-Darbietungen, geeignet für AMI-, AMS- und unabhängige Montessori-Schulen. Kontaktieren Sie uns, um die Bedürfnisse Ihrer Schule zu besprechen.',
+    schoolsTitle: 'Für Schulen', schoolsText: 'Authentische AMI/AMS-Darbietungen, geeignet für AMI-, AMS- und unabhängige Montessori-Schulen. Kontaktieren Sie uns, um die Bedürfnisse Ihrer Schule zu besprechen.',
     contactUs: 'Kontakt',
   },
   faq: {
@@ -317,7 +317,7 @@ const de: typeof en = {
 const zh: typeof en = {
   header: { curriculumSections: '课程领域', openSectionMenu: '打开领域菜单', openMenu: '打开菜单' },
   hero: {
-    badge: '正宗 AMI 示范',
+    badge: '正宗 AMI/AMS 示范',
     title: '清楚知道该教什么，以及如何示范。',
     subtitle: '为 2–6 岁儿童设计的分步蒙台梭利活动，专为家长、教师和教室助理打造。',
     body: '了解需要准备什么、如何示范每项活动、观察什么，以及下一步做什么。',
@@ -388,7 +388,7 @@ const zh: typeof en = {
     eyebrow: '第一项活动之后', title: '回到序列，分享有效的方法。',
     continueTitle: '继续工作', continueText: '回到每个孩子的档案，记录进度，并选择下一项合适的活动。',
     shareTitle: '与他人分享', shareText: '把 Montessori Life Skills 分享给其他家长、教师、照护者或教室助理。',
-    schoolsTitle: '面向学校', schoolsText: '正宗 AMI 示范，适用于 AMI、AMS 及独立蒙台梭利学校。欢迎联系我们，探讨贵校的需求。',
+    schoolsTitle: '面向学校', schoolsText: '正宗 AMI/AMS 示范，适用于 AMI、AMS 及独立蒙台梭利学校。欢迎联系我们，探讨贵校的需求。',
     contactUs: '联系我们',
   },
   faq: {
@@ -426,7 +426,7 @@ const sw: typeof en = {
     "openMenu": "Fungua menyu"
   },
   "hero": {
-    "badge": "Uwasilishaji halisi wa AMI",
+    "badge": "Uwasilishaji halisi wa AMI/AMS",
     "title": "Jua hasa cha kufundisha — na jinsi ya kukiwasilisha.",
     "subtitle": "Shughuli za Montessori za hatua kwa hatua kwa umri wa miaka 2–6, zilizoundwa kwa wazazi, walimu na wasaidizi wa darasani.",
     "body": "Ona cha kuandaa, jinsi ya kuwasilisha kila shughuli, cha kuchunguza na kinachofuata.",
@@ -550,7 +550,7 @@ const sw: typeof en = {
     "shareTitle": "Shiriki na wengine",
     "shareText": "Shiriki Montessori Life Skills na mzazi mwingine, mwalimu, mlezi, au msaidizi wa darasani.",
     "schoolsTitle": "Kwa shule",
-    "schoolsText": "Uwasilishaji halisi wa AMI, unaofaa shule za Montessori za AMI, AMS na zinazojitegemea. Wasiliana nasi kujadili mahitaji ya shule yako.",
+    "schoolsText": "Uwasilishaji halisi wa AMI/AMS, unaofaa shule za Montessori za AMI, AMS na zinazojitegemea. Wasiliana nasi kujadili mahitaji ya shule yako.",
     "contactUs": "Wasiliana Nasi"
   },
   "faq": {
@@ -614,7 +614,7 @@ const hi: typeof en = {
     "openMenu": "मेन्यू खोलें"
   },
   "hero": {
-    "badge": "प्रामाणिक AMI प्रस्तुतीकरण",
+    "badge": "प्रामाणिक AMI/AMS प्रस्तुतीकरण",
     "title": "ठीक-ठीक जानें कि क्या सिखाना है — और उसका प्रस्तुतीकरण कैसे करना है।",
     "subtitle": "2–6 वर्ष के बच्चों के लिए चरण-दर-चरण मोंटेसरी गतिविधियाँ, माता-पिता, शिक्षकों और कक्षा सहायकों के लिए तैयार की गई हैं।",
     "body": "जानें कि क्या तैयार करना है, हर गतिविधि का प्रस्तुतीकरण कैसे करना है, क्या अवलोकन करना है और आगे क्या करना है।",
@@ -738,7 +738,7 @@ const hi: typeof en = {
     "shareTitle": "दूसरों के साथ साझा करें",
     "shareText": "Montessori Life Skills को किसी अन्य अभिभावक, शिक्षक, देखभालकर्ता या कक्षा सहायक के साथ साझा करें।",
     "schoolsTitle": "स्कूलों के लिए",
-    "schoolsText": "प्रामाणिक AMI प्रस्तुतीकरण, जो AMI, AMS और स्वतंत्र मोंटेसरी स्कूलों के लिए उपयुक्त हैं। अपने स्कूल की ज़रूरतों पर चर्चा करने के लिए हमसे संपर्क करें।",
+    "schoolsText": "प्रामाणिक AMI/AMS प्रस्तुतीकरण, जो AMI, AMS और स्वतंत्र मोंटेसरी स्कूलों के लिए उपयुक्त हैं। अपने स्कूल की ज़रूरतों पर चर्चा करने के लिए हमसे संपर्क करें।",
     "contactUs": "हमसे संपर्क करें"
   },
   "faq": {
