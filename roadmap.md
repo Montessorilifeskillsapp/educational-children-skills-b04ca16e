@@ -10,5 +10,11 @@
 - [x] Pouring Water sample lesson page translated into all five languages
 - [x] Hindi tidy-ups: English names on 6 older activities, Montessori/Sarah in Hindi script, one spelling of साफ़
 - [x] Hindi invitations speak to girls too (चाहोगे/चाहोगी)
+- [x] Hindi spells Montessori one way (मोंटेसरी)
+- [x] Chinese invitations use one style (你想)
+- [x] Sentence case in Spanish and Kiswahili names
+- [x] Material-name consistency check reported to owner
+- [x] Reviewer packs (tone guide, agreed names, sample lessons) for all five languages
+- [ ] Owner decides which material-name differences to unify
 - [ ] Native Swahili- and Hindi-speaking Montessori reviewers check translations (owner action)
 - [ ] Legal review of policy wording; signed SCCs/DPAs with providers (owner action)
