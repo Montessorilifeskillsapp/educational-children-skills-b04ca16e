@@ -50,8 +50,9 @@ describe('AMI invitation to the child', () => {
       if (!/^Would you like to (work with|play) the /.test(en)) continue;
       const check = (lang: string, title: string, text: string) => {
         const lower = text.toLowerCase();
-        // German declines material names, so compare word stems there.
-        const missing = words(title).filter((w) => !(lang === 'de' && w.length < 4)).filter((w) => !lower.includes(lang === 'de' ? w.slice(0, 5) : w));
+        // German and Hindi decline material names (Hindi छोटा → छोटे), so compare word stems there.
+        const stem = (w: string) => (lang === 'de' ? w.slice(0, 5) : lang === 'hi' && w.length > 2 ? w.slice(0, -1) : w);
+        const missing = words(title).filter((w) => !(lang === 'de' && w.length < 4)).filter((w) => !lower.includes(stem(w)));
         if (missing.length) mismatches.push(`${lang} ${s.id}: "${text}" lacks ${missing.join(', ')}`);
       };
       check('en', s.titleEn, en);

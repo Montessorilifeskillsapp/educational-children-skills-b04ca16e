@@ -15,6 +15,6 @@
 - [x] Sentence case in Spanish and Kiswahili names
 - [x] Material-name consistency check reported to owner
 - [x] Reviewer packs (tone guide, agreed names, sample lessons) for all five languages
-- [ ] Owner decides which material-name differences to unify
+- [x] Material names unified to the agreed names (German, Chinese, Spanish, Kiswahili, Hindi)
 - [ ] Native Swahili- and Hindi-speaking Montessori reviewers check translations (owner action)
 - [ ] Legal review of policy wording; signed SCCs/DPAs with providers (owner action)

@@ -33,3 +33,26 @@ describe('Sentence case in Spanish and Kiswahili (2026-11-20)', () => {
     expect((sw as Record<string, string>)['Identify the "Ring of Fire" around the Pacific']).toContain('Bahari ya Pasifiki');
   });
 });
+
+describe('Material names match the agreed names (2026-11-20)', () => {
+  const all = (d: unknown) => Object.values(d as Record<string, string>).join('\n');
+  it('German: Metalleinsätze', async () => {
+    const de = (await import('@/i18n/lessons/de.json')).default;
+    expect(all(de)).not.toMatch(/Metallene/);
+  });
+  it('Chinese: one name per material', () => {
+    const text = all(zh);
+    for (const old of ['串珠架', '嵌板地图', '砂字板', '塞根十位板', '11–19塞根板', '整十数塞根板', '水陆地貌', '水陆形态', '陆地与水域形态名称卡', '陆地与水域形态对照图']) expect(text).not.toContain(old);
+    expect((zh as Record<string, string>)['Large Bead Frame']).toBe('大珠算架');
+  });
+  it('Spanish: barras numéricas, Kiswahili: maumbo ya chuma', () => {
+    expect(all(es)).not.toMatch(/listones numéricos/);
+    expect(all(sw)).not.toMatch(/chuma yanayoingizwa katika fremu/);
+    expect((sw as Record<string, string>)['Would you like to work with the Metal Insets?']).toBe('Je, ungependa kufanya kazi na maumbo ya chuma?');
+  });
+  it('Hindi: मनकों का छोटा/बड़ा फ्रेम', async () => {
+    const hi = (await import('@/i18n/lessons/hi.json')).default as Record<string, string>;
+    expect(all(hi)).not.toMatch(/मनका फ्रेम/);
+    expect(hi['Small Bead Frame']).toBe('मनकों का छोटा फ्रेम (Small Bead Frame)');
+  });
+});
