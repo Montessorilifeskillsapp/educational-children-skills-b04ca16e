@@ -8,44 +8,44 @@
 @layer base {
   :root {
     /* Montessori palette — brighter cream, soft turquoise, warm gold, sage */
-    --background: 44 60% 97%;
-    --foreground: 30 18% 22%;
+    --background: 45 45% 98.5%;
+    --foreground: 30 24% 13%;
 
     --card: 0 0% 100%;
-    --card-foreground: 30 18% 22%;
+    --card-foreground: 30 24% 13%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 30 18% 22%;
+    --popover-foreground: 30 24% 13%;
 
-    --primary: 178 44% 56%;
+    --primary: 178 75% 38%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 150 30% 50%;
+    --secondary: 152 58% 38%;
     --secondary-foreground: 0 0% 100%;
 
     --muted: 44 45% 93%;
-    --muted-foreground: 30 14% 42%;
+    --muted-foreground: 30 16% 32%;
 
-    --accent: 42 88% 68%;
+    --accent: 40 95% 54%;
     --accent-foreground: 30 32% 18%;
 
     --destructive: 4 70% 52%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 38 30% 84%;
-    --input: 38 30% 84%;
-    --ring: 178 44% 56%;
+    --border: 38 25% 88%;
+    --input: 38 25% 88%;
+    --ring: 178 75% 38%;
 
     --radius: 0.625rem;
 
     --sidebar-background: 44 55% 95%;
-    --sidebar-foreground: 30 18% 22%;
-    --sidebar-primary: 178 44% 56%;
+    --sidebar-foreground: 30 24% 13%;
+    --sidebar-primary: 178 75% 38%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 42 88% 90%;
     --sidebar-accent-foreground: 30 32% 18%;
-    --sidebar-border: 38 30% 84%;
-    --sidebar-ring: 178 44% 56%;
+    --sidebar-border: 38 25% 88%;
+    --sidebar-ring: 178 75% 38%;
   }
 
   .dark {
@@ -58,16 +58,16 @@
     --popover: 30 16% 15%;
     --popover-foreground: 43 41% 92%;
 
-    --primary: 178 30% 52%;
+    --primary: 178 65% 50%;
     --primary-foreground: 43 41% 96%;
 
-    --secondary: 150 16% 38%;
+    --secondary: 152 45% 42%;
     --secondary-foreground: 43 41% 96%;
 
     --muted: 30 12% 20%;
     --muted-foreground: 43 25% 72%;
 
-    --accent: 44 65% 58%;
+    --accent: 40 90% 58%;
     --accent-foreground: 30 30% 15%;
 
     --destructive: 4 60% 45%;
@@ -75,16 +75,16 @@
 
     --border: 30 12% 24%;
     --input: 30 12% 24%;
-    --ring: 178 30% 52%;
+    --ring: 178 65% 50%;
 
     --sidebar-background: 30 16% 15%;
     --sidebar-foreground: 43 41% 92%;
-    --sidebar-primary: 178 30% 52%;
+    --sidebar-primary: 178 65% 50%;
     --sidebar-primary-foreground: 43 41% 96%;
     --sidebar-accent: 30 12% 22%;
     --sidebar-accent-foreground: 43 41% 92%;
     --sidebar-border: 30 12% 24%;
-    --sidebar-ring: 178 30% 52%;
+    --sidebar-ring: 178 65% 50%;
   }
 }
 
