@@ -53,3 +53,14 @@ describe('Hindi tidy-ups (2026-11-19)', () => {
     }
   });
 });
+
+describe('Hindi spelling of Montessori', () => {
+  it('uses मोंटेसरी everywhere, never मॉन्टेसरी', async () => {
+    const { readFileSync, readdirSync } = await import('node:fs');
+    const { join } = await import('node:path');
+    const dir = join(process.cwd(), 'src/i18n/locales');
+    const files = [join(process.cwd(), 'src/i18n/lessons/hi.json'), ...readdirSync(dir).map((f) => join(dir, f))];
+    const offenders = files.filter((f) => readFileSync(f, 'utf8').includes('मॉन्टेसरी'));
+    expect(offenders).toEqual([]);
+  });
+});
