@@ -363,7 +363,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── The Problem ─── */}
       <section id="struggle" className="py-16 lg:py-24 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-center">
             <Reveal>
               <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.problem.eyebrow')}</p>
@@ -393,7 +393,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Real Activity ─── */}
       <section id="sample-activity" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-12">
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.sample.eyebrow')}</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{t('home.sample.title')}</h2>
@@ -441,7 +441,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── First Activity Experience ─── */}
       <section id="how-it-works" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.how.eyebrow')}</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t('home.how.title')}</h2>
@@ -500,7 +500,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Authority ─── */}
       <section id="founder" className="py-20 lg:py-28 bg-muted/40 border-t border-border/60 scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal>
             <div className="grid md:grid-cols-5 gap-10 lg:gap-14 items-center">
               <div className="md:col-span-2">
@@ -523,7 +523,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Pricing ─── */}
       <section id="pricing" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.pricing.eyebrow')}</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4">{t('home.pricing.title')}</h2>
@@ -589,7 +589,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Continue and Share ─── */}
       <section className="py-20 lg:py-28 bg-muted/40 border-t border-border/60">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">
             <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.beyond.eyebrow')}</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground">{t('home.beyond.title')}</h2>
@@ -690,7 +690,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── Footer ─── */}
       <footer className="py-12 bg-slate-900 text-slate-300">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-4 gap-8 mb-10">
             <div className="md:col-span-2">
               <div className="flex items-center gap-2 mb-4">
