@@ -199,17 +199,6 @@ const Home: React.FC<HomeProps> = ({
                 Montessori Life Skills
               </span>
             </div>
-            <nav className="hidden lg:flex items-center gap-1 text-sm font-medium text-muted-foreground">
-              {homeNavLinks.map((link) => (
-                <button
-                  key={link.label}
-                  onClick={link.onClick}
-                  className="px-2.5 py-1.5 rounded-md hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
-                >
-                  {link.label}
-                </button>
-              ))}
-            </nav>
             <div className="flex items-center gap-3">
               {isSchoolStaff && (
                 <Button onClick={() => navigate(schoolReturnTarget())} size="sm" variant="outline" className="rounded-full border-primary/40 text-primary hover:bg-primary/5 px-3">
@@ -289,9 +278,9 @@ const Home: React.FC<HomeProps> = ({
         {/* Section bar — visible at every width; scrolls horizontally on narrow screens */}
         <nav
           aria-label={t('home.header.curriculumSections')}
-          className="lg:hidden border-t border-border/40 overflow-x-auto"
+          className="border-t border-border/40 overflow-x-auto"
         >
-          <div className="flex items-center gap-1 px-3 py-1.5 w-max text-sm font-medium text-muted-foreground">
+          <div className="flex items-center gap-1 px-3 py-1.5 w-max mx-auto text-sm font-medium text-muted-foreground">
             {homeNavLinks.map((link) => (
               <button
                 key={link.label}
