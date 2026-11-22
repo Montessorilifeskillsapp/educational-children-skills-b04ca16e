@@ -6,12 +6,13 @@ import { ArrowRight, CheckCircle, Sparkles, Star } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
 import { analytics } from '@/lib/analytics';
 import pouringSet from '@/assets/pouring-set.jpg';
-import heroPouring from '@/assets/hero-child-pouring-approved.jpg';
+import { usePouringPhoto } from '@/lib/localizedMedia';
 
 const STEP_NUMBERS = [1, 2, 3, 4, 5, 6] as const;
 
 const PreviewPouringWaterPage: React.FC = () => {
   const { t } = useTranslation();
+  const pouringPhoto = usePouringPhoto();
   const p = (key: string) => t(`pages.pouringPreview.${key}`);
   const [searchParams] = useSearchParams();
   const isFirstRun = searchParams.get('firstrun') === '1';
@@ -64,7 +65,7 @@ const PreviewPouringWaterPage: React.FC = () => {
         </div>
 
         <img decoding="async"
-          src={heroPouring}
+          src={pouringPhoto}
           alt={p('heroAlt')}
           width={1024} height={1024}
           className="w-full h-auto rounded-2xl shadow-xl border-4 border-card mb-10"

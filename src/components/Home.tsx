@@ -9,7 +9,7 @@ import {
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
 import founderKerry from '@/assets/founder-kerry-howard.png';
-import heroChildPouring from '@/assets/hero-child-pouring-approved.jpg';
+import { usePouringPhoto } from '@/lib/localizedMedia';
 import { sensorialImages } from '@/assets/sensorial';
 import { mathImages } from '@/assets/math';
 import { languageImages } from '@/assets/language';
@@ -112,6 +112,7 @@ const Home: React.FC<HomeProps> = ({
   const headerRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const pouringPhoto = usePouringPhoto();
   const [consultOpen, setConsultOpen] = useState(false);
 
   const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
@@ -404,7 +405,7 @@ const Home: React.FC<HomeProps> = ({
               <Card className="h-full border-border/60 bg-card">
                 <CardContent className="p-6 lg:p-8">
                   <img decoding="async"
-                    src={heroChildPouring}
+                    src={pouringPhoto}
                     alt={t('home.sample.imageAlt')}
                     width={1024}
                     height={1024}
