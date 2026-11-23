@@ -2,7 +2,7 @@ import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import ReadinessOffer from "@/components/growth/ReadinessOffer";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProfileProvider } from "@/contexts/ProfileContext";
@@ -137,6 +137,7 @@ const App = () => {
                           <Route path="/shop" element={<ShopPage />} />
                           <Route path="/materials/:materialKey" element={<MaterialAlternativesPage />} />
                           <Route path="/plans" element={<PlansPage />} />
+                          <Route path="/pricing" element={<Navigate to="/plans" replace />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/auth/callback" element={<AuthCallbackPage />} />
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />
