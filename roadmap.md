@@ -21,8 +21,10 @@
 - [x] Starting-point guide: careful review of the five translations against agreed names and tone (native-speaker read still owner action)
 - [x] Home setup page shown in all six languages
 - [x] Child invitation shown clearly at the start of every lesson (verify on live pages)
-- [x] Sign out (and switch account) from the top bar, phone menu, School Portal and Family Dashboard settings
+- [x] Sign Out only in the homepage side menu, under Start Free
 - [x] Classroom Setup page in all six languages
 - [x] Sign-in welcome card in all six languages (premium lock box is unused, left alone)
 - [x] Songs license window, Songs License page and Accessibility page in all six languages
 - [x] Terms of Service in all six languages (English version applies note, structure test)
+- [x] School Portal top bar rebuilt like the app's homepage header (logo, section links, language, menu)
+- [x] School Portal text and fonts match the app; portal keeps its own colors as a deliberate difference

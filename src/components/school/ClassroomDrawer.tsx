@@ -53,7 +53,7 @@ export default function ClassroomDrawer() {
         <Users className="h-4 w-4 mr-2" />{t('school.dr.classroom')}
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent className="school-theme school-scale w-[calc(100vw-2rem)] max-w-2xl max-h-[88vh] overflow-y-auto rounded-lg">
+        <DialogContent className="school-theme w-[calc(100vw-2rem)] max-w-2xl max-h-[88vh] overflow-y-auto rounded-lg">
           {open && <DrawerBody memberships={memberships} skillId={skill.id} skillTitle={skill.title} areaTitle={skill.areaTitle} />}
         </DialogContent>
       </Dialog>

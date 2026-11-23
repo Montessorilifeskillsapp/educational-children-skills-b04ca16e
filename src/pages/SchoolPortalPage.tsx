@@ -6,6 +6,8 @@ import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { Leaf, Menu } from 'lucide-react';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -57,14 +59,6 @@ export default function SchoolPortalPage() {
   const goBack = () => { if (!allowSchoolNavigation()) return; if (openStudent) return setOpenStudent(null); if (tab !== 'overview') return setTab('overview'); navigate('/'); };
   const atPortalHome = !openStudent && tab === 'overview';
   useEffect(() => { document.title = t('school.p.docTitle'); }, [t]);
-  // The portal's display typeface loads only here so the public app is unaffected.
-  useEffect(() => {
-    if (document.getElementById('school-portal-font')) return;
-    const l = document.createElement('link');
-    l.id = 'school-portal-font'; l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap';
-    document.head.appendChild(l);
-  }, []);
   // Remember the exact portal spot so activity pages can offer "Return to School Portal".
   useEffect(() => {
     rememberSchoolReturn(window.location.pathname + window.location.search);
@@ -153,48 +147,104 @@ export default function SchoolPortalPage() {
   const leadership = leadershipNav.some((n) => n.v === tab);
   const go = (v: string) => { if (v !== tab && allowSchoolNavigation()) { setOpenStudent(null); setTab(v); } };
   const todayCount = plans.filter((p) => p.plan_date === new Date().toLocaleDateString('en-CA')).length;
-  const pill = (n: { v: string; label: string }, disabled = false) => {
-    const active = tab === n.v;
-    return (
-      <Button key={n.v} variant="ghost" type="button" disabled={disabled} aria-current={active ? 'page' : undefined} onClick={() => go(n.v)}
-        className={`h-11 shrink-0 whitespace-nowrap rounded-full px-3 py-2 transition-colors disabled:opacity-40 ${active ? 'bg-primary text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground font-medium' : 'text-foreground hover:bg-card'}`}>
-        {n.label}
-      </Button>
-    );
-  };
+  const leave = () => { if (allowSchoolNavigation()) navigate('/'); };
+  // Section links in the same style as the homepage section bar. School settings opens the leadership area.
+  const sectionLinks: { v: string; label: string; disabled?: boolean }[] = leadership
+    ? [{ v: 'overview', label: t('school.p.backToClass') }, ...leadershipNav]
+    : [
+        ...classroomNav.map((n) => ({ ...n, disabled: n.v !== 'overview' && n.v !== 'curriculum' && !classroom })),
+        ...(can.manageSchool(role) ? [{ v: 'staff', label: t('school.p.settings') }] : []),
+      ];
+  const roleLine = `${ROLE_LABEL[role]}${!can.recordProgress(role) ? t('school.p.viewOnly') : ''}`;
+  const showRoomPicker = !leadership && visibleRooms.length > 1;
 
   return (
     <div className="school-theme min-h-screen">
-      <div className="mx-auto max-w-[96rem] px-4 md:px-8 pb-16">
-        <nav aria-label={t('school.p.portalNav')} className="print:hidden sticky top-0 z-20 -mx-4 md:-mx-8 mb-6 border-b border-border bg-background/90 px-4 md:px-8 py-3 backdrop-blur">
-          <div className="flex w-full flex-nowrap items-center gap-2 overflow-x-auto [scrollbar-width:thin]">
-            <div className="min-w-0 max-w-40 shrink-0 mr-1">
-              <p className="font-display text-lg leading-tight text-foreground truncate" title={school.name}>{school.name}</p>
-              <p className="text-xs text-muted-foreground whitespace-nowrap">{ROLE_LABEL[role]}{!can.recordProgress(role) ? t('school.p.viewOnly') : ''}</p>
-            </div>
-            {!leadership && visibleRooms.length > 1 && (
-              <Select value={classroomId ?? ''} onValueChange={(v) => { if (v !== classroomId && allowSchoolNavigation()) setClassroomId(v); }}>
-                <SelectTrigger className="w-36 shrink-0 rounded-full bg-card" aria-label={t('school.p.classroom')}><SelectValue /></SelectTrigger>
-                <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
-              </Select>
-            )}
-            <div className="flex flex-1 items-center justify-center gap-0.5">
-              {leadership
-                ? <Button variant="ghost" type="button" onClick={() => go('overview')} className="shrink-0 whitespace-nowrap rounded-full px-3 py-2 font-medium text-foreground hover:bg-card">{t('school.p.backToClass')}</Button>
-                : classroomNav.map((n) => pill(n, n.v !== 'overview' && n.v !== 'curriculum' && !classroom))}
-            </div>
-            <div className="ml-auto flex shrink-0 items-center gap-1">
+      {/* Top bar laid out like the app's homepage header: logo, actions and menu, then a section bar visible at every width. */}
+      <header className="print:hidden sticky top-0 z-30 border-b border-border/60 bg-background/95 shadow-sm backdrop-blur-md">
+        <div className="mx-auto max-w-[96rem] px-4 md:px-8">
+          <div className="flex h-16 items-center justify-between gap-3">
+            <button type="button" onClick={leave} className="flex min-w-0 items-center gap-2" title={t('school.p.leave')}>
+              <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-accent shadow-sm" aria-hidden="true">
+                <Leaf className="h-5 w-5 text-primary-foreground" />
+              </span>
+              <span className="truncate text-lg font-bold text-foreground">Montessori Life Skills</span>
+            </button>
+            <div className="flex shrink-0 items-center gap-2 sm:gap-3">
+              <div className="hidden max-w-52 text-right leading-tight md:block">
+                <p className="truncate text-sm font-semibold text-foreground" title={school.name}>{school.name}</p>
+                <p className="truncate text-xs text-muted-foreground">{roleLine}</p>
+              </div>
+              {showRoomPicker && (
+                <Select value={classroomId ?? ''} onValueChange={(v) => { if (v !== classroomId && allowSchoolNavigation()) setClassroomId(v); }}>
+                  <SelectTrigger className="hidden w-40 rounded-full bg-card sm:flex" aria-label={t('school.p.classroom')}><SelectValue /></SelectTrigger>
+                  <SelectContent>{visibleRooms.map((c) => <SelectItem key={c.id} value={c.id}>{c.name}</SelectItem>)}</SelectContent>
+                </Select>
+              )}
               <SyncStatus />
               <LanguageSelector />
-              {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap text-foreground" onClick={() => go('staff')}>{t('school.p.settings')}</Button>}
-              <Button variant="ghost" type="button" className="whitespace-nowrap rounded-full px-3 py-2 text-foreground hover:bg-card" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>{t('school.p.leave')}</Button>
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button variant="ghost" size="icon" className="text-primary hover:bg-primary/10" aria-label={t('home.header.openMenu')}>
+                    <Menu className="h-5 w-5" />
+                  </Button>
+                </SheetTrigger>
+                <SheetContent side="right" className="school-theme z-[70] w-72 overflow-y-auto p-6 sm:w-80">
+                  <div className="mt-8 flex flex-col gap-6">
+                    <div>
+                      <p className="font-semibold text-foreground">{school.name}</p>
+                      <p className="text-sm text-muted-foreground">{roleLine}</p>
+                    </div>
+                    {showRoomPicker && (
+                      <div className="flex flex-col gap-1" role="group" aria-label={t('school.p.classroom')}>
+                        {visibleRooms.map((c) => (
+                          <SheetClose key={c.id} asChild>
+                            <button type="button" aria-current={c.id === classroomId ? 'true' : undefined}
+                              onClick={() => { if (c.id !== classroomId && allowSchoolNavigation()) setClassroomId(c.id); }}
+                              className={`rounded-lg px-2 py-2 text-left transition-colors ${c.id === classroomId ? 'bg-primary/10 font-semibold text-primary' : 'text-foreground hover:bg-muted'}`}>
+                              {c.name}
+                            </button>
+                          </SheetClose>
+                        ))}
+                      </div>
+                    )}
+                    <nav className="flex flex-col gap-2 border-t border-border pt-4 text-base font-medium" aria-label={t('school.p.portalNav')}>
+                      {sectionLinks.map((n) => (
+                        <SheetClose key={n.v} asChild>
+                          <button type="button" disabled={n.disabled} onClick={() => go(n.v)} aria-current={tab === n.v ? 'page' : undefined}
+                            className={`flex items-center gap-3 rounded-lg px-2 py-2 text-left transition-colors disabled:opacity-40 ${tab === n.v ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-muted hover:text-primary'}`}>
+                            <Leaf className="h-4 w-4 text-primary" aria-hidden="true" />
+                            {n.label}
+                          </button>
+                        </SheetClose>
+                      ))}
+                    </nav>
+                    <div className="border-t border-border pt-4">
+                      <SheetClose asChild>
+                        <Button variant="outline" className="w-full rounded-full" onClick={leave}>{t('school.p.leave')}</Button>
+                      </SheetClose>
+                    </div>
+                  </div>
+                </SheetContent>
+              </Sheet>
             </div>
           </div>
+        </div>
+        <nav aria-label={t('school.p.portalNav')} className="overflow-x-auto border-t border-border/40">
+          <div className="mx-auto flex w-max items-center gap-1 px-3 py-1.5 text-sm font-medium text-muted-foreground">
+            {sectionLinks.map((n) => (
+              <button key={n.v} type="button" disabled={n.disabled} onClick={() => go(n.v)} aria-current={tab === n.v ? 'page' : undefined}
+                className={`whitespace-nowrap rounded-md px-2.5 py-1 transition-colors disabled:opacity-40 ${tab === n.v ? 'bg-primary/10 text-primary' : 'hover:bg-primary/5 hover:text-primary'}`}>
+                {n.label}
+              </button>
+            ))}
+          </div>
         </nav>
+      </header>
 
+      <div className="mx-auto max-w-[96rem] px-4 pb-16 pt-6 md:px-8">
         {leadership && (
           <div className="print:hidden mb-6 flex flex-wrap items-center gap-1">
-            {leadershipNav.map((n) => pill(n))}
             <div className="ml-auto flex flex-wrap gap-2">
               {memberships.length > 1 && (
                 <Select value={schoolId ?? ''} onValueChange={(v) => { setSchoolId(v); setClassroomId(null); }}>
@@ -204,7 +254,7 @@ export default function SchoolPortalPage() {
               )}
               {realRole === 'school_admin' && (
                 <Select value={role} onValueChange={(v) => { setPreviewRole(v === 'school_admin' ? null : v as SchoolRole); if (v !== 'school_admin') setTab('overview'); }}>
-                  <SelectTrigger className="w-52 rounded-full bg-card" aria-label={t('school.p.previewAs')}><span className="text-muted-foreground mr-1">{t('school.p.previewLabel')}</span><SelectValue /></SelectTrigger>
+                  <SelectTrigger className="w-auto min-w-52 gap-2 rounded-full bg-card" aria-label={t('school.p.previewAs')}><span className="text-muted-foreground mr-1">{t('school.p.previewLabel')}</span><SelectValue /></SelectTrigger>
                   <SelectContent>{(['school_admin', 'teacher', 'assistant'] as SchoolRole[]).map((r) => <SelectItem key={r} value={r}>{ROLE_LABEL[r]}</SelectItem>)}</SelectContent>
                 </Select>
               )}

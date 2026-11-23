@@ -136,7 +136,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
   };
   return (
     <Dialog open onOpenChange={(o) => { if (!o && allowSchoolNavigation()) onClose(); }}>
-      <DialogContent className="school-theme school-scale max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl" aria-describedby={undefined}>
+      <DialogContent className="school-theme max-w-3xl w-[calc(100%-2rem)] max-h-[88vh] p-0 gap-0 overflow-hidden flex flex-col rounded-2xl" aria-describedby={undefined}>
         <div className="border-b border-border px-6 pt-6 pb-4 space-y-3">
           <DialogHeader className="text-left pr-8">
             <DialogTitle className="font-display text-2xl font-semibold">{student.name}{!editable && <span className="ml-2 text-sm font-normal text-muted-foreground">{t('school.pt.viewOnly')}</span>}</DialogTitle>
