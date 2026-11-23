@@ -218,6 +218,61 @@
 
   <body>
     <div id="root"></div>
+    <script>
+      /* Start-up safety net: if the app's files fail to load (usually an old saved copy of a
+         previous version on this device), drop the old saved copy and reload once. */
+      (function () {
+        var KEY = 'mls:boot-recover-at';
+        function booted() { return !!window.__mlsBooted; }
+        function show() {
+          var r = document.getElementById('root');
+          if (!r || r.childElementCount) return;
+          r.innerHTML = '<div style="min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;font-family:Inter,system-ui,sans-serif;text-align:center">' +
+            '<div><p style="font-size:18px;margin:0 0 16px">Montessori Life Skills could not finish loading.</p>' +
+            '<button onclick="location.reload()" style="padding:10px 22px;border-radius:999px;border:0;background:#14a39a;color:#fff;font-size:16px">Reload</button></div></div>';
+        }
+        function recover() {
+          if (booted()) return;
+          if (navigator.onLine === false) { show(); return; }
+          try {
+            var last = +sessionStorage.getItem(KEY) || 0;
+            if (Date.now() - last < 60000) { show(); return; }
+            sessionStorage.setItem(KEY, String(Date.now()));
+          } catch (e) {}
+          var jobs = [];
+          try {
+            if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+              jobs.push(navigator.serviceWorker.getRegistrations().then(function (rs) {
+                return Promise.all(rs.filter(function (r) {
+                  var w = r.active || r.waiting || r.installing;
+                  return w && /\/sw\.js$/.test(w.scriptURL);
+                }).map(function (r) { return r.unregister(); }));
+              }));
+            }
+          } catch (e) {}
+          try {
+            if (window.caches && caches.keys) {
+              jobs.push(caches.keys().then(function (ks) {
+                return Promise.all(ks.filter(function (k) {
+                  return /precache|^pages$|^built-assets$/.test(k);
+                }).map(function (k) { return caches.delete(k); }));
+              }));
+            }
+          } catch (e) {}
+          Promise.all(jobs).catch(function () {}).then(function () { location.reload(); });
+        }
+        window.addEventListener('error', function (e) {
+          var t = e.target;
+          if (t && (t.tagName === 'SCRIPT' || t.tagName === 'LINK')) {
+            var u = t.src || t.href || '';
+            if (u.indexOf('/assets/') > -1) recover();
+          }
+        }, true);
+        window.addEventListener('load', function () {
+          setTimeout(function () { if (!booted()) recover(); }, 12000);
+        });
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

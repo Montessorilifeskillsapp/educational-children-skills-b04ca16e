@@ -7,6 +7,8 @@ import ErrorBoundary from './components/ErrorBoundary.tsx'
 import { registerOffline } from './lib/registerOffline'
 import { installStaleBuildRecovery } from './lib/staleBuild'
 
+// Tells the start-up safety net in index.html that the app's files loaded.
+(window as unknown as { __mlsBooted?: boolean }).__mlsBooted = true
 installStaleBuildRecovery()
 registerOffline()
 
