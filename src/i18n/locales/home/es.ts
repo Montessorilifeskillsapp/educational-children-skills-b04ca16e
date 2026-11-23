@@ -28,7 +28,7 @@ export const es: typeof en = {
         "title": "Sigue la secuencia natural",
         "intro": "Las actividades Montessori se construyen unas sobre otras, de lo simple a lo complejo. No necesitas planificar todo un currículo, solo el siguiente pequeño paso.",
         "p1": "Comienza con Vida Práctica. Tareas cotidianas como llevar una bandeja, trasvasar con cuchara y verter desarrollan la coordinación y la concentración que necesitan todas las actividades posteriores.",
-        "p2": "Avanza de lo seco a lo húmedo y de los movimientos amplios a los finos: trasvasar frijoles secos con cuchara, luego verter en seco y después trasvasar agua.",
+        "p2": "Avanza de lo seco a lo húmedo y de los movimientos amplios a los finos: trasvasar frijoles secos con cuchara, luego trasvasar sólidos y después trasvasar agua.",
         "p3": "Ofrece una actividad nueva a la vez y deja en el estante las que el niño ya conoce.",
         "p4": "Las actividades de Sensorial, Lenguaje y Matemáticas llegan cuando el niño trabaja con manos tranquilas y firmes.",
         "tip": "Si tienes dudas, retrocede un paso. Volver a una actividad más fácil nunca es un fracaso.",
@@ -77,7 +77,7 @@ export const es: typeof en = {
       "g6": {
         "title": "Da un paso atrás y observa",
         "intro": "La observación te dice qué necesita el niño a continuación. Ahora tu papel es estar presente, pero en silencio.",
-        "p1": "Siéntate un poco apartado, para que el niño se sienta libre de trabajar sin sentirse vigilado.",
+        "p1": "Siéntate a cierta distancia, para que el niño trabaje con libertad, sin sentirse vigilado.",
         "p2": "Fíjate en cómo sostiene los materiales, qué mano prefiere y qué tan firmes son sus movimientos.",
         "p3": "Fíjate en la concentración. ¿Repite la actividad por decisión propia? La repetición es señal de un aprendizaje profundo.",
         "p4": "Permite que haya derrames y errores; la esponja está ahí para que el niño limpie. Intervén solo por seguridad o si se está usando mal un material.",

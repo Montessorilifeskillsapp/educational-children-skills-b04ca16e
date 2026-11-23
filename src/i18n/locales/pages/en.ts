@@ -251,5 +251,103 @@ export const en = {
     "ctaBody": "The full app guides you through a sequenced curriculum across Practical Life, Sensorial, Language, Math, Geography, Botany, Zoology and Art — all from an AMI-trained guide.",
     "ctaButton": "Start exploring free",
     "ctaNote": "No credit card · Cancel anytime · 30-day guarantee"
+  },
+  "homeSetup": {
+    "seoTitle": "How to Set Up a Montessori Learning Space at Home",
+    "seoDescription": "Set up a calm, organized Montessori learning space at home without a large classroom or expensive materials. Practical Life–first guide for parents and caregivers.",
+    "back": "Back",
+    "eyebrow": "Montessori at Home",
+    "title": "How to Set Up a Montessori Learning Space at Home",
+    "intro": "You do not need a large classroom or expensive materials to bring Montessori into your home. Begin with one small, calm, organized area where your child can work independently.",
+    "goalTitle": "The Goal",
+    "goalBody": "The goal is not to entertain your child constantly. It is to help them feel:",
+    "goalQuote": "“I can do this for myself.”",
+    "stepsTitle": "Setting Up the Space",
+    "stepsIntro": "Walk through these steps in order. Each one builds on the last, helping you create a space that supports independence, concentration, and meaningful work.",
+    "stepLabel": "Step {{n}}",
+    "steps": [
+      {
+        "title": "Choose a quiet space",
+        "body": "Select a peaceful, well-lit corner with as few distractions as possible. The environment should invite concentration, not entertainment."
+      },
+      {
+        "title": "Use child-sized furniture",
+        "body": "Provide a small table and chair where your child can sit comfortably with both feet supported. The body must be stable before the hand can do precise work."
+      },
+      {
+        "title": "Add one low shelf",
+        "body": "Choose an open shelf your child can reach. Place only a few activities on it so the space feels inviting rather than overwhelming."
+      },
+      {
+        "title": "Give everything a place",
+        "body": "Keep each activity together in a tray or basket. Show your child where it belongs and how to return it when finished. Order in the environment builds order in the mind."
+      },
+      {
+        "title": "Offer real-life activities",
+        "body": "Begin with the Practical Life activities on the app. Use real, child-sized tools whenever it is safe. The child learns through real, purposeful work."
+      },
+      {
+        "title": "Arrange activities from easiest to hardest",
+        "body": "Start with simple tasks and introduce more challenging ones as your child becomes confident. Keep the shelf neat and avoid putting out too many choices."
+      },
+      {
+        "title": "Create a place for floor work",
+        "body": "Provide a small mat that your child can unroll when working on the floor. The mat helps define and protect their workspace."
+      },
+      {
+        "title": "Make independence easier",
+        "body": "Place safe everyday items within reach. A low hook for a coat, a small water pitcher, accessible tissues and child-sized cleaning tools allow your child to do more without constant adult help."
+      },
+      {
+        "title": "Show slowly and clearly",
+        "body": "Demonstrate each activity using careful, simple movements. Use very few words so your child can concentrate on watching."
+      },
+      {
+        "title": "Allow time for repetition",
+        "body": "Children learn by doing the same activity many times. Try not to interrupt, correct unnecessarily or rush to help."
+      },
+      {
+        "title": "Encourage cleaning up",
+        "body": "Show your child how to complete the entire activity — from choosing it to returning everything neatly to its place."
+      },
+      {
+        "title": "Follow your child’s interests",
+        "body": "Observe what attracts your child and which skills they are ready to practice. Change activities gradually rather than replacing everything at once."
+      },
+      {
+        "title": "Keep the atmosphere calm",
+        "body": "Montessori is not about creating a perfect-looking room. It is about preparing a simple environment where your child can think, move, choose and participate independently."
+      }
+    ],
+    "plTitle": "Begin with Practical Life",
+    "plBody": "In the AMI approach, the child’s first activities are always Practical Life. Pouring, spooning, carrying a tray, sweeping, and caring for plants give the child real, purposeful work that builds concentration, coordination, independence, and order.",
+    "plList": [
+      "Start with dry transfer activities such as spooning or pouring beans.",
+      "Move to wet transfer once the child can manage a small pitcher without spilling.",
+      "Add care-of-self activities like hand washing and dressing frames.",
+      "Introduce care-of-environment work: dusting, sweeping, and watering plants."
+    ],
+    "plCta": "Explore Practical Life activities",
+    "spoonAlt": "A complete Montessori spooning activity ready for home use",
+    "spoonCaption": "A simple spooning tray is an ideal first Practical Life activity at home.",
+    "toolsAlt": "Child-sized cleaning tools arranged for independent access",
+    "toolsCaption": "Real, child-sized tools placed within reach let the child participate in daily life.",
+    "checklistTitle": "The Home Setup Checklist",
+    "checklist": [
+      "A quiet, well-lit corner free from screens and noisy toys",
+      "A child-sized table and chair with foot support",
+      "One low, open shelf the child can reach independently",
+      "A small work mat for floor activities",
+      "A few complete activities on trays or in baskets",
+      "Real, child-sized tools: pitcher, cloth, dustpan, broom",
+      "Everyday items placed within the child’s reach",
+      "Activities arranged left to right, simple to complex",
+      "A clear place for each item and a routine for returning it",
+      "Space for the child to move, choose, and work without interruption"
+    ],
+    "ctaTitle": "Ready to begin?",
+    "ctaBody": "Start with the first Practical Life activities and build your home environment one step at a time.",
+    "ctaStart": "Start Practical Life",
+    "ctaClassroom": "View classroom setup guide"
   }
 };

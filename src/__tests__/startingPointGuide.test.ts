@@ -19,3 +19,16 @@ describe('Homepage starting-point guide', () => {
     expect(sw.problem.guide.g5.p1).toContain('Je, ungependa');
   });
 });
+
+describe('Starting-point guide uses the agreed activity and material names', () => {
+  it('Kiswahili says sinia for tray and kuhamisha kwa kijiko for spooning', () => {
+    const text = JSON.stringify(sw.problem.guide);
+    expect(text).not.toMatch(/\btrei\b/);
+    expect(text).not.toMatch(/kuchota/);
+    expect(sw.problem.guide.g1.p1).toContain('kuhamisha kwa kijiko');
+  });
+  it('Hindi uses the agreed spooning and dry pouring names', () => {
+    expect(hi.problem.guide.g1.p1).toContain('चम्मच से स्थानांतरण');
+    expect(hi.problem.guide.g1.p2).toContain('सूखी सामग्री उँडेलना');
+  });
+});

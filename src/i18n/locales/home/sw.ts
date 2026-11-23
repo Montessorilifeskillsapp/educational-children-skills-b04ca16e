@@ -34,13 +34,13 @@ export const sw: typeof en = {
       "stepOf": "Hatua {{n}} kati ya {{total}}",
       "previous": "Iliyotangulia",
       "next": "Hatua inayofuata",
-      "done": "Nimemaliza",
+      "done": "Maliza",
       "tipLabel": "Kumbuka",
       "g1": {
         "title": "Fuata mpangilio wa asili",
         "intro": "Shughuli za Montessori hujengana, kutoka rahisi hadi ngumu. Huhitaji kupanga mtaala mzima — hatua ndogo inayofuata tu.",
-        "p1": "Anza na Maisha ya Vitendo. Kazi za kila siku kama kubeba trei, kuchota kwa kijiko na kumimina hujenga uratibu na umakini unaohitajika katika kila shughuli inayofuata.",
-        "p2": "Endelea kutoka vitu vikavu hadi maji, na kutoka miondoko mikubwa hadi midogo: kuchota maharagwe makavu kwa kijiko, kisha kumimina vitu vikavu, kisha kumimina maji.",
+        "p1": "Anza na Maisha ya Vitendo. Kazi za kila siku kama kubeba sinia, kuhamisha kwa kijiko na kumimina hujenga uratibu na umakini unaohitajika katika kila shughuli inayofuata.",
+        "p2": "Endelea kutoka vitu vikavu hadi maji, na kutoka miondoko mikubwa hadi midogo: kuhamisha maharagwe kwa kijiko, kisha kumimina vitu vikavu, kisha kumimina maji.",
         "p3": "Toa shughuli moja mpya kwa wakati mmoja, na uache kwenye rafu zile ambazo mtoto tayari anazijua.",
         "p4": "Shughuli za ukuzaji wa hisi, lugha na hisabati hufuata mtoto anapofanya kazi kwa mikono tulivu na imara.",
         "tip": "Ukiwa na shaka, rudi hatua moja nyuma. Kurudi kwenye shughuli rahisi zaidi si kushindwa kamwe.",
@@ -49,7 +49,7 @@ export const sw: typeof en = {
       "g2": {
         "title": "Angalia utayari, si umri",
         "intro": "Umri ni mwongozo tu. Utayari huonekana katika yale ambayo mtoto tayari anaweza kufanya.",
-        "p1": "Mtoto anaweza kubeba trei kwa mikono miwili na kutembea bila kuiinamisha.",
+        "p1": "Mtoto anaweza kubeba sinia kwa mikono miwili na kutembea bila kuiinamisha.",
         "p2": "Mtoto hukaa na shughuli moja kwa dakika chache bila kuondoka.",
         "p3": "Mtoto tayari ameimudu shughuli rahisi inayotangulia.",
         "p4": "Mtoto anaonyesha hamu kwa kukutazama au kutaka kusaidia kazi halisi nyumbani.",
@@ -60,8 +60,8 @@ export const sw: typeof en = {
         "title": "Andaa vifaa halisi vya ukubwa wa mtoto",
         "intro": "Huhitaji darasa. Shughuli nyingi za mwanzo hutumia vitu rahisi vya nyumbani vya ukubwa wa mikono ya mtoto.",
         "p1": "Tumia vifaa halisi vinavyoweza kuvunjika, kama majagi madogo ya kioo. Vinafundisha uangalifu, na mtoto hujifunza kuvishika kwa upole.",
-        "p2": "Weka kila kitu cha shughuli moja kwenye trei yake, kwa mpangilio wa matumizi kutoka kushoto kwenda kulia.",
-        "p3": "Weka trei kwenye rafu ya chini isiyo na vitu vingi, mahali ambapo mtoto anaweza kuifikia peke yake.",
+        "p2": "Weka kila kitu cha shughuli moja kwenye sinia yake, kwa mpangilio wa matumizi kutoka kushoto kwenda kulia.",
+        "p3": "Weka sinia kwenye rafu ya chini isiyo na vitu vingi, mahali ambapo mtoto anaweza kuifikia peke yake.",
         "p4": "Ongeza vitu vya kusafishia, kama sifongo kidogo au kitambaa, ili maji yanayomwagika yawe sehemu ya kazi.",
         "tip": "Kagua kila kitu kwanza: kiwe kamili, safi na kinachofanya kazi. Kipande kinachokosekana huvuruga umakini wa mtoto.",
         "cta": "Andaa mazingira yako nyumbani"
@@ -70,9 +70,9 @@ export const sw: typeof en = {
         "title": "Onyesha polepole, sema kidogo",
         "intro": "Uwasilishaji ni onyesho la kimya. Mtoto hujifunza kwa kutazama mikono yako, kwa hiyo miondoko yako ni muhimu kuliko maneno yako.",
         "p1": "Keti kando ya mtoto, upande wa mkono unaoutumia zaidi, ili aone hasa mikono yako inachofanya.",
-        "p2": "Usiongee mikono yako ikiwa inasonga. Maneno na miondoko hushindania umakini wa mtoto.",
+        "p2": "Usizungumze wakati mikono yako inasonga. Maneno na miondoko hushindania umakini wa mtoto.",
         "p3": "Songa polepole na ugawe kazi katika miondoko iliyo wazi na tofauti. Simama kidogo katika nyakati muhimu.",
-        "p4": "Onyesha mzunguko mzima, kuanzia kuchukua trei kwenye rafu hadi kuirudisha.",
+        "p4": "Onyesha mzunguko mzima, kuanzia kuchukua sinia kwenye rafu hadi kuirudisha.",
         "tip": "Jizoeze shughuli peke yako kwanza, ili miondoko yako iwe laini na ya uhakika.",
         "cta": "Tazama uwasilishaji kamili"
       },
@@ -97,11 +97,11 @@ export const sw: typeof en = {
         "cta": "Angalia haya katika somo halisi"
       },
       "g7": {
-        "title": "Jua kazi inapomudiwa",
+        "title": "Jua mtoto anapoimudu kazi",
         "intro": "Endelea mtoto anapoweza kukamilisha shughuli nzima peke yake, kwa utulivu na uangalifu.",
-        "p1": "Mtoto huchukua trei kwenye rafu na kuibeba salama hadi mezani.",
+        "p1": "Mtoto huchukua sinia kwenye rafu na kuibeba salama hadi mezani.",
         "p2": "Mtoto hukamilisha shughuli kwa miondoko imara na kumwaga kidogo tu.",
-        "p3": "Mtoto husafisha na kurudisha trei kwenye rafu, tayari kwa mtu anayefuata.",
+        "p3": "Mtoto husafisha na kurudisha sinia kwenye rafu, tayari kwa mtu anayefuata.",
         "p4": "Shughuli ikishamudiwa, hamu ya mtoto huanza kupungua. Huo ndio wakati wa kutoa mbadala au shughuli inayofuata.",
         "tip": "Acha shughuli zilizomudiwa kwenye rafu. Watoto mara nyingi huzirudia, na kurudia hujenga kujiamini.",
         "cta": "Chagua shughuli inayofuata"

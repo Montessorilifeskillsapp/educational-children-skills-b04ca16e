@@ -6,13 +6,14 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Bell, Users } from 'lucide-react';
+import { Bell, LogOut, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useAuthContext } from '@/components/AuthProvider';
 import { enablePush, pushMessage } from '@/lib/push';
 import { call, db, DEFAULT_PREFS, Prefs } from './api';
 import OfflineMediaPanel from '@/components/OfflineMediaPanel';
 import { DataRightsCard } from './DataRightsCard';
+import { signOutAndReset } from '@/lib/signOut';
 
 const DAYS = [0, 1, 2, 3, 4, 5, 6];
 
@@ -118,6 +119,10 @@ export const SettingsTab = ({ onManageProfiles }: { onManageProfiles: () => void
               <div className="flex gap-2"><Input id="acct-name" value={name} maxLength={100} onChange={(e) => setName(e.target.value)} /><Button onClick={saveName}>{t('shared.save')}</Button></div>
             </div>
             <Button variant="outline" onClick={onManageProfiles}><Users className="h-4 w-4 mr-1" />{t('family.set.manage')}</Button>
+            <div className="flex flex-wrap items-center justify-between gap-2 border-t border-border/60 pt-3">
+              {user?.email && <p className="text-sm text-muted-foreground break-all">{t('common.signedInAs', { email: user.email })}</p>}
+              <Button variant="outline" onClick={() => void signOutAndReset()}><LogOut className="h-4 w-4 mr-1" />{t('common.signOut')}</Button>
+            </div>
           </CardContent>
         </Card>
         <OfflineMediaPanel />

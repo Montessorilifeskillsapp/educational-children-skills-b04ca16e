@@ -7,84 +7,21 @@ import {
   ArrowRight, CheckCircle2, Sparkles, Home, BookOpen, Footprints,
 } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
+import { useTranslation } from 'react-i18next';
 import spooningImg from '@/assets/materials/spooning.jpg';
 import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 
-const STEPS = [
-  {
-    title: 'Choose a quiet space',
-    body: 'Select a peaceful, well-lit corner with as few distractions as possible. The environment should invite concentration, not entertainment.',
-  },
-  {
-    title: 'Use child-sized furniture',
-    body: 'Provide a small table and chair where your child can sit comfortably with both feet supported. The body must be stable before the hand can do precise work.',
-  },
-  {
-    title: 'Add one low shelf',
-    body: 'Choose an open shelf your child can reach. Place only a few activities on it so the space feels inviting rather than overwhelming.',
-  },
-  {
-    title: 'Give everything a place',
-    body: 'Keep each activity together in a tray or basket. Show your child where it belongs and how to return it when finished. Order in the environment builds order in the mind.',
-  },
-  {
-    title: 'Offer real-life activities',
-    body: 'Begin with the Practical Life activities on the app. Use real, child-sized tools whenever it is safe. The child learns through real, purposeful work.',
-  },
-  {
-    title: 'Arrange activities from easiest to hardest',
-    body: 'Start with simple tasks and introduce more challenging ones as your child becomes confident. Keep the shelf neat and avoid putting out too many choices.',
-  },
-  {
-    title: 'Create a place for floor work',
-    body: 'Provide a small mat that your child can unroll when working on the floor. The mat helps define and protect their workspace.',
-  },
-  {
-    title: 'Make independence easier',
-    body: 'Place safe everyday items within reach. A low hook for a coat, a small water pitcher, accessible tissues and child-sized cleaning tools allow your child to do more without constant adult help.',
-  },
-  {
-    title: 'Show slowly and clearly',
-    body: 'Demonstrate each activity using careful, simple movements. Use very few words so your child can concentrate on watching.',
-  },
-  {
-    title: 'Allow time for repetition',
-    body: 'Children learn by doing the same activity many times. Try not to interrupt, correct unnecessarily or rush to help.',
-  },
-  {
-    title: 'Encourage cleaning up',
-    body: 'Show your child how to complete the entire activity — from choosing it to returning everything neatly to its place.',
-  },
-  {
-    title: 'Follow your child’s interests',
-    body: 'Observe what attracts your child and which skills they are ready to practice. Change activities gradually rather than replacing everything at once.',
-  },
-  {
-    title: 'Keep the atmosphere calm',
-    body: 'Montessori is not about creating a perfect-looking room. It is about preparing a simple environment where your child can think, move, choose and participate independently.',
-  },
-];
-
-const CHECKLIST = [
-  'A quiet, well-lit corner free from screens and noisy toys',
-  'A child-sized table and chair with foot support',
-  'One low, open shelf the child can reach independently',
-  'A small work mat for floor activities',
-  'A few complete activities on trays or in baskets',
-  'Real, child-sized tools: pitcher, cloth, dustpan, broom',
-  'Everyday items placed within the child’s reach',
-  'Activities arranged left to right, simple to complex',
-  'A clear place for each item and a routine for returning it',
-  'Space for the child to move, choose, and work without interruption',
-];
-
 const HomeSetupPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const k = (key: string) => t(`pages.homeSetup.${key}`);
+  const steps = t('pages.homeSetup.steps', { returnObjects: true }) as { title: string; body: string }[];
+  const checklist = t('pages.homeSetup.checklist', { returnObjects: true }) as string[];
+  const practicalLifeSteps = t('pages.homeSetup.plList', { returnObjects: true }) as string[];
 
   useSEO({
-    title: 'How to Set Up a Montessori Learning Space at Home',
-    description:
-      'Set up a calm, organized Montessori learning space at home without a large classroom or expensive materials. Practical Life–first guide for parents and caregivers.',
+    title: k('seoTitle'),
+    description: k('seoDescription'),
     canonical: 'https://montessorilifeskillsapp.com/home-setup',
   });
 
@@ -95,18 +32,17 @@ const HomeSetupPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 pointer-events-none" />
         <div className="container relative mx-auto px-6 py-16 md:py-24 max-w-4xl text-center">
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
-            <BackButton onClick={() => navigate('/')} label="Back" />
+            <BackButton onClick={() => navigate('/')} label={k('back')} />
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
             <Home className="w-3.5 h-3.5" />
-            Montessori at Home
+            {k('eyebrow')}
           </span>
           <h1 className="mt-5 text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
-            How to Set Up a Montessori Learning Space at Home
+            {k('title')}
           </h1>
           <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
-            You do not need a large classroom or expensive materials to bring Montessori into your home.
-            Begin with one small, calm, organized area where your child can work independently.
+            {k('intro')}
           </p>
         </div>
       </section>
@@ -116,10 +52,10 @@ const HomeSetupPage: React.FC = () => {
         <Card className="border-2 border-primary/20 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
           <CardContent className="p-6 md:p-8 text-center">
             <Sparkles className="w-6 h-6 text-secondary mx-auto mb-4" />
-            <h2 className="text-xl font-semibold mb-2">The Goal</h2>
+            <h2 className="text-xl font-semibold mb-2">{k('goalTitle')}</h2>
             <p className="text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-              The goal is not to entertain your child constantly. It is to help them feel:
-              <span className="block mt-2 text-foreground font-medium">“I can do this for myself.”</span>
+              {k('goalBody')}
+              <span className="block mt-2 text-foreground font-medium">{k('goalQuote')}</span>
             </p>
           </CardContent>
         </Card>
@@ -129,18 +65,17 @@ const HomeSetupPage: React.FC = () => {
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
         <div className="flex items-center gap-3 mb-3">
           <Footprints className="w-6 h-6 text-primary" />
-          <h2 className="text-3xl font-semibold tracking-tight">Setting Up the Space</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">{k('stepsTitle')}</h2>
         </div>
         <p className="text-muted-foreground max-w-3xl mb-10 leading-relaxed">
-          Walk through these steps in order. Each one builds on the last, helping you create a space
-          that supports independence, concentration, and meaningful work.
+          {k('stepsIntro')}
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {STEPS.map((step, i) => (
+          {steps.map((step, i) => (
             <Card key={step.title} className="border-border/60 h-full">
               <CardContent className="p-5">
                 <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">
-                  Step {i + 1}
+                  {t('pages.homeSetup.stepLabel', { n: i + 1 })}
                 </p>
                 <h3 className="font-semibold text-foreground mb-2">{step.title}</h3>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step.body}</p>
@@ -156,20 +91,13 @@ const HomeSetupPage: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <BookOpen className="w-6 h-6 text-primary" />
-              <h2 className="text-3xl font-semibold tracking-tight">Begin with Practical Life</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">{k('plTitle')}</h2>
             </div>
             <p className="text-muted-foreground leading-relaxed mb-6">
-              In the AMI approach, the child’s first activities are always Practical Life. Pouring,
-              spooning, carrying a tray, sweeping, and caring for plants give the child real, purposeful
-              work that builds concentration, coordination, independence, and order.
+              {k('plBody')}
             </p>
             <ul className="space-y-4">
-              {[
-                'Start with dry transfer activities such as spooning or pouring beans.',
-                'Move to wet transfer once the child can manage a small pitcher without spilling.',
-                'Add care-of-self activities like hand washing and dressing frames.',
-                'Introduce care-of-environment work: dusting, sweeping, and watering plants.',
-              ].map((item) => (
+              {practicalLifeSteps.map((item) => (
                 <li key={item} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{item}</span>
@@ -179,7 +107,7 @@ const HomeSetupPage: React.FC = () => {
             <div className="mt-8">
               <Link to="/practical-life">
                 <Button size="lg" className="rounded-full px-6">
-                  Explore Practical Life activities
+                  {k('plCta')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
@@ -188,12 +116,12 @@ const HomeSetupPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
             <img decoding="async"
               src={spooningImg}
-              alt="A complete Montessori spooning activity ready for home use"
+              alt={k('spoonAlt')}
               className="w-full aspect-[4/3] object-cover"
               loading="lazy"
             />
             <p className="text-xs text-muted-foreground p-4 italic">
-              A simple spooning tray is an ideal first Practical Life activity at home.
+              {k('spoonCaption')}
             </p>
           </div>
         </div>
@@ -205,21 +133,21 @@ const HomeSetupPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted order-2 lg:order-1">
             <img decoding="async"
               src={cleaningTools}
-              alt="Child-sized cleaning tools arranged for independent access"
+              alt={k('toolsAlt')}
               className="w-full aspect-[4/3] object-cover"
               loading="lazy"
             />
             <p className="text-xs text-muted-foreground p-4 italic">
-              Real, child-sized tools placed within reach let the child participate in daily life.
+              {k('toolsCaption')}
             </p>
           </div>
           <div className="order-1 lg:order-2">
             <div className="flex items-center gap-3 mb-6">
               <Home className="w-6 h-6 text-primary" />
-              <h2 className="text-3xl font-semibold tracking-tight">The Home Setup Checklist</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">{k('checklistTitle')}</h2>
             </div>
             <ul className="space-y-4">
-              {CHECKLIST.map((c) => (
+              {checklist.map((c) => (
                 <li key={c} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{c}</span>
@@ -234,20 +162,20 @@ const HomeSetupPage: React.FC = () => {
       <section className="container mx-auto px-6 pb-24 max-w-4xl">
         <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
           <CardContent className="p-8 text-center">
-            <h2 className="text-2xl font-semibold mb-2">Ready to begin?</h2>
+            <h2 className="text-2xl font-semibold mb-2">{k('ctaTitle')}</h2>
             <p className="text-sm text-muted-foreground mb-6 max-w-xl mx-auto">
-              Start with the first Practical Life activities and build your home environment one step at a time.
+              {k('ctaBody')}
             </p>
             <div className="flex flex-wrap justify-center gap-3">
               <Link to="/practical-life">
                 <Button size="lg" className="rounded-full px-6">
-                  Start Practical Life
+                  {k('ctaStart')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/classroom-setup">
                 <Button size="lg" variant="outline" className="rounded-full px-6">
-                  View classroom setup guide
+                  {k('ctaClassroom')}
                 </Button>
               </Link>
             </div>

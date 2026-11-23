@@ -253,5 +253,103 @@ export const es: typeof en = {
     "ctaBody": "La app completa te guía por un currículo secuenciado de Vida Práctica, Sensorial, Lenguaje, Matemáticas, Geografía, Botánica, Zoología y Arte, todo de la mano de una guía con formación AMI.",
     "ctaButton": "Empieza a explorar gratis",
     "ctaNote": "Sin tarjeta de crédito · Cancela cuando quieras · Garantía de 30 días"
+  },
+  "homeSetup": {
+    "seoTitle": "Cómo preparar un espacio de aprendizaje Montessori en casa",
+    "seoDescription": "Prepara en casa un espacio Montessori tranquilo y ordenado, sin un aula grande ni materiales costosos. Una guía para madres, padres y cuidadores que empieza por Vida Práctica.",
+    "back": "Volver",
+    "eyebrow": "Montessori en casa",
+    "title": "Cómo preparar un espacio de aprendizaje Montessori en casa",
+    "intro": "No necesitas un aula grande ni materiales costosos para llevar Montessori a tu casa. Empieza con un rincón pequeño, tranquilo y ordenado donde tu hijo pueda trabajar de forma independiente.",
+    "goalTitle": "El objetivo",
+    "goalBody": "El objetivo no es entretener a tu hijo todo el tiempo. Es ayudarlo a sentir:",
+    "goalQuote": "«Puedo hacerlo yo solo».",
+    "stepsTitle": "Cómo preparar el espacio",
+    "stepsIntro": "Sigue estos pasos en orden. Cada uno se apoya en el anterior y te ayuda a crear un espacio que favorece la independencia, la concentración y el trabajo con sentido.",
+    "stepLabel": "Paso {{n}}",
+    "steps": [
+      {
+        "title": "Elige un espacio tranquilo",
+        "body": "Escoge un rincón sereno y bien iluminado, con las menores distracciones posibles. El ambiente debe invitar a la concentración, no al entretenimiento."
+      },
+      {
+        "title": "Usa muebles a la medida del niño",
+        "body": "Ofrece una mesa y una silla pequeñas donde tu hijo pueda sentarse cómodamente con los dos pies apoyados. El cuerpo debe estar estable para que la mano pueda hacer un trabajo preciso."
+      },
+      {
+        "title": "Añade un estante bajo",
+        "body": "Elige un estante abierto que tu hijo pueda alcanzar. Coloca solo unas pocas actividades para que el espacio resulte acogedor y no abrumador."
+      },
+      {
+        "title": "Dale a cada cosa su lugar",
+        "body": "Guarda cada actividad completa en una bandeja o canasta. Muéstrale a tu hijo dónde va y cómo devolverla al terminar. El orden en el ambiente construye orden en la mente."
+      },
+      {
+        "title": "Ofrece actividades de la vida real",
+        "body": "Empieza con las actividades de Vida Práctica de la app. Usa herramientas reales y a la medida del niño siempre que sea seguro. El niño aprende con un trabajo real y con propósito."
+      },
+      {
+        "title": "Ordena las actividades de la más fácil a la más difícil",
+        "body": "Comienza con tareas sencillas e introduce otras más exigentes a medida que tu hijo gane confianza. Mantén el estante ordenado y evita ofrecer demasiadas opciones."
+      },
+      {
+        "title": "Crea un lugar para trabajar en el piso",
+        "body": "Ofrece un tapete pequeño que tu hijo pueda desenrollar cuando trabaje en el piso. El tapete ayuda a delimitar y proteger su espacio de trabajo."
+      },
+      {
+        "title": "Facilita la independencia",
+        "body": "Coloca a su alcance objetos cotidianos y seguros. Un gancho bajo para el abrigo, una jarrita de agua, pañuelos a mano y utensilios de limpieza a su medida le permiten hacer más sin depender siempre de un adulto."
+      },
+      {
+        "title": "Muestra despacio y con claridad",
+        "body": "Presenta cada actividad con movimientos cuidadosos y sencillos. Usa muy pocas palabras para que tu hijo pueda concentrarse en observar."
+      },
+      {
+        "title": "Da tiempo para la repetición",
+        "body": "Los niños aprenden repitiendo la misma actividad muchas veces. Procura no interrumpir, no corregir sin necesidad y no apresurarte a ayudar."
+      },
+      {
+        "title": "Fomenta el orden al terminar",
+        "body": "Muéstrale a tu hijo cómo completar toda la actividad: desde elegirla hasta devolver todo, bien ordenado, a su lugar."
+      },
+      {
+        "title": "Sigue los intereses de tu hijo",
+        "body": "Observa qué le atrae y qué habilidades está listo para practicar. Cambia las actividades poco a poco en lugar de reemplazarlo todo a la vez."
+      },
+      {
+        "title": "Mantén un ambiente tranquilo",
+        "body": "Montessori no consiste en crear una habitación de aspecto perfecto. Consiste en preparar un ambiente sencillo donde tu hijo pueda pensar, moverse, elegir y participar con independencia."
+      }
+    ],
+    "plTitle": "Empieza por Vida Práctica",
+    "plBody": "En el enfoque AMI, las primeras actividades del niño son siempre de Vida Práctica. Trasvasar, trasvasar con cuchara, transportar una bandeja, barrer y cuidar las plantas le dan un trabajo real y con propósito que desarrolla la concentración, la coordinación, la independencia y el orden.",
+    "plList": [
+      "Empieza con trasvases en seco, como trasvasar frijoles con cuchara o de una jarrita a otra.",
+      "Pasa a los trasvases con agua cuando el niño pueda manejar una jarrita sin derramar.",
+      "Añade actividades de cuidado de sí mismo, como lavarse las manos y los bastidores de vestir.",
+      "Introduce el cuidado del ambiente: quitar el polvo, barrer y regar las plantas."
+    ],
+    "plCta": "Explorar las actividades de Vida Práctica",
+    "spoonAlt": "Una actividad Montessori completa de trasvasar con cuchara, lista para usar en casa",
+    "spoonCaption": "Una sencilla bandeja para trasvasar con cuchara es una primera actividad de Vida Práctica ideal en casa.",
+    "toolsAlt": "Utensilios de limpieza a la medida del niño, colocados para que los use solo",
+    "toolsCaption": "Las herramientas reales y a su medida, colocadas a su alcance, permiten que el niño participe en la vida diaria.",
+    "checklistTitle": "Lista para preparar tu casa",
+    "checklist": [
+      "Un rincón tranquilo y bien iluminado, sin pantallas ni juguetes ruidosos",
+      "Una mesa y una silla a la medida del niño, con apoyo para los pies",
+      "Un estante bajo y abierto que el niño pueda alcanzar solo",
+      "Un tapete de trabajo pequeño para las actividades en el piso",
+      "Unas pocas actividades completas en bandejas o canastas",
+      "Herramientas reales y a su medida: jarrita, paño, recogedor, escoba",
+      "Objetos cotidianos colocados al alcance del niño",
+      "Actividades ordenadas de izquierda a derecha, de lo simple a lo complejo",
+      "Un lugar claro para cada objeto y una rutina para devolverlo",
+      "Espacio para que el niño se mueva, elija y trabaje sin interrupciones"
+    ],
+    "ctaTitle": "¿Listo para empezar?",
+    "ctaBody": "Empieza con las primeras actividades de Vida Práctica y prepara tu ambiente en casa paso a paso.",
+    "ctaStart": "Empezar con Vida Práctica",
+    "ctaClassroom": "Ver la guía de preparación del ambiente"
   }
 };

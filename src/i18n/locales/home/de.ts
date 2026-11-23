@@ -28,7 +28,7 @@ export const de: typeof en = {
         "title": "Folgen Sie der natürlichen Reihenfolge",
         "intro": "Montessori-Aktivitäten bauen aufeinander auf, vom Einfachen zum Komplexen. Sie müssen keinen ganzen Lehrplan planen – nur den nächsten kleinen Schritt.",
         "p1": "Beginnen Sie mit den Übungen des täglichen Lebens. Alltägliche Aufgaben wie ein Tablett tragen, Löffeln und Schütten fördern die Koordination und Konzentration, die jede spätere Aktivität braucht.",
-        "p2": "Gehen Sie von trocken zu nass und von großen zu feinen Bewegungen: erst trockene Bohnen löffeln, dann trocken schütten, dann Wasser umgießen.",
+        "p2": "Gehen Sie von trocken zu nass und von großen zu feinen Bewegungen: erst Bohnen löffeln, dann trockenes Material schütten, dann Wasser umgießen.",
         "p3": "Bieten Sie jeweils nur eine neue Aktivität an und lassen Sie die bereits bekannten im Regal.",
         "p4": "Sinnesmaterial, Sprache und Mathematik folgen, sobald das Kind mit ruhigen, sicheren Händen arbeitet.",
         "tip": "Wenn Sie unsicher sind, gehen Sie einen Schritt zurück. Zu einer leichteren Aktivität zurückzukehren ist nie ein Misserfolg.",
@@ -77,7 +77,7 @@ export const de: typeof en = {
       "g6": {
         "title": "Zurücktreten und beobachten",
         "intro": "Die Beobachtung zeigt Ihnen, was das Kind als Nächstes braucht. Ihre Aufgabe ist jetzt, präsent, aber still zu sein.",
-        "p1": "Setzen Sie sich etwas abseits, damit sich das Kind frei fühlt und nicht beobachtet wird.",
+        "p1": "Setzen Sie sich etwas abseits, damit das Kind frei arbeiten kann, ohne sich beobachtet zu fühlen.",
         "p2": "Achten Sie darauf, wie das Kind die Materialien hält, welche Hand es bevorzugt und wie sicher seine Bewegungen sind.",
         "p3": "Achten Sie auf die Konzentration. Wiederholt das Kind die Aktivität aus eigenem Antrieb? Wiederholung ist ein Zeichen tiefen Lernens.",
         "p4": "Lassen Sie Verschüttetes und Fehler zu; der Schwamm ist da, damit das Kind selbst aufwischt. Greifen Sie nur aus Sicherheitsgründen ein oder wenn ein Material zweckentfremdet wird.",
@@ -85,11 +85,11 @@ export const de: typeof en = {
         "cta": "Darauf in einer echten Lektion achten"
       },
       "g7": {
-        "title": "Erkennen, wann die Arbeit beherrscht wird",
+        "title": "Erkennen, wann das Kind die Arbeit beherrscht",
         "intro": "Gehen Sie weiter, wenn das Kind die ganze Aktivität allein, ruhig und sorgfältig ausführen kann.",
         "p1": "Das Kind holt das Tablett aus dem Regal und trägt es sicher zum Tisch.",
         "p2": "Das Kind führt die Aktivität mit sicheren Bewegungen und wenig Verschüttetem aus.",
-        "p3": "Das Kind räumt auf und stellt das Tablett bereit für den Nächsten zurück ins Regal.",
+        "p3": "Das Kind räumt auf und stellt das Tablett zurück ins Regal, bereit für das nächste Kind.",
         "p4": "Ist die Aktivität beherrscht, lässt das Interesse des Kindes nach. Das ist der Moment für eine Variation oder die nächste Aktivität.",
         "tip": "Lassen Sie beherrschte Aktivitäten im Regal. Kinder kehren oft zu ihnen zurück, und Wiederholung stärkt das Selbstvertrauen.",
         "cta": "Die nächste Aktivität wählen"

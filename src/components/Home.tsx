@@ -4,7 +4,8 @@ import { Card, CardContent } from '@/components/ui/card';
 import {
   ArrowRight, Star, CheckCircle, BookOpen, Target, Award,
   Lock, Globe, Leaf, Palette, HandHelping, Utensils, Brain, Menu, Check,
-  ClipboardCheck, Eye, RotateCcw, Share2, School
+  ClipboardCheck, Eye, RotateCcw, Share2, School,
+  LogOut,
 } from 'lucide-react';
 import { useSEO, SEO_CONFIG } from '@/hooks/useSEO';
 import { montessoriImages } from '@/assets/images';
@@ -28,6 +29,7 @@ import { schoolReturnTarget } from '@/components/school/navigation';
 import { Link, useNavigate } from 'react-router-dom';
 import { Trans, useTranslation } from 'react-i18next';
 import LanguageSelector from '@/components/LanguageSelector';
+import { signOutAndReset } from '@/lib/signOut';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
@@ -240,6 +242,12 @@ const Home: React.FC<HomeProps> = ({
                   <Button variant="ghost" size="sm" className="hidden sm:inline-flex">{t('common.signIn')}</Button>
                 </Link>
               )}
+              {user && (
+                <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={() => void signOutAndReset()} title={t('common.signedInAs', { email: user.email ?? '' })}>
+                  <LogOut className="w-4 h-4 mr-1.5" aria-hidden="true" />
+                  {t('common.signOut')}
+                </Button>
+              )}
               <Button
                 onClick={onGetStarted}
                 size="sm"
@@ -287,6 +295,15 @@ const Home: React.FC<HomeProps> = ({
                             <Button variant="outline" className="w-full">{t('common.signIn')}</Button>
                           </Link>
                         </SheetClose>
+                      )}
+                      {user && (
+                        <div className="space-y-2">
+                          {user.email && <p className="text-sm text-muted-foreground break-all">{t('common.signedInAs', { email: user.email })}</p>}
+                          <Button variant="outline" className="w-full" onClick={() => void signOutAndReset()}>
+                            <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
+                            {t('common.signOut')}
+                          </Button>
+                        </div>
                       )}
                       <SheetClose asChild>
                         <Button

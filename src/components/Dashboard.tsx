@@ -22,6 +22,7 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 
 import FounderWeeklyNote from './FounderWeeklyNote';
+import { signOutAndReset } from '@/lib/signOut';
 import SongsTeaser from '@/components/songs/SongsTeaser';
 
 const PRACTICAL_LIFE_IDS = [
@@ -84,7 +85,7 @@ const Dashboard: React.FC<DashboardProps> = ({
   isPremium,
   activeProfile
 }) => {
-  const { user, signOut } = useAuthContext();
+  const { user } = useAuthContext();
   const { t } = useTranslation();
   const { profiles, activeProfile: ctxActiveProfile, setActiveProfile } = useProfile();
   const currentProfile = ctxActiveProfile || activeProfile;
@@ -157,7 +158,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </Button>
               </Link>
             ) : (
-              <Button variant="outline" onClick={() => signOut()}>
+              <Button variant="outline" onClick={() => void signOutAndReset()}>
                 {t('dashboard.signOut')}
               </Button>
             )}

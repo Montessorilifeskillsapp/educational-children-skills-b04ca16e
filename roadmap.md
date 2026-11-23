@@ -18,3 +18,7 @@
 - [x] Material names unified to the agreed names (German, Chinese, Spanish, Kiswahili, Hindi)
 - [ ] Native Swahili- and Hindi-speaking Montessori reviewers check translations (owner action)
 - [ ] Legal review of policy wording; signed SCCs/DPAs with providers (owner action)
+- [x] Starting-point guide: careful review of the five translations against agreed names and tone (native-speaker read still owner action)
+- [x] Home setup page shown in all six languages
+- [x] Child invitation shown clearly at the start of every lesson (verify on live pages)
+- [x] Sign out (and switch account) from the top bar, phone menu, School Portal and Family Dashboard settings

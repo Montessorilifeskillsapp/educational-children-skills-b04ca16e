@@ -253,5 +253,103 @@ export const de: typeof en = {
     "ctaBody": "Die vollständige App führt Sie durch einen aufeinander aufbauenden Lehrplan: Übungen des täglichen Lebens, Sinnesmaterial, Sprache, Mathematik, Geographie, Botanik, Zoologie und Kunst – alles von einer AMI-ausgebildeten Pädagogin.",
     "ctaButton": "Kostenlos entdecken",
     "ctaNote": "Keine Kreditkarte · Jederzeit kündbar · 30 Tage Garantie"
+  },
+  "homeSetup": {
+    "seoTitle": "Eine Montessori-Lernumgebung zu Hause einrichten",
+    "seoDescription": "Richten Sie zu Hause eine ruhige, geordnete Montessori-Lernumgebung ein – ohne großes Klassenzimmer und ohne teure Materialien. Ein Leitfaden für Eltern und Betreuende, der mit den Übungen des täglichen Lebens beginnt.",
+    "back": "Zurück",
+    "eyebrow": "Montessori zu Hause",
+    "title": "Eine Montessori-Lernumgebung zu Hause einrichten",
+    "intro": "Sie brauchen weder ein großes Klassenzimmer noch teure Materialien, um Montessori zu sich nach Hause zu holen. Beginnen Sie mit einem kleinen, ruhigen, geordneten Bereich, in dem Ihr Kind selbstständig arbeiten kann.",
+    "goalTitle": "Das Ziel",
+    "goalBody": "Das Ziel ist nicht, Ihr Kind ständig zu unterhalten. Es geht darum, ihm dieses Gefühl zu geben:",
+    "goalQuote": "„Ich kann das selbst.“",
+    "stepsTitle": "Den Bereich einrichten",
+    "stepsIntro": "Gehen Sie diese Schritte der Reihe nach durch. Jeder baut auf dem vorigen auf und hilft Ihnen, einen Bereich zu schaffen, der Selbstständigkeit, Konzentration und sinnvolle Arbeit unterstützt.",
+    "stepLabel": "Schritt {{n}}",
+    "steps": [
+      {
+        "title": "Wählen Sie einen ruhigen Ort",
+        "body": "Suchen Sie eine friedliche, gut beleuchtete Ecke mit möglichst wenig Ablenkung. Die Umgebung soll zur Konzentration einladen, nicht zur Unterhaltung."
+      },
+      {
+        "title": "Nutzen Sie kindgerechte Möbel",
+        "body": "Stellen Sie einen kleinen Tisch und Stuhl bereit, auf dem Ihr Kind bequem sitzt und beide Füße abstellen kann. Der Körper muss stabil sein, bevor die Hand genau arbeiten kann."
+      },
+      {
+        "title": "Stellen Sie ein niedriges Regal auf",
+        "body": "Wählen Sie ein offenes Regal, das Ihr Kind erreicht. Stellen Sie nur wenige Aktivitäten hinein, damit der Bereich einladend und nicht überfordernd wirkt."
+      },
+      {
+        "title": "Geben Sie allem seinen Platz",
+        "body": "Bewahren Sie jede Aktivität vollständig auf einem Tablett oder in einem Korb auf. Zeigen Sie Ihrem Kind, wo sie hingehört und wie es sie danach zurückstellt. Äußere Ordnung schafft innere Ordnung."
+      },
+      {
+        "title": "Bieten Sie Tätigkeiten aus dem echten Leben an",
+        "body": "Beginnen Sie mit den Übungen des täglichen Lebens in der App. Verwenden Sie echte, kindgerechte Werkzeuge, wann immer es sicher ist. Das Kind lernt durch echte, sinnvolle Arbeit."
+      },
+      {
+        "title": "Ordnen Sie die Aktivitäten vom Leichten zum Schweren",
+        "body": "Beginnen Sie mit einfachen Aufgaben und führen Sie anspruchsvollere ein, sobald Ihr Kind sicherer wird. Halten Sie das Regal ordentlich und bieten Sie nicht zu viel Auswahl an."
+      },
+      {
+        "title": "Schaffen Sie einen Platz für die Arbeit am Boden",
+        "body": "Legen Sie einen kleinen Teppich bereit, den Ihr Kind für die Arbeit am Boden ausrollen kann. Der Teppich grenzt seinen Arbeitsplatz ab und schützt ihn."
+      },
+      {
+        "title": "Erleichtern Sie die Selbstständigkeit",
+        "body": "Legen Sie sichere Alltagsgegenstände in Reichweite. Ein niedriger Haken für die Jacke, ein kleines Wasserkännchen, erreichbare Taschentücher und kindgerechte Putzutensilien lassen Ihr Kind mehr selbst tun, ohne ständig auf Erwachsene angewiesen zu sein."
+      },
+      {
+        "title": "Zeigen Sie langsam und deutlich",
+        "body": "Führen Sie jede Aktivität mit sorgfältigen, einfachen Bewegungen vor. Sprechen Sie sehr wenig, damit sich Ihr Kind auf das Zuschauen konzentrieren kann."
+      },
+      {
+        "title": "Lassen Sie Zeit für Wiederholung",
+        "body": "Kinder lernen, indem sie dieselbe Aktivität viele Male ausführen. Versuchen Sie, nicht zu unterbrechen, nicht unnötig zu korrigieren und nicht vorschnell zu helfen."
+      },
+      {
+        "title": "Ermutigen Sie zum Aufräumen",
+        "body": "Zeigen Sie Ihrem Kind, wie es die ganze Aktivität abschließt – vom Auswählen bis zum ordentlichen Zurückstellen aller Teile an ihren Platz."
+      },
+      {
+        "title": "Folgen Sie den Interessen Ihres Kindes",
+        "body": "Beobachten Sie, was Ihr Kind anzieht und welche Fähigkeiten es zu üben bereit ist. Tauschen Sie Aktivitäten nach und nach aus, statt alles auf einmal zu ersetzen."
+      },
+      {
+        "title": "Sorgen Sie für eine ruhige Atmosphäre",
+        "body": "Bei Montessori geht es nicht um ein perfekt aussehendes Zimmer, sondern um eine einfache vorbereitete Umgebung, in der Ihr Kind selbstständig denken, sich bewegen, wählen und mitwirken kann."
+      }
+    ],
+    "plTitle": "Beginnen Sie mit den Übungen des täglichen Lebens",
+    "plBody": "Im AMI-Ansatz sind die ersten Aktivitäten des Kindes immer Übungen des täglichen Lebens. Schütten, Löffeln, ein Tablett tragen, Kehren und Pflanzenpflege geben dem Kind echte, sinnvolle Arbeit, die Konzentration, Koordination, Selbstständigkeit und Ordnung aufbaut.",
+    "plList": [
+      "Beginnen Sie mit trockenen Übungen wie Bohnen löffeln oder trockenem Schütten.",
+      "Gehen Sie zum Umgießen von Wasser über, sobald das Kind ein kleines Kännchen ohne Verschütten handhaben kann.",
+      "Fügen Sie Übungen zur Sorge für die eigene Person hinzu, etwa Händewaschen und Ankleiderahmen.",
+      "Führen Sie die Sorge für die Umgebung ein: Staubwischen, Kehren und Pflanzen gießen."
+    ],
+    "plCta": "Übungen des täglichen Lebens ansehen",
+    "spoonAlt": "Eine vollständige Montessori-Löffelübung, bereit für zu Hause",
+    "spoonCaption": "Ein einfaches Tablett zum Löffeln ist eine ideale erste Übung des täglichen Lebens zu Hause.",
+    "toolsAlt": "Kindgerechte Putzutensilien, so angeordnet, dass das Kind sie selbst erreicht",
+    "toolsCaption": "Echte, kindgerechte Werkzeuge in Reichweite lassen das Kind am Alltag teilhaben.",
+    "checklistTitle": "Die Checkliste für zu Hause",
+    "checklist": [
+      "Eine ruhige, gut beleuchtete Ecke ohne Bildschirme und laute Spielsachen",
+      "Ein kindgerechter Tisch und Stuhl mit Fußstütze",
+      "Ein niedriges, offenes Regal, das das Kind selbst erreicht",
+      "Ein kleiner Arbeitsteppich für Aktivitäten am Boden",
+      "Einige vollständige Aktivitäten auf Tabletts oder in Körben",
+      "Echte, kindgerechte Werkzeuge: Kännchen, Tuch, Kehrschaufel, Besen",
+      "Alltagsgegenstände in Reichweite des Kindes",
+      "Aktivitäten von links nach rechts, vom Einfachen zum Komplexen geordnet",
+      "Ein fester Platz für jedes Teil und eine Gewohnheit, es zurückzustellen",
+      "Raum, in dem sich das Kind bewegen, wählen und ungestört arbeiten kann"
+    ],
+    "ctaTitle": "Bereit für den Anfang?",
+    "ctaBody": "Beginnen Sie mit den ersten Übungen des täglichen Lebens und richten Sie Ihre Umgebung zu Hause Schritt für Schritt ein.",
+    "ctaStart": "Mit den Übungen des täglichen Lebens beginnen",
+    "ctaClassroom": "Leitfaden zur vorbereiteten Umgebung ansehen"
   }
 };

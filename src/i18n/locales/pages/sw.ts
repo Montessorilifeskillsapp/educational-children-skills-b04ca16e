@@ -253,5 +253,103 @@ export const sw: typeof en = {
     "ctaBody": "Programu kamili inakuongoza kupitia mtaala uliopangwa kwa mfuatano katika Maisha ya Vitendo, Ukuzaji wa Hisi, Lugha, Hisabati, Jiografia, Botania, Zoolojia na Sanaa — yote kutoka kwa mwelekezi aliyefunzwa na AMI.",
     "ctaButton": "Anza kugundua bila malipo",
     "ctaNote": "Bila kadi ya mkopo · Ghairi wakati wowote · Dhamana ya siku 30"
+  },
+  "homeSetup": {
+    "seoTitle": "Jinsi ya kuandaa mazingira ya kujifunzia ya Montessori nyumbani",
+    "seoDescription": "Andaa nyumbani mazingira tulivu na yenye mpangilio ya Montessori bila darasa kubwa wala vifaa vya gharama. Mwongozo kwa wazazi na walezi unaoanza na Maisha ya Vitendo.",
+    "back": "Rudi",
+    "eyebrow": "Montessori nyumbani",
+    "title": "Jinsi ya kuandaa mazingira ya kujifunzia ya Montessori nyumbani",
+    "intro": "Huhitaji darasa kubwa wala vifaa vya gharama ili kuleta Montessori nyumbani kwako. Anza na sehemu moja ndogo, tulivu na yenye mpangilio ambapo mtoto wako anaweza kufanya kazi peke yake.",
+    "goalTitle": "Lengo",
+    "goalBody": "Lengo si kumburudisha mtoto wako kila wakati. Ni kumsaidia ajisikie:",
+    "goalQuote": "“Ninaweza kufanya hivi mwenyewe.”",
+    "stepsTitle": "Kuandaa mazingira",
+    "stepsIntro": "Fuata hatua hizi kwa mpangilio. Kila moja hujengwa juu ya iliyotangulia, na hukusaidia kuandaa mazingira yanayokuza kujitegemea, umakini na kazi yenye maana.",
+    "stepLabel": "Hatua ya {{n}}",
+    "steps": [
+      {
+        "title": "Chagua sehemu tulivu",
+        "body": "Chagua kona tulivu yenye mwanga wa kutosha na vitu vichache vya kuvuruga. Mazingira yanapaswa kualika umakini, si burudani."
+      },
+      {
+        "title": "Tumia samani za ukubwa wa mtoto",
+        "body": "Weka meza ndogo na kiti ambapo mtoto wako anaweza kuketi vizuri huku miguu yote miwili ikikanyaga chini. Mwili lazima uwe imara kabla mkono haujaweza kufanya kazi kwa usahihi."
+      },
+      {
+        "title": "Weka rafu moja ya chini",
+        "body": "Chagua rafu iliyo wazi ambayo mtoto wako anaweza kuifikia. Weka shughuli chache tu juu yake ili mazingira yavutie badala ya kumlemea."
+      },
+      {
+        "title": "Kila kitu kiwe na mahali pake",
+        "body": "Weka kila shughuli pamoja kwenye sinia au kikapu. Mwonyeshe mtoto wako mahali inapokaa na jinsi ya kuirudisha akimaliza. Mpangilio katika mazingira hujenga mpangilio akilini."
+      },
+      {
+        "title": "Toa shughuli za maisha halisi",
+        "body": "Anza na shughuli za Maisha ya Vitendo zilizo kwenye programu. Tumia vifaa halisi vya ukubwa wa mtoto kila inapokuwa salama. Mtoto hujifunza kupitia kazi halisi yenye kusudi."
+      },
+      {
+        "title": "Panga shughuli kutoka rahisi hadi ngumu",
+        "body": "Anza na kazi rahisi kisha leta zenye changamoto zaidi kadiri mtoto wako anavyopata kujiamini. Weka rafu nadhifu na usiweke machaguo mengi kupita kiasi."
+      },
+      {
+        "title": "Andaa mahali pa kufanyia kazi sakafuni",
+        "body": "Weka mkeka mdogo wa kazi ambao mtoto wako anaweza kuukunjua anapofanya kazi sakafuni. Mkeka husaidia kuonyesha mipaka ya eneo lake la kazi na kulilinda."
+      },
+      {
+        "title": "Rahisisha kujitegemea",
+        "body": "Weka vitu salama vya kila siku mahali anapoweza kuvifikia. Kiango cha chini cha kutundikia koti, jagi dogo la maji, karatasi za kufutia zinazofikika na vifaa vya usafi vya ukubwa wa mtoto humwezesha kufanya mengi bila kumtegemea mtu mzima kila mara."
+      },
+      {
+        "title": "Onyesha polepole na kwa uwazi",
+        "body": "Onyesha kila shughuli kwa miondoko ya uangalifu na rahisi. Tumia maneno machache sana ili mtoto wako aweze kuzingatia kutazama."
+      },
+      {
+        "title": "Toa muda wa kurudia",
+        "body": "Watoto hujifunza kwa kufanya shughuli ileile mara nyingi. Jaribu kutomkatiza, kutomrekebisha bila sababu wala kuharakisha kumsaidia."
+      },
+      {
+        "title": "Himiza kusafisha",
+        "body": "Mwonyeshe mtoto wako jinsi ya kukamilisha shughuli nzima — kuanzia kuichagua hadi kurudisha kila kitu mahali pake kwa unadhifu."
+      },
+      {
+        "title": "Fuata mambo yanayompendeza mtoto wako",
+        "body": "Chunguza kinachomvutia mtoto wako na stadi ambazo yuko tayari kuzizoeza. Badilisha shughuli taratibu badala ya kubadilisha kila kitu kwa mara moja."
+      },
+      {
+        "title": "Dumisha hali ya utulivu",
+        "body": "Montessori haihusu kuunda chumba kinachoonekana kikamilifu. Inahusu kuandaa mazingira rahisi ambamo mtoto wako anaweza kufikiri, kusonga, kuchagua na kushiriki kwa kujitegemea."
+      }
+    ],
+    "plTitle": "Anza na Maisha ya Vitendo",
+    "plBody": "Katika mbinu ya AMI, shughuli za kwanza za mtoto huwa za Maisha ya Vitendo kila wakati. Kumimina, kuhamisha kwa kijiko, kubeba sinia, kufagia na kutunza mimea humpa mtoto kazi halisi yenye kusudi inayojenga umakini, uratibu, kujitegemea na mpangilio.",
+    "plList": [
+      "Anza na shughuli za kuhamisha vitu vikavu, kama kuhamisha maharagwe kwa kijiko au kumimina vitu vikavu.",
+      "Endelea na kumimina maji mtoto anapoweza kushika jagi dogo bila kumwaga.",
+      "Ongeza shughuli za kujitunza, kama kunawa mikono na fremu za kufungia mavazi.",
+      "Anzisha kazi za kutunza mazingira: kuondoa vumbi, kufagia na kumwagilia mimea."
+    ],
+    "plCta": "Tazama shughuli za Maisha ya Vitendo",
+    "spoonAlt": "Shughuli kamili ya Montessori ya kuhamisha kwa kijiko, tayari kutumika nyumbani",
+    "spoonCaption": "Sinia rahisi ya kuhamisha kwa kijiko ni shughuli bora ya kwanza ya Maisha ya Vitendo nyumbani.",
+    "toolsAlt": "Vifaa vya usafi vya ukubwa wa mtoto vilivyopangwa ili avifikie mwenyewe",
+    "toolsCaption": "Vifaa halisi vya ukubwa wa mtoto vilivyowekwa karibu humwezesha kushiriki katika maisha ya kila siku.",
+    "checklistTitle": "Orodha ya kuandaa nyumbani",
+    "checklist": [
+      "Kona tulivu yenye mwanga wa kutosha, bila skrini wala vitu vya kuchezea vyenye kelele",
+      "Meza na kiti vya ukubwa wa mtoto, miguu ikiwa na mahali pa kukanyaga",
+      "Rafu moja ya chini iliyo wazi ambayo mtoto anaweza kuifikia mwenyewe",
+      "Mkeka mdogo wa kazi kwa shughuli za sakafuni",
+      "Shughuli chache kamili kwenye sinia au vikapu",
+      "Vifaa halisi vya ukubwa wa mtoto: jagi, kitambaa, koleo la kuzoa taka, ufagio",
+      "Vitu vya kila siku vilivyowekwa mahali mtoto anapoweza kufikia",
+      "Shughuli zimepangwa kutoka kushoto kwenda kulia, kutoka rahisi hadi ngumu",
+      "Mahali panapojulikana kwa kila kitu, na mazoea ya kukirudisha",
+      "Nafasi ya mtoto kusonga, kuchagua na kufanya kazi bila kukatizwa"
+    ],
+    "ctaTitle": "Uko tayari kuanza?",
+    "ctaBody": "Anza na shughuli za kwanza za Maisha ya Vitendo na uandae mazingira yako ya nyumbani hatua kwa hatua.",
+    "ctaStart": "Anza Maisha ya Vitendo",
+    "ctaClassroom": "Tazama mwongozo wa mazingira ya darasa"
   }
 };
