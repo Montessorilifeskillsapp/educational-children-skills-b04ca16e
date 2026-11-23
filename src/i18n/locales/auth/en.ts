@@ -54,4 +54,5 @@ export const en = {
       'grace-courtesy': { label: 'Grace & Courtesy', desc: 'Social skills' },
     },
   },
+  welcomeCard: {"title": "Welcome to Montessori Learning", "body": "Sign in to access your dashboard and track progress", "explore": "Explore Free Activities", "or": "Or sign in for full access", "signIn": "Sign In / Create Account", "openingPortal": "Opening School Portal"},
 };

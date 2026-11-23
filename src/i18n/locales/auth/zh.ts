@@ -56,4 +56,5 @@ export const zh: typeof en = {
       'grace-courtesy': { label: '优雅与礼仪', desc: '社交能力' },
     },
   },
+  welcomeCard: {"title": "欢迎来到蒙台梭利学习", "body": "登录后即可进入你的面板并跟踪进度", "explore": "探索免费活动", "or": "或登录以获得完整访问权限", "signIn": "登录 / 创建账户", "openingPortal": "正在打开学校门户"},
 };

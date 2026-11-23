@@ -349,5 +349,262 @@ export const en = {
     "ctaBody": "Start with the first Practical Life activities and build your home environment one step at a time.",
     "ctaStart": "Start Practical Life",
     "ctaClassroom": "View classroom setup guide"
+  },
+  "classroomSetup": {
+    "seoTitle": "How to Set Up a Montessori Classroom | AMI Guide",
+    "seoDescription": "An AMI-exact guide to preparing an authentic Montessori environment: the prepared environment, the five curriculum areas, material arrangement, and the role of the adult.",
+    "back": "Back",
+    "badge": "The Prepared Environment · AMI and AMS",
+    "title": "How to Set Up Your Montessori Classroom",
+    "intro": "In Montessori, the environment is the teacher. Before a single lesson is given, the room itself must be prepared — ordered, beautiful, real, and proportioned to the child. This guide follows the prepared-environment principles of the Association Montessori Internationale (AMI) and the American Montessori Society (AMS).",
+    "envTitle": "The Prepared Environment",
+    "envIntro": "Dr. Maria Montessori called the classroom the <em>prepared environment</em>. It is not decorated; it is prepared — deliberately, for the child’s developmental needs. Six principles govern every decision.",
+    "principles": [
+      {
+        "title": "Order",
+        "body": "The environment must be ordered, because the child between three and six is in the sensitive period for order. Every material has a fixed place on the shelf, and the child always returns it there. Order in the environment builds order in the mind."
+      },
+      {
+        "title": "Beauty",
+        "body": "The room must be beautiful — light, airy, with fresh flowers, plants, and carefully chosen pictures hung at the child’s eye level. Beauty invites the child to work and to care for the space."
+      },
+      {
+        "title": "Reality",
+        "body": "Tools must be real and they must work. The child drinks from a real glass, pours from a real ceramic jug, sweeps with a real broom. Breakable objects are deliberate: they teach the child to move with care."
+      },
+      {
+        "title": "Freedom within limits",
+        "body": "The child is free to choose work, to work with it for as long as they wish, and to repeat it — provided the work is not misused and does not disturb others. Freedom is built on discipline, not license."
+      },
+      {
+        "title": "Child-sized proportions",
+        "body": "Every piece of furniture, every shelf, every tool is proportioned to the child and light enough for the child to move. Nothing in the room requires an adult’s strength or permission."
+      },
+      {
+        "title": "One of each material",
+        "body": "There is only one of each material in the room. This is intentional: it teaches waiting, turn-taking, and respect for another’s work — the social fabric of the classroom."
+      }
+    ],
+    "areasTitle": "The Areas of the Environment",
+    "areasIntro": "A classroom in the tradition of the Association Montessori Internationale (AMI) and the American Montessori Society (AMS) holds five curriculum areas, each on its own shelving, each with its own internal sequence. They are introduced in a strict order — and the order is not negotiable.",
+    "areaLabel": "Area {{n}} · {{position}}",
+    "areaAlt": "Montessori {{name}} materials",
+    "areas": [
+      {
+        "name": "Practical Life",
+        "position": "The first area. Everything begins here.",
+        "groups": [
+          "Preliminary exercises — spooning, pouring, carrying a tray, opening and closing",
+          "Care of the person — dressing frames, hand washing, food preparation",
+          "Care of the environment — dusting, sweeping, washing a table, flower arranging",
+          "Grace and courtesy — greeting, offering, waiting, observing another’s work",
+          "Control of movement — walking on the line, the silence game"
+        ],
+        "note": "Practical Life is offered exclusively at the start. No other curriculum area is introduced until the child’s Practical Life work is settled — concentration, order, coordination, and independence must be established first."
+      },
+      {
+        "name": "Sensorial",
+        "position": "Introduced once Practical Life work is settled.",
+        "groups": [
+          "Visual — pink tower, brown stair, red rods, knobbed cylinders",
+          "Tactile — touch boards, touch tablets, fabric box",
+          "Chromatic — color tablets, boxes one through three",
+          "Auditory — sound cylinders, the bells",
+          "Baric, thermic, and stereognostic — baric tablets, thermic bottles, mystery bag",
+          "Olfactory and gustatory — smelling bottles, tasting exercises"
+        ],
+        "note": "Each material isolates a single sensory quality — isolation of difficulty — and carries its own control of error, so the child can see and correct mistakes without an adult."
+      },
+      {
+        "name": "Language",
+        "position": "Runs alongside Sensorial, once speech is confident.",
+        "groups": [
+          "Enrichment of vocabulary — classified cards, three-period lessons",
+          "Sound games (I Spy) — isolating beginning, ending, then middle sounds",
+          "Sandpaper letters — tracing sound and shape together",
+          "Moveable alphabet — composing words before writing by hand",
+          "Writing — insets for design, metal insets, then chalk and pencil",
+          "Reading — phonetic words first, then phonograms and puzzle words"
+        ],
+        "note": "Writing precedes reading in the AMI sequence. The child composes with the moveable alphabet long before being asked to decode another’s writing."
+      },
+      {
+        "name": "Mathematics",
+        "position": "Introduced when the child shows readiness through Practical Life and Sensorial work.",
+        "groups": [
+          "Numbers one to ten — number rods, sandpaper numbers, spindle box, cards and counters",
+          "The decimal system — golden beads: unit, ten, hundred, thousand",
+          "Teens and tens — Seguin boards, colored bead stair",
+          "Linear counting — the hundred chain and thousand chain",
+          "Memorization — addition, subtraction, multiplication and division tables"
+        ],
+        "note": "Every quantity is first presented concretely with the golden beads; the symbol always follows the concrete experience, never precedes it."
+      },
+      {
+        "name": "Culture",
+        "position": "Woven through the environment from the start.",
+        "groups": [
+          "Geography — land and water forms, sandpaper and colored globes, puzzle maps",
+          "Botany — leaf cabinet, parts of a plant, care of plants in the room",
+          "Zoology — classification of the animal kingdom, care of classroom animals",
+          "Art and music — real art at child height, singing, the bells"
+        ],
+        "note": "Geography begins with the whole and moves to the parts: the globe of land and water before continents, the continent before the country."
+      }
+    ],
+    "shelfTitle": "Arranging the Materials",
+    "shelfRules": [
+      "Materials are arranged left to right, top to bottom, simplest to most complex — the order in which the child reads and the order in which the sequence unfolds.",
+      "Every activity is complete and self-contained on its own tray, basket, or stand. Nothing is missing; nothing extra is added.",
+      "Each material isolates one difficulty. A pouring set does not also teach color; a dressing frame does not also teach language.",
+      "Wherever possible the material carries a control of error — the child can see the mistake without an adult pointing it out.",
+      "Broken, incomplete, or worn materials are repaired or removed the same day. An incomplete set is worse than none at all.",
+      "Low, open shelving lets the child see the whole room’s work at a glance and choose freely."
+    ],
+    "shelfAlt": "A complete Montessori spooning activity on its own tray",
+    "shelfCaption": "Every activity is complete on its own tray: nothing missing, nothing extra.",
+    "adultTitle": "The Prepared Adult",
+    "adultRules": [
+      "Prepare the environment, then step back. The adult is the link between the child and the environment — not the center of it.",
+      "Observe before intervening. Most \"problems\" resolve when the child is given time.",
+      "Present each activity individually, slowly, with precise and economical movements. Analysis of movement: every motion is shown clearly enough for the child to imitate.",
+      "Present, then withdraw. The child learns through repetition, not through the adult’s commentary.",
+      "Guard concentration above all. Never interrupt a child who is working, not even to praise.",
+      "Re-present an activity as often as needed. A lesson that did not land is simply presented again another day, without comment."
+    ],
+    "adultAlt": "The line taped in an ellipse on the classroom floor, prepared for walking on the line",
+    "adultCaption": "The adult presents slowly and precisely, then steps back and observes.",
+    "roomTitle": "The Physical Room: Essentials to Gather",
+    "roomIntro": "Montessori spaces are built with intention, not excess. Before buying anything, look at what you already own at home or in your school — stable chairs that let the child sit with feet flat on the floor, tables at a comfortable working height, low open shelving, and trays and baskets the child can carry alone. For items designed specifically for small hands, authentic examples are noted below.",
+    "checklistTitle": "The Setup Checklist",
+    "checklistIntro": "Walk your room against this list before the first child enters.",
+    "checklist": [
+      "Low open shelves, no higher than the child’s shoulder",
+      "Child-sized tables and chairs, light enough to be moved by the child",
+      "Work rugs rolled and standing in a basket — each rug defines one child’s workspace",
+      "An ellipse marked on the floor for Walking on the Line",
+      "Real, breakable glasses, jugs and plates in the Practical Life area",
+      "Child-sized broom, dustpan, mop, dusting and polishing cloths, all accessible",
+      "A food preparation area with real child-sized tools",
+      "Plants to care for, fresh flowers to arrange, and a source of natural light",
+      "One complete set of each material, arranged on trays, simplest to most complex",
+      "Art prints hung at the child’s eye level, rotated regularly",
+      "A quiet corner of the shelf for the Silence Game",
+      "Nothing decorative that does not serve the child’s work"
+    ],
+    "ctaCurriculum": "Explore the full AMI curriculum",
+    "ctaHome": "Setting up at home?",
+    "materials": {
+      "intro": "Gather these gradually — begin with what you already have at home or in the classroom. Where a specific item is helpful, tapping it opens an authentic example.",
+      "noLink": "Use what you have available at home or in the classroom",
+      "buyLabel": "Buy {{name}} on {{vendor}}",
+      "error": "Product links could not be loaded. Please try again later.",
+      "groups": {
+        "Furniture": "Furniture",
+        "Work surfaces and carriers": "Work surfaces and carriers",
+        "Care of the environment": "Care of the environment",
+        "Beauty and care of the room": "Beauty and care of the room"
+      },
+      "items": {
+        "Child-sized chair": "Child-sized chair",
+        "Child-sized table": "Child-sized table",
+        "Low open shelving": "Low open shelving",
+        "Low coat hooks": "Low coat hooks",
+        "Child-height mirror": "Child-height mirror",
+        "Work mat": "Work mat",
+        "Tray": "Tray",
+        "Basket": "Basket",
+        "Small jug or pitcher": "Small jug or pitcher",
+        "Small ceramic bowls": "Small ceramic bowls",
+        "Small glass tumbler": "Small glass tumbler",
+        "Child-sized broom and dustpan set": "Child-sized broom and dustpan set",
+        "Child-sized mop": "Child-sized mop",
+        "Dusting cloths": "Dusting cloths",
+        "Sponges": "Sponges",
+        "Child-sized apron": "Child-sized apron",
+        "Small watering can": "Small watering can",
+        "Small waste basket": "Small waste basket",
+        "Potted plant": "Potted plant",
+        "Small vase for flowers": "Small vase for flowers"
+      }
+    }
+  },
+  "songs": {
+    "seoTitle": "Kerry's Montessori Songs — Montessori Life Skills",
+    "seoDescription": "Ten Montessori songs written by Kerry Howard. Play a free preview of each song; purchase the collection once for full lifetime access for your family.",
+    "pageTitle": "Kerry's Montessori Songs",
+    "playbackFailed": "Playback failed",
+    "tryAgainMoment": "Please try again in a moment.",
+    "checkoutNotStarted": "Checkout could not be started.",
+    "checkoutFailed": "Could not start checkout",
+    "tryAgain": "Please try again.",
+    "signTitle": "Sign the Household License Agreement",
+    "signIntro": "Before purchasing, please read and sign the license for Kerry's Montessori Songs. You may download the songs for private use within your own household only. They may not be used in any school, classroom, daycare, co-op, camp or other group setting.",
+    "readFull": "Read the full license agreement",
+    "agree": "I have read and agree to the Household License Agreement, and confirm this purchase is for my household only, not for any school, childcare or group use.",
+    "signatureLabel": "Signature — type your full name",
+    "signaturePlaceholder": "Full name",
+    "signedAs": "Signed as {{email}} on {{date}}.",
+    "cancel": "Cancel",
+    "signAndPay": "Sign and continue to payment",
+    "introTitle": "Songs for the Montessori home and classroom",
+    "introBody": "Ten original songs written by Kerry Howard, following authentic Montessori principles. Every song has a free 10-second sample; the full collection is a single purchase with lifetime access for your whole family.",
+    "owned": "You have full access to the collection — every song plays in full below.",
+    "notYet": "The collection will be available to purchase once the songs are released.",
+    "nativeNote": "Purchases of the song collection happen on our website. Your access carries over to this app automatically with the same account.",
+    "buyWebsite": "Buy on our website",
+    "priceLabel": "{{price}} · one-time, lifetime access",
+    "separate": "A separate purchase — not included with Premium or Family subscriptions.",
+    "getFull": "Get the full collection",
+    "signInToBuy": "Sign in to buy the collection",
+    "loadError": "The songs could not be loaded. Please try again in a moment.",
+    "comingSoon": "The song collection is coming soon.",
+    "coverAlt": "{{title}} cover",
+    "pauseLabel": "Pause {{title}}",
+    "previewLabel": "Play preview of {{title}}",
+    "pause": "Pause",
+    "play": "Play",
+    "preview": "Preview",
+    "fullSongLength": "{{length}} full song",
+    "fullSong": "Full song",
+    "fullAccess": "Full access",
+    "withCollection": "Full song with collection",
+    "downloadLabel": "Download {{title}}",
+    "download": "Download",
+    "schoolsTitle": "Schools: one license for everything",
+    "schoolsBody": "For schools, the songs are part of a single school license that also covers the curriculum app and the School Portal. Arranged directly with Kerry.",
+    "readLicense": "Read the license agreement",
+    "askSchool": "Ask Kerry about a school license",
+    "copyright": "© Kerry Howard. All rights reserved. Household downloads are for private use within the purchasing household only; no school, classroom or group use. Purchase does not transfer copyright.",
+    "copyrightLink": "Copyright and use terms"
+  },
+  "accessibility": {
+    "seoTitle": "Accessibility Statement - Montessori Life Skills",
+    "seoDescription": "How Montessori Life Skills works toward an accessible app for parents, teachers and school staff, known gaps, and how to ask for help.",
+    "title": "Accessibility Statement",
+    "updated": "Last updated: {{date}}",
+    "commitTitle": "Our commitment",
+    "commit1": "We want every parent, teacher, assistant and school administrator to be able to use Montessori Life Skills, including people who use a screen reader, a keyboard instead of a mouse, magnification, or captions.",
+    "commit2": "We are working toward the Web Content Accessibility Guidelines (WCAG) 2.1, Level AA, the standard used by U.S. public schools under the Americans with Disabilities Act (ADA) and Section 508. This applies to the website, the iPhone and Android apps, and the School Portal.",
+    "doTitle": "What we do",
+    "do": [
+      "Text descriptions for activity and material photos.",
+      "The app follows your device's reduced-motion and high-contrast settings.",
+      "Clear headings and step-by-step instructions written in plain language."
+    ],
+    "gapsTitle": "Known gaps we are working on",
+    "gaps": [
+      {
+        "label": "Lesson video captions:",
+        "text": "lesson videos do not have captions yet. We plan to add them. Until then, every activity has written step-by-step instructions covering the same presentation."
+      },
+      {
+        "label": "Full review:",
+        "text": "we have not yet completed a full WCAG 2.1 AA review of every page. If something does not work for you, please tell us."
+      }
+    ],
+    "helpTitle": "Ask for help or report a problem",
+    "help1": "If you have trouble using any part of the app, or need content in another format, email <mail>montessorilifeskills@gmail.com</mail>. Tell us the page or activity and what happened, and we will help you get the information another way while we fix it.",
+    "help2": "Schools that need an accessibility conformance report (VPAT) for a purchasing review can request one at the same address."
   }
 };

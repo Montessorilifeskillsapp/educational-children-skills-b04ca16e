@@ -1,0 +1,170 @@
+{
+  "seoTitle": "Masharti ya huduma - Montessori Learning App",
+  "seoDescription": "Masharti ya huduma na makubaliano ya mtumiaji ya programu yetu ya kujifunza Montessori. Fahamu haki na wajibu wako.",
+  "pageTitle": "Masharti ya huduma",
+  "updated": "Ilisasishwa mwisho: {{date}}",
+  "translationNote": "Tafsiri hii imetolewa kwa urahisi wako. Ikiwa inatofautiana na toleo la Kiingereza, toleo la Kiingereza ndilo litakalotumika.",
+  "sections": [
+    {
+      "title": "Kukubali masharti",
+      "blocks": [
+        {
+          "p": "Kwa kufikia na kutumia Montessori Life Skills App, unakubali na kukubali kufungwa na masharti na vifungu vya makubaliano haya. Ikiwa hukubali kuyafuata, tafadhali usitumie huduma hii."
+        }
+      ]
+    },
+    {
+      "title": "Maelezo ya huduma",
+      "blocks": [
+        {
+          "p": "Montessori Life Skills App hutoa shughuli za kidijitali za kujifunza za Montessori, ufuatiliaji wa maendeleo na maudhui ya kielimu yaliyoundwa kusaidia ukuaji wa watoto kupitia stadi za maisha ya vitendo zinazoongozwa."
+        }
+      ]
+    },
+    {
+      "title": "Akaunti za watumiaji",
+      "blocks": [
+        {
+          "ul": [
+            "Lazima utoe taarifa sahihi na kamili unapofungua akaunti",
+            "Una wajibu wa kulinda usalama wa akaunti yako",
+            "Lazima utujulishe mara moja kuhusu matumizi yoyote yasiyoidhinishwa ya akaunti yako",
+            "Akaunti moja kwa kila mtumiaji inaruhusiwa"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Masharti ya usajili (usajili unaojisasisha kiotomatiki)",
+      "blocks": [
+        {
+          "p": "Montessori Life Skills App hutoa usajili unaojisasisha kiotomatiki unaokupa ufikiaji wa mtaala kamili wa Montessori, shughuli zote za premium na usaidizi wa kipaumbele. Premium inajumuisha wasifu mmoja wa mtoto; Familia inajumuisha hadi wasifu wanne wa watoto."
+        },
+        {
+          "h3": "Mipango inayopatikana, muda na bei"
+        },
+        {
+          "ul": [
+            "**Premium ya kila mwezi** — mwezi 1 wa ufikiaji kamili kwa **$29.99 USD**, hutozwa kila mwezi.",
+            "**Premium ya mwaka** — miezi 12 ya ufikiaji kamili kwa **$199.00 USD**, hutozwa mara moja kwa mwaka (takriban $16.58 kwa mwezi).",
+            "**Familia ya kila mwezi** — hadi wasifu wanne wa watoto kwa **$49.00 USD**, hutozwa kila mwezi.",
+            "**Familia ya mwaka** — hadi wasifu wanne wa watoto kwa **$349.00 USD**, hutozwa mara moja kwa mwaka (takriban $29.08 kwa mwezi).",
+            "Bei katika sarafu nyingine huonyeshwa wakati wa ununuzi na zinaweza kutofautiana kulingana na eneo na kodi zinazohusika."
+          ]
+        },
+        {
+          "h3": "Malipo na kujisasisha kiotomatiki"
+        },
+        {
+          "ul": [
+            "Malipo yatatozwa kwenye Apple ID yako (iOS), akaunti yako ya Google Play (Android) au njia ya malipo iliyosajiliwa kwenye Stripe (wavuti) unapothibitisha ununuzi.",
+            "Usajili **hujisasisha kiotomatiki** kwa bei na muda uleule isipokuwa kujisasisha kiotomatiki kuzimwe angalau saa 24 kabla ya mwisho wa kipindi cha sasa.",
+            "Akaunti yako itatozwa kwa ajili ya kusasisha ndani ya saa 24 kabla ya mwisho wa kipindi cha sasa.",
+            "Baada ya ununuzi, unaweza kudhibiti usajili na kuzima kujisasisha kiotomatiki katika mipangilio ya akaunti yako kwenye App Store, Google Play au tovuti ya wateja ya Stripe.",
+            "Kwa mipango ya mwaka iliyonunuliwa kwenye tovuti yetu, tunatuma kikumbusho kwa barua pepe siku 15 hadi 30 kabla ya kila usasishaji, chenye tarehe ya usasishaji, kiasi na jinsi ya kughairi."
+          ]
+        },
+        {
+          "h3": "Kipindi cha majaribio bila malipo (kikitolewa)"
+        },
+        {
+          "ul": [
+            "Sehemu yoyote isiyotumika ya kipindi cha majaribio bila malipo, kikitolewa, itapotea unaponunua usajili."
+          ]
+        },
+        {
+          "h3": "Kughairi na kurejeshewa pesa"
+        },
+        {
+          "ul": [
+            "Unaweza kughairi usajili wako wakati wowote. Kughairi huanza kutumika mwishoni mwa kipindi cha sasa cha malipo; ufikiaji unaendelea hadi wakati huo.",
+            "**iOS:** Dhibiti au ghairi katika *Mipangilio > [jina lako] > Usajili*.",
+            "**Android:** Dhibiti au ghairi katika Google Play Store chini ya *Malipo na usajili > Usajili*.",
+            "**Wavuti (Stripe):** Ingia, fungua ukurasa wa mipango kisha uchague *Dhibiti au ghairi*. Unaweza pia kutumia kiungo kilicho kwenye barua pepe ya risiti yako au kuwasiliana na usaidizi.",
+            "Maombi ya kurejeshewa pesa kwa ununuzi wa App Store hushughulikiwa na Apple kupitia [reportaproblem.apple.com](https://reportaproblem.apple.com). Ununuzi wa wavuti unalindwa na dhamana yetu ya kurejeshewa pesa ya siku 30 — wasiliana na montessorilifeskills@gmail.com."
+          ]
+        },
+        {
+          "h3": "Viungo"
+        },
+        {
+          "ul": [
+            "[Masharti ya matumizi (EULA)](/terms-of-service)",
+            "[Sera ya faragha](/privacy-policy)",
+            "EULA ya kawaida ya Apple: [apple.com/legal/internet-services/itunes/dev/stdeula](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Matumizi yanayokubalika",
+      "blocks": [
+        {
+          "p": "Unakubali kutofanya yafuatayo:"
+        },
+        {
+          "ul": [
+            "Kushiriki taarifa zako za kuingia kwenye akaunti na wengine",
+            "Kutumia huduma kwa madhumuni yoyote haramu au yasiyoidhinishwa",
+            "Kujaribu kupata ufikiaji usioidhinishwa wa mifumo yetu",
+            "Kusambaza au kunakili maudhui yenye hakimiliki bila ruhusa",
+            "Kutumia huduma kwa njia yoyote inayoweza kuharibu au kudhoofisha utendaji wake"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Mali ya kiakili",
+      "blocks": [
+        {
+          "p": "Maudhui asilia ya Montessori Life Skills App yanalindwa na sheria ya mali ya kiakili. Ufikiaji wa programu au ununuzi wa mkusanyiko wa nyimbo hukupa ruhusa ya kutumia maudhui kama ilivyoelezwa hapa chini; haihamishi hakimiliki wala umiliki wa rekodi, video au vifaa vingine asilia. Hatudai kanuni na mbinu za Montessori zenyewe kuwa mali yetu ya kipekee."
+        },
+        {
+          "h3": "Nyimbo za Montessori za Kerry"
+        },
+        {
+          "p": "Kerry Howard anabaki na haki za nyimbo na rekodi zake asilia. Ununuzi wa mkusanyiko wa nyimbo kwa familia huipa familia yako ufikiaji wa kusikiliza nyimbo kamili mtandaoni kupitia programu. Vipande vya bure vinapatikana bila ununuzi. Hakuna chaguo lolote la ufikiaji linaloruhusu kupakua, kunakili, kurekodi, kusambaza upya, kuuza upya au kutumia nyimbo katika bidhaa au chapisho lingine. Kununua ufikiaji wa familia hakutoi leseni ya shule wala haki za kutumia jina au nembo yoyote."
+        },
+        {
+          "h3": "Leseni ya shule"
+        },
+        {
+          "p": "Matumizi ya nyimbo darasani na matumizi mengine ya kitaasisi yanaruhusiwa tu chini ya leseni ya shule inayopangwa moja kwa moja na Kerry. Leseni ya shule ni makubaliano mamoja yanayojumuisha programu ya mtaala, Lango la Shule na mkusanyiko wa nyimbo kwa shule yenye leseni na wafanyakazi wake waliotajwa. Usajili wa familia au ununuzi wa nyimbo hauwezi kutumika kwa madhumuni ya darasani au ya kitaasisi. Kwa leseni ya shule, wasiliana na montessorilifeskills@gmail.com. [Makubaliano ya Leseni ya Nyimbo](/songs-licence) kamili yanatumika."
+        },
+        {
+          "h3": "Video za mafunzo na maudhui ya programu"
+        },
+        {
+          "p": "Video asilia za mafunzo na vifaa vingine asilia vya programu ni mali ya Montessori Life Skills au wamiliki husika wa haki. Ufikiaji ni kwa ajili ya kutazama ndani ya programu kwa akaunti yako, kulingana na kiwango cha ufikiaji kinachoonyeshwa kwa kila shughuli. Huruhusiwi kupakua, kurekodi, kunakili, kushiriki, kuchapisha upya, kuuza au kuunda kazi tokanizi kutoka kwa video au vifaa hivi bila ruhusa ya maandishi kutoka kwa mmiliki husika wa haki. Kwa maombi ya ruhusa au leseni, wasiliana na montessorilifeskills@gmail.com."
+        }
+      ]
+    },
+    {
+      "title": "Kikomo cha dhima",
+      "blocks": [
+        {
+          "p": "Hatutawajibika kwa hasara yoyote isiyo ya moja kwa moja, ya bahati, maalum, inayotokana au ya adhabu itakayotokana na matumizi yako ya huduma au kushindwa kuitumia."
+        }
+      ]
+    },
+    {
+      "title": "Mabadiliko ya masharti",
+      "blocks": [
+        {
+          "p": "Tuna haki ya kubadilisha masharti haya wakati wowote. Tutawajulisha watumiaji kuhusu mabadiliko makubwa kwa barua pepe au arifa ya programu. Kuendelea kutumia huduma kunamaanisha kukubali masharti yaliyobadilishwa."
+        }
+      ]
+    },
+    {
+      "title": "Mawasiliano",
+      "blocks": [
+        {
+          "p": "Kwa maswali kuhusu Masharti haya ya Huduma, tafadhali wasiliana nasi kupitia:"
+        },
+        {
+          "p": "Barua pepe: montessorilifeskills@gmail.com"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "seoTitle": "Nutzungsbedingungen - Montessori Learning App",
+  "seoDescription": "Nutzungsbedingungen und Nutzervereinbarung für unsere Montessori-Lern-App. Erfahren Sie mehr über Ihre Rechte und Pflichten.",
+  "pageTitle": "Nutzungsbedingungen",
+  "updated": "Zuletzt aktualisiert: {{date}}",
+  "translationNote": "Diese Übersetzung dient Ihrer Bequemlichkeit. Weicht sie von der englischen Fassung ab, gilt die englische Fassung.",
+  "sections": [
+    {
+      "title": "Zustimmung zu den Bedingungen",
+      "blocks": [
+        {
+          "p": "Indem Sie Montessori Life Skills App aufrufen und nutzen, akzeptieren Sie die Bedingungen und Bestimmungen dieser Vereinbarung und erklären sich mit ihnen einverstanden. Wenn Sie damit nicht einverstanden sind, nutzen Sie diesen Dienst bitte nicht."
+        }
+      ]
+    },
+    {
+      "title": "Beschreibung des Dienstes",
+      "blocks": [
+        {
+          "p": "Montessori Life Skills App bietet digitale Montessori-Lernaktivitäten, Fortschrittsverfolgung und Bildungsinhalte, die die Entwicklung von Kindern durch angeleitete Übungen des täglichen Lebens unterstützen."
+        }
+      ]
+    },
+    {
+      "title": "Benutzerkonten",
+      "blocks": [
+        {
+          "ul": [
+            "Sie müssen bei der Erstellung eines Kontos zutreffende und vollständige Angaben machen",
+            "Sie sind für die Sicherheit Ihres Kontos verantwortlich",
+            "Sie müssen uns jede unbefugte Nutzung Ihres Kontos unverzüglich melden",
+            "Pro Nutzer ist ein Konto zulässig"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Abonnementbedingungen (sich automatisch verlängernde Abonnements)",
+      "blocks": [
+        {
+          "p": "Montessori Life Skills App bietet sich automatisch verlängernde Abonnements an, die Ihnen Zugang zum vollständigen Montessori-Lehrplan, zu allen Premium-Aktivitäten und zu bevorzugtem Support geben. Premium umfasst ein Kinderprofil; Familie umfasst bis zu vier Kinderprofile."
+        },
+        {
+          "h3": "Verfügbare Tarife, Laufzeit und Preis"
+        },
+        {
+          "ul": [
+            "**Premium monatlich** – 1 Monat voller Zugang für **$29.99 USD**, monatlich abgerechnet.",
+            "**Premium jährlich** – 12 Monate voller Zugang für **$199.00 USD**, einmal jährlich abgerechnet (etwa $16.58 pro Monat).",
+            "**Familie monatlich** – bis zu vier Kinderprofile für **$49.00 USD**, monatlich abgerechnet.",
+            "**Familie jährlich** – bis zu vier Kinderprofile für **$349.00 USD**, einmal jährlich abgerechnet (etwa $29.08 pro Monat).",
+            "Preise in anderen Währungen werden beim Kauf angezeigt und können je nach Region und anfallenden Steuern variieren."
+          ]
+        },
+        {
+          "h3": "Zahlung und automatische Verlängerung"
+        },
+        {
+          "ul": [
+            "Die Zahlung wird bei Bestätigung des Kaufs Ihrer Apple-ID (iOS), Ihrem Google-Play-Konto (Android) oder der bei Stripe hinterlegten Zahlungsmethode (Web) belastet.",
+            "Abonnements **verlängern sich automatisch** zum gleichen Preis und mit der gleichen Laufzeit, sofern die automatische Verlängerung nicht mindestens 24 Stunden vor Ende des laufenden Zeitraums deaktiviert wird.",
+            "Die Verlängerung wird Ihrem Konto innerhalb von 24 Stunden vor Ende des laufenden Zeitraums belastet.",
+            "Nach dem Kauf können Sie Abonnements verwalten und die automatische Verlängerung in Ihren Kontoeinstellungen im App Store, bei Google Play oder im Stripe-Kundenportal deaktivieren.",
+            "Bei Jahrestarifen, die auf unserer Website gekauft wurden, senden wir 15 bis 30 Tage vor jeder Verlängerung eine Erinnerung per E-Mail mit dem Verlängerungsdatum, dem Betrag und dem Weg zur Kündigung."
+          ]
+        },
+        {
+          "h3": "Kostenlose Testphase (falls angeboten)"
+        },
+        {
+          "ul": [
+            "Ein nicht genutzter Teil einer kostenlosen Testphase, falls angeboten, verfällt, wenn Sie ein Abonnement abschließen."
+          ]
+        },
+        {
+          "h3": "Kündigung und Erstattungen"
+        },
+        {
+          "ul": [
+            "Sie können Ihr Abonnement jederzeit kündigen. Die Kündigung wird zum Ende des laufenden Abrechnungszeitraums wirksam; bis dahin bleibt der Zugang bestehen.",
+            "**iOS:** Verwalten oder kündigen unter *Einstellungen > [Ihr Name] > Abonnements*.",
+            "**Android:** Verwalten oder kündigen im Google Play Store unter *Zahlungen und Abos > Abos*.",
+            "**Web (Stripe):** Melden Sie sich an, öffnen Sie die Seite mit den Tarifen und wählen Sie *Verwalten oder kündigen*. Sie können auch den Link in Ihrer Beleg-E-Mail verwenden oder den Support kontaktieren.",
+            "Erstattungsanträge für Käufe im App Store bearbeitet Apple unter [reportaproblem.apple.com](https://reportaproblem.apple.com). Käufe im Web sind durch unsere 30-tägige Geld-zurück-Garantie abgedeckt – schreiben Sie an montessorilifeskills@gmail.com."
+          ]
+        },
+        {
+          "h3": "Links"
+        },
+        {
+          "ul": [
+            "[Nutzungsbedingungen (EULA)](/terms-of-service)",
+            "[Datenschutzerklärung](/privacy-policy)",
+            "Standard-EULA von Apple: [apple.com/legal/internet-services/itunes/dev/stdeula](https://www.apple.com/legal/internet-services/itunes/dev/stdeula/)"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Zulässige Nutzung",
+      "blocks": [
+        {
+          "p": "Sie verpflichten sich, Folgendes zu unterlassen:"
+        },
+        {
+          "ul": [
+            "Ihre Zugangsdaten an andere weiterzugeben",
+            "Den Dienst für rechtswidrige oder unbefugte Zwecke zu nutzen",
+            "Zu versuchen, sich unbefugten Zugang zu unseren Systemen zu verschaffen",
+            "Urheberrechtlich geschützte Inhalte ohne Erlaubnis zu verbreiten oder zu vervielfältigen",
+            "Den Dienst in einer Weise zu nutzen, die seine Funktion beschädigen oder beeinträchtigen könnte"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Geistiges Eigentum",
+      "blocks": [
+        {
+          "p": "Die Originalinhalte von Montessori Life Skills App sind durch das Recht des geistigen Eigentums geschützt. Der Zugang zur App oder der Kauf der Liedersammlung berechtigt Sie, die Inhalte wie unten beschrieben zu nutzen; Urheberrechte oder Eigentum an den Aufnahmen, Videos oder anderen Originalmaterialien werden dadurch nicht übertragen. Die Montessori-Grundsätze und -Methoden selbst beanspruchen wir nicht als unser ausschließliches Eigentum."
+        },
+        {
+          "h3": "Kerrys Montessori-Lieder"
+        },
+        {
+          "p": "Kerry Howard behält die Rechte an ihren eigenen Liedern und Aufnahmen. Der Kauf der Liedersammlung für die Familie ermöglicht es Ihrer Familie, die vollständigen Lieder über die App zu streamen. Kostenlose Hörproben sind ohne Kauf verfügbar. Keine der beiden Zugangsoptionen erlaubt es, die Lieder herunterzuladen, zu kopieren, aufzunehmen, weiterzuverbreiten, weiterzuverkaufen oder in einem anderen Produkt oder einer anderen Veröffentlichung zu verwenden. Der Kauf des Familienzugangs gewährt weder eine Schullizenz noch Rechte zur Nutzung von Namen oder Marken."
+        },
+        {
+          "h3": "Schullizenz"
+        },
+        {
+          "p": "Die Nutzung der Lieder im Klassenraum und für andere institutionelle Zwecke ist nur mit einer direkt mit Kerry vereinbarten Schullizenz erlaubt. Die Schullizenz ist eine einzige Vereinbarung, die die Lehrplan-App, das Schulportal und die Liedersammlung für die lizenzierte Schule und ihr namentlich benanntes Personal abdeckt. Familienabonnements oder Liederkäufe dürfen nicht für den Unterricht oder institutionelle Zwecke genutzt werden. Für Schullizenzen schreiben Sie an montessorilifeskills@gmail.com. Es gilt die vollständige [Lizenzvereinbarung für die Lieder](/songs-licence)."
+        },
+        {
+          "h3": "Lehrvideos und App-Inhalte"
+        },
+        {
+          "p": "Originale Lehrvideos und andere originale App-Materialien gehören Montessori Life Skills oder den jeweiligen Rechteinhabern. Der Zugang dient dem Ansehen innerhalb der App unter Ihrem Konto, entsprechend der bei jeder Aktivität angegebenen Zugangsstufe. Sie dürfen diese Videos oder Materialien ohne schriftliche Erlaubnis des jeweiligen Rechteinhabers nicht herunterladen, aufnehmen, kopieren, teilen, erneut veröffentlichen, verkaufen oder abgeleitete Werke daraus erstellen. Für Anfragen zu Genehmigungen oder Lizenzen schreiben Sie an montessorilifeskills@gmail.com."
+        }
+      ]
+    },
+    {
+      "title": "Haftungsbeschränkung",
+      "blocks": [
+        {
+          "p": "Wir haften nicht für indirekte, beiläufige, besondere, Folge- oder Strafschäden, die aus Ihrer Nutzung des Dienstes oder der Unmöglichkeit seiner Nutzung entstehen."
+        }
+      ]
+    },
+    {
+      "title": "Änderungen der Bedingungen",
+      "blocks": [
+        {
+          "p": "Wir behalten uns das Recht vor, diese Bedingungen jederzeit zu ändern. Über wesentliche Änderungen informieren wir die Nutzer per E-Mail oder App-Benachrichtigung. Die weitere Nutzung des Dienstes gilt als Zustimmung zu den geänderten Bedingungen."
+        }
+      ]
+    },
+    {
+      "title": "Kontakt",
+      "blocks": [
+        {
+          "p": "Bei Fragen zu diesen Nutzungsbedingungen erreichen Sie uns unter:"
+        },
+        {
+          "p": "E-Mail: montessorilifeskills@gmail.com"
+        }
+      ]
+    }
+  ]
+}

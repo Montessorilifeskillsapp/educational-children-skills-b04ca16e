@@ -351,5 +351,262 @@ export const de: typeof en = {
     "ctaBody": "Beginnen Sie mit den ersten Übungen des täglichen Lebens und richten Sie Ihre Umgebung zu Hause Schritt für Schritt ein.",
     "ctaStart": "Mit den Übungen des täglichen Lebens beginnen",
     "ctaClassroom": "Leitfaden zur vorbereiteten Umgebung ansehen"
+  },
+  "classroomSetup": {
+    "seoTitle": "Einen Montessori-Klassenraum einrichten | AMI-Leitfaden",
+    "seoDescription": "Ein AMI-getreuer Leitfaden zur Vorbereitung einer authentischen Montessori-Umgebung: die vorbereitete Umgebung, die fünf Lernbereiche, die Anordnung der Materialien und die Rolle des Erwachsenen.",
+    "back": "Zurück",
+    "badge": "Die vorbereitete Umgebung · AMI und AMS",
+    "title": "So richten Sie Ihren Montessori-Klassenraum ein",
+    "intro": "In der Montessori-Pädagogik ist die Umgebung der Lehrer. Bevor auch nur eine Lektion gegeben wird, muss der Raum selbst vorbereitet sein – geordnet, schön, echt und den Maßen des Kindes angepasst. Dieser Leitfaden folgt den Grundsätzen der vorbereiteten Umgebung der Association Montessori Internationale (AMI) und der American Montessori Society (AMS).",
+    "envTitle": "Die vorbereitete Umgebung",
+    "envIntro": "Dr. Maria Montessori nannte den Klassenraum die <em>vorbereitete Umgebung</em>. Er wird nicht dekoriert, sondern vorbereitet – bewusst und auf die Entwicklungsbedürfnisse des Kindes hin. Sechs Grundsätze bestimmen jede Entscheidung.",
+    "principles": [
+      {
+        "title": "Ordnung",
+        "body": "Die Umgebung muss geordnet sein, denn das Kind zwischen drei und sechs Jahren befindet sich in der sensiblen Phase für Ordnung. Jedes Material hat seinen festen Platz im Regal, und das Kind bringt es immer dorthin zurück. Ordnung in der Umgebung schafft Ordnung im Geist."
+      },
+      {
+        "title": "Schönheit",
+        "body": "Der Raum muss schön sein – hell, luftig, mit frischen Blumen, Pflanzen und sorgfältig ausgewählten Bildern auf Augenhöhe des Kindes. Schönheit lädt das Kind ein, zu arbeiten und für den Raum zu sorgen."
+      },
+      {
+        "title": "Wirklichkeit",
+        "body": "Werkzeuge müssen echt sein und funktionieren. Das Kind trinkt aus einem echten Glas, gießt aus einem echten Keramikkrug, kehrt mit einem echten Besen. Zerbrechliche Gegenstände sind gewollt: Sie lehren das Kind, sich sorgsam zu bewegen."
+      },
+      {
+        "title": "Freiheit in Grenzen",
+        "body": "Das Kind darf seine Arbeit frei wählen, so lange damit arbeiten, wie es möchte, und sie wiederholen – solange das Material nicht zweckentfremdet wird und niemand gestört wird. Freiheit gründet auf Disziplin, nicht auf Beliebigkeit."
+      },
+      {
+        "title": "Kindgerechte Maße",
+        "body": "Jedes Möbelstück, jedes Regal und jedes Werkzeug ist den Maßen des Kindes angepasst und leicht genug, dass das Kind es selbst bewegen kann. Nichts im Raum erfordert die Kraft oder die Erlaubnis eines Erwachsenen."
+      },
+      {
+        "title": "Jedes Material nur einmal",
+        "body": "Jedes Material gibt es im Raum nur einmal. Das ist beabsichtigt: Es lehrt Warten, Abwechseln und Respekt vor der Arbeit anderer – das soziale Gefüge des Klassenraums."
+      }
+    ],
+    "areasTitle": "Die Bereiche der Umgebung",
+    "areasIntro": "Ein Klassenraum in der Tradition der Association Montessori Internationale (AMI) und der American Montessori Society (AMS) umfasst fünf Lernbereiche, jeder mit eigenen Regalen und eigener innerer Abfolge. Sie werden in einer festen Reihenfolge eingeführt – und diese Reihenfolge ist nicht verhandelbar.",
+    "areaLabel": "Bereich {{n}} · {{position}}",
+    "areaAlt": "Montessori-Materialien: {{name}}",
+    "areas": [
+      {
+        "name": "Übungen des täglichen Lebens",
+        "position": "Der erste Bereich. Hier beginnt alles.",
+        "groups": [
+          "Vorbereitende Übungen – Löffeln, Schütten, Tablett tragen, Öffnen und Schließen",
+          "Sorge für die eigene Person – Ankleiderahmen, Händewaschen, Zubereitung von Speisen",
+          "Sorge für die Umgebung – Staubwischen, Kehren, Tisch waschen, Blumen arrangieren",
+          "Anmut und Höflichkeit – Begrüßen, Anbieten, Warten, die Arbeit eines anderen beobachten",
+          "Kontrolle der Bewegung – Gehen auf der Linie, das Stillespiel"
+        ],
+        "note": "Zu Beginn werden ausschließlich Übungen des täglichen Lebens angeboten. Kein anderer Lernbereich wird eingeführt, bevor die Arbeit des Kindes hier gefestigt ist – Konzentration, Ordnung, Koordination und Selbstständigkeit müssen zuerst aufgebaut sein."
+      },
+      {
+        "name": "Sinnesmaterial",
+        "position": "Wird eingeführt, sobald die Übungen des täglichen Lebens gefestigt sind.",
+        "groups": [
+          "Visuell – Rosa Turm, Braune Treppe, Rote Stangen, Einsatzzylinder",
+          "Taktil – Tastbretter, Tasttäfelchen, Stoffkasten",
+          "Chromatisch – Farbtäfelchen, Kästen eins bis drei",
+          "Auditiv – Geräuschdosen, die Glocken",
+          "Barisch, thermisch und stereognostisch – Gewichtsbrettchen, Wärmeflaschen, Fühlsäckchen",
+          "Olfaktorisch und gustatorisch – Geruchsdosen, Geschmacksübungen"
+        ],
+        "note": "Jedes Material isoliert eine einzige Sinnesqualität – die Isolation der Schwierigkeit – und trägt seine eigene Fehlerkontrolle in sich, sodass das Kind Fehler ohne einen Erwachsenen erkennen und berichtigen kann."
+      },
+      {
+        "name": "Sprache",
+        "position": "Läuft parallel zum Sinnesmaterial, sobald das Kind sicher spricht.",
+        "groups": [
+          "Wortschatzerweiterung – Klassifizierte Karten, Drei-Stufen-Lektionen",
+          "Lautspiele (Ich sehe was) – zuerst Anfangs-, dann End- und schließlich Mittellaute heraushören",
+          "Sandpapierbuchstaben – Laut und Form gemeinsam nachspüren",
+          "Bewegliches Alphabet – Wörter legen, bevor mit der Hand geschrieben wird",
+          "Schreiben – Formen zum Nachzeichnen, Metalleinsätze, dann Kreide und Stift",
+          "Lesen – zuerst lautgetreue Wörter, dann Phonogramme und Merkwörter"
+        ],
+        "note": "In der AMI-Abfolge kommt das Schreiben vor dem Lesen. Das Kind legt Wörter mit dem Beweglichen Alphabet, lange bevor es die Schrift eines anderen entziffern soll."
+      },
+      {
+        "name": "Mathematik",
+        "position": "Wird eingeführt, wenn das Kind durch die Übungen des täglichen Lebens und das Sinnesmaterial Bereitschaft zeigt.",
+        "groups": [
+          "Zahlen von eins bis zehn – Numerische Stangen, Sandpapierziffern, Spindelkasten, Ziffern und Chips",
+          "Das Dezimalsystem – Goldenes Perlenmaterial: Einer, Zehner, Hunderter, Tausender",
+          "Elfer bis Neunzehner und Zehner – Seguin-Tafeln, farbige Perlentreppe",
+          "Lineares Zählen – die Hunderterkette und die Tausenderkette",
+          "Auswendiglernen – Tabellen für Addition, Subtraktion, Multiplikation und Division"
+        ],
+        "note": "Jede Menge wird zuerst konkret mit dem Goldenen Perlenmaterial dargeboten; das Symbol folgt immer der konkreten Erfahrung, niemals umgekehrt."
+      },
+      {
+        "name": "Kosmische Erziehung",
+        "position": "Von Anfang an in die gesamte Umgebung eingewoben.",
+        "groups": [
+          "Geografie – Land- und Wasserformen, Sandpapierglobus und Farbglobus, Puzzlekarten",
+          "Botanik – Botanikschrank, Teile einer Pflanze, Pflege der Pflanzen im Raum",
+          "Zoologie – Einteilung des Tierreichs, Pflege der Tiere im Klassenraum",
+          "Kunst und Musik – echte Kunst auf Kinderhöhe, Singen, die Glocken"
+        ],
+        "note": "Die Geografie beginnt mit dem Ganzen und geht zu den Teilen: der Globus mit Land und Wasser vor den Kontinenten, der Kontinent vor dem Land."
+      }
+    ],
+    "shelfTitle": "Die Anordnung der Materialien",
+    "shelfRules": [
+      "Die Materialien sind von links nach rechts und von oben nach unten angeordnet, vom Einfachsten zum Komplexesten – in der Leserichtung des Kindes und in der Reihenfolge, in der sich die Abfolge entfaltet.",
+      "Jede Übung ist vollständig und in sich abgeschlossen auf einem eigenen Tablett, in einem Korb oder auf einem Ständer. Nichts fehlt, nichts Zusätzliches kommt hinzu.",
+      "Jedes Material isoliert eine Schwierigkeit. Ein Schüttset lehrt nicht zugleich Farben; ein Ankleiderahmen lehrt nicht zugleich Sprache.",
+      "Wo immer möglich, enthält das Material eine Fehlerkontrolle – das Kind erkennt den Fehler, ohne dass ein Erwachsener darauf hinweist.",
+      "Kaputte, unvollständige oder abgenutzte Materialien werden noch am selben Tag repariert oder entfernt. Ein unvollständiges Set ist schlechter als gar keines.",
+      "Niedrige, offene Regale lassen das Kind die Arbeit des ganzen Raums auf einen Blick sehen und frei wählen."
+    ],
+    "shelfAlt": "Eine vollständige Montessori-Übung zum Löffeln auf einem eigenen Tablett",
+    "shelfCaption": "Jede Übung ist auf ihrem eigenen Tablett vollständig: nichts fehlt, nichts ist zu viel.",
+    "adultTitle": "Der vorbereitete Erwachsene",
+    "adultRules": [
+      "Bereiten Sie die Umgebung vor und treten Sie dann zurück. Der Erwachsene ist das Bindeglied zwischen Kind und Umgebung – nicht ihr Mittelpunkt.",
+      "Beobachten Sie, bevor Sie eingreifen. Die meisten „Probleme“ lösen sich, wenn man dem Kind Zeit gibt.",
+      "Führen Sie jede Übung einzeln vor, langsam, mit präzisen und sparsamen Bewegungen. Analyse der Bewegung: Jede Bewegung wird so deutlich gezeigt, dass das Kind sie nachahmen kann.",
+      "Vorführen, dann zurückziehen. Das Kind lernt durch Wiederholung, nicht durch die Kommentare des Erwachsenen.",
+      "Schützen Sie vor allem die Konzentration. Unterbrechen Sie niemals ein arbeitendes Kind, nicht einmal, um es zu loben.",
+      "Führen Sie eine Übung so oft wie nötig erneut vor. Eine Lektion, die nicht angekommen ist, wird einfach an einem anderen Tag noch einmal gezeigt, ohne Kommentar."
+    ],
+    "adultAlt": "Die als Ellipse auf den Boden des Klassenraums geklebte Linie, vorbereitet für das Gehen auf der Linie",
+    "adultCaption": "Der Erwachsene führt langsam und präzise vor, tritt dann zurück und beobachtet.",
+    "roomTitle": "Der Raum selbst: Was Sie zusammentragen sollten",
+    "roomIntro": "Montessori-Räume entstehen mit Bedacht, nicht im Überfluss. Bevor Sie etwas kaufen, schauen Sie, was Sie zu Hause oder in Ihrer Schule bereits haben – stabile Stühle, auf denen das Kind mit den Füßen flach auf dem Boden sitzt, Tische in angenehmer Arbeitshöhe, niedrige offene Regale sowie Tabletts und Körbe, die das Kind allein tragen kann. Für Dinge, die eigens für kleine Hände gemacht sind, finden Sie unten authentische Beispiele.",
+    "checklistTitle": "Die Checkliste zur Einrichtung",
+    "checklistIntro": "Gehen Sie Ihren Raum anhand dieser Liste durch, bevor das erste Kind ihn betritt.",
+    "checklist": [
+      "Niedrige offene Regale, nicht höher als die Schulter des Kindes",
+      "Kindgerechte Tische und Stühle, leicht genug, dass das Kind sie selbst bewegen kann",
+      "Arbeitsteppiche, gerollt und stehend in einem Korb – jeder Teppich markiert den Arbeitsplatz eines Kindes",
+      "Eine auf dem Boden markierte Ellipse für das Gehen auf der Linie",
+      "Echte, zerbrechliche Gläser, Krüge und Teller im Bereich der Übungen des täglichen Lebens",
+      "Kindgerechter Besen, Kehrschaufel, Mopp, Staub- und Poliertücher, alles frei zugänglich",
+      "Ein Bereich zur Zubereitung von Speisen mit echten, kindgerechten Werkzeugen",
+      "Pflanzen zum Pflegen, frische Blumen zum Arrangieren und natürliches Licht",
+      "Ein vollständiges Set jedes Materials, auf Tabletts angeordnet, vom Einfachsten zum Komplexesten",
+      "Kunstdrucke auf Augenhöhe des Kindes, die regelmäßig gewechselt werden",
+      "Eine ruhige Ecke im Regal für das Stillespiel",
+      "Nichts Dekoratives, das nicht der Arbeit des Kindes dient"
+    ],
+    "ctaCurriculum": "Das gesamte AMI-Curriculum entdecken",
+    "ctaHome": "Sie richten zu Hause ein?",
+    "materials": {
+      "intro": "Tragen Sie diese Dinge nach und nach zusammen – beginnen Sie mit dem, was Sie zu Hause oder im Klassenraum bereits haben. Wo ein bestimmter Gegenstand hilfreich ist, öffnet ein Tippen darauf ein authentisches Beispiel.",
+      "noLink": "Verwenden Sie, was Sie zu Hause oder im Klassenraum zur Verfügung haben",
+      "buyLabel": "{{name}} bei {{vendor}} kaufen",
+      "error": "Die Produktlinks konnten nicht geladen werden. Bitte versuchen Sie es später erneut.",
+      "groups": {
+        "Furniture": "Möbel",
+        "Work surfaces and carriers": "Arbeitsflächen und Behälter zum Tragen",
+        "Care of the environment": "Sorge für die Umgebung",
+        "Beauty and care of the room": "Schönheit und Pflege des Raums"
+      },
+      "items": {
+        "Child-sized chair": "Kindgerechter Stuhl",
+        "Child-sized table": "Kindgerechter Tisch",
+        "Low open shelving": "Niedrige offene Regale",
+        "Low coat hooks": "Niedrige Garderobenhaken",
+        "Child-height mirror": "Spiegel auf Kinderhöhe",
+        "Work mat": "Arbeitsteppich",
+        "Tray": "Tablett",
+        "Basket": "Korb",
+        "Small jug or pitcher": "Kleiner Krug oder Kanne",
+        "Small ceramic bowls": "Kleine Keramikschalen",
+        "Small glass tumbler": "Kleines Trinkglas",
+        "Child-sized broom and dustpan set": "Kindgerechtes Set aus Besen und Kehrschaufel",
+        "Child-sized mop": "Kindgerechter Mopp",
+        "Dusting cloths": "Staubtücher",
+        "Sponges": "Schwämme",
+        "Child-sized apron": "Kinderschürze",
+        "Small watering can": "Kleine Gießkanne",
+        "Small waste basket": "Kleiner Papierkorb",
+        "Potted plant": "Topfpflanze",
+        "Small vase for flowers": "Kleine Blumenvase"
+      }
+    }
+  },
+  "songs": {
+    "seoTitle": "Kerrys Montessori-Lieder — Montessori Life Skills",
+    "seoDescription": "Zehn Montessori-Lieder von Kerry Howard. Hören Sie in jedes Lied kostenlos hinein; kaufen Sie die Sammlung einmal und Ihre Familie hat lebenslang vollen Zugang.",
+    "pageTitle": "Kerrys Montessori-Lieder",
+    "playbackFailed": "Wiedergabe fehlgeschlagen",
+    "tryAgainMoment": "Bitte versuchen Sie es gleich noch einmal.",
+    "checkoutNotStarted": "Der Bezahlvorgang konnte nicht gestartet werden.",
+    "checkoutFailed": "Bezahlvorgang konnte nicht gestartet werden",
+    "tryAgain": "Bitte versuchen Sie es erneut.",
+    "signTitle": "Haushaltslizenzvereinbarung unterzeichnen",
+    "signIntro": "Bitte lesen und unterzeichnen Sie vor dem Kauf die Lizenz für Kerrys Montessori-Lieder. Sie dürfen die Lieder nur zur privaten Nutzung in Ihrem eigenen Haushalt herunterladen. Sie dürfen nicht in Schulen, Klassenräumen, Kindertagesstätten, Elterninitiativen, Ferienlagern oder anderen Gruppen verwendet werden.",
+    "readFull": "Die vollständige Lizenzvereinbarung lesen",
+    "agree": "Ich habe die Haushaltslizenzvereinbarung gelesen und stimme ihr zu. Ich bestätige, dass dieser Kauf nur für meinen Haushalt bestimmt ist und nicht für eine Schule, Kinderbetreuung oder Gruppe.",
+    "signatureLabel": "Unterschrift – geben Sie Ihren vollständigen Namen ein",
+    "signaturePlaceholder": "Vollständiger Name",
+    "signedAs": "Unterzeichnet als {{email}} am {{date}}.",
+    "cancel": "Abbrechen",
+    "signAndPay": "Unterzeichnen und weiter zur Zahlung",
+    "introTitle": "Lieder für das Montessori-Zuhause und den Klassenraum",
+    "introBody": "Zehn eigene Lieder von Kerry Howard, die authentischen Montessori-Grundsätzen folgen. Jedes Lied hat eine kostenlose 10-Sekunden-Hörprobe; die vollständige Sammlung ist ein einmaliger Kauf mit lebenslangem Zugang für Ihre ganze Familie.",
+    "owned": "Sie haben vollen Zugang zur Sammlung – jedes Lied wird unten vollständig abgespielt.",
+    "notYet": "Die Sammlung kann gekauft werden, sobald die Lieder veröffentlicht sind.",
+    "nativeNote": "Die Liedersammlung wird auf unserer Website gekauft. Ihr Zugang wird mit demselben Konto automatisch in diese App übernommen.",
+    "buyWebsite": "Auf unserer Website kaufen",
+    "priceLabel": "{{price}} · einmalig, lebenslanger Zugang",
+    "separate": "Ein separater Kauf – nicht in den Abonnements Premium oder Familie enthalten.",
+    "getFull": "Die vollständige Sammlung erhalten",
+    "signInToBuy": "Melden Sie sich an, um die Sammlung zu kaufen",
+    "loadError": "Die Lieder konnten nicht geladen werden. Bitte versuchen Sie es gleich noch einmal.",
+    "comingSoon": "Die Liedersammlung erscheint in Kürze.",
+    "coverAlt": "Cover von {{title}}",
+    "pauseLabel": "{{title}} pausieren",
+    "previewLabel": "Hörprobe von {{title}} abspielen",
+    "pause": "Pause",
+    "play": "Abspielen",
+    "preview": "Hörprobe",
+    "fullSongLength": "Ganzes Lied: {{length}}",
+    "fullSong": "Ganzes Lied",
+    "fullAccess": "Voller Zugang",
+    "withCollection": "Ganzes Lied mit der Sammlung",
+    "downloadLabel": "{{title}} herunterladen",
+    "download": "Herunterladen",
+    "schoolsTitle": "Schulen: eine Lizenz für alles",
+    "schoolsBody": "Für Schulen sind die Lieder Teil einer einzigen Schullizenz, die auch die Lehrplan-App und das Schulportal umfasst. Direkt mit Kerry vereinbart.",
+    "readLicense": "Die Lizenzvereinbarung lesen",
+    "askSchool": "Kerry nach einer Schullizenz fragen",
+    "copyright": "© Kerry Howard. Alle Rechte vorbehalten. Downloads für den Haushalt sind nur zur privaten Nutzung im kaufenden Haushalt bestimmt; keine Nutzung in Schulen, Klassenräumen oder Gruppen. Mit dem Kauf wird kein Urheberrecht übertragen.",
+    "copyrightLink": "Urheberrecht und Nutzungsbedingungen"
+  },
+  "accessibility": {
+    "seoTitle": "Erklärung zur Barrierefreiheit - Montessori Life Skills",
+    "seoDescription": "Wie Montessori Life Skills an einer barrierefreien App für Eltern, Lehrkräfte und Schulpersonal arbeitet, welche Lücken bekannt sind und wie Sie Hilfe erhalten.",
+    "title": "Erklärung zur Barrierefreiheit",
+    "updated": "Zuletzt aktualisiert: {{date}}",
+    "commitTitle": "Unsere Verpflichtung",
+    "commit1": "Wir möchten, dass alle Eltern, Lehrkräfte, Assistenzkräfte und Schulverwaltungen Montessori Life Skills nutzen können – auch Menschen, die einen Screenreader, eine Tastatur statt einer Maus, eine Vergrößerung oder Untertitel verwenden.",
+    "commit2": "Wir arbeiten auf die Web Content Accessibility Guidelines (WCAG) 2.1, Stufe AA, hin – den Standard, den öffentliche Schulen in den USA nach dem Americans with Disabilities Act (ADA) und Section 508 anwenden. Dies gilt für die Website, die Apps für iPhone und Android sowie das Schulportal.",
+    "doTitle": "Was wir tun",
+    "do": [
+      "Textbeschreibungen für Fotos von Übungen und Materialien.",
+      "Die App folgt den Einstellungen Ihres Geräts für reduzierte Bewegung und hohen Kontrast.",
+      "Klare Überschriften und Schritt-für-Schritt-Anleitungen in einfacher Sprache."
+    ],
+    "gapsTitle": "Bekannte Lücken, an denen wir arbeiten",
+    "gaps": [
+      {
+        "label": "Untertitel für Lektionsvideos:",
+        "text": "Die Lektionsvideos haben noch keine Untertitel. Wir planen, sie hinzuzufügen. Bis dahin hat jede Übung eine schriftliche Schritt-für-Schritt-Anleitung, die dieselbe Darbietung abdeckt."
+      },
+      {
+        "label": "Vollständige Prüfung:",
+        "text": "Wir haben noch nicht jede Seite vollständig nach WCAG 2.1 AA geprüft. Wenn etwas für Sie nicht funktioniert, teilen Sie es uns bitte mit."
+      }
+    ],
+    "helpTitle": "Hilfe anfordern oder ein Problem melden",
+    "help1": "Wenn Sie Schwierigkeiten mit einem Teil der App haben oder Inhalte in einem anderen Format benötigen, schreiben Sie an <mail>montessorilifeskills@gmail.com</mail>. Nennen Sie uns die Seite oder Übung und was passiert ist, und wir helfen Ihnen, die Informationen auf anderem Weg zu erhalten, während wir das Problem beheben.",
+    "help2": "Schulen, die für eine Beschaffungsprüfung einen Bericht zur Konformität der Barrierefreiheit (VPAT) benötigen, können ihn unter derselben Adresse anfordern."
   }
 };

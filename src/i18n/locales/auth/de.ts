@@ -56,4 +56,5 @@ export const de: typeof en = {
       'grace-courtesy': { label: 'Anmut und Höflichkeit', desc: 'Soziale Fähigkeiten' },
     },
   },
+  welcomeCard: {"title": "Willkommen beim Montessori-Lernen", "body": "Melden Sie sich an, um Ihr Dashboard zu öffnen und Fortschritte zu verfolgen", "explore": "Kostenlose Übungen entdecken", "or": "Oder melden Sie sich für den vollen Zugang an", "signIn": "Anmelden / Konto erstellen", "openingPortal": "Schulportal wird geöffnet"},
 };

@@ -56,4 +56,5 @@ export const es: typeof en = {
       'grace-courtesy': { label: 'Gracia y Cortesía', desc: 'Habilidades sociales' },
     },
   },
+  welcomeCard: {"title": "Te damos la bienvenida al aprendizaje Montessori", "body": "Inicia sesión para entrar a tu panel y seguir el progreso", "explore": "Explorar actividades gratuitas", "or": "O inicia sesión para tener acceso completo", "signIn": "Iniciar sesión / Crear cuenta", "openingPortal": "Abriendo el Portal Escolar"},
 };

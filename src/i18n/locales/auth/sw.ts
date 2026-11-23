@@ -142,5 +142,6 @@ export const sw: typeof en = {
         "desc": "Stadi za kijamii"
       }
     }
-  }
+  },
+  welcomeCard: {"title": "Karibu kwenye Mafunzo ya Montessori", "body": "Ingia ili kufikia dashibodi yako na kufuatilia maendeleo", "explore": "Gundua shughuli za bure", "or": "Au ingia ili kupata ufikiaji kamili", "signIn": "Ingia / Fungua akaunti", "openingPortal": "Inafungua Lango la Shule"},
 };

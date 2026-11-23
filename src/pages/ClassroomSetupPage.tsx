@@ -9,153 +9,41 @@ import {
   Globe2, Ruler, Leaf, Armchair, LayoutGrid, User,
 } from 'lucide-react';
 import { useSEO } from '@/hooks/useSEO';
+import { Trans, useTranslation } from 'react-i18next';
 import { montessoriImages } from '@/assets/images';
 import cleaningTools from '@/assets/materials/cleaning-tools.jpg';
 import spooningImg from '@/assets/materials/spooning.jpg';
 import walkingLine from '@/assets/materials/walking-line.jpg';
 import sandpaperGlobe from '@/assets/geography/sandpaper-globe.jpg';
 
-const PRINCIPLES = [
-  {
-    title: 'Order',
-    body: 'The environment must be ordered, because the child between three and six is in the sensitive period for order. Every material has a fixed place on the shelf, and the child always returns it there. Order in the environment builds order in the mind.',
-  },
-  {
-    title: 'Beauty',
-    body: 'The room must be beautiful — light, airy, with fresh flowers, plants, and carefully chosen pictures hung at the child\u2019s eye level. Beauty invites the child to work and to care for the space.',
-  },
-  {
-    title: 'Reality',
-    body: 'Tools must be real and they must work. The child drinks from a real glass, pours from a real ceramic jug, sweeps with a real broom. Breakable objects are deliberate: they teach the child to move with care.',
-  },
-  {
-    title: 'Freedom within limits',
-    body: 'The child is free to choose work, to work with it for as long as they wish, and to repeat it — provided the work is not misused and does not disturb others. Freedom is built on discipline, not license.',
-  },
-  {
-    title: 'Child-sized proportions',
-    body: 'Every piece of furniture, every shelf, every tool is proportioned to the child and light enough for the child to move. Nothing in the room requires an adult\u2019s strength or permission.',
-  },
-  {
-    title: 'One of each material',
-    body: 'There is only one of each material in the room. This is intentional: it teaches waiting, turn-taking, and respect for another\u2019s work — the social fabric of the classroom.',
-  },
+/** Icons and photos for the five areas, in the order of `pages.classroomSetup.areas`. */
+const AREA_VISUALS = [
+  { icon: Hand, image: cleaningTools },
+  { icon: Eye, image: montessoriImages['color-tablets-box1'] },
+  { icon: BookOpen, image: montessoriImages['sandpaper-letters'] },
+  { icon: Ruler, image: montessoriImages['golden-beads-set'] },
+  { icon: Globe2, image: sandpaperGlobe },
 ];
 
-const AREAS = [
-  {
-    icon: Hand,
-    name: 'Practical Life',
-    position: 'The first area. Everything begins here.',
-    image: cleaningTools,
-    groups: [
-      'Preliminary exercises — spooning, pouring, carrying a tray, opening and closing',
-      'Care of the person — dressing frames, hand washing, food preparation',
-      'Care of the environment — dusting, sweeping, washing a table, flower arranging',
-      'Grace and courtesy — greeting, offering, waiting, observing another\u2019s work',
-      'Control of movement — walking on the line, the silence game',
-    ],
-    note: 'Practical Life is offered exclusively at the start. No other curriculum area is introduced until the child\u2019s Practical Life work is settled — concentration, order, coordination, and independence must be established first.',
-  },
-  {
-    icon: Eye,
-    name: 'Sensorial',
-    position: 'Introduced once Practical Life work is settled.',
-    image: montessoriImages['color-tablets-box1'],
-    groups: [
-      'Visual — pink tower, brown stair, red rods, knobbed cylinders',
-      'Tactile — touch boards, touch tablets, fabric box',
-      'Chromatic — color tablets, boxes one through three',
-      'Auditory — sound cylinders, the bells',
-      'Baric, thermic, and stereognostic — baric tablets, thermic bottles, mystery bag',
-      'Olfactory and gustatory — smelling bottles, tasting exercises',
-    ],
-    note: 'Each material isolates a single sensory quality — isolation of difficulty — and carries its own control of error, so the child can see and correct mistakes without an adult.',
-  },
-  {
-    icon: BookOpen,
-    name: 'Language',
-    position: 'Runs alongside Sensorial, once speech is confident.',
-    image: montessoriImages['sandpaper-letters'],
-    groups: [
-      'Enrichment of vocabulary — classified cards, three-period lessons',
-      'Sound games (I Spy) — isolating beginning, ending, then middle sounds',
-      'Sandpaper letters — tracing sound and shape together',
-      'Moveable alphabet — composing words before writing by hand',
-      'Writing — insets for design, metal insets, then chalk and pencil',
-      'Reading — phonetic words first, then phonograms and puzzle words',
-    ],
-    note: 'Writing precedes reading in the AMI sequence. The child composes with the moveable alphabet long before being asked to decode another\u2019s writing.',
-  },
-  {
-    icon: Ruler,
-    name: 'Mathematics',
-    position: 'Introduced when the child shows readiness through Practical Life and Sensorial work.',
-    image: montessoriImages['golden-beads-set'],
-    groups: [
-      'Numbers one to ten — number rods, sandpaper numbers, spindle box, cards and counters',
-      'The decimal system — golden beads: unit, ten, hundred, thousand',
-      'Teens and tens — Seguin boards, colored bead stair',
-      'Linear counting — the hundred chain and thousand chain',
-      'Memorization — addition, subtraction, multiplication and division tables',
-    ],
-    note: 'Every quantity is first presented concretely with the golden beads; the symbol always follows the concrete experience, never precedes it.',
-  },
-  {
-    icon: Globe2,
-    name: 'Culture',
-    position: 'Woven through the environment from the start.',
-    image: sandpaperGlobe,
-    groups: [
-      'Geography — land and water forms, sandpaper and colored globes, puzzle maps',
-      'Botany — leaf cabinet, parts of a plant, care of plants in the room',
-      'Zoology — classification of the animal kingdom, care of classroom animals',
-      'Art and music — real art at child height, singing, the bells',
-    ],
-    note: 'Geography begins with the whole and moves to the parts: the globe of land and water before continents, the continent before the country.',
-  },
-];
-
-const SHELF_RULES = [
-  'Materials are arranged left to right, top to bottom, simplest to most complex — the order in which the child reads and the order in which the sequence unfolds.',
-  'Every activity is complete and self-contained on its own tray, basket, or stand. Nothing is missing; nothing extra is added.',
-  'Each material isolates one difficulty. A pouring set does not also teach color; a dressing frame does not also teach language.',
-  'Wherever possible the material carries a control of error — the child can see the mistake without an adult pointing it out.',
-  'Broken, incomplete, or worn materials are repaired or removed the same day. An incomplete set is worse than none at all.',
-  'Low, open shelving lets the child see the whole room\u2019s work at a glance and choose freely.',
-];
-
-const ADULT_RULES = [
-  'Prepare the environment, then step back. The adult is the link between the child and the environment — not the center of it.',
-  'Observe before intervening. Most "problems" resolve when the child is given time.',
-  'Present each activity individually, slowly, with precise and economical movements. Analysis of movement: every motion is shown clearly enough for the child to imitate.',
-  'Present, then withdraw. The child learns through repetition, not through the adult\u2019s commentary.',
-  'Guard concentration above all. Never interrupt a child who is working, not even to praise.',
-  'Re-present an activity as often as needed. A lesson that did not land is simply presented again another day, without comment.',
-];
-
-const CHECKLIST = [
-  'Low open shelves, no higher than the child\u2019s shoulder',
-  'Child-sized tables and chairs, light enough to be moved by the child',
-  'Work rugs rolled and standing in a basket — each rug defines one child\u2019s workspace',
-  'An ellipse marked on the floor for Walking on the Line',
-  'Real, breakable glasses, jugs and plates in the Practical Life area',
-  'Child-sized broom, dustpan, mop, dusting and polishing cloths, all accessible',
-  'A food preparation area with real child-sized tools',
-  'Plants to care for, fresh flowers to arrange, and a source of natural light',
-  'One complete set of each material, arranged on trays, simplest to most complex',
-  'Art prints hung at the child\u2019s eye level, rotated regularly',
-  'A quiet corner of the shelf for the Silence Game',
-  'Nothing decorative that does not serve the child\u2019s work',
-];
+type Area = { name: string; position: string; groups: string[]; note: string };
 
 const ClassroomSetupPage: React.FC = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
+  const k = (key: string, opts?: Record<string, unknown>) => t(`pages.classroomSetup.${key}`, opts) as string;
+  const list = <T,>(key: string) => {
+    const v = t(`pages.classroomSetup.${key}`, { returnObjects: true });
+    return (Array.isArray(v) ? v : []) as T[];
+  };
+  const principles = list<{ title: string; body: string }>('principles');
+  const areas = list<Area>('areas');
+  const shelfRules = list<string>('shelfRules');
+  const adultRules = list<string>('adultRules');
+  const checklist = list<string>('checklist');
 
   useSEO({
-    title: 'How to Set Up a Montessori Classroom | AMI Guide',
-    description:
-      'An AMI-exact guide to preparing an authentic Montessori environment: the prepared environment, the five curriculum areas, material arrangement, and the role of the adult.',
+    title: k('seoTitle'),
+    description: k('seoDescription'),
     canonical: 'https://montessorilifeskillsapp.com/classroom-setup',
   });
 
@@ -166,20 +54,17 @@ const ClassroomSetupPage: React.FC = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-background to-secondary/10 pointer-events-none" />
         <div className="container relative mx-auto px-6 py-16 md:py-24 max-w-5xl text-center">
           <div className="absolute left-4 top-4 md:left-6 md:top-6">
-            <BackButton onClick={() => navigate('/')} label="Back" />
+            <BackButton onClick={() => navigate('/')} label={k('back')} />
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
-            The Prepared Environment · AMI and AMS
+            {k('badge')}
           </span>
           <h1 className="mt-5 text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
-            How to Set Up Your Montessori Classroom
+            {k('title')}
           </h1>
           <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
-            In Montessori, the environment is the teacher. Before a single lesson is given,
-            the room itself must be prepared — ordered, beautiful, real, and proportioned
-            to the child. This guide follows the prepared-environment principles of the
-            Association Montessori Internationale (AMI) and the American Montessori Society (AMS).
+            {k('intro')}
           </p>
         </div>
       </section>
@@ -189,15 +74,13 @@ const ClassroomSetupPage: React.FC = () => {
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
         <div className="flex items-center gap-3 mb-8">
           <Armchair className="w-6 h-6 text-primary" />
-          <h2 className="text-3xl font-semibold tracking-tight">The Prepared Environment</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">{k('envTitle')}</h2>
         </div>
         <p className="text-muted-foreground max-w-3xl mb-8 leading-relaxed">
-          Dr. Maria Montessori called the classroom the <em>prepared environment</em>. It is not
-          decorated; it is prepared — deliberately, for the child’s developmental needs.
-          Six principles govern every decision.
+          <Trans i18nKey="pages.classroomSetup.envIntro" components={{ em: <em /> }} />
         </p>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          {PRINCIPLES.map((p) => (
+          {principles.map((p) => (
             <Card key={p.title} className="border-border/60">
               <CardContent className="p-5">
                 <h3 className="font-semibold text-foreground mb-2">{p.title}</h3>
@@ -212,32 +95,32 @@ const ClassroomSetupPage: React.FC = () => {
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
         <div className="flex items-center gap-3 mb-3">
           <LayoutGrid className="w-6 h-6 text-primary" />
-          <h2 className="text-3xl font-semibold tracking-tight">The Areas of the Environment</h2>
+          <h2 className="text-3xl font-semibold tracking-tight">{k('areasTitle')}</h2>
         </div>
         <p className="text-muted-foreground max-w-3xl mb-10 leading-relaxed">
-          A classroom in the tradition of the Association Montessori Internationale (AMI) and
-          the American Montessori Society (AMS) holds five curriculum areas, each on its own shelving, each with
-          its own internal sequence. They are introduced in a strict order — and the order
-          is not negotiable.
+          {k('areasIntro')}
         </p>
         <div className="space-y-6">
-          {AREAS.map((area, i) => (
-            <Card key={area.name} className="overflow-hidden border-border/60">
+          {areas.map((area, i) => {
+            const visual = AREA_VISUALS[i] ?? AREA_VISUALS[0];
+            const AreaIcon = visual.icon;
+            return (
+            <Card key={i} className="overflow-hidden border-border/60">
               <div className="grid md:grid-cols-3">
                 <div className="relative aspect-[4/3] md:aspect-auto bg-muted">
                   <img decoding="async"
-                    src={area.image}
-                    alt={`Montessori ${area.name} materials`}
+                    src={visual.image}
+                    alt={k('areaAlt', { name: area.name })}
                     className="absolute inset-0 w-full h-full object-cover"
                     loading="lazy"
                   />
                 </div>
                 <CardContent className="md:col-span-2 p-6">
                   <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-1">
-                    Area {i + 1} · {area.position}
+                    {k('areaLabel', { n: i + 1, position: area.position })}
                   </p>
                   <h3 className="text-2xl font-semibold mb-4 flex items-center gap-2">
-                    <area.icon className="w-5 h-5 text-secondary" />
+                    <AreaIcon className="w-5 h-5 text-secondary" />
                     {area.name}
                   </h3>
                   <ul className="space-y-1.5 mb-4">
@@ -254,7 +137,8 @@ const ClassroomSetupPage: React.FC = () => {
                 </CardContent>
               </div>
             </Card>
-          ))}
+            );
+          })}
         </div>
       </section>
 
@@ -264,10 +148,10 @@ const ClassroomSetupPage: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <Leaf className="w-6 h-6 text-primary" />
-              <h2 className="text-3xl font-semibold tracking-tight">Arranging the Materials</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">{k('shelfTitle')}</h2>
             </div>
             <ul className="space-y-4">
-              {SHELF_RULES.map((r) => (
+              {shelfRules.map((r) => (
                 <li key={r} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{r}</span>
@@ -278,12 +162,12 @@ const ClassroomSetupPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
             <img decoding="async"
               src={spooningImg}
-              alt="A complete Montessori spooning activity on its own tray"
+              alt={k('shelfAlt')}
               className="w-full aspect-[4/3] object-cover"
               loading="lazy"
             />
             <p className="text-xs text-muted-foreground p-4 italic">
-              Every activity is complete on its own tray: nothing missing, nothing extra.
+              {k('shelfCaption')}
             </p>
           </div>
         </div>
@@ -295,10 +179,10 @@ const ClassroomSetupPage: React.FC = () => {
           <div>
             <div className="flex items-center gap-3 mb-6">
               <User className="w-6 h-6 text-primary" />
-              <h2 className="text-3xl font-semibold tracking-tight">The Prepared Adult</h2>
+              <h2 className="text-3xl font-semibold tracking-tight">{k('adultTitle')}</h2>
             </div>
             <ul className="space-y-4">
-              {ADULT_RULES.map((r) => (
+              {adultRules.map((r) => (
                 <li key={r} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{r}</span>
@@ -309,12 +193,12 @@ const ClassroomSetupPage: React.FC = () => {
           <div className="rounded-2xl overflow-hidden border border-border/60 bg-muted">
             <img decoding="async"
               src={walkingLine}
-              alt="The line taped in an ellipse on the classroom floor, prepared for walking on the line"
+              alt={k('adultAlt')}
               className="w-full aspect-[4/3] object-cover"
               loading="lazy"
             />
             <p className="text-xs text-muted-foreground p-4 italic">
-              The adult presents slowly and precisely, then steps back and observes.
+              {k('adultCaption')}
             </p>
           </div>
         </div>
@@ -323,14 +207,10 @@ const ClassroomSetupPage: React.FC = () => {
       {/* Room essentials */}
       <section className="container mx-auto px-6 pb-20 max-w-5xl">
         <h2 className="text-3xl font-semibold tracking-tight mb-4">
-          The Physical Room: Essentials to Gather
+          {k('roomTitle')}
         </h2>
         <p className="text-muted-foreground max-w-3xl mb-6 leading-relaxed">
-          Montessori spaces are built with intention, not excess. Before buying anything, look
-          at what you already own at home or in your school — stable chairs that let the child
-          sit with feet flat on the floor, tables at a comfortable working height, low open
-          shelving, and trays and baskets the child can carry alone. For items designed
-          specifically for small hands, authentic examples are noted below.
+          {k('roomIntro')}
         </p>
         <ClassroomMaterials />
       </section>
@@ -341,12 +221,12 @@ const ClassroomSetupPage: React.FC = () => {
       <section className="container mx-auto px-6 pb-24 max-w-5xl">
         <Card className="border-2 border-primary/30 bg-gradient-to-br from-primary/5 via-background to-secondary/5">
           <CardContent className="p-8">
-            <h2 className="text-2xl font-semibold mb-2">The Setup Checklist</h2>
+            <h2 className="text-2xl font-semibold mb-2">{k('checklistTitle')}</h2>
             <p className="text-sm text-muted-foreground mb-6">
-              Walk your room against this list before the first child enters.
+              {k('checklistIntro')}
             </p>
             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
-              {CHECKLIST.map((c) => (
+              {checklist.map((c) => (
                 <li key={c} className="flex items-start gap-2 text-sm text-foreground/90">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
                   <span>{c}</span>
@@ -356,13 +236,13 @@ const ClassroomSetupPage: React.FC = () => {
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/#curriculum">
                 <Button size="lg" className="rounded-full px-6">
-                  Explore the full AMI curriculum
+                  {k('ctaCurriculum')}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
               <Link to="/home-setup">
                 <Button size="lg" variant="outline" className="rounded-full px-6">
-                  Setting up at home?
+                  {k('ctaHome')}
                 </Button>
               </Link>
             </div>

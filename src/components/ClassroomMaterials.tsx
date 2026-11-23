@@ -1,5 +1,3 @@
-// ============= Full file contents =============
-
 import React, { useMemo } from 'react';
 import { ExternalLink, Check } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
@@ -9,6 +7,7 @@ import { withAffiliateTag, vendorLabel } from '@/lib/affiliate';
 import { getMaterialImage } from '@/lib/materialImageRegistry';
 import { AffiliateDisclosure } from '@/components/AffiliateDisclosure';
 import { classroomSetupMaterialGroups } from '@/data/classroomSetupMaterials';
+import { useTranslation } from 'react-i18next';
 
 interface ResolvedGroupItem {
   key: string;
@@ -31,6 +30,10 @@ const LINK_ALIASES: Record<string, string> = {
  */
 export const ClassroomMaterials: React.FC = () => {
   const { byKey, loading, error } = useMaterialLinks();
+  const { t } = useTranslation();
+  /** Shows the item in the reader's language; photos and links keep using the English name. */
+  const label = (prefix: 'groups' | 'items', english: string) =>
+    t(`pages.classroomSetup.materials.${prefix}.${english}`, { defaultValue: english }) as string;
 
   const groups = useMemo(
     () =>
@@ -57,8 +60,7 @@ export const ClassroomMaterials: React.FC = () => {
     <Card>
       <CardContent className="p-5 md:p-6">
         <p className="text-sm text-muted-foreground leading-relaxed">
-          Gather these gradually — begin with what you already have at home or in the
-          classroom. Where a specific item is helpful, tapping it opens an authentic example.
+          {t('pages.classroomSetup.materials.intro')}
         </p>
 
 
@@ -66,7 +68,7 @@ export const ClassroomMaterials: React.FC = () => {
           {groups.map((group) => (
             <div key={group.title}>
               <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                {group.title}
+                {label('groups', group.title)}
               </h3>
               <ul className="divide-y divide-border/60">
                 {group.items.map((item) => {
@@ -87,9 +89,9 @@ export const ClassroomMaterials: React.FC = () => {
                         </span>
                       )}
                        <span className="min-w-0 flex-1 flex flex-col gap-0.5">
-                         <span className="text-sm leading-snug text-foreground/90">{item.displayName}</span>
+                         <span className="text-sm leading-snug text-foreground/90">{label('items', item.displayName)}</span>
                          {!item.amazonUrl && !loading && !error && (
-                           <span className="text-xs text-muted-foreground">Use what you have available at home or in the classroom</span>
+                           <span className="text-xs text-muted-foreground">{t('pages.classroomSetup.materials.noLink')}</span>
                          )}
                       </span>
                       {item.amazonUrl && (
@@ -108,7 +110,7 @@ export const ClassroomMaterials: React.FC = () => {
                           href={item.amazonUrl}
                           target="_blank"
                           rel="sponsored noopener noreferrer"
-                          aria-label={`Buy ${item.displayName} on ${vendorLabel(item.amazonUrl)}`}
+                          aria-label={t('pages.classroomSetup.materials.buyLabel', { name: label('items', item.displayName), vendor: vendorLabel(item.amazonUrl) })}
                           className="group flex items-center gap-3 py-2 rounded-md transition-colors hover:bg-muted/50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
                         >
                           {row}
@@ -128,7 +130,7 @@ export const ClassroomMaterials: React.FC = () => {
           ))}
         </div>
 
-         {error && <p className="mt-4 text-sm text-destructive" role="alert">Product links could not be loaded. Please try again later.</p>}
+         {error && <p className="mt-4 text-sm text-destructive" role="alert">{t('pages.classroomSetup.materials.error')}</p>}
 
         <AffiliateDisclosure />
       </CardContent>

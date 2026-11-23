@@ -30,12 +30,14 @@ import BackButton from '@/components/ui/back-button';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { LogIn, Sparkles } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const AppLayoutViews: React.FC = () => {
   // State
   const initialView = (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('view') === 'dashboard') ? 'dashboard' : 'home';
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>(initialView);
   const [selectedSkill, setSelectedSkill] = useState<string>('');
+  const { t } = useTranslation();
 
   // Hooks - called in same order every time
   const navigate = useNavigate();
@@ -133,8 +135,8 @@ const AppLayoutViews: React.FC = () => {
       <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center p-4">
         <Card className="w-full max-w-md">
           <CardHeader className="text-center">
-            <CardTitle className="text-2xl mb-2">Welcome to Montessori Learning</CardTitle>
-            <p className="text-gray-600">Sign in to access your dashboard and track progress</p>
+            <CardTitle className="text-2xl mb-2">{t('auth.welcomeCard.title')}</CardTitle>
+            <p className="text-muted-foreground">{t('auth.welcomeCard.body')}</p>
           </CardHeader>
           <CardContent className="space-y-4">
             <Button 
@@ -143,7 +145,7 @@ const AppLayoutViews: React.FC = () => {
               onClick={() => completeOnboarding([])}
             >
               <Sparkles className="mr-2 h-4 w-4" />
-              Explore Free Activities
+              {t('auth.welcomeCard.explore')}
             </Button>
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
@@ -151,14 +153,14 @@ const AppLayoutViews: React.FC = () => {
               </div>
               <div className="relative flex justify-center text-xs uppercase">
                 <span className="bg-background px-2 text-muted-foreground">
-                  Or sign in for full access
+                  {t('auth.welcomeCard.or')}
                 </span>
               </div>
             </div>
             <Link to="/auth">
               <Button variant="outline" className="w-full" size="lg">
                 <LogIn className="mr-2 h-4 w-4" />
-                Sign In / Create Account
+                {t('auth.welcomeCard.signIn')}
               </Button>
             </Link>
           </CardContent>
@@ -171,7 +173,7 @@ const AppLayoutViews: React.FC = () => {
   if (!isOnboarded && user && (isSchoolStaff !== false || profilesLoading)) {
     return (
       <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary" aria-label="Opening School Portal" />
+        <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary" aria-label={t('auth.welcomeCard.openingPortal')} />
       </div>
     );
   }
