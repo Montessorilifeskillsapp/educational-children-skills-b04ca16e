@@ -7,7 +7,8 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent } from '@/components/ui/tabs';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Sheet, SheetClose, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Leaf, Menu } from 'lucide-react';
+import { Leaf, LogIn, LogOut, Menu } from 'lucide-react';
+import { signOutAndReset } from '@/lib/signOut';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import BackButton from '@/components/ui/back-button';
 import { useAuthContext } from '@/components/AuthProvider';
@@ -219,10 +220,20 @@ export default function SchoolPortalPage() {
                         </SheetClose>
                       ))}
                     </nav>
-                    <div className="border-t border-border pt-4">
+                    <div className="flex flex-col gap-3 border-t border-border pt-4">
                       <SheetClose asChild>
                         <Button variant="outline" className="w-full rounded-full" onClick={leave}>{t('school.p.leave')}</Button>
                       </SheetClose>
+                    </div>
+                    {/* Account: switch to another staff login or sign out on this device (unsaved work is guarded first). */}
+                    <div className="flex flex-col gap-2 border-t border-border pt-4">
+                      {user?.email && <p className="break-all text-sm text-muted-foreground">{t('common.signedInAs', { email: user.email })}</p>}
+                      <Button variant="outline" className="w-full rounded-full" onClick={() => { if (allowSchoolNavigation()) void signOutAndReset('/auth'); }}>
+                        <LogIn className="mr-2 h-4 w-4" aria-hidden="true" />{t('common.switchAccount')}
+                      </Button>
+                      <Button variant="outline" className="w-full rounded-full" onClick={() => { if (allowSchoolNavigation()) void signOutAndReset(); }}>
+                        <LogOut className="mr-2 h-4 w-4" aria-hidden="true" />{t('common.signOut')}
+                      </Button>
                     </div>
                   </div>
                 </SheetContent>

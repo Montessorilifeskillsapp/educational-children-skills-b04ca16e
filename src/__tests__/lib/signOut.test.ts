@@ -17,4 +17,10 @@ describe('Sign out', () => {
     expect(sessionStorage.getItem('school_auto_open')).toBeNull();
     expect(window.location.assign).toHaveBeenCalledWith('/');
   });
+  it('switching account signs out on this device and opens the sign-in page', async () => {
+    const { signOutAndReset } = await import('@/lib/signOut');
+    await signOutAndReset('/auth');
+    expect(signOut).toHaveBeenCalledWith({ scope: 'local' });
+    expect(window.location.assign).toHaveBeenCalledWith('/auth');
+  });
 });

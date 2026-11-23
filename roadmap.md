@@ -21,7 +21,7 @@
 - [x] Starting-point guide: careful review of the five translations against agreed names and tone (native-speaker read still owner action)
 - [x] Home setup page shown in all six languages
 - [x] Child invitation shown clearly at the start of every lesson (verify on live pages)
-- [x] Sign Out only in the homepage side menu, under Start Free
+- [x] Sign Out only in the homepage side menu (under Start Free) and the School Portal side menu, with "Sign in with another account"
 - [x] Classroom Setup page in all six languages
 - [x] Sign-in welcome card in all six languages (premium lock box is unused, left alone)
 - [x] Songs license window, Songs License page and Accessibility page in all six languages

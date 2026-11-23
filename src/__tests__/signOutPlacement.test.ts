@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest';
 import { readFileSync, readdirSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 
-// Rule: the Sign Out button lives only in the homepage side menu, below Start Free.
+// Rule: Sign Out lives only in the homepage side menu (below Start Free) and the School Portal side menu.
 function files(dir: string): string[] {
   return readdirSync(dir).flatMap((f) => {
     const p = join(dir, f);
@@ -12,9 +12,9 @@ function files(dir: string): string[] {
 }
 
 describe('Sign Out placement', () => {
-  it('only the homepage uses the Sign Out action', () => {
+  it('only the homepage and School Portal menus use the Sign Out action', () => {
     const users = files('src').filter((p) => !p.endsWith(join('lib', 'signOut.ts')) && readFileSync(p, 'utf8').includes('signOutAndReset('));
-    expect(users).toEqual([join('src', 'components', 'Home.tsx')]);
+    expect(users.sort()).toEqual([join('src', 'components', 'Home.tsx'), join('src', 'pages', 'SchoolPortalPage.tsx')].sort());
   });
 
   it('appears once, after Start Free in the side menu', () => {
@@ -23,5 +23,14 @@ describe('Sign Out placement', () => {
     const sheet = src.slice(src.indexOf('<SheetContent'), src.indexOf('</SheetContent>'));
     expect(sheet.indexOf("t('common.startFree')")).toBeGreaterThan(-1);
     expect(sheet.indexOf('signOutAndReset()')).toBeGreaterThan(sheet.indexOf("t('common.startFree')"));
+  });
+
+  it('School Portal offers Sign Out and switching account only inside its side menu', () => {
+    const src = readFileSync('src/pages/SchoolPortalPage.tsx', 'utf8');
+    const sheet = src.slice(src.indexOf('<SheetContent'), src.indexOf('</SheetContent>'));
+    const outside = src.replace(sheet, '');
+    expect(sheet).toContain("signOutAndReset('/auth')");
+    expect(sheet).toContain('signOutAndReset()');
+    expect(outside).not.toContain('signOutAndReset(');
   });
 });
