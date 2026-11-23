@@ -18,6 +18,84 @@ export const de: typeof en = {
     q1: 'Welche Aktivität kommt als Nächstes?', q2: 'Ist das Kind bereit?', q3: 'Welche Materialien werden benötigt?', q4: 'Wie wird sie richtig dargeboten?',
     q5: 'Was sollten Sie sagen – und was nicht?', q6: 'Worauf achten Sie beim Beobachten?', q7: 'Wann ist es Zeit für den nächsten Schritt?',
     closing: 'Montessori Life Skills gibt Ihnen diese Antworten an die Hand.',
+    steps: [
+      {
+        "title": "Die Abfolge",
+        "body": "Montessori-Arbeit geht vom Einfachen zum Komplexen, vom Trockenen zum Nassen und vom Konkreten zum Abstrakten. Jede Aktivität bereitet Hand und Geist auf die nächste vor.",
+        "points": [
+          "Das Umschütten von Körnern kommt vor dem Umgießen von Wasser.",
+          "Das Umgießen zwischen zwei Kännchen kommt vor dem Gießen in mehrere Gläser oder durch einen Trichter.",
+          "Der Lehrplan führt die Aktivitäten jedes Bereichs in der Reihenfolge ihrer Darbietung auf."
+        ],
+        "link": "Die Abfolge ansehen"
+      },
+      {
+        "title": "Bereitschaft",
+        "body": "Bereitschaft wird beobachtet, nicht vom Alter bestimmt. Beobachten Sie das Kind bei der Arbeit, bevor Sie etwas Neues anbieten.",
+        "points": [
+          "Trägt ein Tablett mit beiden Händen, gerade und ruhig.",
+          "Beherrscht die vorherige Arbeit der Abfolge, etwa das Umschütten von Körnern.",
+          "Kann ruhig bei einer Aktivität bleiben, bis sie abgeschlossen ist.",
+          "Zeigt Interesse, indem es anderen zuschaut oder nach dem Material greift."
+        ],
+        "link": "Den Bereitschaftsleitfaden öffnen"
+      },
+      {
+        "title": "Die Umgebung vorbereiten",
+        "body": "Bereiten Sie die vollständige Aktivität vor, bevor Sie das Kind einladen, damit alles Nötige auf dem Tablett bereitsteht.",
+        "points": [
+          "Echte Materialien in Kindergröße: zwei gleiche kleine Kännchen, eines mit Wasser.",
+          "Ein Tablett, das alles aufnimmt, mit einem Schwamm für Tropfen und einem Tuch zum Trocknen.",
+          "Ein niedriges, offenes Regal, aus dem das Kind das Tablett selbstständig nehmen und zurückstellen kann.",
+          "Alles sauber, vollständig und in gutem Zustand."
+        ],
+        "link": "Die Beispielaktivität ansehen"
+      },
+      {
+        "title": "Die Darbietung",
+        "body": "Bieten Sie langsam und mit präzisen Bewegungen dar, damit das Kind jeden Schritt deutlich sieht.",
+        "points": [
+          "Setzen Sie sich neben das Kind, damit es Ihre Hände gut sieht.",
+          "Trennen Sie Worte und Bewegung: erst sprechen, dann schweigend handeln.",
+          "Werden Sie im entscheidenden Moment langsamer, wenn das Wasser die Tülle erreicht.",
+          "Schließen Sie den ganzen Zyklus ab, einschließlich Tropfen aufwischen und Tablett zurückstellen."
+        ],
+        "link": "Die vollständige Darbietung ansehen"
+      },
+      {
+        "title": "Die Einladung und Ihre Worte",
+        "body": "Beginnen Sie mit einer einfachen Einladung und lassen Sie dann das Material sprechen. Weniger Worte halten die Aufmerksamkeit des Kindes bei Ihren Händen.",
+        "points": [
+          "Gehen Sie auf Augenhöhe und laden Sie ein: „Möchtest du lernen, Wasser umzugießen?“",
+          "Sagt das Kind nein, nehmen Sie das ruhig an und bieten Sie es ein andermal an.",
+          "Nennen Sie die Aktivität und bleiben Sie dann still, während Sie zeigen.",
+          "Vermeiden Sie Lob oder Korrektur während der Arbeit; Verschüttetes gehört zum Lernen."
+        ],
+        "link": "Die vollständige Darbietung ansehen"
+      },
+      {
+        "title": "Beobachtung",
+        "body": "Wenn das Kind beginnt, treten Sie zurück. Beobachten Sie, ohne zu unterbrechen; das Material selbst zeigt dem Kind, wenn etwas zu korrigieren ist.",
+        "points": [
+          "Griff und Kontrolle: wie das Kind das Kännchen hält und neigt.",
+          "Konzentration: wie lange das Kind bei der Arbeit bleibt.",
+          "Wiederholung: ob das Kind erneut umgießen möchte.",
+          "Fehlerkontrolle: was das Kind mit Verschüttetem macht, mit dem Schwamm auf dem Tablett."
+        ],
+        "link": "Sehen, wo die Beobachtung ihren Platz hat"
+      },
+      {
+        "title": "Der nächste Schritt",
+        "body": "Gehen Sie weiter, wenn das Kind selbstständig arbeitet und den ganzen Zyklus abschließt, vom Regal und zurück ins Regal.",
+        "points": [
+          "Nimmt das Tablett aus dem Regal und stellt es bereit für die nächste Person zurück.",
+          "Gießt kontrolliert und wischt Verschüttetes auf, ohne dazu aufgefordert zu werden.",
+          "Die Wiederholung lässt nach und das Interesse wendet sich anderem zu: Bieten Sie die nächste Aktivität an.",
+          "Wird die Arbeit nachlässig, bieten Sie sie an einem anderen Tag erneut dar, statt weiterzugehen."
+        ],
+        "link": "Sehen, was als Nächstes kommt"
+      }
+    ],
   },
   sample: {
     eyebrow: 'Eine echte Aktivität', title: 'Damit arbeiten Sie.',

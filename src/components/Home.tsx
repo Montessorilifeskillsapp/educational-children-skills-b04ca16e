@@ -43,18 +43,20 @@ const COMPLIANCE_CODES = [
 
 
 /**
- * Where each "A clearer starting point" question leads a first-time visitor, in question order:
- * in-page section ids, or app pages (leading slash).
+ * "A clearer starting point": each question opens a guide card in place; its link leads to the
+ * place that goes deeper, in question order (in-page section ids, or app pages with a leading slash).
  */
 const STARTING_POINT_TARGETS = [
-  'curriculum',            // Which activity comes next?
-  '/readiness-guide',      // Is the child ready?
-  'sample-activity',       // What materials are needed?
-  'how-it-works',          // How is it presented correctly?
-  '/preview/pouring-water',// What should you say — or not say?
-  'how-it-works',          // What do you observe?
-  'pricing',               // When should you move on?
+  'curriculum',             // Which activity comes next? -> the sequence
+  '/readiness-guide',       // Is the child ready? -> readiness guide
+  'sample-activity',        // What materials are needed? -> sample activity
+  '/preview/pouring-water', // How is it presented correctly? -> full presentation
+  '/preview/pouring-water', // What should you say — or not say? -> full presentation
+  'how-it-works',           // What do you observe? -> Prepare. Present. Observe.
+  'curriculum',             // When should you move on? -> the sequence
 ] as const;
+
+interface StartingPointStep { title: string; body: string; points: string[]; link: string }
 
 function scrollToSection(id: string) {
   const reduce = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
@@ -156,6 +158,8 @@ const Home: React.FC<HomeProps> = ({
   const headerRef = useRef<HTMLElement>(null);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const rawSteps = t('home.problem.steps', { returnObjects: true }) as unknown;
+  const startingPointSteps: StartingPointStep[] = Array.isArray(rawSteps) ? rawSteps : [];
   const pouringPhoto = usePouringPhoto();
   const [consultOpen, setConsultOpen] = useState(false);
 
@@ -409,7 +413,7 @@ const Home: React.FC<HomeProps> = ({
       {/* ─── The Problem ─── */}
       <section id="struggle" className="py-16 lg:py-24 bg-muted/40 border-t border-border/60 scroll-mt-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-center">
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-10 lg:gap-16 items-start">
             <Reveal>
               <p className="text-sm font-semibold text-primary uppercase tracking-wider mb-3">{t('home.problem.eyebrow')}</p>
               <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-5 leading-[1.15]">
@@ -419,28 +423,51 @@ const Home: React.FC<HomeProps> = ({
                 {t('home.problem.body')}
               </p>
             </Reveal>
-            <div className="grid sm:grid-cols-2 gap-3">
+            <Accordion type="single" collapsible className="flex flex-col gap-3">
               {STARTING_POINT_TARGETS.map((target, index) => {
                 const question = t(`home.problem.q${index + 1}`);
-                const className = "group h-full w-full flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
-                const content = (
+                const step = startingPointSteps[index];
+                const linkClass = "inline-flex items-center gap-1.5 rounded-full text-sm font-semibold text-primary hover:underline underline-offset-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2";
+                const linkContent = (
                   <>
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
-                    <span className="flex-1 font-medium text-foreground">{question}</span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
+                    {step?.link}
+                    <ArrowRight className="h-4 w-4" aria-hidden="true" />
                   </>
                 );
                 return (
-                  <Reveal key={question} delay={index * 50}>
-                    {target.startsWith('/') ? (
-                      <Link to={target} className={className}>{content}</Link>
-                    ) : (
-                      <button type="button" onClick={() => scrollToSection(target)} className={className}>{content}</button>
-                    )}
+                  <Reveal key={`${index}-${question}`} delay={index * 50}>
+                    <AccordionItem
+                      value={`step-${index + 1}`}
+                      className="rounded-xl border border-border/60 bg-card shadow-sm transition-colors data-[state=open]:border-primary/40 data-[state=open]:shadow-md"
+                    >
+                      <AccordionTrigger className="gap-3 px-4 py-4 text-left hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-xl">
+                        <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
+                        <span className="flex-1 font-medium text-foreground">{question}</span>
+                      </AccordionTrigger>
+                      {step && (
+                        <AccordionContent className="px-4 pb-5 sm:pl-14">
+                          <p className="text-xs font-semibold uppercase tracking-wider text-primary mb-2">{step.title}</p>
+                          <p className="text-base text-foreground leading-relaxed mb-3">{step.body}</p>
+                          <ul className="space-y-2 mb-4">
+                            {step.points.map((point) => (
+                              <li key={point} className="flex items-start gap-2 text-sm text-muted-foreground leading-relaxed">
+                                <Check className="mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true" />
+                                <span>{point}</span>
+                              </li>
+                            ))}
+                          </ul>
+                          {target.startsWith('/') ? (
+                            <Link to={target} className={linkClass}>{linkContent}</Link>
+                          ) : (
+                            <button type="button" onClick={() => scrollToSection(target)} className={linkClass}>{linkContent}</button>
+                          )}
+                        </AccordionContent>
+                      )}
+                    </AccordionItem>
                   </Reveal>
                 );
               })}
-            </div>
+            </Accordion>
           </div>
           <Reveal className="mt-10 text-center">
             <p className="text-xl sm:text-2xl font-bold text-primary">{t('home.problem.closing')}</p>

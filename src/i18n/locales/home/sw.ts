@@ -29,7 +29,85 @@ export const sw: typeof en = {
     "q5": "Unapaswa kusema nini — au kutosema nini?",
     "q6": "Unachunguza nini?",
     "q7": "Unapaswa kuendelea lini?",
-    "closing": "Montessori Life Skills inakupa majibu hayo mkononi mwako."
+    "closing": "Montessori Life Skills inakupa majibu hayo mkononi mwako.",
+    "steps": [
+      {
+        "title": "Mfuatano",
+        "body": "Kazi ya Montessori huenda kutoka rahisi hadi changamano, kutoka kikavu hadi majimaji, na kutoka halisi hadi dhahania. Kila shughuli huandaa mkono na akili kwa ile inayofuata.",
+        "points": [
+          "Kumimina nafaka hutangulia kumimina maji.",
+          "Kumimina kati ya magudulia mawili hutangulia kumimina katika glasi kadhaa au kupitia faneli.",
+          "Mtaala huorodhesha shughuli za kila eneo kwa mpangilio zinavyowasilishwa."
+        ],
+        "link": "Tazama mfuatano"
+      },
+      {
+        "title": "Utayari",
+        "body": "Utayari huonekana kwa kuchunguza, hauamuliwi na umri. Mchunguze mtoto akifanya kazi kabla ya kumpa kitu kipya.",
+        "points": [
+          "Hubeba trei kwa mikono miwili, ikiwa sawa na thabiti.",
+          "Ameimudu kazi iliyotangulia katika mfuatano, kama kumimina nafaka.",
+          "Anaweza kukaa kwa utulivu na shughuli moja hadi aimalize.",
+          "Huonyesha hamu kwa kuwatazama wengine au kunyoosha mkono kuelekea kifaa."
+        ],
+        "link": "Fungua mwongozo wa utayari"
+      },
+      {
+        "title": "Kuandaa mazingira",
+        "body": "Andaa shughuli nzima kabla ya kumkaribisha mtoto, ili kila kinachohitajika kiwe tayari juu ya trei.",
+        "points": [
+          "Vifaa halisi vya ukubwa wa mtoto: magudulia mawili madogo yanayofanana, moja likiwa na maji.",
+          "Trei inayobeba kila kitu, pamoja na sponji ya matone na kitambaa cha kukausha.",
+          "Rafu ya chini iliyo wazi ambapo mtoto anaweza kuchukua trei na kuirudisha mwenyewe.",
+          "Kila kitu kiwe safi, kamili na katika hali nzuri."
+        ],
+        "link": "Tazama shughuli ya mfano"
+      },
+      {
+        "title": "Uwasilishaji",
+        "body": "Wasilisha polepole, kwa miondoko sahihi, ili mtoto aone kila hatua waziwazi.",
+        "points": [
+          "Keti kando ya mtoto ili aone mikono yako vizuri.",
+          "Tenganisha maneno na miondoko: sema kwanza, kisha fanya kimya.",
+          "Punguza kasi wakati muhimu, maji yanapofika kwenye mdomo wa gudulia.",
+          "Kamilisha mzunguko mzima, ikiwa ni pamoja na kufuta matone na kurudisha trei rafuni."
+        ],
+        "link": "Tazama uwasilishaji kamili"
+      },
+      {
+        "title": "Mwaliko na maneno yako",
+        "body": "Anza kwa mwaliko rahisi, kisha acha kifaa kizungumze. Maneno machache huweka umakini wa mtoto kwenye mikono yako.",
+        "points": [
+          "Shuka hadi usawa wa macho ya mtoto na umkaribishe: “Je, ungependa kujifunza jinsi ya kumimina maji?”",
+          "Mtoto akikataa, kubali kwa utulivu na umpe nafasi wakati mwingine.",
+          "Taja shughuli, kisha nyamaza unapoonyesha.",
+          "Epuka kusifu au kusahihisha wakati wa kazi; kumwaga ni sehemu ya kujifunza."
+        ],
+        "link": "Tazama uwasilishaji kamili"
+      },
+      {
+        "title": "Uchunguzi",
+        "body": "Mtoto anapoanza, rudi nyuma. Chunguza bila kuingilia; kifaa chenyewe humwonyesha mtoto pale kitu kinapohitaji kusahihishwa.",
+        "points": [
+          "Kushika na kudhibiti: jinsi mtoto anavyoshika na kuinamisha gudulia.",
+          "Umakini: muda ambao mtoto anakaa na kazi.",
+          "Kurudia: kama mtoto anachagua kumimina tena.",
+          "Udhibiti wa kosa: anachofanya mtoto maji yakimwagika, kwa kutumia sponji iliyo kwenye trei."
+        ],
+        "link": "Tazama nafasi ya uchunguzi"
+      },
+      {
+        "title": "Kuendelea mbele",
+        "body": "Endelea mbele mtoto anapofanya kazi kwa kujitegemea na kukamilisha mzunguko mzima, kutoka rafuni na kurudi rafuni.",
+        "points": [
+          "Huchukua trei kutoka rafuni na kuirudisha ikiwa tayari kwa mtu anayefuata.",
+          "Humimina kwa udhibiti na kufuta maji yaliyomwagika bila kuambiwa.",
+          "Kurudia kunapungua na hamu inaelekea kwingine: mpe shughuli inayofuata.",
+          "Kazi ikianza kufanywa bila uangalifu, iwasilishe tena siku nyingine badala ya kuendelea mbele."
+        ],
+        "link": "Tazama kinachofuata"
+      }
+    ]
   },
   "sample": {
     "eyebrow": "Ona shughuli halisi",

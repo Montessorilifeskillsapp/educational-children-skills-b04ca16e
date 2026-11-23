@@ -16,6 +16,84 @@ export const en = {
     q1: 'Which activity comes next?', q2: 'Is the child ready?', q3: 'What materials are needed?', q4: 'How is it presented correctly?',
     q5: 'What should you say — or not say?', q6: 'What do you observe?', q7: 'When should you move on?',
     closing: 'Montessori Life Skills puts those answers in your hand.',
+    steps: [
+      {
+        "title": "The sequence",
+        "body": "Montessori work moves from simple to complex, from dry to wet, and from concrete to abstract. Each activity prepares the hand and mind for the next.",
+        "points": [
+          "Dry pouring with grains comes before pouring water.",
+          "Pouring between two pitchers comes before pouring into several glasses or through a funnel.",
+          "The curriculum lists each area's activities in the order they are presented."
+        ],
+        "link": "Explore the sequence"
+      },
+      {
+        "title": "Readiness",
+        "body": "Readiness is observed, not decided by age. Watch the child at work before you offer something new.",
+        "points": [
+          "Carries a tray with two hands, level and steady.",
+          "Has mastered the earlier work in the sequence, such as dry pouring.",
+          "Can stay with one activity calmly until it is finished.",
+          "Shows interest by watching others or reaching for the material."
+        ],
+        "link": "Open the readiness guide"
+      },
+      {
+        "title": "Preparing the environment",
+        "body": "Prepare the complete activity before you invite the child, so everything needed is ready on the tray.",
+        "points": [
+          "Real, child-sized materials: two matching small pitchers, one holding water.",
+          "A tray that holds everything, with a sponge for drips and a cloth for drying.",
+          "A low, open shelf where the child can take the tray and return it independently.",
+          "Everything clean, complete and in working order."
+        ],
+        "link": "See the sample activity"
+      },
+      {
+        "title": "The presentation",
+        "body": "Present slowly, with precise movements, so the child can see every step clearly.",
+        "points": [
+          "Sit beside the child so your hands are easy to see.",
+          "Separate words from movement: speak first, then move in silence.",
+          "Slow down at the key moment, where the water meets the spout.",
+          "Finish the whole cycle, including wiping drips and returning the tray to the shelf."
+        ],
+        "link": "See the full presentation"
+      },
+      {
+        "title": "The invitation and your words",
+        "body": "Begin with a simple invitation, then let the material speak. Fewer words keep the child's attention on your hands.",
+        "points": [
+          "Come to the child's eye level and invite: “Would you like to learn how to pour water?”",
+          "If the child says no, accept it calmly and offer another time.",
+          "Name the activity, then stay quiet while you demonstrate.",
+          "Avoid praise or correction during the work; spills are part of learning."
+        ],
+        "link": "See the full presentation"
+      },
+      {
+        "title": "Observation",
+        "body": "When the child begins, step back. Observe without interrupting; the material itself shows the child when something needs correcting.",
+        "points": [
+          "Grasp and control: how the child holds and tilts the pitcher.",
+          "Concentration: how long the child stays with the work.",
+          "Repetition: whether the child chooses to pour again.",
+          "Control of error: what the child does with a spill, using the sponge on the tray."
+        ],
+        "link": "See where observation fits"
+      },
+      {
+        "title": "Moving on",
+        "body": "Move on when the child works independently and completes the whole cycle, from the shelf and back to the shelf.",
+        "points": [
+          "Takes the tray from the shelf and returns it ready for the next person.",
+          "Pours with control and wipes spills without being asked.",
+          "Repetition fades and interest turns elsewhere: offer the next activity.",
+          "If the work becomes careless, present it again another day instead of moving ahead."
+        ],
+        "link": "See what comes next"
+      }
+    ],
   },
   sample: {
     eyebrow: 'See a real activity', title: 'This is what you will use.',
