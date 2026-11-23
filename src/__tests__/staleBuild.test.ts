@@ -28,3 +28,10 @@ describe('older published version recovery', () => {
     expect(reload).toHaveBeenCalledTimes(2);
   });
 });
+
+describe('quiet loaders (languages, lessons, legal pages)', () => {
+  it('do not reload for ordinary failures', async () => {
+    const { recoverIfStale } = await import('@/lib/staleBuild');
+    expect(recoverIfStale(new Error('network down'))).toBe(false);
+  });
+});

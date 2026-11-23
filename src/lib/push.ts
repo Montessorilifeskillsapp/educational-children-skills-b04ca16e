@@ -1,3 +1,4 @@
+import { recoverIfStale } from '@/lib/staleBuild';
 // Registers this device for push notifications (native app or browser) and
 // stores the token on the server.
 import { Capacitor } from '@capacitor/core';
@@ -56,6 +57,7 @@ export async function enablePush(): Promise<PushResult> {
   try {
     return Capacitor.isNativePlatform() ? await enableNative() : await enableWeb();
   } catch (e) {
+    if (recoverIfStale(e)) return { status: 'error', message: '' };
     return { status: 'error', message: e instanceof Error ? e.message : String(e) };
   }
 }

@@ -48,6 +48,12 @@ export function reloadForNewVersion(
   return true;
 }
 
+/** For loaders that fall back quietly (e.g. to English): if the file is gone because a
+ * newer version was published, reload to that version instead. */
+export function recoverIfStale(err: unknown): boolean {
+  return isStaleBuildError(err) ? reloadForNewVersion() : false;
+}
+
 export function installStaleBuildRecovery() {
   if (typeof window === 'undefined') return;
   window.addEventListener('vite:preloadError', (event) => {

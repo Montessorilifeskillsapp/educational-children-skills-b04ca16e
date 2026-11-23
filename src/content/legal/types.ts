@@ -1,3 +1,4 @@
+import { recoverIfStale } from '@/lib/staleBuild';
 import type { PolicySection } from '@/content/privacy/policy.en';
 
 /**
@@ -20,5 +21,5 @@ export type LegalLoaders = Record<string, () => Promise<{ default: unknown }>>;
 export async function loadLegalDoc(loaders: LegalLoaders, lang: string, english: LegalDoc): Promise<LegalDoc> {
   const load = loaders[lang];
   if (!load) return english;
-  try { return (await load()).default as LegalDoc; } catch { return english; }
+  try { return (await load()).default as LegalDoc; } catch (err) { recoverIfStale(err); return english; }
 }

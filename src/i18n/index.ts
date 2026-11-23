@@ -2,6 +2,7 @@ import i18n, { type BackendModule } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './bundles/en';
+import { recoverIfStale } from '@/lib/staleBuild';
 
 export const LANGUAGES = [
   { code: 'en', label: 'English', short: 'EN' },
@@ -27,7 +28,7 @@ const languageLoader: BackendModule = {
   read: (lng, _ns, done) => {
     const load = loaders[lng.slice(0, 2)];
     if (!load) { done(null, {}); return; }
-    load().then((m) => done(null, m.default), (err) => done(err, false));
+    load().then((m) => done(null, m.default), (err) => { recoverIfStale(err); done(err, false); });
   },
 };
 

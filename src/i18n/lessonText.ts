@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import i18n from './index';
+import { recoverIfStale } from '@/lib/staleBuild';
 
 /**
  * Lesson content (activity names, purposes, steps, notes, materials, section text) is authored in English.
@@ -22,7 +23,7 @@ const current = () => (i18n.resolvedLanguage || i18n.language || 'en').slice(0, 
 
 export function loadLessonText(lang = current()): Promise<void> {
   if (!loaders[lang] || cache[lang]) return Promise.resolve();
-  pending[lang] ??= loaders[lang]().then((m) => { cache[lang] = m.default; }).catch(() => { delete pending[lang]; });
+  pending[lang] ??= loaders[lang]().then((m) => { cache[lang] = m.default; }).catch((err) => { delete pending[lang]; recoverIfStale(err); });
   return pending[lang];
 }
 
