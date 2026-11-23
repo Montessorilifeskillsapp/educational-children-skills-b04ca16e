@@ -73,7 +73,7 @@ export const en = {
     eyebrow: 'Beyond the first activity', title: 'Return to the sequence. Share what works.',
     continueTitle: 'Continue the work', continueText: 'Return to each child’s profile, record progress, and choose the next appropriate activity.',
     shareTitle: 'Share with others', shareText: 'Share Montessori Life Skills with another parent, teacher, caregiver, or classroom assistant.',
-    schoolsTitle: 'For schools', schoolsText: 'Authentic AMI/AMS presentations, suitable for AMI, AMS and independent Montessori schools. Contact us to discuss your school’s needs.',
+    schoolsTitle: 'For schools', schoolsText: 'Authentic presentations aligned with the Association Montessori Internationale (AMI) and the American Montessori Society (AMS), suitable for AMI, AMS and independent Montessori schools. Contact us to discuss your school’s needs.',
     contactUs: 'Contact Us',
   },
   faq: {
@@ -86,6 +86,7 @@ export const en = {
     q6: 'How is the curriculum organized?', a6: 'Activities are arranged from introductory to advanced work within each curriculum section, with materials and presentation guidance together in one place.',
     q7: "What if I'm not satisfied?", a7: 'Premium plans include a 30-day money-back guarantee. See the guarantee page for details.',
     q8: 'Does my child use this app?', a8: 'No. Montessori Life Skills is a teaching resource for the adult. You read the presentation, prepare the materials, and guide your child — hands-on, off-screen. The app never becomes screen time for the child.',
+    q9: 'Are the presentations aligned with AMI and AMS?', a9: 'Yes. The presentations follow the Montessori approach of the Association Montessori Internationale (AMI), founded by Dr. Maria Montessori, and the American Montessori Society (AMS). They were written by an AMI-trained 3–6 guide for homes and classrooms.',
   },
   cta: {
     title: 'Ready to Prepare Your Next Presentation?',

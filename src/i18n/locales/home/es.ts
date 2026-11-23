@@ -75,7 +75,7 @@ export const es: typeof en = {
     eyebrow: 'Más allá de la primera actividad', title: 'Vuelve a la secuencia. Comparte lo que funciona.',
     continueTitle: 'Continúa el trabajo', continueText: 'Vuelve al perfil de cada niño, registra su progreso y elige la siguiente actividad adecuada.',
     shareTitle: 'Comparte con otros', shareText: 'Comparte Montessori Life Skills con otra madre o padre, guía, cuidador o asistente de aula.',
-    schoolsTitle: 'Para escuelas', schoolsText: 'Presentaciones auténticas AMI/AMS, adecuadas para escuelas AMI, AMS y Montessori independientes. Contáctanos para hablar de las necesidades de tu escuela.',
+    schoolsTitle: 'Para escuelas', schoolsText: 'Presentaciones auténticas alineadas con la Association Montessori Internationale (AMI) y la American Montessori Society (AMS), adecuadas para escuelas AMI, AMS y Montessori independientes. Contáctanos para hablar de las necesidades de tu escuela.',
     contactUs: 'Contáctanos',
   },
   faq: {
@@ -88,6 +88,7 @@ export const es: typeof en = {
     q6: '¿Cómo está organizado el currículo?', a6: 'Las actividades van del trabajo introductorio al avanzado dentro de cada área, con los materiales y la guía de presentación reunidos en un solo lugar.',
     q7: '¿Y si no quedo satisfecho?', a7: 'Los planes Premium incluyen una garantía de devolución de 30 días. Consulta la página de la garantía para más detalles.',
     q8: '¿Mi hijo usa esta app?', a8: 'No. Montessori Life Skills es un recurso de enseñanza para el adulto. Tú lees la presentación, preparas los materiales y guías a tu hijo con las manos, lejos de la pantalla. La app nunca se convierte en tiempo de pantalla para el niño.',
+    q9: '¿Las presentaciones están alineadas con AMI y AMS?', a9: 'Sí. Las presentaciones siguen el enfoque Montessori de la Association Montessori Internationale (AMI), fundada por la Dra. Maria Montessori, y de la American Montessori Society (AMS). Las escribió una guía con formación AMI para niños de 3 a 6 años, para el hogar y el aula.',
   },
   cta: {
     title: '¿Listo para preparar tu próxima presentación?',

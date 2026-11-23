@@ -75,7 +75,7 @@ export const de: typeof en = {
     eyebrow: 'Über die erste Aktivität hinaus', title: 'Zur Abfolge zurückkehren. Teilen, was funktioniert.',
     continueTitle: 'Die Arbeit fortsetzen', continueText: 'Kehren Sie zum Profil jedes Kindes zurück, halten Sie Fortschritte fest und wählen Sie die nächste passende Aktivität.',
     shareTitle: 'Mit anderen teilen', shareText: 'Teilen Sie Montessori Life Skills mit anderen Eltern, Pädagogen, Betreuungspersonen oder Assistenzkräften.',
-    schoolsTitle: 'Für Schulen', schoolsText: 'Authentische AMI/AMS-Darbietungen, geeignet für AMI-, AMS- und unabhängige Montessori-Schulen. Kontaktieren Sie uns, um die Bedürfnisse Ihrer Schule zu besprechen.',
+    schoolsTitle: 'Für Schulen', schoolsText: 'Authentische Darbietungen im Einklang mit der Association Montessori Internationale (AMI) und der American Montessori Society (AMS), geeignet für AMI-, AMS- und unabhängige Montessori-Schulen. Kontaktieren Sie uns, um die Bedürfnisse Ihrer Schule zu besprechen.',
     contactUs: 'Kontakt',
   },
   faq: {
@@ -88,6 +88,7 @@ export const de: typeof en = {
     q6: 'Wie ist der Lehrplan aufgebaut?', a6: 'Innerhalb jedes Bereichs sind die Aktivitäten von der Einführung bis zur Vertiefung geordnet, mit Materialien und Darbietungshinweisen an einem Ort.',
     q7: 'Was, wenn ich nicht zufrieden bin?', a7: 'Premium-Pläne beinhalten eine 30-tägige Geld-zurück-Garantie. Einzelheiten finden Sie auf der Garantieseite.',
     q8: 'Benutzt mein Kind die App?', a8: 'Nein. Montessori Life Skills ist ein Hilfsmittel für den Erwachsenen. Sie lesen die Darbietung, bereiten die Materialien vor und begleiten Ihr Kind – mit den Händen, ohne Bildschirm. Die App wird für das Kind nie zur Bildschirmzeit.',
+    q9: 'Stehen die Darbietungen im Einklang mit AMI und AMS?', a9: 'Ja. Die Darbietungen folgen dem Montessori-Ansatz der Association Montessori Internationale (AMI), gegründet von Dr. Maria Montessori, und der American Montessori Society (AMS). Verfasst wurden sie von einer AMI-ausgebildeten Fachkraft für die Altersstufe 3–6, für Familien und Klassenräume.',
   },
   cta: {
     title: 'Bereit für Ihre nächste Darbietung?',

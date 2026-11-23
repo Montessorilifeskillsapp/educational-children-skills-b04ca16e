@@ -170,7 +170,7 @@ const ClassroomSetupPage: React.FC = () => {
           </div>
           <span className="inline-flex items-center gap-2 rounded-full bg-secondary/15 px-3 py-1 text-xs font-semibold text-secondary uppercase tracking-wider">
             <Sparkles className="w-3.5 h-3.5" />
-            The Prepared Environment · AMI
+            The Prepared Environment · AMI and AMS
           </span>
           <h1 className="mt-5 text-4xl md:text-5xl font-semibold leading-tight tracking-tight">
             How to Set Up Your Montessori Classroom
@@ -178,7 +178,8 @@ const ClassroomSetupPage: React.FC = () => {
           <p className="mt-5 text-lg text-muted-foreground max-w-2xl mx-auto">
             In Montessori, the environment is the teacher. Before a single lesson is given,
             the room itself must be prepared — ordered, beautiful, real, and proportioned
-            to the child. This is the AMI guide to getting it exactly right.
+            to the child. This guide follows the prepared-environment principles of the
+            Association Montessori Internationale (AMI) and the American Montessori Society (AMS).
           </p>
         </div>
       </section>
@@ -214,7 +215,8 @@ const ClassroomSetupPage: React.FC = () => {
           <h2 className="text-3xl font-semibold tracking-tight">The Areas of the Environment</h2>
         </div>
         <p className="text-muted-foreground max-w-3xl mb-10 leading-relaxed">
-          An AMI classroom holds five curriculum areas, each on its own shelving, each with
+          A classroom in the tradition of the Association Montessori Internationale (AMI) and
+          the American Montessori Society (AMS) holds five curriculum areas, each on its own shelving, each with
           its own internal sequence. They are introduced in a strict order — and the order
           is not negotiable.
         </p>

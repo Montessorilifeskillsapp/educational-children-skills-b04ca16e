@@ -132,7 +132,7 @@ export const sw: typeof en = {
     "shareTitle": "Shiriki na wengine",
     "shareText": "Shiriki Montessori Life Skills na mzazi mwingine, mwalimu, mlezi, au msaidizi wa darasani.",
     "schoolsTitle": "Kwa shule",
-    "schoolsText": "Uwasilishaji halisi wa AMI/AMS, unaofaa shule za Montessori za AMI, AMS na zinazojitegemea. Wasiliana nasi kujadili mahitaji ya shule yako.",
+    "schoolsText": "Uwasilishaji halisi unaoendana na Association Montessori Internationale (AMI) na American Montessori Society (AMS), unaofaa shule za Montessori za AMI, AMS na zinazojitegemea. Wasiliana nasi kujadili mahitaji ya shule yako.",
     "contactUs": "Wasiliana Nasi"
   },
   "faq": {
@@ -153,7 +153,9 @@ export const sw: typeof en = {
     "q7": "Vipi ikiwa sitaridhika?",
     "a7": "Vifurushi vya Premium vinajumuisha dhamana ya kurejeshewa fedha ndani ya siku 30. Angalia ukurasa wa dhamana kwa maelezo.",
     "q8": "Je, mtoto wangu hutumia programu hii?",
-    "a8": "Hapana. Montessori Life Skills ni nyenzo ya kufundishia kwa mtu mzima. Unasoma uwasilishaji, unaandaa vifaa na kumwongoza mtoto wako — kwa vitendo, bila skrini. Mtoto hatumii programu hii kutazama skrini."
+    "a8": "Hapana. Montessori Life Skills ni nyenzo ya kufundishia kwa mtu mzima. Unasoma uwasilishaji, unaandaa vifaa na kumwongoza mtoto wako — kwa vitendo, bila skrini. Mtoto hatumii programu hii kutazama skrini.",
+    "q9": "Je, uwasilishaji unaendana na AMI na AMS?",
+    "a9": "Ndiyo. Uwasilishaji unafuata mbinu ya Montessori ya Association Montessori Internationale (AMI), iliyoanzishwa na Dr. Maria Montessori, na ya American Montessori Society (AMS). Uliandikwa na mwongozaji aliyefunzwa na AMI wa watoto wa miaka 3–6, kwa ajili ya nyumbani na darasani."
   },
   "cta": {
     "title": "Uko Tayari Kuandaa Uwasilishaji Wako Unaofuata?",

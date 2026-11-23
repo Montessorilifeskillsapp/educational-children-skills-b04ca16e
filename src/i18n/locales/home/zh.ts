@@ -75,7 +75,7 @@ export const zh: typeof en = {
     eyebrow: '第一项活动之后', title: '回到序列，分享有效的方法。',
     continueTitle: '继续工作', continueText: '回到每个孩子的档案，记录进度，并选择下一项合适的活动。',
     shareTitle: '与他人分享', shareText: '把 Montessori Life Skills 分享给其他家长、教师、照护者或教室助理。',
-    schoolsTitle: '面向学校', schoolsText: '正宗 AMI/AMS 示范，适用于 AMI、AMS 及独立蒙台梭利学校。欢迎联系我们，探讨贵校的需求。',
+    schoolsTitle: '面向学校', schoolsText: '正宗示范，与国际蒙台梭利协会（Association Montessori Internationale，AMI）和美国蒙台梭利协会（American Montessori Society，AMS）的理念一致，适用于 AMI、AMS 及独立蒙台梭利学校。欢迎联系我们，探讨贵校的需求。',
     contactUs: '联系我们',
   },
   faq: {
@@ -88,6 +88,7 @@ export const zh: typeof en = {
     q6: '课程是如何组织的？', a6: '每个课程领域内的活动从入门到进阶排列，教具与示范指导集中在同一处。',
     q7: '如果我不满意怎么办？', a7: '高级版方案提供 30 天退款保证。详情请见保证页面。',
     q8: '我的孩子会使用这个应用吗？', a8: '不会。Montessori Life Skills 是供成人使用的教学资源。您阅读示范步骤、准备教具，然后离开屏幕、动手引导孩子。这个应用绝不会成为孩子的屏幕时间。',
+    q9: '这些示范与 AMI 和 AMS 一致吗？', a9: '是的。这些示范遵循由玛利亚·蒙台梭利博士创立的国际蒙台梭利协会（Association Montessori Internationale，AMI）以及美国蒙台梭利协会（American Montessori Society，AMS）的蒙台梭利方法，由一位受过 AMI 培训的 3–6 岁导师为家庭和教室编写。',
   },
   cta: {
     title: '准备好下一次示范了吗？',

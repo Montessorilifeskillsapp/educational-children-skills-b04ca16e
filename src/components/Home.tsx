@@ -119,7 +119,7 @@ const curriculumAreas = [
   { name: 'Grace & Courtesy', key: 'graceCourtesy', icon: HandHelping, color: AREA_BADGE, image: montessoriImages['grace-courtesy-table-setting'] },
 ];
 
-const faqs = [1, 2, 3, 4, 5, 6, 7, 8].map((n) => ({ q: `home.faq.q${n}`, a: `home.faq.a${n}` }));
+const faqs = [1, 2, 3, 4, 5, 6, 7, 8, 9].map((n) => ({ q: `home.faq.q${n}`, a: `home.faq.a${n}` }));
 
 // Curriculum area nav links are built inside the component to access handlers
 
