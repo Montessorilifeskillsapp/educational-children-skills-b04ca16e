@@ -1,24 +1,24 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, lazy, Suspense } from 'react';
 const APP_VERSION = "1.0.0";
-import Dashboard from './Dashboard';
-import SkillActivity from './SkillActivity';
-import PracticalLifeOverview from './PracticalLifeOverview';
-import PracticalLifeSkills from './PracticalLifeSkills';
-import SensorialSkills from './SensorialSkills';
-import LanguageSkills from './LanguageSkills';
-import MathSkills from './MathSkills';
-import GeographySkills from './GeographySkills';
-import BotanySkills from './BotanySkills';
-import ArtSkills from './ArtSkills';
-import CulturalSkills from './CulturalSkills';
-import GraceAndCourtesySkills from './GraceAndCourtesySkills';
+// Every screen except the home page downloads only when opened, so the app starts quickly.
+const Dashboard = lazy(() => import('./Dashboard'));
+const PracticalLifeOverview = lazy(() => import('./PracticalLifeOverview'));
+const SensorialSkills = lazy(() => import('./SensorialSkills'));
+const LanguageSkills = lazy(() => import('./LanguageSkills'));
+const MathSkills = lazy(() => import('./MathSkills'));
+const GeographySkills = lazy(() => import('./GeographySkills'));
+const BotanySkills = lazy(() => import('./BotanySkills'));
+const ArtSkills = lazy(() => import('./ArtSkills'));
+const CulturalSkills = lazy(() => import('./CulturalSkills'));
+const GraceAndCourtesySkills = lazy(() => import('./GraceAndCourtesySkills'));
+const SubscriptionPlans = lazy(() => import('./SubscriptionPlans'));
+const FamilyDashboard = lazy(() => import('./family/FamilyDashboard'));
+const OnboardingFlow = lazy(() => import('./OnboardingFlow'));
+const ProfilesView = lazy(() => import('./layout/ProfilesView'));
+const ActivityView = lazy(() => import('./layout/ActivityView'));
 
 import Home from './Home';
 import i18n from '@/i18n';
-import SubscriptionPlans from './SubscriptionPlans';
-import FamilyDashboard from './family/FamilyDashboard';
-import OnboardingFlow from './OnboardingFlow';
-import ProfileSelector from './ProfileSelector';
 
 import { useSubscription } from '@/contexts/SubscriptionContext';
 import { useProfile } from '@/contexts/ProfileContext';
@@ -30,31 +30,8 @@ import BackButton from '@/components/ui/back-button';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useIsSchoolStaff } from '@/components/school/useIsSchoolStaff';
 import { LogIn, Sparkles } from 'lucide-react';
-import { sensorialSkills } from '@/data/sensorialSkills';
-import { languageSkillsData } from '@/data/languageSkills';
-import { mathSkillsData } from '@/data/mathSkills';
-import { geographySkillsData } from '@/data/geographySkills';
-import { artSkillsData } from '@/data/artSkills';
-import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
-import { botanySkillsData } from '@/data/botanySkills';
-import { culturalSkillsData } from '@/data/culturalSkills';
-import { artSkillsEnhanced } from '@/data/artSkillsEnhanced';
-import { enhancedMathSkills } from '@/data/enhancedMathSkills';
-import { concisePracticalLifeSkills } from '@/data/concisePracticalLifeSkills';
-import { additionalPracticalLifeSkills } from '@/data/additionalPracticalLifeSkills';
-import { comprehensivePracticalLifeSkills } from '@/data/comprehensivePracticalLifeSkills';
-import { enhancedPracticalLifeSkills } from '@/data/enhancedPracticalLifeSkills';
-import { amiPracticalLifeSkills } from '@/data/amiPracticalLifeSkills';
 
-const allPracticalLifeSkills = {
-  ...comprehensivePracticalLifeSkills,
-  ...enhancedPracticalLifeSkills,
-  ...additionalPracticalLifeSkills,
-  ...amiPracticalLifeSkills,
-  ...concisePracticalLifeSkills,
-};
-
-const AppLayout: React.FC = () => {
+const AppLayoutViews: React.FC = () => {
   // State
   const initialView = (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('view') === 'dashboard') ? 'dashboard' : 'home';
   const [currentView, setCurrentView] = useState<'home' | 'dashboard' | 'skills' | 'activity' | 'practical' | 'sensorial' | 'language' | 'math' | 'geography' | 'botany' | 'art' | 'cultural' | 'grace-courtesy' | 'subscription' | 'parent' | 'profiles'>(initialView);
@@ -96,15 +73,6 @@ const AppLayout: React.FC = () => {
     logCompletion(skillId);
   }, [logCompletion]);
 
-  const handleBackToPractical = useCallback(() => setCurrentView('practical'), []);
-  const handleBackToSensorial = useCallback(() => setCurrentView('sensorial'), []);
-  const handleBackToLanguage = useCallback(() => setCurrentView('language'), []);
-  const handleBackToMath = useCallback(() => setCurrentView('math'), []);
-  const handleBackToGeography = useCallback(() => setCurrentView('geography'), []);
-  const handleBackToBotany = useCallback(() => setCurrentView('botany'), []);
-  const handleBackToCultural = useCallback(() => setCurrentView('cultural'), []);
-  const handleBackToArt = useCallback(() => setCurrentView('art'), []);
-  const handleBackToGraceCourtesy = useCallback(() => setCurrentView('grace-courtesy'), []);
   const handleBackToDashboard = useCallback(() => setCurrentView('dashboard'), []);
   const handleBackToHome = useCallback(() => setCurrentView('home'), []);
 
@@ -120,9 +88,6 @@ const AppLayout: React.FC = () => {
     }
     setSelectedSkill('');
   }, [currentView]);
-
-  // Constants
-  const practicalSkills = Object.keys(allPracticalLifeSkills);
 
   // School staff without their own family children use the School Portal, never child setup.
   const staffOnly = !!user && isSchoolStaff === true && !profilesLoading && profiles.length === 0;
@@ -334,13 +299,12 @@ const AppLayout: React.FC = () => {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 p-4">
         <div className="max-w-4xl mx-auto">
-          <ProfileSelector
+          <ProfilesView
             profiles={profiles}
             activeProfile={activeProfile}
             onProfileSelect={setActiveProfile}
             onProfileUpdate={setProfiles}
             completedSkills={completedSkills}
-            totalSkills={practicalSkills.length}
             onBack={handleBackToDashboard}
           />
           <div className="mt-6">
@@ -352,111 +316,12 @@ const AppLayout: React.FC = () => {
   }
 
   if (currentView === 'activity') {
-    if (practicalSkills.includes(selectedSkill)) {
-      return (
-        <PracticalLifeSkills
-          skillId={selectedSkill}
-          onBack={handleBackToGraceCourtesy}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (graceAndCourtesySkills[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToPractical}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (sensorialSkills[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToSensorial}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (languageSkillsData[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToLanguage}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (mathSkillsData[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToMath}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (enhancedMathSkills[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToMath}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (culturalSkillsData[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToCultural}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (geographySkillsData[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToGeography}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (botanySkillsData[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToBotany}
-          onComplete={handleComplete}
-        />
-      );
-    }
-
-    if (artSkillsEnhanced[selectedSkill]) {
-      return (
-        <SkillActivity
-          skillId={selectedSkill}
-          onBack={handleBackToArt}
-          onComplete={handleComplete}
-        />
-      );
-    }
-    
     return (
-      <SkillActivity
+      <ActivityView
         skillId={selectedSkill}
-        onBack={handleBack}
         onComplete={handleComplete}
+        onBack={handleBack}
+        onBackTo={handleViewChange}
       />
     );
   }
@@ -496,5 +361,17 @@ const AppLayout: React.FC = () => {
     />
   );
 };
+
+const ViewLoading = () => (
+  <div className="min-h-screen flex items-center justify-center" role="status" aria-label="Loading">
+    <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-primary" />
+  </div>
+);
+
+const AppLayout: React.FC = () => (
+  <Suspense fallback={<ViewLoading />}>
+    <AppLayoutViews />
+  </Suspense>
+);
 
 export default AppLayout;

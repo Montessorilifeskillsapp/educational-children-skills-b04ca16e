@@ -48,19 +48,32 @@ interface HomeProps {
 }
 
 // ─── Scroll-reveal hook ───
-function useReveal(threshold = 0.12) {
+// One shared observer for every fade-in section instead of one per section.
+const revealCallbacks = new WeakMap<Element, () => void>();
+let revealObserver: IntersectionObserver | null = null;
+function observeReveal(el: Element, onReveal: () => void): () => void {
+  if (typeof IntersectionObserver === 'undefined') { onReveal(); return () => {}; }
+  revealObserver ??= new IntersectionObserver((entries) => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      revealCallbacks.get(entry.target)?.();
+      revealCallbacks.delete(entry.target);
+      revealObserver?.unobserve(entry.target);
+    }
+  }, { threshold: 0.12 });
+  revealCallbacks.set(el, onReveal);
+  revealObserver.observe(el);
+  return () => { revealCallbacks.delete(el); revealObserver?.unobserve(el); };
+}
+
+function useReveal() {
   const ref = useRef<HTMLDivElement>(null);
   const [revealed, setRevealed] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
-    const obs = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setRevealed(true); obs.disconnect(); } },
-      { threshold }
-    );
-    obs.observe(el);
-    return () => obs.disconnect();
-  }, [threshold]);
+    return observeReveal(el, () => setRevealed(true));
+  }, []);
   return { ref, revealed };
 }
 

@@ -2,6 +2,8 @@
  * The only place the offline worker is registered. It never runs in development,
  * inside the editor preview, or in an iframe; `?sw=off` removes it.
  */
+import { saveOfflinePhotos } from './offlinePhotos';
+
 const SW_PATH = '/sw.js';
 
 function refused(): boolean {
@@ -30,6 +32,6 @@ export function registerOffline() {
   if (typeof window === 'undefined' || !('serviceWorker' in navigator)) return;
   if (refused()) { void unregisterAppWorker().catch(() => {}); return; }
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register(SW_PATH, { scope: '/' }).catch(() => {});
+    navigator.serviceWorker.register(SW_PATH, { scope: '/' }).then(saveOfflinePhotos, () => {});
   });
 }

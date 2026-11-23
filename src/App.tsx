@@ -2,7 +2,7 @@ import { useEffect, lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import ReadinessOffer from "@/components/growth/ReadinessOffer";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@/components/theme-provider";
 import { AuthProvider } from "@/components/AuthProvider";
 import { ProfileProvider } from "@/contexts/ProfileContext";
@@ -59,7 +59,7 @@ const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import HomeFab from "@/components/HomeFab";
 import SchoolReturnBar from "@/components/school/SchoolReturnBar";
-import ClassroomDrawer from "@/components/school/ClassroomDrawer";
+const ClassroomDrawer = lazy(() => import("@/components/school/ClassroomDrawer"));
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import ScrollToTop from "@/components/ScrollToTop";
 import { ErrorBoundary } from "@/components/ErrorBoundary";
@@ -70,6 +70,13 @@ const AdminSchoolsPage = lazy(() => import("./pages/AdminSchoolsPage"));
 import { Capacitor } from "@capacitor/core";
 import { useCapacitorAuthDeepLink } from "@/hooks/useCapacitorAuthDeepLink";
 import { useNativeWebViewRecovery } from "@/hooks/useNativeWebViewRecovery";
+
+// The classroom recording drawer only appears on an open activity, so it downloads only then.
+const ClassroomDrawerGate = () => {
+  const { search } = useLocation();
+  if (!new URLSearchParams(search).get("activity")) return null;
+  return <Suspense fallback={null}><ClassroomDrawer /></Suspense>;
+};
 
 const RouteEffects = () => {
   useUtmTracking();
@@ -108,7 +115,7 @@ const App = () => {
                         <ScrollToTop />
                         <RouteEffects />
                         <SchoolReturnBar />
-                        <ClassroomDrawer />
+                        <ClassroomDrawerGate />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}
                         <CookieConsent />
                         <ReadinessOffer />

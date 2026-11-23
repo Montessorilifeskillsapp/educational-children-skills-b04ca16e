@@ -59,7 +59,7 @@ describe('Hindi spelling of Montessori', () => {
     const { readFileSync, readdirSync } = await import('node:fs');
     const { join } = await import('node:path');
     const dir = join(process.cwd(), 'src/i18n/locales');
-    const files = [join(process.cwd(), 'src/i18n/lessons/hi.json'), ...readdirSync(dir).map((f) => join(dir, f))];
+    const files = [join(process.cwd(), 'src/i18n/lessons/hi.json'), ...(readdirSync(dir, { recursive: true }) as string[]).filter((f) => f.endsWith('.ts')).map((f) => join(dir, f))];
     const offenders = files.filter((f) => readFileSync(f, 'utf8').includes('मॉन्टेसरी'));
     expect(offenders).toEqual([]);
   });

@@ -3,6 +3,17 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
+import type { Plugin } from "vite";
+
+// Lists every bundled photo so the app can save them for offline use a few at a time (src/lib/offlinePhotos.ts).
+const offlinePhotoList = (): Plugin => ({
+  name: "offline-photo-list",
+  apply: "build",
+  generateBundle(_options, bundle) {
+    const photos = Object.keys(bundle).filter((f) => f.startsWith("assets/") && /\.(png|jpe?g|webp)$/i.test(f)).sort();
+    this.emitFile({ type: "asset", fileName: "offline-photos.json", source: JSON.stringify(photos.map((f) => `/${f}`)) });
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
@@ -20,7 +31,9 @@ export default defineConfig(({ mode }) => ({
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
-    // Offline: the full curriculum (pages, text and photos) is saved on first visit.
+    offlinePhotoList(),
+    // Offline: the app itself (every page and all lesson text) is saved on first visit; photos are
+    // saved gradually afterwards by src/lib/offlinePhotos.ts so the first visit never stalls.
     // Registration happens only from src/lib/registerOffline.ts.
     VitePWA({
       strategies: "generateSW",
@@ -30,7 +43,7 @@ export default defineConfig(({ mode }) => ({
       manifest: false,
       devOptions: { enabled: false },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,ico,png,jpg,jpeg,webp,svg,woff,woff2}"],
+        globPatterns: ["**/*.{js,css,html,ico,svg,woff,woff2}"],
         globIgnores: ["**/firebase-messaging-sw.js"],
         maximumFileSizeToCacheInBytes: 15 * 1024 * 1024,
         navigateFallback: "/index.html",
@@ -47,7 +60,7 @@ export default defineConfig(({ mode }) => ({
           {
             urlPattern: ({ url, sameOrigin }) => sameOrigin && url.pathname.startsWith("/assets/"),
             handler: "CacheFirst",
-            options: { cacheName: "built-assets", expiration: { maxEntries: 600 } },
+            options: { cacheName: "built-assets", expiration: { maxEntries: 1500 } },
           },
           {
             urlPattern: ({ url, request }) => request.destination === "image" && /supabase\.co$/.test(url.hostname) && url.pathname.includes("/storage/v1/object/public/"),
