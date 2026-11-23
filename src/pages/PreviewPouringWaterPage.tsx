@@ -76,13 +76,13 @@ const PreviewPouringWaterPage: React.FC = () => {
 
         <section className="prose prose-lg max-w-none mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-3">{p('whyTitle')}</h2>
-          <p className="text-foreground/80 leading-relaxed">{p('whyBody')}</p>
+          <p className="text-foreground leading-relaxed">{p('whyBody')}</p>
         </section>
 
         <section className="mb-10">
           <h2 className="text-2xl font-bold text-foreground mb-4">{p('materialsTitle')}</h2>
           <img decoding="async" src={pouringSet} alt={p('materialsAlt')} width={1024} height={1024} className="w-full max-w-md rounded-xl border border-border mb-4" loading="lazy" />
-          <ul className="space-y-2 text-foreground/80">
+          <ul className="space-y-2 text-foreground">
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {p('m1')}</li>
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {p('m2')}</li>
             <li className="flex gap-2"><CheckCircle className="w-5 h-5 text-primary shrink-0 mt-0.5" /> {p('m3')}</li>
@@ -98,7 +98,7 @@ const PreviewPouringWaterPage: React.FC = () => {
                 <div className="shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-primary to-accent text-primary-foreground font-bold flex items-center justify-center">{i + 1}</div>
                 <div>
                   <h3 className="font-semibold text-foreground mb-1">{p(`s${n}t`)}</h3>
-                  <p className="text-foreground/80 leading-relaxed">{p(`s${n}b`)}</p>
+                  <p className="text-foreground leading-relaxed">{p(`s${n}b`)}</p>
                 </div>
               </li>
             ))}

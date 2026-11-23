@@ -29,14 +29,14 @@ export const CheckoutSuccess: React.FC<CheckoutSuccessProps> = ({
         </DialogHeader>
         
         <div className="space-y-4 text-center">
-          <p className="text-gray-600">
+          <p className="text-muted-foreground">
             Thank you for your purchase! Your order has been confirmed.
           </p>
           
           {orderDetails && (
             <div className="bg-gray-50 p-4 rounded-lg text-left">
               <h3 className="font-medium mb-2">Order Summary</h3>
-              <p className="text-sm text-gray-600 mb-2">
+              <p className="text-sm text-muted-foreground mb-2">
                 Order ID: {orderDetails.orderId}
               </p>
               <div className="space-y-1">

@@ -120,7 +120,7 @@ const SkillActivityContent: React.FC<SkillActivityContentProps> = ({
                     }`}>
                       {step.completed ? '✓' : index + 1}
                     </div>
-                    <p className={`text-lg flex-1 ${step.completed ? 'line-through text-gray-600' : 'text-amber-900'}`}>
+                    <p className={`text-lg flex-1 ${step.completed ? 'line-through text-muted-foreground' : 'text-amber-900'}`}>
                       {step.instruction}
                     </p>
                     <Badge className={`${category.color} border-2 text-xs`}>

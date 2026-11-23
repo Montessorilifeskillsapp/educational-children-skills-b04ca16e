@@ -57,7 +57,7 @@ export const LaunchOptimizedImage: React.FC<LaunchOptimizedImageProps> = ({
           style={{ width, height }}
         >
           <svg
-            className="w-8 h-8 text-gray-400"
+            className="w-8 h-8 text-muted-foreground"
             fill="currentColor"
             viewBox="0 0 20 20"
           >

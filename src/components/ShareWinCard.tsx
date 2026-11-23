@@ -57,7 +57,7 @@ const ShareWinCard: React.FC<ShareWinCardProps> = ({ skillTitle, categoryName })
         </div>
       </div>
 
-      <div className="rounded-xl bg-background/70 border border-border p-3 mb-4 text-sm text-foreground/90 italic">
+      <div className="rounded-xl bg-background/70 border border-border p-3 mb-4 text-sm text-foreground italic">
         "{shareText}"
       </div>
 

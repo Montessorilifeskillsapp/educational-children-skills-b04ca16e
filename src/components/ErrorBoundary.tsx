@@ -46,16 +46,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
       return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-red-50 to-orange-50 p-4">
           <div className="max-w-md w-full text-center">
-            <div className="bg-white rounded-2xl p-8 shadow-xl border border-red-100">
+            <div className="bg-card rounded-2xl p-8 shadow-xl border border-red-100">
               <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <AlertTriangle className="w-8 h-8 text-red-600" />
               </div>
               
-              <h1 className="text-2xl font-bold text-gray-900 mb-4">
+              <h1 className="text-2xl font-bold text-foreground mb-4">
                 Oops! Something went wrong
               </h1>
               
-              <p className="text-gray-600 mb-6 leading-relaxed">
+              <p className="text-muted-foreground mb-6 leading-relaxed">
                 We encountered an unexpected error. Don't worry - your progress is safe. 
                 Try refreshing the page or return to the home screen.
               </p>
@@ -81,7 +81,7 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
               {process.env.NODE_ENV === 'development' && this.state.error && (
                 <details className="mt-6 text-left">
-                  <summary className="text-sm text-gray-500 cursor-pointer hover:text-gray-700">
+                  <summary className="text-sm text-muted-foreground cursor-pointer hover:text-foreground">
                     Technical Details (Dev Mode)
                   </summary>
                   <pre className="text-xs text-red-600 bg-red-50 p-3 rounded mt-2 overflow-auto">

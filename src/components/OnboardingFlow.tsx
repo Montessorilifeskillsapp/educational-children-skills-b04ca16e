@@ -100,14 +100,14 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             {currentStep === 1 && t('auth.onboarding.step1Title')}
             {currentStep === 2 && t('auth.onboarding.step2Title')}
           </CardTitle>
-          <p className="text-gray-600 text-sm">
+          <p className="text-muted-foreground text-sm">
             {currentStep === 0 && t('auth.onboarding.step0Body')}
             {currentStep === 1 && t('auth.onboarding.step1Body')}
             {currentStep === 2 && t('auth.onboarding.step2Body')}
           </p>
           <div className="mt-4">
             <Progress value={((currentStep + 1) / totalSteps) * 100} className="h-2" />
-            <p className="text-xs text-gray-500 mt-2">{t('auth.onboarding.stepOf', { current: currentStep + 1, total: totalSteps })}</p>
+            <p className="text-xs text-muted-foreground mt-2">{t('auth.onboarding.stepOf', { current: currentStep + 1, total: totalSteps })}</p>
           </div>
         </CardHeader>
 
@@ -158,7 +158,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
 
           {currentStep === 1 && (
             <div className="space-y-3">
-              <p className="text-xs text-gray-500 text-center">
+              <p className="text-xs text-muted-foreground text-center">
                 {t('auth.onboarding.selected', { count: focusAreas.length })}
               </p>
               <div className="grid grid-cols-2 gap-3">
@@ -186,7 +186,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
                       )}
                       <div className="text-2xl mb-1">{area.emoji}</div>
                       <div className="font-semibold text-sm">{areaLabel(area.id)}</div>
-                      <div className="text-xs text-gray-500">{t(`auth.onboarding.areas.${area.id}.desc`)}</div>
+                      <div className="text-xs text-muted-foreground">{t(`auth.onboarding.areas.${area.id}.desc`)}</div>
                     </button>
                   );
                 })}
@@ -198,7 +198,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
             <div className="text-center space-y-4">
               <div className="text-5xl">{avatar}</div>
               <div className="flex items-center justify-center gap-2">
-                <p className="text-gray-700">
+                <p className="text-foreground">
                   <Trans i18nKey="auth.onboarding.nameAge" values={{ name, age }} components={[<span key="n" className="font-semibold" />]} />
                 </p>
                 <button
@@ -211,7 +211,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               </div>
               <div className="space-y-2">
                 <div className="flex items-center justify-center gap-2">
-                  <p className="text-sm text-gray-600">{t('auth.onboarding.focusAreas')}</p>
+                  <p className="text-sm text-muted-foreground">{t('auth.onboarding.focusAreas')}</p>
                   <button
                     type="button"
                     onClick={() => setCurrentStep(1)}
@@ -302,7 +302,7 @@ const OnboardingFlow: React.FC<OnboardingFlowProps> = ({ onComplete }) => {
               </div>
 
               <div>
-                <p className="text-xs font-semibold text-gray-500 uppercase tracking-wide mb-2">
+                <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wide mb-2">
                   {t('auth.onboarding.focusCount', { count: savedProfile.interests.length })}
                 </p>
                 <div className="flex flex-wrap gap-2">

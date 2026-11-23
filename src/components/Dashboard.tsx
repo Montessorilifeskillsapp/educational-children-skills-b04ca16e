@@ -120,7 +120,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </p>
               )}
               {user && (
-                <p className="text-sm text-gray-600 mt-1">
+                <p className="text-sm text-muted-foreground mt-1">
                   {t('dashboard.loggedIn', { email: user.email })}
                 </p>
               )}
@@ -267,14 +267,14 @@ const Dashboard: React.FC<DashboardProps> = ({
                             title={`${b.label} — ${b.desc}`}
                             className={`flex flex-col items-center text-center p-2 rounded-xl transition ${
                               b.earned
-                                ? 'bg-white shadow-md'
-                                : 'bg-white/40 opacity-50 grayscale'
+                                ? 'bg-card shadow-md'
+                                : 'bg-card/40 opacity-50 grayscale'
                             }`}
                           >
                             <div className={`w-10 h-10 rounded-full bg-gradient-to-br ${b.color} flex items-center justify-center mb-1 shadow`}>
                               <Icon className="h-5 w-5 text-white" />
                             </div>
-                            <div className="text-[10px] font-semibold text-gray-700 leading-tight">
+                            <div className="text-[10px] font-semibold text-foreground leading-tight">
                               {b.label}
                             </div>
                           </div>
@@ -327,7 +327,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     </CardHeader>
                     <CardContent className="pt-0">
                       <Progress value={pct} className="h-2 mb-2" />
-                      <p className="text-xs text-gray-600">
+                      <p className="text-xs text-muted-foreground">
                         {t('dashboard.nCompleted', { done, total })}
                       </p>
                     </CardContent>
@@ -372,7 +372,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                       <span className={`text-xs font-mono ${meta.pct}`}>{pct}%</span>
                     </div>
                     <Progress value={pct} className="h-1.5 mb-1" />
-                    <p className="text-[10px] text-gray-600">
+                    <p className="text-[10px] text-muted-foreground">
                       {done} / {total}
                     </p>
                   </CardContent>
@@ -398,7 +398,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🏠</span>
                     <div>
                       <h3 className="text-amber-800 font-semibold">{t('dashboard.pl.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.pl.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.pl.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -423,7 +423,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">👁️</span>
                     <div>
                       <h3 className="text-accent">{t('dashboard.se.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.se.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.se.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -448,7 +448,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">📚</span>
                     <div>
                       <h3 className="text-yellow-700">{t('dashboard.la.t')}</h3>
-                      <p className="text-sm text-gray-600">{t('dashboard.la.s')}</p>
+                      <p className="text-sm text-muted-foreground">{t('dashboard.la.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -473,7 +473,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🔢</span>
                     <div>
                       <h3 className="text-red-700">{t('dashboard.ma.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.ma.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.ma.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -498,7 +498,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🌍</span>
                     <div>
                       <h3 className="text-blue-700">{t('dashboard.ge.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.ge.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.ge.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -523,7 +523,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🌱</span>
                     <div>
                       <h3 className="text-green-700">{t('dashboard.bo.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.bo.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.bo.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -547,7 +547,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🎨</span>
                     <div>
                       <h3 className="text-orange-800">{t('dashboard.ar.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.ar.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.ar.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>
@@ -571,7 +571,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     <span className="text-2xl">🏛️</span>
                     <div>
                       <h3 className="text-primary">{t('dashboard.cu.t')}</h3>
-                      <p className="text-sm text-gray-700">{t('dashboard.cu.s')}</p>
+                      <p className="text-sm text-foreground">{t('dashboard.cu.s')}</p>
                     </div>
                   </CardTitle>
                 </CardHeader>

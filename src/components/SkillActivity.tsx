@@ -141,7 +141,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       color: getCategoryColor(sensorialSkill.category), 
       description: getCategoryDescription(sensorialSkill.category) 
     } :
-    { name: 'Skills', icon: '🎯', color: 'bg-gray-100 border-gray-300 text-gray-800', description: 'General skill development' };
+    { name: 'Skills', icon: '🎯', color: 'bg-gray-100 border-gray-300 text-foreground', description: 'General skill development' };
 
   function getCategoryIcon(categoryName: string) {
     switch (categoryName) {
@@ -159,7 +159,7 @@ const SkillActivity: React.FC<SkillActivityProps> = ({ skillId, onBack, onComple
       case 'Auditory Discrimination': return 'bg-primary/15 border-primary/40 text-primary';
       case 'Tactile Discrimination': return 'bg-green-100 border-green-300 text-green-800';
       case 'Stereognostic': return 'bg-orange-100 border-orange-300 text-orange-800';
-      default: return 'bg-gray-100 border-gray-300 text-gray-800';
+      default: return 'bg-gray-100 border-gray-300 text-foreground';
     }
   }
 

@@ -161,17 +161,17 @@ export const ReportGeneration = () => {
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center gap-2">
               <TrendingUp className="w-8 h-8 text-amber-600" />
               <span className="font-medium">Weekly Progress</span>
-              <span className="text-sm text-gray-600">Quick overview of weekly activities</span>
+              <span className="text-sm text-muted-foreground">Quick overview of weekly activities</span>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center gap-2">
               <Award className="w-8 h-8 text-amber-600" />
               <span className="font-medium">Milestone Report</span>
-              <span className="text-sm text-gray-600">Achievements and milestones</span>
+              <span className="text-sm text-muted-foreground">Achievements and milestones</span>
             </Button>
             <Button variant="outline" className="h-auto p-4 flex flex-col items-center gap-2">
               <Calendar className="w-8 h-8 text-amber-600" />
               <span className="font-medium">Monthly Summary</span>
-              <span className="text-sm text-gray-600">Comprehensive monthly review</span>
+              <span className="text-sm text-muted-foreground">Comprehensive monthly review</span>
             </Button>
           </div>
         </CardContent>

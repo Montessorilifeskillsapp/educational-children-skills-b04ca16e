@@ -79,7 +79,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
                 {[...Array(5)].map((_, i) => (
                   <Star 
                     key={i} 
-                    className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-blue-400 text-blue-400' : 'text-gray-300'}`}
+                    className={`w-4 h-4 ${i < Math.floor(product.rating) ? 'fill-blue-400 text-blue-400' : 'text-muted-foreground/40'}`}
                     aria-hidden="true"
                   />
                 ))}

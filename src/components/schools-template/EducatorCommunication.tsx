@@ -153,12 +153,12 @@ const EducatorCommunication: React.FC = () => {
                   className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg ${
                     message.sender === 'parent'
                       ? 'bg-blue-500 text-white'
-                      : 'bg-gray-100 text-gray-800'
+                      : 'bg-muted text-foreground'
                   }`}
                 >
                   <p className="text-sm">{message.content}</p>
                   <p className={`text-xs mt-1 ${
-                    message.sender === 'parent' ? 'text-blue-100' : 'text-gray-500'
+                    message.sender === 'parent' ? 'text-blue-100' : 'text-muted-foreground'
                   }`}>
                     {formatTime(message.timestamp)}
                   </p>

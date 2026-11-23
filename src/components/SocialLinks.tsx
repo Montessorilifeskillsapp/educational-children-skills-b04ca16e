@@ -33,7 +33,7 @@ const SocialLinks: React.FC<SocialLinksProps> = ({ variant = 'dark', className =
   const base =
     variant === 'light'
       ? 'bg-white/20 text-white hover:bg-white/30 border-white/30'
-      : 'bg-white text-slate-700 hover:bg-slate-50 border-slate-200 hover:text-primary';
+      : 'bg-card text-foreground hover:bg-muted border-border hover:text-primary';
 
   return (
     <nav aria-label={t('pages.social.nav')} className={`flex items-center justify-center gap-3 ${className}`}>

@@ -169,7 +169,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                       {achievement.unlocked ? achievement.icon : '🔒'}
                     </div>
                     <div className="text-xs font-semibold">{achievement.title}</div>
-                    <div className="text-xs text-gray-600 mt-1">{achievement.description}</div>
+                    <div className="text-xs text-muted-foreground mt-1">{achievement.description}</div>
                   </div>
                 ))}
               </div>
@@ -216,7 +216,7 @@ const ProfileSelector: React.FC<ProfileSelectorProps> = ({
                 </div>
                 <div className="flex-1">
                   <h3 className="font-semibold text-lg">{profile.name}</h3>
-                  <p className="text-sm text-gray-600">{t('family.prof.yearsOld', { age: profile.age })}</p>
+                  <p className="text-sm text-muted-foreground">{t('family.prof.yearsOld', { age: profile.age })}</p>
                   {profile.covered === false && (
                     <Badge variant="outline" className="mt-1 text-xs">{t('family.prof.notIncluded')}</Badge>
                   )}

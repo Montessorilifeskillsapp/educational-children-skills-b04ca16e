@@ -89,7 +89,7 @@ export const ClassroomMaterials: React.FC = () => {
                         </span>
                       )}
                        <span className="min-w-0 flex-1 flex flex-col gap-0.5">
-                         <span className="text-sm leading-snug text-foreground/90">{label('items', item.displayName)}</span>
+                         <span className="text-sm leading-snug text-foreground">{label('items', item.displayName)}</span>
                          {!item.amazonUrl && !loading && !error && (
                            <span className="text-xs text-muted-foreground">{t('pages.classroomSetup.materials.noLink')}</span>
                          )}

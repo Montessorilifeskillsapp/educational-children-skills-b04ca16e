@@ -141,8 +141,8 @@ const SkillCard: React.FC<SkillCardProps> = ({
         
         {isLocked && (
           <div className="absolute inset-0 bg-gray-900 bg-opacity-20 rounded-lg flex items-center justify-center">
-            <div className="bg-white rounded-full p-3 shadow-lg">
-              <Lock className="w-6 h-6 text-gray-600" aria-hidden="true" />
+            <div className="bg-card rounded-full p-3 shadow-lg">
+              <Lock className="w-6 h-6 text-muted-foreground" aria-hidden="true" />
             </div>
           </div>
         )}

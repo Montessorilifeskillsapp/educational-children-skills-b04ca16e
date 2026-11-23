@@ -125,7 +125,7 @@ const ClassroomSetupPage: React.FC = () => {
                   </h3>
                   <ul className="space-y-1.5 mb-4">
                     {area.groups.map((g) => (
-                      <li key={g} className="flex items-start gap-2 text-sm text-foreground/90">
+                      <li key={g} className="flex items-start gap-2 text-sm text-foreground">
                         <CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
                         <span>{g}</span>
                       </li>
@@ -152,7 +152,7 @@ const ClassroomSetupPage: React.FC = () => {
             </div>
             <ul className="space-y-4">
               {shelfRules.map((r) => (
-                <li key={r} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
+                <li key={r} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{r}</span>
                 </li>
@@ -183,7 +183,7 @@ const ClassroomSetupPage: React.FC = () => {
             </div>
             <ul className="space-y-4">
               {adultRules.map((r) => (
-                <li key={r} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
+                <li key={r} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{r}</span>
                 </li>
@@ -227,7 +227,7 @@ const ClassroomSetupPage: React.FC = () => {
             </p>
             <ul className="grid sm:grid-cols-2 gap-x-8 gap-y-3">
               {checklist.map((c) => (
-                <li key={c} className="flex items-start gap-2 text-sm text-foreground/90">
+                <li key={c} className="flex items-start gap-2 text-sm text-foreground">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-0.5 flex-shrink-0" />
                   <span>{c}</span>
                 </li>

@@ -564,7 +564,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
         <h2 className="sr-only">{t('pricing.page.title')}</h2>
 
         {/* Apple / Google Play required EULA & auto-renewal disclosure */}
-        <div className="max-w-3xl mx-auto mb-6 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm text-foreground/90">
+        <div className="max-w-3xl mx-auto mb-6 rounded-xl border border-border bg-muted/40 p-4 text-left text-sm text-foreground">
           <p className="font-semibold mb-2">{t('pricing.page.details')}</p>
           <ul className="list-disc list-inside space-y-1 text-muted-foreground">
             <li><Trans i18nKey="pricing.page.d1" components={[<strong key="b" />]} /></li>
@@ -655,7 +655,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
                       .map((feature, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Check className="w-4 h-4 text-secondary flex-shrink-0 mt-1" aria-hidden="true" />
-                          <span className="text-sm text-foreground/90">{feature}</span>
+                          <span className="text-sm text-foreground">{feature}</span>
                         </li>
                       ))}
                   </ul>

@@ -155,7 +155,7 @@ const InstallBanner = () => {
       className="fixed top-0 left-0 right-0 z-[60] p-3 animate-fade-in pointer-events-none"
       style={{ paddingTop: 'calc(env(safe-area-inset-top) + 0.75rem)' }}
     >
-      <div className="pointer-events-auto max-w-md mx-auto bg-white/95 backdrop-blur-md rounded-2xl shadow-2xl border border-primary/15 p-4 flex items-center gap-3">
+      <div className="pointer-events-auto max-w-md mx-auto bg-card/95 backdrop-blur-md rounded-2xl shadow-2xl border border-primary/15 p-4 flex items-center gap-3">
         <div
           aria-hidden="true"
           className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-xl flex items-center justify-center shrink-0 overflow-hidden"
@@ -163,10 +163,10 @@ const InstallBanner = () => {
           <Leaf className="w-5 h-5 text-primary-foreground" />
         </div>
         <div className="flex-1 min-w-0">
-          <p id="install-banner-title" className="text-sm font-semibold text-slate-800 truncate">
+          <p id="install-banner-title" className="text-sm font-semibold text-foreground truncate">
             {t('pages.banner.title')}
           </p>
-          <p id="install-banner-desc" className="text-xs text-slate-500 truncate">
+          <p id="install-banner-desc" className="text-xs text-muted-foreground truncate">
             {description}
           </p>
         </div>
@@ -187,9 +187,9 @@ const InstallBanner = () => {
           size="icon"
           onClick={handleDismiss}
           aria-label={t('pages.banner.dismiss')}
-          className="p-1.5 hover:bg-slate-100 rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
+          className="p-1.5 hover:bg-muted rounded-lg transition-colors shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary"
         >
-          <X aria-hidden="true" className="w-4 h-4 text-slate-400" />
+          <X aria-hidden="true" className="w-4 h-4 text-muted-foreground" />
         </Button>
       </div>
     </div>

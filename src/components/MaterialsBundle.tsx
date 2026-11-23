@@ -31,7 +31,7 @@ const MaterialsBundle: React.FC<MaterialsBundleProps> = ({ materials, activityTi
       case 'container': return 'bg-green-100 text-green-800';
       case 'supply': return 'bg-primary/15 text-primary';
       case 'safety': return 'bg-red-100 text-red-800';
-      default: return 'bg-gray-100 text-gray-800';
+      default: return 'bg-muted text-foreground';
     }
   };
 

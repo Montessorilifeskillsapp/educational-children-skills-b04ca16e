@@ -146,7 +146,7 @@ const ChildProfileModal: React.FC<ChildProfileModalProps> = ({
                   className={`px-3 py-1 rounded-full text-sm transition-colors ${
                     formData.interests.includes(interest)
                       ? 'bg-primary/15 text-primary border border-primary/40'
-                      : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                      : 'bg-muted text-foreground hover:bg-muted/70'
                   }`}
                 >
                   {t(`family.prof.int.${interest}`, { defaultValue: interest })}

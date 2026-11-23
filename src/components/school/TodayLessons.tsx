@@ -61,7 +61,7 @@ export default function TodayLessons({ students, progress, plans, canPlan, canRe
                   <p className="school-label">{sk ? areaTitle(sk.areaKey, sk.areaTitle) : t('school.today.lesson')}</p>
                   <p className={`font-display mt-2 text-xl leading-snug text-foreground ${p.done ? 'line-through decoration-1' : ''}`}>{sk?.title ?? p.skill_id}</p>
                   <p className="mt-2 text-sm text-muted-foreground">{who}</p>
-                  {p.notes && <p className="mt-2 text-sm text-foreground/80">{p.notes}</p>}
+                  {p.notes && <p className="mt-2 text-sm text-foreground">{p.notes}</p>}
                   <div className="mt-auto flex flex-wrap items-center gap-x-5 gap-y-2 pt-5">
                     {sk && (
                       <Link to={skillLink(sk)} className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline">

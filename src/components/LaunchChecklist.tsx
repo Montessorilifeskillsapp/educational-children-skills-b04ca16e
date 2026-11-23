@@ -125,7 +125,7 @@ const LaunchChecklist: React.FC = () => {
   const getStatusIcon = (status: CheckItem['status']) => {
     switch (status) {
       case 'pending':
-        return <AlertCircle className="w-5 h-5 text-gray-400" />;
+        return <AlertCircle className="w-5 h-5 text-muted-foreground" />;
       case 'checking':
         return <Loader2 className="w-5 h-5 text-blue-500 animate-spin" />;
       case 'passed':

@@ -25,8 +25,8 @@ const FounderWeeklyNote: React.FC = () => {
           </p>
         </div>
       </div>
-      <p className="text-foreground/85 leading-relaxed text-[15px]">{currentNote.body}</p>
-      <p className="mt-3 text-sm font-medium text-foreground/70 italic">— {currentNote.signoff}</p>
+      <p className="text-foreground leading-relaxed text-[15px]">{currentNote.body}</p>
+      <p className="mt-3 text-sm font-medium text-muted-foreground italic">— {currentNote.signoff}</p>
     </section>
   );
 };

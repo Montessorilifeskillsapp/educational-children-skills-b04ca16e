@@ -49,12 +49,12 @@ const StartingPointGuide: React.FC<StartingPointGuideProps> = ({ step, onStepCha
             </div>
             <p className="text-sm font-medium text-muted-foreground">{t(`home.problem.q${i + 1}`)}</p>
             <DialogTitle className="text-2xl sm:text-3xl font-bold leading-tight text-foreground">{g('title')}</DialogTitle>
-            <DialogDescription className="text-base text-foreground/80 leading-relaxed">{g('intro')}</DialogDescription>
+            <DialogDescription className="text-base text-foreground leading-relaxed">{g('intro')}</DialogDescription>
           </DialogHeader>
 
           <ul className="mt-6 space-y-3">
             {POINTS.map((p) => (
-              <li key={p} className="flex gap-3 text-foreground/90 leading-relaxed">
+              <li key={p} className="flex gap-3 text-foreground leading-relaxed">
                 <CheckCircle className="mt-0.5 h-5 w-5 shrink-0 text-primary" aria-hidden="true" />
                 <span>{g(p)}</span>
               </li>

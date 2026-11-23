@@ -14,7 +14,7 @@ const Index: React.FC = () => {
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-primary/20 to-accent/20 p-4">
           <div className="text-center max-w-md">
             <h1 className="text-2xl font-bold mb-4">Unable to Load Montessori App</h1>
-            <p className="text-gray-600 mb-4">We're having trouble loading the app. This is usually a temporary issue.</p>
+            <p className="text-muted-foreground mb-4">We're having trouble loading the app. This is usually a temporary issue.</p>
             <div className="space-y-3">
               <button 
                 onClick={() => window.location.reload()} 

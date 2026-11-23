@@ -34,7 +34,7 @@ const GuaranteePage: React.FC = () => {
               </div>
               <div>
                 <h2 className="font-semibold text-foreground mb-1">{title}</h2>
-                <p className="text-foreground/80 leading-relaxed text-sm">{body}</p>
+                <p className="text-foreground leading-relaxed text-sm">{body}</p>
               </div>
             </div>
           ); })}
@@ -42,7 +42,7 @@ const GuaranteePage: React.FC = () => {
 
         <section className="rounded-2xl bg-muted/40 border border-border p-6">
           <h2 className="font-semibold text-foreground mb-2">{t('pages.guarantee.howTitle')}</h2>
-          <p className="text-foreground/80 text-sm leading-relaxed">
+          <p className="text-foreground text-sm leading-relaxed">
             <Trans i18nKey="pages.guarantee.how" values={{ email: 'montessorilifeskills@gmail.com' }} components={{ 1: <a href="mailto:montessorilifeskills@gmail.com" className="text-primary underline" /> }} />
           </p>
         </section>

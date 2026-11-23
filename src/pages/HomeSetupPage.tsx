@@ -98,7 +98,7 @@ const HomeSetupPage: React.FC = () => {
             </p>
             <ul className="space-y-4">
               {practicalLifeSteps.map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
+                <li key={item} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{item}</span>
                 </li>
@@ -148,7 +148,7 @@ const HomeSetupPage: React.FC = () => {
             </div>
             <ul className="space-y-4">
               {checklist.map((c) => (
-                <li key={c} className="flex items-start gap-3 text-sm text-foreground/90 leading-relaxed">
+                <li key={c} className="flex items-start gap-3 text-sm text-foreground leading-relaxed">
                   <CheckCircle2 className="w-4 h-4 text-secondary mt-1 flex-shrink-0" />
                   <span>{c}</span>
                 </li>

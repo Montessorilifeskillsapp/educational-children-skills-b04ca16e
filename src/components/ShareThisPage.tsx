@@ -148,7 +148,7 @@ const ShareThisPage: React.FC<ShareThisPageProps> = ({
 
   return (
     <div className={`flex flex-col items-center gap-3 ${className}`}>
-      <p className={`text-sm font-medium ${isLight ? 'text-white/90' : 'text-slate-600'}`}>
+      <p className={`text-sm font-medium ${isLight ? 'text-white/90' : 'text-muted-foreground'}`}>
         {t('pages.share.heading')}
       </p>
       <div className="flex flex-wrap items-center justify-center gap-3">

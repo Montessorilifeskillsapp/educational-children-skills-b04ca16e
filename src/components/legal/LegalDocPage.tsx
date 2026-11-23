@@ -38,7 +38,7 @@ const LegalDocPage: React.FC<Props> = ({ english, loaders, keywords, canonical }
       <PageLayout title={doc.pageTitle} onBack={() => navigate(-1)}>
         <div className="max-w-4xl mx-auto">
           <Card>
-            <CardContent className="p-8 prose prose-gray max-w-none">
+            <CardContent className="p-8 prose max-w-none">
               <p className="text-sm text-muted-foreground mb-2">{doc.updated.replace('{{date}}', formatDate(new Date(), { dateStyle: 'long' }))}</p>
               {shownLang !== 'en' && <p className="text-sm text-muted-foreground mb-6 italic">{doc.translationNote}</p>}
               {doc.sections.map((section, i) => (

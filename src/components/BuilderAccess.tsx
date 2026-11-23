@@ -12,10 +12,10 @@ const BuilderAccess: React.FC<BuilderAccessProps> = ({ onEnterApp }) => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-primary/20 p-4">
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+          <h1 className="text-4xl font-bold text-foreground mb-4">
             🏗️ Builder Access Panel
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-muted-foreground mb-6">
             Montessori Life Skills App - Creator Dashboard
           </p>
           <Button 

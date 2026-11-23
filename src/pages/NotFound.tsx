@@ -30,17 +30,17 @@ const NotFound: React.FC = () => {
     <SEOOptimizer>
       <div className="min-h-screen bg-gradient-to-br from-blue-50 via-primary/20 to-accent/20 flex items-center justify-center p-4">
         <div className="max-w-lg w-full text-center">
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border border-white/50">
+          <div className="bg-card/80 backdrop-blur-sm rounded-3xl p-10 shadow-2xl border border-white/50">
             {/* 404 Animation */}
             <div className="text-8xl font-bold text-transparent bg-gradient-to-r from-primary to-accent bg-clip-text mb-6 animate-bounce">
               404
             </div>
             
-            <h1 className="text-3xl font-bold text-gray-800 mb-4">
+            <h1 className="text-3xl font-bold text-foreground mb-4">
               {t('chrome.notFound.title')}
             </h1>
             
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            <p className="text-lg text-muted-foreground mb-8 leading-relaxed">
               {t('chrome.notFound.body')}
             </p>
 

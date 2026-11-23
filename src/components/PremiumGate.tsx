@@ -29,25 +29,25 @@ const PremiumGate: React.FC<PremiumGateProps> = ({
       </div>
       
       <div className="absolute inset-0 flex items-center justify-center">
-        <Card className="max-w-md mx-auto bg-white/95 backdrop-blur-sm border-2 border-blue-200">
+        <Card className="max-w-md mx-auto bg-card/95 backdrop-blur-sm border-2 border-blue-200">
           <CardHeader className="text-center pb-4">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-400 to-primary/200 rounded-full flex items-center justify-center mx-auto mb-4">
               <Crown className="w-8 h-8 text-white" />
             </div>
-            <CardTitle className="text-xl font-bold text-gray-800">Premium Access Required</CardTitle>
-            <p className="text-gray-600 text-sm">Unlock this activity with a premium subscription</p>
+            <CardTitle className="text-xl font-bold text-foreground">Premium Access Required</CardTitle>
+            <p className="text-muted-foreground text-sm">Unlock this activity with a premium subscription</p>
           </CardHeader>
           <CardContent>
             <div className="space-y-3 mb-6">
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-700">
+              <div className="flex items-center justify-center gap-2 text-sm text-foreground">
                 <Star className="w-4 h-4 text-blue-500" />
                 <span>Unlimited access to all activities</span>
               </div>
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-700">
+              <div className="flex items-center justify-center gap-2 text-sm text-foreground">
                 <Star className="w-4 h-4 text-blue-500" />
                 <span>Advanced progress tracking</span>
               </div>
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-700">
+              <div className="flex items-center justify-center gap-2 text-sm text-foreground">
                 <Star className="w-4 h-4 text-blue-500" />
                 <span>Premium materials & resources</span>
               </div>
@@ -61,7 +61,7 @@ const PremiumGate: React.FC<PremiumGateProps> = ({
               Upgrade to Premium
             </Button>
             
-            <p className="text-xs text-gray-500 mt-3">
+            <p className="text-xs text-muted-foreground mt-3">
               Starting at $9.99/month • Cancel anytime
             </p>
           </CardContent>

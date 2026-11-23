@@ -97,11 +97,11 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                     {phase.title}
                   </Badge>
                 </div>
-                <p className="text-gray-600 mt-2">{phase.data.description}</p>
+                <p className="text-muted-foreground mt-2">{phase.data.description}</p>
                 {'duration' in phase.data && phase.data.duration && (
                   <div className="flex items-center gap-2 mt-2">
-                    <Clock className="h-4 w-4 text-gray-500" />
-                    <span className="text-sm text-gray-500">{phase.data.duration}</span>
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                    <span className="text-sm text-muted-foreground">{phase.data.duration}</span>
                   </div>
                 )}
                 {'invitation' in phase.data && phase.data.invitation && (
@@ -118,7 +118,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Steps */}
                 {'steps' in phase.data && phase.data.steps && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <CheckCircle className="h-4 w-4 text-green-600" />
                       Steps
                     </h4>
@@ -132,13 +132,13 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                             {completedSteps[`${phase.id}-${index}`] ? (
                               <CheckCircle className="h-5 w-5 text-green-600" />
                             ) : (
-                              <Circle className="h-5 w-5 text-gray-400" />
+                              <Circle className="h-5 w-5 text-muted-foreground" />
                             )}
                           </button>
                           <p className={`text-sm ${
                             completedSteps[`${phase.id}-${index}`] 
-                              ? 'line-through text-gray-500' 
-                              : 'text-gray-800'
+                              ? 'line-through text-muted-foreground' 
+                              : 'text-foreground'
                           }`}>
                             {step}
                           </p>
@@ -151,7 +151,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Key Points */}
                 {'keyPoints' in phase.data && phase.data.keyPoints && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <Star className="h-4 w-4 text-yellow-500" />
                       Key Points
                     </h4>
@@ -159,7 +159,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.keyPoints.map((point, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Star className="h-3 w-3 text-yellow-500 mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{point}</span>
+                          <span className="text-foreground text-sm">{point}</span>
                         </li>
                       ))}
                     </ul>
@@ -169,7 +169,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Support Strategies */}
                 {'supportStrategies' in phase.data && phase.data.supportStrategies && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <Users className="h-4 w-4 text-blue-600" />
                       Support Strategies
                     </h4>
@@ -177,7 +177,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.supportStrategies.map((strategy, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Users className="h-3 w-3 text-blue-600 mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{strategy}</span>
+                          <span className="text-foreground text-sm">{strategy}</span>
                         </li>
                       ))}
                     </ul>
@@ -187,7 +187,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Indicators */}
                 {'indicators' in phase.data && phase.data.indicators && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <Target className="h-4 w-4 text-primary" />
                       Indicators
                     </h4>
@@ -195,7 +195,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.indicators.map((indicator, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Target className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{indicator}</span>
+                          <span className="text-foreground text-sm">{indicator}</span>
                         </li>
                       ))}
                     </ul>
@@ -205,7 +205,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Assessment Criteria */}
                 {'assessmentCriteria' in phase.data && phase.data.assessmentCriteria && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <ClipboardCheck className="h-4 w-4 text-green-600" />
                       Assessment Criteria
                     </h4>
@@ -213,7 +213,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.assessmentCriteria.map((criteria, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <ClipboardCheck className="h-3 w-3 text-green-600 mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{criteria}</span>
+                          <span className="text-foreground text-sm">{criteria}</span>
                         </li>
                       ))}
                     </ul>
@@ -223,7 +223,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Activities */}
                 {'activities' in phase.data && phase.data.activities && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <BookOpen className="h-4 w-4 text-primary" />
                       Activities
                     </h4>
@@ -231,7 +231,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.activities.map((activity, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <BookOpen className="h-3 w-3 text-primary mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{activity}</span>
+                          <span className="text-foreground text-sm">{activity}</span>
                         </li>
                       ))}
                     </ul>
@@ -241,7 +241,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Variations */}
                 {'variations' in phase.data && phase.data.variations && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <Shuffle className="h-4 w-4 text-orange-600" />
                       Variations
                     </h4>
@@ -249,7 +249,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.variations.map((variation, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <Shuffle className="h-3 w-3 text-orange-600 mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{variation}</span>
+                          <span className="text-foreground text-sm">{variation}</span>
                         </li>
                       ))}
                     </ul>
@@ -259,7 +259,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                 {/* Troubleshooting */}
                 {'troubleshooting' in phase.data && phase.data.troubleshooting && (
                   <div>
-                    <h4 className="font-medium text-gray-900 mb-2 flex items-center gap-2">
+                    <h4 className="font-medium text-foreground mb-2 flex items-center gap-2">
                       <AlertTriangle className="h-4 w-4 text-red-600" />
                       Troubleshooting
                     </h4>
@@ -267,7 +267,7 @@ const MontessoriLearningProcessComponent: React.FC<MontessoriLearningProcessProp
                       {phase.data.troubleshooting.map((tip, index) => (
                         <li key={index} className="flex items-start gap-2">
                           <AlertTriangle className="h-3 w-3 text-red-600 mt-1 flex-shrink-0" />
-                          <span className="text-gray-700 text-sm">{tip}</span>
+                          <span className="text-foreground text-sm">{tip}</span>
                         </li>
                       ))}
                     </ul>

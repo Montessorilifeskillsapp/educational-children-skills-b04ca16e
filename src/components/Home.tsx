@@ -225,7 +225,7 @@ const Home: React.FC<HomeProps> = ({
               <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-primary to-accent flex items-center justify-center shadow-sm" aria-hidden="true">
                 <Leaf className="w-5 h-5 text-primary-foreground" />
               </span>
-              <span className={`font-bold text-lg transition-colors ${scrolled ? 'text-slate-800' : 'text-slate-800'}`}>
+              <span className={`font-bold text-lg transition-colors text-foreground`}>
                 Montessori Life Skills
               </span>
             </div>
@@ -730,7 +730,7 @@ const Home: React.FC<HomeProps> = ({
 
       {/* ─── AI Image Disclaimer ─── */}
       <div className="py-4 bg-slate-950 text-center border-t border-slate-800">
-        <p className="text-xs text-slate-500">{t('home.aiDisclaimer')}</p>
+        <p className="text-xs text-muted-foreground">{t('home.aiDisclaimer')}</p>
       </div>
 
       {/* ─── Exit-intent email capture ─── */}

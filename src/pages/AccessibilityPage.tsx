@@ -31,7 +31,7 @@ const AccessibilityPage: React.FC = () => {
       <PageLayout title={k('title')} onBack={() => navigate(-1)}>
         <div className="max-w-4xl mx-auto">
           <Card>
-            <CardContent className="p-8 prose prose-gray max-w-none">
+            <CardContent className="p-8 prose max-w-none">
               <p className="text-sm text-muted-foreground mb-6">{k('updated', { date: formatDate(LAST_UPDATED, { dateStyle: 'long' }) })}</p>
 
               <section className="mb-8">
