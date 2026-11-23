@@ -42,6 +42,25 @@ const COMPLIANCE_CODES = [
 ] as const;
 
 
+/**
+ * Where each "A clearer starting point" question leads a first-time visitor, in question order:
+ * in-page section ids, or app pages (leading slash).
+ */
+const STARTING_POINT_TARGETS = [
+  'curriculum',            // Which activity comes next?
+  '/readiness-guide',      // Is the child ready?
+  'sample-activity',       // What materials are needed?
+  'how-it-works',          // How is it presented correctly?
+  '/preview/pouring-water',// What should you say — or not say?
+  'how-it-works',          // What do you observe?
+  'pricing',               // When should you move on?
+] as const;
+
+function scrollToSection(id: string) {
+  const reduce = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
+  document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
+}
+
 interface HomeProps {
   onGetStarted: () => void;
   onSubscriptionView?: () => void;
@@ -401,14 +420,26 @@ const Home: React.FC<HomeProps> = ({
               </p>
             </Reveal>
             <div className="grid sm:grid-cols-2 gap-3">
-              {[1, 2, 3, 4, 5, 6, 7].map((n) => t(`home.problem.q${n}`)).map((question, index) => (
-                <Reveal key={question} delay={index * 50}>
-                  <div className="h-full flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 shadow-sm">
+              {STARTING_POINT_TARGETS.map((target, index) => {
+                const question = t(`home.problem.q${index + 1}`);
+                const className = "group h-full w-full flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
+                const content = (
+                  <>
                     <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
-                    <p className="font-medium text-foreground">{question}</p>
-                  </div>
-                </Reveal>
-              ))}
+                    <span className="flex-1 font-medium text-foreground">{question}</span>
+                    <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
+                  </>
+                );
+                return (
+                  <Reveal key={question} delay={index * 50}>
+                    {target.startsWith('/') ? (
+                      <Link to={target} className={className}>{content}</Link>
+                    ) : (
+                      <button type="button" onClick={() => scrollToSection(target)} className={className}>{content}</button>
+                    )}
+                  </Reveal>
+                );
+              })}
             </div>
           </div>
           <Reveal className="mt-10 text-center">
