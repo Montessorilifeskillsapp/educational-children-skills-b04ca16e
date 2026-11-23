@@ -186,6 +186,9 @@ export const sw: typeof en = {
     "trustCancel": "Ghairi wakati wowote",
     "trustNoCard": "Kifurushi cha bure hakihitaji kadi",
     "trustBuilt": "Imeundwa na mwelekezi wa AMI",
+    "complianceLabel": "Faragha na ulinzi wa wanafunzi",
+    "complianceRegions": { "us": "Marekani", "eu": "Umoja wa Ulaya na Uingereza", "de": "Ujerumani", "es": "Uhispania na Amerika ya Kusini", "cn": "China", "in": "India", "ea": "Kenya na Uganda" },
+    "complianceNoAds": "Hakuna matangazo wala ufuatiliaji wa watoto",
     "rights": "© {{year}} Montessori Life Skills. Haki zote zimehifadhiwa."
   }
 };

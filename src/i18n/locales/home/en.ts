@@ -100,6 +100,9 @@ export const en = {
     support: 'Support', help: 'Help Center', contact: 'Contact Us', guarantee: '30-Day Guarantee', privacy: 'Privacy Policy', terms: 'Terms of Service',
     accessibility: 'Accessibility', cookies: 'Cookie settings',
     trustRefund: '30-day refund', trustCancel: 'Cancel anytime', trustNoCard: 'No card for free tier', trustBuilt: 'Built by an AMI guide',
+    complianceLabel: 'Privacy and student protection',
+    complianceRegions: { us: 'United States', eu: 'EU and UK', de: 'Germany', es: 'Spain and Latin America', cn: 'China', in: 'India', ea: 'Kenya and Uganda' },
+    complianceNoAds: 'No ads or tracking of children',
     rights: '© {{year}} Montessori Life Skills. All rights reserved.',
   },
 };

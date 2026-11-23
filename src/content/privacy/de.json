@@ -2,7 +2,7 @@
  "seoTitle": "Datenschutzerklärung – Montessori Life Skills",
  "seoDescription": "Unsere Datenschutzerklärung beschreibt, wie Montessori Life Skills Ihre personenbezogenen Informationen erhebt, verwendet und schützt, wenn Sie unseren Dienst nutzen.",
  "pageTitle": "Datenschutzerklärung",
- "updated": "Zuletzt aktualisiert: 19. November 2026",
+ "updated": "Zuletzt aktualisiert: 23. November 2026",
  "translationNote": "Diese Übersetzung wird zu Ihrer Information bereitgestellt. Bei Abweichungen von der englischen Fassung ist die englische Fassung maßgeblich.",
  "compliance": {
   "title": "Compliance und Datenschutz für Schulen",
@@ -351,17 +351,98 @@
      "keep": true
     },
     {
+     "p": "Datenschutzkontakt (auch für betroffene Personen in der EU, im Vereinigten Königreich und in China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    }
+   ]
+  },
+  {
+   "id": "regional-compliance",
+   "title": "Datenschutz nach Regionen",
+   "blocks": [
+    {
+     "p": "Die Rechte und Schutzmaßnahmen dieser Datenschutzerklärung gelten für alle, unabhängig vom Wohnort. Dieser Abschnitt nennt für jede Region, in der der Dienst genutzt wird, das wichtigste Datenschutzgesetz, die Behörde, bei der Sie sich beschweren können, sowie Regeln, die nur dort gelten. Sie können sich jederzeit zuerst an Uns wenden: [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    },
+    {
+     "h3": "Vereinigte Staaten"
+    },
+    {
+     "ul": [
+      "**Kinder (Children’s Online Privacy Protection Act, COPPA):** Kinder haben keine Konten. Nur ein Elternteil, eine sorgeberechtigte Person oder eine Schule erfasst die Angaben eines Kindes, und Informationen über Kinder werden niemals für Werbung oder Profilbildung verwendet. Zuständige Aufsichtsbehörde ist die Federal Trade Commission (FTC).",
+      "**Schülerunterlagen (Family Educational Rights and Privacy Act, FERPA):** Wenn eine Schule das Schulportal nutzt, gehören die Schülerunterlagen der Schule, und Wir handeln ausschließlich nach ihren Weisungen. Siehe „Schulen und Schülerunterlagen“ weiter unten.",
+      "**Kalifornien (CCPA/CPRA) und andere US-Bundesstaaten:** Wir verkaufen oder teilen keine personenbezogenen Informationen, verwenden sie nicht für kontextübergreifende verhaltensbasierte Werbung und behandeln ein Global-Privacy-Control-Signal als Widerspruch. Sie werden nicht anders behandelt, weil Sie Ihre Rechte ausüben."
+     ]
+    },
+    {
+     "h3": "Europäische Union, Vereinigtes Königreich und Schweiz"
+    },
+    {
+     "ul": [
+      "**Gesetze:** die Datenschutz-Grundverordnung der EU (DSGVO), die UK GDPR und der Data Protection Act 2018 des Vereinigten Königreichs sowie das Schweizer Bundesgesetz über den Datenschutz (DSG).",
+      "**Cookies:** Analysen bleiben ausgeschaltet, bis Sie zustimmen, und die Ablehnung ist so einfach wie die Zustimmung. Sie können Ihre Auswahl jederzeit in den [[cookies|Cookie-Einstellungen]] ändern.",
+      "**Beschwerden:** bei der Datenschutzbehörde an Ihrem Wohn- oder Arbeitsort; im Vereinigten Königreich beim Information Commissioner’s Office (ICO)."
+     ]
+    },
+    {
+     "h3": "Deutschland"
+    },
+    {
+     "ul": [
+      "**Gesetze:** die DSGVO, das Bundesdatenschutzgesetz (BDSG) und § 25 des Telekommunikation-Digitale-Dienste-Datenschutz-Gesetzes (TDDDG), nach dem Ihre Einwilligung erforderlich ist, bevor Analyseinformationen auf Ihrem Gerät gespeichert oder von dort ausgelesen werden.",
+      "**Kinder:** Nach Artikel 8 DSGVO muss für ein Kind unter 16 Jahren ein Elternteil einwilligen. Kinder haben im Dienst niemals ein Konto.",
+      "**Beschwerden:** bei der Datenschutzbehörde Ihres Bundeslandes (Landesdatenschutzbehörde) oder bei der Bundesbeauftragten für den Datenschutz und die Informationsfreiheit (BfDI)."
+     ]
+    },
+    {
+     "h3": "Spanien und Lateinamerika"
+    },
+    {
+     "ul": [
+      "**Spanien:** die DSGVO und das Organgesetz 3/2018 (LOPDGDD), nach dem für ein Kind unter 14 Jahren ein Elternteil einwilligen muss. Beschwerden richten Sie an die spanische Datenschutzbehörde (AEPD).",
+      "**Mexiko:** das Bundesgesetz zum Schutz personenbezogener Daten im Besitz von Privatpersonen (LFPDPPP). Sie können Ihre Rechte auf Auskunft, Berichtigung, Löschung und Widerspruch (ARCO-Rechte) per E-Mail ausüben und sich bei der zuständigen Bundesdatenschutzbehörde beschweren.",
+      "**Kolumbien:** Gesetz 1581 von 2012, beaufsichtigt von der Superintendencia de Industria y Comercio (SIC).",
+      "**Argentinien:** Gesetz 25.326, beaufsichtigt von der Agencia de Acceso a la Información Pública (AAIP).",
+      "**Chile und Peru:** das chilenische Gesetz 19.628 in der durch Gesetz 21.719 geänderten Fassung und das peruanische Gesetz 29733. In allen Ländern der Region werden Informationen über Kinder zum Wohl des Kindes verarbeitet."
+     ]
+    },
+    {
+     "h3": "China"
+    },
+    {
+     "ul": [
+      "**Gesetze:** das Personal Information Protection Law (PIPL), das Datensicherheitsgesetz und das Cybersicherheitsgesetz. Zuständige Aufsichtsbehörde ist die Cyberspace Administration of China (CAC).",
+      "**Kinder unter 14 Jahren:** Deren Informationen gelten als sensible personenbezogene Informationen und werden nur mit der gesonderten Einwilligung eines Elternteils verarbeitet (Artikel 28 und 31 PIPL).",
+      "**Grenzüberschreitende Übermittlung:** Die Daten werden in den Vereinigten Staaten verarbeitet, wie im obigen Hinweis für China beschrieben. Wir beantworten Anfragen innerhalb von 15 Arbeitstagen."
+     ]
+    },
+    {
+     "h3": "Indien"
+    },
+    {
+     "ul": [
+      "**Gesetz:** der Digital Personal Data Protection Act, 2023 (DPDP Act).",
+      "**Kinder unter 18 Jahren:** Ein Elternteil oder eine sorgeberechtigte Person erteilt durch das Hinzufügen eines Kinderprofils eine überprüfbare Einwilligung. Kinder werden niemals verfolgt, in ihrem Verhalten überwacht oder gezielt beworben (Abschnitt 9).",
+      "**Beschwerden:** zunächst an Uns, danach an das Data Protection Board of India."
+     ]
+    },
+    {
+     "h3": "Kenia und Uganda"
+    },
+    {
+     "ul": [
+      "**Kenia:** der Data Protection Act, 2019. Ein Elternteil oder eine sorgeberechtigte Person willigt für ein Kind ein (Abschnitt 33). Beschwerden richten Sie an das Office of the Data Protection Commissioner (ODPC).",
+      "**Uganda:** der Data Protection and Privacy Act, 2019 und die zugehörigen Regulations von 2021. Ein Elternteil oder eine sorgeberechtigte Person willigt für ein Kind unter 18 Jahren ein (Abschnitt 8). Beschwerden richten Sie an das Personal Data Protection Office (PDPO).",
+      "**Cookies:** Besucher in beiden Ländern entscheiden, ob sie Analysen zulassen, bevor eine Analyse startet."
+     ]
+    },
+    {
      "h3": "Weitere Regionen"
     },
     {
      "ul": [
-      "**Kalifornien (California Consumer Privacy Act/California Privacy Rights Act (CCPA/CPRA)):** Wir verkaufen oder teilen keine personenbezogenen Informationen und verwenden sie nicht für kontextübergreifende verhaltensbasierte Werbung. Sie werden nicht anders behandelt, weil Sie Ihre Rechte ausüben.",
-      "**Kanada (Personal Information Protection and Electronic Documents Act (PIPEDA), Gesetz 25 von Québec), Brasilien (Lei Geral de Proteção de Dados (LGPD)), Indien (Digital Personal Data Protection Act (DPDP)), Kenia, Uganda (Data Protection and Privacy Act; Personal Data Protection Office), Südkorea und Australien:** Sie haben die oben beschriebenen Rechte. Beschwerden können zunächst an Uns sowie an Ihre örtliche Datenschutzbehörde gerichtet werden.",
-      "**Aufsichtsbehörde in der EU/im Vereinigten Königreich:** Sie können bei der Datenschutzbehörde an Ihrem Wohn- oder Arbeitsort Beschwerde einlegen."
+      "**Kanada:** der Personal Information Protection and Electronic Documents Act (PIPEDA) und das Gesetz 25 von Québec; Analysen bleiben ausgeschaltet, bis Sie zustimmen. Beschwerden richten Sie an das Office of the Privacy Commissioner of Canada oder, in Québec, an die Commission d’accès à l’information.",
+      "**Brasilien:** die Lei Geral de Proteção de Dados (LGPD). Informationen über Kinder werden zu ihrem Wohl und mit Einwilligung eines Elternteils verarbeitet (Artikel 14). Beschwerden richten Sie an die nationale Datenschutzbehörde (ANPD).",
+      "**Südkorea und Australien:** der Personal Information Protection Act und der Privacy Act 1988. Beschwerden richten Sie an die Personal Information Protection Commission (PIPC) oder das Office of the Australian Information Commissioner (OAIC)."
      ]
-    },
-    {
-     "p": "Datenschutzkontakt (auch für betroffene Personen in der EU, im Vereinigten Königreich und in China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
     }
    ]
   },

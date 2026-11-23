@@ -49,4 +49,13 @@ describe('Privacy Policy translations', () => {
     const cn = (p: PrivacyPolicy) => p.sections.flatMap((s) => s.blocks).find((b) => 'p' in b && b.keep);
     for (const policy of Object.values(translations)) expect(cn(policy)).toEqual(cn(policyEn));
   });
+
+  it('names each region\'s privacy law and regulator in every language', () => {
+    const codes = ['COPPA', 'FERPA', 'CCPA', 'GDPR', 'ICO', 'DSGVO', 'BDSG', 'TDDDG', 'BfDI', 'LOPDGDD', 'AEPD', 'LFPDPPP', 'ARCO', 'SIC', 'AAIP', 'PIPL', 'CAC', 'DPDP', 'ODPC', 'PDPO', 'PIPEDA', 'LGPD', 'ANPD', 'PIPC', 'OAIC'];
+    for (const policy of [policyEn, ...Object.values(translations)]) {
+      const section = policy.sections.find((s) => s.id === 'regional-compliance');
+      const text = JSON.stringify(section?.blocks ?? []);
+      expect(codes.filter((c) => !text.includes(c))).toEqual([]);
+    }
+  });
 });

@@ -102,6 +102,9 @@ export const zh: typeof en = {
     support: '支持', help: '帮助中心', contact: '联系我们', guarantee: '30 天保证', privacy: '隐私政策', terms: '服务条款',
     accessibility: '无障碍', cookies: 'Cookie 设置',
     trustRefund: '30 天退款', trustCancel: '随时取消', trustNoCard: '免费版无需绑卡', trustBuilt: '由 AMI 导师打造',
+    complianceLabel: '隐私与学生保护',
+    complianceRegions: { us: '美国', eu: '欧盟和英国', de: '德国', es: '西班牙和拉丁美洲', cn: '中国', in: '印度', ea: '肯尼亚和乌干达' },
+    complianceNoAds: '不向儿童投放广告，不跟踪儿童',
     rights: '© {{year}} Montessori Life Skills。保留所有权利。',
   },
 };

@@ -2,7 +2,7 @@
  "seoTitle": "Sera ya Faragha - Montessori Life Skills",
  "seoDescription": "Sera yetu ya faragha inaeleza jinsi Montessori Life Skills inavyokusanya, kutumia na kulinda taarifa zako binafsi unapotumia huduma yetu.",
  "pageTitle": "Sera ya Faragha",
- "updated": "Ilisasishwa mara ya mwisho: 19 Novemba 2026",
+ "updated": "Ilisasishwa mara ya mwisho: 23 Novemba 2026",
  "translationNote": "Tafsiri hii imetolewa kwa ajili ya urahisi. Ikiwa inatofautiana na toleo la Kiingereza, toleo la Kiingereza ndilo litakalotumika.",
  "compliance": {
   "title": "Uzingatiaji wa Sheria na Faragha Shuleni",
@@ -351,17 +351,98 @@
      "keep": true
     },
     {
+     "p": "Mawasiliano kuhusu faragha (yakiwemo kwa wahusika wa data wa Umoja wa Ulaya, Uingereza na China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    }
+   ]
+  },
+  {
+   "id": "regional-compliance",
+   "title": "Uzingatiaji wa sheria kwa kila eneo",
+   "blocks": [
+    {
+     "p": "Haki na kinga zilizoelezwa katika sera hii zinamhusu kila mtu, popote anapoishi. Sehemu hii inataja sheria kuu ya faragha katika kila eneo ambako Huduma inatumika, mamlaka unayoweza kuwasilisha malalamiko kwake, na kanuni yoyote inayotumika huko pekee. Unaweza kuwasiliana Nasi kwanza wakati wowote kupitia [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    },
+    {
+     "h3": "Marekani"
+    },
+    {
+     "ul": [
+      "**Watoto (Sheria ya Ulinzi wa Faragha ya Watoto Mtandaoni (COPPA)):** watoto hawana akaunti. Ni mzazi, mlezi au shule pekee anayeongeza taarifa za mtoto, na taarifa za watoto hazitumiki kamwe kwa matangazo wala kuunda wasifu. Mdhibiti ni Tume ya Biashara ya Shirikisho (FTC).",
+      "**Rekodi za wanafunzi (Sheria ya Haki za Kielimu za Familia na Faragha (FERPA)):** shule inapotumia Lango la Shule, rekodi za wanafunzi ni mali ya shule hiyo na Sisi tunafanya kazi kwa maelekezo yake pekee. Tazama sehemu ya Shule na Rekodi za Wanafunzi hapa chini.",
+      "**California (CCPA/CPRA) na majimbo mengine ya Marekani:** Hatuuzi wala kushiriki taarifa binafsi, hatuzitumii kwa matangazo yanayotegemea tabia katika miktadha tofauti, na tunachukulia ishara ya Global Privacy Control kama ombi la kujiondoa. Hutatendewa tofauti kwa kutumia haki Zako."
+     ]
+    },
+    {
+     "h3": "Umoja wa Ulaya, Uingereza na Uswisi"
+    },
+    {
+     "ul": [
+      "**Sheria:** Kanuni ya Jumla ya Ulinzi wa Data ya Umoja wa Ulaya (GDPR), Kanuni ya Jumla ya Ulinzi wa Data ya Uingereza (UK GDPR) pamoja na Sheria ya Ulinzi wa Data ya 2018, na Sheria ya Shirikisho ya Uswisi kuhusu Ulinzi wa Data (FADP).",
+      "**Vidakuzi:** uchanganuzi hubaki umezimwa hadi utoe idhini, na kukataa ni rahisi kama kukubali. Unaweza kubadilisha chaguo Lako wakati wowote katika [[cookies|Mipangilio ya vidakuzi]].",
+      "**Malalamiko:** kwa mamlaka ya ulinzi wa data mahali unapoishi au kufanya kazi; nchini Uingereza, kwa Ofisi ya Kamishna wa Habari (ICO)."
+     ]
+    },
+    {
+     "h3": "Ujerumani"
+    },
+    {
+     "ul": [
+      "**Sheria:** GDPR (DSGVO), Sheria ya Shirikisho ya Ulinzi wa Data (BDSG) na Kifungu cha 25 cha Sheria ya Ulinzi wa Data katika Mawasiliano na Huduma za Kidijitali (TDDDG), kinachohitaji idhini Yako kabla taarifa za uchanganuzi hazijahifadhiwa au kusomwa kwenye kifaa Chako.",
+      "**Watoto:** chini ya Ibara ya 8 ya GDPR, mzazi lazima atoe idhini kwa mtoto aliye chini ya miaka 16. Watoto hawana akaunti kamwe katika Huduma.",
+      "**Malalamiko:** kwa mamlaka ya ulinzi wa data ya jimbo Lako (Landesdatenschutzbehörde) au kwa Kamishna wa Shirikisho wa Ulinzi wa Data na Uhuru wa Habari (BfDI)."
+     ]
+    },
+    {
+     "h3": "Uhispania na Amerika ya Kusini"
+    },
+    {
+     "ul": [
+      "**Uhispania:** GDPR na Sheria ya Kikatiba 3/2018 (LOPDGDD), inayomtaka mzazi atoe idhini kwa mtoto aliye chini ya miaka 14. Malalamiko huwasilishwa kwa Wakala wa Ulinzi wa Data wa Uhispania (AEPD).",
+      "**Meksiko:** Sheria ya Shirikisho ya Ulinzi wa Data Binafsi Zinazoshikiliwa na Watu Binafsi (LFPDPPP). Unaweza kutumia haki Zako za kufikia, kusahihisha, kufuta na kupinga (haki za ARCO) kwa barua pepe, na kuwasilisha malalamiko kwa mamlaka ya shirikisho ya ulinzi wa data.",
+      "**Kolombia:** Sheria Na. 1581 ya 2012, inayosimamiwa na Mamlaka ya Usimamizi wa Viwanda na Biashara (SIC).",
+      "**Ajentina:** Sheria Na. 25.326, inayosimamiwa na Wakala wa Upatikanaji wa Taarifa za Umma (AAIP).",
+      "**Chile na Peru:** Sheria Na. 19.628 ya Chile, kama ilivyorekebishwa na Sheria Na. 21.719, na Sheria Na. 29733 ya Peru. Katika nchi zote za eneo hili, taarifa za watoto hushughulikiwa kwa kuzingatia maslahi bora ya mtoto."
+     ]
+    },
+    {
+     "h3": "China"
+    },
+    {
+     "ul": [
+      "**Sheria:** Sheria ya Ulinzi wa Taarifa Binafsi (PIPL), Sheria ya Usalama wa Data na Sheria ya Usalama wa Mtandao. Mdhibiti ni Mamlaka ya Anga ya Mtandao ya China (CAC).",
+      "**Watoto walio chini ya miaka 14:** taarifa zao ni taarifa binafsi nyeti na huchakatwa tu kwa idhini tofauti ya mzazi (Ibara ya 28 na 31 ya PIPL).",
+      "**Uhamishaji nje ya nchi:** data huchakatwa nchini Marekani, kama ilivyoelezwa katika taarifa ya China hapo juu. Tunajibu maombi ndani ya siku 15 za kazi."
+     ]
+    },
+    {
+     "h3": "India"
+    },
+    {
+     "ul": [
+      "**Sheria:** Sheria ya Ulinzi wa Data Binafsi za Kidijitali ya 2023 (DPDP).",
+      "**Watoto walio chini ya miaka 18:** mzazi au mlezi hutoa idhini inayoweza kuthibitishwa kwa kuongeza wasifu wa mtoto. Watoto hawafuatiliwi kamwe, tabia zao hazichunguzwi na hawalengwi kwa matangazo (Kifungu cha 9).",
+      "**Malalamiko:** Kwetu kwanza, kisha kwa Bodi ya Ulinzi wa Data ya India."
+     ]
+    },
+    {
+     "h3": "Kenya na Uganda"
+    },
+    {
+     "ul": [
+      "**Kenya:** Sheria ya Ulinzi wa Data ya 2019. Mzazi au mlezi hutoa idhini kwa niaba ya mtoto (Kifungu cha 33). Malalamiko huwasilishwa kwa Ofisi ya Kamishna wa Ulinzi wa Data (ODPC).",
+      "**Uganda:** Sheria ya Ulinzi wa Data na Faragha ya 2019 pamoja na Kanuni zake za 2021. Mzazi au mlezi hutoa idhini kwa mtoto aliye chini ya miaka 18 (Kifungu cha 8). Malalamiko huwasilishwa kwa Ofisi ya Ulinzi wa Data Binafsi (PDPO).",
+      "**Vidakuzi:** wageni katika nchi zote mbili huchagua kama wanaruhusu uchanganuzi kabla uchanganuzi wowote haujaanza."
+     ]
+    },
+    {
      "h3": "Maeneo mengine"
     },
     {
      "ul": [
-      "**California (Sheria ya Faragha ya Watumiaji ya California / Sheria ya Haki za Faragha ya California (CCPA/CPRA)):** Hatuuzi wala kushiriki taarifa binafsi na hatuzitumii kwa matangazo yanayotegemea tabia katika miktadha tofauti. Hutatendewa tofauti kwa sababu ya kutumia haki Zako.",
-      "**Kanada (Sheria ya Ulinzi wa Taarifa Binafsi na Nyaraka za Kielektroniki (PIPEDA), Sheria ya 25 ya Quebec), Brazil (Sheria ya Jumla ya Ulinzi wa Data (LGPD)), India (Sheria ya Ulinzi wa Data Binafsi za Kidijitali (DPDP)), Kenya, Uganda (Sheria ya Ulinzi wa Data na Faragha; Ofisi ya Ulinzi wa Data Binafsi), Korea Kusini na Australia:** Una haki zilizoelezwa hapo juu. Malalamiko yanaweza kutumwa Kwetu kwanza na kwa mamlaka ya ulinzi wa data ya eneo Lako.",
-      "**Mamlaka ya usimamizi ya Umoja wa Ulaya/Uingereza:** Unaweza kuwasilisha malalamiko kwa mamlaka ya ulinzi wa data mahali Unapoishi au kufanya kazi."
+      "**Kanada:** Sheria ya Ulinzi wa Taarifa Binafsi na Nyaraka za Kielektroniki (PIPEDA) na Sheria ya 25 ya Quebec; uchanganuzi hubaki umezimwa hadi utoe idhini. Malalamiko huwasilishwa kwa Ofisi ya Kamishna wa Faragha wa Kanada au, huko Quebec, kwa Commission d’accès à l’information.",
+      "**Brazil:** Sheria ya Jumla ya Ulinzi wa Data (LGPD). Taarifa za watoto huchakatwa kwa kuzingatia maslahi yao bora na kwa idhini ya mzazi (Ibara ya 14). Malalamiko huwasilishwa kwa Mamlaka ya Kitaifa ya Ulinzi wa Data (ANPD).",
+      "**Korea Kusini na Australia:** Sheria ya Ulinzi wa Taarifa Binafsi na Sheria ya Faragha ya 1988. Malalamiko huwasilishwa kwa Tume ya Ulinzi wa Taarifa Binafsi (PIPC) au Ofisi ya Kamishna wa Habari wa Australia (OAIC)."
      ]
-    },
-    {
-     "p": "Mawasiliano kuhusu faragha (yakiwemo kwa wahusika wa data wa Umoja wa Ulaya, Uingereza na China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
     }
    ]
   },

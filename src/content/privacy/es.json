@@ -2,7 +2,7 @@
  "seoTitle": "Política de Privacidad - Montessori Life Skills",
  "seoDescription": "Nuestra política de privacidad describe cómo Montessori Life Skills recopila, utiliza y protege tu información personal cuando utilizas nuestro servicio.",
  "pageTitle": "Política de Privacidad",
- "updated": "Última actualización: 19 de noviembre de 2026",
+ "updated": "Última actualización: 23 de noviembre de 2026",
  "translationNote": "Esta traducción se proporciona para tu comodidad. Si difiere de la versión en inglés, prevalece la versión en inglés.",
  "compliance": {
   "title": "Cumplimiento normativo y privacidad en las escuelas",
@@ -351,17 +351,98 @@
      "keep": true
     },
     {
+     "p": "Contacto de privacidad (también para los interesados de la UE, el Reino Unido y China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    }
+   ]
+  },
+  {
+   "id": "regional-compliance",
+   "title": "Cumplimiento normativo por región",
+   "blocks": [
+    {
+     "p": "Los derechos y las garantías de esta política se aplican a todas las personas, vivan donde vivan. Esta sección indica la principal ley de privacidad de cada región donde se utiliza el Servicio, la autoridad ante la que puedes presentar una reclamación y cualquier norma que se aplique solo allí. Siempre puedes contactarnos primero en [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
+    },
+    {
+     "h3": "Estados Unidos"
+    },
+    {
+     "ul": [
+      "**Niños (Ley de Protección de la Privacidad Infantil en Línea, COPPA):** los niños no tienen cuentas. Solo un padre, una madre, un tutor o una escuela añade los datos de un niño, y la información de los niños nunca se utiliza para publicidad ni para elaborar perfiles. El organismo regulador es la Comisión Federal de Comercio (FTC).",
+      "**Registros de estudiantes (Ley de Derechos Educativos y Privacidad de la Familia, FERPA):** cuando una escuela utiliza el Portal escolar, la escuela es la titular de los registros de sus estudiantes y Nosotros actuamos solo siguiendo sus instrucciones. Consulta «Escuelas y registros de estudiantes» más abajo.",
+      "**California (CCPA/CPRA) y otros estados de EE. UU.:** Nosotros no vendemos ni compartimos información personal ni la utilizamos para publicidad conductual entre distintos contextos, y tratamos la señal Global Privacy Control como una solicitud de exclusión. No recibirás un trato diferente por ejercer Tus derechos."
+     ]
+    },
+    {
+     "h3": "Unión Europea, Reino Unido y Suiza"
+    },
+    {
+     "ul": [
+      "**Leyes:** el Reglamento General de Protección de Datos de la UE (GDPR), el UK GDPR y la Ley de Protección de Datos de 2018 del Reino Unido, y la Ley Federal de Protección de Datos de Suiza (FADP).",
+      "**Cookies:** la analítica permanece desactivada hasta que des tu consentimiento, y rechazarla es tan fácil como aceptarla. Puedes cambiar Tu elección en cualquier momento en [[cookies|Configuración de cookies]].",
+      "**Reclamaciones:** ante la autoridad de protección de datos del lugar donde vives o trabajas; en el Reino Unido, ante la Oficina del Comisionado de Información (ICO)."
+     ]
+    },
+    {
+     "h3": "Alemania"
+    },
+    {
+     "ul": [
+      "**Leyes:** el GDPR (DSGVO), la Ley Federal de Protección de Datos (BDSG) y el artículo 25 de la Ley de Protección de Datos en Telecomunicaciones y Servicios Digitales (TDDDG), que exige Tu consentimiento antes de guardar o leer información de analítica en Tu dispositivo.",
+      "**Niños:** según el artículo 8 del GDPR, un padre o una madre debe dar su consentimiento para un niño menor de 16 años. Los niños nunca tienen cuentas en el Servicio.",
+      "**Reclamaciones:** ante la autoridad de protección de datos de Tu estado federado (Landesdatenschutzbehörde) o ante la Comisionada Federal de Protección de Datos y Libertad de Información (BfDI)."
+     ]
+    },
+    {
+     "h3": "España y América Latina"
+    },
+    {
+     "ul": [
+      "**España:** el GDPR y la Ley Orgánica 3/2018 (LOPDGDD), según la cual un padre o una madre debe dar su consentimiento para un niño menor de 14 años. Las reclamaciones se presentan ante la Agencia Española de Protección de Datos (AEPD).",
+      "**México:** la Ley Federal de Protección de Datos Personales en Posesión de los Particulares (LFPDPPP). Puedes ejercer Tus derechos de acceso, rectificación, cancelación y oposición (derechos ARCO) por correo electrónico y presentar una reclamación ante la autoridad federal de protección de datos.",
+      "**Colombia:** la Ley 1581 de 2012, supervisada por la Superintendencia de Industria y Comercio (SIC).",
+      "**Argentina:** la Ley 25.326, supervisada por la Agencia de Acceso a la Información Pública (AAIP).",
+      "**Chile y Perú:** la Ley 19.628 de Chile, modificada por la Ley 21.719, y la Ley 29733 del Perú. En todos los países de la región, la información de los niños se trata atendiendo al interés superior del niño."
+     ]
+    },
+    {
+     "h3": "China"
+    },
+    {
+     "ul": [
+      "**Leyes:** la Ley de Protección de la Información Personal (PIPL), la Ley de Seguridad de Datos y la Ley de Ciberseguridad. El organismo regulador es la Administración del Ciberespacio de China (CAC).",
+      "**Niños menores de 14 años:** su información se considera información personal sensible y solo se trata con el consentimiento separado de un padre o una madre (artículos 28 y 31 de la PIPL).",
+      "**Transferencia internacional:** los datos se tratan en Estados Unidos, como se describe en el aviso para China anterior. Nosotros respondemos a las solicitudes en un plazo de 15 días hábiles."
+     ]
+    },
+    {
+     "h3": "India"
+    },
+    {
+     "ul": [
+      "**Ley:** la Ley de Protección de Datos Personales Digitales de 2023 (Ley DPDP).",
+      "**Menores de 18 años:** un padre, una madre o un tutor otorga un consentimiento verificable al añadir el perfil de un niño. Los niños nunca son rastreados, ni se vigila su comportamiento, ni reciben publicidad dirigida (sección 9).",
+      "**Reclamaciones:** primero ante nosotros y después ante la Junta de Protección de Datos de la India."
+     ]
+    },
+    {
+     "h3": "Kenia y Uganda"
+    },
+    {
+     "ul": [
+      "**Kenia:** la Ley de Protección de Datos de 2019. Un padre, una madre o un tutor da su consentimiento en nombre del niño (sección 33). Las reclamaciones se presentan ante la Oficina del Comisionado de Protección de Datos (ODPC).",
+      "**Uganda:** la Ley de Protección de Datos y Privacidad de 2019 y su Reglamento de 2021. Un padre, una madre o un tutor da su consentimiento para un menor de 18 años (sección 8). Las reclamaciones se presentan ante la Oficina de Protección de Datos Personales (PDPO).",
+      "**Cookies:** los visitantes de ambos países eligen si permiten la analítica antes de que se active."
+     ]
+    },
+    {
      "h3": "Otras regiones"
     },
     {
      "ul": [
-      "**California (Ley de Privacidad del Consumidor de California / Ley de Derechos de Privacidad de California (CCPA/CPRA)):** Nosotros no vendemos ni compartimos información personal y no la utilizamos para publicidad conductual entre distintos contextos. No recibirás un trato diferente por ejercer Tus derechos.",
-      "**Canadá (Ley de Protección de la Información Personal y Documentos Electrónicos (PIPEDA), Ley 25 de Quebec), Brasil (Ley General de Protección de Datos Personales (LGPD)), India (Ley de Protección de Datos Personales Digitales (DPDP)), Kenia, Uganda (Ley de Protección de Datos y Privacidad; Oficina de Protección de Datos Personales), Corea del Sur y Australia:** tienes los derechos descritos anteriormente. Puedes presentar reclamaciones primero ante nosotros y también ante Tu autoridad local de protección de datos.",
-      "**Autoridad de control de la UE/el Reino Unido:** puedes presentar una reclamación ante la autoridad de protección de datos del lugar donde vives o trabajas."
+      "**Canadá:** la Ley de Protección de la Información Personal y Documentos Electrónicos (PIPEDA) y la Ley 25 de Quebec; la analítica permanece desactivada hasta que des tu consentimiento. Las reclamaciones se presentan ante la Oficina del Comisionado de Privacidad de Canadá o, en Quebec, ante la Commission d'accès à l'information.",
+      "**Brasil:** la Ley General de Protección de Datos Personales (LGPD). La información de los niños se trata atendiendo a su interés superior y con el consentimiento de un padre o una madre (artículo 14). Las reclamaciones se presentan ante la Autoridad Nacional de Protección de Datos (ANPD).",
+      "**Corea del Sur y Australia:** la Ley de Protección de la Información Personal y la Ley de Privacidad de 1988. Las reclamaciones se presentan ante la Comisión de Protección de la Información Personal (PIPC) o la Oficina del Comisionado de Información de Australia (OAIC)."
      ]
-    },
-    {
-     "p": "Contacto de privacidad (también para los interesados de la UE, el Reino Unido y China): [montessorilifeskills@gmail.com](mailto:montessorilifeskills@gmail.com)."
     }
    ]
   },

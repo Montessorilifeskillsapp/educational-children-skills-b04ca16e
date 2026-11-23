@@ -30,6 +30,18 @@ import LanguageSelector from '@/components/LanguageSelector';
 import { Sheet, SheetContent, SheetTrigger, SheetClose } from '@/components/ui/sheet';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 
+/** Privacy-law codes shown in the footer, keyed by the region label in home.footer.complianceRegions. */
+const COMPLIANCE_CODES = [
+  ['us', 'COPPA · FERPA · CCPA'],
+  ['eu', 'GDPR · UK GDPR'],
+  ['de', 'DSGVO · TDDDG'],
+  ['es', 'LOPDGDD · LFPDPPP'],
+  ['cn', 'PIPL'],
+  ['in', 'DPDP'],
+  ['ea', 'DPA · DPPA'],
+] as const;
+
+
 interface HomeProps {
   onGetStarted: () => void;
   onSubscriptionView?: () => void;
@@ -748,6 +760,23 @@ const Home: React.FC<HomeProps> = ({
             <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> {t('home.footer.trustNoCard')}</span>
             <span className="flex items-center gap-1.5"><CheckCircle className="w-3.5 h-3.5 text-emerald-400" /> {t('home.footer.trustBuilt')}</span>
           </div>
+
+          {/* Privacy-law compliance line: each code opens its region in the Privacy Policy */}
+          <nav aria-label={t('home.footer.complianceLabel')} className="mb-8 text-center text-xs text-slate-400">
+            <p className="mb-2 font-semibold uppercase tracking-wider text-slate-300">{t('home.footer.complianceLabel')}</p>
+            <ul className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
+              {COMPLIANCE_CODES.map(([region, codes]) => (
+                <li key={region}>
+                  <Link to="/privacy-policy#regional-compliance" className="hover:text-white transition-colors">
+                    <span className="font-semibold text-slate-200">{codes}</span> <span>({t(`home.footer.complianceRegions.${region}`)})</span>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link to="/privacy-policy#schools-student-records" className="hover:text-white transition-colors">{t('home.footer.complianceNoAds')}</Link>
+              </li>
+            </ul>
+          </nav>
 
           <div className="border-t border-slate-800 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <LanguageSelector showLabel className="text-slate-400 hover:text-white hover:bg-slate-800" />
