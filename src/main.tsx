@@ -5,7 +5,9 @@ import './index.css'
 import { i18nReady } from './i18n'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
 import { registerOffline } from './lib/registerOffline'
+import { installStaleBuildRecovery } from './lib/staleBuild'
 
+installStaleBuildRecovery()
 registerOffline()
 
 const render = () => createRoot(document.getElementById("root")!).render(

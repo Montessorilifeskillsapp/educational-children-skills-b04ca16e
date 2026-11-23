@@ -1,6 +1,7 @@
 import React, { Component, ReactNode } from 'react';
 import { AlertTriangle, RefreshCw, Home } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import { isStaleBuildError, reloadForNewVersion } from '@/lib/staleBuild';
 
 interface ErrorBoundaryState {
   hasError: boolean;
@@ -24,9 +25,16 @@ export class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundarySt
 
   componentDidCatch(error: Error, errorInfo: any) {
     console.error('Error caught by boundary:', error, errorInfo);
+    // A screen from an older published version is gone: load the new version once.
+    if (isStaleBuildError(error)) reloadForNewVersion();
   }
 
   handleRetry = () => {
+    // Retrying in place can't fetch a removed file; a full reload picks up the new version.
+    if (isStaleBuildError(this.state.error)) {
+      window.location.reload();
+      return;
+    }
     this.setState({ hasError: false, error: undefined });
   };
 
