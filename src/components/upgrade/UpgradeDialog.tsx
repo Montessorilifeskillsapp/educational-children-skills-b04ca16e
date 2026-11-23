@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Check, Crown, Shield } from 'lucide-react';
 import { analytics } from '@/lib/analytics';
 import { Trans, useTranslation } from 'react-i18next';
+import { useLocalizedImage } from '@/lib/localizedMedia';
 
 interface UpgradeDialogProps {
   open: boolean;
@@ -27,6 +28,7 @@ const UpgradeDialog: React.FC<UpgradeDialogProps> = ({
 }) => {
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const shownImage = useLocalizedImage(image);
 
   React.useEffect(() => {
     if (open) analytics.track('upgrade_prompt_view', { source });
@@ -42,7 +44,7 @@ const UpgradeDialog: React.FC<UpgradeDialogProps> = ({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md p-0 overflow-hidden">
         {image && (
-          <img decoding="async" src={image} alt={imageAlt ?? ''} className="w-full h-44 object-cover" />
+          <img decoding="async" src={shownImage} alt={imageAlt ?? ''} className="w-full h-44 object-cover" />
         )}
         <div className="p-6 space-y-4">
           <DialogHeader className="text-left space-y-2">

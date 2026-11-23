@@ -1,6 +1,7 @@
 import React from 'react';
 import BackButton from '@/components/ui/back-button';
 import i18n from '@/i18n';
+import { useLocalizedImage } from '@/lib/localizedMedia';
 
 interface ActivityLayoutProps {
   sectionLabel: string;
@@ -28,7 +29,9 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
   onBack,
   background,
   children,
-}) => (
+}) => {
+  const shownImage = useLocalizedImage(image ?? undefined);
+  return (
   <div className={`min-h-screen ${background} p-4 sm:p-6 pb-20`}>
     <div className="max-w-2xl mx-auto">
       <div className="mb-3">
@@ -47,7 +50,7 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
       {image && (
         <div className="mb-5 rounded-xl overflow-hidden border border-border shadow-sm">
           <img decoding="async"
-            src={image}
+            src={shownImage}
             alt={i18n.t('lesson.page.imageAlt', { title })}
             loading="lazy"
             width={800}
@@ -80,5 +83,6 @@ export const ActivityLayout: React.FC<ActivityLayoutProps> = ({
     </div>
   </div>
 );
+};
 
 export default ActivityLayout;

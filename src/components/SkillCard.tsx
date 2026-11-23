@@ -6,6 +6,7 @@ import CardStatus from './school/CardStatus';
 import UpgradeDialog from './upgrade/UpgradeDialog';
 import { useTranslation } from 'react-i18next';
 import { lessonText, useLessonLanguage } from '@/i18n/lessonText';
+import { localizedImageFor } from '@/lib/localizedMedia';
 
 interface Skill {
   id: string;
@@ -31,7 +32,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
   onSelect, 
   isPremium 
 }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   useLessonLanguage();
   // Shown text follows the chosen language; the English category still drives colors.
   const title = lessonText(skill.title);
@@ -150,7 +151,7 @@ const SkillCard: React.FC<SkillCardProps> = ({
           {skill.image ? (
             <div className="mb-3">
               <img decoding="async"
-                src={skill.image}
+                src={localizedImageFor(skill.image, i18n.resolvedLanguage || i18n.language)}
                 alt={t('chrome.card.materialAlt', { title })}
                 className="w-full h-32 object-cover rounded-lg"
                 loading="lazy"
