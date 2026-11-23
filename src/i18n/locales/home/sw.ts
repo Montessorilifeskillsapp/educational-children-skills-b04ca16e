@@ -82,8 +82,8 @@ export const sw: typeof en = {
     "eyebrow": "Mfahamu mwanzilishi",
     "imageAlt": "Kerry Howard, mwelekezi wa Montessori aliyefunzwa na AMI na mwanzilishi",
     "badge": "Mwelekezi wa watoto wa miaka 3–6 aliyefunzwa na AMI",
-    "lead": "Maarifa ya zaidi ya miaka 40+ ya darasa la Montessori, yaliyopangwa ili uweze kuyatumia kwa vitendo.",
-    "body": "Mtaala unatokana na mafunzo ya AMI yaliyothibitishwa ya Kerry na uzoefu wake wa kuwaongoza watoto katika mazingira yaliyoandaliwa.",
+    "lead": "Kila shughuli katika programu hii imetokana na mafunzo ya Kerry na miaka 40 ya kuwaongoza watoto katika mazingira yaliyoandaliwa — ili uwe na uhakika kwamba unachowasilisha nyumbani ni mbinu halisi ya Dr. Maria Montessori, si makadirio ya Pinterest.",
+    "body": "Dhamira yake: kufanya Montessori halisi ipatikane kwa kila familia, bila kuhitaji darasa.",
     "cta": "Soma wasifu wa Kerry"
   },
   "pricing": {

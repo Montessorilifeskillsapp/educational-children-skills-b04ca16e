@@ -51,8 +51,8 @@ export const de: typeof en = {
   founder: {
     eyebrow: 'Die Gründerin', imageAlt: 'Kerry Howard, AMI-ausgebildete Montessori-Pädagogin und Gründerin',
     badge: 'AMI-ausgebildete Pädagogin (Kinderhaus 3–6)',
-    lead: 'Über 40 Jahre Wissen aus dem Montessori-Kinderhaus – so geordnet, dass Sie es wirklich nutzen können.',
-    body: 'Der Lehrplan beruht auf Kerrys nachgewiesener AMI-Ausbildung und ihrer Erfahrung in der Begleitung von Kindern in vorbereiteten Umgebungen.',
+    lead: 'Jede Aktivität in dieser App ist geprägt von Kerrys Ausbildung und 40 Jahren Begleitung von Kindern in der vorbereiteten Umgebung – so können Sie darauf vertrauen, dass das, was Sie zu Hause darbieten, der Methode von Dr. Maria Montessori treu bleibt und keine Pinterest-Annäherung ist.',
+    body: 'Ihre Mission: authentisches Montessori für jede Familie zugänglich machen – ganz ohne Klassenzimmer.',
     cta: 'Kerrys Biografie lesen',
   },
   pricing: {

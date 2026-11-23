@@ -51,8 +51,8 @@ export const zh: typeof en = {
   founder: {
     eyebrow: '认识创始人', imageAlt: 'Kerry Howard，AMI 认证蒙台梭利导师及创始人',
     badge: 'AMI 认证 3–6 岁初级导师',
-    lead: '40 多年的蒙台梭利教室经验，经过整理，让您真正用得上。',
-    body: '课程基于 Kerry 经过认证的 AMI 培训，以及她在预备环境中引导儿童的经验。',
+    lead: '本应用中的每一项活动，都源自 Kerry 的专业培训和她 40 年在预备环境中引导儿童的经验——让您可以放心，您在家中所做的示范忠于玛利亚·蒙台梭利博士的方法，而不是 Pinterest 上的模仿。',
+    body: '她的使命：让每个家庭都能接触到正宗的蒙台梭利教育，无需教室。',
     cta: '阅读 Kerry 的简介',
   },
   pricing: {

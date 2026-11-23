@@ -49,8 +49,8 @@ export const en = {
   founder: {
     eyebrow: 'Meet the founder', imageAlt: 'Kerry Howard, AMI-trained Montessori guide and founder',
     badge: 'AMI-trained 3–6 Primary Guide',
-    lead: '40+ years of Montessori classroom knowledge, organized so you can actually use it.',
-    body: "The curriculum draws on Kerry's verified AMI training and experience guiding children in prepared environments.",
+    lead: "Every activity in this app is shaped by Kerry's training and 40 years of guiding children in the prepared environment — so you can trust that what you're presenting at home is true to Dr. Maria Montessori's method, not a Pinterest approximation.",
+    body: 'Her mission: make authentic Montessori accessible to every family, no classroom required.',
     cta: "Read Kerry's biography",
   },
   pricing: {

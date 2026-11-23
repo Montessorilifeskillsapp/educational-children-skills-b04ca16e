@@ -51,8 +51,8 @@ export const es: typeof en = {
   founder: {
     eyebrow: 'Conoce a la fundadora', imageAlt: 'Kerry Howard, guía Montessori con formación AMI y fundadora',
     badge: 'Guía de Casa de Niños (3–6) con formación AMI',
-    lead: 'Más de 40 años de conocimiento del aula Montessori, organizados para que realmente puedas usarlos.',
-    body: 'El currículo se basa en la formación AMI acreditada de Kerry y en su experiencia guiando a niños en ambientes preparados.',
+    lead: 'Cada actividad de esta app está moldeada por la formación de Kerry y sus 40 años guiando a niños en el ambiente preparado, para que puedas confiar en que lo que presentas en casa es fiel al método de la Dra. Maria Montessori, no una aproximación de Pinterest.',
+    body: 'Su misión: hacer que el Montessori auténtico sea accesible para todas las familias, sin necesidad de un aula.',
     cta: 'Leer la biografía de Kerry',
   },
   pricing: {
