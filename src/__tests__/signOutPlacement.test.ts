@@ -25,11 +25,11 @@ describe('Sign Out placement', () => {
     expect(sheet.indexOf('signOutAndReset()')).toBeGreaterThan(sheet.indexOf("t('common.startFree')"));
   });
 
-  it('School Portal offers Sign Out and switching account only inside its side menu', () => {
+  it('School Portal offers a single Sign Out only inside its side menu', () => {
     const src = readFileSync('src/pages/SchoolPortalPage.tsx', 'utf8');
     const sheet = src.slice(src.indexOf('<SheetContent'), src.indexOf('</SheetContent>'));
     const outside = src.replace(sheet, '');
-    expect(sheet).toContain("signOutAndReset('/auth')");
+    expect(sheet).not.toContain("signOutAndReset('/auth')");
     expect(sheet).toContain('signOutAndReset()');
     expect(outside).not.toContain('signOutAndReset(');
   });
