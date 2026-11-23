@@ -22,7 +22,7 @@
 - [x] Home setup page shown in all six languages
 - [x] Child invitation shown clearly at the start of every lesson (verify on live pages)
 - [x] Sign out (and switch account) from the top bar, phone menu, School Portal and Family Dashboard settings
-- [ ] Classroom Setup page in all six languages
-- [ ] Sign-in welcome card and premium lock box in all six languages
-- [ ] Songs license window, Songs License page and Accessibility page in all six languages
-- [ ] Terms of Service in all six languages (English version applies note, structure test)
+- [x] Classroom Setup page in all six languages
+- [x] Sign-in welcome card in all six languages (premium lock box is unused, left alone)
+- [x] Songs license window, Songs License page and Accessibility page in all six languages
+- [x] Terms of Service in all six languages (English version applies note, structure test)

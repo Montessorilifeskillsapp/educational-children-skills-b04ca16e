@@ -7,6 +7,7 @@ import { useSEO } from '@/hooks/useSEO';
 import { Card, CardContent } from '@/components/ui/card';
 import { Block } from '@/components/legal/LegalText';
 import { loadLegalDoc, type LegalDoc, type LegalLoaders } from '@/content/legal/types';
+import { formatDate } from '@/i18n/format';
 
 interface Props {
   english: LegalDoc;
@@ -38,7 +39,7 @@ const LegalDocPage: React.FC<Props> = ({ english, loaders, keywords, canonical }
         <div className="max-w-4xl mx-auto">
           <Card>
             <CardContent className="p-8 prose prose-gray max-w-none">
-              <p className="text-sm text-muted-foreground mb-2">{doc.updated}</p>
+              <p className="text-sm text-muted-foreground mb-2">{doc.updated.replace('{{date}}', formatDate(new Date(), { dateStyle: 'long' }))}</p>
               {shownLang !== 'en' && <p className="text-sm text-muted-foreground mb-6 italic">{doc.translationNote}</p>}
               {doc.sections.map((section, i) => (
                 <section key={i} id={section.id} className={`mb-8${section.id ? ' scroll-mt-24' : ''}`}>
