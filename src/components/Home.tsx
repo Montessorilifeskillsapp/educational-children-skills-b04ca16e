@@ -242,12 +242,6 @@ const Home: React.FC<HomeProps> = ({
                   <Button variant="ghost" size="sm" className="hidden sm:inline-flex">{t('common.signIn')}</Button>
                 </Link>
               )}
-              {user && (
-                <Button variant="ghost" size="sm" className="hidden sm:inline-flex" onClick={() => void signOutAndReset()} title={t('common.signedInAs', { email: user.email ?? '' })}>
-                  <LogOut className="w-4 h-4 mr-1.5" aria-hidden="true" />
-                  {t('common.signOut')}
-                </Button>
-              )}
               <Button
                 onClick={onGetStarted}
                 size="sm"
@@ -259,7 +253,7 @@ const Home: React.FC<HomeProps> = ({
               {/* Mobile menu */}
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button variant="ghost" size="icon" className="lg:hidden text-primary hover:bg-primary/10" aria-label={t('home.header.openSectionMenu')}>
+                  <Button variant="ghost" size="icon" className={`${user ? '' : 'lg:hidden '}text-primary hover:bg-primary/10`} aria-label={t('home.header.openSectionMenu')}>
                     <Menu className="w-5 h-5" />
                     <span className="sr-only">{t('home.header.openMenu')}</span>
                   </Button>
@@ -296,15 +290,6 @@ const Home: React.FC<HomeProps> = ({
                           </Link>
                         </SheetClose>
                       )}
-                      {user && (
-                        <div className="space-y-2">
-                          {user.email && <p className="text-sm text-muted-foreground break-all">{t('common.signedInAs', { email: user.email })}</p>}
-                          <Button variant="outline" className="w-full" onClick={() => void signOutAndReset()}>
-                            <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
-                            {t('common.signOut')}
-                          </Button>
-                        </div>
-                      )}
                       <SheetClose asChild>
                         <Button
                           onClick={onGetStarted}
@@ -313,6 +298,15 @@ const Home: React.FC<HomeProps> = ({
                           {t('common.startFree')}
                         </Button>
                       </SheetClose>
+                      {user && (
+                        <div className="space-y-2 pt-1">
+                          {user.email && <p className="text-sm text-muted-foreground break-all">{t('common.signedInAs', { email: user.email })}</p>}
+                          <Button variant="outline" className="w-full" onClick={() => void signOutAndReset()}>
+                            <LogOut className="w-4 h-4 mr-2" aria-hidden="true" />
+                            {t('common.signOut')}
+                          </Button>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </SheetContent>

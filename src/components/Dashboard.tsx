@@ -22,7 +22,6 @@ import { culturalSkillsData } from '@/data/culturalSkills';
 import { graceAndCourtesySkills } from '@/data/graceAndCourtesySkills';
 
 import FounderWeeklyNote from './FounderWeeklyNote';
-import { signOutAndReset } from '@/lib/signOut';
 import SongsTeaser from '@/components/songs/SongsTeaser';
 
 const PRACTICAL_LIFE_IDS = [
@@ -150,17 +149,13 @@ const Dashboard: React.FC<DashboardProps> = ({
                 </SelectContent>
               </Select>
             )}
-            {!user ? (
+            {!user && (
               <Link to="/auth">
                 <Button variant="outline">
                   <User className="mr-2 h-4 w-4" />
                   {t('dashboard.signIn')}
                 </Button>
               </Link>
-            ) : (
-              <Button variant="outline" onClick={() => void signOutAndReset()}>
-                {t('dashboard.signOut')}
-              </Button>
             )}
           </div>
         </div>

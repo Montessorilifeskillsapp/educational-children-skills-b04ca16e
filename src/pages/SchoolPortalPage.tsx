@@ -33,7 +33,6 @@ import { allowSchoolNavigation } from '@/components/school/navigation';
 import SyncStatus from '@/components/school/SyncStatus';
 import LanguageSelector from '@/components/LanguageSelector';
 import OfflineMediaPanel from '@/components/OfflineMediaPanel';
-import { signOutAndReset } from '@/lib/signOut';
 
 export default function SchoolPortalPage() {
   const { user, loading: authLoading } = useAuthContext();
@@ -189,7 +188,6 @@ export default function SchoolPortalPage() {
               <LanguageSelector />
               {can.manageSchool(role) && !leadership && <Button variant="ghost" size="sm" className="rounded-full whitespace-nowrap text-foreground" onClick={() => go('staff')}>{t('school.p.settings')}</Button>}
               <Button variant="ghost" type="button" className="whitespace-nowrap rounded-full px-3 py-2 text-foreground hover:bg-card" onClick={() => { if (allowSchoolNavigation()) navigate('/'); }}>{t('school.p.leave')}</Button>
-              <Button variant="ghost" type="button" className="whitespace-nowrap rounded-full px-3 py-2 text-foreground hover:bg-card" title={t('common.signedInAs', { email: user?.email ?? '' })} onClick={() => { if (allowSchoolNavigation()) void signOutAndReset(); }}>{t('common.signOut')}</Button>
             </div>
           </div>
         </nav>
