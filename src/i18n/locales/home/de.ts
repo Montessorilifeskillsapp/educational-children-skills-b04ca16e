@@ -18,6 +18,83 @@ export const de: typeof en = {
     q1: 'Welche Aktivität kommt als Nächstes?', q2: 'Ist das Kind bereit?', q3: 'Welche Materialien werden benötigt?', q4: 'Wie wird sie richtig dargeboten?',
     q5: 'Was sollten Sie sagen – und was nicht?', q6: 'Worauf achten Sie beim Beobachten?', q7: 'Wann ist es Zeit für den nächsten Schritt?',
     closing: 'Montessori Life Skills gibt Ihnen diese Antworten an die Hand.',
+    guide: {
+      "stepOf": "Schritt {{n}} von {{total}}",
+      "previous": "Zurück",
+      "next": "Nächster Schritt",
+      "done": "Fertig",
+      "tipLabel": "Bitte beachten",
+      "g1": {
+        "title": "Folgen Sie der natürlichen Reihenfolge",
+        "intro": "Montessori-Aktivitäten bauen aufeinander auf, vom Einfachen zum Komplexen. Sie müssen keinen ganzen Lehrplan planen – nur den nächsten kleinen Schritt.",
+        "p1": "Beginnen Sie mit den Übungen des täglichen Lebens. Alltägliche Aufgaben wie ein Tablett tragen, Löffeln und Schütten fördern die Koordination und Konzentration, die jede spätere Aktivität braucht.",
+        "p2": "Gehen Sie von trocken zu nass und von großen zu feinen Bewegungen: erst trockene Bohnen löffeln, dann trocken schütten, dann Wasser umgießen.",
+        "p3": "Bieten Sie jeweils nur eine neue Aktivität an und lassen Sie die bereits bekannten im Regal.",
+        "p4": "Sinnesmaterial, Sprache und Mathematik folgen, sobald das Kind mit ruhigen, sicheren Händen arbeitet.",
+        "tip": "Wenn Sie unsicher sind, gehen Sie einen Schritt zurück. Zu einer leichteren Aktivität zurückzukehren ist nie ein Misserfolg.",
+        "cta": "Übungen des täglichen Lebens ansehen"
+      },
+      "g2": {
+        "title": "Achten Sie auf Bereitschaft, nicht auf das Alter",
+        "intro": "Das Alter ist nur ein Anhaltspunkt. Bereitschaft zeigt sich in dem, was das Kind bereits kann.",
+        "p1": "Das Kind kann ein Tablett mit beiden Händen tragen, ohne es zu kippen.",
+        "p2": "Das Kind bleibt einige Minuten bei einer Aktivität, ohne wegzulaufen.",
+        "p3": "Das Kind beherrscht bereits die leichtere Aktivität, die davor kommt.",
+        "p4": "Das Kind zeigt Interesse: Es beobachtet Sie oder möchte bei der echten Aufgabe zu Hause helfen.",
+        "tip": "Ist das Kind noch nicht bereit, räumen Sie die Arbeit weg und bieten Sie sie an einem anderen Tag erneut an. Drängen Sie nie.",
+        "cta": "Kostenlosen Bereitschafts-Leitfaden erhalten"
+      },
+      "g3": {
+        "title": "Bereiten Sie echte, kindgerechte Materialien vor",
+        "intro": "Sie brauchen kein Klassenzimmer. Die meisten ersten Aktivitäten nutzen einfache Haushaltsgegenstände in der Größe der Kinderhände.",
+        "p1": "Verwenden Sie echte, zerbrechliche Materialien wie kleine Glaskännchen. Sie lehren Sorgfalt, und das Kind lernt, behutsam damit umzugehen.",
+        "p2": "Stellen Sie alles für eine Aktivität auf ein eigenes Tablett, von links nach rechts in der Reihenfolge der Verwendung.",
+        "p3": "Stellen Sie das Tablett in ein niedriges, aufgeräumtes Regal, das das Kind allein erreicht.",
+        "p4": "Legen Sie bereit, was das Kind zum Aufräumen braucht, etwa einen kleinen Schwamm oder ein Tuch – so wird Verschüttetes Teil der Arbeit.",
+        "tip": "Prüfen Sie vorher jedes Teil: Es sollte vollständig, sauber und funktionstüchtig sein. Ein fehlendes Teil unterbricht die Konzentration des Kindes.",
+        "cta": "Ihren Bereich zu Hause einrichten"
+      },
+      "g4": {
+        "title": "Langsam zeigen, wenig sprechen",
+        "intro": "Eine Darbietung ist eine stille Vorführung. Das Kind lernt, indem es Ihre Hände beobachtet – Ihre Bewegungen zählen mehr als Ihre Worte.",
+        "p1": "Setzen Sie sich neben das Kind, auf die Seite Ihrer dominanten Hand, damit es genau sieht, was Ihre Hände tun.",
+        "p2": "Sprechen Sie nicht, während sich Ihre Hände bewegen. Worte und Bewegung konkurrieren um die Aufmerksamkeit des Kindes.",
+        "p3": "Bewegen Sie sich langsam und zerlegen Sie die Aufgabe in klare, einzelne Bewegungen. Halten Sie an wichtigen Stellen kurz inne.",
+        "p4": "Zeigen Sie den ganzen Ablauf, vom Holen des Tabletts aus dem Regal bis zum Zurückstellen.",
+        "tip": "Üben Sie die Aktivität zuerst allein, damit Ihre Bewegungen fließend und sicher sind.",
+        "cta": "Eine vollständige Darbietung ansehen"
+      },
+      "g5": {
+        "title": "Einladen, dann die Arbeit sprechen lassen",
+        "intro": "Ihre Worte eröffnen und beenden die Darbietung. Dazwischen hilft Stille dem Kind, sich zu konzentrieren.",
+        "p1": "Laden Sie ein, statt anzuweisen: „Möchtest du, dass ich dir zeige, wie man Wasser umgießt?“",
+        "p2": "Sagt das Kind nein, akzeptieren Sie das ruhig und bieten Sie es später erneut an. Die Wahl liegt beim Kind.",
+        "p3": "Bieten Sie am Ende an: „Möchtest du es auch einmal versuchen?“ Treten Sie dann zurück.",
+        "p4": "Vermeiden Sie Lob wie „Gut gemacht!“ und korrigieren Sie Fehler nicht laut. Die eigene Zufriedenheit des Kindes ist die Belohnung.",
+        "tip": "Bittet das Kind um Hilfe, helfen Sie nur so viel wie nötig und treten Sie dann wieder zurück.",
+        "cta": "Die ganze Lektion „Wasser umgießen“ lesen"
+      },
+      "g6": {
+        "title": "Zurücktreten und beobachten",
+        "intro": "Die Beobachtung zeigt Ihnen, was das Kind als Nächstes braucht. Ihre Aufgabe ist jetzt, präsent, aber still zu sein.",
+        "p1": "Setzen Sie sich etwas abseits, damit sich das Kind frei fühlt und nicht beobachtet wird.",
+        "p2": "Achten Sie darauf, wie das Kind die Materialien hält, welche Hand es bevorzugt und wie sicher seine Bewegungen sind.",
+        "p3": "Achten Sie auf die Konzentration. Wiederholt das Kind die Aktivität aus eigenem Antrieb? Wiederholung ist ein Zeichen tiefen Lernens.",
+        "p4": "Lassen Sie Verschüttetes und Fehler zu; der Schwamm ist da, damit das Kind selbst aufwischt. Greifen Sie nur aus Sicherheitsgründen ein oder wenn ein Material zweckentfremdet wird.",
+        "tip": "Notieren Sie ein oder zwei Beobachtungen. Mit der Zeit zeigen diese Notizen die Fortschritte des Kindes.",
+        "cta": "Darauf in einer echten Lektion achten"
+      },
+      "g7": {
+        "title": "Erkennen, wann die Arbeit beherrscht wird",
+        "intro": "Gehen Sie weiter, wenn das Kind die ganze Aktivität allein, ruhig und sorgfältig ausführen kann.",
+        "p1": "Das Kind holt das Tablett aus dem Regal und trägt es sicher zum Tisch.",
+        "p2": "Das Kind führt die Aktivität mit sicheren Bewegungen und wenig Verschüttetem aus.",
+        "p3": "Das Kind räumt auf und stellt das Tablett bereit für den Nächsten zurück ins Regal.",
+        "p4": "Ist die Aktivität beherrscht, lässt das Interesse des Kindes nach. Das ist der Moment für eine Variation oder die nächste Aktivität.",
+        "tip": "Lassen Sie beherrschte Aktivitäten im Regal. Kinder kehren oft zu ihnen zurück, und Wiederholung stärkt das Selbstvertrauen.",
+        "cta": "Die nächste Aktivität wählen"
+      }
+    },
   },
   sample: {
     eyebrow: 'Eine echte Aktivität', title: 'Damit arbeiten Sie.',

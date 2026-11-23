@@ -18,6 +18,7 @@ import { botanyImages } from '@/assets/botany';
 import InstallBanner from './InstallBanner';
 import ExitIntentCapture from './ExitIntentCapture';
 import ConsultationDialog from './ConsultationDialog';
+import StartingPointGuide, { STARTING_POINT_LINKS } from './StartingPointGuide';
 import { openCookieSettings } from './consent/openCookieSettings';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
@@ -41,25 +42,6 @@ const COMPLIANCE_CODES = [
   ['ea', 'DPA · DPPA'],
 ] as const;
 
-
-/**
- * Where each "A clearer starting point" question leads a first-time visitor, in question order:
- * in-page section ids, or app pages (leading slash).
- */
-const STARTING_POINT_TARGETS = [
-  'curriculum',            // Which activity comes next?
-  '/readiness-guide',      // Is the child ready?
-  'sample-activity',       // What materials are needed?
-  'how-it-works',          // How is it presented correctly?
-  '/preview/pouring-water',// What should you say — or not say?
-  'how-it-works',          // What do you observe?
-  'pricing',               // When should you move on?
-] as const;
-
-function scrollToSection(id: string) {
-  const reduce = typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches;
-  document.getElementById(id)?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'start' });
-}
 
 interface HomeProps {
   onGetStarted: () => void;
@@ -158,6 +140,7 @@ const Home: React.FC<HomeProps> = ({
   const { t } = useTranslation();
   const pouringPhoto = usePouringPhoto();
   const [consultOpen, setConsultOpen] = useState(false);
+  const [guideStep, setGuideStep] = useState<number | null>(null);
 
   const homeNavLinks: { label: string; onClick?: () => void; href?: string }[] = [
     { label: t('nav.practicalLife'), onClick: onPracticalView },
@@ -420,28 +403,26 @@ const Home: React.FC<HomeProps> = ({
               </p>
             </Reveal>
             <div className="grid sm:grid-cols-2 gap-3">
-              {STARTING_POINT_TARGETS.map((target, index) => {
+              {STARTING_POINT_LINKS.map((_, index) => {
                 const question = t(`home.problem.q${index + 1}`);
-                const className = "group h-full w-full flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0";
-                const content = (
-                  <>
-                    <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
-                    <span className="flex-1 font-medium text-foreground">{question}</span>
-                    <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
-                  </>
-                );
                 return (
-                  <Reveal key={question} delay={index * 50}>
-                    {target.startsWith('/') ? (
-                      <Link to={target} className={className}>{content}</Link>
-                    ) : (
-                      <button type="button" onClick={() => scrollToSection(target)} className={className}>{content}</button>
-                    )}
+                  <Reveal key={index} delay={index * 50}>
+                    <button
+                      type="button"
+                      onClick={() => setGuideStep(index)}
+                      aria-haspopup="dialog"
+                      className="group h-full w-full flex items-center gap-3 rounded-xl border border-border/60 bg-card p-4 text-left shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-md active:translate-y-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none motion-reduce:hover:translate-y-0"
+                    >
+                      <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">{index + 1}</span>
+                      <span className="flex-1 font-medium text-foreground">{question}</span>
+                      <ArrowRight className="h-4 w-4 shrink-0 text-primary transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none" aria-hidden="true" />
+                    </button>
                   </Reveal>
                 );
               })}
             </div>
           </div>
+          <StartingPointGuide step={guideStep} onStepChange={setGuideStep} />
           <Reveal className="mt-10 text-center">
             <p className="text-xl sm:text-2xl font-bold text-primary">{t('home.problem.closing')}</p>
           </Reveal>

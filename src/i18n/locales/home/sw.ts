@@ -29,7 +29,84 @@ export const sw: typeof en = {
     "q5": "Unapaswa kusema nini — au kutosema nini?",
     "q6": "Unachunguza nini?",
     "q7": "Unapaswa kuendelea lini?",
-    "closing": "Montessori Life Skills inakupa majibu hayo mkononi mwako."
+    "closing": "Montessori Life Skills inakupa majibu hayo mkononi mwako.",
+    "guide": {
+      "stepOf": "Hatua {{n}} kati ya {{total}}",
+      "previous": "Iliyotangulia",
+      "next": "Hatua inayofuata",
+      "done": "Nimemaliza",
+      "tipLabel": "Kumbuka",
+      "g1": {
+        "title": "Fuata mpangilio wa asili",
+        "intro": "Shughuli za Montessori hujengana, kutoka rahisi hadi ngumu. Huhitaji kupanga mtaala mzima — hatua ndogo inayofuata tu.",
+        "p1": "Anza na Maisha ya Vitendo. Kazi za kila siku kama kubeba trei, kuchota kwa kijiko na kumimina hujenga uratibu na umakini unaohitajika katika kila shughuli inayofuata.",
+        "p2": "Endelea kutoka vitu vikavu hadi maji, na kutoka miondoko mikubwa hadi midogo: kuchota maharagwe makavu kwa kijiko, kisha kumimina vitu vikavu, kisha kumimina maji.",
+        "p3": "Toa shughuli moja mpya kwa wakati mmoja, na uache kwenye rafu zile ambazo mtoto tayari anazijua.",
+        "p4": "Shughuli za ukuzaji wa hisi, lugha na hisabati hufuata mtoto anapofanya kazi kwa mikono tulivu na imara.",
+        "tip": "Ukiwa na shaka, rudi hatua moja nyuma. Kurudi kwenye shughuli rahisi zaidi si kushindwa kamwe.",
+        "cta": "Tazama Maisha ya Vitendo"
+      },
+      "g2": {
+        "title": "Angalia utayari, si umri",
+        "intro": "Umri ni mwongozo tu. Utayari huonekana katika yale ambayo mtoto tayari anaweza kufanya.",
+        "p1": "Mtoto anaweza kubeba trei kwa mikono miwili na kutembea bila kuiinamisha.",
+        "p2": "Mtoto hukaa na shughuli moja kwa dakika chache bila kuondoka.",
+        "p3": "Mtoto tayari ameimudu shughuli rahisi inayotangulia.",
+        "p4": "Mtoto anaonyesha hamu kwa kukutazama au kutaka kusaidia kazi halisi nyumbani.",
+        "tip": "Mtoto asipokuwa tayari, weka kazi kando na umpe tena siku nyingine. Usimlazimishe kamwe.",
+        "cta": "Pata mwongozo wa utayari bila malipo"
+      },
+      "g3": {
+        "title": "Andaa vifaa halisi vya ukubwa wa mtoto",
+        "intro": "Huhitaji darasa. Shughuli nyingi za mwanzo hutumia vitu rahisi vya nyumbani vya ukubwa wa mikono ya mtoto.",
+        "p1": "Tumia vifaa halisi vinavyoweza kuvunjika, kama majagi madogo ya kioo. Vinafundisha uangalifu, na mtoto hujifunza kuvishika kwa upole.",
+        "p2": "Weka kila kitu cha shughuli moja kwenye trei yake, kwa mpangilio wa matumizi kutoka kushoto kwenda kulia.",
+        "p3": "Weka trei kwenye rafu ya chini isiyo na vitu vingi, mahali ambapo mtoto anaweza kuifikia peke yake.",
+        "p4": "Ongeza vitu vya kusafishia, kama sifongo kidogo au kitambaa, ili maji yanayomwagika yawe sehemu ya kazi.",
+        "tip": "Kagua kila kitu kwanza: kiwe kamili, safi na kinachofanya kazi. Kipande kinachokosekana huvuruga umakini wa mtoto.",
+        "cta": "Andaa mazingira yako nyumbani"
+      },
+      "g4": {
+        "title": "Onyesha polepole, sema kidogo",
+        "intro": "Uwasilishaji ni onyesho la kimya. Mtoto hujifunza kwa kutazama mikono yako, kwa hiyo miondoko yako ni muhimu kuliko maneno yako.",
+        "p1": "Keti kando ya mtoto, upande wa mkono unaoutumia zaidi, ili aone hasa mikono yako inachofanya.",
+        "p2": "Usiongee mikono yako ikiwa inasonga. Maneno na miondoko hushindania umakini wa mtoto.",
+        "p3": "Songa polepole na ugawe kazi katika miondoko iliyo wazi na tofauti. Simama kidogo katika nyakati muhimu.",
+        "p4": "Onyesha mzunguko mzima, kuanzia kuchukua trei kwenye rafu hadi kuirudisha.",
+        "tip": "Jizoeze shughuli peke yako kwanza, ili miondoko yako iwe laini na ya uhakika.",
+        "cta": "Tazama uwasilishaji kamili"
+      },
+      "g5": {
+        "title": "Karibisha, kisha iache kazi izungumze",
+        "intro": "Maneno yako hufungua na kufunga uwasilishaji. Katikati, ukimya humsaidia mtoto kuwa makini.",
+        "p1": "Karibisha badala ya kuamuru: “Je, ungependa nikuonyeshe jinsi ya kumimina maji?”",
+        "p2": "Mtoto akikataa, kubali kwa utulivu na umkaribishe tena wakati mwingine. Uchaguzi ni wa mtoto.",
+        "p3": "Ukimaliza, mpe zamu yake: “Je, ungependa kujaribu?” Kisha rudi nyuma kidogo.",
+        "p4": "Epuka sifa kama “Hongera sana!” na usirekebishe makosa kwa sauti. Furaha ya mtoto mwenyewe ndiyo zawadi.",
+        "tip": "Mtoto akiomba msaada, msaidie kadiri inavyohitajika tu, kisha rudi nyuma tena.",
+        "cta": "Soma somo kamili la kumimina maji"
+      },
+      "g6": {
+        "title": "Rudi nyuma na uchunguze",
+        "intro": "Uchunguzi hukuonyesha kile mtoto anachohitaji baadaye. Jukumu lako sasa ni kuwepo, lakini kimya.",
+        "p1": "Keti mbali kidogo, ili mtoto ajisikie huru kufanya kazi bila kutazamwa kwa karibu.",
+        "p2": "Angalia jinsi mtoto anavyoshika vifaa, mkono anaoupendelea na jinsi miondoko yake ilivyo imara.",
+        "p3": "Angalia umakini. Je, mtoto anarudia shughuli kwa hiari yake? Kurudia ni dalili ya kujifunza kwa kina.",
+        "p4": "Acha maji yamwagike na makosa yatokee; sifongo ipo ili mtoto ajisafishie. Ingilia kati kwa sababu za usalama tu au kifaa kikitumiwa vibaya.",
+        "tip": "Andika jambo moja au mawili uliyoyaona. Baada ya muda, maandishi haya huonyesha maendeleo ya mtoto.",
+        "cta": "Angalia haya katika somo halisi"
+      },
+      "g7": {
+        "title": "Jua kazi inapomudiwa",
+        "intro": "Endelea mtoto anapoweza kukamilisha shughuli nzima peke yake, kwa utulivu na uangalifu.",
+        "p1": "Mtoto huchukua trei kwenye rafu na kuibeba salama hadi mezani.",
+        "p2": "Mtoto hukamilisha shughuli kwa miondoko imara na kumwaga kidogo tu.",
+        "p3": "Mtoto husafisha na kurudisha trei kwenye rafu, tayari kwa mtu anayefuata.",
+        "p4": "Shughuli ikishamudiwa, hamu ya mtoto huanza kupungua. Huo ndio wakati wa kutoa mbadala au shughuli inayofuata.",
+        "tip": "Acha shughuli zilizomudiwa kwenye rafu. Watoto mara nyingi huzirudia, na kurudia hujenga kujiamini.",
+        "cta": "Chagua shughuli inayofuata"
+      }
+    }
   },
   "sample": {
     "eyebrow": "Ona shughuli halisi",

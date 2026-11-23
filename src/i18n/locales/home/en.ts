@@ -16,6 +16,83 @@ export const en = {
     q1: 'Which activity comes next?', q2: 'Is the child ready?', q3: 'What materials are needed?', q4: 'How is it presented correctly?',
     q5: 'What should you say — or not say?', q6: 'What do you observe?', q7: 'When should you move on?',
     closing: 'Montessori Life Skills puts those answers in your hand.',
+    guide: {
+      "stepOf": "Step {{n}} of {{total}}",
+      "previous": "Previous",
+      "next": "Next step",
+      "done": "Done",
+      "tipLabel": "Remember",
+      "g1": {
+        "title": "Follow the natural sequence",
+        "intro": "Montessori activities build on one another, from simple to complex. You do not need to plan a whole curriculum — only the next small step.",
+        "p1": "Begin with Practical Life. Everyday tasks such as carrying a tray, spooning and pouring build the coordination and concentration that every later activity needs.",
+        "p2": "Move from dry to wet and from large movements to fine ones: spooning dry beans, then dry pouring, then pouring water.",
+        "p3": "Offer one new activity at a time, and keep the activities the child already knows on the shelf.",
+        "p4": "Sensorial, Language and Math activities follow once the child works with calm, steady hands.",
+        "tip": "If you are unsure, go back one step. Returning to an easier activity is never a failure.",
+        "cta": "Browse Practical Life"
+      },
+      "g2": {
+        "title": "Look for readiness, not age",
+        "intro": "Ages are only a guide. Readiness shows in what the child can already do.",
+        "p1": "The child can carry a tray with two hands and walk without tipping it.",
+        "p2": "The child stays with one activity for a few minutes without wandering away.",
+        "p3": "The child has already managed the easier activity that comes before it.",
+        "p4": "The child shows interest by watching you or wanting to help with the real task at home.",
+        "tip": "If the child is not ready, put the work away and offer it again another day. Never push.",
+        "cta": "Get the free readiness guide"
+      },
+      "g3": {
+        "title": "Prepare real, child-sized materials",
+        "intro": "You do not need a classroom. Most first activities use simple household items sized for the child's hands.",
+        "p1": "Use real, breakable materials such as small glass pitchers. They teach care, and the child learns to handle them gently.",
+        "p2": "Set out everything for one activity on its own tray, arranged from left to right in the order it will be used.",
+        "p3": "Place the tray on a low, uncluttered shelf where the child can reach it alone.",
+        "p4": "Add what the child needs to clean up, such as a small sponge or cloth, so spills become part of the work.",
+        "tip": "Check every item first: it should be complete, clean and working. A missing piece breaks the child's concentration.",
+        "cta": "Set up your space at home"
+      },
+      "g4": {
+        "title": "Show slowly, speak little",
+        "intro": "A presentation is a quiet demonstration. The child learns by watching your hands, so your movements matter more than your words.",
+        "p1": "Sit beside the child, on the side of your dominant hand, so they can see exactly what your hands do.",
+        "p2": "Do not speak while your hands are moving. Words and movement compete for the child's attention.",
+        "p3": "Move slowly and break the task into clear, separate movements. Pause at the important moments.",
+        "p4": "Show the whole cycle, from taking the tray off the shelf to putting it back.",
+        "tip": "Practice the activity on your own first, so your movements are smooth and certain.",
+        "cta": "See a full presentation"
+      },
+      "g5": {
+        "title": "Invite, then let the work speak",
+        "intro": "Your words open and close the presentation. In between, silence lets the child concentrate.",
+        "p1": "Invite rather than instruct: “Would you like me to show you how to pour water?”",
+        "p2": "If the child says no, accept it calmly and offer again another time. The choice belongs to the child.",
+        "p3": "When you finish, offer a turn: “Would you like a turn?” Then step back.",
+        "p4": "Avoid praise such as “Good job!” and do not correct mistakes aloud. The child's own satisfaction is the reward.",
+        "tip": "If the child asks for help, give as little as is needed, then step back again.",
+        "cta": "Read the full Pouring Water lesson"
+      },
+      "g6": {
+        "title": "Step back and watch",
+        "intro": "Observation tells you what the child needs next. Your role now is to be present but quiet.",
+        "p1": "Sit a little apart, so the child feels free to work without being watched closely.",
+        "p2": "Notice how the child holds the materials, which hand they prefer and how steady their movements are.",
+        "p3": "Notice concentration. Does the child repeat the activity by choice? Repetition is a sign of deep learning.",
+        "p4": "Let spills and mistakes happen; the sponge is there for the child to clean up. Step in only for safety or if a material is being misused.",
+        "tip": "Write down one or two things you noticed. Over time, these notes show the child's progress.",
+        "cta": "Watch for this in a real lesson"
+      },
+      "g7": {
+        "title": "Know when the work is mastered",
+        "intro": "Move on when the child can complete the whole activity alone, calmly and with care.",
+        "p1": "The child takes the tray from the shelf and carries it safely to the table.",
+        "p2": "The child completes the activity with steady movements and few spills.",
+        "p3": "The child cleans up and returns the tray to the shelf, ready for the next person.",
+        "p4": "Once the activity is mastered, the child's interest begins to fade. That is the moment to offer a variation or the next activity.",
+        "tip": "Keep mastered activities on the shelf. Children often return to them, and repetition builds confidence.",
+        "cta": "Choose the next activity"
+      }
+    },
   },
   sample: {
     eyebrow: 'See a real activity', title: 'This is what you will use.',

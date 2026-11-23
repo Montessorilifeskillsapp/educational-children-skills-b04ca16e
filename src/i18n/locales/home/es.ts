@@ -18,6 +18,83 @@ export const es: typeof en = {
     q1: '¿Qué actividad viene después?', q2: '¿Está listo el niño?', q3: '¿Qué materiales se necesitan?', q4: '¿Cómo se presenta correctamente?',
     q5: '¿Qué conviene decir y qué no?', q6: '¿Qué debes observar?', q7: '¿Cuándo pasar a lo siguiente?',
     closing: 'Montessori Life Skills pone esas respuestas en tus manos.',
+    guide: {
+      "stepOf": "Paso {{n}} de {{total}}",
+      "previous": "Anterior",
+      "next": "Siguiente paso",
+      "done": "Listo",
+      "tipLabel": "Recuerda",
+      "g1": {
+        "title": "Sigue la secuencia natural",
+        "intro": "Las actividades Montessori se construyen unas sobre otras, de lo simple a lo complejo. No necesitas planificar todo un currículo, solo el siguiente pequeño paso.",
+        "p1": "Comienza con Vida Práctica. Tareas cotidianas como llevar una bandeja, trasvasar con cuchara y verter desarrollan la coordinación y la concentración que necesitan todas las actividades posteriores.",
+        "p2": "Avanza de lo seco a lo húmedo y de los movimientos amplios a los finos: trasvasar frijoles secos con cuchara, luego verter en seco y después trasvasar agua.",
+        "p3": "Ofrece una actividad nueva a la vez y deja en el estante las que el niño ya conoce.",
+        "p4": "Las actividades de Sensorial, Lenguaje y Matemáticas llegan cuando el niño trabaja con manos tranquilas y firmes.",
+        "tip": "Si tienes dudas, retrocede un paso. Volver a una actividad más fácil nunca es un fracaso.",
+        "cta": "Explorar Vida Práctica"
+      },
+      "g2": {
+        "title": "Observa la preparación, no la edad",
+        "intro": "La edad es solo una orientación. La preparación se ve en lo que el niño ya sabe hacer.",
+        "p1": "El niño puede llevar una bandeja con las dos manos y caminar sin inclinarla.",
+        "p2": "El niño permanece unos minutos con una actividad sin alejarse.",
+        "p3": "El niño ya domina la actividad más sencilla que viene antes.",
+        "p4": "El niño muestra interés: te observa o quiere ayudar con la tarea real en casa.",
+        "tip": "Si el niño no está listo, guarda el trabajo y vuelve a ofrecerlo otro día. Nunca lo presiones.",
+        "cta": "Obtener la guía de preparación gratuita"
+      },
+      "g3": {
+        "title": "Prepara materiales reales y a su medida",
+        "intro": "No necesitas un aula. La mayoría de las primeras actividades usan objetos sencillos de casa, adaptados al tamaño de las manos del niño.",
+        "p1": "Usa materiales reales y frágiles, como jarritas de vidrio pequeñas. Enseñan cuidado, y el niño aprende a manejarlos con delicadeza.",
+        "p2": "Coloca todo lo necesario para una actividad en su propia bandeja, ordenado de izquierda a derecha según se vaya a usar.",
+        "p3": "Pon la bandeja en un estante bajo y despejado, donde el niño pueda alcanzarla solo.",
+        "p4": "Añade lo necesario para limpiar, como una esponja pequeña o un paño, para que los derrames formen parte del trabajo.",
+        "tip": "Revisa primero cada objeto: debe estar completo, limpio y en buen estado. Una pieza que falta interrumpe la concentración del niño.",
+        "cta": "Prepara tu espacio en casa"
+      },
+      "g4": {
+        "title": "Muestra despacio, habla poco",
+        "intro": "Una presentación es una demostración silenciosa. El niño aprende observando tus manos, así que tus movimientos importan más que tus palabras.",
+        "p1": "Siéntate junto al niño, del lado de tu mano dominante, para que vea exactamente lo que hacen tus manos.",
+        "p2": "No hables mientras tus manos se mueven. Las palabras y el movimiento compiten por la atención del niño.",
+        "p3": "Muévete despacio y divide la tarea en movimientos claros y separados. Haz una pausa en los momentos importantes.",
+        "p4": "Muestra el ciclo completo, desde tomar la bandeja del estante hasta devolverla.",
+        "tip": "Practica antes la actividad tú solo, para que tus movimientos sean fluidos y seguros.",
+        "cta": "Ver una presentación completa"
+      },
+      "g5": {
+        "title": "Invita y deja que el trabajo hable",
+        "intro": "Tus palabras abren y cierran la presentación. Entre ellas, el silencio permite que el niño se concentre.",
+        "p1": "Invita en lugar de ordenar: «¿Te gustaría que te muestre cómo trasvasar agua?»",
+        "p2": "Si el niño dice que no, acéptalo con calma y vuelve a ofrecerlo en otro momento. La elección es del niño.",
+        "p3": "Al terminar, ofrécele su turno: «¿Te gustaría intentarlo?» Luego da un paso atrás.",
+        "p4": "Evita elogios como «¡Muy bien!» y no corrijas los errores en voz alta. La propia satisfacción del niño es la recompensa.",
+        "tip": "Si el niño pide ayuda, ayuda solo lo necesario y vuelve a dar un paso atrás.",
+        "cta": "Leer la lección completa de trasvasar agua"
+      },
+      "g6": {
+        "title": "Da un paso atrás y observa",
+        "intro": "La observación te dice qué necesita el niño a continuación. Ahora tu papel es estar presente, pero en silencio.",
+        "p1": "Siéntate un poco apartado, para que el niño se sienta libre de trabajar sin sentirse vigilado.",
+        "p2": "Fíjate en cómo sostiene los materiales, qué mano prefiere y qué tan firmes son sus movimientos.",
+        "p3": "Fíjate en la concentración. ¿Repite la actividad por decisión propia? La repetición es señal de un aprendizaje profundo.",
+        "p4": "Permite que haya derrames y errores; la esponja está ahí para que el niño limpie. Intervén solo por seguridad o si se está usando mal un material.",
+        "tip": "Anota una o dos cosas que hayas observado. Con el tiempo, estas notas muestran el progreso del niño.",
+        "cta": "Observa esto en una lección real"
+      },
+      "g7": {
+        "title": "Reconoce cuándo domina el trabajo",
+        "intro": "Avanza cuando el niño pueda completar toda la actividad solo, con calma y cuidado.",
+        "p1": "El niño toma la bandeja del estante y la lleva con seguridad a la mesa.",
+        "p2": "El niño completa la actividad con movimientos firmes y pocos derrames.",
+        "p3": "El niño limpia y devuelve la bandeja al estante, lista para la siguiente persona.",
+        "p4": "Cuando domina la actividad, su interés empieza a disminuir. Ese es el momento de ofrecer una variación o la siguiente actividad.",
+        "tip": "Deja las actividades dominadas en el estante. Los niños suelen volver a ellas, y la repetición fortalece la confianza.",
+        "cta": "Elegir la siguiente actividad"
+      }
+    },
   },
   sample: {
     eyebrow: 'Mira una actividad real', title: 'Esto es lo que usarás.',

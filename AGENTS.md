@@ -34,3 +34,4 @@
 - User-facing dates use Intl via `formatDate`/`formatDateRange` in `src/i18n/format.ts`, not date-fns patterns. Why: date-fns lacks Swahili and fixed patterns put day and month in English order.
 - Family data export and account erasure go through the `account-data` edge function (family-owned tables only; refuses while subscribed or a School Admin). Why: self-serve data rights without touching school-owned records.
 - Child photos switch by language via `src/lib/localizedMedia.ts`: a `<name>-sw|hi|zh.jpg` file next to `<name>.jpg` under src/assets/materials is picked up automatically at image render points (cards, activity page, upgrade dialog); en/es/de keep originals. Why: one rule, adding a variant needs no code.
+- Homepage "A clearer starting point" questions open `StartingPointGuide` (one step-through dialog, text in `home.problem.guide`, one onward link per step). Why: first-time parents get the answer in place, with the full page one tap away.
