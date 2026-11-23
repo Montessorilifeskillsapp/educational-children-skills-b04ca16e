@@ -10,7 +10,7 @@ const MAX_AGE_DAYS: Record<Choice, number> = { denied: 183, granted: 365 };
 const DAY_MS = 86_400_000;
 const CHANGE_EVENT = "consent-change";
 const CONSENT_COUNTRIES =
-  "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO,GB,CH,RE,GP,MQ,GF,YT,MF,AX,CA,CN,BR,IN,KE,KR".split(
+  "AT,BE,BG,HR,CY,CZ,DK,EE,FI,FR,DE,GR,HU,IE,IT,LV,LT,LU,MT,NL,PL,PT,RO,SK,SI,ES,SE,IS,LI,NO,GB,CH,RE,GP,MQ,GF,YT,MF,AX,CA,CN,BR,IN,KE,UG,KR".split(
     ",",
   );
 let consentRegion: Promise<boolean> | undefined;

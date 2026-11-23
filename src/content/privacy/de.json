@@ -267,7 +267,7 @@
    "title": "Cookies, Besuchszählung und Ihre Wahlmöglichkeiten",
    "blocks": [
     {
-     "p": "Wenn Sie zum ersten Mal aus der Europäischen Union, dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich, der Schweiz, Kanada, China, Brasilien, Indien, Kenia oder Südkorea (oder von einem Ort, den Wir nicht identifizieren können) auf die Website zugreifen, zeigen Wir ein Banner an, das nach Ihrer Entscheidung zu Analysefunktionen fragt. Überall sonst sind Analysefunktionen aktiviert, sofern Sie diese nicht deaktivieren. Sie können Ihre Entscheidung jederzeit über den Link [[cookies|Cookie-Einstellungen]] ändern, der sich auch am unteren Rand der Startseite befindet. Ihre Entscheidung wird bis zu 12 Monate lang in Ihrem Browser gespeichert. Wenn Ihr Browser ein Global-Privacy-Control-Signal sendet, behandeln Wir dies als Ablehnung."
+     "p": "Wenn Sie zum ersten Mal aus der Europäischen Union, dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich, der Schweiz, Kanada, China, Brasilien, Indien, Kenia, Uganda oder Südkorea (oder von einem Ort, den Wir nicht identifizieren können) auf die Website zugreifen, zeigen Wir ein Banner an, das nach Ihrer Entscheidung zu Analysefunktionen fragt. Überall sonst sind Analysefunktionen aktiviert, sofern Sie diese nicht deaktivieren. Sie können Ihre Entscheidung jederzeit über den Link [[cookies|Cookie-Einstellungen]] ändern, der sich auch am unteren Rand der Startseite befindet. Ihre Entscheidung wird bis zu 12 Monate lang in Ihrem Browser gespeichert. Wenn Ihr Browser ein Global-Privacy-Control-Signal sendet, behandeln Wir dies als Ablehnung."
     },
     {
      "h3": "Besuchszählung durch Lovable (ohne Cookies)"
@@ -279,7 +279,7 @@
      "h3": "Google Analytics (Cookies, nur mit Einwilligung, soweit erforderlich)"
     },
     {
-     "p": "Google Analytics setzt Cookies (mit dem Namen `_ga`), um zu messen, wie die Website genutzt wird, und übermittelt diese Nutzungsdaten an Google. Für Besucher in der Europäischen Union, dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich, der Schweiz, Quebec, China, Brasilien, Indien, Kenia und Südkorea wird es ohne Cookies ausgeführt, bis Sie den Analysefunktionen zustimmen. Andernorts, einschließlich des übrigen Kanadas, wird es ausgeführt, bis Sie diese ablehnen. Wenn Sie diese ablehnen, wird es ohne Cookies ausgeführt. Im Schulportal und auf Verwaltungsseiten ist es vollständig deaktiviert."
+     "p": "Google Analytics setzt Cookies (mit dem Namen `_ga`), um zu messen, wie die Website genutzt wird, und übermittelt diese Nutzungsdaten an Google. Für Besucher in der Europäischen Union, dem Europäischen Wirtschaftsraum, dem Vereinigten Königreich, der Schweiz, Quebec, China, Brasilien, Indien, Kenia, Uganda und Südkorea wird es ohne Cookies ausgeführt, bis Sie den Analysefunktionen zustimmen. Andernorts, einschließlich des übrigen Kanadas, wird es ausgeführt, bis Sie diese ablehnen. Wenn Sie diese ablehnen, wird es ohne Cookies ausgeführt. Im Schulportal und auf Verwaltungsseiten ist es vollständig deaktiviert."
     },
     {
      "h3": "Unsere eigenen Nutzungsaufzeichnungen (nur mit Einwilligung, soweit erforderlich)"
@@ -356,7 +356,7 @@
     {
      "ul": [
       "**Kalifornien (California Consumer Privacy Act/California Privacy Rights Act (CCPA/CPRA)):** Wir verkaufen oder teilen keine personenbezogenen Informationen und verwenden sie nicht für kontextübergreifende verhaltensbasierte Werbung. Sie werden nicht anders behandelt, weil Sie Ihre Rechte ausüben.",
-      "**Kanada (Personal Information Protection and Electronic Documents Act (PIPEDA), Gesetz 25 von Québec), Brasilien (Lei Geral de Proteção de Dados (LGPD)), Indien (Digital Personal Data Protection Act (DPDP)), Kenia, Südkorea und Australien:** Sie haben die oben beschriebenen Rechte. Beschwerden können zunächst an Uns sowie an Ihre örtliche Datenschutzbehörde gerichtet werden.",
+      "**Kanada (Personal Information Protection and Electronic Documents Act (PIPEDA), Gesetz 25 von Québec), Brasilien (Lei Geral de Proteção de Dados (LGPD)), Indien (Digital Personal Data Protection Act (DPDP)), Kenia, Uganda (Data Protection and Privacy Act; Personal Data Protection Office), Südkorea und Australien:** Sie haben die oben beschriebenen Rechte. Beschwerden können zunächst an Uns sowie an Ihre örtliche Datenschutzbehörde gerichtet werden.",
       "**Aufsichtsbehörde in der EU/im Vereinigten Königreich:** Sie können bei der Datenschutzbehörde an Ihrem Wohn- oder Arbeitsort Beschwerde einlegen."
      ]
     },

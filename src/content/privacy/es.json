@@ -267,7 +267,7 @@
    "title": "Cookies, recuento de visitas y Tus opciones",
    "blocks": [
     {
-     "p": "La primera vez que visitas el sitio desde la Unión Europea, el Espacio Económico Europeo, el Reino Unido, Suiza, Canadá, China, Brasil, India, Kenia o Corea del Sur (o desde un lugar que no podemos identificar), mostramos un banner que te pregunta sobre la analítica. En todos los demás lugares, la analítica está activada a menos que la desactives. Puedes cambiar Tu elección en cualquier momento mediante el enlace [[cookies|Configuración de cookies]], que también se encuentra al final de la página de inicio. Tu elección se guarda en Tu navegador durante un máximo de 12 meses. Si Tu navegador envía una señal de Control Global de Privacidad, la tratamos como un rechazo."
+     "p": "La primera vez que visitas el sitio desde la Unión Europea, el Espacio Económico Europeo, el Reino Unido, Suiza, Canadá, China, Brasil, India, Kenia, Uganda o Corea del Sur (o desde un lugar que no podemos identificar), mostramos un banner que te pregunta sobre la analítica. En todos los demás lugares, la analítica está activada a menos que la desactives. Puedes cambiar Tu elección en cualquier momento mediante el enlace [[cookies|Configuración de cookies]], que también se encuentra al final de la página de inicio. Tu elección se guarda en Tu navegador durante un máximo de 12 meses. Si Tu navegador envía una señal de Control Global de Privacidad, la tratamos como un rechazo."
     },
     {
      "h3": "Recuento de visitas de Lovable (sin cookies)"
@@ -279,7 +279,7 @@
      "h3": "Google Analytics (cookies, solo con consentimiento cuando sea obligatorio)"
     },
     {
-     "p": "Google Analytics instala cookies (denominadas `_ga`) para medir cómo se utiliza el sitio web y envía esos datos de uso a Google. Para los visitantes de la Unión Europea, el Espacio Económico Europeo, el Reino Unido, Suiza, Quebec, China, Brasil, India, Kenia y Corea del Sur, funciona sin cookies hasta que aceptes la analítica. En otros lugares, incluido el resto de Canadá, funciona hasta que la rechaces. Si la rechazas, funciona sin cookies. Está completamente desactivado en el Portal Escolar y en las páginas de administración."
+     "p": "Google Analytics instala cookies (denominadas `_ga`) para medir cómo se utiliza el sitio web y envía esos datos de uso a Google. Para los visitantes de la Unión Europea, el Espacio Económico Europeo, el Reino Unido, Suiza, Quebec, China, Brasil, India, Kenia, Uganda y Corea del Sur, funciona sin cookies hasta que aceptes la analítica. En otros lugares, incluido el resto de Canadá, funciona hasta que la rechaces. Si la rechazas, funciona sin cookies. Está completamente desactivado en el Portal Escolar y en las páginas de administración."
     },
     {
      "h3": "Nuestros propios registros de uso (solo con consentimiento cuando sea obligatorio)"
@@ -356,7 +356,7 @@
     {
      "ul": [
       "**California (Ley de Privacidad del Consumidor de California / Ley de Derechos de Privacidad de California (CCPA/CPRA)):** Nosotros no vendemos ni compartimos información personal y no la utilizamos para publicidad conductual entre distintos contextos. No recibirás un trato diferente por ejercer Tus derechos.",
-      "**Canadá (Ley de Protección de la Información Personal y Documentos Electrónicos (PIPEDA), Ley 25 de Quebec), Brasil (Ley General de Protección de Datos Personales (LGPD)), India (Ley de Protección de Datos Personales Digitales (DPDP)), Kenia, Corea del Sur y Australia:** tienes los derechos descritos anteriormente. Puedes presentar reclamaciones primero ante nosotros y también ante Tu autoridad local de protección de datos.",
+      "**Canadá (Ley de Protección de la Información Personal y Documentos Electrónicos (PIPEDA), Ley 25 de Quebec), Brasil (Ley General de Protección de Datos Personales (LGPD)), India (Ley de Protección de Datos Personales Digitales (DPDP)), Kenia, Uganda (Ley de Protección de Datos y Privacidad; Oficina de Protección de Datos Personales), Corea del Sur y Australia:** tienes los derechos descritos anteriormente. Puedes presentar reclamaciones primero ante nosotros y también ante Tu autoridad local de protección de datos.",
       "**Autoridad de control de la UE/el Reino Unido:** puedes presentar una reclamación ante la autoridad de protección de datos del lugar donde vives o trabajas."
      ]
     },

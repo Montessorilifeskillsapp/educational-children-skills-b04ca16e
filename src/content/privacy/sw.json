@@ -267,7 +267,7 @@
    "title": "Vidakuzi, Kuhesabu Ziara na Chaguo Zako",
    "blocks": [
     {
-     "p": "Mara ya kwanza unapotembelea kutoka Umoja wa Ulaya, Eneo la Kiuchumi la Ulaya, Ufalme wa Muungano, Uswisi, Kanada, China, Brazili, India, Kenya au Korea Kusini (au kutoka mahali ambapo hatuwezi kutambua), tunaonyesha bango linalouliza kuhusu uchanganuzi. Katika maeneo mengine yote, uchanganuzi huwa umewashwa isipokuwa ukiuzima. Unaweza kubadilisha chaguo Lako wakati wowote kwa kutumia kiungo cha [[cookies|Mipangilio ya vidakuzi]], ambacho pia kiko chini ya ukurasa wa mwanzo. Chaguo Lako huhifadhiwa katika kivinjari Chako kwa muda wa hadi miezi 12. Ikiwa kivinjari Chako kinatuma ishara ya Udhibiti wa Faragha wa Kimataifa (Global Privacy Control), tunaitafsiri kuwa kukataa."
+     "p": "Mara ya kwanza unapotembelea kutoka Umoja wa Ulaya, Eneo la Kiuchumi la Ulaya, Ufalme wa Muungano, Uswisi, Kanada, China, Brazili, India, Kenya, Uganda au Korea Kusini (au kutoka mahali ambapo hatuwezi kutambua), tunaonyesha bango linalouliza kuhusu uchanganuzi. Katika maeneo mengine yote, uchanganuzi huwa umewashwa isipokuwa ukiuzima. Unaweza kubadilisha chaguo Lako wakati wowote kwa kutumia kiungo cha [[cookies|Mipangilio ya vidakuzi]], ambacho pia kiko chini ya ukurasa wa mwanzo. Chaguo Lako huhifadhiwa katika kivinjari Chako kwa muda wa hadi miezi 12. Ikiwa kivinjari Chako kinatuma ishara ya Udhibiti wa Faragha wa Kimataifa (Global Privacy Control), tunaitafsiri kuwa kukataa."
     },
     {
      "h3": "Kuhesabu ziara na Lovable (bila vidakuzi)"
@@ -279,7 +279,7 @@
      "h3": "Google Analytics (vidakuzi, kwa ridhaa tu pale inapohitajika)"
     },
     {
-     "p": "Google Analytics huweka vidakuzi (vinavyoitwa `_ga`) ili kupima jinsi tovuti inavyotumiwa, na hutuma data hizo za matumizi kwa Google. Kwa wageni walio katika Umoja wa Ulaya, Eneo la Kiuchumi la Ulaya, Ufalme wa Muungano, Uswisi, Quebec, China, Brazili, India, Kenya na Korea Kusini, hufanya kazi bila vidakuzi hadi ukubali uchanganuzi. Katika maeneo mengine, yakiwemo maeneo mengine yote ya Kanada, hufanya kazi hadi ukatae. Ukikataa, hufanya kazi bila vidakuzi. Imezimwa kabisa katika Tovuti ya Shule na kwenye kurasa za usimamizi."
+     "p": "Google Analytics huweka vidakuzi (vinavyoitwa `_ga`) ili kupima jinsi tovuti inavyotumiwa, na hutuma data hizo za matumizi kwa Google. Kwa wageni walio katika Umoja wa Ulaya, Eneo la Kiuchumi la Ulaya, Ufalme wa Muungano, Uswisi, Quebec, China, Brazili, India, Kenya, Uganda na Korea Kusini, hufanya kazi bila vidakuzi hadi ukubali uchanganuzi. Katika maeneo mengine, yakiwemo maeneo mengine yote ya Kanada, hufanya kazi hadi ukatae. Ukikataa, hufanya kazi bila vidakuzi. Imezimwa kabisa katika Tovuti ya Shule na kwenye kurasa za usimamizi."
     },
     {
      "h3": "Rekodi zetu wenyewe za matumizi (kwa ridhaa tu pale inapohitajika)"
@@ -356,7 +356,7 @@
     {
      "ul": [
       "**California (Sheria ya Faragha ya Watumiaji ya California / Sheria ya Haki za Faragha ya California (CCPA/CPRA)):** Hatuuzi wala kushiriki taarifa binafsi na hatuzitumii kwa matangazo yanayotegemea tabia katika miktadha tofauti. Hutatendewa tofauti kwa sababu ya kutumia haki Zako.",
-      "**Kanada (Sheria ya Ulinzi wa Taarifa Binafsi na Nyaraka za Kielektroniki (PIPEDA), Sheria ya 25 ya Quebec), Brazil (Sheria ya Jumla ya Ulinzi wa Data (LGPD)), India (Sheria ya Ulinzi wa Data Binafsi za Kidijitali (DPDP)), Kenya, Korea Kusini na Australia:** Una haki zilizoelezwa hapo juu. Malalamiko yanaweza kutumwa Kwetu kwanza na kwa mamlaka ya ulinzi wa data ya eneo Lako.",
+      "**Kanada (Sheria ya Ulinzi wa Taarifa Binafsi na Nyaraka za Kielektroniki (PIPEDA), Sheria ya 25 ya Quebec), Brazil (Sheria ya Jumla ya Ulinzi wa Data (LGPD)), India (Sheria ya Ulinzi wa Data Binafsi za Kidijitali (DPDP)), Kenya, Uganda (Sheria ya Ulinzi wa Data na Faragha; Ofisi ya Ulinzi wa Data Binafsi), Korea Kusini na Australia:** Una haki zilizoelezwa hapo juu. Malalamiko yanaweza kutumwa Kwetu kwanza na kwa mamlaka ya ulinzi wa data ya eneo Lako.",
       "**Mamlaka ya usimamizi ya Umoja wa Ulaya/Uingereza:** Unaweza kuwasilisha malalamiko kwa mamlaka ya ulinzi wa data mahali Unapoishi au kufanya kazi."
      ]
     },
