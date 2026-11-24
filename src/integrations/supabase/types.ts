@@ -682,6 +682,33 @@ export type Database = {
         }
         Relationships: []
       }
+      password_reset_requests: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          token_hash: string
+          used_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at: string
+          id?: string
+          token_hash: string
+          used_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          token_hash?: string
+          used_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
       push_tokens: {
         Row: {
           created_at: string
@@ -1489,6 +1516,7 @@ export type Database = {
       }
     }
     Functions: {
+      auth_user_id_for_email: { Args: { _email: string }; Returns: string }
       child_allowance: { Args: { _user_id: string }; Returns: number }
       erase_school_student: {
         Args: { _actor_email: string; _actor_id: string; _student_id: string }
@@ -1505,6 +1533,10 @@ export type Database = {
       is_client_request: { Args: never; Returns: boolean }
       is_school_member: { Args: { _school_id: string }; Returns: boolean }
       reconcile_child_coverage: {
+        Args: { _user_id: string }
+        Returns: undefined
+      }
+      revoke_all_user_sessions: {
         Args: { _user_id: string }
         Returns: undefined
       }
