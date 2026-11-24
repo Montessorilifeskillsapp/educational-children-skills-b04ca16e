@@ -8,8 +8,12 @@ export const PASSWORD_RECOVERY_EVENT = 'mls:password-recovery';
 /** Matches the lifetime of a reset link; after that the person must request a new email. */
 const MAX_AGE_MS = 60 * 60 * 1000;
 
-const store = (): Storage | null => {
-  try { return window.sessionStorage; } catch { return null; }
+/** Kept on the device (not just this tab) so a new tab, reload or app hand-off cannot lose it. */
+const stores = (): Storage[] => {
+  const out: Storage[] = [];
+  try { out.push(window.localStorage); } catch { /* unavailable */ }
+  try { out.push(window.sessionStorage); } catch { /* unavailable */ }
+  return out;
 };
 
 export function urlIsPasswordRecovery(hash: string, search: string): boolean {
@@ -19,16 +23,17 @@ export function urlIsPasswordRecovery(hash: string, search: string): boolean {
 }
 
 export function markPasswordRecovery(now = Date.now()): void {
-  try { store()?.setItem(KEY, String(now)); } catch { /* storage unavailable */ }
+  for (const s of stores()) { try { s.setItem(KEY, String(now)); } catch { /* storage unavailable */ } }
   try { window.dispatchEvent(new Event(PASSWORD_RECOVERY_EVENT)); } catch { /* non-browser */ }
 }
 
 export function clearPasswordRecovery(): void {
-  try { store()?.removeItem(KEY); } catch { /* storage unavailable */ }
+  for (const s of stores()) { try { s.removeItem(KEY); } catch { /* storage unavailable */ } }
 }
 
 export function isPasswordRecoveryPending(now = Date.now()): boolean {
-  const raw = store()?.getItem(KEY);
+  let raw: string | null = null;
+  for (const s of stores()) { try { raw = raw ?? s.getItem(KEY); } catch { /* storage unavailable */ } }
   if (!raw) return false;
   const at = Number(raw);
   if (!at || now - at > MAX_AGE_MS || now < at) { clearPasswordRecovery(); return false; }

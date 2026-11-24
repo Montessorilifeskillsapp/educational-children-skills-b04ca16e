@@ -40,3 +40,24 @@ describe('password reset links', () => {
     expect(isPasswordRecoveryPending()).toBe(false);
   });
 });
+
+describe('reset link cannot skip the new-password form', () => {
+  beforeEach(() => { clearPasswordRecovery(); localStorage.clear(); sessionStorage.clear(); });
+
+  it('remembers the reset on the whole device, so a new tab or reload still shows the form', () => {
+    markPasswordRecovery();
+    sessionStorage.clear(); // a fresh tab has no per-tab memory
+    expect(isPasswordRecoveryPending()).toBe(true);
+  });
+
+  it('recognizes the website reset address even when the sign-in details arrive without a type', () => {
+    expect(urlIsPasswordRecovery('#access_token=a&refresh_token=b', '?type=recovery')).toBe(true);
+  });
+
+  it('clears the reset from the whole device once finished', () => {
+    markPasswordRecovery();
+    clearPasswordRecovery();
+    expect(localStorage.getItem('mls:password-recovery')).toBeNull();
+    expect(isPasswordRecoveryPending()).toBe(false);
+  });
+});

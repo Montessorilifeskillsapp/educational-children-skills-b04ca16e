@@ -58,9 +58,11 @@ const AuthPage = () => {
     navigate('/', { replace: true });
   };
 
-  const skipNewPassword = () => {
+  // Leaving without a new password must not keep the reset link's sign-in on this device.
+  const cancelReset = async () => {
     clearPasswordRecovery();
-    navigate('/', { replace: true });
+    await supabase.auth.signOut({ scope: 'local' });
+    window.location.assign('/auth');
   };
 
   const describeAuthError = (message: string) => {
@@ -220,7 +222,7 @@ const AuthPage = () => {
                 <Label htmlFor="new-password">{t('auth.page.newPassword')}</Label>
                 <Input id="new-password" type="password" autoComplete="new-password" minLength={6} placeholder={t('auth.page.atLeast6')} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
                 <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? t('auth.page.saving') : t('auth.page.saveNew')}</Button>
-                <Button type="button" variant="ghost" className="w-full" disabled={isSubmitting} onClick={skipNewPassword}>{t('auth.page.notNow')}</Button>
+                <Button type="button" variant="ghost" className="w-full" disabled={isSubmitting} onClick={cancelReset}>{t('auth.page.backToSignIn')}</Button>
               </form>
             ) : (
               <div className="space-y-4 py-5 text-center">

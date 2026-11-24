@@ -7,7 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 import { Capacitor } from '@capacitor/core';
-import { getLaunchHash, isPasswordRecoveryPending, markPasswordRecovery } from '@/lib/passwordRecovery';
+import { getLaunchHash, isPasswordRecoveryPending, markPasswordRecovery, urlIsPasswordRecovery } from '@/lib/passwordRecovery';
 
 const AuthCallbackPage = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -48,6 +48,10 @@ const AuthCallbackPage = () => {
       const authError = searchParams.get('error_description') || hashParams.get('error_description');
       const code = searchParams.get('code');
 
+      // A password-reset link must end on "Choose a new password", never straight in the account.
+      const isRecovery = urlIsPasswordRecovery(window.location.hash || getLaunchHash(), window.location.search);
+      if (isRecovery) markPasswordRecovery();
+
       if (authError) {
         setStatus('error');
         setMessage(authError);
@@ -57,14 +61,16 @@ const AuthCallbackPage = () => {
       try {
         const existingSession = await supabase.auth.getSession();
 
-        if (!existingSession.data.session && code) {
+        // A reset link replaces whatever session this device already had.
+        const replace = isRecovery || !existingSession.data.session;
+        if (replace && code) {
           const { error } = await supabase.auth.exchangeCodeForSession(code);
           if (error) throw error;
         }
 
         const accessToken = hashParams.get('access_token');
         const refreshToken = hashParams.get('refresh_token');
-        if (!existingSession.data.session && !code && accessToken && refreshToken) {
+        if (replace && !code && accessToken && refreshToken) {
           const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
           if (error) throw error;
         }
@@ -79,9 +85,7 @@ const AuthCallbackPage = () => {
         }
 
         window.history.replaceState({}, document.title, '/auth/callback');
-        // A password-reset link: go straight to "Choose a new password".
-        if (hashParams.get('type') === 'recovery') markPasswordRecovery();
-        if (isPasswordRecoveryPending()) {
+        if (isRecovery || isPasswordRecoveryPending()) {
           navigate('/auth?reset=1', { replace: true });
           return;
         }

@@ -37,7 +37,7 @@ const getAuthCallbackUrl = () => {
 export const getPasswordResetUrl = () =>
   Capacitor.isNativePlatform()
     ? `${WEB_CALLBACK_ORIGIN}/auth/callback?native=1`
-    : new URL('/auth/callback', window.location.origin).toString()
+    : new URL('/auth/callback?type=recovery', window.location.origin).toString()
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
@@ -73,7 +73,8 @@ export const useAuth = () => {
       email,
       password,
     })
-    if (!error) analytics.track('signin', { method: 'password' })
+    // Signing in with the password proves the owner; drop any unfinished reset from this device.
+    if (!error) { clearPasswordRecovery(); analytics.track('signin', { method: 'password' }) }
     return { error }
   }
 
