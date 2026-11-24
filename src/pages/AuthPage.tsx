@@ -12,8 +12,8 @@ import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { supabase } from '@/integrations/supabase/client';
 import { Trans, useTranslation } from 'react-i18next';
-import { getPasswordResetUrl } from '@/hooks/useAuth';
 import { clearPasswordRecovery, isPasswordRecoveryPending } from '@/lib/passwordRecovery';
+import { completePasswordReset, requestPasswordReset, RESET_TOKEN_PARAM } from '@/lib/passwordResetRequest';
 
 const AuthPage = () => {
   const { t } = useTranslation();
@@ -30,7 +30,9 @@ const AuthPage = () => {
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
   const location = useLocation();
-  const isResetLink = new URLSearchParams(location.search).get('reset') === '1' || isPasswordRecoveryPending();
+  // Emailed reset links carry a single-use token; they never sign anyone in.
+  const resetToken = new URLSearchParams(location.search).get(RESET_TOKEN_PARAM) || '';
+  const isResetLink = !!resetToken || new URLSearchParams(location.search).get('reset') === '1' || isPasswordRecoveryPending();
   const [forgotOpen, setForgotOpen] = useState(false);
   const [resetSent, setResetSent] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -39,9 +41,9 @@ const AuthPage = () => {
     setFormError('');
     if (!email.trim()) { setFormError(t('auth.errors.enterEmailFirst')); return; }
     setIsSubmitting(true);
-    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: getPasswordResetUrl() });
+    const { error } = await requestPasswordReset(email.trim());
     setIsSubmitting(false);
-    if (error) setFormError(describeAuthError(error.message));
+    if (error) setFormError(describeAuthError(error));
     else setResetSent(email.trim());
   };
 
@@ -50,6 +52,25 @@ const AuthPage = () => {
     setFormError('');
     if (newPassword.length < 6) { setFormError(t('auth.errors.min6')); return; }
     setIsSubmitting(true);
+    if (resetToken) {
+      const { email: accountEmail, error: resetError } = await completePasswordReset(resetToken, newPassword);
+      if (resetError) {
+        setIsSubmitting(false);
+        setFormError(resetError === 'expired' ? t('auth.page.expiredLink') : describeAuthError(resetError));
+        return;
+      }
+      // Whoever was signed in on this device is signed out; the account then signs in with its new password.
+      clearPasswordRecovery();
+      await supabase.auth.signOut({ scope: 'local' });
+      const { error: signInError } = accountEmail
+        ? await supabase.auth.signInWithPassword({ email: accountEmail, password: newPassword })
+        : { error: new Error('no email') };
+      setIsSubmitting(false);
+      if (signInError) { window.location.assign('/auth'); return; }
+      toast({ title: t('auth.toast.passwordUpdated'), description: t('auth.toast.passwordUpdatedBody') });
+      navigate('/', { replace: true });
+      return;
+    }
     const { data, error } = await supabase.auth.updateUser({ password: newPassword });
     if (error) { setIsSubmitting(false); setFormError(describeAuthError(error.message)); return; }
     // End the reset link's sign-in everywhere (including any other device using the old password),
@@ -223,14 +244,14 @@ const AuthPage = () => {
         </CardHeader>
         <CardContent>
           {isResetLink ? (
-            recoveryUser || user ? (
+            resetToken || recoveryUser || user ? (
               <form onSubmit={saveNewPassword} className="space-y-4 py-2">
                 <h2 className="text-xl font-semibold text-center">{t('auth.page.chooseNew')}</h2>
                 {formError && <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
                 <Label htmlFor="new-password">{t('auth.page.newPassword')}</Label>
                 <Input id="new-password" type="password" autoComplete="new-password" minLength={6} placeholder={t('auth.page.atLeast6')} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
                 <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? t('auth.page.saving') : t('auth.page.saveNew')}</Button>
-                <Button type="button" variant="ghost" className="w-full" disabled={isSubmitting} onClick={cancelReset}>{t('auth.page.backToSignIn')}</Button>
+                <Button type="button" variant="ghost" className="w-full" disabled={isSubmitting} onClick={resetToken ? () => navigate('/auth', { replace: true }) : cancelReset}>{t('auth.page.backToSignIn')}</Button>
               </form>
             ) : (
               <div className="space-y-4 py-5 text-center">

@@ -18,7 +18,8 @@ const PasswordRecoveryRedirect = () => {
     if (!isPasswordRecoveryPending()) return;
     // The callback page decides first (it may need to hand the link back to the phone app).
     if (pathname === '/auth/callback') return;
-    if (pathname === '/auth' && new URLSearchParams(search).get('reset') === '1') return;
+    const params = new URLSearchParams(search);
+    if (pathname === '/auth' && (params.get('reset') === '1' || params.has('reset_token'))) return;
     navigate('/auth?reset=1', { replace: true });
   }, [pathname, search, signal, navigate]);
 

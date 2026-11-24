@@ -9,8 +9,7 @@ import { useToast } from '@/hooks/use-toast'
 import { Chrome, Apple } from 'lucide-react'
 import { Capacitor } from '@capacitor/core'
 import { useTranslation } from 'react-i18next'
-import { supabase } from '@/integrations/supabase/client'
-import { getPasswordResetUrl } from '@/hooks/useAuth'
+import { requestPasswordReset } from '@/lib/passwordResetRequest'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -33,9 +32,9 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
       return
     }
     setLoading(true)
-    const { error } = await supabase.auth.resetPasswordForEmail(addr, { redirectTo: getPasswordResetUrl() })
+    const { error } = await requestPasswordReset(addr)
     setLoading(false)
-    if (error) toast({ title: 'Error', description: error.message, variant: 'destructive' })
+    if (error) toast({ title: t('auth.page.forgot'), description: /rate limit/i.test(error) ? t('auth.errors.rateLimit') : error, variant: 'destructive' })
     else toast({ title: t('auth.page.checkEmail'), description: t('auth.page.resetSent', { email: addr }).replace(/<\/?1>/g, '') })
   }
 
