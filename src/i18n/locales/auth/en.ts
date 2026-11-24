@@ -2,7 +2,7 @@
 export const en = {
   page: {
     tagline: 'Your guide to Montessori activities', oneMoreStep: 'One more step to get started',
-    chooseNew: 'Choose a new password', newPassword: 'New password', atLeast6: 'At least 6 characters', saving: 'Saving…', saveNew: 'Save new password',
+    chooseNew: 'Choose a new password', newPassword: 'New password', atLeast6: 'At least 6 characters', saving: 'Saving…', saveNew: 'Save new password', notNow: 'Not now',
     checkingLink: 'Checking your reset link…', expiredLink: 'This reset link has expired or was already used. Request a new one from Sign In.',
     backToSignIn: 'Back to sign in', checkEmail: 'Check your email',
     resetSent: "If an account exists for <1>{{email}}</1>, we sent a link to reset your password. Check your spam folder if you don't see it.",
@@ -29,7 +29,7 @@ export const en = {
   },
   toast: { passwordUpdated: 'Password updated', passwordUpdatedBody: 'You are signed in with your new password.', welcomeBack: 'Welcome back!', welcomeBackBody: 'You have successfully signed in.' },
   callback: {
-    confirming: 'Confirming your email...', returning: 'Returning you to the app...',
+    confirming: 'Confirming your email...', returning: 'Returning you to the app...', continueHere: 'Continue in this browser', openApp: 'Open the app',
     failedFresh: 'This confirmation link could not be completed. Please request a fresh sign-up email.',
     confirmed: 'Your email is confirmed. Taking you to your dashboard...',
     failedRetry: 'This confirmation link could not be completed. Please try signing up again.',

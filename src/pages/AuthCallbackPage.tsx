@@ -6,10 +6,15 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
+import { Capacitor } from '@capacitor/core';
+import { getLaunchHash, isPasswordRecoveryPending, markPasswordRecovery } from '@/lib/passwordRecovery';
 
 const AuthCallbackPage = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
   const [message, setMessage] = useState(() => i18n.t('auth.callback.confirming'));
+  const [offerContinueHere, setOfferContinueHere] = useState(false);
+  const [appLink, setAppLink] = useState('');
+  const [continueHere, setContinueHere] = useState(false);
   const navigate = useNavigate();
   const { t } = useTranslation();
 
@@ -19,20 +24,27 @@ const AuthCallbackPage = () => {
     // deep-link listener (useCapacitorAuthDeepLink) will close the browser
     // and complete the session exchange inside the WebView.
     const searchParams0 = new URLSearchParams(window.location.search);
-    if (searchParams0.get('native') === '1') {
+    if (searchParams0.get('native') === '1' && !continueHere && !Capacitor.isNativePlatform()) {
       const deepLink =
         'com.montessorilifeskills.app://auth-callback' +
         window.location.search +
-        window.location.hash;
+        (window.location.hash || getLaunchHash());
       setMessage(i18n.t('auth.callback.returning'));
+      // Some phone browsers only open the app after a tap, so keep a button for it.
+      setAppLink(deepLink);
+      // The app takes over this sign-in; don't keep a second copy in this browser, which
+      // could later invalidate the app's sign-in when it renews.
+      void supabase.auth.signOut({ scope: 'local' }).catch(() => undefined);
       window.location.replace(deepLink);
-      return;
+      // Opened on a computer or a phone without the app: offer to finish in this browser.
+      const timer = window.setTimeout(() => setOfferContinueHere(true), 3000);
+      return () => window.clearTimeout(timer);
     }
 
     const confirmEmail = async () => {
 
       const searchParams = new URLSearchParams(window.location.search);
-      const hashParams = new URLSearchParams(window.location.hash.replace(/^#/, ''));
+      const hashParams = new URLSearchParams((window.location.hash || getLaunchHash()).replace(/^#/, ''));
       const authError = searchParams.get('error_description') || hashParams.get('error_description');
       const code = searchParams.get('code');
 
@@ -50,6 +62,13 @@ const AuthCallbackPage = () => {
           if (error) throw error;
         }
 
+        const accessToken = hashParams.get('access_token');
+        const refreshToken = hashParams.get('refresh_token');
+        if (!existingSession.data.session && !code && accessToken && refreshToken) {
+          const { error } = await supabase.auth.setSession({ access_token: accessToken, refresh_token: refreshToken });
+          if (error) throw error;
+        }
+
         const { data, error } = await supabase.auth.getSession();
         if (error) throw error;
 
@@ -60,6 +79,12 @@ const AuthCallbackPage = () => {
         }
 
         window.history.replaceState({}, document.title, '/auth/callback');
+        // A password-reset link: go straight to "Choose a new password".
+        if (hashParams.get('type') === 'recovery') markPasswordRecovery();
+        if (isPasswordRecoveryPending()) {
+          navigate('/auth?reset=1', { replace: true });
+          return;
+        }
         setStatus('success');
         setMessage(i18n.t('auth.callback.confirmed'));
         window.setTimeout(() => navigate('/?view=dashboard', { replace: true }), 1200);
@@ -70,7 +95,7 @@ const AuthCallbackPage = () => {
     };
 
     confirmEmail();
-  }, [navigate]);
+  }, [navigate, continueHere]);
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-background p-4">
@@ -84,6 +109,16 @@ const AuthCallbackPage = () => {
           <CardTitle>{status === 'error' ? t('auth.callback.errorTitle') : t('auth.callback.title')}</CardTitle>
           <CardDescription>{message}</CardDescription>
         </CardHeader>
+        {status === 'loading' && appLink && !continueHere && (
+          <CardContent className="space-y-3">
+            <Button asChild className="w-full">
+              <a href={appLink}>{t('auth.callback.openApp')}</a>
+            </Button>
+            {offerContinueHere && (
+              <Button variant="outline" className="w-full" onClick={() => setContinueHere(true)}>{t('auth.callback.continueHere')}</Button>
+            )}
+          </CardContent>
+        )}
         {status === 'error' && (
           <CardContent className="space-y-3">
             <Button asChild className="w-full">

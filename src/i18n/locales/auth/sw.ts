@@ -10,6 +10,7 @@ export const sw: typeof en = {
     "atLeast6": "Angalau vibambo 6",
     "saving": "Inahifadhi…",
     "saveNew": "Hifadhi nenosiri jipya",
+    "notNow": "Si sasa",
     "checkingLink": "Inakagua kiungo chako cha kuweka upya nenosiri…",
     "expiredLink": "Kiungo hiki cha kuweka upya nenosiri kimeisha muda au tayari kimetumika. Omba kingine kwenye Ingia.",
     "backToSignIn": "Rudi kwenye kuingia",
@@ -61,6 +62,8 @@ export const sw: typeof en = {
   "callback": {
     "confirming": "Inathibitisha barua pepe yako...",
     "returning": "Inakurudisha kwenye programu...",
+    "continueHere": "Endelea kwenye kivinjari hiki",
+    "openApp": "Fungua programu",
     "failedFresh": "Uthibitisho kupitia kiungo hiki haukuweza kukamilishwa. Tafadhali omba barua pepe mpya ya kujisajili.",
     "confirmed": "Barua pepe yako imethibitishwa. Inakupeleka kwenye dashibodi yako...",
     "failedRetry": "Uthibitisho kupitia kiungo hiki haukuweza kukamilishwa. Tafadhali jaribu kujisajili tena.",

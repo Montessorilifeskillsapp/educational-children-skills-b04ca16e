@@ -6,7 +6,10 @@ import { i18nReady } from './i18n'
 import ErrorBoundary from './components/ErrorBoundary.tsx'
 import { registerOffline } from './lib/registerOffline'
 import { installStaleBuildRecovery } from './lib/staleBuild'
+import { detectPasswordRecoveryInUrl } from './lib/passwordRecovery'
 
+// Must run before the sign-in library reads and clears a reset link from the address.
+detectPasswordRecoveryInUrl();
 // Tells the start-up safety net in index.html that the app's files loaded.
 (window as unknown as { __mlsBooted?: boolean }).__mlsBooted = true
 installStaleBuildRecovery()

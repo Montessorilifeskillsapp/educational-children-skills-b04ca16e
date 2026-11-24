@@ -12,6 +12,8 @@ import { Eye, EyeOff, Loader2, Sparkles } from 'lucide-react';
 import { Capacitor } from '@capacitor/core';
 import { supabase } from '@/integrations/supabase/client';
 import { Trans, useTranslation } from 'react-i18next';
+import { getPasswordResetUrl } from '@/hooks/useAuth';
+import { clearPasswordRecovery, isPasswordRecoveryPending } from '@/lib/passwordRecovery';
 
 const AuthPage = () => {
   const { t } = useTranslation();
@@ -28,7 +30,7 @@ const AuthPage = () => {
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
   const location = useLocation();
-  const isResetLink = new URLSearchParams(location.search).get('reset') === '1';
+  const isResetLink = new URLSearchParams(location.search).get('reset') === '1' || isPasswordRecoveryPending();
   const [forgotOpen, setForgotOpen] = useState(false);
   const [resetSent, setResetSent] = useState('');
   const [newPassword, setNewPassword] = useState('');
@@ -37,7 +39,7 @@ const AuthPage = () => {
     setFormError('');
     if (!email.trim()) { setFormError(t('auth.errors.enterEmailFirst')); return; }
     setIsSubmitting(true);
-    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: `${window.location.origin}/auth?reset=1` });
+    const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: getPasswordResetUrl() });
     setIsSubmitting(false);
     if (error) setFormError(describeAuthError(error.message));
     else setResetSent(email.trim());
@@ -51,7 +53,13 @@ const AuthPage = () => {
     const { error } = await supabase.auth.updateUser({ password: newPassword });
     setIsSubmitting(false);
     if (error) { setFormError(describeAuthError(error.message)); return; }
+    clearPasswordRecovery();
     toast({ title: t('auth.toast.passwordUpdated'), description: t('auth.toast.passwordUpdatedBody') });
+    navigate('/', { replace: true });
+  };
+
+  const skipNewPassword = () => {
+    clearPasswordRecovery();
     navigate('/', { replace: true });
   };
 
@@ -107,7 +115,7 @@ const AuthPage = () => {
         });
       return () => { cancelled = true; };
     }
-  }, [user, loading, navigate, getPostAuthRedirect]);
+  }, [user, loading, isResetLink, navigate, getPostAuthRedirect]);
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -212,11 +220,12 @@ const AuthPage = () => {
                 <Label htmlFor="new-password">{t('auth.page.newPassword')}</Label>
                 <Input id="new-password" type="password" autoComplete="new-password" minLength={6} placeholder={t('auth.page.atLeast6')} value={newPassword} onChange={(e) => setNewPassword(e.target.value)} required />
                 <Button type="submit" className="w-full" disabled={isSubmitting}>{isSubmitting ? t('auth.page.saving') : t('auth.page.saveNew')}</Button>
+                <Button type="button" variant="ghost" className="w-full" disabled={isSubmitting} onClick={skipNewPassword}>{t('auth.page.notNow')}</Button>
               </form>
             ) : (
               <div className="space-y-4 py-5 text-center">
                 <p className="text-sm text-muted-foreground">{loading ? t('auth.page.checkingLink') : t('auth.page.expiredLink')}</p>
-                {!loading && <Button variant="outline" className="w-full" onClick={() => navigate('/auth', { replace: true })}>{t('auth.page.backToSignIn')}</Button>}
+                {!loading && <Button variant="outline" className="w-full" onClick={() => { clearPasswordRecovery(); navigate('/auth', { replace: true }); }}>{t('auth.page.backToSignIn')}</Button>}
               </div>
             )
           ) : resetSent ? (

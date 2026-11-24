@@ -4,7 +4,7 @@ import type { en } from './en';
 export const de: typeof en = {
   page: {
     tagline: 'Ihr Leitfaden für Montessori-Aktivitäten', oneMoreStep: 'Nur noch ein Schritt',
-    chooseNew: 'Neues Passwort wählen', newPassword: 'Neues Passwort', atLeast6: 'Mindestens 6 Zeichen', saving: 'Wird gespeichert…', saveNew: 'Neues Passwort speichern',
+    chooseNew: 'Neues Passwort wählen', newPassword: 'Neues Passwort', atLeast6: 'Mindestens 6 Zeichen', saving: 'Wird gespeichert…', saveNew: 'Neues Passwort speichern', notNow: 'Jetzt nicht',
     checkingLink: 'Ihr Link wird geprüft…', expiredLink: 'Dieser Link ist abgelaufen oder wurde bereits verwendet. Fordern Sie unter „Anmelden“ einen neuen an.',
     backToSignIn: 'Zurück zur Anmeldung', checkEmail: 'Prüfen Sie Ihre E-Mails',
     resetSent: 'Falls ein Konto für <1>{{email}}</1> besteht, haben wir einen Link zum Zurücksetzen Ihres Passworts gesendet. Prüfen Sie auch Ihren Spam-Ordner.',
@@ -31,7 +31,7 @@ export const de: typeof en = {
   },
   toast: { passwordUpdated: 'Passwort aktualisiert', passwordUpdatedBody: 'Sie sind mit Ihrem neuen Passwort angemeldet.', welcomeBack: 'Willkommen zurück!', welcomeBackBody: 'Sie haben sich erfolgreich angemeldet.' },
   callback: {
-    confirming: 'Ihre E-Mail-Adresse wird bestätigt...', returning: 'Sie werden zur App zurückgeleitet...',
+    confirming: 'Ihre E-Mail-Adresse wird bestätigt...', returning: 'Sie werden zur App zurückgeleitet...', continueHere: 'In diesem Browser fortfahren', openApp: 'App öffnen',
     failedFresh: 'Dieser Bestätigungslink konnte nicht abgeschlossen werden. Bitte fordern Sie eine neue Registrierungs-E-Mail an.',
     confirmed: 'Ihre E-Mail-Adresse ist bestätigt. Sie werden zu Ihrem Dashboard weitergeleitet...',
     failedRetry: 'Dieser Bestätigungslink konnte nicht abgeschlossen werden. Bitte registrieren Sie sich erneut.',

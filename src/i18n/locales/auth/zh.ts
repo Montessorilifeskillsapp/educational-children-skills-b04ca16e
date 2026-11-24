@@ -4,7 +4,7 @@ import type { en } from './en';
 export const zh: typeof en = {
   page: {
     tagline: '您的蒙台梭利活动指南', oneMoreStep: '还差一步即可开始',
-    chooseNew: '设置新密码', newPassword: '新密码', atLeast6: '至少 6 个字符', saving: '正在保存…', saveNew: '保存新密码',
+    chooseNew: '设置新密码', newPassword: '新密码', atLeast6: '至少 6 个字符', saving: '正在保存…', saveNew: '保存新密码', notNow: '暂不设置',
     checkingLink: '正在检查重置链接…', expiredLink: '此重置链接已过期或已被使用。请在登录页重新申请。',
     backToSignIn: '返回登录', checkEmail: '请查收邮件',
     resetSent: '如果 <1>{{email}}</1> 已注册账户，我们已发送重置密码的链接。若未收到，请检查垃圾邮件文件夹。',
@@ -31,7 +31,7 @@ export const zh: typeof en = {
   },
   toast: { passwordUpdated: '密码已更新', passwordUpdatedBody: '您已使用新密码登录。', welcomeBack: '欢迎回来！', welcomeBackBody: '您已成功登录。' },
   callback: {
-    confirming: '正在确认您的电子邮件...', returning: '正在返回应用...',
+    confirming: '正在确认您的电子邮件...', returning: '正在返回应用...', continueHere: '在此浏览器中继续', openApp: '打开应用',
     failedFresh: '无法完成此确认链接。请重新申请注册邮件。',
     confirmed: '您的电子邮件已确认，正在前往面板...',
     failedRetry: '无法完成此确认链接。请重新注册。',

@@ -59,6 +59,7 @@ const AdminHomePage = lazy(() => import("./pages/AdminHomePage"));
 import AdminAnalyticsLink from "@/components/AdminAnalyticsLink";
 import HomeFab from "@/components/HomeFab";
 import SchoolReturnBar from "@/components/school/SchoolReturnBar";
+import PasswordRecoveryRedirect from "@/components/PasswordRecoveryRedirect";
 const ClassroomDrawer = lazy(() => import("@/components/school/ClassroomDrawer"));
 import SplashDebugOverlay from "@/components/SplashDebugOverlay";
 import ScrollToTop from "@/components/ScrollToTop";
@@ -114,6 +115,7 @@ const App = () => {
                     >
                         <ScrollToTop />
                         <RouteEffects />
+                        <PasswordRecoveryRedirect />
                         <SchoolReturnBar />
                         <ClassroomDrawerGate />
                         {!Capacitor.isNativePlatform() && <InstallBanner />}

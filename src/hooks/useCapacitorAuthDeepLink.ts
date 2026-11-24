@@ -29,7 +29,11 @@ export const useCapacitorAuthDeepLink = () => {
         parsedUrl.protocol === "com.montessorilifeskills.app:" &&
         parsedUrl.hostname === "auth-callback"
       ) {
-        const callbackUrl = `/auth/callback${parsedUrl.search}${parsedUrl.hash}`;
+        // Drop the "hand back to the app" marker so the callback page finishes here instead of bouncing again.
+        const search = new URLSearchParams(parsedUrl.search);
+        search.delete("native");
+        const query = search.toString();
+        const callbackUrl = `/auth/callback${query ? `?${query}` : ""}${parsedUrl.hash}`;
         await Browser.close().catch(() => undefined);
         window.location.assign(callbackUrl);
         return;

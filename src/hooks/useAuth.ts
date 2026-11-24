@@ -5,6 +5,7 @@ import { Browser } from '@capacitor/browser'
 import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
 import { analytics } from '@/lib/analytics'
+import { clearPasswordRecovery, markPasswordRecovery } from '@/lib/passwordRecovery'
 
 const WEB_CALLBACK_ORIGIN = 'https://educational-children-skills.lovable.app'
 
@@ -29,6 +30,14 @@ const getAuthCallbackUrl = () => {
   return url.toString()
 }
 
+/**
+ * Where a password-reset email link should land. Uses the same callback page as sign-up
+ * confirmations; on the phone apps it hands the link back into the app.
+ */
+export const getPasswordResetUrl = () =>
+  Capacitor.isNativePlatform()
+    ? `${WEB_CALLBACK_ORIGIN}/auth/callback?native=1`
+    : new URL('/auth/callback', window.location.origin).toString()
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
@@ -45,6 +54,8 @@ export const useAuth = () => {
     // Listen for auth changes
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, session) => {
+        if (event === 'PASSWORD_RECOVERY') markPasswordRecovery()
+        if (event === 'SIGNED_OUT') clearPasswordRecovery()
         setUser(session?.user ?? null)
         analytics.init(session?.user?.id ?? null)
 
