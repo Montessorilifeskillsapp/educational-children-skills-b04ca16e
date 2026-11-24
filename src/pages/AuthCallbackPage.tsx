@@ -7,7 +7,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 import { Capacitor } from '@capacitor/core';
-import { getLaunchHash, isPasswordRecoveryPending, markPasswordRecovery, urlIsPasswordRecovery } from '@/lib/passwordRecovery';
+import { clearPasswordRecovery, getLaunchHash, isPasswordRecoveryPending, markPasswordRecovery, urlIsPasswordRecovery } from '@/lib/passwordRecovery';
 
 const AuthCallbackPage = () => {
   const [status, setStatus] = useState<'loading' | 'success' | 'error'>('loading');
@@ -52,9 +52,15 @@ const AuthCallbackPage = () => {
       const isRecovery = urlIsPasswordRecovery(window.location.hash || getLaunchHash(), window.location.search);
       if (isRecovery) markPasswordRecovery();
 
-      if (authError) {
+      // A reset link that fails must not push an account already signed in on this device to change its password.
+      const fail = (msg: string) => {
+        if (isRecovery) clearPasswordRecovery();
         setStatus('error');
-        setMessage(authError);
+        setMessage(msg);
+      };
+
+      if (authError) {
+        fail(authError);
         return;
       }
 
@@ -79,8 +85,7 @@ const AuthCallbackPage = () => {
         if (error) throw error;
 
         if (!data.session) {
-          setStatus('error');
-          setMessage(i18n.t('auth.callback.failedFresh'));
+          fail(i18n.t('auth.callback.failedFresh'));
           return;
         }
 
@@ -93,8 +98,7 @@ const AuthCallbackPage = () => {
         setMessage(i18n.t('auth.callback.confirmed'));
         window.setTimeout(() => navigate('/?view=dashboard', { replace: true }), 1200);
       } catch (error) {
-        setStatus('error');
-        setMessage(error instanceof Error ? error.message : i18n.t('auth.callback.failedRetry'));
+        fail(error instanceof Error ? error.message : i18n.t('auth.callback.failedRetry'));
       }
     };
 
