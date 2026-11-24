@@ -4,6 +4,7 @@ export const en = {
     tagline: 'Your guide to Montessori activities', oneMoreStep: 'One more step to get started',
     chooseNew: 'Choose a new password', newPassword: 'New password', atLeast6: 'At least 6 characters', saving: 'Saving…', saveNew: 'Save new password', notNow: 'Not now',
     checkingLink: 'Checking your reset link…', expiredLink: 'This reset link has expired or was already used. Request a new one from Sign In.',
+    confirmingEmail: "Confirming your email…", emailConfirmed: "Your email is confirmed. Sign in with your password to continue.", confirmExpired: "This confirmation link has expired or was already used. Sign in to get a new one.", notConfirmed: "This email hasn't been confirmed yet. Open the link we emailed you, or send a new one.", resendConfirm: "Send a new confirmation link",
     backToSignIn: 'Back to sign in', checkEmail: 'Check your email',
     resetSent: "If an account exists for <1>{{email}}</1>, we sent a link to reset your password. Check your spam folder if you don't see it.",
     confirmSent: "We sent a confirmation link to <1>{{email}}</1>. Open it to finish creating your account. Check your spam folder if you don't see it.",

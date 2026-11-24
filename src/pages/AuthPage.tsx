@@ -14,6 +14,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { Trans, useTranslation } from 'react-i18next';
 import { clearPasswordRecovery, isPasswordRecoveryPending } from '@/lib/passwordRecovery';
 import { completePasswordReset, requestPasswordReset, RESET_TOKEN_PARAM } from '@/lib/passwordResetRequest';
+import { CONFIRM_TOKEN_PARAM, confirmSignup, resendConfirmation } from '@/lib/accountSignup';
 
 const AuthPage = () => {
   const { t } = useTranslation();
@@ -36,6 +37,37 @@ const AuthPage = () => {
   const [forgotOpen, setForgotOpen] = useState(false);
   const [resetSent, setResetSent] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  // Emailed confirmation links carry a single-use token; they confirm the address, then the person signs in.
+  const confirmToken = new URLSearchParams(location.search).get(CONFIRM_TOKEN_PARAM) || '';
+  const [confirmState, setConfirmState] = useState<'idle' | 'checking' | 'expired'>(confirmToken ? 'checking' : 'idle');
+  const [notice, setNotice] = useState('');
+  const [unconfirmed, setUnconfirmed] = useState(false);
+
+  useEffect(() => {
+    if (!confirmToken) return;
+    let cancelled = false;
+    confirmSignup(confirmToken).then(({ email: confirmedEmail, error }) => {
+      if (cancelled) return;
+      if (error) { setConfirmState('expired'); return; }
+      if (confirmedEmail) setEmail(confirmedEmail);
+      setMode('signin');
+      setNotice(t('auth.page.emailConfirmed'));
+      setConfirmState('idle');
+      navigate('/auth', { replace: true });
+    });
+    return () => { cancelled = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [confirmToken]);
+
+  const sendNewConfirmation = async () => {
+    setFormError('');
+    setIsSubmitting(true);
+    const { error } = await resendConfirmation(email.trim());
+    setIsSubmitting(false);
+    if (error) { setFormError(describeAuthError(error)); return; }
+    setUnconfirmed(false);
+    setConfirmationEmail(email.trim());
+  };
 
   const sendResetEmail = async () => {
     setFormError('');
@@ -151,6 +183,8 @@ const AuthPage = () => {
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormError('');
+    setNotice('');
+    setUnconfirmed(false);
     if (!email || !password) {
       setFormError(t('auth.errors.enterBoth'));
       return;
@@ -159,7 +193,10 @@ const AuthPage = () => {
     setIsSubmitting(true);
     try {
       const { error } = await signIn(email, password);
-      if (error) {
+      if (error && /email not confirmed/i.test(error.message)) {
+        setUnconfirmed(true);
+        setFormError(t('auth.page.notConfirmed'));
+      } else if (error) {
         setFormError(describeAuthError(error.message));
       } else {
         toast({
@@ -259,6 +296,11 @@ const AuthPage = () => {
                 {!loading && <Button variant="outline" className="w-full" onClick={() => { clearPasswordRecovery(); navigate('/auth', { replace: true }); }}>{t('auth.page.backToSignIn')}</Button>}
               </div>
             )
+          ) : confirmState !== 'idle' ? (
+            <div role="status" className="space-y-4 py-5 text-center">
+              <p className="text-sm text-muted-foreground">{confirmState === 'checking' ? t('auth.page.confirmingEmail') : t('auth.page.confirmExpired')}</p>
+              {confirmState === 'expired' && <Button variant="outline" className="w-full" onClick={() => { setConfirmState('idle'); navigate('/auth', { replace: true }); }}>{t('auth.page.backToSignIn')}</Button>}
+            </div>
           ) : resetSent ? (
             <div role="status" className="space-y-4 py-5 text-center">
               <h2 className="text-xl font-semibold">{t('auth.page.checkEmail')}</h2>
@@ -277,7 +319,9 @@ const AuthPage = () => {
               <TabsTrigger value="signup">{t('auth.page.createAccount')}</TabsTrigger>
             </TabsList>
 
+            {notice && !formError && <p role="status" className="mt-4 rounded-md border border-primary/40 bg-primary/10 p-3 text-sm text-foreground">{notice}</p>}
             {formError && <p role="alert" className="mt-4 rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
+            {unconfirmed && mode === 'signin' && <Button type="button" variant="outline" className="mt-3 w-full" disabled={isSubmitting} onClick={sendNewConfirmation}>{t('auth.page.resendConfirm')}</Button>}
             {mode === 'signin' ? (
               <form onSubmit={handleSignIn} className="space-y-4 pt-4">
                 <div className="space-y-2">

@@ -6,6 +6,7 @@ export const zh: typeof en = {
     tagline: '您的蒙台梭利活动指南', oneMoreStep: '还差一步即可开始',
     chooseNew: '设置新密码', newPassword: '新密码', atLeast6: '至少 6 个字符', saving: '正在保存…', saveNew: '保存新密码', notNow: '暂不设置',
     checkingLink: '正在检查重置链接…', expiredLink: '此重置链接已过期或已被使用。请在登录页重新申请。',
+    confirmingEmail: "正在确认您的邮箱…", emailConfirmed: "您的邮箱已确认。请使用密码登录以继续。", confirmExpired: "此确认链接已过期或已被使用。请登录以获取新链接。", notConfirmed: "此邮箱尚未确认。请打开我们发送的链接，或重新发送一个。", resendConfirm: "重新发送确认链接",
     backToSignIn: '返回登录', checkEmail: '请查收邮件',
     resetSent: '如果 <1>{{email}}</1> 已注册账户，我们已发送重置密码的链接。若未收到，请检查垃圾邮件文件夹。',
     confirmSent: '我们已向 <1>{{email}}</1> 发送确认链接。打开链接即可完成注册。若未收到，请检查垃圾邮件文件夹。',

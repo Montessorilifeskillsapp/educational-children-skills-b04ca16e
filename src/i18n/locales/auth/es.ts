@@ -6,6 +6,7 @@ export const es: typeof en = {
     tagline: 'Tu guía de actividades Montessori', oneMoreStep: 'Un paso más para empezar',
     chooseNew: 'Elige una contraseña nueva', newPassword: 'Contraseña nueva', atLeast6: 'Al menos 6 caracteres', saving: 'Guardando…', saveNew: 'Guardar contraseña nueva', notNow: 'Ahora no',
     checkingLink: 'Comprobando tu enlace de restablecimiento…', expiredLink: 'Este enlace ha caducado o ya se usó. Solicita uno nuevo desde Iniciar sesión.',
+    confirmingEmail: "Confirmando tu correo…", emailConfirmed: "Tu correo está confirmado. Inicia sesión con tu contraseña para continuar.", confirmExpired: "Este enlace de confirmación ha caducado o ya se usó. Inicia sesión para recibir uno nuevo.", notConfirmed: "Este correo aún no está confirmado. Abre el enlace que te enviamos o pide uno nuevo.", resendConfirm: "Enviar un nuevo enlace de confirmación",
     backToSignIn: 'Volver a iniciar sesión', checkEmail: 'Revisa tu correo',
     resetSent: 'Si existe una cuenta para <1>{{email}}</1>, te enviamos un enlace para restablecer tu contraseña. Revisa la carpeta de spam si no lo ves.',
     confirmSent: 'Enviamos un enlace de confirmación a <1>{{email}}</1>. Ábrelo para terminar de crear tu cuenta. Revisa la carpeta de spam si no lo ves.',

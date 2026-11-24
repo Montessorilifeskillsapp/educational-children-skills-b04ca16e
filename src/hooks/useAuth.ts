@@ -1,3 +1,4 @@
+import { requestSignup } from '@/lib/accountSignup'
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
 import { Capacitor } from '@capacitor/core'
@@ -88,18 +89,10 @@ export const useAuth = () => {
   }
 
   const signUp = async (email: string, password: string) => {
-    const { data, error } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        emailRedirectTo: getAuthCallbackUrl()
-      }
-    })
-    // An already-registered email returns no error but a user with no identities,
-    // and no confirmation email is sent. Surface that instead of a false "check your email".
-    const existing = !error && !!data?.user && Array.isArray(data.user.identities) && data.user.identities.length === 0
+    // Confirmation emails are sent by the app (account-signup), not the auth service's mailer.
+    const { error, existing } = await requestSignup(email, password)
     if (!error && !existing) analytics.track('signup', { method: 'password' })
-    return { error, existing }
+    return { error: error ? { message: error } : null, existing }
   }
 
   const signOut = async () => {

@@ -62,3 +62,6 @@ verify_jwt = false
 
 [functions.password-reset]
 verify_jwt = false
+
+[functions.account-signup]
+verify_jwt = false

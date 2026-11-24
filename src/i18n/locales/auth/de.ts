@@ -6,6 +6,7 @@ export const de: typeof en = {
     tagline: 'Ihr Leitfaden für Montessori-Aktivitäten', oneMoreStep: 'Nur noch ein Schritt',
     chooseNew: 'Neues Passwort wählen', newPassword: 'Neues Passwort', atLeast6: 'Mindestens 6 Zeichen', saving: 'Wird gespeichert…', saveNew: 'Neues Passwort speichern', notNow: 'Jetzt nicht',
     checkingLink: 'Ihr Link wird geprüft…', expiredLink: 'Dieser Link ist abgelaufen oder wurde bereits verwendet. Fordern Sie unter „Anmelden“ einen neuen an.',
+    confirmingEmail: "Ihre E-Mail-Adresse wird bestätigt…", emailConfirmed: "Ihre E-Mail-Adresse ist bestätigt. Melden Sie sich mit Ihrem Passwort an.", confirmExpired: "Dieser Bestätigungslink ist abgelaufen oder wurde bereits verwendet. Melden Sie sich an, um einen neuen zu erhalten.", notConfirmed: "Diese E-Mail-Adresse ist noch nicht bestätigt. Öffnen Sie den zugesandten Link oder fordern Sie einen neuen an.", resendConfirm: "Neuen Bestätigungslink senden",
     backToSignIn: 'Zurück zur Anmeldung', checkEmail: 'Prüfen Sie Ihre E-Mails',
     resetSent: 'Falls ein Konto für <1>{{email}}</1> besteht, haben wir einen Link zum Zurücksetzen Ihres Passworts gesendet. Prüfen Sie auch Ihren Spam-Ordner.',
     confirmSent: 'Wir haben einen Bestätigungslink an <1>{{email}}</1> gesendet. Öffnen Sie ihn, um Ihr Konto fertig einzurichten. Prüfen Sie auch Ihren Spam-Ordner.',

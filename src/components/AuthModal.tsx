@@ -60,10 +60,9 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
         description: 'No new account was created. Sign in instead — use Google or Apple if that is how it was made.',
       })
     } else {
-      toast({
-        title: 'Success',
-        description: isSignUp ? 'Account created!' : 'Signed in successfully!',
-      })
+      toast(isSignUp
+        ? { title: t('auth.page.checkEmail'), description: t('auth.page.confirmSent', { email: email.trim() }).replace(/<\/?1>/g, '') }
+        : { title: 'Success', description: 'Signed in successfully!' })
       onClose()
     }
     setLoading(false)
