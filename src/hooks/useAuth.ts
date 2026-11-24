@@ -36,7 +36,7 @@ const getAuthCallbackUrl = () => {
  */
 export const getPasswordResetUrl = () =>
   Capacitor.isNativePlatform()
-    ? `${WEB_CALLBACK_ORIGIN}/auth/callback?native=1`
+    ? `${WEB_CALLBACK_ORIGIN}/auth/callback?native=1&type=recovery`
     : new URL('/auth/callback?type=recovery', window.location.origin).toString()
 
 export const useAuth = () => {
