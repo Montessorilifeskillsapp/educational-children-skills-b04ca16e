@@ -49,3 +49,21 @@ export function detectPasswordRecoveryInUrl(loc: Pick<Location, 'hash' | 'search
   launchHash = loc.hash || '';
   if (urlIsPasswordRecovery(loc.hash, loc.search)) markPasswordRecovery();
 }
+
+/**
+ * True when the sign-in itself came from a reset link (the auth server stamps it "recovery").
+ * This does not depend on anything stored on the device, so it cannot expire or be cleared:
+ * such a sign-in only ever allows choosing a new password.
+ */
+export function accessTokenIsRecovery(token: string | null | undefined): boolean {
+  if (!token) return false;
+  try {
+    const part = token.split('.')[1];
+    if (!part) return false;
+    const b64 = part.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(part.length / 4) * 4, '=');
+    const claims = JSON.parse(atob(b64)) as { amr?: Array<{ method?: string } | string> };
+    return Array.isArray(claims.amr) && claims.amr.some((m) => (typeof m === 'string' ? m : m?.method) === 'recovery');
+  } catch {
+    return false;
+  }
+}

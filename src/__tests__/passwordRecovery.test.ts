@@ -61,3 +61,18 @@ describe('reset link cannot skip the new-password form', () => {
     expect(isPasswordRecoveryPending()).toBe(false);
   });
 });
+
+import { accessTokenIsRecovery } from '@/lib/passwordRecovery';
+const jwt = (claims: object) => `h.${btoa(JSON.stringify(claims)).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_')}.s`;
+describe('reset-link sign-ins grant no access', () => {
+  it('recognises a sign-in that came from a reset link', () => {
+    expect(accessTokenIsRecovery(jwt({ amr: [{ method: 'recovery', timestamp: 1 }] }))).toBe(true);
+  });
+  it('treats a normal password sign-in as normal', () => {
+    expect(accessTokenIsRecovery(jwt({ amr: [{ method: 'password', timestamp: 1 }] }))).toBe(false);
+  });
+  it('ignores missing or broken tokens', () => {
+    expect(accessTokenIsRecovery(undefined)).toBe(false);
+    expect(accessTokenIsRecovery('garbage')).toBe(false);
+  });
+});

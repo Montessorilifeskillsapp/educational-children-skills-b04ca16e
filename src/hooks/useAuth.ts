@@ -5,7 +5,8 @@ import { Browser } from '@capacitor/browser'
 import { supabase } from '@/integrations/supabase/client'
 import { dbOperations } from '@/lib/supabase'
 import { analytics } from '@/lib/analytics'
-import { clearPasswordRecovery, markPasswordRecovery } from '@/lib/passwordRecovery'
+import { accessTokenIsRecovery, clearPasswordRecovery, markPasswordRecovery } from '@/lib/passwordRecovery'
+import type { Session } from '@supabase/supabase-js'
 
 const WEB_CALLBACK_ORIGIN = 'https://educational-children-skills.lovable.app'
 
@@ -41,13 +42,22 @@ export const getPasswordResetUrl = () =>
 
 export const useAuth = () => {
   const [user, setUser] = useState<User | null>(null)
+  // A reset-link sign-in is never treated as signed in: it can only choose a new password.
+  const [recoveryUser, setRecoveryUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+
+  const applySession = (session: Session | null) => {
+    const recovering = accessTokenIsRecovery(session?.access_token)
+    if (recovering) markPasswordRecovery()
+    setRecoveryUser(recovering ? session?.user ?? null : null)
+    setUser(recovering ? null : session?.user ?? null)
+    analytics.init(recovering ? null : session?.user?.id ?? null)
+  }
 
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user ?? null)
-      analytics.init(session?.user?.id ?? null)
+      applySession(session)
       setLoading(false)
     })
 
@@ -56,8 +66,7 @@ export const useAuth = () => {
       async (event, session) => {
         if (event === 'PASSWORD_RECOVERY') markPasswordRecovery()
         if (event === 'SIGNED_OUT') clearPasswordRecovery()
-        setUser(session?.user ?? null)
-        analytics.init(session?.user?.id ?? null)
+        applySession(session)
 
         // User profile creation is now handled by database trigger
 
@@ -148,6 +157,7 @@ export const useAuth = () => {
 
   return {
     user,
+    recoveryUser,
     loading,
     signIn,
     signUp,

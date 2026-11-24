@@ -5,6 +5,8 @@ import { initRevenueCat, isNativePurchaseAvailable } from '@/lib/revenuecat'
 
 interface AuthContextType {
   user: User | null
+  /** Set only while a reset link's sign-in is waiting for a new password. */
+  recoveryUser: User | null
   loading: boolean
   signIn: (email: string, password: string) => Promise<{ error: any }>
   signUp: (email: string, password: string) => Promise<{ error: any; existing?: boolean }>

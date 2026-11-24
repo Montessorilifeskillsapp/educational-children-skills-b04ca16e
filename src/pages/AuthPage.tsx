@@ -26,7 +26,7 @@ const AuthPage = () => {
   const [formError, setFormError] = useState('');
   const [confirmationEmail, setConfirmationEmail] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { user, signIn, signUp, signInWithGoogle, signInWithApple, loading } = useAuthContext();
+  const { user, recoveryUser, signIn, signUp, signInWithGoogle, signInWithApple, loading } = useAuthContext();
   const { completeOnboarding } = useProfile();
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,10 +50,18 @@ const AuthPage = () => {
     setFormError('');
     if (newPassword.length < 6) { setFormError(t('auth.errors.min6')); return; }
     setIsSubmitting(true);
-    const { error } = await supabase.auth.updateUser({ password: newPassword });
-    setIsSubmitting(false);
-    if (error) { setFormError(describeAuthError(error.message)); return; }
+    const { data, error } = await supabase.auth.updateUser({ password: newPassword });
+    if (error) { setIsSubmitting(false); setFormError(describeAuthError(error.message)); return; }
+    // End the reset link's sign-in everywhere (including any other device using the old password),
+    // then sign in properly with the new password.
+    const accountEmail = data.user?.email ?? recoveryUser?.email ?? user?.email ?? '';
     clearPasswordRecovery();
+    await supabase.auth.signOut({ scope: 'global' }).catch(() => supabase.auth.signOut({ scope: 'local' }));
+    const { error: signInError } = accountEmail
+      ? await supabase.auth.signInWithPassword({ email: accountEmail, password: newPassword })
+      : { error: new Error('no email') };
+    setIsSubmitting(false);
+    if (signInError) { window.location.assign('/auth'); return; }
     toast({ title: t('auth.toast.passwordUpdated'), description: t('auth.toast.passwordUpdatedBody') });
     navigate('/', { replace: true });
   };
@@ -215,7 +223,7 @@ const AuthPage = () => {
         </CardHeader>
         <CardContent>
           {isResetLink ? (
-            user ? (
+            recoveryUser || user ? (
               <form onSubmit={saveNewPassword} className="space-y-4 py-2">
                 <h2 className="text-xl font-semibold text-center">{t('auth.page.chooseNew')}</h2>
                 {formError && <p role="alert" className="rounded-md border border-destructive/40 bg-destructive/10 p-3 text-sm text-destructive">{formError}</p>}
