@@ -28,3 +28,5 @@
 - [x] Terms of Service in all six languages (English version applies note, structure test)
 - [x] School Portal top bar rebuilt like the app's homepage header (logo, section links, language, menu)
 - [x] School Portal text and fonts match the app; portal keeps its own colors as a deliberate difference
+- [ ] Password reset emails send again (Gmail rejects the saved email password in Supabase)
+- [ ] "You left the gate open": clarify with owner which gap is meant, then close it
