@@ -42,6 +42,13 @@ serve(async (req) => {
     const user = userData.user;
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id });
+    // Stripe customers are found by email, so only a confirmed owner of that address may open one.
+    if (!user.email_confirmed_at) {
+      return new Response(JSON.stringify({ error: "Please confirm your email address first." }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 403,
+      });
+    }
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
     const customers = await stripe.customers.list({ email: user.email, limit: 1 });

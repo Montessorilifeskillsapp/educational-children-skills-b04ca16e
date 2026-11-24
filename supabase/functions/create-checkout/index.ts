@@ -71,13 +71,13 @@ serve(async (req) => {
 
     // Auth is OPTIONAL — guests can check out, then create an account afterwards.
     const authHeader = req.headers.get("Authorization");
-    let user: { id: string; email: string } | null = null;
+    let user: { id: string; email: string; confirmed: boolean } | null = null;
 
     if (authHeader) {
       const token = authHeader.replace("Bearer ", "");
       const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
       if (!userError && userData.user?.email) {
-        user = { id: userData.user.id, email: userData.user.email };
+        user = { id: userData.user.id, email: userData.user.email, confirmed: Boolean(userData.user.email_confirmed_at) };
         logStep("User authenticated", { userId: user.id });
       } else {
         logStep("Auth header present but invalid — proceeding as guest");
@@ -99,7 +99,8 @@ serve(async (req) => {
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16" });
 
     let customerId: string | undefined;
-    if (user?.email) {
+    // Reuse an existing Stripe customer (found by email) only for a confirmed owner of that address.
+    if (user?.email && user.confirmed) {
       const customers = await stripe.customers.list({ email: user.email, limit: 1 });
       if (customers.data.length > 0) {
         customerId = customers.data[0].id;

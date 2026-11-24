@@ -81,6 +81,8 @@ serve(async (req) => {
     const user = userData.user;
     if (!user?.email) throw new Error("User not authenticated or email not available");
     logStep("User authenticated", { userId: user.id });
+    // Stripe records are matched by email; an unconfirmed address must never claim someone else's billing.
+    const emailConfirmed = Boolean(user.email_confirmed_at);
 
     // If this user's access came from a non-Stripe source (mobile IAP via RevenueCat,
     // a redeemed access code, or a manual grant), trust the cached row.
@@ -100,7 +102,7 @@ serve(async (req) => {
       logStep("Honoring non-Stripe entitlement", { provider: existingRow.provider, stillActive });
       // Extra-child add-ons bought on the website live in a separate add-on-only Stripe subscription.
       let addons = existingRow.child_addons ?? 0;
-      try {
+      if (emailConfirmed) try {
         const stripeNs = new Stripe(stripeKey, { apiVersion: "2023-10-16", maxNetworkRetries: 1 });
         const { sub } = await findAddonOnlySubscription(stripeNs, user.email);
         const qty = sub?.items.data.find(isAddonItem)?.quantity ?? 0;
@@ -131,6 +133,14 @@ serve(async (req) => {
     }
 
 
+
+    if (!emailConfirmed) {
+      logStep("Email not confirmed, skipping Stripe lookup");
+      return new Response(JSON.stringify({ subscribed: false, subscription_tier: null, subscription_end: null, child_addons: 0, website_child_addons: 0, store_child_addons: 0, child_allowance: 1 }), {
+        headers: { ...corsHeaders, "Content-Type": "application/json" },
+        status: 200,
+      });
+    }
 
     const stripe = new Stripe(stripeKey, { apiVersion: "2023-10-16", maxNetworkRetries: 2 });
 
