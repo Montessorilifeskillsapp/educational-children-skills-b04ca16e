@@ -79,7 +79,7 @@ Deno.serve(async (req) => {
     return jsonResponse({ error: 'internal_error' }, 500)
   }
   if (recent && recent.length > 0) {
-    return jsonResponse({ ok: true, duplicate: true })
+    return jsonResponse({ ok: true })
   }
 
   const { error: insertError } = await supabase
@@ -89,7 +89,7 @@ Deno.serve(async (req) => {
   if (insertError) {
     // Already on the list (unique email+source) — confirm, don't error.
     if (insertError.code === '23505') {
-      return jsonResponse({ ok: true, alreadySubscribed: true })
+      return jsonResponse({ ok: true })
     }
     console.error('leads insert failed', insertError)
     return jsonResponse({ error: 'internal_error' }, 500)

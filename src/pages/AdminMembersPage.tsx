@@ -61,7 +61,7 @@ const AdminMembersPage = () => {
     const head = ['Name', 'Email', 'Joined', 'Children', 'Member', 'How', 'Plan', 'Where', 'Songs collection', 'Renews/ends'];
     const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.premium ? 'Yes' : 'No',
       m.via === 'paid' ? 'Paid' : m.via === 'access_code' ? 'Access code' : '', m.plan ?? '', m.where ?? '', m.songs ? 'Yes' : 'No', fmt(m.renews)]
-      .map((v) => `"${String(v).replace(/"/g, '""')}"`).join(','));
+      .map((v) => { let s = String(v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return `"${s.replace(/"/g, '""')}"`; }).join(','));
     const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
     const a = document.createElement('a');
     a.href = URL.createObjectURL(blob);

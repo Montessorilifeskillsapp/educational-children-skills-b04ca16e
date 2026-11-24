@@ -80,7 +80,7 @@ serve(async (req) => {
     if (userError) throw new Error(`Authentication error: ${userError.message}`);
     const user = userData.user;
     if (!user?.email) throw new Error("User not authenticated or email not available");
-    logStep("User authenticated", { userId: user.id, email: user.email });
+    logStep("User authenticated", { userId: user.id });
 
     // If this user's access came from a non-Stripe source (mobile IAP via RevenueCat,
     // a redeemed access code, or a manual grant), trust the cached row.

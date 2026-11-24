@@ -133,7 +133,7 @@ Deno.serve(async (req) => {
   }
 
   const sent = await res.json().catch(() => ({}))
-  console.log('Email sent', { templateName, recipient, id: sent?.id })
+  console.log('Email sent', { templateName, id: sent?.id })
   // `queued` kept for existing callers; Gmail accepted the message for delivery.
   return json({ success: true, queued: true, sent: true, id: sent?.id ?? null, sentLast24h, quota: level })
 })

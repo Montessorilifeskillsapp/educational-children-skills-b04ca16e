@@ -32,6 +32,32 @@ interface SyncBody {
 const KNOWN_SUBSCRIPTION_PRODUCTS = new Set(["premium_monthly", "premium_annual", "family_monthly", "family_annual"]);
 const KNOWN_ONE_TIME_PRODUCTS = new Set(["consultation_session"]);
 
+async function fetchVerifiedCustomerInfo(appUserId: string, platform?: string): Promise<NonNullable<SyncBody["customerInfo"]>> {
+  const keys = platform === "android"
+    ? [Deno.env.get("REVENUECAT_ANDROID_API_KEY"), Deno.env.get("REVENUECAT_IOS_API_KEY")]
+    : [Deno.env.get("REVENUECAT_IOS_API_KEY"), Deno.env.get("REVENUECAT_ANDROID_API_KEY")];
+  const key = keys.find(Boolean);
+  if (!key) throw new Error("Store verification unavailable");
+  const res = await fetch(`https://api.revenuecat.com/v1/subscribers/${encodeURIComponent(appUserId)}`, {
+    headers: { Authorization: `Bearer ${key}`, "Content-Type": "application/json" },
+  });
+  if (!res.ok) throw new Error("Could not verify purchase");
+  const sub = (await res.json())?.subscriber ?? {};
+  const now = Date.now();
+  const live = (exp?: string | null) => !exp || new Date(exp).getTime() > now;
+  const active: Record<string, { productIdentifier?: string; expirationDate?: string | null }> = {};
+  for (const [id, e] of Object.entries((sub.entitlements ?? {}) as Record<string, { expires_date?: string | null; product_identifier?: string }>)) {
+    if (live(e.expires_date)) active[id] = { productIdentifier: e.product_identifier, expirationDate: e.expires_date ?? null };
+  }
+  const activeSubscriptions: string[] = [];
+  const allExpirationDates: Record<string, string | null> = {};
+  for (const [pid, s] of Object.entries((sub.subscriptions ?? {}) as Record<string, { expires_date?: string | null; refunded_at?: string | null }>)) {
+    allExpirationDates[pid] = s.expires_date ?? null;
+    if (live(s.expires_date) && !s.refunded_at) activeSubscriptions.push(pid);
+  }
+  return { entitlements: { active }, activeSubscriptions, allExpirationDates };
+}
+
 serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: corsHeaders });
 
@@ -49,8 +75,10 @@ serve(async (req) => {
     if (userErr || !userData.user) throw new Error("Not authenticated");
     const user = userData.user;
 
-    const body = (await req.json()) as SyncBody;
-    const ci = body.customerInfo ?? {};
+    const body = ((await req.json().catch(() => ({}))) ?? {}) as SyncBody;
+    // Never trust purchase details sent by the app: read them from RevenueCat.
+    const ci = await fetchVerifiedCustomerInfo(user.id, body.platform);
+    body.productId = undefined;
     const entitlement = ci.entitlements?.active?.[ENTITLEMENT_ID];
     const allActive = ci.activeSubscriptions ?? [];
     const isAddon = (id?: string | null) => Boolean(id && /^child_addon_(monthly|annual)_\d+$/.test(id));

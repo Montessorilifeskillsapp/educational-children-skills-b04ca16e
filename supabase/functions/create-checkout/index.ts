@@ -78,7 +78,7 @@ serve(async (req) => {
       const { data: userData, error: userError } = await supabaseClient.auth.getUser(token);
       if (!userError && userData.user?.email) {
         user = { id: userData.user.id, email: userData.user.email };
-        logStep("User authenticated", { userId: user.id, email: user.email });
+        logStep("User authenticated", { userId: user.id });
       } else {
         logStep("Auth header present but invalid — proceeding as guest");
       }

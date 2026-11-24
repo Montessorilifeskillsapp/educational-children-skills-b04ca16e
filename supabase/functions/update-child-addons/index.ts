@@ -13,6 +13,7 @@ Deno.serve(async (req) => {
     const token = (req.headers.get("Authorization") ?? "").replace(/^Bearer\s+/i, "");
     const { data: { user } } = await admin.auth.getUser(token);
     if (!user?.email) return json({ error: "Please sign in." }, 401);
+    if (!user.email_confirmed_at) return json({ error: "Please confirm your email address first." }, 403);
 
     const body = await req.json().catch(() => ({}));
     const quantity = Number(body?.quantity);
