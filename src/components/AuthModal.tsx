@@ -8,6 +8,9 @@ import { useAuth } from '@/hooks/useAuth'
 import { useToast } from '@/hooks/use-toast'
 import { Chrome, Apple } from 'lucide-react'
 import { Capacitor } from '@capacitor/core'
+import { useTranslation } from 'react-i18next'
+import { supabase } from '@/integrations/supabase/client'
+import { getPasswordResetUrl } from '@/hooks/useAuth'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -21,6 +24,20 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
   const [loading, setLoading] = useState(false)
   const { signIn, signUp, signInWithGoogle, signInWithApple } = useAuth()
   const { toast } = useToast()
+  const { t } = useTranslation()
+
+  const handleForgot = async () => {
+    const addr = email.trim()
+    if (!addr) {
+      toast({ title: t('auth.page.forgot'), description: t('auth.errors.enterEmailFirst'), variant: 'destructive' })
+      return
+    }
+    setLoading(true)
+    const { error } = await supabase.auth.resetPasswordForEmail(addr, { redirectTo: getPasswordResetUrl() })
+    setLoading(false)
+    if (error) toast({ title: 'Error', description: error.message, variant: 'destructive' })
+    else toast({ title: t('auth.page.checkEmail'), description: t('auth.page.resetSent', { email: addr }).replace(/<\/?1>/g, '') })
+  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -144,6 +161,11 @@ const AuthModal: React.FC<AuthModalProps> = ({ isOpen, onClose }) => {
               required
             />
           </div>
+          {!isSignUp && (
+            <button type="button" onClick={handleForgot} disabled={loading} className="text-sm text-primary hover:underline">
+              {t('auth.page.forgot')}
+            </button>
+          )}
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? 'Loading...' : (isSignUp ? 'Sign Up' : 'Sign In')}
           </Button>
