@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { downloadBlob } from '@/lib/downloadBlob';
 import { can, isQueued, Observation, Progress, Report, schoolCall, SchoolRole, Student } from './api';
 import { useDraft } from './drafts';
 import { areas, nextSuggestions, orderedSkills, skillById, skillLink, type SkillRef } from './curriculum';
@@ -130,7 +131,7 @@ export default function StudentPanel({ role, userId, student, progress, observat
       const text = JSON.stringify(record, null, 2);
       const digest = Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256', new TextEncoder().encode(text)))).map((b) => b.toString(16).padStart(2, '0')).join('');
       const blob = new Blob([JSON.stringify({ ...record, sha256_of_record: digest }, null, 2)], { type: 'application/json' });
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `student-record-${student.id.slice(0, 8)}.json`; a.click(); URL.revokeObjectURL(a.href);
+      downloadBlob(blob, `student-record-${student.id.slice(0, 8)}.json`);
       toast({ title: t('school.sp.downloaded'), description: t('school.sp.logged') });
     } catch (e) { toast({ title: t('school.sp.exportFailed'), description: (e as Error).message, variant: 'destructive' }); }
   };

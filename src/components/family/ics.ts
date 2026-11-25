@@ -1,4 +1,5 @@
 import { CalEvent } from './api';
+import { downloadBlob } from '@/lib/downloadBlob';
 
 const fmt = (d: Date) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
 const esc = (s: string) => s.replace(/[\\;,]/g, (m) => `\\${m}`).replace(/\n/g, '\\n');
@@ -13,10 +14,5 @@ export function downloadIcs(e: CalEvent, childName: string) {
     `DESCRIPTION:${esc(e.notes ?? 'Montessori activity')}`, 'BEGIN:VALARM', 'TRIGGER:-PT15M', 'ACTION:DISPLAY',
     `DESCRIPTION:${esc(e.title)}`, 'END:VALARM', 'END:VEVENT', 'END:VCALENDAR',
   ].join('\r\n');
-  const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar' }));
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = `${e.title.replace(/[^\w]+/g, '-')}.ics`;
-  a.click();
-  URL.revokeObjectURL(url);
+  downloadBlob(new Blob([ics], { type: 'text/calendar;charset=utf-8' }), `${e.title.replace(/[^\w]+/g, '-')}.ics`);
 }

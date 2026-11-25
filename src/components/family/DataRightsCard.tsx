@@ -9,6 +9,7 @@ import { Label } from '@/components/ui/label';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Download, Trash2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { downloadBlob } from '@/lib/downloadBlob';
 
 async function invoke(body: Record<string, unknown>) {
   const { data, error } = await supabase.functions.invoke('account-data', { body });
@@ -32,10 +33,7 @@ export const DataRightsCard = () => {
     setBusy('export');
     try {
       const { data } = await invoke({ action: 'export' });
-      const url = URL.createObjectURL(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }));
-      const a = document.createElement('a');
-      a.href = url; a.download = `montessori-life-skills-data-${new Date().toISOString().slice(0, 10)}.json`;
-      a.click(); URL.revokeObjectURL(url);
+      downloadBlob(new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' }), `montessori-life-skills-data-${new Date().toISOString().slice(0, 10)}.json`);
     } catch { toast({ title: t('family.rights.failed'), variant: 'destructive' }); }
     setBusy(null);
   };

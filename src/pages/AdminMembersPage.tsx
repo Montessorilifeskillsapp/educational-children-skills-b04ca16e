@@ -9,6 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuthContext } from '@/components/AuthProvider';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import AdminBackBar from '@/components/AdminBackBar';
+import { downloadBlob } from '@/lib/downloadBlob';
 
 interface Member {
   user_id: string;
@@ -62,11 +63,9 @@ const AdminMembersPage = () => {
     const lines = rows.map((m) => [m.name ?? '', m.email, fmt(m.joined), m.children, m.premium ? 'Yes' : 'No',
       m.via === 'paid' ? 'Paid' : m.via === 'access_code' ? 'Access code' : '', m.plan ?? '', m.where ?? '', m.songs ? 'Yes' : 'No', fmt(m.renews)]
       .map((v) => { let s = String(v); if (/^[=+\-@\t\r]/.test(s)) s = "'" + s; return `"${s.replace(/"/g, '""')}"`; }).join(','));
-    const blob = new Blob([[head.join(','), ...lines].join('\n')], { type: 'text/csv' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'members.csv';
-    a.click();
+    // The leading BOM makes Excel and Numbers read names with accents correctly.
+    const blob = new Blob(['\uFEFF' + [head.join(','), ...lines].join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    downloadBlob(blob, `members-${new Date().toISOString().slice(0, 10)}.csv`);
   };
 
   if (authLoading || isAdmin === null) return <div className="flex items-center justify-center min-h-screen"><LoadingSpinner /></div>;
