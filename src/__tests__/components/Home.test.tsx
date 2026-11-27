@@ -108,6 +108,17 @@ describe('Home Component', () => {
   });
 
   describe('User Interactions', () => {
+    it('opens the pricing page directly from the header instead of changing an internal view', async () => {
+      const onSubscriptionView = vi.fn();
+      renderHome({ onSubscriptionView });
+      const header = screen.getByRole('banner');
+      const pricingLink = Array.from(header.querySelectorAll('a')).find((link) => link.getAttribute('href') === '/pricing');
+      if (!pricingLink) throw new Error('Missing header pricing destination');
+      await userEvent.setup().click(pricingLink);
+      expect(window.location.pathname).toBe('/pricing');
+      expect(onSubscriptionView).not.toHaveBeenCalled();
+      window.history.replaceState({}, '', '/');
+    });
     it('opens the free Pouring Water lesson without entering profile setup', async () => {
       const onGetStarted = vi.fn();
       renderHome({ onGetStarted });

@@ -156,6 +156,7 @@ const Home: React.FC<HomeProps> = ({
     { label: t('nav.graceCourtesy'), onClick: onGraceCourtesyView },
     { label: t('nav.shop'), onClick: () => navigate('/shop') },
     { label: t('nav.classroomSetup'), onClick: () => navigate('/classroom-setup') },
+    { label: t('home.footer.pricing'), href: '/pricing' },
   ];
 
   useEffect(() => {
@@ -263,13 +264,20 @@ const Home: React.FC<HomeProps> = ({
                     <nav className="flex flex-col gap-2 text-base font-medium">
                       {homeNavLinks.map((link) => (
                         <SheetClose key={link.label} asChild>
-                          <button
+                          {link.href ? (
+                            <Button asChild variant="ghost" className="h-auto justify-start gap-3 px-2 py-2 text-base font-medium text-foreground hover:bg-accent hover:text-foreground">
+                              <Link to={link.href}>
+                                <Leaf className="w-4 h-4" aria-hidden="true" />
+                                {link.label}
+                              </Link>
+                            </Button>
+                          ) : (<button
                             onClick={link.onClick}
                             className="flex items-center gap-3 rounded-lg px-2 py-2 text-foreground hover:bg-accent hover:text-primary transition-colors text-left"
                           >
                             <Leaf className="w-4 h-4 text-primary" />
                             {link.label}
-                          </button>
+                          </button>)}
                         </SheetClose>
                       ))}
                     </nav>
@@ -321,13 +329,17 @@ const Home: React.FC<HomeProps> = ({
         >
           <div className="flex items-center gap-1 px-3 py-1.5 w-max mx-auto text-sm font-medium text-muted-foreground">
             {homeNavLinks.map((link) => (
-              <button
+              link.href ? (
+                <Button key={link.label} asChild variant="ghost" className="h-auto px-2.5 py-1 text-sm font-medium rounded-md text-muted-foreground hover:text-foreground hover:bg-primary/5 whitespace-nowrap">
+                  <Link to={link.href}>{link.label}</Link>
+                </Button>
+              ) : (<button
                 key={link.label}
                 onClick={link.onClick}
                 className="px-2.5 py-1 rounded-md hover:text-primary hover:bg-primary/5 transition-colors whitespace-nowrap"
               >
                 {link.label}
-              </button>
+              </button>)
             ))}
           </div>
         </nav>
@@ -759,9 +771,9 @@ const Home: React.FC<HomeProps> = ({
             <div>
               <h4 className="font-semibold text-white mb-3 text-sm uppercase tracking-wider">{t('home.footer.product')}</h4>
               <ul className="space-y-2 text-sm">
-                <li><button onClick={onGetStarted} className="hover:text-white transition-colors">{t('home.footer.activities')}</button></li>
-                <li><button onClick={onDashboardView} className="hover:text-white transition-colors">{t('home.footer.progress')}</button></li>
-                <li><button onClick={onSubscriptionView} className="hover:text-white transition-colors">{t('home.footer.pricing')}</button></li>
+                <li><Link to="/practical-life" className="hover:text-white transition-colors">{t('home.footer.activities')}</Link></li>
+                <li><Link to="/?view=dashboard" onClick={onDashboardView} className="hover:text-white transition-colors">{t('home.footer.progress')}</Link></li>
+                <li><Link to="/pricing" className="hover:text-white transition-colors">{t('home.footer.pricing')}</Link></li>
                 <li><Link to="/about" className="hover:text-white transition-colors">{t('home.footer.about')}</Link></li>
                 <li><Link to="/readiness-guide" className="hover:text-white transition-colors">{t('home.footer.readinessGuide')}</Link></li>
               </ul>

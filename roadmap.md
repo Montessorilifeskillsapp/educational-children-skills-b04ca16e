@@ -1,4 +1,5 @@
 # Roadmap
+- [x] Add Pricing after Classroom Setup in homepage navigation and replace three footer Product buttons with page links.
 - [x] Fix free sample activity access and clarify its copy in all six languages.
 - [x] Generate pricing, about, welcome and curriculum page HTML with self-canonicals and pricing title; preview checks pass.
 - [ ] Verify route-specific HTML on published hosting (requires publishing these changes).
