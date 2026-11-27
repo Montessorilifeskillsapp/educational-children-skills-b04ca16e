@@ -2,6 +2,11 @@
 import type { en } from './en';
 
 export const de: typeof en = {
+  comparison: {
+    title: 'Pläne vergleichen', feature: 'Leistung', profiles: 'Kinderprofile', curriculum: 'Vollständiger Lehrplan', progress: 'Fortschrittsverfolgung', consultation: 'Zusätzliche Beratung', support: 'Support',
+    one: '1 Kind', four: 'Bis zu 4 Kinder', perChild: 'Für jedes Kind getrennt', starters: 'Nur Einstiegsaktivitäten', included: 'Enthalten', separate: 'Separater App-Plan', optional: 'Separat buchbar', session: '60-minütige Sitzung', noPriority: 'Kein bevorzugter Support',
+    note: 'Premium und Familie enthalten denselben vollständigen Lehrplan. Familie bietet separate Profile, Ziele, Fortschritte und Kalender für bis zu vier Kinder. Die Beratung ist eine separate Leistung und enthält kein App-Abonnement.',
+  },
   upgrade: {
     benefit1: 'Jede Darbietung in allen Lehrplanbereichen, in AMI-Abfolge',
     benefit2: 'Schriftliche Darbietungen Schritt für Schritt und Lektionsvideos',

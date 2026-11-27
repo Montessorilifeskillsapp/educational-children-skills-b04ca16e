@@ -26,6 +26,7 @@ import {
 } from '@/lib/revenuecat';
 import { forceWebViewRepaint } from '@/hooks/useNativeWebViewRecovery';
 import ConsultationDialog from './ConsultationDialog';
+import PlanComparison from './PlanComparison';
 import { Trans, useTranslation } from 'react-i18next';
 import i18n from '@/i18n';
 
@@ -561,6 +562,7 @@ const SubscriptionPlans: React.FC<SubscriptionPlansProps> = ({ onBack }) => {
       </div>
 
       <section aria-label={t('pricing.page.sectionLabel')}>
+        <div className="mb-8"><PlanComparison /></div>
         <h2 className="sr-only">{t('pricing.page.title')}</h2>
 
         {/* Apple / Google Play required EULA & auto-renewal disclosure */}

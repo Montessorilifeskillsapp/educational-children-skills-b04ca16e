@@ -1,6 +1,11 @@
 // "pricing" namespace: plans, upgrade prompts and checkout results. English is the source; other languages must match its shape.
 // Prices stay in USD exactly as charged.
 export const en = {
+  comparison: {
+    title: 'Compare plans', feature: 'Feature', profiles: 'Child profiles', curriculum: 'Full curriculum', progress: 'Progress tracking', consultation: 'Consultation add-on', support: 'Support level',
+    one: '1 child', four: 'Up to 4 children', perChild: 'Separate for each child', starters: 'Starter activities only', included: 'Included', separate: 'Separate app plan', optional: 'Booked separately', session: '60-minute session', noPriority: 'No priority support',
+    note: 'Premium and Family include the same full curriculum. Family adds separate profiles, goals, progress, and calendars for up to four children. Consultation is a separate service; it does not include an app subscription.',
+  },
   upgrade: {
     benefit1: 'Every presentation in all curriculum areas, in AMI sequence',
     benefit2: 'Step-by-step written presentations and lesson videos',

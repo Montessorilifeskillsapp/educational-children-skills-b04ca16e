@@ -2,6 +2,11 @@
 import type { en } from './en';
 
 export const es: typeof en = {
+  comparison: {
+    title: 'Compara los planes', feature: 'Característica', profiles: 'Perfiles de niños', curriculum: 'Currículo completo', progress: 'Seguimiento del progreso', consultation: 'Consulta adicional', support: 'Nivel de soporte',
+    one: '1 niño', four: 'Hasta 4 niños', perChild: 'Separado para cada niño', starters: 'Solo actividades iniciales', included: 'Incluido', separate: 'Plan de la app por separado', optional: 'Se reserva por separado', session: 'Sesión de 60 minutos', noPriority: 'Sin soporte prioritario',
+    note: 'Premium y Familia incluyen el mismo currículo completo. Familia añade perfiles, metas, progreso y calendarios separados para hasta cuatro niños. La consulta es un servicio independiente; no incluye una suscripción a la app.',
+  },
   upgrade: {
     benefit1: 'Todas las presentaciones de todas las áreas del currículo, en secuencia AMI',
     benefit2: 'Presentaciones escritas paso a paso y videos de las lecciones',

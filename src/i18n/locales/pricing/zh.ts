@@ -2,6 +2,11 @@
 import type { en } from './en';
 
 export const zh: typeof en = {
+  comparison: {
+    title: '比较方案', feature: '功能', profiles: '孩子档案', curriculum: '完整课程', progress: '进度跟踪', consultation: '附加咨询', support: '支持级别',
+    one: '1 个孩子', four: '最多 4 个孩子', perChild: '每个孩子单独记录', starters: '仅入门活动', included: '包含', separate: '需另选应用方案', optional: '单独预约', session: '60 分钟咨询', noPriority: '无优先支持',
+    note: '高级版和家庭版包含相同的完整课程。家庭版为最多四个孩子提供独立的档案、目标、进度和日历。咨询是独立服务，不包含应用订阅。',
+  },
   upgrade: {
     benefit1: '所有课程领域的全部示范，按 AMI 序列排列',
     benefit2: '分步书面示范和课程视频',

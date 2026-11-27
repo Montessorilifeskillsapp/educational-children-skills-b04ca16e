@@ -2,6 +2,11 @@
 import type { en } from './en';
 
 export const sw: typeof en = {
+  comparison: {
+    title: 'Linganisha mipango', feature: 'Kipengele', profiles: 'Wasifu wa watoto', curriculum: 'Mtaala kamili', progress: 'Ufuatiliaji wa maendeleo', consultation: 'Ushauri wa ziada', support: 'Kiwango cha usaidizi',
+    one: 'Mtoto 1', four: 'Hadi watoto 4', perChild: 'Tofauti kwa kila mtoto', starters: 'Shughuli za kuanzia pekee', included: 'Imejumuishwa', separate: 'Mpango tofauti wa programu', optional: 'Miadi huwekwa kando', session: 'Kikao cha dakika 60', noPriority: 'Bila usaidizi wa kipaumbele',
+    note: 'Premium na Familia zinajumuisha mtaala kamili uleule. Familia huongeza wasifu, malengo, maendeleo na kalenda tofauti kwa hadi watoto wanne. Ushauri ni huduma tofauti; haujumuishi usajili wa programu.',
+  },
   "upgrade": {
     "benefit1": "Kila uwasilishaji katika maeneo yote ya mtaala, kwa mfuatano wa AMI",
     "benefit2": "Uwasilishaji ulioandikwa hatua kwa hatua na video za masomo",
