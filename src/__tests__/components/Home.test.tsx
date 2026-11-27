@@ -108,6 +108,14 @@ describe('Home Component', () => {
   });
 
   describe('User Interactions', () => {
+    it('opens the free Pouring Water lesson without entering profile setup', async () => {
+      const onGetStarted = vi.fn();
+      renderHome({ onGetStarted });
+      await userEvent.setup().click(screen.getByRole('link', { name: /open the free Pouring Water lesson/i }));
+      expect(window.location.pathname).toBe('/preview/pouring-water');
+      expect(onGetStarted).not.toHaveBeenCalled();
+      window.history.replaceState({}, '', '/');
+    });
     it('calls onGetStarted when Start Free button is clicked', async () => {
       const onGetStarted = vi.fn();
       const user = userEvent.setup();

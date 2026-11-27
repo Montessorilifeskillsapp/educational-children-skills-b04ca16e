@@ -1,4 +1,5 @@
 # Agents
+- Public page heads use routeMetadataPlugin and pageMetadata for static HTML and browser canonicals. Why: each page must identify itself before JavaScript runs.
 - InstallBanner uses shared auth and route context and only responds to mobile native install prompts; existing dismissal timestamps are permanent. Why: no repeated install interruptions.
 - Family Dashboard lives in `src/components/family/`; old demo dashboard is kept unrouted in `src/components/schools-template/` as the future Schools Portal template. Why: parents need real per-child data; schools reuse the richer layout later.
 - Dashboard writes (goals, calendar, prefs, push tokens, reports) go through the `dashboard-data` edge function; tables are read-only to clients via owner RLS. Why: project rule of no direct client writes.

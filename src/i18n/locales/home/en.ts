@@ -2,7 +2,7 @@
 export const en = {
   header: { curriculumSections: 'Curriculum sections', openSectionMenu: 'Open section menu', openMenu: 'Open menu' },
   hero: {
-    badge: 'Authentic AMI/AMS Presentations',
+    badge: 'Authentic AMI/AMS Presentations — the adult guides, the child stays off-screen',
     title: 'Know exactly what to teach — and how to present it.',
     subtitle: 'Step-by-step Montessori activities for ages 2–6, built for parents, teachers and classroom assistants.',
     body: 'See what to prepare, how to present each activity, what to observe, and what comes next.',
@@ -95,15 +95,15 @@ export const en = {
     },
   },
   sample: {
-    eyebrow: 'See a real activity', title: 'This is what you will use.',
-    subtitle: 'Pouring Water · Purpose: coordination, concentration, and independence.',
+    eyebrow: 'Sample activity guide', title: 'Clear steps for the adult. Hands-on work for the child.',
+    subtitle: 'This is a preview of the free Pouring Water lesson for ages 2½–4. Read what to prepare, how to demonstrate the activity, and what to observe as your child works with real materials off-screen.',
     imageAlt: 'A child pours water from one small glass pitcher into another on a wooden tray, one hand on the handle and the other supporting the pitcher',
     materialsTitle: 'Materials', materialsText: 'Two matching child-sized pitchers, water, a tray, sponge, and drying cloth.',
     preparationTitle: 'Preparation', preparationText: 'Arrange the complete activity before inviting the child.',
     presentationTitle: 'Presentation', presentationText: 'Demonstrate the grasp, lift, controlled pour, return, and clean-up slowly.',
     observationTitle: 'Observation', observationText: 'Notice control of movement, concentration, repetition, and independent clean-up.',
     nextLabel: 'Next activity', nextText: 'The deeper progression continues with full access.',
-    cta: 'Start with a Free Activity',
+    cta: 'Open the free Pouring Water lesson',
   },
   how: {
     eyebrow: 'Your first work cycle', title: 'Start. Present. Observe.',

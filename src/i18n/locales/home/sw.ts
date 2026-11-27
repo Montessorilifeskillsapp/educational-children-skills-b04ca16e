@@ -8,7 +8,7 @@ export const sw: typeof en = {
     "openMenu": "Fungua menyu"
   },
   "hero": {
-    "badge": "Uwasilishaji halisi wa AMI/AMS",
+    "badge": "Uwasilishaji halisi wa AMI/AMS — mtu mzima anaongoza, mtoto anafanya kazi bila skrini",
     "title": "Jua hasa cha kufundisha — na jinsi ya kukiwasilisha.",
     "subtitle": "Shughuli za Montessori za hatua kwa hatua kwa umri wa miaka 2–6, zilizoundwa kwa wazazi, walimu na wasaidizi wa darasani.",
     "body": "Ona cha kuandaa, jinsi ya kuwasilisha kila shughuli, cha kuchunguza na kinachofuata.",
@@ -109,9 +109,9 @@ export const sw: typeof en = {
     }
   },
   "sample": {
-    "eyebrow": "Ona shughuli halisi",
-    "title": "Hivi ndivyo utakavyotumia.",
-    "subtitle": "Kumimina maji · Lengo: uratibu wa mienendo, umakini na kujitegemea.",
+    "eyebrow": "Mfano wa mwongozo wa shughuli",
+    "title": "Hatua wazi kwa mtu mzima. Kazi ya mikono kwa mtoto.",
+    "subtitle": "Huu ni muhtasari wa somo la bure la Kumimina maji kwa watoto wa miaka 2½–4. Soma cha kuandaa, jinsi ya kuonyesha shughuli na cha kuchunguza mtoto anapofanya kazi kwa vifaa halisi bila skrini.",
     "imageAlt": "Mtoto anamimina maji kutoka kwenye jagi moja dogo la kioo hadi jingine kwenye sinia la mbao, mkono mmoja ukiwa kwenye kishikio na mwingine ukishikilia jagi",
     "materialsTitle": "Vifaa",
     "materialsText": "Majagi mawili yanayofanana ya ukubwa unaomfaa mtoto, maji, sinia, sponji na kitambaa cha kukaushia.",
@@ -123,7 +123,7 @@ export const sw: typeof en = {
     "observationText": "Angalia udhibiti wa mienendo, umakini, kurudia, na kusafisha na kurudisha vifaa kwa kujitegemea.",
     "nextLabel": "Shughuli inayofuata",
     "nextText": "Maendeleo ya kina yanaendelea kwa ufikiaji kamili.",
-    "cta": "Anza na Shughuli ya Bure"
+    "cta": "Fungua somo la bure la Kumimina maji"
   },
   "how": {
     "eyebrow": "Mzunguko wako wa kwanza wa kazi",

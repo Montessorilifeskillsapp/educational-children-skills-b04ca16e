@@ -1,21 +1,22 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import SubscriptionPlans from '@/components/SubscriptionPlans';
 import PageLayout from '@/components/PageLayout';
 import SEOOptimizer from '@/components/SEOOptimizer';
 import { useSEO } from '@/hooks/useSEO';
 import { useTranslation } from 'react-i18next';
+import { publicPageMetadata } from '@/lib/pageMetadata';
 
 const PlansPage: React.FC = () => {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
   const { t } = useTranslation();
   
   // SEO optimization for plans page
   useSEO({
-    title: "Premium Plans - Montessori Learning App",
-    description: "Choose the perfect Montessori learning plan for your family. Premium access to advanced activities, progress tracking, and expert guidance.",
+    ...publicPageMetadata[pathname],
     keywords: "montessori premium, subscription plans, children education, learning app, family plans",
-    canonical: "/plans"
+    canonical: pathname
   });
 
   const handleBack = () => {

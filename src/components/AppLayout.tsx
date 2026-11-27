@@ -178,7 +178,7 @@ const AppLayoutViews: React.FC = () => {
     );
   }
 
-  if (!isOnboarded) {
+  if (!isOnboarded || (!profilesLoading && !loading && !activeProfile && profiles.length === 0)) {
     return <OnboardingFlow onComplete={(profiles) => { completeOnboarding(profiles); setCurrentView('dashboard'); }} />;
   }
 
@@ -329,6 +329,9 @@ const AppLayoutViews: React.FC = () => {
   }
 
   if (!activeProfile) {
+    if (!profilesLoading && !loading && profiles.length > 0) {
+      return <ProfilesView profiles={profiles} activeProfile={null} onProfileSelect={setActiveProfile} onProfileUpdate={setProfiles} completedSkills={completedSkills} onBack={handleBackToHome} />;
+    }
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
         <div className="text-center">

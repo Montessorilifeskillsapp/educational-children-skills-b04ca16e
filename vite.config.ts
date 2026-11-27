@@ -4,6 +4,7 @@ import path from "path";
 import { componentTagger } from "lovable-tagger";
 import { VitePWA } from "vite-plugin-pwa";
 import type { Plugin } from "vite";
+import { routeMetadataPlugin } from './routeMetadataPlugin';
 
 // Lists every bundled photo so the app can save them for offline use a few at a time (src/lib/offlinePhotos.ts).
 const offlinePhotoList = (): Plugin => ({
@@ -32,6 +33,7 @@ export default defineConfig(({ mode }) => ({
     react(),
     mode === 'development' && componentTagger(),
     offlinePhotoList(),
+    routeMetadataPlugin(),
     // Offline: the app itself (every page and all lesson text) is saved on first visit; photos are
     // saved gradually afterwards by src/lib/offlinePhotos.ts so the first visit never stalls.
     // Registration happens only from src/lib/registerOffline.ts.

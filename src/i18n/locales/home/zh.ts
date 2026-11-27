@@ -4,7 +4,7 @@ import type { en } from './en';
 export const zh: typeof en = {
   header: { curriculumSections: '课程领域', openSectionMenu: '打开领域菜单', openMenu: '打开菜单' },
   hero: {
-    badge: '正宗 AMI/AMS 示范',
+    badge: '正宗 AMI/AMS 示范 — 成人引导，孩子远离屏幕',
     title: '清楚知道该教什么，以及如何示范。',
     subtitle: '为 2–6 岁儿童设计的分步蒙台梭利活动，专为家长、教师和教室助理打造。',
     body: '了解需要准备什么、如何示范每项活动、观察什么，以及下一步做什么。',
@@ -97,15 +97,15 @@ export const zh: typeof en = {
     },
   },
   sample: {
-    eyebrow: '看看真实的活动', title: '这就是您将使用的内容。',
-    subtitle: '倒水 · 目的：协调、专注与独立。',
+    eyebrow: '活动指南示例', title: '成人获得清晰步骤，孩子亲手操作。',
+    subtitle: '这里展示的是适合 2½–4 岁儿童的免费倒水活动指南。了解需要准备什么、如何示范活动，以及孩子远离屏幕、使用真实材料操作时应该观察什么。',
     imageAlt: '一个孩子在木托盘上把水从一个小玻璃壶倒入另一个，一只手握着把手，另一只手扶着壶',
     materialsTitle: '教具', materialsText: '两个相同的儿童尺寸小壶、水、一个托盘、海绵和擦干布。',
     preparationTitle: '准备', preparationText: '在邀请孩子之前，先把整个活动摆放好。',
     presentationTitle: '示范', presentationText: '缓慢地示范握持、提起、控制倒水、放回和清理。',
     observationTitle: '观察', observationText: '留意动作控制、专注、重复以及独立清理。',
     nextLabel: '下一项活动', nextText: '完整访问后可继续更深入的进阶序列。',
-    cta: '从一项免费活动开始',
+    cta: '打开免费的倒水活动指南',
   },
   how: {
     eyebrow: '您的第一个工作周期', title: '准备。示范。观察。',

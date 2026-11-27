@@ -139,7 +139,7 @@ const App = () => {
                           <Route path="/shop" element={<ShopPage />} />
                           <Route path="/materials/:materialKey" element={<MaterialAlternativesPage />} />
                           <Route path="/plans" element={<PlansPage />} />
-                          <Route path="/pricing" element={<Navigate to="/plans" replace />} />
+                          <Route path="/pricing" element={<PlansPage />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/auth/callback" element={<AuthCallbackPage />} />
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />

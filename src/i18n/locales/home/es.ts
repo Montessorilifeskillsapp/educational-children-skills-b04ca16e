@@ -4,7 +4,7 @@ import type { en } from './en';
 export const es: typeof en = {
   header: { curriculumSections: 'Áreas del currículo', openSectionMenu: 'Abrir menú de áreas', openMenu: 'Abrir menú' },
   hero: {
-    badge: 'Presentaciones auténticas AMI/AMS',
+    badge: 'Presentaciones auténticas AMI/AMS — el adulto guía, el niño trabaja fuera de la pantalla',
     title: 'Sabrás exactamente qué enseñar y cómo presentarlo.',
     subtitle: 'Actividades Montessori paso a paso para niños de 2 a 6 años, creadas para madres, padres, guías y asistentes de aula.',
     body: 'Descubre qué preparar, cómo presentar cada actividad, qué observar y qué viene después.',
@@ -97,15 +97,15 @@ export const es: typeof en = {
     },
   },
   sample: {
-    eyebrow: 'Mira una actividad real', title: 'Esto es lo que usarás.',
-    subtitle: 'Trasvasar agua · Propósito: coordinación, concentración e independencia.',
+    eyebrow: 'Ejemplo de guía de actividad', title: 'Pasos claros para el adulto. Trabajo con las manos para el niño.',
+    subtitle: 'Este es un avance de la lección gratuita Trasvasar agua para niños de 2½ a 4 años. Lee qué preparar, cómo demostrar la actividad y qué observar mientras tu hijo trabaja con materiales reales, fuera de la pantalla.',
     imageAlt: 'Un niño vierte agua de una pequeña jarra de vidrio a otra sobre una bandeja de madera, con una mano en el asa y la otra sosteniendo la jarra',
     materialsTitle: 'Materiales', materialsText: 'Dos jarras iguales de tamaño infantil, agua, una bandeja, una esponja y un paño para secar.',
     preparationTitle: 'Preparación', preparationText: 'Dispón la actividad completa antes de invitar al niño.',
     presentationTitle: 'Presentación', presentationText: 'Muestra despacio cómo agarrar, levantar, verter con control, devolver y limpiar.',
     observationTitle: 'Observación', observationText: 'Fíjate en el control del movimiento, la concentración, la repetición y la limpieza independiente.',
     nextLabel: 'Siguiente actividad', nextText: 'La progresión completa continúa con el acceso total.',
-    cta: 'Empieza con una actividad gratis',
+    cta: 'Abrir la lección gratuita de Trasvasar agua',
   },
   how: {
     eyebrow: 'Tu primer ciclo de trabajo', title: 'Prepara. Presenta. Observa.',

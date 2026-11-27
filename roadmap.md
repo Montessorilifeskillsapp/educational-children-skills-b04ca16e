@@ -1,4 +1,9 @@
 # Roadmap
+- [x] Fix free sample activity access and clarify its copy in all six languages.
+- [x] Generate pricing, about, welcome and curriculum page HTML with self-canonicals and pricing title; preview checks pass.
+- [ ] Verify route-specific HTML on published hosting (requires publishing these changes).
+- [x] Correct Monthly Premium structured-data price to $29.99.
+- [x] Make the adult-guided, off-screen message visible above the fold and in the second homepage section.
 - [x] Privacy compliance: consent regions (CN, BR, IN, KE, KR), self-serve data download/delete, policy addenda
 - [x] Full Privacy Policy translated into all five languages (China notice already bilingual)
 - [x] Swahili calendar dates fully in Swahili

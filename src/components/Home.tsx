@@ -347,9 +347,9 @@ const Home: React.FC<HomeProps> = ({
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             {/* Left: Copy */}
             <div className="text-center lg:text-left">
-              <div className="animate-fade-in inline-flex items-center gap-1.5 px-2.5 py-1 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-full text-[11px] sm:text-xs font-medium text-muted-foreground mb-5 shadow-sm">
-                <Star className="w-3 h-3 text-accent fill-accent" />
-                {t('home.hero.badge')}
+              <div className="animate-fade-in inline-flex max-w-full items-start gap-2 px-3 py-2 bg-card/70 backdrop-blur-sm border border-primary/15 rounded-lg text-sm font-medium text-foreground mb-5 shadow-sm leading-relaxed">
+                <Star className="w-4 h-4 shrink-0 mt-0.5 text-accent fill-accent" aria-hidden="true" />
+                <span>{t('home.hero.badge')}</span>
               </div>
 
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight mb-4 leading-[1.15] animate-reveal-delay-1 bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
@@ -412,6 +412,10 @@ const Home: React.FC<HomeProps> = ({
               <p className="text-lg text-muted-foreground leading-relaxed">
                 {t('home.problem.body')}
               </p>
+              <div className="mt-6 border-l-2 border-primary/30 pl-4">
+                <h3 className="font-semibold text-foreground mb-2">{t('home.faq.q8')}</h3>
+                <p className="text-muted-foreground leading-relaxed">{t('home.faq.a8')}</p>
+              </div>
             </Reveal>
             <div className="grid sm:grid-cols-2 gap-3">
               {STARTING_POINT_LINKS.map((_, index) => {
@@ -480,7 +484,7 @@ const Home: React.FC<HomeProps> = ({
                       <Lock className="w-5 h-5 shrink-0 text-muted-foreground" />
                     </div>
                   </div>
-                   <Button onClick={onGetStarted} size="lg" className="mt-6 w-full rounded-xl">{t('home.sample.cta')} <ArrowRight className="ml-2 h-4 w-4" /></Button>
+                   <Button asChild size="lg" className="mt-6 w-full h-auto min-h-11 whitespace-normal rounded-xl"><Link to="/preview/pouring-water">{t('home.sample.cta')} <ArrowRight className="ml-2 h-4 w-4 shrink-0" /></Link></Button>
                 </CardContent>
               </Card>
             </Reveal>

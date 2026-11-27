@@ -4,7 +4,7 @@ import type { en } from './en';
 export const de: typeof en = {
   header: { curriculumSections: 'Lehrplanbereiche', openSectionMenu: 'Bereichsmenü öffnen', openMenu: 'Menü öffnen' },
   hero: {
-    badge: 'Authentische AMI/AMS-Darbietungen',
+    badge: 'Authentische AMI/AMS-Darbietungen — der Erwachsene begleitet, das Kind arbeitet ohne Bildschirm',
     title: 'Wissen Sie genau, was Sie vermitteln – und wie Sie es darbieten.',
     subtitle: 'Montessori-Aktivitäten Schritt für Schritt für Kinder von 2 bis 6 Jahren – für Eltern, Pädagogen und Assistenzkräfte.',
     body: 'Sehen Sie, was vorzubereiten ist, wie jede Aktivität dargeboten wird, worauf Sie achten sollten und was als Nächstes kommt.',
@@ -97,15 +97,15 @@ export const de: typeof en = {
     },
   },
   sample: {
-    eyebrow: 'Eine echte Aktivität', title: 'Damit arbeiten Sie.',
-    subtitle: 'Wasser umgießen · Ziel: Koordination, Konzentration und Selbstständigkeit.',
+    eyebrow: 'Beispiel einer Aktivitätsanleitung', title: 'Klare Schritte für Erwachsene. Praktische Arbeit für das Kind.',
+    subtitle: 'Hier sehen Sie einen Einblick in die kostenlose Anleitung Wasser umgießen für Kinder von 2½ bis 4 Jahren. Lesen Sie, was Sie vorbereiten, wie Sie die Aktivität darbieten und worauf Sie achten, während Ihr Kind mit echten Materialien ohne Bildschirm arbeitet.',
     imageAlt: 'Ein Kind gießt auf einem Holztablett Wasser aus einem kleinen Glaskännchen in ein anderes, eine Hand am Griff, die andere stützt das Kännchen',
     materialsTitle: 'Materialien', materialsText: 'Zwei gleiche kindgerechte Kännchen, Wasser, ein Tablett, ein Schwamm und ein Trockentuch.',
     preparationTitle: 'Vorbereitung', preparationText: 'Richten Sie die vollständige Aktivität her, bevor Sie das Kind einladen.',
     presentationTitle: 'Darbietung', presentationText: 'Zeigen Sie langsam das Greifen, Anheben, kontrollierte Gießen, Zurückstellen und Aufräumen.',
     observationTitle: 'Beobachtung', observationText: 'Achten Sie auf Bewegungskontrolle, Konzentration, Wiederholung und selbstständiges Aufräumen.',
     nextLabel: 'Nächste Aktivität', nextText: 'Die weiterführende Abfolge steht mit vollem Zugang offen.',
-    cta: 'Mit einer kostenlosen Aktivität beginnen',
+    cta: 'Kostenlose Anleitung Wasser umgießen öffnen',
   },
   how: {
     eyebrow: 'Ihr erster Arbeitszyklus', title: 'Vorbereiten. Darbieten. Beobachten.',

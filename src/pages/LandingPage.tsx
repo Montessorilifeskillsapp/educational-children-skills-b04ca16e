@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Hand, Brain, Leaf, Sparkles, BookOpen, Users } from 'lucide-react';
 import heroImage from '@/assets/landing-hero.jpg';
+import { useSEO } from '@/hooks/useSEO';
+import { publicPageMetadata } from '@/lib/pageMetadata';
 
 
 const features = [
@@ -16,6 +18,7 @@ const features = [
 ];
 
 const LandingPage: React.FC = () => {
+  useSEO({ ...publicPageMetadata['/welcome'], canonical: '/welcome' });
   return (
     <main className="min-h-dvh bg-background text-foreground">
       {/* Hero */}

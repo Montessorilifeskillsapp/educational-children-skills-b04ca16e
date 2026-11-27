@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { canonicalUrl } from '@/lib/pageMetadata';
 
 interface SEOProps {
   title?: string;
@@ -58,7 +59,7 @@ export const useSEO = ({
     // Update canonical URL + og:url
     if (canonical) {
       // Always point search engines at the main domain, whichever address served the page.
-      canonical = canonical.startsWith('http') ? canonical : `https://montessorilifeskillsapp.com${canonical.startsWith('/') ? '' : '/'}${canonical}`;
+      canonical = canonicalUrl(canonical);
       let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null;
       if (!canonicalLink) {
         canonicalLink = document.createElement('link');
