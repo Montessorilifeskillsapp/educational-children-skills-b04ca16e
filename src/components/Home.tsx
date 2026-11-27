@@ -405,6 +405,17 @@ const Home: React.FC<HomeProps> = ({
                 <span aria-hidden="true" className="text-primary">·</span>
                 <span>{t('home.hero.statGuidance')}</span>
               </div>
+              <div className="mt-4 flex items-center justify-center lg:justify-start gap-3 animate-reveal-delay-3">
+                <img
+                  src={founderKerry}
+                  alt="Kerry Howard"
+                  decoding="async"
+                  className="h-10 w-10 shrink-0 rounded-full object-cover object-top border border-border"
+                />
+                <p className="text-sm font-medium text-foreground leading-relaxed text-left">
+                  {t('home.hero.founderProof')}
+                </p>
+              </div>
             </div>
 
             <div className="hidden lg:block" />

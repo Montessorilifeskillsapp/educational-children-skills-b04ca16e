@@ -9,6 +9,7 @@ export const de: typeof en = {
     subtitle: 'Montessori-Aktivitäten Schritt für Schritt für Kinder von 2 bis 6 Jahren – für Eltern, Pädagogen und Assistenzkräfte.',
     body: 'Sehen Sie, was vorzubereiten ist, wie jede Aktivität dargeboten wird, worauf Sie achten sollten und was als Nächstes kommt.',
     seeHow: 'So funktioniert es',
+    founderProof: 'Begleitung für Familien und Klassenräume weltweit · Über 40 Jahre AMI-Erfahrung',
     statActivities: '100+ Aktivitäten', statAges: '2–6 Jahre', statAreas: '9 Lehrplanbereiche', statGuidance: 'Anleitung Schritt für Schritt',
   },
   problem: {

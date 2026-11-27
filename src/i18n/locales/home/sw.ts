@@ -13,6 +13,7 @@ export const sw: typeof en = {
     "subtitle": "Shughuli za Montessori za hatua kwa hatua kwa umri wa miaka 2–6, zilizoundwa kwa wazazi, walimu na wasaidizi wa darasani.",
     "body": "Ona cha kuandaa, jinsi ya kuwasilisha kila shughuli, cha kuchunguza na kinachofuata.",
     "seeHow": "Ona jinsi inavyofanya kazi",
+    "founderProof": "Kuongoza familia na madarasa duniani kote · Zaidi ya miaka 40 ya uzoefu wa AMI",
     "statActivities": "Shughuli 100+",
     "statAges": "Umri wa miaka 2–6",
     "statAreas": "Maeneo 9 ya mtaala",

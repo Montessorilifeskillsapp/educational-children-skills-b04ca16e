@@ -7,6 +7,7 @@ export const en = {
     subtitle: 'Step-by-step Montessori activities for ages 2–6, built for parents, teachers and classroom assistants.',
     body: 'See what to prepare, how to present each activity, what to observe, and what comes next.',
     seeHow: 'See How It Works',
+    founderProof: 'Guiding homes & classrooms worldwide · 40+ years AMI experience',
     statActivities: '100+ activities', statAges: 'Ages 2–6', statAreas: '9 curriculum areas', statGuidance: 'Step-by-step guidance',
   },
   problem: {

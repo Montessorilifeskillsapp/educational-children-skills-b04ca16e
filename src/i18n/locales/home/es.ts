@@ -9,6 +9,7 @@ export const es: typeof en = {
     subtitle: 'Actividades Montessori paso a paso para niños de 2 a 6 años, creadas para madres, padres, guías y asistentes de aula.',
     body: 'Descubre qué preparar, cómo presentar cada actividad, qué observar y qué viene después.',
     seeHow: 'Ver cómo funciona',
+    founderProof: 'Guiando a familias y aulas en todo el mundo · Más de 40 años de experiencia AMI',
     statActivities: 'Más de 100 actividades', statAges: 'De 2 a 6 años', statAreas: '9 áreas del currículo', statGuidance: 'Guía paso a paso',
   },
   problem: {

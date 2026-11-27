@@ -9,6 +9,7 @@ export const zh: typeof en = {
     subtitle: '为 2–6 岁儿童设计的分步蒙台梭利活动，专为家长、教师和教室助理打造。',
     body: '了解需要准备什么、如何示范每项活动、观察什么，以及下一步做什么。',
     seeHow: '了解使用方式',
+    founderProof: '为世界各地的家庭和教室提供指导 · 40 多年 AMI 经验',
     statActivities: '100+ 项活动', statAges: '2–6 岁', statAreas: '9 个课程领域', statGuidance: '分步指导',
   },
   problem: {
