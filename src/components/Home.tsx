@@ -20,6 +20,7 @@ import InstallBanner from './InstallBanner';
 import ExitIntentCapture from './ExitIntentCapture';
 import ConsultationDialog from './ConsultationDialog';
 import StartingPointGuide, { STARTING_POINT_LINKS } from './StartingPointGuide';
+import StorybookReviews from './StorybookReviews';
 import { openCookieSettings } from './consent/openCookieSettings';
 import SocialLinks from './SocialLinks';
 import ShareThisPage from './ShareThisPage';
@@ -601,6 +602,7 @@ const Home: React.FC<HomeProps> = ({
       </section>
 
       {/* ─── Pricing ─── */}
+      <StorybookReviews />
       <section id="pricing" className="py-20 lg:py-28 bg-background border-t border-border/60 scroll-mt-24">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <Reveal className="text-center mb-14">

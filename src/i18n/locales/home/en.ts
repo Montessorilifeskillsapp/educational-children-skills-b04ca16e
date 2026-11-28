@@ -10,6 +10,14 @@ export const en = {
     founderProof: 'Guiding homes & classrooms worldwide · 40+ years AMI experience',
     statActivities: '100+ activities', statAges: 'Ages 2–6', statAreas: '9 curriculum areas', statGuidance: 'Step-by-step guidance',
   },
+  reviews: {
+    "title": "What readers are saying.",
+    "intro": "A few words from teachers, parents and reviewers on Instagram.",
+    "scope": "These comments concern the Montessori storybooks, not the app.",
+    "on": "on",
+    "source": "Shared from",
+    "instagram": "on Instagram."
+},
   comparison: {
     "link": "Adult guide or child screen app?",
     "title": "Montessori adult guide vs child screen apps",

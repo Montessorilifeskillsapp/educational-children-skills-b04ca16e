@@ -12,6 +12,14 @@ export const zh: typeof en = {
     founderProof: '为世界各地的家庭和教室提供指导 · 40 多年 AMI 经验',
     statActivities: '100+ 项活动', statAges: '2–6 岁', statAreas: '9 个课程领域', statGuidance: '分步指导',
   },
+  reviews: {
+    "title": "读者的心声。",
+    "intro": "来自 Instagram 上教师、家长和书评人的几句话。",
+    "scope": "这些评论针对蒙台梭利故事书，而非本应用。",
+    "on": "关于",
+    "source": "分享自",
+    "instagram": "（Instagram）。"
+},
   comparison: {
     "link": "成人指南还是儿童屏幕应用？",
     "title": "蒙台梭利成人指南与儿童屏幕应用的比较",

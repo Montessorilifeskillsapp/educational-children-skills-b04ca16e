@@ -12,6 +12,14 @@ export const de: typeof en = {
     founderProof: 'Begleitung für Familien und Klassenräume weltweit · Über 40 Jahre AMI-Erfahrung',
     statActivities: '100+ Aktivitäten', statAges: '2–6 Jahre', statAreas: '9 Lehrplanbereiche', statGuidance: 'Anleitung Schritt für Schritt',
   },
+  reviews: {
+    "title": "Was Leserinnen und Leser sagen.",
+    "intro": "Einige Worte von Lehrkräften, Eltern und Rezensenten auf Instagram.",
+    "scope": "Diese Kommentare beziehen sich auf die Montessori-Geschichtenbücher, nicht auf die App.",
+    "on": "über",
+    "source": "Geteilt von",
+    "instagram": "auf Instagram."
+},
   comparison: {
     "link": "Leitfaden oder Bildschirm-App für Kinder?",
     "title": "Montessori-Leitfaden für Erwachsene oder Bildschirm-Apps für Kinder",

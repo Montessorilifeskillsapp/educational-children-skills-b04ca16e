@@ -19,6 +19,14 @@ export const sw: typeof en = {
     "statAreas": "Maeneo 9 ya mtaala",
     "statGuidance": "Mwongozo wa hatua kwa hatua"
   },
+  reviews: {
+    "title": "Wasomaji wanasema nini.",
+    "intro": "Maneno machache kutoka kwa walimu, wazazi na wahakiki kwenye Instagram.",
+    "scope": "Maoni haya yanahusu vitabu vya hadithi vya Montessori, si programu hii.",
+    "on": "kuhusu",
+    "source": "Yameshirikiwa kutoka",
+    "instagram": "kwenye Instagram."
+},
   comparison: {
     "link": "Mwongozo wa mtu mzima au programu ya mtoto?",
     "title": "Mwongozo wa Montessori kwa mtu mzima dhidi ya programu za skrini kwa watoto",

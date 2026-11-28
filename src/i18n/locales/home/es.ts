@@ -12,6 +12,14 @@ export const es: typeof en = {
     founderProof: 'Guiando a familias y aulas en todo el mundo · Más de 40 años de experiencia AMI',
     statActivities: 'Más de 100 actividades', statAges: 'De 2 a 6 años', statAreas: '9 áreas del currículo', statGuidance: 'Guía paso a paso',
   },
+  reviews: {
+    "title": "Lo que dicen los lectores.",
+    "intro": "Algunas palabras de docentes, madres, padres y reseñadores en Instagram.",
+    "scope": "Estos comentarios se refieren a los cuentos Montessori, no a la app.",
+    "on": "sobre",
+    "source": "Compartido desde",
+    "instagram": "en Instagram."
+},
   comparison: {
     "link": "¿Guía para adultos o app infantil?",
     "title": "Guía Montessori para adultos frente a apps infantiles de pantalla",
