@@ -12,6 +12,10 @@ export async function signOutAndReset(to: '/' | '/auth' = '/'): Promise<void> {
     const { flushQueue } = await import('@/components/school/offlineQueue');
     await Promise.race([flushQueue(), new Promise((r) => setTimeout(r, 4000))]);
   } catch { /* unsent records stay on this device for the same account */ }
+  try {
+    const { revokeOfflineMedia } = await import('@/lib/offlineMedia');
+    await revokeOfflineMedia(); // saved videos/songs belong to the signed-out account's access
+  } catch { /* cache unavailable */ }
   await supabase.auth.signOut({ scope: 'local' });
   try {
     ['school_auto_open', 'post_auth_redirect', SCHOOL_RETURN_KEY].forEach((k) => sessionStorage.removeItem(k));

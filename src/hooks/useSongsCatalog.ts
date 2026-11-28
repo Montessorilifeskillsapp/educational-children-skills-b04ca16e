@@ -1,10 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
 import { songCoverFor } from '@/lib/songCovers';
-import { localMediaUrl, savedMedia } from '@/lib/offlineMedia';
+import { localMediaUrl, markAccessVerified, offlineAccessFresh, revokeOfflineMedia, savedMedia } from '@/lib/offlineMedia';
 
 /** Songs saved on this device, rebuilt into a playable list when there is no connection. */
 async function offlineSongs(): Promise<SongTrack[]> {
+  if (!offlineAccessFresh('song')) return [];
   const saved = savedMedia('song');
   const tracks = await Promise.all(saved.map(async (m) => {
     const url = await localMediaUrl('song', m.id);
@@ -49,6 +50,8 @@ export function useSongsCatalog() {
     const { data, error } = await supabase.functions.invoke('song-playback-url', { body: {} }).catch((e) => ({ data: null, error: e as Error }));
     if (error) { await fallback(error.message); return; }
     const payload = data as { purchased?: boolean; songs?: SongTrack[] };
+    if (payload.purchased) markAccessVerified('song');
+    else if ((await supabase.auth.getSession()).data.session) void revokeOfflineMedia('song');
     setState({
       loading: false,
       error: null,

@@ -14,7 +14,7 @@ const json = (body: unknown, status = 200) =>
   });
 
 const BUCKET = 'activity-videos';
-const SIGNED_URL_TTL = 60 * 60; // 1 hour
+const SIGNED_URL_TTL = 10 * 60; // 10 minutes: links stop working soon after access is withdrawn
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });

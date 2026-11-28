@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { supabase } from '@/integrations/supabase/client';
-import { localMediaUrl, savedMedia } from '@/lib/offlineMedia';
+import { localMediaUrl, markAccessVerified, offlineAccessFresh, revokeOfflineMedia, savedMedia } from '@/lib/offlineMedia';
 
 export interface ActivityVideoState {
   exists: boolean;
@@ -29,7 +29,8 @@ export const useActivityVideo = (skillId: string) => {
     if (!skillId) return;
     setLoading(true);
     // A copy saved on this device plays first, with or without internet.
-    const local = await localMediaUrl('video', skillId);
+    // Offline copies only play while the server confirmed access recently.
+    const local = offlineAccessFresh('video') ? await localMediaUrl('video', skillId) : null;
     const saved = savedMedia('video').find((m) => m.id === skillId);
     if (local && (!navigator.onLine)) {
       setState({ exists: true, locked: false, url: local, thumbnailUrl: null, title: saved?.title ?? null, durationSeconds: saved?.durationSeconds ?? null });
@@ -41,6 +42,8 @@ export const useActivityVideo = (skillId: string) => {
         body: { skill_id: skillId },
       });
       if (error) throw error;
+      if (data?.exists && !data?.locked) markAccessVerified('video');
+      if (data?.locked && data?.reason === 'not_subscribed') void revokeOfflineMedia('video');
       setState({
         exists: Boolean(data?.exists),
         locked: Boolean(data?.locked),

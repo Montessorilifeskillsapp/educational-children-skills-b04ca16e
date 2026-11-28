@@ -72,7 +72,7 @@ serve(async (req) => {
       customer: customerId,
       return_url: `${origin}/`,
     });
-    logStep("Customer portal session created", { sessionId: portalSession.id, url: portalSession.url });
+    logStep("Customer portal session created", { sessionId: portalSession.id });
 
     return new Response(JSON.stringify({ url: portalSession.url }), {
       headers: { ...corsHeaders, "Content-Type": "application/json" },

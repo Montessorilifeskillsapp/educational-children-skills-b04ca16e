@@ -38,6 +38,31 @@ function writeCatalog(items: SavedMedia[]) {
 function emit() { listeners.forEach((l) => l()); }
 const keyFor = (kind: MediaKind, id: string) => `/offline-media/${kind}/${encodeURIComponent(id)}`;
 
+const ACCESS_KEY = 'mls:offline-media-access';
+/** Saved media plays offline only this long after the server last confirmed access. */
+export const OFFLINE_ACCESS_WINDOW_MS = 7 * 24 * 60 * 60 * 1000;
+function readAccess(): Partial<Record<MediaKind, string>> {
+  try { return JSON.parse(localStorage.getItem(ACCESS_KEY) || '{}'); } catch { return {}; }
+}
+/** Records that the server just confirmed this account may play this kind of media. */
+export function markAccessVerified(kind: MediaKind) {
+  try { localStorage.setItem(ACCESS_KEY, JSON.stringify({ ...readAccess(), [kind]: new Date().toISOString() })); } catch { /* storage full */ }
+}
+/** True while the last server confirmation of access is recent enough to allow offline playback. */
+export function offlineAccessFresh(kind: MediaKind, now = Date.now()) {
+  const at = Date.parse(readAccess()[kind] ?? '');
+  return Number.isFinite(at) && now - at < OFFLINE_ACCESS_WINDOW_MS && at <= now + 60_000;
+}
+/** Access ended: delete saved files of this kind (or all) from the device. */
+export async function revokeOfflineMedia(kind?: MediaKind) {
+  try {
+    const a = readAccess();
+    if (kind) delete a[kind]; else { delete a.video; delete a.song; }
+    localStorage.setItem(ACCESS_KEY, JSON.stringify(a));
+  } catch { /* storage unavailable */ }
+  try { await removeMedia(kind); } catch { /* cache unavailable */ }
+}
+
 export const offlineMediaSupported = () => typeof window !== 'undefined' && 'caches' in window;
 
 export function savedMedia(kind?: MediaKind) {
@@ -78,6 +103,7 @@ export async function saveMedia(kind: MediaKind, id: string, url: string, info: 
   await cache.put(keyFor(kind, id), new Response(blob, { headers: { 'Content-Type': blob.type || res.headers.get('Content-Type') || 'application/octet-stream' } }));
   const entry: SavedMedia = { kind, id, bytes: blob.size, savedAt: new Date().toISOString(), ...info };
   writeCatalog([...catalogSnapshot.filter((m) => !(m.kind === kind && m.id === id)), entry]);
+  markAccessVerified(kind);
 }
 
 export async function removeMedia(kind?: MediaKind) {

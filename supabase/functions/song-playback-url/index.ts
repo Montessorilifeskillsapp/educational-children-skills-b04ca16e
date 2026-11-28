@@ -6,7 +6,7 @@ const json = (body: unknown, status = 200) =>
   new Response(JSON.stringify(body), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } });
 
 const BUCKET = 'songs';
-const SIGNED_URL_TTL = 60 * 60; // 1 hour
+const SIGNED_URL_TTL = 10 * 60; // 10 minutes: links stop working soon after access is withdrawn
 
 Deno.serve(async (req) => {
   if (req.method === 'OPTIONS') return new Response('ok', { headers: corsHeaders });
