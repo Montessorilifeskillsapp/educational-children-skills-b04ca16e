@@ -1,0 +1,1 @@
+- ActivityPage checks activityEntitlement against server-derived subscription context before rendering lesson details; previews have their own public page. Why: URL selection must obey the same one-starter-per-section limit as cards.

@@ -1,0 +1,4 @@
+- Public signup may create new accounts or resend confirmations, never change an existing password; only a claimed reset token authorizes password replacement. Why: mailbox ownership must precede changes to existing credentials.
+- Email ownership filters escape SQL pattern characters and school invitations additionally compare exact confirmed identity emails. Why: percent and underscore are valid email characters, not authorization wildcards.
+- Push registration inserts without replacing token owners, then updates only the current owner's row. Why: a supplied token must not transfer another account's notification registration.
+- Product-photo server fetches accept only explicitly approved HTTPS hosts and reject redirects. Why: stored product links must not become arbitrary server fetches.

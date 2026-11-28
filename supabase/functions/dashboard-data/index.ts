@@ -107,8 +107,13 @@ Deno.serve(async (req) => {
         return json({ ok: true })
       }
       case 'push_register': {
-        const { error } = await admin.from('push_tokens').upsert({ user_id: uid, token: b.token, platform: b.platform }, { onConflict: 'token' })
+        // Never transfer a token registered by another account. Insert is conflict-safe;
+        // an owner-scoped update handles this account's existing registration only.
+        const { error: insertError } = await admin.from('push_tokens').upsert({ user_id: uid, token: b.token, platform: b.platform }, { onConflict: 'token', ignoreDuplicates: true })
+        if (insertError) throw insertError
+        const { data, error } = await admin.from('push_tokens').update({ platform: b.platform }).eq('token', b.token).eq('user_id', uid).select('token')
         if (error) throw error
+        if (!data?.length) return json({ error: 'Forbidden' }, 403)
         return json({ ok: true })
       }
       case 'push_unregister': {

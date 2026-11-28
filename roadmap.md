@@ -1,4 +1,8 @@
 # Roadmap
+- [x] Fix deep scan: pending-signup passwords, exact/confirmed email ownership, product fetch hosts and push-token ownership; test and deploy six services.
+- [x] Guard direct lesson links in the shared activity page; verified free starters and locked URLs (frontend publishing required).
+- [x] Review media-link window: owner chose to retain offline downloads and existing one-hour authorized URLs; lead capture returns no private data.
+- [ ] Verify signed-in signup/password preservation and paid lesson access end-to-end (user-managed authentication cannot mint a test session; service credentials unavailable in sandbox).
 - [x] Address homeschool parents by name and align homepage/footer/welcome age band across languages.
 - [x] Restore the desktop activity photo using language-matched approved imagery.
 - [x] Add a linked, translated adult-guide versus child-screen-app comparison page with its own search metadata.

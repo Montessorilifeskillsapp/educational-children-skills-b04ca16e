@@ -7,6 +7,9 @@ import ActivityVideo from '@/components/ActivityVideo';
 import { montessoriTheme } from '@/components/ThemeConfig';
 import { useTranslation } from 'react-i18next';
 import { lessonText, useLessonLanguage } from '@/i18n/lessonText';
+import { useSubscription } from '@/contexts/SubscriptionContext';
+import { canOpenActivity } from '@/lib/activityEntitlement';
+import UpgradeDialog from '@/components/upgrade/UpgradeDialog';
 
 /** Section label in the chosen language (labels are passed in English). */
 export function sectionLabelText(t: (k: string) => string, label: string, exists: (k: string) => boolean) {
@@ -34,6 +37,15 @@ interface ActivityPageProps {
 export default function ActivityPage({ skillId, title, sectionLabel, purpose, aims, image, materials, steps, onToggle, onBack, onComplete, notes, invitation }: ActivityPageProps) {
   const { t, i18n } = useTranslation();
   useLessonLanguage();
+  const { isPremium, loading } = useSubscription();
+  if (!canOpenActivity(skillId, isPremium)) {
+    return <div className="min-h-dvh bg-background p-6">
+      <Button variant="outline" onClick={onBack}>{t('lesson.page.backToActivities')}</Button>
+      {!loading && <UpgradeDialog open onOpenChange={(open) => { if (!open) onBack(); }} source="locked-card"
+        title={t('pricing.upgrade.lockedTitle', { title: lessonText(title) })}
+        description={t('pricing.upgrade.lockedBody')} />}
+    </div>;
+  }
   const shownTitle = lessonText(title);
   const complete = steps.length > 0 && steps.every(step => step.completed);
   return (

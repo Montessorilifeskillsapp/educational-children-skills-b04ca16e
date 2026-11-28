@@ -117,7 +117,7 @@ Deno.serve(async (req) => {
       .select('id', { count: 'exact', head: true })
       .eq('user_id', userId)
       .gte('created_at', since)
-    if ((count ?? 0) >= MAX_REQUESTS_PER_HOUR) return json({ error: 'rate limit' }, 429)
+    if ((count ?? 0) >= MAX_REQUESTS_PER_HOUR) return generic
 
     const token = b64url(crypto.getRandomValues(new Uint8Array(32)))
     const { error: insertError } = await admin.from('password_reset_requests').insert({
@@ -144,7 +144,7 @@ Deno.serve(async (req) => {
       body: JSON.stringify({ raw: resetEmail(email, link) }),
     })
     if (!res.ok) {
-      console.error(`password-reset email failed [${res.status}]: ${await res.text()}`)
+      console.error(`password-reset email failed [${res.status}]`)
       return json({ error: 'Could not send the reset email. Please try again.' }, 502)
     }
     return generic

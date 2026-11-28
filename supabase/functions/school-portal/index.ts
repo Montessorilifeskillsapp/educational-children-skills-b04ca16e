@@ -6,6 +6,7 @@ import { sameClassroom, containsOnlyClassroomStudents } from './validation.ts'
 import { roleAllows, resolvePolicies, type SchoolRole, type SchoolPolicies } from './rules.ts'
 import { acceptSchoolInvite, queueSchoolInvite } from './invitations.ts'
 import { parentOwnsRecord, exactEmailPattern } from './parentRecords.ts'
+import { canAcceptInvite } from '../_shared/identityRules.ts'
 
 const checked = async <T extends { error: unknown }>(operation: PromiseLike<T>): Promise<T> => {
   const result = await operation
@@ -27,7 +28,7 @@ Deno.serve(async (req) => {
     const admin = createClient(url, key)
     const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '')
     const { data: u, error: ue } = await admin.auth.getUser(token)
-    if (ue || !u.user) return json({ error: 'Unauthorized' }, 401)
+    if (ue || !u.user || !u.user.email_confirmed_at) return json({ error: 'Unauthorized' }, 401)
     const uid = u.user.id
     const email = (u.user.email ?? '').toLowerCase()
 
@@ -156,9 +157,10 @@ Deno.serve(async (req) => {
       }
       case 'me': {
         if (email) {
-          const { data: invites, error: inviteError } = await checked(admin.from('school_invites').select('*').ilike('email', email).is('accepted_at', null))
+          const { data: invites, error: inviteError } = await checked(admin.from('school_invites').select('*').ilike('email', exactEmailPattern(email)).is('accepted_at', null))
           if (inviteError) throw inviteError
           for (const inv of invites ?? []) {
+            if (!canAcceptInvite(u.user, inv.email)) continue
             await acceptSchoolInvite(admin, inv, uid, email)
           }
         }
@@ -204,7 +206,7 @@ Deno.serve(async (req) => {
         const m = await membership(b.school_id)
         if (!m || !roleAllows(m.role, 'manage_school')) return forbidden()
         const inviteEmail = b.email.toLowerCase()
-        const { data: already } = await checked(admin.from('school_members').select('id').eq('school_id', b.school_id).ilike('email', inviteEmail).maybeSingle())
+        const { data: already } = await checked(admin.from('school_members').select('id').eq('school_id', b.school_id).ilike('email', exactEmailPattern(inviteEmail)).maybeSingle())
         if (already) return json({ error: 'This person is already on your staff. Change their role in the list below instead.' }, 400)
         const roomIds = [...new Set(b.classroom_ids ?? [])]
         if (roomIds.length) {

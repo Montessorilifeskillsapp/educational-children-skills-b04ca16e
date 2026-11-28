@@ -1,5 +1,6 @@
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
+import { signupAccountAction } from '../_shared/identityRules.ts'
 
 // App-owned email sign-up. Confirmation emails go out through the connected Gmail account,
 // so new accounts never depend on the auth service's own email sender or its hourly cap.
@@ -85,7 +86,7 @@ async function sendConfirmation(admin: Admin, userId: string, email: string, ori
     .select('id', { count: 'exact', head: true })
     .eq('user_id', userId)
     .gte('created_at', since)
-  if ((count ?? 0) >= MAX_EMAILS_PER_HOUR) return json({ error: 'rate limit' }, 429)
+  if ((count ?? 0) >= MAX_EMAILS_PER_HOUR) return json({ ok: true })
 
   const token = b64url(crypto.getRandomValues(new Uint8Array(32)))
   const { error: insertError } = await admin.from('email_confirmation_requests').insert({
@@ -112,7 +113,7 @@ async function sendConfirmation(admin: Admin, userId: string, email: string, ori
     body: JSON.stringify({ raw: confirmEmail(email, link) }),
   })
   if (!res.ok) {
-    console.error(`account-signup email failed [${res.status}]: ${await res.text()}`)
+    console.error(`account-signup email failed [${res.status}]`)
     return json({ error: 'Could not send the confirmation email. Please try again.' }, 502)
   }
   return null
@@ -153,12 +154,11 @@ Deno.serve(async (req) => {
 
     let userId = existingId as string | null
     if (userId) {
-      const { data: found } = await admin.auth.admin.getUserById(userId)
-      if (found?.user?.email_confirmed_at) return json({ ok: true, existing: true })
-      // Never confirmed (for example the earlier confirmation email failed): keep the newest
-      // password and send a fresh link. The account still opens only after the mailbox owner confirms.
-      const { error: updateError } = await admin.auth.admin.updateUserById(userId, { password })
-      if (updateError) return json({ error: updateError.message }, 400)
+      const { data: found, error: foundError } = await admin.auth.admin.getUserById(userId)
+      if (foundError || !found?.user) return json({ ok: true })
+      if (signupAccountAction(true, Boolean(found.user.email_confirmed_at)) === 'none') return json({ ok: true })
+      // Repeated signup may resend confirmation, but never changes an existing password.
+      // Only the mailbox-proven password-reset flow can replace it.
     } else {
       const { data: created, error: createError } = await admin.auth.admin.createUser({
         email,

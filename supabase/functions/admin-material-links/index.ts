@@ -1,4 +1,5 @@
 import { createClient } from 'npm:@supabase/supabase-js@2';
+import { approvedProductUrl } from './urlRules.ts';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -26,13 +27,14 @@ function hasAffiliateTag(url: string) {
 /** Reads the main product photo from an Amazon product page. Returns null if blocked or not found. */
 async function fetchAmazonImage(pageUrl: string): Promise<string | null> {
   try {
-    const u = new URL(pageUrl);
-    if (!/amazon\./i.test(u.hostname)) return null;
+    const u = approvedProductUrl(pageUrl);
+    if (!u) return null;
     const asin = u.pathname.match(/\/(?:dp|gp\/product|gp\/aw\/d)\/([A-Z0-9]{10})/i)?.[1];
     const target = asin ? `${u.origin}/dp/${asin}` : pageUrl;
     const ctrl = new AbortController();
     const t = setTimeout(() => ctrl.abort(), 12000);
     const res = await fetch(target, {
+      redirect: 'error',
       signal: ctrl.signal,
       headers: {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36',

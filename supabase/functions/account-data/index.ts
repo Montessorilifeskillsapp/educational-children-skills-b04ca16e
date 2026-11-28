@@ -3,6 +3,7 @@
 import { corsHeaders } from 'npm:@supabase/supabase-js@2/cors'
 import { createClient } from 'npm:@supabase/supabase-js@2'
 import { z } from 'npm:zod@3.23.8'
+import { exactEmailPattern } from '../_shared/identityRules.ts'
 
 const json = (b: unknown, status = 200) =>
   new Response(JSON.stringify(b), { status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } })
@@ -24,7 +25,7 @@ Deno.serve(async (req) => {
     const admin = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!)
     const token = (req.headers.get('Authorization') ?? '').replace(/^Bearer\s+/i, '')
     const { data: u, error: ue } = await admin.auth.getUser(token)
-    if (ue || !u.user) return json({ error: 'Unauthorized' }, 401)
+    if (ue || !u.user || !u.user.email_confirmed_at) return json({ error: 'Unauthorized' }, 401)
     const uid = u.user.id
     const email = u.user.email?.toLowerCase() ?? null
 
@@ -49,7 +50,7 @@ Deno.serve(async (req) => {
         if (!error) out[`${t}_by_child`] = data
       }
       if (email) for (const t of BY_EMAIL) {
-        const { data, error } = await admin.from(t).select('*').ilike('email', email)
+        const { data, error } = await admin.from(t).select('*').ilike('email', exactEmailPattern(email))
         if (!error) out[`${t}_by_email`] = data
       }
       return json({ data: out })
@@ -63,7 +64,7 @@ Deno.serve(async (req) => {
 
     for (const t of BY_CHILD) if (childIds.length) await admin.from(t).delete().in('child_id', childIds)
     for (const t of [...BY_USER].reverse()) await admin.from(t).delete().eq('user_id', uid)
-    if (email) for (const t of BY_EMAIL) await admin.from(t).delete().ilike('email', email)
+    if (email) for (const t of BY_EMAIL) await admin.from(t).delete().ilike('email', exactEmailPattern(email))
     await admin.from('school_members').delete().eq('user_id', uid)
 
     const { error: de } = await admin.auth.admin.deleteUser(uid)
