@@ -6,6 +6,7 @@ import { Hand, Brain, Leaf, Sparkles, BookOpen, Users } from 'lucide-react';
 import heroImage from '@/assets/landing-hero.jpg';
 import { useSEO } from '@/hooks/useSEO';
 import { publicPageMetadata } from '@/lib/pageMetadata';
+import { useTranslation } from 'react-i18next';
 
 
 const features = [
@@ -18,6 +19,7 @@ const features = [
 ];
 
 const LandingPage: React.FC = () => {
+  const { t } = useTranslation();
   useSEO({ ...publicPageMetadata['/welcome'], canonical: '/welcome' });
   return (
     <main className="min-h-dvh bg-background text-foreground">
@@ -35,7 +37,7 @@ const LandingPage: React.FC = () => {
               <span className="text-primary">Prepare the environment.</span>
             </h1>
             <p className="text-lg text-muted-foreground max-w-prose">
-              An adult preparation guide for parents, homeschoolers, caregivers, classroom assistants, and teachers — with materials lists, precise presentations, and activities for children ages 3–6.
+              {t('home.hero.subtitle')} {t('home.hero.body')}
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <Button asChild size="lg" className="rounded-full px-7">

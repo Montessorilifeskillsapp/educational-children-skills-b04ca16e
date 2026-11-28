@@ -2,6 +2,7 @@ export const SITE_ORIGIN = 'https://montessorilifeskillsapp.com';
 export const PRICING_TITLE = 'Montessori Curriculum Pricing | Plans from Free to $349/yr';
 
 export const publicPageMetadata: Record<string, { title: string; description: string }> = {
+  '/compare': { title: 'Montessori Adult Guide vs Child Screen Apps | Montessori Life Skills', description: 'Compare adult-guided, off-screen Montessori learning with child-facing screen activities: materials, adult preparation and independent practice for homeschool families.' },
   '/pricing': { title: PRICING_TITLE, description: 'Compare Free, Premium and Family Montessori curriculum plans. Premium is $29.99/month or $199/year; Family covers up to four children for $349/year.' },
   '/plans': { title: PRICING_TITLE, description: 'Compare Free, Premium and Family Montessori curriculum plans. Premium is $29.99/month or $199/year; Family covers up to four children for $349/year.' },
   '/about': { title: 'About Montessori Life Skills | Our Montessori Approach', description: 'Meet AMI-trained guide Kerry Howard and discover the Montessori approach behind our adult-guided, hands-on curriculum.' },

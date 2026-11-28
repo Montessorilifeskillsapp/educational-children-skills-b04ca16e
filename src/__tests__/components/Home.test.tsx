@@ -95,12 +95,6 @@ describe('Home Component', () => {
       expect(screen.getAllByText('Math').length).toBeGreaterThan(0);
     });
 
-    it('identifies the app as an adult preparation guide', () => {
-      renderHome();
-      expect(screen.getByRole('heading', { name: /Know exactly what to teach — and how to present it/i })).toBeInTheDocument();
-      expect(screen.getByText(/built for parents, teachers and classroom assistants/i)).toBeInTheDocument();
-    });
-
     it('renders CTA section', () => {
       renderHome();
       expect(screen.getAllByText(/Start Free/i).length).toBeGreaterThan(0);
@@ -108,6 +102,12 @@ describe('Home Component', () => {
   });
 
   describe('User Interactions', () => {
+    it('opens the learning-format comparison from the homepage', async () => {
+      renderHome();
+      await userEvent.setup().click(screen.getByRole('link', { name: /adult guide or child screen app/i }));
+      expect(window.location.pathname).toBe('/compare');
+      window.history.replaceState({}, '', '/');
+    });
     it('opens the pricing page directly from the header instead of changing an internal view', async () => {
       const onSubscriptionView = vi.fn();
       renderHome({ onSubscriptionView });

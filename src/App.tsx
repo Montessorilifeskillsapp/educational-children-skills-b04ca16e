@@ -22,6 +22,7 @@ const GraceCourtesyPage = lazy(() => import("./pages/GraceCourtesyPage"));
 const ShopPage = lazy(() => import("./pages/ShopPage"));
 const MaterialAlternativesPage = lazy(() => import("./pages/MaterialAlternativesPage"));
 const PlansPage = lazy(() => import("./pages/PlansPage"));
+const ComparePage = lazy(() => import("./pages/ComparePage"));
 const AuthPage = lazy(() => import("./pages/AuthPage"));
 const AuthCallbackPage = lazy(() => import("./pages/AuthCallbackPage"));
 const PaymentSuccessPage = lazy(() => import("./pages/PaymentSuccessPage"));
@@ -140,6 +141,7 @@ const App = () => {
                           <Route path="/materials/:materialKey" element={<MaterialAlternativesPage />} />
                           <Route path="/plans" element={<PlansPage />} />
                           <Route path="/pricing" element={<PlansPage />} />
+                          <Route path="/compare" element={<ComparePage />} />
                           <Route path="/auth" element={<AuthPage />} />
                           <Route path="/auth/callback" element={<AuthCallbackPage />} />
                           <Route path="/payment-success" element={<PaymentSuccessPage />} />

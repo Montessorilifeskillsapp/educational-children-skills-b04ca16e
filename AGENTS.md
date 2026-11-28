@@ -1,5 +1,5 @@
 # Agents
-- Public page heads use routeMetadataPlugin and pageMetadata for static HTML and browser canonicals. Why: each page must identify itself before JavaScript runs.
+- Public heads use routeMetadataPlugin/pageMetadata; /compare is lazy, translated and linked in the homepage/sitemap. Why: crawlable pages and factual format comparisons.
 - InstallBanner uses shared auth and route context and only responds to mobile native install prompts; existing dismissal timestamps are permanent. Why: no repeated install interruptions.
 - Family Dashboard lives in `src/components/family/`; old demo dashboard is kept unrouted in `src/components/schools-template/` as the future Schools Portal template. Why: parents need real per-child data; schools reuse the richer layout later.
 - Dashboard writes (goals, calendar, prefs, push tokens, reports) go through the `dashboard-data` edge function; tables are read-only to clients via owner RLS. Why: project rule of no direct client writes.
@@ -39,3 +39,4 @@
 - Every Sign Out button calls `signOutAndReset` in `src/lib/signOut.ts`: device-only sign-out, flushes queued school records first, clears visit markers and reloads home. Why: switching accounts on shared devices must not sign other devices out or leave the previous account's data in memory.
 - Text color uses only the `foreground` and `muted-foreground` tokens (faded `muted-foreground/NN` only for small hints; homepage dark footer excepted), enforced by `textShades.test.ts`; long-text `prose` pages read the same tokens from tailwind typography config. Why: uniform, theme-aware text instead of drifting fixed greys.
 - Password-reset and sign-up confirmation emails are app-owned (`password-reset`, `account-signup`): single-use hashed tokens in service-only tables, sent from the connected Gmail; links never sign anyone in (reset only sets a password and ends all sessions; confirm only confirms). Legacy `type=recovery` links only reach the new-password form via `src/lib/passwordRecovery.ts`. No flow may use the auth service's own mailer. Why: its SMTP failed, and an emailed link must never grant account access.
+

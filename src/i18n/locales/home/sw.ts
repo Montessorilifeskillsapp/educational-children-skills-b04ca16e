@@ -10,7 +10,7 @@ export const sw: typeof en = {
   "hero": {
     "badge": "Uwasilishaji halisi wa AMI/AMS — mtu mzima anaongoza, mtoto anafanya kazi bila skrini",
     "title": "Jua hasa cha kufundisha — na jinsi ya kukiwasilisha.",
-    "subtitle": "Shughuli za Montessori za hatua kwa hatua kwa umri wa miaka 2–6, zilizoundwa kwa wazazi, walimu na wasaidizi wa darasani.",
+    "subtitle": "Shughuli za Montessori za hatua kwa hatua kwa umri wa miaka 2–6, kwa wazazi — wakiwemo wanaofundisha watoto nyumbani — walimu na wasaidizi wa darasani.",
     "body": "Ona cha kuandaa, jinsi ya kuwasilisha kila shughuli, cha kuchunguza na kinachofuata.",
     "seeHow": "Ona jinsi inavyofanya kazi",
     "founderProof": "Kuongoza familia na madarasa duniani kote · Zaidi ya miaka 40 ya uzoefu wa AMI",
@@ -19,6 +19,24 @@ export const sw: typeof en = {
     "statAreas": "Maeneo 9 ya mtaala",
     "statGuidance": "Mwongozo wa hatua kwa hatua"
   },
+  comparison: {
+    "link": "Mwongozo wa mtu mzima au programu ya mtoto?",
+    "title": "Mwongozo wa Montessori kwa mtu mzima dhidi ya programu za skrini kwa watoto",
+    "intro": "Kwa wazazi wanaofundisha watoto nyumbani: tofauti ni nani anatumia skrini na mtoto anafanya kazi wapi.",
+    "feature": "Cha kulinganisha",
+    "adult": "Montessori Life Skills",
+    "screen": "Shughuli za skrini kwa watoto",
+    "who": "Nani anatumia skrini?",
+    "whoAdult": "Mtu mzima anasoma uwasilishaji na kuandaa vifaa.",
+    "whoScreen": "Mtoto anashiriki shughuli kwenye kifaa.",
+    "work": "Kujifunza hutokea wapi?",
+    "workAdult": "Kwa vifaa halisi, kwa vitendo na bila skrini.",
+    "workScreen": "Ndani ya shughuli ya skrini.",
+    "rewards": "Nini kinachochochea kazi?",
+    "rewardsAdult": "Mazoezi ya kujitegemea na kurudia; hakuna pointi, beji au zawadi za mchezo kwa mtoto.",
+    "rewardsScreen": "Angalia kama programu inatumia pointi, beji au zawadi za mchezo.",
+    "note": "Huu ni ulinganisho wa njia za kujifunza, si bidhaa maalumu. Vipengele hutofautiana kwa kila programu. Chagua shughuli kulingana na utayari wa mtoto wako."
+},
   "problem": {
     "eyebrow": "Mahali pa kuanzia palipo wazi zaidi",
     "title": "Montessori haipaswi kuhitaji saa nyingi za kutafuta taarifa.",
@@ -219,7 +237,7 @@ export const sw: typeof en = {
     "q1": "Je, ninahitaji mafunzo ya Montessori kutumia programu hii?",
     "a1": "Hapana. Shughuli zina hatua za uwasilishaji zilizoandikwa na maelezo ya kufundishia kwa wazazi, walezi, wasaidizi na walimu.",
     "q2": "Imeandaliwa kwa watoto wa umri gani?",
-    "a2": "Mtaala umeandaliwa kwa watu wazima wanaowaongoza watoto wa miaka 3–6. Shughuli zimepangwa kulingana na utayari wa ukuaji badala ya ratiba thabiti ya umri.",
+    "a2": "Mtaala umeandaliwa kwa watu wazima wanaowaongoza watoto wa miaka 2–6. Shughuli zimepangwa kulingana na utayari wa ukuaji badala ya ratiba thabiti ya umri.",
     "q3": "Je, ninaweza kuitumia kwa watoto zaidi ya mmoja?",
     "a3": "Ndiyo. Kifurushi cha Premium kinahusu mtoto mmoja, huku kile cha Familia kikihusu hadi watoto wanne, kila mmoja akiwa na rekodi yake ya maendeleo.",
     "q4": "Je, nyimbo za Kerry zimejumuishwa katika Premium?",
@@ -247,7 +265,7 @@ export const sw: typeof en = {
   },
   "aiDisclaimer": "Baadhi ya picha zimebadilishwa kwa kutumia akili bandia (AI).",
   "footer": {
-    "tagline": "Nyenzo ya maandalizi na uwasilishaji kwa watu wazima: wazazi, waelimishaji, walezi na wasaidizi wa darasani wanaowaongoza watoto wa miaka 3–6.",
+    "tagline": "Nyenzo ya maandalizi na uwasilishaji kwa watu wazima: wazazi, waelimishaji, walezi na wasaidizi wa darasani wanaowaongoza watoto wa miaka 2–6.",
     "product": "Bidhaa",
     "activities": "Shughuli",
     "progress": "Ufuatiliaji wa Maendeleo",

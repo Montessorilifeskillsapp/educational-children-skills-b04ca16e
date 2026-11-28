@@ -1,4 +1,8 @@
 # Roadmap
+- [x] Address homeschool parents by name and align homepage/footer/welcome age band across languages.
+- [x] Restore the desktop activity photo using language-matched approved imagery.
+- [x] Add a linked, translated adult-guide versus child-screen-app comparison page with its own search metadata.
+- [ ] Add genuine customer proof (owner has no testimonial yet; invented customer feedback must not be published).
 - [x] Add Pricing after Classroom Setup in homepage navigation and replace three footer Product buttons with page links.
 - [x] Fix free sample activity access and clarify its copy in all six languages.
 - [x] Generate pricing, about, welcome and curriculum page HTML with self-canonicals and pricing title; preview checks pass.

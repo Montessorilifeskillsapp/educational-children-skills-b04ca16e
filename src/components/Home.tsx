@@ -418,7 +418,10 @@ const Home: React.FC<HomeProps> = ({
               </div>
             </div>
 
-            <div className="hidden lg:block" />
+            <div className="hidden lg:block">
+              <img decoding="async" src={pouringPhoto} alt={t('home.sample.imageAlt')}
+                fetchPriority="high" className="w-full aspect-[4/3] object-cover" />
+            </div>
           </div>
         </div>
       </section>
@@ -785,6 +788,7 @@ const Home: React.FC<HomeProps> = ({
                 <li><Link to="/practical-life" className="hover:text-white transition-colors">{t('home.footer.activities')}</Link></li>
                 <li><Link to="/?view=dashboard" onClick={onDashboardView} className="hover:text-white transition-colors">{t('home.footer.progress')}</Link></li>
                 <li><Link to="/pricing" className="hover:text-white transition-colors">{t('home.footer.pricing')}</Link></li>
+                <li><Link to="/compare" className="hover:text-white transition-colors">{t('home.comparison.link')}</Link></li>
                 <li><Link to="/about" className="hover:text-white transition-colors">{t('home.footer.about')}</Link></li>
                 <li><Link to="/readiness-guide" className="hover:text-white transition-colors">{t('home.footer.readinessGuide')}</Link></li>
               </ul>
